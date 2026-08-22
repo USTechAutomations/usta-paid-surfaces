@@ -10,13 +10,13 @@ You own **look**: type, spacing, color, layout, mobile. Make each family feel li
 
 ```
 ~/code/usta-paid-surfaces/
-  index.html                 hub
-  styles.css                 you may replace
-  families/grid/index.html
-  families/quakes/index.html
-  families/ttb/index.html
-  families/crawler/index.html
+  MAP.md                     full table (live + stubs + parked)
+  SURFACES.md                short map
+  index.html                 directory, not a mall
+  families/*/index.html      11 product stubs
 ```
+
+Polish **one family at a time**. Do not design a storefront that sells unconnected products as a bundle.
 
 Live until DNS: https://ustechautomations.github.io/usta-paid-surfaces/
 

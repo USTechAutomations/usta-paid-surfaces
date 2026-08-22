@@ -13,16 +13,18 @@
       "cadence": "weekly",
       "price": "$175/mo",
       "sample_status": "pass",
-      "note": "Upgrade of the live queue sentinel: same facts, own host/path, not another card under /permits/offers."
+      "live": "https://ustechautomations.com/permits/offers/permits-queue-sentinel",
+      "note": "Stub of live sentinel. Do not rebuild the finished /permits page."
     },
     {
       "id": "quakes",
       "name": "Earthquake record archive",
       "buyer": "Researchers and reporters who need what USGS said on a past day",
-      "cadence": "daily seals; buy a named event or date window",
+      "cadence": "per named event",
       "price": "$249",
       "sample_status": "pass",
-      "note": "One product page, many events. Not a custom page per quake."
+      "live": "https://ustechautomations.com/permits/offers/quake-record-attestation",
+      "note": "Stub of live attestation."
     },
     {
       "id": "ttb",
@@ -31,16 +33,89 @@
       "cadence": "weekly",
       "price": "$349/mo",
       "sample_status": "fail",
-      "note": "Page exists. Public sample still lacks named permit numbers. Do not sell hard until the sample shows appear/disappear rows."
+      "live": "https://ustechautomations.com/permits/offers/ttb-permit-ledger",
+      "note": "Live page sample still FAIL."
     },
     {
       "id": "crawler",
       "name": "AI-crawler policy changes",
       "buyer": "Publishers and SEO/AI teams watching who got blocked",
-      "cadence": "daily seals; monthly report",
+      "cadence": "daily seals",
       "price": "$175/mo",
       "sample_status": "unknown",
-      "note": "Page exists. Specimen on the old catalog was unreadable. Do not sell hard until a dated domain+crawler row is on this page."
+      "live": "https://ustechautomations.com/permits/offers/crawler-policy-sentinel",
+      "note": "Live specimen unreadable."
+    },
+    {
+      "id": "dc-siting",
+      "name": "Datacenter siting watch",
+      "buyer": "Grid and siting analysts",
+      "cadence": "repeating panel",
+      "price": "$175/mo",
+      "sample_status": "pass",
+      "live": "https://ustechautomations.com/permits/datacenter",
+      "note": "Sample from phantom-load seal 2026-08-21."
+    },
+    {
+      "id": "ai-prices",
+      "name": "AI list-price window",
+      "buyer": "AI vendors and researchers",
+      "cadence": "every sealed day",
+      "price": "$175/mo",
+      "sample_status": "pass",
+      "live": "",
+      "note": "CSV on disk 2026-06-11 to 2026-08-21."
+    },
+    {
+      "id": "permit-metros",
+      "name": "Metro issued-permit changes",
+      "buyer": "Contractor software and proptech",
+      "cadence": "weekly",
+      "price": "$175/mo",
+      "sample_status": "fail",
+      "live": "https://ustechautomations.com/permits/rankings",
+      "note": "Free current board exists. Paid product is the week diff."
+    },
+    {
+      "id": "vendor-prices",
+      "name": "B2B price-page changes",
+      "buyer": "Software vendors",
+      "cadence": "repeating",
+      "price": "$175/mo",
+      "sample_status": "fail",
+      "live": "https://ustechautomations.com/permits/pricing-archive",
+      "note": "Research archive live."
+    },
+    {
+      "id": "ai-terms",
+      "name": "AI policy and terms changes",
+      "buyer": "AI vendors and counsel",
+      "cadence": "repeating",
+      "price": "$175/mo",
+      "sample_status": "fail",
+      "live": "https://ustechautomations.com/permits/promise-archive",
+      "note": "Research archive live."
+    },
+    {
+      "id": "sec-8k",
+      "name": "8-K auditor and officer changes",
+      "buyer": "Audit, IR, and software vendors",
+      "cadence": "weekly",
+      "price": "$175/mo",
+      "sample_status": "fail",
+      "live": "https://ustechautomations.com/permits/sec-8k",
+      "note": "Watch page live."
+    },
+    {
+      "id": "az-contractors",
+      "name": "AZ ROC roster changes",
+      "buyer": "Arizona GCs and insurers",
+      "cadence": "repeating",
+      "price": "$175/mo",
+      "sample_status": "fail",
+      "live": "https://ustechautomations.com/permits/arizona-contractor-roster-receipt",
+      "note": "Scope page live."
     }
-  ]
+  ],
+  "map": "MAP.md"
 }

@@ -1,6 +1,6 @@
 # Internal map — every paid surface we actually have
 
-This file is the filing cabinet. It is **not** a store. A grid buyer will not shop TTB. A blog vendor will not shop quakes. Do not build a mall.
+Canonical table: `MAP.md`. This file is the short filing cabinet. It is **not** a store. A grid buyer will not shop TTB. A blog vendor will not shop quakes. Do not build a mall.
 
 Public rule: one product (or one tight buyer family) per page. This map is how we stop duplicating `/clocks`, one-job packets, and extra cards under `/permits/offers`.
 
