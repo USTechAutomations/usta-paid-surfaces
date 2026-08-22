@@ -14,7 +14,10 @@
       "price": "$175/mo",
       "sample_status": "pass",
       "live": "https://ustechautomations.com/permits/offers/permits-queue-sentinel",
-      "note": "Stub of live sentinel. Do not rebuild the finished /permits page."
+      "note": "Stub of live sentinel. Do not rebuild the finished /permits page.",
+      "group": "Energy and siting",
+      "short": "Queue changes",
+      "who": "Energy researchers, journalists, and interconnection-software vendors."
     },
     {
       "id": "quakes",
@@ -24,7 +27,10 @@
       "price": "$249",
       "sample_status": "pass",
       "live": "https://ustechautomations.com/permits/offers/quake-record-attestation",
-      "note": "Stub of live attestation."
+      "note": "Stub of live attestation.",
+      "group": "Other dated records",
+      "short": "Earthquake record archive",
+      "who": "Researchers and reporters who need what USGS said on a past day."
     },
     {
       "id": "ttb",
@@ -32,9 +38,12 @@
       "buyer": "Beverage compliance and wholesaler ops",
       "cadence": "weekly",
       "price": "$349/mo",
-      "sample_status": "fail",
+      "sample_status": "pass",
       "live": "https://ustechautomations.com/permits/offers/ttb-permit-ledger",
-      "note": "Live page sample still FAIL."
+      "note": "Live page sample still FAIL.",
+      "group": "Other dated records",
+      "short": "TTB appear / disappear list",
+      "who": "Beverage compliance and wholesaler ops."
     },
     {
       "id": "crawler",
@@ -42,9 +51,12 @@
       "buyer": "Publishers and SEO/AI teams watching who got blocked",
       "cadence": "daily seals",
       "price": "$175/mo",
-      "sample_status": "unknown",
+      "sample_status": "pass",
       "live": "https://ustechautomations.com/permits/offers/crawler-policy-sentinel",
-      "note": "Live specimen unreadable."
+      "note": "Live specimen unreadable.",
+      "group": "Software and AI pages",
+      "short": "AI-crawler policy changes",
+      "who": "Publishers and SEO/AI teams watching who got blocked."
     },
     {
       "id": "dc-siting",
@@ -54,7 +66,10 @@
       "price": "$175/mo",
       "sample_status": "pass",
       "live": "https://ustechautomations.com/permits/datacenter",
-      "note": "Sample from phantom-load seal 2026-08-21."
+      "note": "Sample from phantom-load seal 2026-08-21.",
+      "group": "Energy and siting",
+      "short": "Datacenter siting watch",
+      "who": "Grid and siting analysts."
     },
     {
       "id": "ai-prices",
@@ -64,7 +79,10 @@
       "price": "$175/mo",
       "sample_status": "pass",
       "live": "",
-      "note": "CSV on disk 2026-06-11 to 2026-08-21."
+      "note": "CSV on disk 2026-06-11 to 2026-08-21.",
+      "group": "Software and AI pages",
+      "short": "AI list-price window",
+      "who": "AI vendors and researchers."
     },
     {
       "id": "permit-metros",
@@ -74,7 +92,10 @@
       "price": "$175/mo",
       "sample_status": "fail",
       "live": "https://ustechautomations.com/permits/rankings",
-      "note": "Free current board exists. Paid product is the week diff."
+      "note": "Free current board exists. Paid product is the week diff.",
+      "group": "Construction records",
+      "short": "Metro issued-permit changes",
+      "who": "Contractor software and proptech."
     },
     {
       "id": "vendor-prices",
@@ -84,7 +105,10 @@
       "price": "$175/mo",
       "sample_status": "fail",
       "live": "https://ustechautomations.com/permits/pricing-archive",
-      "note": "Research archive live."
+      "note": "Research archive live.",
+      "group": "Software and AI pages",
+      "short": "B2B price-page changes",
+      "who": "Software vendors watching competitors\u2019 public price pages."
     },
     {
       "id": "ai-terms",
@@ -94,7 +118,10 @@
       "price": "$175/mo",
       "sample_status": "fail",
       "live": "https://ustechautomations.com/permits/promise-archive",
-      "note": "Research archive live."
+      "note": "Research archive live.",
+      "group": "Software and AI pages",
+      "short": "AI policy and terms changes",
+      "who": "AI vendors and counsel."
     },
     {
       "id": "sec-8k",
@@ -104,17 +131,47 @@
       "price": "$175/mo",
       "sample_status": "fail",
       "live": "https://ustechautomations.com/permits/sec-8k",
-      "note": "Watch page live."
+      "note": "Watch page live.",
+      "group": "Other dated records",
+      "short": "8-K auditor and officer changes",
+      "who": "Audit, IR, and software vendors."
     },
     {
       "id": "az-contractors",
       "name": "AZ ROC roster changes",
       "buyer": "Arizona GCs and insurers",
-      "cadence": "repeating",
-      "price": "$175/mo",
-      "sample_status": "fail",
+      "cadence": "not available",
+      "price": "Not for sale",
+      "sample_status": "parked",
       "live": "https://ustechautomations.com/permits/arizona-contractor-roster-receipt",
-      "note": "Scope page live."
+      "note": "PARKED 2026-08-22. Arizona blocks collection; we will not work around it. Re-review 2026-11-19. No price on the page.",
+      "group": "Construction records",
+      "short": "AZ ROC roster changes",
+      "who": "Arizona GCs and insurers."
+    },
+    {
+      "id": "mesa-code",
+      "name": "Mesa code-compliance changes",
+      "buyer": "Mesa contractors, property managers, and local-government software",
+      "cadence": "monthly",
+      "price": "$175/mo",
+      "sample_status": "pass",
+      "note": "Wave 2. Sample rows come from samples/mesa-code.json. Do not relight the Mesa collector.",
+      "group": "Local government records",
+      "short": "Mesa code-compliance changes",
+      "who": "Mesa contractors, property managers, and local-government software."
+    },
+    {
+      "id": "new-entities",
+      "name": "New business filings",
+      "buyer": "Lenders, B2B onboarding teams, and local software",
+      "cadence": "per new copy",
+      "price": "$175/mo",
+      "sample_status": "pass",
+      "note": "Wave 2. Sample rows come from samples/new-entities.json. Sample metro is Chicago; say so on the page.",
+      "group": "Local government records",
+      "short": "New business filings",
+      "who": "Lenders, B2B onboarding teams, and local software."
     }
   ],
   "map": "MAP.md"

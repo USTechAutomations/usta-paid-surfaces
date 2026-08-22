@@ -231,6 +231,21 @@ def main() -> None:
         (outdir / "index.html").write_text(page, encoding="utf-8")
         built.append(f"/feeds/{fid}")
 
+    # The two bridge pages carry no sample and no catalog row, but they ship in
+    # the same folder and go in the same sitemap.
+    extras = ROOT / "extras.json"
+    if extras.is_file():
+        for e in json.loads(extras.read_text(encoding="utf-8")):
+            eid = e["id"]
+            src = ROOT / "families" / eid / "index.html"
+            if not src.is_file():
+                fail(f"missing source page for {eid}")
+            page = build_page(src, eid, e["short"])
+            outdir = DIST / eid
+            outdir.mkdir(parents=True)
+            (outdir / "index.html").write_text(page, encoding="utf-8")
+            built.append(f"/feeds/{eid}")
+
     # sitemap for the new prefix
     urls = "".join(
         f"<url><loc>{BASE}</loc></url>" if p == "/feeds/" else f"<url><loc>{BASE}/{p.split('/')[-1]}</loc></url>"

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "permits",
+    "short": "The permits library",
+    "who": "Contractors, homeowners and anyone filing in the Phoenix metro.",
+    "amount": "Free",
+    "cadence": "no login",
+    "pill": "Live and free",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "offers",
+    "short": "Offers and evidence",
+    "who": "Small businesses that want one piece of automation built.",
+    "amount": "$200 \u2013 $450",
+    "cadence": "one-time builds",
+    "pill": "Live",
+    "pill_class": "pill-ready"
+  }
+]

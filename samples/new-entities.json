@@ -1,0 +1,96 @@
+{
+ "id": "new-entities",
+ "jurisdiction": "chicago",
+ "from": "2026-08-21",
+ "to": "2026-08-22",
+ "appeared_count": 22,
+ "appeared": [
+  {
+   "name": "3600 S. KEDZIE CORP.",
+   "city": "CHICAGO",
+   "filed": "2026-08-21",
+   "naics": null
+  },
+  {
+   "name": "DEWEY'S MARKET, LLC",
+   "city": "CHICAGO",
+   "filed": "2026-08-21",
+   "naics": null
+  },
+  {
+   "name": "FLATLINE GALLERY LLC",
+   "city": "CHICAGO",
+   "filed": "2026-08-21",
+   "naics": null
+  },
+  {
+   "name": "ALUMITEC, LLC",
+   "city": "CHICAGO",
+   "filed": "2026-08-21",
+   "naics": null
+  },
+  {
+   "name": "Crepe Nation Express Chicago LLC",
+   "city": "CHICAGO",
+   "filed": "2026-08-21",
+   "naics": null
+  },
+  {
+   "name": "LUXE CAR WASH LLC",
+   "city": "CHICAGO",
+   "filed": "2026-08-21",
+   "naics": null
+  },
+  {
+   "name": "AGUILAR CONSULTING SERVICES LLC",
+   "city": "CHICAGO",
+   "filed": "2026-08-21",
+   "naics": null
+  },
+  {
+   "name": "JTA MURALS, LLC",
+   "city": "CHICAGO",
+   "filed": "2026-08-21",
+   "naics": null
+  },
+  {
+   "name": "MARIA PEREZ RODAS",
+   "city": "CHICAGO",
+   "filed": "2026-08-21",
+   "naics": null
+  },
+  {
+   "name": "H2H MOVERS, INC.",
+   "city": "CHICAGO",
+   "filed": "2026-08-21",
+   "naics": null
+  },
+  {
+   "name": "KYN 43 LLC",
+   "city": "CHICAGO",
+   "filed": "2026-08-21",
+   "naics": null
+  },
+  {
+   "name": "CESAR ANTONIO TOSTADO",
+   "city": "COUNTRYSIDE",
+   "filed": "2026-08-21",
+   "naics": null
+  }
+ ],
+ "also_has": "los-angeles, san-francisco, nyc",
+ "verified": {
+  "checked": "2026-08-22",
+  "by": "independent re-count against business_formation.db",
+  "recorded_on": "2026-08-22",
+  "filings_recorded": 25,
+  "distinct_names": 23,
+  "never_seen_before": 20,
+  "exclude": {
+   "AGUILAR CONSULTING SERVICES LLC": "already in our data from 25 July 2026, so not new",
+   "MARIA PEREZ RODAS": "a person filing under their own name, left out on purpose",
+   "CESAR ANTONIO TOSTADO": "a person filing under their own name, left out on purpose"
+  },
+  "note": "This store keeps one running list, not a dated copy per day, so the sample is 'what we recorded on 22 Aug 2026', not '21 Aug versus 22 Aug'. The claimed count of 22 does not reproduce under any reading."
+ }
+}

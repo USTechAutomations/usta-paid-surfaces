@@ -1,0 +1,144 @@
+{
+ "id": "mesa-code",
+ "from": "2026-07-22",
+ "to": "2026-08-21",
+ "status_changed_count": 415,
+ "new_case_count": 751,
+ "gone_count": 48,
+ "status_changed": [
+  {
+   "case": "COD18-00667",
+   "from_status": "Legal Action",
+   "to_status": "Voluntary Complianc"
+  },
+  {
+   "case": "COD18-00823",
+   "from_status": "Citation Issued",
+   "to_status": "Closed"
+  },
+  {
+   "case": "COD19-08470",
+   "from_status": "Legal Action",
+   "to_status": "Forced Compliance"
+  },
+  {
+   "case": "COD21-02596",
+   "from_status": "Legal Action",
+   "to_status": "Closed"
+  },
+  {
+   "case": "COD25-01608",
+   "from_status": "Citation Issued",
+   "to_status": "Closed"
+  },
+  {
+   "case": "COD25-02670",
+   "from_status": "In Violation",
+   "to_status": "Closed"
+  },
+  {
+   "case": "COD25-04204",
+   "from_status": "Citation Issued",
+   "to_status": "Closed"
+  },
+  {
+   "case": "COD25-04210",
+   "from_status": "In Violation",
+   "to_status": "Closed"
+  },
+  {
+   "case": "COD25-04506",
+   "from_status": "Citation Issued",
+   "to_status": "Closed"
+  },
+  {
+   "case": "COD25-04511",
+   "from_status": "In Violation",
+   "to_status": "Closed"
+  },
+  {
+   "case": "COD25-04933",
+   "from_status": "Citation Issued",
+   "to_status": "Closed"
+  },
+  {
+   "case": "COD25-05218",
+   "from_status": "Citation Issued",
+   "to_status": "Closed"
+  }
+ ],
+ "new_cases": [
+  {
+   "case": "COB19-00023",
+   "type": "Building Issues",
+   "status": "Closed"
+  },
+  {
+   "case": "COD17-00586",
+   "type": "Code Compliance",
+   "status": "Closed"
+  },
+  {
+   "case": "COD17-00576",
+   "type": "Code Compliance",
+   "status": "Closed"
+  },
+  {
+   "case": "COD17-00670",
+   "type": "Code Compliance",
+   "status": "Closed"
+  },
+  {
+   "case": "COD17-00671",
+   "type": "Code Compliance",
+   "status": "Closed"
+  },
+  {
+   "case": "COD18-00645",
+   "type": "Code Compliance",
+   "status": "Closed"
+  },
+  {
+   "case": "COD17-02939",
+   "type": "Code Compliance",
+   "status": "Closed"
+  },
+  {
+   "case": "COB18-00108",
+   "type": "Building Issues",
+   "status": "Closed"
+  },
+  {
+   "case": "COD18-00155",
+   "type": "Code Compliance",
+   "status": "Closed"
+  },
+  {
+   "case": "COD18-00086",
+   "type": "Code Compliance",
+   "status": "Closed"
+  },
+  {
+   "case": "COD17-00417",
+   "type": "Code Compliance",
+   "status": "Closed"
+  },
+  {
+   "case": "COD17-00592",
+   "type": "Code Compliance",
+   "status": "Closed"
+  }
+ ],
+ "note": "Adjacent daily copies can be identical. Sample is 2026-07-22 vs 2026-08-21. No owner names. Do not relight collector.",
+ "verified": {
+  "checked": "2026-08-22",
+  "by": "independent re-count against mesa_code_compliance.db snapshots 2026-07-22 and 2026-08-21",
+  "entered_watchlist": 751,
+  "opened_in_window": 469,
+  "status_changed": 415,
+  "left_watchlist": 48,
+  "status_changed_reverted": 1,
+  "quiet_days_correct": 17,
+  "note": "751 is cases that ENTERED this watchlist in the window, not cases opened. 469 of the 751 were opened during the window. 48 is cases that STOPPED matching the statuses we track; we cannot tell whether they closed or were removed."
+ }
+}

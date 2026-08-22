@@ -54,7 +54,14 @@ def main() -> None:
         vis = text(raw)
         if MAILTO not in raw:
             fail(f"{fam['id']} missing mailto")
-        if fam["price"] not in vis:
+        if fam["sample_status"] == "parked":
+            # A parked family is one we cannot collect. It must carry no price at
+            # all -- a price on a page we cannot deliver is an offer we cannot keep.
+            if re.search(r"\$\d", vis):
+                fail(f"{fam['id']} is parked but still shows a dollar price")
+            if "not available" not in vis.lower():
+                fail(f"{fam['id']} is parked but never says it is not available")
+        elif fam["price"] not in vis:
             fail(f"{fam['id']} missing price {fam['price']}")
         for bad in FORBIDDEN:
             if bad.lower() in raw.lower():
@@ -65,6 +72,23 @@ def main() -> None:
         if fam["sample_status"] in {"fail", "unknown"}:
             if "sample not ready" not in vis.lower():
                 fail(f"{fam['id']} must say sample not ready until catalog status is pass")
+
+    # The bridge pages are not families and carry no sample, but they are published
+    # in the same folder, so the same forbidden list has to hold on them.
+    extras = ROOT / "extras.json"
+    if extras.is_file():
+        for e in json.loads(extras.read_text(encoding="utf-8")):
+            path = ROOT / "families" / e["id"] / "index.html"
+            if not path.is_file():
+                fail(f"missing {path}")
+            raw = path.read_text(encoding="utf-8")
+            if MAILTO not in raw:
+                fail(f"{e['id']} missing mailto")
+            for bad in FORBIDDEN:
+                if bad.lower() in raw.lower():
+                    fail(f"{e['id']} contains forbidden {bad!r}")
+            if e["id"] not in (ROOT / "index.html").read_text(encoding="utf-8"):
+                fail(f"{e['id']} is built but not linked from the hub")
     print("ok")
 
 
