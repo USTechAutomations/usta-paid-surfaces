@@ -1,0 +1,45 @@
+{
+  "hub_host": "feeds.ustechautomations.com",
+  "until_dns": "https://ustechautomations.github.io/usta-paid-surfaces/",
+  "rule": "Repeatable products only. Many buyers from one page. No one-job files. No one-hospital joins. Fable polishes look. This repo owns structure, prices, samples, mailto.",
+  "contact": "mailto:operations@ustechautomations.com",
+  "pay": "Email operations@. A person sends a checkout link. No pay button on these pages until a family has three real asks and a human says yes to Stripe.",
+  "families": [
+    {
+      "id": "grid",
+      "name": "Interconnection queue changes",
+      "buyer": "Energy researchers, journalists, interconnection-software vendors",
+      "cadence": "weekly",
+      "price": "$175/mo",
+      "sample_status": "pass",
+      "note": "Upgrade of the live queue sentinel: same facts, own host/path, not another card under /permits/offers."
+    },
+    {
+      "id": "quakes",
+      "name": "Earthquake record archive",
+      "buyer": "Researchers and reporters who need what USGS said on a past day",
+      "cadence": "daily seals; buy a named event or date window",
+      "price": "$249",
+      "sample_status": "pass",
+      "note": "One product page, many events. Not a custom page per quake."
+    },
+    {
+      "id": "ttb",
+      "name": "TTB permit appear / disappear list",
+      "buyer": "Beverage compliance and wholesaler ops",
+      "cadence": "weekly",
+      "price": "$349/mo",
+      "sample_status": "fail",
+      "note": "Page exists. Public sample still lacks named permit numbers. Do not sell hard until the sample shows appear/disappear rows."
+    },
+    {
+      "id": "crawler",
+      "name": "AI-crawler policy changes",
+      "buyer": "Publishers and SEO/AI teams watching who got blocked",
+      "cadence": "daily seals; monthly report",
+      "price": "$175/mo",
+      "sample_status": "unknown",
+      "note": "Page exists. Specimen on the old catalog was unreadable. Do not sell hard until a dated domain+crawler row is on this page."
+    }
+  ]
+}

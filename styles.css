@@ -1,0 +1,29 @@
+/* Structural only. Fable may replace this file. Do not change prices or samples in HTML to match a new look. */
+:root {
+  --fg: #111;
+  --muted: #444;
+  --line: #ccc;
+  --bg: #fff;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  color: var(--fg);
+  background: var(--bg);
+  font: 16px/1.5 system-ui, sans-serif;
+}
+header, main, footer { max-width: 72rem; margin: 0 auto; padding: 1.5rem; }
+nav a { margin-right: 1rem; }
+h1 { font-size: 1.6rem; margin: 0 0 0.5rem; }
+.note, .honest {
+  border: 1px solid var(--line);
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+}
+.price { font-size: 1.35rem; font-weight: 700; }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+th, td { border: 1px solid var(--line); padding: 0.4rem 0.5rem; text-align: left; vertical-align: top; }
+.cards { display: grid; gap: 1rem; }
+@media (min-width: 640px) { .cards { grid-template-columns: 1fr 1fr; } }
+article { border: 1px solid var(--line); padding: 1rem; }
+footer { color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--line); }

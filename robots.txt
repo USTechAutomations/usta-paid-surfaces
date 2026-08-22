@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ustechautomations.github.io/usta-paid-surfaces/sitemap.xml
