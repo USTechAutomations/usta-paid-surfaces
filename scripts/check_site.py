@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = json.loads((ROOT / "catalog.json").read_text(encoding="utf-8"))
-HUB = "https://ustechautomations.github.io/usta-paid-surfaces/"
+HUB = "https://ustechautomations.com/feeds"
 FORBIDDEN = (
     "buy.stripe.com",
     "checkout.stripe.com",
