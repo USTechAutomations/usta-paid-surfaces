@@ -1,7 +1,8 @@
 {
   "hub_host": "feeds.ustechautomations.com",
   "until_dns": "https://ustechautomations.github.io/usta-paid-surfaces/",
-  "rule": "Repeatable products only. Many buyers from one page. No one-job files. No one-hospital joins. Fable polishes look. This repo owns structure, prices, samples, mailto.",
+  "rule": "This repo is the filing cabinet for paid change feeds, including the ones that already live under /permits. It is not a mall. Different buyers do not shop across unconnected products. Repeatable only. No one-job files. Fable polishes look.",
+  "internal_map": "SURFACES.md",
   "contact": "mailto:operations@ustechautomations.com",
   "pay": "Email operations@. A person sends a checkout link. No pay button on these pages until a family has three real asks and a human says yes to Stripe.",
   "families": [

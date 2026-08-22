@@ -1,6 +1,8 @@
 # Fable — polish these pages. Do not change the facts.
 
-Grok owns this repo’s **structure**: hosts, folders, prices, samples, mailto, honesty lines, the check script.
+This repo is the **filing cabinet**, including pointers to permits products that already live on `/permits`. It is not a shopping mall. Do not design a storefront that invites a grid buyer to browse TTB.
+
+Grok owns **structure**: hosts, folders, prices, samples, mailto, honesty lines, the check script, `SURFACES.md`.
 
 You own **look**: type, spacing, color, layout, mobile. Make each family feel like its own product, not a clone of `/permits/offers`.
 
