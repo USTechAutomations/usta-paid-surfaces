@@ -116,7 +116,12 @@ def reach_report(on_pages: dict[str, list[str]], declared: dict[str, str],
                  ours: dict[str, str], walker) -> dict:
     """Who can actually reach what. Pure, so it can be proved without a network.
 
-    Reachability is counted from the built pages and from nothing else. A
+    Reachability is counted from the pages in families/ and from nothing else,
+    which is a narrower claim than it sounds: families/ is the generators'
+    output, and the site a buyer opens is dist/. This report cannot see a page
+    that families/ holds and dist/ does not, and the veto in build_site.py
+    creates exactly that case on purpose. Reading dist/ instead would be the
+    stronger check and it is not what this does today. A
     catalog row is a note we wrote to ourselves; it is not a thing a customer
     can open, and asking the catalog whether the catalog is reachable is letting
     the paper mark itself -- it agrees every time.
@@ -125,7 +130,7 @@ def reach_report(on_pages: dict[str, list[str]], declared: dict[str, str],
     grid is hand-written, no generator owns it, and its button points at our own
     /permits/offers/.../buy address, which only becomes a Stripe address after a
     redirect. So a rule that greps for buy.stripe.com calls grid unreachable
-    while 28 built pages point straight at it, and a rule that reads the catalog
+    while 28 pages point straight at it, and a rule that reads the catalog
     calls grid reachable even if every one of those pages lost its button. Only
     following the address a page really shows answers it. A hand-written page is
     the test case for every rule in this repo.
@@ -145,10 +150,10 @@ def reach_report(on_pages: dict[str, list[str]], declared: dict[str, str],
     return {
         "reached": reached,
         "broken": broken,
-        # A row that says "this takes a card" while no built page shows it.
+        # A row that says "this takes a card" while no page in families/ shows it.
         "declared_unreached": sorted(f for f, u in declared.items()
                                      if u not in on_pages),
-        # A link we minted for /feeds that no built page can get a buyer to.
+        # A link we minted for /feeds that no page in families/ can get a buyer to.
         "ours_unreached": sorted(u for u in ours if u not in reached),
         # A link our pages send buyers to that we did not mint. Not a fault --
         # it is another surface's product and rule 3 says we never touch it --
@@ -236,8 +241,9 @@ def main() -> int:
         print(f"{fid:17} proved   {fam['price']} -> ${got[0] / 100:.2f} {basis} at {base}")
 
     # --- money nobody can reach ----------------------------------------------
-    # Counted from the built pages. See reach_report() for why the catalog is
-    # not allowed to answer this question about itself.
+    # Counted from the pages in families/, not from dist/, which is not the same
+    # set. See reach_report() for why the catalog is not allowed to answer this
+    # question about itself.
     #
     # Scope: this Stripe account is shared with the blog business and with the
     # permits estate. Only links stamped as ours when they were minted are ours
@@ -249,20 +255,33 @@ def main() -> int:
     r = reach_report(on_pages, declared, ours, walked)
 
     shown = {w for pages in on_pages.values() for w in pages}
-    print(f"\n{len(shown)} of {len(list((ROOT / 'families').rglob('index.html')))} built pages "
-          f"show a pay button, between them pointing at {len(on_pages)} distinct address(es):")
+    # Say where the number came from.
+    #
+    # This read "N of M built pages show a pay button". The count is right and
+    # the words are not: it is counted over families/, which is where the
+    # generators WRITE, and the published site is dist/, which build_site.py
+    # makes separately and which is not the same set. A family the veto refuses
+    # has its pages in families/ and no page at all in dist/, so a button
+    # counted here can be one no buyer will ever see. "Built" reads as "live" to
+    # anyone who has not read this file, and a true number under a wrong noun is
+    # the harder kind of wrong to catch, because nothing about it looks off.
+    total = len(list((ROOT / "families").rglob("index.html")))
+    print(f"\n{len(shown)} of {total} pages in families/ show a pay button, between them "
+          f"pointing at {len(on_pages)} distinct address(es). families/ is what the "
+          f"generators wrote, NOT the published site: dist/ is built from it separately and "
+          f"a refused family appears here and not there.")
     for addr, pages in sorted(on_pages.items()):
         print(f"  {len(pages):>3} page(s) -> {addr}")
 
     for addr, why in sorted(r["broken"].items()):
         n = len(on_pages[addr])
-        print(f"  BROKEN       {n} built page(s) show {addr} and it {why}")
+        print(f"  BROKEN       {n} page(s) in families/ show {addr} and it {why}")
     for fid in r["declared_unreached"]:
-        print(f"  UNREACHABLE  {fid} declares {declared[fid]} and no built page shows it, "
-              f"so a card can be charged on it and nothing points a buyer at it")
+        print(f"  UNREACHABLE  {fid} declares {declared[fid]} and no page in families/ "
+              f"shows it, so a card can be charged on it and nothing points a buyer at it")
     for u in r["ours_unreached"]:
         print(f"  UNREACHABLE  the link we minted for {ours[u]} -> {u}\n"
-              f"               is live in Stripe and no built page reaches it")
+              f"               is live in Stripe and no page in families/ reaches it")
     for u in r["borrowed"]:
         print(f"  borrowed     {u}\n"
               f"               our pages send buyers here and we did not mint it: it belongs "

@@ -29,6 +29,7 @@ from pathlib import Path
 # the same words. slice_sec_8k.py does the same thing for the same reason.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from freshness import PAUSED_PHRASE  # noqa: E402
+from merge_catalog_adds import family_rows  # noqa: E402
 
 FAMILY = "quakes"
 
@@ -123,11 +124,25 @@ def archive_words(newest: str) -> dict[str, str]:
     }
 
 # What one copy costs, when the event a buyer names turns out to be in the
-# archive only once. It is a decision from the wave-4 pricing sheet, not a
-# number read from anywhere, so it is written once here and must be kept in step
-# with the catalog row and with the record behind the pay button. The $249 in
-# the page descriptions below is the family price and comes from the same place.
-SINGLE_COPY_PRICE = "$79"
+# archive only once.
+#
+# This used to be typed here as its own constant, "kept in step with the catalog
+# row" by hand. That is two copies of a price, and two copies of a price is how a
+# page and a pay button end up saying different numbers -- nothing checks them
+# against each other and nothing fails when they part. It is read out of the
+# catalog row now, which is the row the checkout terms and the pay button are
+# built from, so there is one place it is written and the page cannot drift from
+# it. It is a value for THIS family only; it is not a shared constant and must
+# not become one.
+def _single_copy_price() -> str:
+    row = family_rows()["quakes"]
+    price = row.get("single_copy_price")
+    if not price:
+        raise SystemExit(
+            "slice_quakes: the quakes row in catalog.json has no "
+            "single_copy_price, and this page quotes it to a buyer. Put the "
+            "price on the catalog row rather than back in this file.")
+    return price
 
 # The five-real-rows floor. A slice under this is dropped, never padded.
 RAW_NOTE = (
@@ -390,7 +405,7 @@ def _copies_fact() -> str:
         # the reader something untrue.
         f"{d['seen_once']:,}. The price on this page is for the first kind. Where we hold "
         f"one copy there is nothing to compare it with, so that copy is "
-        f"{SINGLE_COPY_PRICE}, arranged by email -- "
+        f"{_single_copy_price()}, arranged by email -- "
         f"send the event id and we say which of the two yours is before you pay anything."
     )
 

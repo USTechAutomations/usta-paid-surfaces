@@ -468,10 +468,22 @@ def _seal_facts(d: Data, rows_held: int, current: int) -> list[str]:
 
 
 def _breakdown(chs):
+    """Counts for the change sentence, in the units the sentence uses.
+
+    A "moved" change is ONE FIELD, not one permit: _diff() makes a Change per
+    changed column, so a permit whose name and address both moved is two of
+    them. This used to be printed as "12 permits sat on both copies with a field
+    that moved" when the twelve were twelve fields across nine permits, one of
+    which had three fields move at once. Count the permits separately and print
+    both, because they are two different facts and only one of them is a
+    headcount of businesses.
+    """
     app = sum(1 for c in chs if c.kind == "appeared")
     gone = sum(1 for c in chs if c.kind == "gone")
-    moved = sum(1 for c in chs if c.kind == "moved")
-    return app, gone, moved
+    moved_fields = [c for c in chs if c.kind == "moved"]
+    per_permit = Counter(c.permit for c in moved_fields)
+    multi = sum(1 for n in per_permit.values() if n > 1)
+    return app, gone, len(moved_fields), len(per_permit), multi
 
 
 def _change_facts(chs_by_pair, chosen, pair, mode) -> list[str]:
@@ -481,15 +493,19 @@ def _change_facts(chs_by_pair, chosen, pair, mode) -> list[str]:
     facts = []
 
     if newest_chs:
-        app, gone, moved = _breakdown(newest_chs)
+        app, gone, moved, moved_permits, multi = _breakdown(newest_chs)
         facts.append(
             f"Between {_d(a)} and {_d(b)} we detected "
             f"{_cnt(len(newest_chs), 'change')} in this list: "
             f"{_cnt(app, 'permit')} appeared for the first time, "
             f"{_cnt(gone, 'permit')} {'was' if gone == 1 else 'were'} on the "
             f"{_d(a)} copy and gone from the {_d(b)} one, and "
-            f"{_cnt(moved, 'permit')} sat on both copies with a field that "
-            f"moved."
+            f"{_cnt(moved_permits, 'permit')} sat on both copies with "
+            f"{_cnt(moved, 'field')} that moved between them"
+            + (f". {_cnt(multi, 'of those permits', 'of those permits')} had more "
+               f"than one field move at once, which is why the "
+               f"{_n(moved)} is the bigger number."
+               if multi else ".")
         )
     else:
         facts.append(

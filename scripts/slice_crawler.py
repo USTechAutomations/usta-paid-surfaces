@@ -104,6 +104,36 @@ def _day(iso: str) -> str:
     return f"{int(d)} {MONTHS[int(m) - 1]} {y}"
 
 
+def _short_day(iso: str) -> str:
+    y, m, d = iso.split("-")
+    return f"{int(d)} {MONTHS[int(m) - 1]}"
+
+
+def _missing_days(dates: list[str]) -> list[str]:
+    """Days between our oldest and newest copy that we hold nothing for.
+
+    This page used to say we "have kept every copy since" the oldest date, which
+    is a claim about a run of days and was being made off two dates at either end
+    of it. Six days in the middle have no row in the data table and no row in the
+    run log either. A date range cannot see a hole in itself, so the hole is
+    counted here and named on the page.
+    """
+    first = dt.date.fromisoformat(dates[0])
+    last = dt.date.fromisoformat(dates[-1])
+    have = {dt.date.fromisoformat(d) for d in dates}
+    return [(first + dt.timedelta(days=i)).isoformat()
+            for i in range((last - first).days + 1)
+            if first + dt.timedelta(days=i) not in have]
+
+
+def _day_list(days: list[str]) -> str:
+    """Name the days in a short list, with the year said once at the end."""
+    named = [_short_day(d) for d in days[:-1]] + [_day(days[-1])]
+    if len(named) == 1:
+        return named[0]
+    return ", ".join(named[:-1]) + " and " + named[-1]
+
+
 def _parse_robots(body: str) -> dict[str, list] | None:
     """Pull the named crawler groups out of a robots.txt body.
 
@@ -218,6 +248,15 @@ def _read() -> dict:
         "where snapshot_date=? group by resource", (newest,)))
     sites_read = conn.execute(
         "select count(*) from policy_snapshots where snapshot_date=? and resource='robots'",
+        (newest,)).fetchone()[0]
+
+    # A site can answer us with a 200 and still leave us nothing to keep. Count
+    # that in SQL rather than subtracting one counter from another: the saved-copy
+    # counter below covers every status code, so subtracting it from the 200s
+    # nets real empty 200s against saved non-200 bodies and lands 150 short.
+    ok_nothing_kept = conn.execute(
+        "select count(*) from policy_snapshots where snapshot_date=? and "
+        "resource='robots' and status_code=200 and content_sha256 is null",
         (newest,)).fetchone()[0]
 
     # How the saved copies are stored, counted rather than described. A file
@@ -418,6 +457,13 @@ def _read() -> dict:
         # saved copies, and says how many 200s left nothing behind.
         "answered_ok": status.get(200, 0),
         "files_saved": real_files + not_robots,
+        # Counted, not subtracted. This was answered_ok - files_saved, which is
+        # two different sets taken away from each other: files_saved counts a
+        # saved copy on ANY status code, so 150 saved non-200 bodies were
+        # cancelling out real empty 200s and the page printed 398 where the
+        # honest number is 548. Ask the question in SQL instead.
+        "ok_nothing_kept": ok_nothing_kept,
+        "run_days_missing": _missing_days(run_dates),
     })
     return _CACHE
 
@@ -852,6 +898,36 @@ def _n(x: int) -> str:
     return f"{x:,}"
 
 
+def _span_days() -> int:
+    """Calendar days from our oldest copy to our newest, both ends counted."""
+    d = _read()
+    first = dt.date.fromisoformat(d["oldest"])
+    last = dt.date.fromisoformat(d["newest"])
+    return (last - first).days + 1
+
+
+def _gap_words() -> str:
+    """Name the days we hold nothing for, or say plainly that there are none.
+
+    The days are named rather than counted away, because a reader buying a
+    day-to-day record needs to know which days are not in it. Why nothing ran on
+    them is not something we know, and this sentence does not guess: on each of
+    those days there is no row in the stored copies and no run recorded either.
+    """
+    d = _read()
+    gaps = d["run_days_missing"]
+    if not gaps:
+        return (f"Every one of those {_span_days()} days is in the archive, with no "
+                f"day missing between the two ends.")
+    return (f"<strong>{len(gaps)} day{'' if len(gaps) == 1 else 's'} "
+            f"{'is' if len(gaps) == 1 else 'are'} missing</strong> &mdash; "
+            f"{_day_list(gaps)}. We hold no copy from "
+            f"{'that day' if len(gaps) == 1 else 'those days'} and no record of a run "
+            f"on {'it' if len(gaps) == 1 else 'them'} either. We are not going to "
+            f"invent a reason for that, and nothing on this page counts "
+            f"{'that day' if len(gaps) == 1 else 'those days'} as read.")
+
+
 def family_spec() -> dict:
     """The spec render_family.write() turns into families/crawler/index.html.
 
@@ -950,8 +1026,9 @@ def family_spec() -> dict:
             "The size of the panel, and the honest count",
             None,
             f"      <p>We ask <strong>{_n(d['sites_read'])} sites</strong> for their "
-            f"<code>robots.txt</code> every day and have kept every copy since "
-            f"{_day(d['oldest'])}. On our newest read, {_day(d['newest'])}, "
+            f"<code>robots.txt</code>, and we hold a dated copy of the panel from "
+            f"<strong>{len(d['run_dates'])} of the {_span_days()} days</strong> since "
+            f"{_day(d['oldest'])}. {_gap_words()} On our newest read, {_day(d['newest'])}, "
             f"<strong>{_n(d['files_saved'])}</strong> of them gave us a file we could "
             f"save, <strong>{_n(d['real_files'])}</strong> of those were a real "
             f"<code>robots.txt</code> and not one of the {_n(d['not_robots_page'])} web "
@@ -986,7 +1063,7 @@ def family_spec() -> dict:
             f"{_n(d['blobs_cut'])} of the {_n(d['blobs_held'])} copies we hold are cut "
             f"that way, and {_n(d['cut_truncated'])} changes in this window touched one, "
             f"so we left those out rather than guess at the part we never read.</p>\n"
-            f"        <p><strong>{_n(d['answered_ok'] - d['files_saved'])} sites answered "
+            f"        <p><strong>{_n(d['ok_nothing_kept'])} sites answered "
             f"us on {_day(d['newest'])} and left us nothing to keep</strong>, and "
             f"{_n(d['status'].get(403, 0))} refused us outright. We do not know what any "
             f"of their files said that day, and we do not guess.</p>\n"

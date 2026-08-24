@@ -4,26 +4,26 @@
   "slices": [
     {
       "slug": "san-francisco",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-06-26",
-      "runs": 48,
-      "row_count": 4317,
+      "runs": 49,
+      "row_count": 4326,
       "cadence_days": 1
     },
     {
       "slug": "chicago",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-06-26",
-      "runs": 48,
+      "runs": 49,
       "row_count": 3220,
       "cadence_days": 1
     },
     {
       "slug": "coverage",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-06-26",
-      "runs": 48,
-      "row_count": 18327,
+      "runs": 49,
+      "row_count": 18343,
       "cadence_days": 1
     }
   ]

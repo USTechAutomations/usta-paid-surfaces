@@ -33,6 +33,8 @@ import urllib.parse
 from collections import Counter, defaultdict
 from datetime import date, timedelta
 
+import privacy
+
 FAMILY = "civic-agenda"
 
 DB = "/home/gmullins/Claude CLI/clocks/civic_agenda/data/civic_agenda.db"
@@ -133,6 +135,12 @@ def _quote_diff(old: str | None, new: str | None) -> str | None:
     Anything more tangled than that returns None and the caller says the wording
     was rewritten instead of printing a half sentence as if it were the change.
     """
+    # An email address never goes in a change cell, on either side. See the
+    # contact-address rule at the bottom of privacy.py for why the role address
+    # is withheld too and not just the named officer's.
+    words = privacy.contact_change(old, new)
+    if words:
+        return words
     a, b = (old or "").split(), (new or "").split()
     ops = [o for o in difflib.SequenceMatcher(None, a, b).get_opcodes() if o[0] != "equal"]
     if len(ops) != 1:
@@ -167,6 +175,59 @@ def _matters(conn, source_id):
         "WHERE source_id = ? ORDER BY matter_id, snapshot_date",
         (source_id,),
     ).fetchall()
+
+
+def _recent_reads(days, today=None, window: int = 14):
+    """How many of the last `window` days we hold a sealed copy for.
+
+    Counted off the sealed dates. NOT off the cadence number: cadence here is
+    the literal integer 1, typed into the slice spec, and everything built from
+    it -- the Read cell on the rail, the "we read this source ..." sentence --
+    printed "every day" through a stretch where we held seven days out of
+    fourteen. The page already named the missed days lower down, so it argued
+    with itself on a page carrying a price. Whichever half a buyer believed, one
+    of them was wrong.
+    """
+    today = today or date.today()
+    held = set(days)
+    wanted = [(today - timedelta(days=i)).isoformat() for i in range(window - 1, -1, -1)]
+    missing = [d for d in wanted if d not in held]
+    return window - len(missing), missing
+
+
+def _read_words(days, today=None, window: int = 14) -> str:
+    """The sentence that says how often we really read this lately."""
+    have, missing = _recent_reads(days, today, window)
+    if not missing:
+        return f"We read this source every day: we hold a copy for all {window} of the last {window}."
+    return (f"We hold a sealed copy for {have} of the last {window} days. The {len(missing)} we do "
+            f"not hold: {_day(missing[0])} to {_day(missing[-1])}."
+            if len(missing) == (date.fromisoformat(missing[-1])
+                                - date.fromisoformat(missing[0])).days + 1
+            else f"We hold a sealed copy for {have} of the last {window} days, and the "
+                 f"{len(missing)} we do not hold are named further down this page.")
+
+
+def _read_rail(days, today=None, window: int = 14) -> str:
+    """The Read cell on the rail. Same count, fewer words."""
+    have, missing = _recent_reads(days, today, window)
+    return "Every day" if not missing else f"{have} of the last {window} days"
+
+
+def _newest_meeting(conn, source_id) -> str | None:
+    """The date of the latest meeting on the list, not the date we copied it.
+
+    These are two different dates and the page had them as one. Los Angeles
+    County's meeting list last had anything on it in our copy sealed 18 Aug
+    2026, and the latest meeting ON that list was 11 Aug 2026. The page said
+    "the newest meeting we hold is from 18 Aug 2026", which is our filing date
+    wearing a meeting's clothes -- it told a buyer there was a meeting that week
+    and there was not. event_date is the meeting; snapshot_date is us.
+    """
+    row = conn.execute(
+        "SELECT MAX(event_date) FROM events WHERE source_id = ?", (source_id,)
+    ).fetchone()
+    return row[0][:10] if row and row[0] else None
 
 
 def _seal_days(conn, table, source_id):
@@ -934,10 +995,17 @@ def _gov_slice(conn, slug, source_id, name, longname, today) -> dict | None:
         # A short list is not an outage, and the page must not let a buyer read
         # it as one. Every read here returned an answer; on these days the answer
         # was that nothing fell inside the window we asked for.
+        # Two dates, said separately, because they are two facts. The last
+        # copy that had any meeting on it is ours; the latest meeting on it is
+        # theirs. Collapsing them printed our filing date as a meeting date.
+        meeting_newest = _newest_meeting(conn, source_id)
         still = (
             f" Its meeting list has come back with nothing in that window on every read since "
-            f"{_day(days[days.index(ev_days[-1]) + 1])}, so the newest meeting we hold is from "
-            f"{_day(ev_days[-1])} while its agenda items are current to {_day(newest)}."
+            f"{_day(days[days.index(ev_days[-1]) + 1])}. The last copy of it that had anything on "
+            f"it at all is ours from {_day(ev_days[-1])}"
+            + (f", and the latest meeting on that copy is {_day(meeting_newest)}"
+               if meeting_newest else "")
+            + f". Its agenda items are current to {_day(newest)}."
             if ev_days[-1] != newest
             else " The newest read did have meetings in it."
         )
@@ -1003,13 +1071,17 @@ def _gov_slice(conn, slug, source_id, name, longname, today) -> dict | None:
         "h1": f"{name} agenda changes",
         "lede": f"{longname[0].upper() + longname[1:]} publishes its meeting list and replaces "
         f"it in place. "
-        f"<strong>We keep a dated copy nearly every day, so you get what moved.</strong>",
+        f"<strong>We keep a dated copy on most days and name the days we missed, so you get "
+        f"what moved.</strong>",
         "desc": f"{total:,} named {name} meetings and agenda items that moved between two dated "
         f"copies we sealed, over {len(days)} sealed days. Newest {_day(newest)}. $175/mo.",
         "newest": newest,
         "oldest": oldest,
         "runs": len(days),
         "cadence_days": 1,
+        # Counted, not taken from cadence_days above. See _recent_reads().
+        "read_phrase": _read_words(days, today),
+        "read_label": _read_rail(days, today),
         "row_count": ev_rows[0] + mt_rows[0],
         "tables": tables,
         "facts": facts,
@@ -1027,6 +1099,8 @@ def _gov_slice(conn, slug, source_id, name, longname, today) -> dict | None:
         "_split_file": split_file,
         "_items_held": mt_rows[1],
         "_event_newest": ev_days[-1] if ev_days else None,
+        # The meeting, as opposed to the day we filed a copy of the list.
+        "_meeting_newest": _newest_meeting(conn, source_id),
         "_event_blank": len(days) - len(ev_days),
         "_blank_phrase": f"{name} on {len(days) - len(ev_days)} of {len(days)}",
         "_seal_days": len(days),
@@ -1081,6 +1155,10 @@ def _run_health(conn) -> dict:
     return {
         "runs": len(rows),
         "days": len(days),
+        # The dates themselves, not only how many there are. A count cannot be
+        # asked "did we read last Tuesday", and that is the question the Read
+        # cell on every page is answering.
+        "dates": days,
         "span": span,
         "missed": missed,
         "longest": max(streaks, key=len) if streaks else [],
@@ -1089,6 +1167,24 @@ def _run_health(conn) -> dict:
         "newest_clean": newest["sources_ok"] == newest["sources_total"],
         "newest_sources": newest["sources_total"],
     }
+
+
+def _fam_cadence_long() -> str:
+    """The Cadence line on the family page, counted rather than promised.
+
+    It read "Sealed nearly every day, gaps named below". The gaps ARE named
+    below, which is the good half; "nearly every day" was the other half, and
+    on 2026-08-24 it sat above a list containing a seven-day stretch.
+    """
+    conn = _connect()
+    try:
+        health = _run_health(conn)
+    finally:
+        conn.close()
+    have, missing = _recent_reads(health["dates"])
+    if not missing:
+        return "Sealed every one of the last 14 days, gaps named below"
+    return f"Sealed on {have} of the last 14 days, and every gap is named below"
 
 
 def _missed_sentence(health) -> str:
@@ -1122,7 +1218,10 @@ def _coverage_slice(conn, govs, today) -> dict:
         oldest_all = min(oldest_all or g["oldest"], g["oldest"])
         note = "current" if (today - date.fromisoformat(g["newest"])).days <= 2 else "behind"
         if g["_event_newest"] and g["_event_newest"] != g["newest"]:
-            note = f"no meetings listed after {_day(g['_event_newest'])}"
+            note = (f"latest meeting {_day(g['_meeting_newest'])}; list empty since "
+                    f"our {_day(g['_event_newest'])} copy"
+                    if g["_meeting_newest"]
+                    else f"list empty since our {_day(g['_event_newest'])} copy")
         elif g["_event_blank"]:
             # "empty" reads like a failed read. Every one of these reads worked;
             # the answer was that no meeting fell in the window we ask for.
@@ -1164,6 +1263,8 @@ def _coverage_slice(conn, govs, today) -> dict:
         "oldest": oldest_all,
         "runs": runs,
         "cadence_days": 1,
+        "read_phrase": _read_words(health["dates"], today),
+        "read_label": _read_rail(health["dates"], today),
         "row_count": total_rows,
         "tables": [
             {
@@ -1620,8 +1721,9 @@ def family_spec() -> dict:
                 f"        <p><strong>{html.escape(g['name'].replace(' meeting agendas', ''))} "
                 f"has no meetings on its list right now.</strong> It still answers us without an "
                 f"error and its agenda items are current to {_day(g['newest'])}, but its meeting "
-                f"list has come back empty on every read since {_day(g['_event_empty_from'])}. So "
-                f"the newest meeting we hold for it is from {_day(g['_event_newest'])}.</p>\n"
+                f"list has come back empty on every read since {_day(g['_event_empty_from'])}. "
+                f"The last copy with anything on it is ours from {_day(g['_event_newest'])}, and "
+                f"the latest meeting on that copy is {_day(g['_meeting_newest'])}.</p>\n"
                 for g in empty
             )
             + f"        <p><strong>We do not read every single day, and here is where we did "
@@ -1707,8 +1809,8 @@ def family_spec() -> dict:
         "id": FAMILY,
         "ready": True,
         "group": "Local government records",
-        "cadence": "Daily seals",
-        "cadence_long": "Sealed nearly every day, gaps named below",
+        "cadence": "sealed most days",
+        "cadence_long": _fam_cadence_long(),
         "crumb": "City and county agendas",
         "h1": "City and county agenda changes",
         "buyer": "Government-affairs teams, land-use lawyers, construction bidders, local reporters",
@@ -1720,9 +1822,8 @@ def family_spec() -> dict:
             f"ourselves. Newest {_day(newest)}."
         ),
         "lede": "Councils replace an agenda in place and the site says nothing. "
-        "<strong>We seal a dated copy of eight meeting lists nearly every day, so you can prove "
-        "what the "
-        "agenda said on the day you looked.</strong>",
+        "<strong>We seal dated copies of eight meeting lists, and name every day we did not, so "
+        "you can prove what the agenda said on the day you looked.</strong>",
         "pill_label": "Named meetings on this page",
         "subj": urllib.parse.quote(f"City and county agenda changes {price}"),
         "contact_h2": "Start the thread",

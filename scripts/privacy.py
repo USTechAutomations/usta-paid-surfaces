@@ -260,3 +260,52 @@ def withheld_note(n: int, out_of: str) -> str:
             f"cannot subtract one number from the other. Where the name on a record is a "
             f"person's own and the address beside it carries a flat or unit number, we do not "
             f"publish that row at all.")
+
+
+# ------------------------------------------------------- contact addresses
+#
+# The rules above are about postal addresses and are not touched by anything
+# below. This is a second, narrower rule about email addresses, and it exists
+# because the same shape defect turned up in a different dimension.
+#
+# A Columbus public notice listed a contact address. The address changed, and
+# our page printed the change: role address on the left, a named officer's work
+# address on the right, dated to the day. Every one of those facts is public
+# record and reprinting them is not the problem. The shape is: a city's file
+# tells you who to write to today, and our page told a stranger who took a file
+# over, on what date, and how to reach that person directly -- on a page we
+# charge $175 a month for. That is the address rule's argument, in email.
+#
+# So a change row never prints an email on either side. Not the person's, and
+# not the role address it replaced either: printing "LobbyistRegistration@ was
+# replaced" names the person by elimination on a page that also carries the
+# notice number. The row stays, the date stays, the fact that the contact
+# changed stays. Only the identifiers go.
+#
+# A page may still quote a role address that is not part of a change -- a
+# vendor's published safety@ or feedback@ line out of its own terms is a contact
+# point, not a person, and cutting it costs a buyer something and protects
+# nobody.
+EMAIL = re.compile(r"[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}")
+
+
+def has_email(text: str | None) -> bool:
+    """True if there is an email address anywhere in this text."""
+    return bool(EMAIL.search(text or ""))
+
+
+def contact_change(old: str | None, new: str | None) -> str | None:
+    """Words for a change that moved an email address, printing neither one.
+
+    Returns None when no email is involved, so the caller carries on and quotes
+    the change as it normally would. A caller that gets a string back must print
+    that string INSTEAD of the before-and-after, never alongside it.
+    """
+    had, has = has_email(old), has_email(new)
+    if not had and not has:
+        return None
+    if had and has:
+        return "the contact address changed"
+    if has:
+        return "a contact address was added"
+    return "the contact address was removed"
