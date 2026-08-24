@@ -25,8 +25,8 @@
         "terms": "$99 a month, billed monthly, for the four queues we still read: CAISO, ISO-NE, NYISO and SPP. MISO and ERCOT are not read any more and no new copy of either is coming. Cancel any month by email, with no account to close and no notice period.",
         "after": "After you pay, a person emails you the first what-moved file as a CSV within one working day, then a new one every week for as long as the subscription runs. Each file names any queue we could not collect that week.",
         "status": "live",
-        "checked": "2026-08-22",
-        "verified": "2026-08-22"
+        "checked": "2026-08-23",
+        "verified": "2026-08-23"
       }
     },
     {
@@ -48,8 +48,8 @@
         "terms": "$249 once, for one named event. There is nothing to cancel and no subscription behind it. Where we hold only one dated copy of an event the price is $79, arranged by email rather than by this button, and we tell you which of the two yours is before you pay anything. A date window rather than a single event is quoted by email.",
         "after": "After you pay a person emails you the sealed record for the event you name, with the date we sealed each copy.",
         "status": "live",
-        "checked": "2026-08-22",
-        "verified": "2026-08-22"
+        "checked": "2026-08-23",
+        "verified": "2026-08-23"
       },
       "contact_h2": "Buy the record for one named event",
       "closed": "The collector that took these copies is switched off. We stopped reading USGS on 21 Aug 2026 and this archive is finished, not late."
@@ -69,8 +69,12 @@
       "checkout": {
         "terms": "$99 a month, billed monthly, for one state or territory you name — not the national file. You get every permit that appeared and every permit that stopped being listed between the copies we hold, with the permit number, the city, the state, the industry, and the business name where our copy holds one. Often it does not: of the 269 appear and disappear rows across the three copies we hold today, 145 carry no business name. We print the gap rather than filling it in, because a permit number you can look up is worth more than a name we guessed. Cancel any month by email, with no account to close and no notice period.",
         "after": "After you pay, a person emails you the whole appear / disappear file as a CSV within one working day, and a new one every week for as long as the subscription runs. That weekly email is what we undertake to send you. It is not a claim about how often the TTB changes its file, and nothing here says the source updates weekly. We have read the source 3 times — 8, 11 and 19 August 2026 — and the gaps were 3 days and 8 days, not one of them 7. Two gaps are not enough to know a rhythm, so we do not claim one. Where a week brings no new copy of the source, or we could not collect it, that week's file says so rather than repeating itself, and if we stop being able to read the source at all the file says that too. The TTB publishes the permit list as it stands today and overwrites the last one, so once that happens the earlier copy exists nowhere you can reach. Keeping those earlier copies is what you are paying for. We hold three dated copies today, and we tell you which weeks we hold for your state or territory before you pay anything.",
-        "status": "none",
-        "note": "No Stripe link. This record is the written terms of a product sold through an email thread, and the page prints them. verify_checkouts.py skips a record with no url; check_site.py still refuses any pay link on a page whose record has none. The weekly wording is deliberate and must not be shortened to \"updates weekly\": it is an undertaking about what we send, never an observed property of the source. Three reads, gaps of 3 and 8 days, never 7 — recounted from MAX/MIN of snapshot_date in the permit table on 2026-08-23. The 269 / 145 name figures are the appear and disappear rows a buyer actually receives across those three copies, not the 84,183-row national file."
+        "status": "live",
+        "url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
+        "lands_on": "buy.stripe.com",
+        "label": "Subscribe — $99 a month",
+        "checked": "2026-08-23",
+        "verified": "2026-08-23"
       }
     },
     {
@@ -125,8 +129,12 @@
       "checkout": {
         "terms": "$175 a month, billed monthly. Cancel any month by email, with no account to close and no notice period.",
         "after": "After you pay, a person emails you every sealed day in the window as a CSV within one working day. How often a new one follows is agreed in that same thread.",
-        "status": "none",
-        "note": "No Stripe link. This record is the written terms of a product sold through an email thread, and the page prints them. verify_checkouts.py skips a record with no url; check_site.py still refuses any pay link on a page whose record has none."
+        "status": "live",
+        "url": "https://buy.stripe.com/7sY9AM14O0a6afOdTA0sU0N",
+        "lands_on": "buy.stripe.com",
+        "label": "Subscribe — $175 a month",
+        "checked": "2026-08-23",
+        "verified": "2026-08-23"
       }
     },
     {
@@ -144,8 +152,12 @@
       "checkout": {
         "terms": "$79 a month, billed monthly, for the cities you name. Cancel any month by email, with no account to close and no notice period.",
         "after": "After you pay, a person emails you the first what-entered file as a CSV within one working day, then a new one every week for the cities you named.",
-        "status": "none",
-        "note": "No Stripe link. This record is the written terms of a product sold through an email thread, and the page prints them. verify_checkouts.py skips a record with no url; check_site.py still refuses any pay link on a page whose record has none."
+        "status": "live",
+        "url": "https://buy.stripe.com/8x2bIU5l4aOKafO8zg0sU0O",
+        "lands_on": "buy.stripe.com",
+        "label": "Subscribe — $79 a month",
+        "checked": "2026-08-23",
+        "verified": "2026-08-23"
       }
     },
     {
@@ -259,8 +271,12 @@
       "checkout": {
         "terms": "$175 a month, billed monthly. Cancel any month by email, with no account to close and no notice period.",
         "after": "After you pay, a person emails you the agenda-change file as a CSV within one working day. How often a new one follows is agreed in that same thread.",
-        "status": "none",
-        "note": "No Stripe link. This record is the written terms of a product sold through an email thread, and the page prints them. verify_checkouts.py skips a record with no url; check_site.py still refuses any pay link on a page whose record has none."
+        "status": "live",
+        "url": "https://buy.stripe.com/4gMcMYbJs1ea73Cg1I0sU0P",
+        "lands_on": "buy.stripe.com",
+        "label": "Subscribe — $175 a month",
+        "checked": "2026-08-23",
+        "verified": "2026-08-23"
       }
     },
     {
@@ -331,8 +347,12 @@
       "checkout": {
         "terms": "$99 once, for one dated archive copy you name. Nothing recurring, nothing to cancel and no subscription behind it.",
         "after": "After you pay, a person emails you the archive copy you named as a CSV within one working day, with the date we sealed it.",
-        "status": "none",
-        "note": "No Stripe link. This record is the written terms of a product sold through an email thread, and the page prints them. verify_checkouts.py skips a record with no url; check_site.py still refuses any pay link on a page whose record has none."
+        "status": "live",
+        "url": "https://buy.stripe.com/5kQ14g9Bk2ie0FedTA0sU0Q",
+        "lands_on": "buy.stripe.com",
+        "label": "Buy one archive copy — $99",
+        "checked": "2026-08-23",
+        "verified": "2026-08-23"
       }
     },
     {
@@ -355,8 +375,12 @@
       "checkout": {
         "terms": "$59 a month, billed monthly, for the shops you name. Cancel any month by email, with no account to close and no notice period. We tell you which of the shops you name are on our frozen list, and which we cannot read at all, before you pay anything.",
         "after": "After you pay, a person emails you the storefront-file changes as a CSV within one working day. How often a new one follows is agreed in that same thread.",
-        "status": "none",
-        "note": "No Stripe link. This record is the written terms of a product sold through an email thread, and the page prints them. verify_checkouts.py skips a record with no url; check_site.py still refuses any pay link on a page whose record has none."
+        "status": "live",
+        "url": "https://buy.stripe.com/3cI3co28S8GCbjS16O0sU0R",
+        "lands_on": "buy.stripe.com",
+        "label": "Subscribe — $59 a month",
+        "checked": "2026-08-23",
+        "verified": "2026-08-23"
       }
     },
     {
@@ -379,8 +403,12 @@
       "checkout": {
         "terms": "$175 a month, billed monthly, for Texas, Arizona or both. Cancel any month by email, with no account to close and no notice period. Arizona is read less recently than Texas: we give you the exact date of the newest sealed copy for each state before you pay, rather than selling a stale copy as current.",
         "after": "After you pay, a person emails you the pending-application file as a CSV within one working day. How often a new one follows is agreed in that same thread.",
-        "status": "none",
-        "note": "No Stripe link. This record is the written terms of a product sold through an email thread, and the page prints them. verify_checkouts.py skips a record with no url; check_site.py still refuses any pay link on a page whose record has none."
+        "status": "live",
+        "url": "https://buy.stripe.com/8x28wI14Of50ds05n40sU0S",
+        "lands_on": "buy.stripe.com",
+        "label": "Subscribe — $175 a month",
+        "checked": "2026-08-23",
+        "verified": "2026-08-23"
       },
       "sells": "The $175 buys one slice of this reader: the Texas pending new-source air review list and the Arizona in-progress air permit file, cut to the rows Arizona itself files under AIR PROGRAMS. It does not buy the aviation filings or the utility filings this same reader holds, and Arizona is read less recently than Texas — the product page prints the exact newest sealed date for each state."
     },

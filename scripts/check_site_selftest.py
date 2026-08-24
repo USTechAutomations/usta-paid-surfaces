@@ -4,11 +4,13 @@
     python3 scripts/check_site_selftest.py
     python3 scripts/check_site_selftest.py --only 187      # one case, with output
 
-A check that has only ever been seen to pass has not been shown to work. The
-gate has 47 places it can refuse a build and, until this file existed, seven of
-them had ever been demonstrated to refuse anything. The other forty were taken
-on trust -- which is the same fault the price checks had, sitting unexamined in
-the rest of the file.
+A check that has only ever been seen to pass has not been shown to work. When
+this file was written the gate had 47 places it could refuse a build and seven
+of them had ever been demonstrated to refuse anything; the other forty were
+taken on trust, which is the same fault the price checks had, sitting unexamined
+in the rest of the file. It is 53 places now, and the count is not typed here --
+it is read out of check_site.py on every run, so a check added tomorrow is named
+as unproven rather than silently assumed to work.
 
 HOW IT WORKS. The whole estate is copied to a temporary folder. The gate is run
 against the untouched copy first and must pass: that is the "allows the thing it
@@ -48,6 +50,7 @@ FAM = "families/ttb/index.html"                             # an ordinary priced
 KID = "families/ttb/texas/index.html"                       # one of its children
 PAID = "families/grid/index.html"                           # a family with a real pay link
 PARKED = "families/az-contractors/index.html"               # the one parked family
+NOSALE = "families/recalls/index.html"                       # one of the twelve not for sale
 BRIDGE = "families/how-we-seal/index.html"                  # a bridge page, not a family
 HUB = "index.html"
 
@@ -271,7 +274,7 @@ def cases() -> list[tuple]:
         lambda e: e.re_sub(PARKED, r"(?i)not available", "coming along nicely"),
         "never says it is not available")
     # The price is taken off the page entirely rather than changed, because
-    # changing it trips the newer price-rail check at line 689 first.
+    # changing it trips the price-rail check (line 529) first.
     add(620, "a family page stops showing the price the catalog sells it at",
         lambda e: e.sub(QUAKES, "$249", ""), "missing price")
     add(622, "a family page grows a claim we cannot stand behind",
@@ -334,7 +337,7 @@ def cases() -> list[tuple]:
         e.extras_add("zz-orphan")
         e.before_body_end(HUB, "<!-- zz-orphan -->")
 
-    add(676, "a folder full of child pages that no catalog entry describes",
+    add(677, "a folder full of child pages that no catalog entry describes",
         orphan_with_children, "in neither catalog.json nor a catalog-add fragment")
 
     def children_with_no_parent(e: Estate) -> None:
@@ -344,26 +347,74 @@ def cases() -> list[tuple]:
             "price": "Not for sale", "sample_status": "pass", "group": "Test",
             "short": "Zed", "who": "nobody"}, indent=2))
 
-    add(678, "child pages with no family page above them, so nothing links to them",
+    add(679, "child pages with no family page above them, so nothing links to them",
         children_with_no_parent, "children are unreachable")
-    add(682, "a family we cannot collect still has child pages selling it",
+    add(683, "a family we cannot collect still has child pages selling it",
         lambda e: e.write("families/az-contractors/kid/index.html",
                           MIN_PAGE.format(t="Zed kid", body="A test page.")),
         "parked but has child pages")
-    add(688, "a child page loses the address a buyer writes to",
+    add(689, "a child page loses the address a buyer writes to",
         lambda e: e.sub(KID, MAILTO, "mailto:nobody@example.com"), "missing mailto")
-    add(690, "a child page grows a claim we cannot stand behind",
+    add(691, "a child page grows a claim we cannot stand behind",
         lambda e: e.before_body_end(KID, "<p>Trusted by Fortune 500 teams.</p>"),
         "contains forbidden")
-    add(692, "a child page shows a different price from the family above it",
+    add(693, "a child page shows a different price from the family above it",
         lambda e: e.sub(KID, "$99/mo", "$0/mo"), "does not show its parent's price")
-    add(694, "a child page carries no read date, so nothing can prove it is current",
+    add(695, "a child page carries no read date, so nothing can prove it is current",
         lambda e: e.sub(KID, 'name="data-newest"', 'name="data-newest-was-here"'),
         "nothing can prove it is current")
-    # The overlap, proved rather than asserted. Put the same defect on a FAMILY
-    # page and the newer check at line 693 catches it first, which is why the
-    # case at 286 had to use a child page. 286 still earns its place: it is the
-    # only thing guarding the child pages, and 386 does not walk them.
+    # -- the button itself ----------------------------------------------------
+    # Every pay-link check above can only see a page that HAS a pay address on
+    # it. Take the address away and all six go quiet while the page still shows
+    # a button saying Subscribe. These are the cases that were unrefusable
+    # yesterday, and the reason for each one is in its own name.
+    def button_to_nowhere(e: Estate) -> None:
+        e.re_sub(PAID, r'href="https://ustechautomations\.com/permits/[^"]+"', 'href="#"')
+
+    def button_to_the_inbox(e: Estate) -> None:
+        e.re_sub(PAID, r'href="https://ustechautomations\.com/permits/[^"]+"',
+                 f'href="{MAILTO}"')
+
+    def button_somewhere_else(e: Estate) -> None:
+        """Move ONE of the two buttons, so the pay-link checks stay green.
+
+        The page keeps a real declared pay address on its other button, which is
+        all check_pay_links ever looks at, so nothing above notices that the
+        first thing a reader sees now leads somewhere else entirely.
+        """
+        url = next(f for f in json.loads(e.read("catalog.json"))["families"]
+                   if f["id"] == "ttb")["checkout"]["url"]
+        e.sub(FAM, f'href="{url}"', 'href="https://ustechautomations.com/feeds/ttb"',
+              count=1)
+
+    add(783, "a page shows a pay button and clicking it does nothing",
+        button_to_nowhere, "goes nowhere")
+    add(783, "a pay button dressed as a checkout that quietly goes to the inbox",
+        button_to_the_inbox, "goes nowhere")
+    add(787, "a button sends the buyer to an address the catalog never declared",
+        button_somewhere_else, "not the checkout this page's catalog row declares")
+    # count=1 so only the button's own wording moves. The price rail, the tab
+    # title and the search line all still say $99, which is what every price
+    # check in this gate reads -- none of them has ever looked at a button.
+    add(792, "a button offers to charge an amount we do not sell at",
+        lambda e: e.sub(FAM, "$99 a month", "$149 a month", count=1),
+        "offering to charge $149"),
+    add(796, "a monthly subscription with a button that says it is paid once",
+        lambda e: e.sub(FAM, "Subscribe — $99 a month", "Buy once — $99", count=1),
+        "one of them is a subscription and the other is paid once")
+    # The quiet one, and the one that actually happened: the children under five
+    # families grew buttons and the hand-written parents above them did not, so
+    # every buyer landing on the family page was still sent to an email thread
+    # while the catalog said the product took a card.
+    add(832, "a checkout we proved working, and the page still shows no button",
+        lambda e: e.re_sub(PAID, r"(?s)<a class=\"btn btn-buy.*?</a>", ""),
+        "shows no pay button at all")
+
+    # The overlap, proved rather than asserted. The same defect on a CHILD page
+    # is caught by the child-price check (line 693); on a FAMILY page the price
+    # checks get there first, at line 533. Both cases earn their place: line 693
+    # is the only thing guarding the child pages, and the price checks do not
+    # walk them.
     add(533, "the same defect on a family page is caught by the newer check first",
         lambda e: e.re_sub(
             FAM, r'(<meta (?:name|property)="(?:og:|twitter:)?description" content=")',
@@ -461,6 +512,14 @@ PARKED_FALSE_ALARMS = {
 }
 
 
+def extra_working_button(e: Estate) -> None:
+    """A correct pay button, added by hand to a page that already sells."""
+    url = next(f for f in json.loads(e.read("catalog.json"))["families"]
+               if f["id"] == "ttb")["checkout"]["url"]
+    e.before_body_end(FAM, f'<p><a class="btn btn-buy" href="{url}">'
+                           f'Subscribe &mdash; $99 a month</a></p>')
+
+
 def honest_cases() -> list[tuple]:
     """Honest content that the gate must NOT refuse.
 
@@ -500,6 +559,17 @@ def honest_cases() -> list[tuple]:
         ("one more honest child page under a family that already sells",
          lambda e: e.write("families/ttb/zz-honest/index.html",
                            MIN_PAGE.format(t="Zed", body="A test page. $99/mo."))),
+        # The other half of the button check. A gate that only ever refuses
+        # buttons is a ban on selling, so a correct one -- written by hand,
+        # without any generator involved -- has to be waved straight through.
+        ("one more working pay button, hand-written on a page that sells",
+         extra_working_button),
+        # And the twelve families that are not for sale must be able to point at
+        # the inbox in plain words without that counting as a broken button.
+        ("a page we do not sell yet, offering the email route in so many words",
+         lambda e: e.before_body_end(
+             NOSALE, '<p><a href="mailto:operations@ustechautomations.com">'
+                     'Buy a copy by email</a> once this one opens.</p>')),
         ("a family page that prints an amount as data, not as its price",
          lambda e: e.before_body_end(
              FAM, "<table><tr><th>Fee</th></tr><tr><td>$1,250.00</td></tr></table>")),
@@ -518,6 +588,26 @@ def build(box: Path) -> None:
             shutil.copy2(src, box / name)
     for name in MODULES:
         shutil.copy2(ROOT / "scripts" / name, box / "scripts" / name)
+
+
+def button_free_families(box: Path) -> list[str]:
+    """The families whose page carries no pay button at all.
+
+    Counted with the gate's OWN detector rather than a copy of it, so the number
+    cannot quietly drift from what the gate actually sees. Without this the
+    "twelve not-for-sale pages are allowed to have no button" claim is empty:
+    the untouched copy passing only proves the gate is quiet, not that there was
+    anything for it to be quiet about.
+    """
+    code = ("import json,sys;sys.path.insert(0,'scripts');import check_site as g;"
+            "from pathlib import Path;"
+            "print(json.dumps(sorted(f['id'] for f in g.CATALOG['families'] "
+            "if not g.buy_buttons("
+            "(Path('families')/f['id']/'index.html').read_text(encoding='utf-8')))))")
+    r = subprocess.run([PY, "-c", code], cwd=box, capture_output=True, text=True)
+    if r.returncode:
+        raise SystemExit("could not count the button-free pages:\n" + r.stderr)
+    return json.loads(r.stdout)
 
 
 def gate(box: Path) -> tuple[int, str]:
@@ -564,7 +654,14 @@ def main() -> None:
     if code != 0:
         raise SystemExit(f"the untouched copy does not pass, so no case below means "
                          f"anything:\n{out}")
-    print(f"the untouched copy of the estate passes (exit 0). {len(todo)} case(s) to break it.\n")
+    silent = button_free_families(box)
+    if len(silent) < 10:
+        raise SystemExit(f"only {len(silent)} family page(s) carry no pay button, so the "
+                         f"'a page with no button is allowed' half of the button check is "
+                         f"not really being exercised: {silent}")
+    print(f"the untouched copy of the estate passes (exit 0), with {len(silent)} family "
+          f"pages carrying no pay button at all and the gate saying nothing about any of "
+          f"them.\n{len(todo)} case(s) to break it.\n")
 
     bad, unreachable = [], []
     for line, name, mutate, expect in todo:

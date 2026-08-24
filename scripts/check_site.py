@@ -650,6 +650,7 @@ def main() -> None:
                 fail(f"{e['id']} is built but not linked from the hub")
 
     check_slices()
+    check_buy_buttons()
     print("ok")
 
 
@@ -698,6 +699,139 @@ def check_slices() -> None:
             n += 1
     if n:
         print(f"{n} slice pages checked")
+
+
+# ---------------------------------------------------------------------------
+# The button, as opposed to the link.
+#
+# check_pay_links above answers one question well: is this pay ADDRESS one we
+# declared and proved? It can only ever see a page that has a pay address on it,
+# and the thing a buyer actually clicks is a button. The two are not the same
+# object, and three ways a button can lie were invisible to every check here:
+#
+#   * a button whose address is "#", a mailto, or missing altogether. The page
+#     says Subscribe and nothing happens. There is no pay host anywhere in the
+#     markup, so nothing above could find it. A button that goes nowhere is
+#     worse than no button: it spends the one moment a stranger was willing.
+#   * a button reading "Subscribe - $99 a month" over a $175 product. Every
+#     price check above reads the price rail and the search line and never the
+#     body, deliberately, so not one of them looks at the words on the button.
+#   * a button reading "Buy - $99" on a monthly subscription, or "Subscribe" on
+#     something paid once. Same number, wrong basis, and a real stranger is
+#     charged every month for what the page called a single payment.
+#
+# So this walks the buttons and comes back to the catalog. A page with NO button
+# is none of its business: fourteen of our families are not for sale and must be
+# able to carry no button at all without a word from here.
+BTN_BUY = re.compile(r"\bbtn-buy\b")
+# A buy-shaped word at the START of the label. "Email us for the $99 checkout
+# link" is not a button, and neither is a sentence that happens to contain "pay".
+BUY_WORDS = re.compile(r"^(?:buy|subscribe|pay|checkout)\b", re.I)
+ANCHOR = re.compile(r"<a\b([^>]*)>((?:(?!</a>).)*)</a>", re.S | re.I)
+HREF_ATTR = re.compile(r'href="([^"]*)"', re.I)
+CLASS_ATTR = re.compile(r'class="([^"]*)"', re.I)
+# Words that say the money comes back every month, in a label or in a price.
+RECURS = re.compile(r"/mo\b|\bper month\b|\ba month\b|\bmonthly\b|\bsubscribe\b", re.I)
+GOES_NOWHERE = {"", "#", "javascript:void(0)", "javascript:;"}
+BUTTON_FIXIT = ("Arm it with scripts/mint_feed_links.py, prove it with "
+                "scripts/prove_checkouts.py, and let scripts/build_slices.py or "
+                "scripts/arm_family_pages.py write the button. Never type a checkout "
+                "address or an amount onto a page by hand.")
+
+
+def buy_buttons(raw: str) -> list[tuple[str, str]]:
+    """Every element on this page that offers to take money: (address, wording).
+
+    Two independent signals, because either alone has a hole. The class is what
+    our own generators emit, so it catches every button we build. The wording
+    catches one somebody wrote by hand without the class, which is exactly the
+    button that would otherwise sail straight past. Both were checked against the
+    estate as it stands: no anchor anywhere starts with a buying word without
+    also carrying the class, so the wider signal costs nothing today and is there
+    for the day somebody hand-writes one.
+
+    One thing is deliberately NOT a button: an ordinary text link to our own
+    inbox, whatever its wording. "Buy a copy by email" over a mailto is the
+    honest route every page here used before today, and refusing it would be a
+    gate blocking honest writing, which is how a gate gets switched off. Put our
+    own buy-button class on a mailto and it is dressed as a pay button while
+    quietly going to email, so that one is still caught.
+    """
+    out = []
+    for attrs, inner in ANCHOR.findall(raw):
+        cls = CLASS_ATTR.search(attrs)
+        href_at = HREF_ATTR.search(attrs)
+        href = href_at.group(1).strip() if href_at else ""
+        label = " ".join(html.unescape(re.sub(r"<[^>]+>", " ", inner)).split())
+        if not (cls and BTN_BUY.search(cls.group(1))):
+            if not BUY_WORDS.match(label) or href.lower().startswith("mailto:"):
+                continue
+        out.append((href, label))
+    return out
+
+
+def check_buttons_on(who: str, raw: str, fam: dict | None) -> None:
+    """Hold every button on one page to the catalog row behind that page."""
+    buttons = buy_buttons(raw)
+    if not buttons:
+        return
+    c = (fam or {}).get("checkout") or {}
+    price = (fam or {}).get("price") or ""
+    declared = c.get("url")
+    for href, label in buttons:
+        if href in GOES_NOWHERE or href.lower().startswith(("mailto:", "javascript:")):
+            fail(f"{who} shows a button reading {label!r} that goes nowhere: its address is "
+                 f"{href!r}. A stranger clicking it is told nothing and buys nothing. "
+                 f"{BUTTON_FIXIT}")
+        if href != declared:
+            fail(f"{who} shows a button reading {label!r} pointing at {href}, and that is not "
+                 f"the checkout this page's catalog row declares ({declared!r}). A button may "
+                 f"only send a buyer to an address we declared and fetched. {BUTTON_FIXIT}")
+        for money in sorted(set(re.findall(r"\$\d[\d,]*", label))):
+            if money not in price:
+                fail(f"{who} has a button offering to charge {money} and the catalog sells this "
+                     f"at {price!r}. The page is what the buyer agreed to, so the button must "
+                     f"carry the catalog's amount. {PRICE_FIXIT}")
+        if bool(RECURS.search(label)) != bool(RECURS.search(price)):
+            fail(f"{who} has a button reading {label!r} and a catalog price of {price!r}: one of "
+                 f"them is a subscription and the other is paid once. Getting this backwards "
+                 f"charges a real stranger every month for a single purchase, or takes one "
+                 f"payment for something we promised to keep sending. {BUTTON_FIXIT}")
+
+
+def check_buy_buttons() -> None:
+    """Every page on disk, and then the other direction: every armed catalog row.
+
+    Both directions, because each one misses what the other catches. Walking the
+    pages finds a button nobody declared. Walking the catalog finds the opposite
+    and quieter fault: a row that says this product takes a card while the page a
+    buyer lands on still says email us. That is how the estate sat for a day --
+    the children under five families grew buttons from the catalog and the
+    hand-written parents above them did not, because no generator owns them.
+    """
+    rows = family_rows()
+    pages: list[tuple[str, Path, dict | None]] = [("hub", ROOT / "index.html", None)]
+    for d in sorted((ROOT / "families").iterdir()):
+        if not d.is_dir():
+            continue
+        fam = rows.get(d.name)
+        if (d / "index.html").is_file():
+            pages.append((d.name, d / "index.html", fam))
+        for kid in sorted(x for x in d.iterdir() if x.is_dir()):
+            if (kid / "index.html").is_file():
+                pages.append((f"{d.name}/{kid.name}", kid / "index.html", fam))
+    for who, path, fam in pages:
+        check_buttons_on(who, path.read_text(encoding="utf-8"), fam)
+
+    for fam in CATALOG["families"]:
+        c = fam.get("checkout") or {}
+        if not c.get("url") or c.get("status") != "live":
+            continue
+        page = ROOT / "families" / fam["id"] / "index.html"
+        if page.is_file() and not buy_buttons(page.read_text(encoding="utf-8")):
+            fail(f"{fam['id']} has a checkout we declared and proved working, and its own page "
+                 f"shows no pay button at all, so every buyer who lands there is still sent to "
+                 f"an email thread. {BUTTON_FIXIT}")
 
 
 if __name__ == "__main__":
