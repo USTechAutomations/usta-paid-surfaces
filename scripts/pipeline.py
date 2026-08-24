@@ -147,8 +147,14 @@ STAGES: tuple[Stage, ...] = (
           "catalog.json or extras.json, and the page on disk"),
     Stage("lawful", "Has a person checked the source and written a dated permission note?",
           "the permission notes filed with the reader that feeds it"),
+    Stage("keepable", "May we KEEP what we read, and does the store agree?",
+          "the same permission notes, read for what they say about keeping, "
+          "against the bytes actually on disk"),
     Stage("collected", "Do we hold real dated rows?",
           "the sealed store, opened read-only"),
+    Stage("producing", "Did anything actually COME OUT in the window it promises?",
+          "the store's dated rows and its run log, which are counted apart because a "
+          "run that finished is not a run that produced"),
     Stage("honest", "Does the page tell the truth about those rows?",
           "scripts/check_site.py, plus the page's own date against the store's"),
     Stage("sampled", "Can a stranger look at a real row before paying?",
@@ -190,6 +196,11 @@ class Refusal(NamedTuple):
     higher: str
     lower: str
     why: str
+    # Which verdict on the lower gate sets this rule off. Refusals fire on a
+    # FAIL and stop the build. The reported-only list below fires on whatever it
+    # says -- an UNKNOWN for the two the operator asked to be told about, and a
+    # FAIL for one deliberate case documented where it sits.
+    when: str = FAIL
 
 
 REFUSALS: tuple[Refusal, ...] = (
@@ -219,10 +230,70 @@ REFUSALS: tuple[Refusal, ...] = (
 WORTH_KNOWING: tuple[Refusal, ...] = (
     Refusal("priced", "lawful",
             "we are charging for a feed and no written permission note for its source "
-            "could be found on disk"),
+            "could be found on disk", when=UNKNOWN),
     Refusal("live", "lawful",
             "the page is in front of strangers and no written permission note for its "
-            "source could be found on disk"),
+            "source could be found on disk", when=UNKNOWN),
+    # REPORTED, NOT REFUSED, AND ON PURPOSE -- 2026-08-24.
+    #
+    # This one fires on a FAIL, which every other rule in this list does not. A
+    # priced feed whose own note promises we archive no copy of the source file,
+    # while the store holds copies, is squarely about money and belongs in
+    # REFUSALS by the rule written at the top of that table.
+    #
+    # It is not there yet for one reason, and it is not squeamishness: promoting
+    # it stops the build of a page another agent is deploying today, which takes
+    # a routing decision that is not mine. The finding is loud either way -- the
+    # surface visibly drops to `lawful` in the stage table and this line prints
+    # on every run.
+    #
+    # DECIDED 2026-08-24, BY THE OPERATOR'S LANE, AND HERE IS THE EVIDENCE THAT
+    # DECISION RESTS ON. It stays reporting-only for one reason and one reason
+    # only: somebody opened the stores on 24 August 2026 and counted what is
+    # actually held, and found no personal data kept and none shown. Two counts,
+    # both reproducible from this machine:
+    #
+    #   1. The drinks-permit store holds 84,183 permit rows in its newest
+    #      snapshot (252,309 across all three). Every stored row has the same
+    #      nine fields, and not one of them is an owner's name, a street or a
+    #      postcode -- those columns are not blanked, they are not there.
+    #      `operating_name` is a business trading name, not a person.
+    #   2. The company-filings store holds 11,370 rows across 134 filing codes,
+    #      and ZERO of them are on the forms an individual files (3, 4, 5 and
+    #      their amendments). Nothing a person filed under their own name is in
+    #      there at all.
+    #
+    # This is a decision not to fail closed, and a decision not to fail closed
+    # rots into a silent weakening the moment its evidence stops being written
+    # next to it. So: IF EITHER COUNT EVER STOPS BEING TRUE -- a personal name
+    # column appears in the permit rows, or a single individual-filed form lands
+    # in the filings store -- THIS ENTRY MOVES TO `REFUSALS`. Not "should be
+    # looked at". Moves.
+    #
+    # TO PROMOTE IT: move this entry into REFUSALS and delete `when=FAIL`. That
+    # is the whole change.
+    Refusal("priced", "keepable",
+            "we are charging for a feed whose own permission note says we keep no copy "
+            "of the source file, while the store holds copies", when=FAIL),
+    # REPORTED, NOT REFUSED, AND ON PURPOSE -- 2026-08-24, the day the gate was
+    # written. Both of these fire on a FAIL, which the two rules above this pair
+    # do not.
+    #
+    # The reason they report rather than stop the build is that a page which has
+    # stopped producing is a question about the COLLECTOR, not about the repo. A
+    # build veto cannot restart a collector, so refusing here would stop a deploy
+    # that was never going to fix anything, on a page whose only sin is that
+    # something upstream of it went quiet. The money case belongs in front of a
+    # person, and that is what these two lines put it there for.
+    #
+    # TO PROMOTE EITHER: move it into REFUSALS and delete `when=FAIL`. Do that
+    # once somebody has decided that a silent collector should stop a deploy.
+    Refusal("priced", "producing",
+            "we are charging for a feed whose store has produced nothing in the window "
+            "its own cadence promises", when=FAIL),
+    Refusal("live", "producing",
+            "a page in front of strangers is promising a cadence its store has stopped "
+            "keeping up with", when=FAIL),
 )
 
 
@@ -580,8 +651,15 @@ def g_lawful(s: Surface, today: dt.date) -> Result:
 
     host = notes.get(HOST_WIDE)
     refused, missing, lapsed, allowed, by_host, by_variant = [], [], [], [], [], []
+    # Which note was used for which source. The keeping gate below reads this
+    # rather than matching notes a second time: two copies of the matching rules
+    # is how the two gates end up disagreeing about which note applies, and then
+    # arguing about which of them is right.
+    used: dict[str, str] = {}
     for sid in sorted(read):
         note = notes.get(sid)
+        if note:
+            used[sid] = sid
         if not note:
             # A reader may stamp its rows with the source id it was given PLUS
             # the variant it fetched -- usaspending_obligations files one note
@@ -602,12 +680,14 @@ def g_lawful(s: Surface, today: dt.date) -> Result:
             hits = [k for k in notes if k != HOST_WIDE and sid.startswith(k + ":")]
             if len(hits) == 1:
                 note = notes[hits[0]]
+                used[sid] = hits[0]
                 by_variant.append(f"{sid} (note filed as {hits[0]})")
         if not note and host:
             # Covered by the origin-wide note rather than by a note of its own.
             # Recorded separately so the evidence never claims more checking
             # than a person actually did.
             note = host
+            used[sid] = HOST_WIDE
             by_host.append(sid)
         if not note:
             missing.append(sid)
@@ -626,7 +706,7 @@ def g_lawful(s: Surface, today: dt.date) -> Result:
     ev = {"store": store, "read_now": sorted(read), "allowed": allowed,
           "refused": refused, "no_note": missing, "lapsed": lapsed,
           "unattributed": loose, "covered_by_host_note": by_host,
-          "matched_by_variant": by_variant,
+          "matched_by_variant": by_variant, "notes_used": used,
           "host_note": (host or {}).get("_file")}
     if refused:
         ev["position"] = "refused"
@@ -650,6 +730,301 @@ def g_lawful(s: Surface, today: dt.date) -> Result:
         how += (f" (of these, {len(by_host)} rest on the origin-wide note in "
                 f"{(host or {}).get('_file')} rather than a note of their own)")
     return Result(PASS, how, ev)
+
+
+# ------------------------------------- gate 3: may we KEEP what we read
+
+
+def _bodies_on_disk(store: str) -> tuple[int, int, str] | str:
+    """How many copies of the downloaded file this store is actually holding.
+
+    Returns (copies, bytes, column) or a sentence saying why it cannot be
+    counted. A store with a body table and nothing in it is (0, 0), which is a
+    real answer; a store we cannot open is not.
+    """
+    db = CLOCKS / store / "data" / f"{store}.db"
+    if not db.is_file():
+        return f"there is no store file at {db.name} to look in"
+    try:
+        con = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
+        tables = {r[0] for r in con.execute(
+            "select name from sqlite_master where type='table'")}
+        if "blobs" not in tables:
+            # No table for source files at all, which is the strongest possible
+            # agreement with a note that says we keep none.
+            return (0, 0, "there is no body table")
+        cols = [(r[1], (r[2] or "").upper()) for r in con.execute("PRAGMA table_info(blobs)")]
+        body = next((c for c, t in cols if t == "BLOB"), None)
+        if not body:
+            # The readers were built months apart and not all of them name the
+            # column the same way. A body table with no body column is a shape
+            # this function does not understand, and saying so beats guessing
+            # which of the text columns is the file.
+            return (f"the body table in {store} has no column holding bytes "
+                    f"({', '.join(c for c, _ in cols)}), so nothing here can say "
+                    f"whether a source file is kept")
+        n, b = con.execute(
+            f"select count(*), coalesce(sum(length({body})), 0) from blobs "
+            f"where {body} is not null and length({body}) > 0").fetchone()
+        return (int(n), int(b), body)
+    except Exception as exc:  # noqa: BLE001
+        return f"the store could not be read: {exc}"
+
+
+def _keeping_position(note: dict) -> tuple[str, list[str]]:
+    """What one note says about KEEPING a copy of the source file.
+
+    Three answers, and the third is why this function exists. An earlier version
+    returned only "does it forbid", so a note that says in writing that keeping
+    IS allowed came back identical to a note that never mentions keeping at all.
+    Every feed on the estate then reported unknown and the gate could not reach a
+    pass on real data -- a check that has only one reachable verdict is not a
+    check. Permission, silence and refusal are three states and are counted as
+    three.
+
+    Three different fields have been used to say the same thing across the notes
+    on this machine, because the readers were built months apart. All of them are
+    read and every clause that fires is named, so the sentence the gate prints
+    quotes the note rather than paraphrasing it.
+    """
+    terms = note.get("terms") or {}
+    keep = note.get("retention") or {}
+    forbids = []
+    if terms.get("retention_allowed") is False:
+        forbids.append("keeping is not allowed")
+    if keep.get("raw_body") is False:
+        forbids.append("no copy of the source file is archived")
+    if keep.get("class") == "hash_only":
+        forbids.append("only a fingerprint is kept, not the file")
+    if forbids:
+        return "forbids", forbids
+    allows = []
+    if terms.get("retention_allowed") is True:
+        allows.append("keeping is allowed")
+    if keep.get("raw_body") is True:
+        allows.append("a copy of the source file may be archived")
+    if allows:
+        return "allows", allows
+    return "silent", []
+
+
+
+# --------------------------------- the raw-file question, asked on its own
+#
+# WHY THIS IS NOT PART OF THE GATE ABOVE. `g_keepable` can only look at a store
+# that some page on this estate sells. Two of the four readers holding downloaded
+# files have no page at all, so the gate never opens them and never will. The
+# question "does this store hold a copy of the downloaded file when its own note
+# says it keeps none?" has a definite answer for every source on the machine,
+# page or no page, and it is worth asking that way round.
+#
+# THE MISTAKE THIS FUNCTION IS BUILT NOT TO REPEAT. A first pass at this read one
+# field and reported a breach. It was wrong, and it was wrong in the expensive
+# direction: it would have failed a page that is lawful, redacted and correctly
+# sold. One note answers three different questions and they are not the same
+# object:
+#
+#   terms.retention_allowed   may we keep the ROWS we extracted
+#   retention.raw_body        may we keep the downloaded FILE
+#   pii.class                 is that file stripped of people's details first
+#
+# A note can say "keep no raw file" and "strip the file before sealing it" at the
+# same time, and those two sentences describe different disks. Reading either one
+# alone gets the wrong answer, so all three are read and all three are printed.
+
+
+def _raw_body_position(note: dict) -> dict:
+    """Three separate answers out of one note, kept apart on purpose."""
+    keep = note.get("retention") or {}
+    pii = note.get("pii") or {}
+    return {
+        "says_no_raw_file": keep.get("raw_body") is False,
+        "says_fingerprint_only": keep.get("class") == "hash_only",
+        "says_redacted_first": pii.get("class") == "redacted_before_seal",
+    }
+
+
+def _raw_body_verdict(flagged: dict[str, dict], held, unflagged: list[str]) -> dict:
+    """One store's answer, computed from arguments so it can be proved both ways.
+
+    `flagged` maps source id to the three answers above, for every source in this
+    store whose note says the downloaded file is not archived. `held` is whatever
+    `_bodies_on_disk` returned. `unflagged` names the other sources in the same
+    store, which has to be printed because the body table carries no source id --
+    in a store with more than one source, a count cannot be pinned on any one of
+    them, and a sentence that pinned it anyway would be inventing evidence.
+
+    Four answers:
+
+      agrees      the note says no file is kept and no file is kept
+      disagrees   a file is kept and no note promises it was stripped first
+      contradicts a file is kept, and the same note both says no file is kept
+                  and says the file is stripped before it is sealed. Two rules
+                  about two different disks, written into one note. Nobody can
+                  say from here which half is the mistake, so this is reported
+                  as its own finding and is not scored as a fault.
+      unknown     the store could not be counted
+    """
+    if not flagged:
+        return {}
+    if isinstance(held, str):
+        return {"verdict": UNKNOWN, "state": "unknown", "because": held,
+                "sources": sorted(flagged), "copies": None, "bytes": None}
+    copies, size, column = held
+    ev = {"sources": sorted(flagged), "copies": copies, "bytes": size,
+          "body_column": column, "other_sources_in_store": sorted(unflagged)}
+    shared = (f" The body table names no source, and {len(unflagged)} other source(s) "
+              f"write into this same store ({', '.join(sorted(unflagged))}), so this "
+              f"count belongs to the store and cannot be pinned on one source."
+              ) if unflagged else ""
+    if copies == 0:
+        return dict(ev, verdict=PASS, state="agrees",
+                    because=f"{len(flagged)} note(s) here say no copy of the downloaded "
+                            f"file is archived, and the store holds none")
+    promised = [s for s, p in flagged.items() if p["says_redacted_first"]]
+    if len(promised) == len(flagged):
+        return dict(ev, verdict=UNKNOWN, state="contradicts",
+                    because=f"the note for {', '.join(sorted(flagged))} says no copy of "
+                            f"the downloaded file is archived AND says the file is "
+                            f"stripped of people's details before it is sealed. Both "
+                            f"cannot describe the same disk: the second only makes sense "
+                            f"if a file is kept. The store holds {copies:,} "
+                            f"file(s), {size:,} bytes as stored. Which half of the note "
+                            f"is wrong is a decision for whoever wrote it.{shared}")
+    return dict(ev, verdict=FAIL, state="disagrees",
+                because=f"the note for {', '.join(sorted(flagged))} says no copy of the "
+                        f"downloaded file is archived, and no note here promises the file "
+                        f"is stripped first, yet the store holds {copies:,} file(s), "
+                        f"{size:,} bytes as stored.{shared}")
+
+
+def raw_body_sweep() -> list[dict]:
+    """Every reader on the machine, asked the raw-file question once.
+
+    Readers are walked off disk rather than off a list, so a reader nobody has
+    wired to a page is still asked. A reader whose notes never mention the
+    downloaded file is skipped entirely -- silence is not a finding.
+    """
+    out: list[dict] = []
+    if not CLOCKS.is_dir():
+        return out
+    for root in sorted(p for p in CLOCKS.iterdir() if p.is_dir()):
+        store = root.name
+        notes = _preflight_notes(store)
+        if not notes:
+            continue
+        flagged: dict[str, dict] = {}
+        unflagged: list[str] = []
+        for sid, note in notes.items():
+            if sid == HOST_WIDE:
+                continue
+            pos = _raw_body_position(note)
+            if pos["says_no_raw_file"]:
+                flagged[sid] = pos
+            else:
+                unflagged.append(sid)
+        if not flagged:
+            continue
+        res = _raw_body_verdict(flagged, _bodies_on_disk(store), unflagged)
+        if res:
+            out.append(dict(res, store=store))
+    return out
+
+
+def g_keepable(s: Surface, lawful: Result, today: dt.date) -> Result:
+    """Do our own notes and our own disk agree about what we KEEP?
+
+    WHY THIS IS ITS OWN GATE AND NOT PART OF `lawful`. A permission note answers
+    two questions -- may we READ this source, and may we KEEP what we read -- and
+    until today one boolean answered only the first while looking like it had
+    answered both. That is how two live pages ran for months holding copies of a
+    file their own note says is never archived, with every gate green. One
+    boolean must never answer two questions, so the second question gets its own
+    gate, its own verdict and its own line in the table.
+
+    THIS GATE CANNOT SEE PRIVACY. It compares a promise against a byte count and
+    nothing else. It does not know whether the copy on disk was stripped of
+    people's details before it was saved, which is a separate question that has
+    to be answered by opening the file. A FAIL here means the note and the disk
+    disagree. It does not mean anyone's private details are held, and the
+    sentence it prints is worded so that nobody can read it that way.
+
+    UNKNOWN when no note in play says anything about keeping. Silence is not
+    permission and it is not a fault either.
+    """
+    if s.kind != "feed":
+        return Result(NA, "this page has no outside source behind it")
+
+    ev = lawful.evidence or {}
+    store = ev.get("store")
+    used: dict[str, str] = ev.get("notes_used") or {}
+    if not store or str(store).startswith("/"):
+        return Result(UNKNOWN, "we could not say which store feeds this page, so nothing "
+                               "here can say what it keeps")
+    if not used:
+        return Result(UNKNOWN,
+                      f"no permission note could be tied to what {store} reads, so nothing "
+                      f"says what we may keep",
+                      {"store": store})
+
+    notes = _preflight_notes(store)
+    forbid: dict[str, list[str]] = {}
+    allow: dict[str, list[str]] = {}
+    silent: list[str] = []
+    for sid, key in sorted(used.items()):
+        note = notes.get(key)
+        if not note:
+            continue
+        where, clauses = _keeping_position(note)
+        if where == "forbids":
+            forbid[key] = clauses
+        elif where == "allows":
+            allow[key] = clauses
+        else:
+            silent.append(sid)
+
+    held = _bodies_on_disk(store)
+    if isinstance(held, str):
+        return Result(UNKNOWN, held, {"store": store, "forbids_keeping": sorted(forbid)})
+    copies, size, column = held
+    ev2 = {"store": store,
+           "forbids_keeping": forbid, "allows_keeping": allow,
+           "silent_on_keeping": silent,
+           "source_file_copies": copies, "source_file_bytes": size,
+           "body_column": column}
+
+    # A refusal decides the answer on its own. One note saying we archive no copy
+    # is not cancelled by another note saying we may -- they cover different
+    # sources and the strict one still has to be kept.
+    if forbid:
+        clauses = sorted({c for v in forbid.values() for c in v})
+        if copies:
+            return Result(FAIL,
+                          f"the note for this source says {clauses[0]}, and the store holds "
+                          f"{copies:,} cop{'y' if copies == 1 else 'ies'} of the source file "
+                          f"({size:,} bytes). The note and the disk disagree about what we "
+                          f"keep; this gate does not look inside the copies and says nothing "
+                          f"about what is in them", ev2)
+        return Result(PASS,
+                      f"the note says {clauses[0]}, and the store holds no copy of the "
+                      f"source file", ev2)
+
+    if silent:
+        # Nobody wrote down a decision either way. That is not a fault and it is
+        # not permission, so it stops here as unknown rather than being rounded
+        # in either direction.
+        return Result(UNKNOWN,
+                      f"{len(silent)} of the notes behind this page say nothing either way "
+                      f"about keeping the source file, and the store holds {copies:,} "
+                      f"cop{'y' if copies == 1 else 'ies'} of it", ev2)
+
+    if allow:
+        return Result(PASS,
+                      f"every note behind this page says in writing that keeping is allowed "
+                      f"({len(allow)} note(s)), and the store holds {copies:,} "
+                      f"cop{'y' if copies == 1 else 'ies'} of the source file", ev2)
+
+    return Result(UNKNOWN, "no note in play says anything about keeping", ev2)
 
 
 # ------------------------------------------------ gate 3: do we hold rows
@@ -676,10 +1051,28 @@ def g_collected(s: Surface, today: dt.date) -> Result:
                                "say whether it holds rows")
     if st.get("verdict") == "never collected":
         return Result(FAIL, "nothing was ever collected here", {"dates": 0})
-    ev = {"newest": st["newest"], "oldest": st["oldest"], "dates": st["dates"],
+    # Two different "newest" dates, kept apart on purpose, because folding them
+    # into one field is what put three false refusals on a live paid page.
+    #
+    #   newest          -- the FURTHEST BEHIND lane. This is the one that decides
+    #                      whether the feed is late, because a family is only as
+    #                      fresh as its slowest lane.
+    #   newest_anywhere -- the newest row in the store, from any lane. This is
+    #                      the one that decides whether a printed date is a
+    #                      claim to hold something we do not.
+    #
+    # On 2026-08-24 the honest gate used the first for the second's question and
+    # called /feeds/grid a liar three times over: the page printed 2026-08-24,
+    # four of its six lanes really did hold a row from 2026-08-24, and the gate
+    # compared against 2026-07-30 because two lanes had stopped. Same shape as
+    # the keeping gate: one field answering two questions.
+    ev = {"newest": st["newest"], "newest_anywhere": st.get("newest_anywhere"),
+          "oldest": st["oldest"], "dates": st["dates"],
           "age_days": st["age_days"], "cadence_days": st["cadence_days"],
           "late_after_days": st.get("late_after_days"), "stopped": st["stopped"],
-          "stopped_lanes": [r["label"] for r in st.get("stopped_lanes", [])]}
+          "stopped_lanes": [r["label"] for r in st.get("stopped_lanes", [])],
+          "stopped_lane_dates": {r["label"]: r["newest"]
+                                 for r in st.get("stopped_lanes", [])}}
     if not st["dates"]:
         return Result(FAIL, "the store holds no dated rows", ev)
     tail = ""
@@ -719,6 +1112,204 @@ def site_gate() -> Result:
         first = (out.stderr.strip() or out.stdout.strip() or "no output").splitlines()[-1]
         _SITE_GATE = Result(FAIL, f"scripts/check_site.py is failing: {first[:200]}")
     return _SITE_GATE
+
+
+def _admits_pause(vis: str, cev: dict) -> tuple[bool, str]:
+    """Does the page own up to a stopped lane? Read it twice, two different ways.
+
+    The first reading looks for the fixed phrase the builder writes. That is the
+    cheap check and it is the one that used to be the only check.
+
+    The cheap check alone is how a truthful page gets called a liar. On
+    2026-08-24 /feeds/grid named both of its stopped lanes and the last date it
+    holds for each -- "sealed for MISO up to 6 Aug 2026 and for ERCOT up to 30
+    Jul 2026, and nothing newer for either" -- and the gate said it "never says
+    collection has paused", because the page does not use that string. This
+    repo has been bitten by exactly this before: a probe hunting "is paused"
+    against a page that said "has paused".
+
+    So the second reading asks the question the phrase is a proxy for: does the
+    page print, for EVERY stopped lane, the last date we actually hold for it?
+    A page that does has disclosed the pause, whatever words it used. A page
+    that names three of four stopped lanes has not, and gets no credit for the
+    three -- the loop is all-or-nothing on purpose.
+
+    Widening a check is how a real alarm gets silenced, so this widening is tied
+    to a fact the page must actually carry. It cannot be satisfied by prose.
+    """
+    from freshness import PAUSED_PHRASE  # noqa: PLC0415
+
+    months = ("jan", "feb", "mar", "apr", "may", "jun",
+              "jul", "aug", "sep", "oct", "nov", "dec")
+    if PAUSED_PHRASE in vis:
+        return True, "the phrase"
+    dates = cev.get("stopped_lane_dates") or {}
+    if not dates:
+        return False, "no stopped lane to admit"
+    for _label, iso in dates.items():
+        if not iso:
+            return False, "a stopped lane has no date to look for"
+        y, mth, day = iso.split("-")
+        human = f"{int(day)} {months[int(mth) - 1]} {y}"
+        if iso not in vis and human not in vis:
+            return False, f"the page does not print {iso}, the last day of a stopped lane"
+    return True, "every stopped lane's last date is printed on the page"
+
+
+# -------------------------------- gate 5: did it actually PRODUCE anything
+
+
+def _run_log(store: str, since: str) -> tuple[int, int, str | None] | str:
+    """Runs recorded on or after `since`, and how many rows they sealed.
+
+    Returns (runs, rows sealed, newest run date) or a sentence saying why it
+    could not be counted. The two numbers are kept apart because they answer two
+    different questions and the gap between them IS the fault this gate exists
+    for: a run that finished is not a run that produced. Nine runs that sealed
+    nothing look identical to nine healthy runs unless somebody subtracts.
+    """
+    if store.startswith("/"):
+        return (f"its rows come from {store}, which keeps no run log we can read")
+    db = CLOCKS / store / "data" / f"{store}.db"
+    if not db.is_file():
+        return f"there is no store file at {db.name} to look in"
+    try:
+        con = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
+        tables = {r[0] for r in con.execute(
+            "select name from sqlite_master where type='table'")}
+        if "collection_runs" not in tables:
+            return f"{store} keeps no run log, so nothing here can say whether it ran"
+        cols = {r[1] for r in con.execute("PRAGMA table_info(collection_runs)")}
+        if "snapshot_date" not in cols or "rows_inserted" not in cols:
+            return (f"the run log in {store} does not record a date and a row count, "
+                    f"so a run that produced nothing cannot be told from one that did")
+        runs, rows, newest = con.execute(
+            "select count(*), coalesce(sum(rows_inserted), 0), max(snapshot_date) "
+            "from collection_runs where snapshot_date >= ?", (since,)).fetchone()
+        if not runs:
+            newest = con.execute(
+                "select max(snapshot_date) from collection_runs").fetchone()[0]
+        return (int(runs), int(rows), newest)
+    except Exception as exc:  # noqa: BLE001
+        return f"the run log could not be read: {exc}"
+    finally:
+        try:
+            con.close()
+        except Exception:  # noqa: BLE001
+            pass
+
+
+def g_producing(s: Surface, collected: Result, today: dt.date) -> Result:
+    """Not "did it run" but "what came out". Zero is a fault, never a pass.
+
+    WHY THIS IS ITS OWN GATE. Four separate faults on this estate on one day had
+    the same shape: something reported success while producing nothing, and a
+    person found every one of them by going and looking. A backup folder with a
+    manifest and no database. Nine collector runs that recorded success, sealed
+    no rows and attempted no fetches. Units skipped by a condition and logged as
+    SUCCESS. A build killed for running out of memory that still exited 0.
+
+    Three of those four are the same kind of miss, and it is not that anyone
+    asked the wrong question -- they asked a fine question and never demanded an
+    answer. Something ran, something finished, and nothing anywhere insisted it
+    show what it had made. So this gate demands the output count, and treats
+    nothing produced as a fault. It cannot be satisfied by a green run.
+
+    WHAT IT DOES NOT ASK, on purpose. It does not ask WHICH lane produced, and
+    it must not: `/feeds/grid` runs six queues, two of which are deliberately
+    stopped on permission grounds and named on the page with their last dates.
+    Asking this gate to judge a stopped lane would red the most honest page in
+    the estate -- which is what happened the last time a gate here answered two
+    questions with one field. Whether a page owns up to a pause belongs to
+    `honest`. Whether anything at all is still coming out belongs here.
+
+    THREE VERDICTS. Meets its promise, does not, or unknown because the cadence
+    or the store could not be read. Unknown does not round in either direction:
+    a store with no run log is not thereby healthy, and it is not thereby broken.
+    """
+    if s.kind != "feed":
+        return Result(NA, "this page carries no dated rows of its own")
+    if collected.verdict == NA:
+        return Result(NA, "this page carries no dated rows of its own")
+    if collected.verdict == UNKNOWN:
+        return Result(UNKNOWN, "the store could not be read, so nothing here can say what "
+                               "it has produced")
+
+    cev = collected.evidence or {}
+    try:
+        import family_status as fs
+        from freshness import late_after
+        found = fs._lanes(s.sid)
+    except Exception as exc:  # noqa: BLE001
+        return Result(UNKNOWN, f"could not load the store map: {exc}")
+    if not found:
+        return Result(UNKNOWN, "this feed is in none of the store maps, so nothing can "
+                               "say what it produces")
+    store, lanes = found
+
+    # The promise is the FASTEST cadence the family runs to, because that is the
+    # one a buyer is told about first. A family whose quickest lane is daily has
+    # promised something daily.
+    cadence = min([ln.cadence for ln in lanes if ln.cadence] or [0])
+    if not cadence:
+        return Result(UNKNOWN, "no cadence is written down for this feed, so there is no "
+                               "promise to measure what it produced against")
+    limit = late_after(int(cadence))
+    # No dead branch here for "the store is completely empty". family_status
+    # raises on a lane with no dated rows at all, so `collected` has already
+    # returned unknown and this gate returned above. A branch that cannot fire
+    # reads as coverage and is not, so it is not written.
+    newest = cev.get("newest_anywhere") or cev.get("newest")
+    behind = (today - dt.date.fromisoformat(str(newest)[:10])).days
+    since = (today - dt.timedelta(days=limit)).isoformat()
+    log = _run_log(store, since)
+    ev: dict[str, Any] = {"store": store, "cadence_days": int(cadence),
+                          "allowed_days_behind": limit, "newest_row": newest,
+                          "behind_days": behind, "window_from": since}
+
+    if isinstance(log, str):
+        ev["run_log"] = log
+        if behind > limit:
+            return Result(FAIL,
+                          f"nothing has been produced for {behind} days and the fastest "
+                          f"lane here promises something every {cadence} day(s), which "
+                          f"allows {limit}. The run log could not be read ({log}), so why "
+                          f"it stopped is unknown -- that it stopped is not", ev)
+        return Result(UNKNOWN,
+                      f"rows are current ({behind}d old, {limit} allowed), but {log}, so "
+                      f"this cannot say whether the runs behind them produced anything or "
+                      f"merely finished", ev)
+
+    runs, rows, newest_run = log
+    ev.update({"runs_in_window": runs, "rows_sealed_in_window": rows,
+               "newest_run": newest_run})
+
+    # FAULT ONE, and it fires on its own. Runs that finished and made nothing.
+    # This is the case the estate has no other check for: the store is full of
+    # older rows, the run log is green, and the window is empty.
+    if runs and rows == 0:
+        return Result(FAIL,
+                      f"{runs} collection run(s) finished since {since} and sealed zero "
+                      f"rows between them. The runs report success and produced nothing; "
+                      f"a green run log is not output", ev)
+
+    # FAULT TWO. Nothing arrived, whether or not anything ran.
+    if behind > limit:
+        why = (f"and no run has been recorded since {newest_run}" if not runs and newest_run
+               else f"and no run has ever been recorded" if not runs
+               else f"across {runs} run(s) that sealed {rows:,} row(s)")
+        return Result(FAIL,
+                      f"the newest row anywhere is {newest} which is {behind} days back, "
+                      f"the fastest lane here promises something every {cadence} day(s) "
+                      f"and may be {limit} behind, {why}", ev)
+
+    if not runs:
+        return Result(UNKNOWN,
+                      f"rows are current ({behind}d old), but no run is recorded since "
+                      f"{since}, so what produced them cannot be shown", ev)
+    return Result(PASS,
+                  f"{rows:,} row(s) sealed by {runs} run(s) since {since}; newest row is "
+                  f"{newest}, {behind}d back against {limit} allowed", ev)
 
 
 def g_honest(s: Surface, collected: Result, today: dt.date) -> Result:
@@ -768,19 +1359,27 @@ def g_honest(s: Surface, collected: Result, today: dt.date) -> Result:
     except Exception as exc:  # noqa: BLE001
         return Result(UNKNOWN, f"could not load the freshness rule: {exc}", ev)
 
-    store_newest = (collected.evidence or {}).get("newest")
-    admits = PAUSED_PHRASE in vis
+    cev = collected.evidence or {}
+    # The slowest lane, which decides whether the feed is LATE.
+    store_newest = cev.get("newest")
+    # The newest row anywhere in the store, which decides whether a printed date
+    # is a claim to hold a day we do not. These are different questions and this
+    # gate got them confused: see the note in g_collected().
+    store_any = cev.get("newest_anywhere") or store_newest
+    admits, admit_by = _admits_pause(vis, cev)
     ev["admits_paused"] = admits
+    ev["admits_pause_by"] = admit_by
     ev["store_newest"] = store_newest
+    ev["store_newest_anywhere"] = store_any
 
     m = NEWEST_META.search(raw)
     if m:
         ev["page_says"] = m.group(1)
-        if store_newest and m.group(1) > store_newest:
+        if store_any and m.group(1) > store_any:
             return Result(FAIL,
-                          f"the page prints {m.group(1)} as its newest read and the store's "
-                          f"newest row is {store_newest}, so the page claims a day we do "
-                          f"not hold", ev)
+                          f"the page prints {m.group(1)} as its newest read and the newest "
+                          f"row anywhere in the store is {store_any}, so the page claims a "
+                          f"day we do not hold", ev)
         c = CADENCE_META.search(raw)
         if c:
             behind = (today - dt.date.fromisoformat(m.group(1))).days
@@ -791,12 +1390,13 @@ def g_honest(s: Surface, collected: Result, today: dt.date) -> Result:
                               f"the page's own date is {behind} days back and it may be "
                               f"{limit}, and the page never says collection has paused", ev)
 
-    if (collected.evidence or {}).get("stopped") and not admits:
+    if cev.get("stopped") and not admits:
         # The parent page carries no date of its own on some families; the store
         # is the only place the pause shows. Catch it either way.
         return Result(FAIL,
-                      f"the store is paused ({', '.join(collected.evidence['stopped_lanes'])}) "
-                      f"and the page never says collection has paused", ev)
+                      f"the store is paused ({', '.join(cev['stopped_lanes'])}) "
+                      f"and the page does not say so: it carries neither the words "
+                      f"\"{PAUSED_PHRASE}\" nor the last date of every stopped lane", ev)
     if s.fam and s.fam.get("closed") and not admits:
         # Two ways to get here and they need different words, because blaming the
         # page for a stale catalog entry sends somebody to fix the wrong file.
@@ -1091,7 +1691,7 @@ def find_refusals(rows: list[dict]) -> tuple[list[dict], list[dict]]:
         # seventeen lines that nobody finishes reading. The first rule that
         # matches wins, and they are ordered worst first.
         for rule in WORTH_KNOWING:
-            if g[rule.higher]["verdict"] == PASS and g[rule.lower]["verdict"] == UNKNOWN:
+            if g[rule.higher]["verdict"] == PASS and g[rule.lower]["verdict"] == rule.when:
                 worth_knowing.append({"id": row["id"], "higher": rule.higher,
                                       "lower": rule.lower, "why": rule.why,
                                       "detail": g[rule.lower]["because"]})
@@ -1113,7 +1713,9 @@ def assess(probe: bool = True, today: dt.date | None = None) -> dict:
         gates: dict[str, Result] = {}
         gates["named"] = g_named(s)
         gates["lawful"] = g_lawful(s, today)
+        gates["keepable"] = g_keepable(s, gates["lawful"], today)
         gates["collected"] = g_collected(s, today)
+        gates["producing"] = g_producing(s, gates["collected"], today)
         gates["honest"] = g_honest(s, gates["collected"], today)
         gates["sampled"] = g_sampled(s)
         gates["reachable"] = g_reachable(s, sitemap, hub)
@@ -1145,6 +1747,9 @@ def assess(probe: bool = True, today: dt.date | None = None) -> dict:
         "rows": rows,
         "refusals": refusals,
         "worth_knowing": worth_knowing,
+        # Asked of every reader on the machine, not only the ones with a page,
+        # so a store nobody sells is still counted. See raw_body_sweep().
+        "raw_bodies": raw_body_sweep(),
         "site_gate": site_gate().verdict,
     }
 
@@ -1190,6 +1795,17 @@ def print_table(a: dict) -> None:
         print(f"\nworth knowing ({len(a['worth_knowing'])}):")
         for r in a["worth_knowing"]:
             print(f"  {r['id']}: {r['why']}")
+    # The raw-file sweep. Printed here rather than folded into the table above
+    # because two of these readers have no page for the table to have a row for,
+    # and a finding that only appears when a page happens to exist is a finding
+    # that goes quiet exactly when nobody is watching.
+    rb = a.get("raw_bodies") or []
+    if rb:
+        bad = [r for r in rb if r["state"] != "agrees"]
+        print(f"\nthe downloaded-file question, asked of {len(rb)} store(s): "
+              f"{len(rb) - len(bad)} agree with their own note")
+        for r in bad:
+            print(f"  {r['store']} [{r['state']}]: {r['because']}")
 
 
 def write_report(a: dict) -> None:
@@ -1326,6 +1942,129 @@ def write_report(a: dict) -> None:
           "The rule itself lives in one function, `find_refusals()`. `--check`, this "
           "report and the build veto all call it, so there is no second copy to "
           "disagree with.", "",
+          "### The alert file this script writes is read by nobody", "", 
+          "Every run writes `~/.hermes/state/alerts/feeds-pipeline.md` when there is "
+          "something to say, and deletes it when there is not. **Nothing reads it.** "
+          "Counted 2026-08-24: every watchdog on this machine opens its own alert file "
+          "by name, and no job sweeps that folder for files it did not write. The "
+          "hourly truth watchdog reads one report's age; the clock watchdog reads the "
+          "clocks. Neither has ever looked at this file.", "",
+          "This is written down rather than fixed on purpose. Do not read the presence "
+          "of that file as an alarm that went off, and do not read its absence as an "
+          "all-clear -- it is a note in a drawer. The one thing that does read these "
+          "verdicts today is `scripts/build_slices.py`, which asks before it writes.", "",
+          "### The honesty gate called a truthful paid page a liar three times", "",
+          "Fixed 2026-08-24, and worth keeping written down because the shape of the "
+          "mistake will come back. `honest` asked *does the page print a date newer "
+          "than the newest row we hold* and answered it with the wrong number: the "
+          "furthest-behind LANE, not the newest row anywhere in the store. "
+          "`/feeds/grid` prints 2026-08-24, four of its six lanes really do hold a row "
+          "from 2026-08-24, and the gate compared against 2026-07-30 because two lanes "
+          "had stopped. It refused the page three times over -- priced, payable and "
+          "live, all against a page that was telling the truth.", "",
+          "One field was answering two questions, which is the same fault the keeping "
+          "gate below was built to undo. There are two dates now and they are named "
+          "apart: `newest` is the slowest lane and decides whether the feed is LATE; "
+          "`newest_anywhere` is the newest row in the store and decides whether a "
+          "printed date is a claim to hold a day we do not.", "",
+          "The second half of the same bug: the gate decided whether a page owns up to "
+          "a pause by hunting for one fixed string. `/feeds/grid` names both stopped "
+          "lanes and the last date it holds for each, in its own words, and got no "
+          "credit for it. This estate has been bitten by that before -- a probe "
+          "hunting \"is paused\" against a page that said \"has paused\". The gate now "
+          "reads twice: the fixed phrase, or the last date of EVERY stopped lane "
+          "printed on the page. Naming three lanes out of four earns nothing, and the "
+          "widening is tied to a date the page must actually carry, so it cannot be "
+          "satisfied by prose.", "",
+          "### The keeping gate is new and most of the estate is unknown under it", "",
+          "`keepable` asks the second half of a question `lawful` had been answering "
+          "alone: not may we READ this source, but may we KEEP what we read. One "
+          "boolean was answering two questions, and the half nobody was asking is "
+          "where the two findings below had been sitting.", "",
+          "It compares a promise against a byte count and nothing else. It cannot see "
+          "whether a stored file had people's details stripped out before it was "
+          "saved, which is a different question that needs the file opened. A FAIL "
+          "here means the note and the disk disagree about what we keep. It does not "
+          "mean anyone's private details are held.", ""]
+
+    # ---- the producing gate, written where a person will see it -----------
+    prod = [r for r in a["rows"] if r["gates"]["producing"]["verdict"] == FAIL]
+    unsure = [r for r in a["rows"] if r["gates"]["producing"]["verdict"] == UNKNOWN]
+    L += ["### `producing` asks what came out, not whether something ran", "",
+          "Added 2026-08-24, because four separate faults on this estate in one day "
+          "had the same shape: something reported success while producing nothing, and "
+          "a person found every one of them by going and looking. A backup folder with "
+          "a manifest and no database. Nine collector runs that recorded success, "
+          "sealed no rows and attempted no fetches. Units skipped by a condition and "
+          "logged as SUCCESS. A build killed for running out of memory that still "
+          "exited 0.", "",
+          "Three of those four are the same kind of miss, and it is worth being exact "
+          "about which: nobody asked a wrong question. They asked a fine question and "
+          "never demanded an answer. Something ran, something finished, and nothing "
+          "insisted it show what it had made. So this gate demands the output count, "
+          "and **nothing produced is a fault, never a pass**. It cannot be satisfied by "
+          "a green run log.", "",
+          "It counts two things apart on purpose, because the gap between them is the "
+          "whole fault: how many runs finished, and how many rows those runs sealed. "
+          "Nine runs that sealed nothing look identical to nine healthy runs until "
+          "somebody subtracts.", "",
+          "**What it deliberately does not ask:** which lane produced. `/feeds/grid` "
+          "runs six queues, two of them stopped on permission grounds and named on the "
+          "page with their last dates. Judging a stopped lane here would red the most "
+          "honest page in the estate. Whether a page owns up to a pause is `honest`'s "
+          "question. Whether anything at all is still coming out is this one's.", ""]
+    if prod:
+        L += [f"**{len(prod)} surface(s) have produced nothing in the window their own "
+              f"cadence promises.**", "",
+              "| surface | newest row | days back | allowed | runs since | rows sealed | "
+              "takes money |", "|---|---|---|---|---|---|---|"]
+        for r in prod:
+            e = r["gates"]["producing"]["evidence"]
+            paid = "yes" if r["gates"]["priced"]["verdict"] == PASS else "no"
+            L.append(f"| `{r['id']}` | {e.get('newest_row')} | {e.get('behind_days')} | "
+                     f"{e.get('allowed_days_behind')} | {e.get('runs_in_window')} | "
+                     f"{e.get('rows_sealed_in_window')} | {paid} |")
+        L.append("")
+    if unsure:
+        L += [f"{len(unsure)} more cannot be decided, and unknown is not rounded in "
+              f"either direction: " + ", ".join(f"`{r['id']}`" for r in unsure) + ". A "
+              "store with no run log is not thereby healthy and is not thereby broken.",
+              ""]
+
+    # ---- the downloaded-file sweep, written where a person will see it -----
+    rb = a.get("raw_bodies") or []
+    if rb:
+        agree = [r for r in rb if r["state"] == "agrees"]
+        L += ["### Do our stores hold the downloaded file after promising not to?", "",
+              "This is asked of every reader on the machine, not only the ones with a "
+              "page. Two of the readers below have no page at all, so the stage table "
+              "above would never have opened them.", "",
+              "One permission note answers three different questions and they are about "
+              "three different things: may we keep the ROWS we pulled out, may we keep "
+              "the downloaded FILE, and is that file stripped of people's details before "
+              "it is saved. Reading any one of them alone gets the wrong answer. A first "
+              "pass at this read one field, called a breach, and was wrong -- the page it "
+              "would have failed is lawful, redacted and correctly sold. All three are "
+              "read below and all three are printed.", "",
+              f"**{len(rb)} store(s) have at least one note saying the downloaded file is "
+              f"not archived. {len(agree)} of them hold none.**", "",
+              "| reader | what the notes say | files held | bytes as stored | verdict |",
+              "|---|---|---|---|---|"]
+        for r in rb:
+            held = "could not count" if r["copies"] is None else f"{r['copies']:,}"
+            size = "-" if r["bytes"] is None else f"{r['bytes']:,}"
+            L.append(f"| `{r['store']}` | {len(r['sources'])} source(s) say no copy is "
+                     f"kept | {held} | {size} | {r['state']} |")
+        L.append("")
+        for r in rb:
+            if r["state"] != "agrees":
+                L += [f"`{r['store']}` -- {r['because']}", ""]
+        L += ["`contradicts` is not a fault and is not scored as one. It means one note "
+              "asks for two different things at once, and only whoever wrote the note can "
+              "say which half is the mistake. The byte counts are what is held on disk "
+              "after compression, not the size of the original downloads.", ""]
+
+    L += [
           f"This file is the record a person reads. The full working behind every cell "
           f"above, and the note of where each surface was on the last run, are written to "
           f"`{MACHINE.parent}` so they do not churn the repo.", ""]
@@ -1481,8 +2220,16 @@ def selftest() -> int:
     bad = _row("a-bad-page", lawful=FAIL)          # priced sits above a failed lawful
     good = _row("a-good-page")                     # every gate passed, in order
     unsure = _row("an-unknown-page", lawful=UNKNOWN)  # not failed: could not be checked
+    # The keeping gate, both ways and in the middle. These are invented rows, so
+    # the proof costs nothing and touches no shared file -- three of us are
+    # editing this repo and a test that has to break a real page to run is a test
+    # somebody eventually skips.
+    kept_bad = _row("a-page-that-keeps-what-it-said-it-would-not", keepable=FAIL)
+    kept_good = _row("a-page-whose-store-matches-its-note")
+    kept_unsure = _row("a-page-with-no-word-on-keeping", keepable=UNKNOWN)
 
     fails = 0
+    checks = 4
     hits, _ = find_refusals([bad])
     if len(hits) == 1 and hits[0]["lower"] == "lawful" and hits[0]["higher"] == "priced":
         print("PASS  a page priced above a failed permission note is refused, and the "
@@ -1520,8 +2267,197 @@ def selftest() -> int:
               "rows in this test are not the same shape as the real ones")
         fails += 1
 
+    # ---- the keeping gate, proved in both directions -----------------------
+    checks += 3
+    hits, worth = find_refusals([kept_bad])
+    hit = [w for w in worth if w["lower"] == "keepable"]
+    if not hits and len(hit) == 1 and hit[0]["higher"] == "priced":
+        print("PASS  a priced page whose store keeps what its note said it would not is "
+              f"reported, and the message names the pair: {hit[0]['higher']} over "
+              f"{hit[0]['lower']}")
+    else:
+        print(f"FAIL  a page that keeps what it promised not to was not reported: "
+              f"refusals={hits} reported={worth}")
+        fails += 1
+
+    hits, worth = find_refusals([kept_good])
+    if not hits and not worth:
+        print("PASS  a page whose store agrees with its note is not reported")
+    else:
+        print(f"FAIL  a page that agrees with its own note was flagged anyway: "
+              f"refusals={hits} reported={worth}")
+        fails += 1
+
+    hits, worth = find_refusals([kept_unsure])
+    if not hits and not [w for w in worth if w["lower"] == "keepable"]:
+        print("PASS  a page whose note says nothing about keeping is neither refused nor "
+              "reported; silence is not a fault")
+    else:
+        print(f"FAIL  silence about keeping was treated as a fault: refusals={hits} "
+              f"reported={worth}")
+        fails += 1
+
+    # ---- the downloaded-file question, all four answers ---------------------
+    #
+    # On the real estate this check returns "contradicts" for every store it
+    # opens, four times out of four. A check that has only ever said one word
+    # has not been tested, so all four answers are demanded here off invented
+    # notes and invented counts -- no disk is touched and no shared file is
+    # broken to run it.
+    checks += 4
+    strict = {"says_no_raw_file": True, "says_fingerprint_only": True,
+              "says_redacted_first": False}
+    both = dict(strict, says_redacted_first=True)
+
+    r = _raw_body_verdict({"a-source": strict}, (0, 0, "zlib_blob"), [])
+    if r.get("state") == "agrees" and r["verdict"] == PASS:
+        print("PASS  a store that promises to keep no downloaded file, and keeps none, "
+              "agrees with its own note")
+    else:
+        print(f"FAIL  a clean store was not read as clean: {r}")
+        fails += 1
+
+    r = _raw_body_verdict({"a-source": strict}, (7, 900, "zlib_blob"), ["another-source"])
+    if (r.get("state") == "disagrees" and r["verdict"] == FAIL
+            and "another-source" in r["because"]):
+        print("PASS  a store holding 7 downloaded files under a note that promises none, "
+              "with nothing anywhere promising they were stripped first, is a fault -- "
+              "and the sentence says the count cannot be pinned on one source")
+    else:
+        print(f"FAIL  a store holding files it promised not to was not faulted: {r}")
+        fails += 1
+
+    r = _raw_body_verdict({"a-source": both}, (7, 900, "zlib_blob"), [])
+    if r.get("state") == "contradicts" and r["verdict"] == UNKNOWN:
+        print("PASS  a note that says BOTH no file is kept AND the file is stripped "
+              "before saving is reported as a contradiction, not as a breach; the same "
+              "count is a fault under one note and a question under the other")
+    else:
+        print(f"FAIL  a self-contradicting note was not reported as one: {r}")
+        fails += 1
+
+    r = _raw_body_verdict({"a-source": strict}, "the store could not be read", [])
+    if r.get("state") == "unknown" and r["verdict"] == UNKNOWN:
+        print("PASS  a store nobody could count is unknown, not clean; a missing count "
+              "never rounds up to 'keeps nothing'")
+    else:
+        print(f"FAIL  an uncountable store was not reported as unknown: {r}")
+        fails += 1
+
+    # ---- the producing gate, all five shapes, on real stores ---------------
+    #
+    # These build throwaway stores in a temp folder and point the gate at them,
+    # so the SQL that reads a run log is exercised for real rather than mocked
+    # around. Nothing on the estate is touched: three of us are editing this
+    # repo and a test that has to break a live store to run is a test somebody
+    # eventually skips. The folder is deleted whichever way the test ends.
+    import shutil
+    import tempfile
+    import family_status as fs
+
+    def _store(tmp: Path, name: str, row_dates: list[str],
+               runs: list[tuple[str, int]], run_log: bool = True) -> None:
+        """One invented store: some dated rows, and a run log that may lie."""
+        d = tmp / name / "data"
+        d.mkdir(parents=True)
+        con = sqlite3.connect(d / f"{name}.db")
+        con.execute("create table thing (snapshot_date text)")
+        con.executemany("insert into thing values (?)", [(x,) for x in row_dates])
+        if run_log:
+            con.execute("create table collection_runs "
+                        "(snapshot_date text, rows_inserted integer)")
+            con.executemany("insert into collection_runs values (?, ?)", runs)
+        con.commit()
+        con.close()
+
+    def _ask(tmp: Path, name: str, today: dt.date) -> Result:
+        """Run the real gate against an invented store, then put the world back."""
+        surf = Surface(name, "feed", None, None, Path("nowhere"))
+        lane = fs.Lane("the only lane", "thing", "snapshot_date", "", 1, False)
+        old_clocks, old_lanes = CLOCKS, fs._lanes
+        old_store = fs._store_path
+        try:
+            globals()["CLOCKS"] = tmp
+            fs._lanes = lambda fid: (name, (lane,))
+            fs._store_path = lambda st: tmp / st / "data" / f"{st}.db"
+            return g_producing(surf, g_collected(surf, today), today)
+        finally:
+            globals()["CLOCKS"] = old_clocks
+            fs._lanes, fs._store_path = old_lanes, old_store
+
+    checks += 5
+    tmp = Path(tempfile.mkdtemp(prefix="pipeline-producing-"))
+    try:
+        today = dt.date(2026, 8, 24)
+
+        # 1. Healthy: rows arrived today and the runs that made them sealed rows.
+        _store(tmp, "healthy", ["2026-08-23", "2026-08-24"],
+               [("2026-08-23", 900), ("2026-08-24", 900)])
+        r = _ask(tmp, "healthy", today)
+        if r.verdict == PASS:
+            print(f"PASS  a store that sealed rows today meets its daily promise: "
+                  f"{r.because}")
+        else:
+            print(f"FAIL  a healthy store was not passed: {r.verdict} -- {r.because}")
+            fails += 1
+
+        # 2. THE ONE NOTHING ELSE CATCHES. Runs finished, runs reported success,
+        #    runs sealed nothing. The store is full of older rows, so every
+        #    freshness check upstream of this one is satisfied.
+        _store(tmp, "ran-made-nothing", ["2026-08-23", "2026-08-24"],
+               [("2026-08-22", 0), ("2026-08-23", 0), ("2026-08-24", 0)])
+        r = _ask(tmp, "ran-made-nothing", today)
+        if r.verdict == FAIL and "sealed zero rows" in r.because:
+            print(f"PASS  three runs that finished and sealed nothing are a fault even "
+                  f"though the store's newest row is today: {r.because}")
+        else:
+            print(f"FAIL  runs that produced nothing were not faulted: {r.verdict} -- "
+                  f"{r.because}")
+            fails += 1
+
+        # 3. The published-daily feed that quietly stopped: nothing for three
+        #    days against a promise of one, and no run booked at all.
+        _store(tmp, "went-quiet", ["2026-08-20", "2026-08-21"],
+               [("2026-08-20", 500), ("2026-08-21", 500)])
+        r = _ask(tmp, "went-quiet", today)
+        if r.verdict == FAIL and "no run has been recorded since 2026-08-21" in r.because:
+            print(f"PASS  a daily feed three days quiet with no run booked is a fault, "
+                  f"and the message names the last run: {r.because}")
+        else:
+            print(f"FAIL  a feed that went quiet was not faulted: {r.verdict} -- "
+                  f"{r.because}")
+            fails += 1
+
+        # 4. No run log at all. Current rows do NOT buy a pass -- nobody can show
+        #    what made them. Unknown must not round up.
+        _store(tmp, "no-run-log", ["2026-08-24"], [], run_log=False)
+        r = _ask(tmp, "no-run-log", today)
+        if r.verdict == UNKNOWN:
+            print(f"PASS  a store with current rows and no run log is unknown, not "
+                  f"healthy: {r.because}")
+        else:
+            print(f"FAIL  a missing run log rounded to {r.verdict}: {r.because}")
+            fails += 1
+
+        # 5. A store that has never produced anything at all. This one does not
+        #    reach a fault here and it must not reach a pass either: the gate
+        #    below raises on an empty lane, so `collected` is already unknown and
+        #    this gate defers to it rather than inventing a second opinion. The
+        #    check exists to prove the deferral cannot come out green.
+        _store(tmp, "empty", [], [("2026-08-24", 0)])
+        r = _ask(tmp, "empty", today)
+        if r.verdict == UNKNOWN:
+            print(f"PASS  a store that has never produced anything does not come out of "
+                  f"this gate green; it defers to the gate below as unknown: {r.because}")
+        else:
+            print(f"FAIL  an empty store came out of the producing gate as {r.verdict}: "
+                  f"{r.because}")
+            fails += 1
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
     print()
-    print(f"{4 - fails} of 4 checks passed")
+    print(f"{checks - fails} of {checks} checks passed")
     return 1 if fails else 0
 
 
