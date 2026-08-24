@@ -48,7 +48,44 @@ MAILTO = "mailto:operations@ustechautomations.com"
 ADDR_PAGE = "families/new-entities/chicago/index.html"      # prints addresses, withholds 2
 FAM = "families/ttb/index.html"                             # an ordinary priced family
 KID = "families/ttb/texas/index.html"                       # one of its children
-PAID = "families/grid/index.html"                           # a family with a real pay link
+
+
+def _a_paid_page() -> str:
+    """A family that really takes cards today, found rather than remembered.
+
+    THIS WAS A TYPED-IN NAME AND IT WENT BLIND. It said `families/grid` --
+    true when it was written, and on 2026-08-24 `grid` was taken off sale, so
+    its pay button came off the page. Six cases here reach for that button.
+    Every one of them stopped testing anything that day, and the file did not
+    go red: a mutation that cannot find its target changes nothing, the gate
+    passes the unchanged page, and a case whose subject has vanished reports
+    "the gate still passed". The estate had just LOST a control and the proof
+    of that control reported success.
+
+    So the subject is derived: a family the catalog says is live, whose built
+    page really carries the button. If no family qualifies, this says so and
+    stops -- an estate with no pay button anywhere is a thing to be told about,
+    never a reason to quietly certify six checks that ran on nothing.
+    """
+    import json as _json
+    cat = _json.loads((ROOT / "catalog.json").read_text(encoding="utf-8"))
+    for fam in sorted(cat["families"], key=lambda f: f["id"]):
+        c = fam.get("checkout") or {}
+        if c.get("status") != "live":
+            continue
+        page = ROOT / "families" / fam["id"] / "index.html"
+        if page.exists() and "btn btn-buy" in page.read_text(encoding="utf-8"):
+            return f"families/{fam['id']}/index.html"
+    print("CANNOT RUN: no family both declares a live checkout and shows a pay "
+          "button on its built page, so every case about pay buttons here would "
+          "mutate nothing and pass. If the estate really sells nothing right now "
+          "that is the finding; if it sells something, this is a defect.",
+          file=sys.stderr)
+    raise SystemExit(2)
+
+
+PAID = _a_paid_page()                                       # a family with a real pay link
+PAID_ID = PAID.split("/")[1]                                # ...and that family's id
 PARKED = "families/az-contractors/index.html"               # the one parked family
 NOSALE = "families/recalls/index.html"                       # one of the twelve not for sale
 BRIDGE = "families/how-we-seal/index.html"                  # a bridge page, not a family
@@ -190,25 +227,25 @@ def cases() -> list[tuple]:
 
     # -- pay links ------------------------------------------------------------
     add(335, "a page carries a pay link and the catalog declares no checkout",
-        lambda e: e.family("grid", lambda f: f.pop("checkout", None)),
+        lambda e: e.family(PAID_ID, lambda f: f.pop("checkout", None)),
         "declares no checkout")
     add(340, "the checkout record has written terms but no address to pay at",
-        lambda e: e.family("grid", lambda f: f["checkout"].pop("url", None)),
+        lambda e: e.family(PAID_ID, lambda f: f["checkout"].pop("url", None)),
         "checkout record declares no url")
     add(344, "the page's pay link is not the one the catalog declared",
-        lambda e: e.family("grid", lambda f: f["checkout"].__setitem__(
+        lambda e: e.family(PAID_ID, lambda f: f["checkout"].__setitem__(
             "url", "https://ustechautomations.com/permits/offers/somewhere-else/buy")),
         "pay links the catalog never declared")
     add(347, "a pay link that has never been fetched and found working",
-        lambda e: e.family("grid", lambda f: f["checkout"].pop("verified", None)),
+        lambda e: e.family(PAID_ID, lambda f: f["checkout"].pop("verified", None)),
         "never verified")
     add(350, "a pay link last proved working too long ago",
-        lambda e: e.family("grid", lambda f: f["checkout"].__setitem__(
+        lambda e: e.family(PAID_ID, lambda f: f["checkout"].__setitem__(
             "verified", "2020-01-01")),
         "days ago")
     # Pins today's date as well, so the age check above cannot fire first.
     add(352, "a pay link whose last check did not say it was live",
-        lambda e: e.family("grid", lambda f: f["checkout"].update(
+        lambda e: e.family(PAID_ID, lambda f: f["checkout"].update(
             {"status": "unknown", "verified": str(__import__("datetime").date.today())})),
         "its last check said")
 
@@ -368,12 +405,24 @@ def cases() -> list[tuple]:
     # it. Take the address away and all six go quiet while the page still shows
     # a button saying Subscribe. These are the cases that were unrefusable
     # yesterday, and the reason for each one is in its own name.
+    def _paid_url(e: Estate) -> str:
+        """The address this page's own button really points at.
+
+        NOT a typed-in one. These two cases used to look for a
+        `ustechautomations.com/permits/...` address, because the family they
+        pointed at back then paid through our own rail. Every family that takes
+        cards today pays through Stripe, so that pattern matched nothing, the
+        mutation changed nothing, and both cases reported that the gate still
+        passed -- on a page nobody had broken.
+        """
+        return next(f for f in json.loads(e.read("catalog.json"))["families"]
+                    if f["id"] == PAID_ID)["checkout"]["url"]
+
     def button_to_nowhere(e: Estate) -> None:
-        e.re_sub(PAID, r'href="https://ustechautomations\.com/permits/[^"]+"', 'href="#"')
+        e.sub(PAID, f'href="{_paid_url(e)}"', 'href="#"')
 
     def button_to_the_inbox(e: Estate) -> None:
-        e.re_sub(PAID, r'href="https://ustechautomations\.com/permits/[^"]+"',
-                 f'href="{MAILTO}"')
+        e.sub(PAID, f'href="{_paid_url(e)}"', f'href="{MAILTO}"')
 
     def button_somewhere_else(e: Estate) -> None:
         """Move ONE of the two buttons, so the pay-link checks stay green.
