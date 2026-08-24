@@ -252,7 +252,37 @@ def up_and_over(fam: dict, spec: dict) -> str:
     return section("More from this feed", None, '      <ul class="spec">\n' + "\n".join(items) + "\n      </ul>")
 
 
-def body_sections(spec: dict) -> list[str]:
+def credit_section(spec: dict, fam: dict | None = None) -> str | None:
+    """A publisher's own credit condition, printed beside the rows it applies to.
+
+    Some publishers grant reuse on a written condition that we name them. That
+    is a condition on the DATA, so the credit belongs next to the data. Two
+    places it does NOT belong, and both were live on this estate:
+
+      * the footer, where a reader who came for one table never scrolls to;
+      * the box that asks for money. Product copy naming a source is not a
+        source credit -- it is a description of what the buyer gets, and it
+        disappears the moment the page stops selling. The credit has to survive
+        the page going free, because the condition does.
+
+    A slice sets `credit`; a family may set one as the fallback for its pages.
+    A family with neither renders no section at all, so this changes nothing for
+    the pages that have no condition to meet.
+    """
+    lines = spec.get("credit") or (fam or {}).get("credit") or []
+    if isinstance(lines, str):
+        lines = [lines]
+    if not lines:
+        return None
+    body = "\n".join(f"        <li>{l}</li>" for l in lines)
+    return section(
+        "Who published the data on this page",
+        None,
+        f'      <ul class="spec">\n{body}\n      </ul>',
+    )
+
+
+def body_sections(spec: dict, fam: dict | None = None) -> list[str]:
     facts = "\n".join(f"        <li>{f}</li>" for f in spec["facts"])
     secs = [
         section(
@@ -284,6 +314,9 @@ def body_sections(spec: dict) -> list[str]:
             + "</p>\n" + tables,
         )
     )
+    cred = credit_section(spec, fam)
+    if cred:
+        secs.append(cred)
     limits = "\n".join(f"        <li>{l}</li>" for l in spec["limits"])
     secs.append(
         section(
@@ -330,7 +363,7 @@ def render(fam: dict, spec: dict, today: dt.date | None = None) -> str:
             paused_note=spec.get("paused_note"),
         ),
         hero_cta=hero_cta,
-        sections="\n".join(body_sections(spec)),
+        sections="\n".join(body_sections(spec, fam)),
         offer=offer,
         updown=up_and_over(fam, spec),
         foot=fam.get("foot") or DEFAULT_FOOT,

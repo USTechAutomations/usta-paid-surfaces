@@ -67,6 +67,62 @@ OPERATORS = {
     "ercot": ("ERCOT", "ERCOT runs the power grid across most of Texas."),
 }
 
+# The same operators written out the way they write themselves. The pages have
+# always used the short forms, because that is what the rows say -- but a short
+# form is not a credit, and one of these publishers grants us this data ON THE
+# CONDITION that we credit them by name.
+#
+# California ISO, terms of use, read 2026-08-24: the material "may be used by
+# you provided that you keep intact all copyright, trademark and other
+# proprietary notices and that you credit the California ISO when using such
+# materials and/or information."
+#
+# Before this, the words "California ISO" appeared on 0 of the 28 pages in this
+# family. "CAISO" appeared on all 28 -- which is the trap: it looks like the
+# credit is there. It is the label on a column, not an acknowledgement of who
+# published the rows, and the condition is not met by an abbreviation sitting
+# inside a table header.
+FULL_NAMES = {
+    "caiso": "California ISO",
+    "isone": "ISO New England",
+    "nyiso": "New York ISO",
+    "spp": "Southwest Power Pool",
+    "miso": "Midcontinent Independent System Operator",
+    "ercot": "Electric Reliability Council of Texas",
+}
+
+# Publishers whose written terms make the credit a CONDITION rather than good
+# manners. Only these get the second sentence.
+CREDIT_REQUIRED = ("caiso",)
+
+
+def _credit(isos: list[str]) -> list[str]:
+    """The credit lines for a page, from the operators whose rows it carries.
+
+    Built from the page's own ISO list, so a page about one state credits the
+    operators that actually published its rows and no others. Crediting an
+    operator whose rows are not on the page would be as wrong as omitting one
+    whose rows are.
+    """
+    seen = [i for i in FULL_NAMES if i in isos]
+    if not seen:
+        return []
+    names = _names_raw([FULL_NAMES[i] for i in seen])
+    out = [
+        f"Every row on this page was published by a grid operator, not by us. "
+        f"Written out in full, they are {names}. We keep dated copies of their "
+        f"public queue files; the projects, the names and the wording inside "
+        f"those rows are theirs."
+    ]
+    for i in seen:
+        if i in CREDIT_REQUIRED:
+            out.append(
+                f"The {FULL_NAMES[i]} allows this use on the written condition that "
+                f"they are credited by name. So, plainly: this page uses material "
+                f"published by the {FULL_NAMES[i]}."
+            )
+    return out
+
 # Operators we still publish a page for but no longer sell.
 #
 # ERCOT is here because the file that carries the projects never changed. The
@@ -1445,6 +1501,7 @@ def _operator_slice(iso: str) -> dict | None:
         "runs": copies,
         "cadence_days": _iso_cadence(iso),
         "cadence_long": _slice_cadence_long([iso]),
+        "credit": _credit([iso]),
         "row_count": rows,
         "tables": tables,
         "facts": facts,
@@ -1575,6 +1632,7 @@ def _state_slice(code: str) -> dict | None:
         "runs": copies,
         "cadence_days": _slice_cadence(isos, code),
         "cadence_long": _slice_cadence_long(isos, code),
+        "credit": _credit(isos),
         "paused_note": _mixed_paused_note(isos, code, reported),
         "row_count": rows,
         "tables": tables,
@@ -1751,6 +1809,7 @@ def _coverage_slice() -> dict | None:
         "runs": copies,
         "cadence_days": _slice_cadence(isos),
         "cadence_long": _slice_cadence_long(isos),
+        "credit": _credit(isos),
         "paused_note": _mixed_paused_note(isos, None, reported),
         "row_count": rows,
         "tables": tables,
