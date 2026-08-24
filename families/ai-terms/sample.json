@@ -1,0 +1,269 @@
+{
+  "family": "ai-terms",
+  "generated": "2026-08-23",
+  "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
+  "rows_published": 25,
+  "columns": 8,
+  "headers": [
+    "vendor",
+    "page",
+    "said_before",
+    "says_now",
+    "what_moved",
+    "first_read",
+    "second_read",
+    "url"
+  ],
+  "rows": [
+    [
+      "Intercom",
+      "privacy policy",
+      "contact enrichment and lead generation providers; and targeted online advertising providers We may collect the following personal data about our office visitors: Registration, contact and company information: first and last names; email addresses; phone numbers; company name; Payment information: credit card information; billing and mailing addresses; other payment-related information.",
+      "The sources of this third party personal data may include: contact enrichment and lead generation providers; and targeted online advertising providers We may collect the following personal data about our office visitors: Registration, contact and company information: first and last names; email addresses; phone numbers; company name; Payment information: credit card information; billing and mailing addresses; other payment-related information.",
+      "rewritten in place",
+      "2026-08-21",
+      "2026-08-22",
+      "https://www.intercom.com/legal/privacy"
+    ],
+    [
+      "Anthropic",
+      "model retirement page",
+      "Deprecated parameters remain in the SDK request types so existing code continues to type-check, but their behavior changes per model.",
+      "Most SDKs keep deprecated parameters in their request types so existing code continues to type-check.",
+      "rewritten in place",
+      "2026-08-21",
+      "2026-08-22",
+      "https://docs.claude.com/en/docs/about-claude/model-deprecations"
+    ],
+    [
+      "Luma",
+      "privacy policy",
+      "",
+      "Text messaging originator opt-in data and consent will not be sold or shared with any third party; sharing with subcontractors that support delivery of the service (such as our SMS verification provider) is permitted solely to deliver the verification message.",
+      "arrived on the page",
+      "2026-08-20",
+      "2026-08-21",
+      "https://lumalabs.ai/legal/privacy-policy"
+    ],
+    [
+      "Hugging Face",
+      "acceptable-use policy",
+      "For our Users: For all communications regarding our Content Policy and how we deal with moderating Content at Hugging Face, please contact us at feedback@huggingface.co.",
+      "For our Users: For all communications regarding our Content Policy and how we deal with moderating Content at Hugging Face, please contact us at safety@huggingface.co.",
+      "rewritten in place",
+      "2026-08-20",
+      "2026-08-21",
+      "https://huggingface.co/content-guidelines"
+    ],
+    [
+      "Amazon Web Services",
+      "terms of service",
+      "",
+      "Governing Laws Governing Courts Amazon AWS Servi\u00e7os Brasil Ltda The laws of Brazil The courts of the City of S\u00e3o Paulo, State of S\u00e3o Paulo Amazon Web Services Australia Pty Ltd (ABN: 63 605 345 891) The laws of New South Wales The courts of New South Wales Amazon Web Services Canada, Inc The laws of the Province of Ontario, Canada and federal laws of Canada applicable therein The provincial or federal courts located in Toronto, Ontario, Canada Amazon Web Services EMEA SARL The laws of the Grand Duchy of Luxembourg The courts in the district of Luxembourg City Amazon Web Services, Inc.",
+      "arrived on the page",
+      "2026-08-18",
+      "2026-08-19",
+      "https://aws.amazon.com/agreement/"
+    ],
+    [
+      "Google DeepMind",
+      "data-use page",
+      "Some Connected Apps such as Phone, Messages, WhatsApp, and Utilities are available on your Android mobile device, whether Keep Activity is on or off.",
+      "Some Connected Apps such as Phone, Messages, WhatsApp, and Device assistance are available on your Android mobile device, whether Keep Activity is on or off.",
+      "rewritten in place",
+      "2026-08-17",
+      "2026-08-18",
+      "https://support.google.com/gemini/answer/13594961"
+    ],
+    [
+      "Amazon Web Services",
+      "terms of service",
+      "",
+      "Unless you enter into a license with other parties who have access to the project specifying different terms, you grant each party who has access to the project a nonexclusive, worldwide, irrevocable license to use, reproduce, prepare derivatives, distribute, perform, and display Contributed Content you contribute as an End User.",
+      "arrived on the page",
+      "2026-08-17",
+      "2026-08-18",
+      "https://aws.amazon.com/service-terms/"
+    ],
+    [
+      "Cursor",
+      "terms of service",
+      "By using the Service, you agree to these Terms.",
+      "By using the Service, you agree to these Terms including our Acceptable Use Policy.",
+      "rewritten in place",
+      "2026-08-13",
+      "2026-08-14",
+      "https://www.cursor.com/terms-of-service"
+    ],
+    [
+      "Inflection",
+      "privacy policy",
+      "Appeals If we deny your rights request, you may appeal our decision by contacting us.",
+      "Appeals and Complaints If we deny your rights request, you may appeal our decision by contacting us.",
+      "rewritten in place",
+      "2026-08-12",
+      "2026-08-13",
+      "https://inflection.ai/privacy-policy"
+    ],
+    [
+      "NVIDIA",
+      "privacy policy",
+      "You have the right to see the data we have collected, take it with you, make corrections, withdraw consent for future uses, opt out of sales and sharing, or erase your data all together at any time.",
+      "Control your personal data You have the right to see the data we have collected, take it with you, make corrections, withdraw consent for future uses, opt out of sales and sharing, or erase your data all together at any time.",
+      "rewritten in place",
+      "2026-08-11",
+      "2026-08-12",
+      "https://www.nvidia.com/en-us/about-nvidia/privacy-policy/"
+    ],
+    [
+      "HeyGen",
+      "terms of service",
+      "After you delete the information or the account, it is kept in the backups for the purpose of disaster recovery for 30 days and then automatically and permanently erased.",
+      "After you delete the information or the account, it is kept in the backups for the purpose of disaster recovery for 60 days and then automatically and permanently erased.",
+      "rewritten in place",
+      "2026-08-11",
+      "2026-08-12",
+      "https://www.heygen.com/policy"
+    ],
+    [
+      "Fireworks",
+      "privacy policy",
+      "This Privacy Notice explains how Fireworks AI., and its affiliates and subsidiaries (collectively \u201cFireworks\u201d, \u201cwe\u201d, \u201cus\u201d or \u201cour\u201d) collects, uses, discloses, and otherwise processes personal data (as defined below) in connection with our website https://fireworks.ai (the \u201cSite\u201d), and related content, services, products, and other functionalities offered on or through our services (collectively, the \u201cServices\u201d).",
+      "This Privacy Notice explains how Fireworks., and its affiliates and subsidiaries (collectively \u201cFireworks\u201d, \u201cwe\u201d, \u201cus\u201d or \u201cour\u201d) collects, uses, discloses, and otherwise processes personal data (as defined below) in connection with our website https://fireworks.ai (the \u201cSite\u201d), and related content, services, products, and other functionalities offered on or through our services (collectively, the \u201cServices\u201d).",
+      "rewritten in place",
+      "2026-08-11",
+      "2026-08-12",
+      "https://fireworks.ai/privacy-policy"
+    ],
+    [
+      "Google DeepMind",
+      "data-use page",
+      "",
+      "Transcripts of your instructions are saved according to your Keep Activity setting and used as described in the Gemini Apps Privacy Notice, including to improve Gemini with the help of human reviewers.",
+      "arrived on the page",
+      "2026-08-10",
+      "2026-08-11",
+      "https://support.google.com/gemini/answer/13594961"
+    ],
+    [
+      "Anthropic",
+      "model retirement page",
+      "",
+      "This model was retired August 5, 2026.",
+      "arrived on the page",
+      "2026-08-05",
+      "2026-08-06",
+      "https://docs.claude.com/en/docs/about-claude/model-deprecations"
+    ],
+    [
+      "Replit",
+      "terms of service",
+      "If you wish to delete your account, you may request account deletion at https://replit.com/account by selecting \u201cRequest Account Deletion.\u201d Upon account deletion, we will delete your stored data in accordance with our data retention policy and applicable law.",
+      "Account Termination If you wish to delete your account, you may request account deletion at https://replit.com/account by selecting \u201cRequest Account Deletion.\u201d Upon account deletion, we will delete your stored data in accordance with our data retention policy and applicable law.",
+      "rewritten in place",
+      "2026-08-04",
+      "2026-08-05",
+      "https://replit.com/terms-of-service"
+    ],
+    [
+      "Sourcegraph",
+      "terms of service",
+      "",
+      "Subprocessor ListApplies to all Customers and outlines the subprocessors Sourcegraph uses and how to be notified of updates to this list Other Terms Sourcegraph partners are subject to the Sourcegraph Partner Terms. \u2192 Sourcegraph Partner Terms",
+      "arrived on the page",
+      "2026-08-03",
+      "2026-08-04",
+      "https://sourcegraph.com/terms"
+    ],
+    [
+      "OpenRouter",
+      "terms of service",
+      "",
+      "Credits are not redeemable, refundable, or exchangeable for any sum of money or monetary value, except for (i) the refunds described in Section 4.1, (ii) the refund of remaining Credits upon termination described in Section 9, or (iii) as required by applicable law.",
+      "arrived on the page",
+      "2026-08-03",
+      "2026-08-04",
+      "https://openrouter.ai/terms"
+    ],
+    [
+      "AI21 Labs",
+      "privacy policy",
+      "Internal transfers: Transfers within the AI21 group will be covered by an internal processing agreement entered into by members of the AI21 group (an intra-group data processing agreement) which contractually obliges each member to ensure that Personal Data receives an adequate and consistent level of protection wherever it is transferred to.",
+      "Transfers within the AI21 group are covered by an intra-group data processing agreement requiring an adequate and consistent level of protection.",
+      "rewritten in place",
+      "2026-08-03",
+      "2026-08-04",
+      "https://www.ai21.com/privacy-policy/"
+    ],
+    [
+      "OpenAI",
+      "model retirement page",
+      "",
+      "Access to these models was shut down on July 23, 2026.",
+      "arrived on the page",
+      "2026-07-30",
+      "2026-07-31",
+      "https://platform.openai.com/docs/deprecations"
+    ],
+    [
+      "Microsoft",
+      "privacy policy",
+      "Your child\u2019s privacy settings start at the most restrictive level by default Camera and Microphone.",
+      "Your child\u2019s privacy settings start at the most restrictive level by default.",
+      "rewritten in place",
+      "2026-07-30",
+      "2026-07-31",
+      "https://privacy.microsoft.com/en-us/privacystatement"
+    ],
+    [
+      "OpenRouter",
+      "terms of service",
+      "6.3 Opt-in License for Private Prompt Storage Private Prompt Storage is a feature on the Service that allows you to privately save your User Content so you can review them later, such as for debugging purposes.",
+      "Private Prompt Storage is a feature on the Service that allows you to privately save your User Content so you can review it later, such as for debugging purposes.",
+      "rewritten in place",
+      "2026-07-27",
+      "2026-07-28",
+      "https://openrouter.ai/terms"
+    ],
+    [
+      "Notion",
+      "data-use page",
+      "",
+      "When this is off, members must wait for the rolling or monthly window to refresh before using certain Notion AI features again.",
+      "arrived on the page",
+      "2026-07-27",
+      "2026-07-28",
+      "https://www.notion.com/help/notion-ai-security-practices"
+    ],
+    [
+      "Synthesia",
+      "terms of service",
+      "Customer will (a) inform Authorized Users of all Customer policies and practices that are relevant to Customer\u2019s use of the Services, including the use of any Avatars, and of any settings that may impact the processing or generation of Customer Data, (b) ensure any submission, processing, use or generation of Customer Data is lawful, and (c) ensure that when it authorizes the creation or use of a Custom Avatar using the voice or likeness of an individual, such individual is over the applicable statutory legal age and has provided free and informed consent.",
+      "Customer will (a) inform Authorized Users of all Customer policies and practices that are relevant to Customer\u2019s use of the Services and collect all necessary consents, including in the use and creation of any Avatars, and of any settings that may impact the processing, collection, or generation of Customer Data, (b) ensure any submission, processing, use or generation of Customer Data is lawful, and (c) ensure that when it authorizes the creation or use of a Custom Avatar using the voice or likeness of an individual, such individual is over the applicable statutory legal age and has provided free and informed consent.",
+      "rewritten in place",
+      "2026-07-26",
+      "2026-07-27",
+      "https://www.synthesia.io/legal/customer-terms-of-service"
+    ],
+    [
+      "Snowflake",
+      "terms of service",
+      "",
+      "ANNOUNCEMENT Changes to the Snowflake Privacy Notice We recently updated our Snowflake Privacy Notice to reflect changes in how we handle your data, including our use of AI/ML, expanded privacy rights mechanisms, and updated contact details.",
+      "arrived on the page",
+      "2026-07-23",
+      "2026-07-24",
+      "https://www.snowflake.com/legal/"
+    ],
+    [
+      "Runway",
+      "terms of service",
+      "Subject to the terms and conditions of the Agreement and any usage limitations described in the order process, (a) you may access and use the Services, and (b) if you have purchased access to the APIs, you may use the APIs to access the Services, integrate the functionality of such Services into your own applications, products, and services (\u201cYour Applications\u201d), and make that functionality available to end users as part of Your Application, provided that Your Applications made available to end users must prominently display \u201cPowered by Runway\u201d and link to runwayml.com on applicable user interfaces and in accordance with our Branding Guidelines.",
+      "Subject to the terms and conditions of the Agreement and any usage limitations described in the order process, (a) you may access and use the Services, and (b) if you have purchased access to the APIs, you may use the APIs to access the Services, integrate the functionality of such Services into your own applications, products, and services (\u201cYour Applications\u201d), and make that functionality available to end users as part of Your Application, provided that Your Applications made available to end users must prominently display \u201cPowered by Runway\u201d and link to runway.com on applicable user interfaces and in accordance with our Branding Guidelines.",
+      "rewritten in place",
+      "2026-07-23",
+      "2026-07-24",
+      "https://runwayml.com/terms-of-use"
+    ]
+  ]
+}

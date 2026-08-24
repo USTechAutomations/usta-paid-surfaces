@@ -1,0 +1,217 @@
+{
+  "family": "markets-resolved",
+  "generated": "2026-08-23",
+  "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
+  "rows_published": 25,
+  "columns": 6,
+  "headers": [
+    "venue",
+    "question",
+    "resolved_to",
+    "price_at_resolution",
+    "resolved_at",
+    "sealed_on"
+  ],
+  "rows": [
+    [
+      "Manifold",
+      "MLB: Will the San Diego Padres sweep the Minnesota Twins OR will the 3-game series total 25 or more runs?",
+      "YES",
+      "0.5243757431629016",
+      "2026-08-23T23:39:13+00:00",
+      "2026-08-24"
+    ],
+    [
+      "Manifold",
+      "MLB: Will the Texas Rangers sweep Los Angeles Angels OR will the 3-game series total 25 or more runs?",
+      "NO",
+      "0.4569281662658661",
+      "2026-08-23T23:35:52+00:00",
+      "2026-08-24"
+    ],
+    [
+      "Manifold",
+      "MLB: Will the Tampa Bay Rays sweep the Baltimore Orioles OR will the 3-game series total 26 or more runs?",
+      "NO",
+      "0.4263301500682128",
+      "2026-08-23T23:34:45+00:00",
+      "2026-08-24"
+    ],
+    [
+      "Manifold",
+      "MLB: Will the Los Angeles Dodgers sweep the Pittsburgh Pirates OR will the 3-game series total 26 or more runs?",
+      "YES",
+      "0.4708984742889434",
+      "2026-08-23T23:33:13+00:00",
+      "2026-08-24"
+    ],
+    [
+      "Manifold",
+      "MLB: Will the Houston Astros sweep The Athletics OR will the 3-game series total 28 or more runs?",
+      "NO",
+      "0.4071054160066945",
+      "2026-08-23T23:31:59+00:00",
+      "2026-08-24"
+    ],
+    [
+      "Manifold",
+      "MLB: Will the Boston Red Sox sweep the San Francisco Giants OR will the 3-game series total 27 or more runs?",
+      "YES",
+      "0.42633015006821284",
+      "2026-08-23T23:30:18+00:00",
+      "2026-08-24"
+    ],
+    [
+      "Manifold",
+      "MLB: Will the Chicago Cubs sweep the Seattle Mariners OR will the 3-game series total 25 or more runs?",
+      "YES",
+      "0.4478388921906204",
+      "2026-08-23T23:28:36+00:00",
+      "2026-08-24"
+    ],
+    [
+      "Manifold",
+      "MLB: Will the New York Yankees sweep the Toronto Blue Jays OR will the 3-game series total 26 or more runs?",
+      "NO",
+      "0.4016676840574381",
+      "2026-08-23T23:27:17+00:00",
+      "2026-08-24"
+    ],
+    [
+      "Manifold",
+      "Will Victor Wembanyama score at least 25 points against Serbia on August 23, 2026?",
+      "NO",
+      "0.15439739817229656",
+      "2026-08-23T19:59:31+00:00",
+      "2026-08-24"
+    ],
+    [
+      "Manifold",
+      "Will Aleph Alpha fold by 2028",
+      "CANCEL",
+      "0.45248868778280565",
+      "2026-08-23T19:57:50+00:00",
+      "2026-08-24"
+    ],
+    [
+      "Polymarket",
+      "Will Ryo Hisatsune finish in the Top 20 at the 2026 BMW Championship?",
+      "Yes",
+      "",
+      "2026-08-24T00:39:22+00:00",
+      "2026-08-24"
+    ],
+    [
+      "Polymarket",
+      "Delfin SC vs. SD Aucas: 2nd Half O/U 0.5",
+      "Over",
+      "",
+      "2026-08-24T00:39:22+00:00",
+      "2026-08-24"
+    ],
+    [
+      "Polymarket",
+      "Will Akshay Bhatia finish in the Top 20 at the 2026 BMW Championship?",
+      "Yes",
+      "",
+      "2026-08-24T00:37:42+00:00",
+      "2026-08-24"
+    ],
+    [
+      "Polymarket",
+      "Will Scottie Scheffler finish in the Top 20 at the 2026 BMW Championship?",
+      "Yes",
+      "",
+      "2026-08-24T00:37:42+00:00",
+      "2026-08-24"
+    ],
+    [
+      "Polymarket",
+      "Will Rory McIlroy finish in the Top 20 at the 2026 BMW Championship?",
+      "Yes",
+      "",
+      "2026-08-24T00:37:10+00:00",
+      "2026-08-24"
+    ],
+    [
+      "Polymarket",
+      "Will Wyndham Clark finish in the Top 20 at the 2026 BMW Championship?",
+      "Yes",
+      "",
+      "2026-08-24T00:37:10+00:00",
+      "2026-08-24"
+    ],
+    [
+      "Polymarket",
+      "Will Gary Woodland finish in the Top 20 at the 2026 BMW Championship?",
+      "Yes",
+      "",
+      "2026-08-24T00:37:10+00:00",
+      "2026-08-24"
+    ],
+    [
+      "Polymarket",
+      "XRP Up or Down - August 23, 8:30PM-8:35PM ET",
+      "Up",
+      "",
+      "2026-08-24T00:36:25+00:00",
+      "2026-08-24"
+    ],
+    [
+      "Polymarket",
+      "Solana Up or Down - August 23, 8:30PM-8:35PM ET",
+      "Up",
+      "",
+      "2026-08-24T00:36:25+00:00",
+      "2026-08-24"
+    ],
+    [
+      "Polymarket",
+      "ZCash Up or Down - August 23, 8:30PM-8:35PM ET",
+      "Up",
+      "",
+      "2026-08-24T00:36:25+00:00",
+      "2026-08-24"
+    ],
+    [
+      "Kalshi",
+      "Will Coritiba score over 3.5 goals?",
+      "NO",
+      "0.0",
+      "2026-08-24T00:41:57+00:00",
+      "2026-08-24"
+    ],
+    [
+      "Kalshi",
+      "Buriram wins by more than 3.5 goals?",
+      "NO",
+      "0.0",
+      "2026-07-26T13:04:36+00:00",
+      "2026-07-26"
+    ],
+    [
+      "Kalshi",
+      "Will over 8.5 goals be scored?",
+      "NO",
+      "0.01",
+      "2026-07-26T13:04:26+00:00",
+      "2026-07-26"
+    ],
+    [
+      "Kalshi",
+      "NEAR price up in next 15 mins?",
+      "NO",
+      "0.002",
+      "2026-07-06T13:15:04+00:00",
+      "2026-07-06"
+    ],
+    [
+      "Kalshi",
+      "ZEC price up in next 15 mins?",
+      "NO",
+      "0.001",
+      "2026-07-06T13:15:04+00:00",
+      "2026-07-06"
+    ]
+  ]
+}

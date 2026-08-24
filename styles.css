@@ -5,7 +5,9 @@
 
    Look only. Prices, sample rows, event ids and honesty lines live in the
    HTML and are frozen: never restyle a fact out of existence.
-   Each family page sets data-family on <body> to pick its accent.
+   Each family page sets data-family on <body>. Nothing in this file reads it:
+   there is one accent and every family shares it. The attribute is kept for
+   the page's own scripts and for anyone grepping the built site by family.
    ========================================================================== */
 
 @font-face {
@@ -254,6 +256,20 @@ strong { font-weight: 650; color: var(--fg); }
 .honest p:last-child { margin-bottom: 0; }
 .honest strong { color: hsl(var(--accent-amber-fg)); }
 
+/* The same disclosure, sitting in a hero rather than in the body. Five family
+   pages used this class with nothing defined for it, so their "not for sale
+   yet" line rendered as ordinary body text while the identical sentence on
+   dc-buildout got a panel. One shop, one look. */
+.hero-note {
+  border: 1px solid hsl(var(--accent-amber-fg) / .3);
+  background: hsl(var(--accent-amber) / .5);
+  border-radius: var(--radius);
+  padding: 1rem 1.125rem;
+  margin: 0 0 1.25rem;
+  max-width: 62ch;
+}
+.hero-note strong { color: hsl(var(--accent-amber-fg)); }
+
 /* ---------- spec list ---------- */
 .spec { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; gap: .75rem; }
 .spec li {
@@ -367,3 +383,41 @@ footer.site {
 footer.site p { color: var(--muted-fg); }
 footer.site .addr { font-size: .8125rem; }
 .foot-honest { max-width: 76ch; }
+
+/* ---------- offer: the pay path ----------
+   A page shows btn-buy only when catalog.json carries a checkout that was
+   fetched and found working. btn-ghost is the email fallback. Both are the
+   same shape so a page does not look broken when the pay link is missing. */
+.hero-cta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .875rem;
+  margin: 1.5rem 0 0;
+}
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-weight: 650; font-size: .9375rem; line-height: 1;
+  padding: .75rem 1.375rem; border-radius: var(--radius);
+  text-decoration: none; border: 1px solid transparent;
+  transition: background .15s ease, border-color .15s ease;
+}
+.btn:hover { text-decoration: none; }
+.btn-buy {
+  background: hsl(var(--primary)); color: hsl(var(--primary-foreground));
+  box-shadow: 0 1px 2px hsl(var(--foreground) / .08);
+}
+.btn-buy:hover { background: hsl(var(--primary-hover)); }
+.btn-ghost {
+  background: transparent; color: hsl(var(--primary));
+  border-color: hsl(var(--primary) / .35);
+}
+.btn-ghost:hover { background: hsl(var(--primary) / .06); border-color: hsl(var(--primary) / .55); }
+.btn-lg { padding: .9375rem 1.75rem; font-size: 1rem; }
+.btn-note { font-size: .8125rem; color: var(--muted-fg); }
+.contact.buy .buy-price {
+  margin: 0 0 1.125rem; font-size: 1.125rem; color: var(--fg);
+}
+.contact.buy .buy-price strong { font-size: 1.5rem; letter-spacing: -.01em; }
+.contact.buy .btn-lg { margin-bottom: .25rem; }
+@media (max-width: 34rem) {
+  .hero-cta { flex-direction: column; align-items: flex-start; }
+  .btn { width: 100%; }
+}

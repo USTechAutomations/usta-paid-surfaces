@@ -1,30 +1,7 @@
 {
   "id": "crawler",
-  "source": "/home/gmullins/Claude CLI/clocks/closing_web/data/closing_web.db",
-  "held_since": "2026-06-09",
-  "panel_size": 39857,
-  "week_sites_changed": 83,
-  "week_crawler_changes": 519,
-  "verified": {
-    "checked": "2026-08-22",
-    "by": "independent read of the saved robots.txt copies themselves, not the parsed verdict column",
-    "dropped_flapping": 29,
-    "dropped_reason": "their file swings between an old and a new version day to day, which is two servers answering differently, not the site changing its mind",
-    "excerpt_limit": "The saved quote is cut at 8 lines or 400 characters, so it is a real excerpt and not the whole rule.",
-    "do_not_print": "The figure 5,324 robots changes that week does not reproduce on this machine."
-  },
-  "rows": [
-    {"domain": "amarujala.com", "bot": "ClaudeBot", "change": "Disallow: / → Allow: /", "from": "2026-08-19", "to": "2026-08-20", "dir": "opened"},
-    {"domain": "theculturetrip.com", "bot": "PerplexityBot", "change": "Disallow: / → Allow: /", "from": "2026-08-19", "to": "2026-08-20", "dir": "opened"},
-    {"domain": "t3n.de", "bot": "ChatGPT-User", "change": "Disallow: / → four folder rules only", "from": "2026-08-19", "to": "2026-08-20", "dir": "opened"},
-    {"domain": "medscape.org", "bot": "PerplexityBot", "change": "kept Disallow: / but added Allow: /viewarticle/*", "from": "2026-08-20", "to": "2026-08-21", "dir": "opened"},
-    {"domain": "foodnetwork.com", "bot": "GPTBot", "change": "was named with Disallow: / → no longer named at all", "from": "2026-08-20", "to": "2026-08-21", "dir": "dropped"},
-    {"domain": "tlc.com", "bot": "GPTBot", "change": "was named with Disallow: / → no longer named at all", "from": "2026-08-20", "to": "2026-08-21", "dir": "dropped"},
-    {"domain": "hollywoodlife.com", "bot": "GPTBot", "change": "was named with Disallow: / → no longer named at all", "from": "2026-08-06", "to": "2026-08-07", "dir": "dropped"},
-    {"domain": "hermanmiller.com", "bot": "GPTBot", "change": "not named → named with Disallow: /", "from": "2026-08-20", "to": "2026-08-21", "dir": "blocked"},
-    {"domain": "dwr.com", "bot": "GPTBot", "change": "not named → named with Disallow: /", "from": "2026-08-20", "to": "2026-08-21", "dir": "blocked"},
-    {"domain": "metacritic.com", "bot": "OAI-SearchBot", "change": "not named → named with Disallow: /", "from": "2026-08-19", "to": "2026-08-20", "dir": "blocked"},
-    {"domain": "spokesman.com", "bot": "GPTBot", "change": "not named → named with Disallow: /", "from": "2026-08-19", "to": "2026-08-20", "dir": "blocked"},
-    {"domain": "theepochtimes.com", "bot": "53 crawlers at once", "change": "one new block naming 53 crawlers with Disallow: /; ClaudeBot had been Allow: / the day before", "from": "2026-08-19", "to": "2026-08-20", "dir": "blocked"}
-  ]
+  "retired": "2026-08-22",
+  "why": "This file held the numbers that were printed on /feeds/crawler: a panel of 39,857 sites, 83 sites changed, 519 crawler-level changes. They were typed in by hand and none of the three reproduces from the store under any window. The panel has been 100,000 sites a day since the first read on 9 Jun 2026, and no eight-day window in the archive produces 83 or 519. The file already admitted that a fourth number, 5,324, did not reproduce.",
+  "replaced_by": "scripts/slice_crawler.py::family_spec(), which builds the page off the same live read as the child pages under it, in the same run. Nothing about this family is typed twice any more.",
+  "do_not_restore": "Putting counts back in this file puts the same fault back on the page. If a number belongs on /feeds/crawler it has to come out of a query at build time."
 }

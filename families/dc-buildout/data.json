@@ -1,0 +1,94 @@
+{
+  "family": "dc-buildout",
+  "generated": "2026-08-23",
+  "slices": [
+    {
+      "slug": "coverage",
+      "newest": "2026-08-17",
+      "oldest": "2026-06-09",
+      "runs": 11,
+      "row_count": 614,
+      "cadence_days": 7
+    },
+    {
+      "slug": "more-bare-ground",
+      "newest": "2026-08-17",
+      "oldest": "2026-06-09",
+      "runs": 11,
+      "row_count": 259,
+      "cadence_days": 7
+    },
+    {
+      "slug": "less-bare-ground",
+      "newest": "2026-08-17",
+      "oldest": "2026-06-09",
+      "runs": 11,
+      "row_count": 302,
+      "cadence_days": 7
+    },
+    {
+      "slug": "no-change",
+      "newest": "2026-08-17",
+      "oldest": "2026-06-09",
+      "runs": 11,
+      "row_count": 247,
+      "cadence_days": 7
+    },
+    {
+      "slug": "cloud-blocked",
+      "newest": "2026-08-17",
+      "oldest": "2026-06-09",
+      "runs": 11,
+      "row_count": 614,
+      "cadence_days": 7
+    },
+    {
+      "slug": "aws",
+      "newest": "2026-08-17",
+      "oldest": "2026-06-09",
+      "runs": 11,
+      "row_count": 55,
+      "cadence_days": 7
+    },
+    {
+      "slug": "google",
+      "newest": "2026-08-17",
+      "oldest": "2026-06-09",
+      "runs": 11,
+      "row_count": 190,
+      "cadence_days": 7
+    },
+    {
+      "slug": "meta",
+      "newest": "2026-08-17",
+      "oldest": "2026-06-09",
+      "runs": 11,
+      "row_count": 75,
+      "cadence_days": 7
+    },
+    {
+      "slug": "stargate",
+      "newest": "2026-08-17",
+      "oldest": "2026-06-09",
+      "runs": 11,
+      "row_count": 76,
+      "cadence_days": 7
+    },
+    {
+      "slug": "ohio",
+      "newest": "2026-08-17",
+      "oldest": "2026-06-09",
+      "runs": 11,
+      "row_count": 48,
+      "cadence_days": 7
+    },
+    {
+      "slug": "texas",
+      "newest": "2026-08-17",
+      "oldest": "2026-06-09",
+      "runs": 11,
+      "row_count": 165,
+      "cadence_days": 7
+    }
+  ]
+}

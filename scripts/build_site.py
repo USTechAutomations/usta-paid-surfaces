@@ -7,9 +7,15 @@ to write anything if a fact goes missing, so a restyle can never quietly
 delete a number or soften a "sample not ready".
 
 Structure produced:
-    dist/index.html          ->  ustechautomations.com/feeds/
-    dist/<family>/index.html ->  ustechautomations.com/feeds/<family>
-    dist/styles.css          ->  ustechautomations.com/feeds/styles.css
+    dist/index.html                 ->  ustechautomations.com/feeds/
+    dist/<family>/index.html        ->  ustechautomations.com/feeds/<family>
+    dist/<family>/<slug>/index.html ->  ustechautomations.com/feeds/<family>/<slug>
+    dist/<family>/sample.json       ->  ustechautomations.com/feeds/<family>/sample.json
+    dist/styles.css                 ->  ustechautomations.com/feeds/styles.css
+
+Slice pages go through the same gates as their parents. They are the pages a
+stranger lands on from search, so they are the last place a number should be
+allowed to go missing.
 """
 from __future__ import annotations
 
@@ -19,9 +25,16 @@ import shutil
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import family_status  # noqa: E402
+from freshness import check_freshness  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
 CATALOG = json.loads((ROOT / "catalog.json").read_text(encoding="utf-8"))
+# Every address we have ever published. See the comment at the top of the file
+# itself. Nothing is ever taken out of it.
+PUBLISHED = ROOT / "published-addresses.txt"
 
 BASE = "https://ustechautomations.com/feeds"
 GTM_ID = "GTM-KTB2LC8C"
@@ -135,12 +148,20 @@ def facts_of(html: str) -> list[str]:
     return sorted(FACT.findall(visible(html)))
 
 
-def build_page(src: Path, family: str, crumb_label: str | None) -> str:
+def build_page(src: Path, family: str, crumb_label: str | None, path: str | None = None) -> str:
+    """Build one page. `path` is the address it lives at under /feeds.
+
+    A family page's address is just its id, so it is left to default. A slice
+    page passes "<family>/<slug>", which is also how this function knows it is
+    one level deeper and has to rewrite its links from three dots up rather
+    than two.
+    """
     raw = src.read_text(encoding="utf-8")
     out = raw
 
     # --- head: canonical, og:url, stylesheet, robots, GTM ---
-    slug = "" if family == "hub" else f"/{family}"
+    rel = "" if family == "hub" else (path or family)
+    slug = f"/{rel}" if rel else ""
     canon = f"{BASE}{slug}"
     out = re.sub(r'<link rel="canonical" href="[^"]*">', f'<link rel="canonical" href="{canon}">', out)
     out = re.sub(r'<meta property="og:url" content="[^"]*">', f'<meta property="og:url" content="{canon}">', out)
@@ -180,6 +201,18 @@ def build_page(src: Path, family: str, crumb_label: str | None) -> str:
                  lambda _m: FOOTER.format(base=BASE, honest=honest_block), out, count=1)
 
     # --- internal links: relative hub links become absolute /feeds/ links ---
+    if "/" in rel:
+        # A slice page sits one folder deeper than a family page, so on disk its
+        # way back to the hub is three dots up and its way to a sibling slice is
+        # one. Rewrite those first: the family-page rules below would not match
+        # them, and a link left relative would 404 once the page is served from
+        # /feeds/<family>/<slug> instead of the folder it was written in.
+        fam_base = f"{BASE}/{rel.split('/')[0]}"
+        out = re.sub(r'href="\.\./\.\./\.\./"', f'href="{BASE}"', out)
+        out = re.sub(r'href="\.\./\.\./\.\./([a-zA-Z0-9_.-]+)"', rf'href="{BASE}/\1"', out)
+        out = re.sub(r'href="\.\./([a-z0-9-]+)/"', rf'href="{fam_base}/\1"', out)
+        out = re.sub(r'href="\.\./([a-zA-Z0-9_.-]+)"', rf'href="{fam_base}/\1"', out)
+        out = re.sub(r'href="\.\./"', f'href="{fam_base}"', out)
     out = re.sub(r'href="\.\./\.\./families/([a-z0-9-]+)/"', rf'href="{BASE}/\1"', out)
     out = re.sub(r'href="families/([a-z0-9-]+)/"', rf'href="{BASE}/\1"', out)
     out = re.sub(r'href="\.\./\.\./"', f'href="{BASE}"', out)
@@ -215,6 +248,10 @@ def main() -> None:
     # be dead weight that still named the old github.io host.
 
     built = []
+    stopped: list[str] = []
+    # Every id we actually published a page for, with the words its crumb uses.
+    # A slice can only ship under a parent that is really on the site.
+    parents: dict[str, str] = {}
     hub = build_page(ROOT / "index.html", "hub", None)
     (DIST / "index.html").write_text(hub, encoding="utf-8")
     built.append("/feeds/")
@@ -226,10 +263,48 @@ def main() -> None:
             fail(f"missing source page for {fid}")
         crumb = fam["name"]
         page = build_page(src, fid, crumb)
+        # A family page is written by hand, so it cannot notice that its own
+        # source stopped being read. The child pages compute that sentence every
+        # build; this gives the parent the same protection. It is added here
+        # rather than typed into the page so it goes away by itself the day the
+        # reader starts again.
+        st = family_status.status(fid)
+        # A collector we switched off is a different problem from a collector
+        # that is late, and the late test cannot see it: the day after we turn
+        # one off its newest copy is a day old and everything looks fine. The
+        # catalog row is where that decision is recorded, so the page says it
+        # out loud on every build, with the dates read out of the store.
+        # Put the same two freshness tags on the parent that every child page
+        # carries. Without them the freshness gate skips family pages entirely
+        # -- it reads a page with no data-newest as "not a data page" -- so the
+        # priced front page of a feed was the one page in the estate nothing
+        # checked. Read from the store, never typed, and left off a family that
+        # has no store at all rather than guessed at.
+        if st and isinstance(st.get("newest"), str) and st.get("cadence_days"):
+            page = page.replace(
+                '<link rel="canonical"',
+                f'<meta name="data-newest" content="{st["newest"]}">\n'
+                f'  <meta name="data-cadence-days" content="{st["cadence_days"]}">\n'
+                f'  <link rel="canonical"', 1,
+            )
+        closed = fam.get("closed")
+        if st and closed:
+            page = page.replace(
+                '<main id="main">',
+                family_status.closed_notice(st, closed) + '\n\n<main id="main">', 1,
+            )
+            stopped.append(f'{fid} (closed, last copy {st["newest"]})')
+        elif st and st["stopped"]:
+            page = page.replace(
+                '<main id="main">',
+                family_status.notice(st) + '\n\n<main id="main">', 1,
+            )
+            stopped.append(f'{fid} (newest {st["newest"]}, {st["age_days"]}d)')
         outdir = DIST / fid
         outdir.mkdir(parents=True)
         (outdir / "index.html").write_text(page, encoding="utf-8")
         built.append(f"/feeds/{fid}")
+        parents[fid] = crumb
 
     # The two bridge pages carry no sample and no catalog row, but they ship in
     # the same folder and go in the same sitemap.
@@ -245,20 +320,64 @@ def main() -> None:
             outdir.mkdir(parents=True)
             (outdir / "index.html").write_text(page, encoding="utf-8")
             built.append(f"/feeds/{eid}")
+            parents[eid] = e["short"]
+
+    # --- slice pages: /feeds/<family>/<slug> ---
+    # These are written by scripts/build_slices.py out of the sealed databases.
+    # They get exactly the gates their parents get: the same fact check, the same
+    # honesty check, the same link rewriting. Nothing here is a lighter path.
+    for fam_dir in sorted((ROOT / "families").iterdir()):
+        if not fam_dir.is_dir():
+            continue
+        fid = fam_dir.name
+        slice_dirs = [d for d in sorted(fam_dir.iterdir()) if d.is_dir() and (d / "index.html").is_file()]
+        if not slice_dirs:
+            continue
+        if fid not in parents:
+            fail(
+                f"{fid} has child pages but no page of its own on the site. "
+                f"If it is a new family, run scripts/merge_catalog_adds.py and build its family page first."
+            )
+        for d in slice_dirs:
+            src = d / "index.html"
+            name = re.search(r'<meta name="data-slice-name" content="([^"]*)">', src.read_text(encoding="utf-8"))
+            if not name:
+                fail(f"{fid}/{d.name} has no data-slice-name; rebuild it with scripts/build_slices.py")
+            crumb = f'<a href="{BASE}/{fid}">{parents[fid]}</a><span class="sep">/</span>{name.group(1)}'
+            page = build_page(src, fid, crumb, path=f"{fid}/{d.name}")
+            outdir = DIST / fid / d.name
+            outdir.mkdir(parents=True, exist_ok=True)
+            (outdir / "index.html").write_text(page, encoding="utf-8")
+            built.append(f"/feeds/{fid}/{d.name}")
+        # The two permanent sample addresses ride along with the pages they came from.
+        for name in ("sample.json", "sample.csv"):
+            f = fam_dir / name
+            if f.is_file():
+                shutil.copy2(f, DIST / fid / name)
 
     # sitemap for the new prefix
-    urls = "".join(
-        f"<url><loc>{BASE}</loc></url>" if p == "/feeds/" else f"<url><loc>{BASE}/{p.split('/')[-1]}</loc></url>"
-        for p in built
-    )
+    # Every published address, whole. Taking the last path segment used to turn
+    # /feeds/grid/minnesota into /feeds/minnesota, which is not a page we serve.
+    urls = ""
+    for p in built:
+        rel = p[len("/feeds/"):].strip("/") if p.startswith("/feeds/") else p.strip("/")
+        urls += f"<url><loc>{BASE}</loc></url>" if not rel else f"<url><loc>{BASE}/{rel}</loc></url>"
     (DIST / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + urls + "</urlset>",
         encoding="utf-8",
     )
     print(f"built {len(built)} pages into {DIST}")
+    if stopped:
+        # Loud on purpose. Four feeds we take money for had a switched-off
+        # reader on 2026-08-22 and nothing on the site said so.
+        print(f"paused sources, and the family page now says so: {'; '.join(stopped)}")
     for p in built:
         print("  ", p)
+
+    # A page that stopped being fed must say so. This is the last gate because it
+    # reads the built pages, not the sources: it proves what would go live.
+    check_freshness(DIST)
 
 
 if __name__ == "__main__":

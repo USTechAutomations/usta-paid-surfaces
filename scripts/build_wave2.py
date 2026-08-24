@@ -8,7 +8,9 @@ from __future__ import annotations
 
 import html
 import json
+import sqlite3
 import sys
+from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -25,6 +27,93 @@ def d(iso: str) -> str:
     return f"{int(day)} {months[int(m) - 1]} {y}"
 
 
+# The store the TTB pages are sealed from. Opened read-only, never written.
+TTB_DB = Path("/home/gmullins/Claude CLI/clocks/ttb_permits/data/ttb_permits.db")
+
+
+def _ttb_seals() -> list[str]:
+    """Every date we actually sealed a copy of the TTB permit list, oldest first.
+
+    Read live out of the store on every build. The alternative -- typing the
+    dates in here -- is the exact failure that took the crawler family page off
+    this file: a typed number keeps making its promise long after it stops
+    being true. If the store cannot be read we return nothing, and the sentence
+    below says nothing about how often the file changes, which is the only
+    honest thing to say when we have not looked.
+    """
+    try:
+        con = sqlite3.connect(f"file://{TTB_DB}?mode=ro", uri=True)
+    except sqlite3.Error:
+        return []
+    try:
+        rows = con.execute(
+            "SELECT DISTINCT snapshot_date FROM permit ORDER BY snapshot_date").fetchall()
+    except sqlite3.Error:
+        return []
+    finally:
+        con.close()
+    return [r[0] for r in rows]
+
+
+def _plain_list(items: list[str]) -> str:
+    """1, 2 and 3 -- so the sentence reads like a person wrote it."""
+    if len(items) == 1:
+        return items[0]
+    return ", ".join(items[:-1]) + " and " + items[-1]
+
+
+def _count_word(n: int) -> str:
+    """Small counts spelled out, so no sentence on the page opens with a digit."""
+    words = "zero one two three four five six seven eight nine".split()
+    return words[n].capitalize() if n < len(words) else f"{n:,}"
+
+
+def _ttb_rhythm() -> str:
+    """What is true about how often this file changes, and nothing more.
+
+    A cadence asserted on a page is not decoration: scripts/family_status.py
+    holds a written-down gap for every family and compares it against the store
+    on every run. Assert a rhythm the source does not keep and a healthy page
+    cries wolf, or a late one stays quiet. The 19 child pages under this family
+    already say the weekly figure is a promise rather than a measurement. This
+    is the same sentence, with the gaps we can actually count in it, so the
+    parent cannot drift away from its own children again.
+    """
+    seals = _ttb_seals()
+    # Word for word what all 19 child pages under this family already say. The
+    # parent is the page that dropped it, so it gets the children's sentence
+    # rather than a paraphrase of it.
+    promise = ("The weekly figure on this page is what we promise to send you, "
+               "not a rhythm we measured.")
+    if len(seals) < 3:
+        return ("<p><strong>We have not read this file enough times to say how often it "
+                f"changes</strong>, so this page does not claim a rhythm. {promise}</p>")
+    gaps = [(date.fromisoformat(b) - date.fromisoformat(a)).days
+            for a, b in zip(seals, seals[1:])]
+    days = _plain_list([f"{g} days" if g != 1 else "1 day" for g in gaps])
+    seven = "" if 7 in gaps else " Not one of them was 7."
+    return (f"<p><strong>We have read this file {len(seals)} times: "
+            f"{_plain_list([d(x) for x in seals])}.</strong> "
+            f"The gaps between those reads were {days}.{seven} "
+            f"{_count_word(len(gaps))} gaps are not enough to know how often the file changes, so we "
+            f"do not claim a rhythm for it. {promise}</p>")
+
+
+def _none_or(n: int) -> str:
+    """Say "Not one" rather than "0" when the count is zero."""
+    return "Not one" if n == 0 else f"{n:,}"
+
+
+def _twice_words(n: int) -> str:
+    """The sentence about cases that moved more than once, or nothing at all."""
+    if not n:
+        return ""
+    one = n == 1
+    return (f"{'One case' if one else f'{n:,} cases'} moved twice, and "
+            f"{'both times it' if one else 'every time they'} moved to a status "
+            f"{'it had' if one else 'they had'} not held before. ")
+
+
 def mesa_code() -> dict:
     """Mesa code compliance.
 
@@ -32,6 +121,14 @@ def mesa_code() -> dict:
     rejected the words around the other two numbers: 751 is cases that entered the
     watchlist (469 were opened in the window) and 48 is cases that left it, which
     is not the same as cases that closed. The page says the re-counted thing.
+
+    A second re-count on 23 Aug 2026 rejected the words around a third number.
+    The sample carried status_changed_reverted: 1 and the page printed "only 1 of
+    those 415 ever moved back". Walking every seal between 2026-07-22 and
+    2026-08-21 for exactly those 415 cases, NONE returns to a status it had
+    already left. The 1 was a case that moved twice (COD25-04204: Citation Issued
+    -> In Violation -> Closed), both times to a status it had not held. The field
+    is now status_changed_reverted: 0 with status_changed_twice: 1 beside it.
     """
     j = S("mesa-code")
     v = j["verified"]
@@ -59,9 +156,11 @@ def mesa_code() -> dict:
             )
             + f"\n      <p>Twelve of {v['status_changed']:,} shown. The file you buy carries all of them.</p>\n"
             '      <div class="honest">\n'
-            f"        <p><strong>Only {v['status_changed_reverted']} of those {v['status_changed']:,} ever moved "
-            "back.</strong> That matters: a detector that is really picking up noise produces a lot of changes "
-            "that undo themselves the next time you look. This one does not. On the "
+            f"        <p><strong>{_none_or(v['status_changed_reverted'])} of those "
+            f"{v['status_changed']:,} ever moved back to a status it had already left.</strong> That "
+            "matters: a detector that is really picking up noise produces a lot of changes that undo "
+            "themselves the next time you look. This one does not. "
+            f"{_twice_words(v['status_changed_twice'])}On the "
             f"{v['quiet_days_correct']} days when Mesa&rsquo;s download was identical to the day before, it "
             "reported no changes at all, which is the answer it should give.</p>\n"
             "      </div>",
@@ -187,8 +286,8 @@ def ttb() -> dict:
             f'{frm} vs {to} · {j["appeared_count"]} permits appeared, {j["gone_count"]} disappeared',
             "      <p>The TTB publishes the permit list as it stands today and overwrites the last one. "
             "Once that happens, the live file cannot tell you which permits are new or which stopped being "
-            "listed, because the earlier week no longer exists anywhere you can reach. "
-            "<strong>We keep both weeks.</strong></p>\n"
+            "listed, because the earlier copy no longer exists anywhere you can reach. "
+            "<strong>We keep the earlier copies.</strong></p>\n"
             + table(
                 ["Permit", "Business", "Where", "Industry"],
                 app,
@@ -219,10 +318,10 @@ def ttb() -> dict:
         section(
             "Doing this yourself",
             None,
-            "      <p>The TTB publishes the permit list as it stands today and replaces it. To get appears and disappears you would have to download the national file every week, keep every old copy, and cut it down to your state yourself.</p>\n      <p>Miss a week and the permits that came and went inside it never show up in any later file.</p>",
+            "      <p>The TTB publishes the permit list as it stands today and replaces it. To get appears and disappears you would have to download the national file over and over, keep every old copy, and cut it down to your state yourself.</p>\n      <p>Miss one download and the permits that came and went between it and the next one never show up in any later file.</p>",
         ),
         section(
-            "What you get each week",
+            "What you get in each file",
             None,
             '      <ul class="spec">\n'
             "        <li><strong>Every permit that appeared, and every permit that stopped being listed</strong>"
@@ -241,7 +340,8 @@ def ttb() -> dict:
             "        <li>We send a checkout link in that thread.</li>\n"
             "        <li>Each week a person emails you the appear / disappear file, and names anything we "
             "could not collect.</li>\n"
-            "      </ol>",
+            "      </ol>\n"
+            '      <div class="honest">\n        ' + _ttb_rhythm() + "\n      </div>",
         ),
     ]
     return {
@@ -249,25 +349,25 @@ def ttb() -> dict:
         "id": "ttb",
         "ready": True,
         "group": "Other dated records",
-        "cadence": "Weekly",
-        "cadence_long": "Weekly file",
+        "cadence": "Weekly by email",
+        "cadence_long": "A person emails it weekly",
         "crumb": "TTB appear / disappear",
         "h1": "TTB appear / disappear list",
-        "price": "$349/mo",
+        "price": "$99/mo",
         "buyer": "Beverage compliance and wholesaler operations",
         "desc": (
             f"Named US alcohol permits that appeared or stopped being listed between {frm} and {to}. "
-            f'{j["appeared_count"]} appeared, {j["gone_count"]} gone. $349/mo. Email operations@.'
+            f'{j["appeared_count"]} appeared, {j["gone_count"]} gone. $99/mo. Email operations@.'
         ),
-        "lede": "Each week the newest TTB permit list overwrites the last one. <strong>We keep both, so you "
-        "get the permits that appeared and the ones that stopped being listed</strong>, for one state or "
-        "territory you name.",
+        "lede": "Every time the TTB publishes the permit list, the new one overwrites the last. "
+        "<strong>We keep the old copies, so you get the permits that appeared and the ones that stopped "
+        "being listed</strong>, for one state or territory you name.",
         "pill_label": "Named permits on this page",
-        "subj": "TTB%20weekly%20list%20%24349/mo",
+        "subj": "TTB%20list%20%2499/mo",
         "contact_h2": "Start the thread",
         "contact_p": "Say which state or territory you follow. We send a checkout link in that thread. "
-        "A person still emails the weekly file.",
-        "contact_cta": "Email us for the $349/mo checkout link",
+        "A person still emails the file.",
+        "contact_cta": "Email us for the $99/mo checkout link",
         "contact_note": "We will tell you which weeks we hold for your state before you pay.",
         "foot": "Every permit number on this page comes from two dated copies we sealed ourselves. Where our "
         "copy has no business name, the row says so rather than leaving a quiet gap.",
@@ -413,140 +513,26 @@ def new_entities() -> dict:
     }
 
 
-def crawler() -> dict:
-    """AI-crawler policy changes.
-
-    Rows were checked on 22 Aug 2026 by reading the saved robots.txt copies
-    themselves. The parsed verdict column in the collector cannot be trusted for
-    "was this crawler named", so it was not used to build a single row here.
-    """
-    j = S("crawler")
-    v = j["verified"]
-    LABEL = {
-        "opened": "let in",
-        "dropped": "stopped being named",
-        "blocked": "shut out",
-    }
-    rows = [
-        (
-            esc(r["domain"]),
-            esc(r["bot"]),
-            esc(r["change"]).replace("→", "&rarr;"),
-            f'{d(r["from"])} &rarr; {d(r["to"])}',
-        )
-        for r in j["rows"]
-    ]
-    opened = sum(1 for r in j["rows"] if r["dir"] == "opened")
-    blocked = sum(1 for r in j["rows"] if r["dir"] == "blocked")
-    dropped = sum(1 for r in j["rows"] if r["dir"] == "dropped")
-    secs = [
-        section(
-            "Public sample",
-            f'12 named sites · {j["week_sites_changed"]} sites changed their answer that week',
-            "      <p>A site rewrites <code>robots.txt</code> whenever it likes and keeps no history of it. "
-            "The file you fetch today is the only one there is, so the rule that applied to your crawler last "
-            "week is not recoverable from the site. <strong>We save a copy of each file every day.</strong></p>\n"
-            + table(
-                ["Site", "Crawler", "What the file now says", "Between"],
-                rows,
-                "Named sites that changed their answer to an AI crawler",
-                "Aug 2026",
-                moved_col=2,
-            )
-            + f"\n      <p>{opened} of these let a crawler in, {blocked} shut one out, and {dropped} stopped "
-            "naming it at all &mdash; which is not the same thing, and is the case people most often get "
-            "wrong.</p>",
-        ),
-        section(
-            "The two worth reading twice",
-            None,
-            "      <p><strong>amarujala.com and theculturetrip.com</strong> are the clean ones. The crawler is "
-            "named on both days and the single word under it flips from block to allow. There is nothing to "
-            "interpret.</p>\n"
-            "      <p><strong>theepochtimes.com</strong> is the biggest single move in the sample. On 20 August "
-            "they added one block naming 53 crawlers and blocked all of them. The day before, one of those "
-            "crawlers was explicitly allowed.</p>",
-        ),
-        section(
-            "The size of the panel, and the honest count",
-            None,
-            f"      <p>We read <strong>{j['panel_size']:,} sites</strong> every day and have kept every copy "
-            f"since {d(j['held_since'])}. In the week the sample comes from, "
-            f"<strong>{j['week_sites_changed']} sites</strong> genuinely changed their answer to an AI crawler, "
-            f"across <strong>{j['week_crawler_changes']} crawler-level changes</strong>.</p>\n"
-            '      <div class="honest">\n'
-            f"        <p><strong>{v['dropped_flapping']} more sites were thrown out of this sample on purpose.</strong> "
-            f"Their file {v['dropped_reason']}. Counting those as changes would inflate the number and every one "
-            "of them would be a false alarm in your inbox.</p>\n"
-            f"        <p><strong>The quote we store is an excerpt.</strong> {esc(v['excerpt_limit'])} Where you "
-            "need the whole block, we go back to the saved copy and send it.</p>\n"
-            "      </div>",
-        ),
-        section(
-            "Doing this yourself",
-            None,
-            "      <p>You can fetch any site&rsquo;s <code>robots.txt</code> yourself in a second. What you "
-            "cannot do is fetch yesterday&rsquo;s. Nothing about that file is versioned, announced or "
-            "archived.</p>\n"
-            "      <p>To watch a panel this size you would have to fetch tens of thousands of files every day, "
-            "store every copy, and then work out which differences are a real policy change and which are two "
-            "of the site&rsquo;s servers disagreeing. That last part is most of the work.</p>",
-        ),
-        section(
-            "What you get",
-            None,
-            '      <ul class="spec">\n'
-            "        <li><strong>Every site in your list that changed its answer</strong>"
-            '<span class="sub">Site, crawler, what it said before, what it says now, and both dates.</span></li>\n'
-            "        <li><strong>Sites that flap between two versions are held back, not sent</strong>"
-            '<span class="sub">You get changes, not noise.</span></li>\n'
-            "        <li><strong>The saved copy behind any row, on request</strong>"
-            '<span class="sub">So you can read the whole rule, not just the excerpt.</span></li>\n'
-            "        <li><strong>Cancel any month by email</strong>"
-            '<span class="sub">No account to close, no notice period.</span></li>\n'
-            "      </ul>",
-        ),
-        section(
-            "How it works",
-            None,
-            '      <ol class="steps">\n'
-            "        <li>You email us the sites you care about, or ask for the whole panel.</li>\n"
-            "        <li>We tell you which of them we already hold and since when, then send a checkout link "
-            "in that thread.</li>\n"
-            "        <li>A person emails you the changes file, and names anything we could not collect.</li>\n"
-            "      </ol>",
-        ),
-    ]
-    return {
-        "sections": secs,
-        "id": "crawler",
-        "ready": True,
-        "group": "Software and AI pages",
-        "cadence": "Daily seals",
-        "cadence_long": "Daily copies, changes file when something moves",
-        "crumb": "AI-crawler policy changes",
-        "h1": "AI-crawler policy changes",
-        "price": "$175/mo",
-        "buyer": "Publishers and the SEO and AI teams who need to know who got blocked",
-        "desc": (
-            "Named sites that changed their robots.txt answer to an AI crawler in August 2026, with both "
-            "dates and what the file said before and after. $175/mo. Email operations@."
-        ),
-        "lede": "Sites rewrite <code>robots.txt</code> with no notice and keep no history. "
-        "<strong>We save a copy of every file every day, so you get the day a site let a crawler in or shut "
-        "one out.</strong>",
-        "pill_label": "Named sites on this page",
-        "subj": "AI-crawler%20policy%20changes%20%24175/mo",
-        "contact_h2": "Start the thread",
-        "contact_p": "Send the list of sites you follow. We send a checkout link in that thread. A person "
-        "still emails the file.",
-        "contact_cta": "Email us for the $175/mo checkout link",
-        "contact_note": "We will tell you which of your sites we already hold, and since when, before you pay.",
-        "foot": "Every row on this page was read out of the saved robots.txt copies themselves. Sites whose "
-        "file swings between two versions were taken out and counted separately rather than sold as changes.",
-    }
-
+# The crawler family page is NOT built here any more, and this is the whole
+# reason the rest of this file is worth reading carefully.
+#
+# It used to be. crawler() read samples/crawler.json -- a file of numbers typed
+# in by hand -- and printed them on /feeds/crawler as "we read 39,857 sites
+# every day" and "83 sites changed, across 519 crawler-level changes". None of
+# those three numbers reproduces from the store under any window anybody has
+# tried: the panel has been 100,000 sites a day since the first read on
+# 9 Jun 2026, and no eight-day window in the archive produces 83 or 519. The
+# same file already carried a note that a fourth number, 5,324, did not
+# reproduce either, which should have been the end of it.
+#
+# A typed number cannot go stale politely. It keeps making the promise long
+# after the promise stops being true, which is the one failure this shop exists
+# to sell against.
+#
+# So that page is now built by scripts/slice_crawler.py::family_spec(), off the
+# same live read as the child pages under it, in the same run. If you are
+# adding a family here, ask first whether it can have a slice module instead.
 
 if __name__ == "__main__":
-    for spec in (ttb(), mesa_code(), new_entities(), crawler()):
+    for spec in (ttb(), mesa_code(), new_entities()):
         print(write(spec))

@@ -1,0 +1,46 @@
+{
+  "family": "air-permits",
+  "generated": "2026-08-23",
+  "slices": [
+    {
+      "slug": "texas-new",
+      "newest": "2026-08-23",
+      "oldest": "2026-07-10",
+      "runs": 38,
+      "row_count": 18507,
+      "cadence_days": 1
+    },
+    {
+      "slug": "texas-moved",
+      "newest": "2026-08-23",
+      "oldest": "2026-07-10",
+      "runs": 38,
+      "row_count": 18507,
+      "cadence_days": 1
+    },
+    {
+      "slug": "data-centers",
+      "newest": "2026-08-23",
+      "oldest": "2026-07-10",
+      "runs": 38,
+      "row_count": 227,
+      "cadence_days": 1
+    },
+    {
+      "slug": "arizona-air",
+      "newest": "2026-08-13",
+      "oldest": "2026-07-10",
+      "runs": 33,
+      "row_count": 2723,
+      "cadence_days": 1
+    },
+    {
+      "slug": "coverage",
+      "newest": "2026-08-13",
+      "oldest": "2026-07-10",
+      "runs": 71,
+      "row_count": 21230,
+      "cadence_days": 1
+    }
+  ]
+}

@@ -16,5 +16,32 @@
     "cadence": "one-time builds",
     "pill": "Live",
     "pill_class": "pill-ready"
+  },
+  {
+    "id": "coverage",
+    "short": "Everything we hold",
+    "who": "Anyone deciding whether we hold the record they need, before they ask about price",
+    "amount": "Free",
+    "cadence": "rebuilt daily",
+    "pill": "Counted today",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "what-we-dont-collect",
+    "short": "What we refuse to collect",
+    "who": "Anyone who wants to know what we turn down and why, in writing",
+    "amount": "Free",
+    "cadence": "rebuilt daily",
+    "pill": "Counted today",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "how-we-seal",
+    "short": "How a sealed copy works",
+    "who": "Anyone who needs to show a third party that a dated copy is what it says it is",
+    "amount": "Free",
+    "cadence": "rebuilt daily",
+    "pill": "Worked example",
+    "pill_class": "pill-ready"
   }
 ]
