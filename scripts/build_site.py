@@ -117,6 +117,44 @@ def fail(msg: str) -> None:
     raise SystemExit(1)
 
 
+def relit_on(fid: str) -> str | None:
+    """The date a dated decision turned this family's collector back on, if one did.
+
+    A "closed" note in the catalog is a sentence somebody typed about a decision
+    we made. The decision itself is a dated record on disk, and a later record
+    supersedes an earlier one. When the two disagree the typed sentence is the
+    one that is wrong, because nothing rewrites it when the decision changes.
+
+    On 2026-08-23 the operator wrote a RELIT decision for the earthquake
+    collector and switched the timer back on. The child pages noticed the same
+    day, because they read the decision record on every build. The family page
+    did not, because it was carrying a catalog note typed two days earlier, and
+    for the rest of that day the priced front page of that feed told buyers the
+    archive was finished and no newer copy was coming while the collector was
+    saving 327 rows a night. That is the worst kind of wrong we can be: it is
+    the sentence that makes somebody buy today rather than wait.
+
+    So the two are compared on every build now. Returning a date here does not
+    soften the notice -- it stops the build and names the file to fix.
+
+    An unreadable record returns None, which leaves the catalog note standing.
+    That is the safe way round: claiming an archive is closed when it is running
+    understates what a buyer gets, and the freshness gate still catches a page
+    that has gone stale while claiming to be live.
+    """
+    try:
+        from slice_about import stop_decisions  # noqa: PLC0415
+        clock = family_status.SOURCES.get(fid, (None,))[0]
+        if not clock:
+            return None
+        rec = stop_decisions().get(clock) or {}
+        if rec.get("decision") == "RELIT":
+            return rec.get("decided_on")
+    except Exception:
+        return None
+    return None
+
+
 def visible(html: str) -> str:
     html = re.sub(r"(?is)<script[^>]*>.*?</script>", " ", html)
     html = re.sub(r"(?is)<style[^>]*>.*?</style>", " ", html)
@@ -337,6 +375,142 @@ def build_page(src: Path, family: str, crumb_label: str | None, path: str | None
     return out
 
 
+RETIRED_HTML = """<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <title>This page is retired &mdash; US Tech Automations feeds</title>
+  <meta name="description" content="This address used to hold a page in the {crumb} feed. It has nothing to show now, and nothing is for sale on it.">
+  <link rel="canonical" href="{base}/{addr}">
+  <link rel="stylesheet" href="{base}/styles.css">
+  <meta name="theme-color" content="#0d0f13">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="US Tech Automations">
+  <meta property="og:url" content="{base}/{addr}">
+  <meta property="og:title" content="This page is retired">
+  <meta property="og:description" content="This address used to hold a page in the {crumb} feed. It has nothing to show now, and nothing is for sale on it.">
+  <meta name="twitter:card" content="summary">
+</head>
+<body data-family="{family}">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap"></div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+    <section class="group">
+      <h1>This page is retired</h1>
+      <p>There used to be a page at this address, in the {crumb} feed. There is
+      nothing to show here now, and there is nothing for sale on this page.</p>
+      <p>A page in this shop is generated from the dated copies we hold. When
+      what we hold for one slice falls below the floor we set for it, the page
+      stops being generated rather than being padded out with rows we do not
+      have. That is what happened here.</p>
+      <p>We do not delete addresses, because other people have bookmarked them
+      and search engines have recorded them. So this address keeps answering and
+      tells you the truth instead of a not-found error.</p>
+      <p><a href="{parent}">{crumb}</a> is the page this one belonged to, and it
+      says what we hold today. <a href="{base}">Every feed we publish</a> is on
+      the front page.</p>
+    </section>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>Nothing on this page is for sale and no number on it is a claim. It exists
+    so an address we once published still answers.</p>
+  </div>
+</footer>
+</body>
+</html>
+"""
+
+
+def write_retired(built: list[str]) -> list[str]:
+    """Keep the promise published-addresses.txt makes, in code.
+
+    That file says, in its own header: "We never delete a page ... build_site.py
+    reads this list, and for any address it did not build this run it writes a
+    page that says plainly it has nothing to show and sells nothing."
+
+    No such code existed. The constant naming the file was defined at the top of
+    this module and never read again, so the sentence was a promise with nothing
+    behind it, and on 2026-08-23 four addresses that had been published for days
+    -- two TTB state slices and two new-entity city slices -- answered 404 on the
+    live site. Two of them belonged to a feed we charge for, so a buyer who had
+    bookmarked their state got a not-found page.
+
+    Nothing caught it, either: the live probe reads the published sitemap to
+    decide what to check, and an address the build stopped generating is not in
+    the sitemap. It reported "0 not answering" the same evening.
+
+    Two halves, and both are needed:
+
+      * anything on the list we did not build gets a retired page, so the
+        address answers;
+      * anything we built that is not on the list is added to it, so the same
+        protection reaches a page the day after it is first published. Eighteen
+        pages built by other people today were in exactly that position.
+
+    The retired pages are deliberately NOT put in the sitemap. The promise is
+    that the address answers, not that a search engine should index a page with
+    nothing on it. They carry noindex,follow for the same reason.
+
+    The list is only ever added to. Nothing here removes a line from it.
+    """
+    if not PUBLISHED.is_file():
+        fail(
+            f"{PUBLISHED.name} is missing, so this build cannot tell which addresses we have "
+            f"published before. Restore it from git before building: without it every retired "
+            f"address silently starts answering 404."
+        )
+    lines = PUBLISHED.read_text(encoding="utf-8").splitlines()
+    listed = {ln.strip() for ln in lines if ln.strip() and not ln.lstrip().startswith("#")}
+    made = {p[len("/feeds/"):].strip("/") for p in built if p.startswith("/feeds/")}
+    made.discard("")
+
+    retired = []
+    for addr in sorted(listed - made):
+        family = addr.split("/")[0]
+        crumb_name = next((f["name"] for f in CATALOG["families"] if f["id"] == family), family)
+        page = RETIRED_HTML.format(
+            base=BASE, addr=addr, family=family, crumb=crumb_name,
+            parent=f"{BASE}/{family}",
+        )
+        outdir = DIST / addr
+        if (outdir / "index.html").is_file():
+            fail(f"{addr} was built this run and is also being retired; that cannot both be true")
+        outdir.mkdir(parents=True, exist_ok=True)
+        dest = outdir / "index.html"
+        # Written, then put through build_page like every other page in the
+        # estate, so it gets the real masthead, the real footer and the same
+        # link and leak checks. A retired page on a different code path would be
+        # the one page here nothing inspects.
+        dest.write_text(page, encoding="utf-8")
+        crumb = (f'<a href="{BASE}/{family}">{crumb_name}</a>'
+                 f'<span class="sep">/</span>retired') if "/" in addr else "retired"
+        dest.write_text(build_page(dest, family, crumb, path=addr), encoding="utf-8")
+        retired.append(addr)
+
+    # Re-read immediately before writing rather than reusing the copy above:
+    # another build may have added a line while this one was rendering pages,
+    # and this file is only ever appended to, never rewritten from memory.
+    fresh = PUBLISHED.read_text(encoding="utf-8").splitlines()
+    known = {ln.strip() for ln in fresh if ln.strip() and not ln.lstrip().startswith("#")}
+    added = sorted(made - known)
+    if added:
+        head = [ln for ln in fresh if ln.lstrip().startswith("#")]
+        body = sorted(known | set(added))
+        PUBLISHED.write_text("\n".join(head + body) + "\n", encoding="utf-8")
+        print(f"published-addresses.txt: {len(added)} new address(es) recorded, none removed")
+    return retired
+
+
 def check_one_home() -> None:
     """Every page is built from exactly one list, and this says which one first.
 
@@ -436,6 +610,18 @@ def main() -> None:
                 f'  <link rel="canonical"', 1,
             )
         closed = fam.get("closed")
+        # A typed "this is finished" cannot outlive a dated decision that says
+        # we started reading again. See relit_on() for the day this went wrong.
+        if closed:
+            relit = relit_on(fid)
+            if relit:
+                fail(
+                    f"{fid} carries a closed note in catalog.json saying the collector is "
+                    f"switched off, but the newest dated decision for its collector is RELIT "
+                    f"on {relit}. One of the two is wrong and the page must not go out until "
+                    f"it is settled. If reading really did start again, take the closed note "
+                    f"out of the catalog row; if it did not, write a newer dated decision."
+                )
         if st and closed:
             page = page.replace(
                 '<main id="main">',
@@ -503,6 +689,11 @@ def main() -> None:
             if f.is_file():
                 shutil.copy2(f, DIST / fid / name)
 
+    # An address we published before and did not build this run still has to
+    # answer. See write_retired(): the file that promises this had no code
+    # behind it, and four live addresses were 404ing when it was found.
+    retired = write_retired(built)
+
     # sitemap for the new prefix
     # Every published address, whole. Taking the last path segment used to turn
     # /feeds/grid/minnesota into /feeds/minnesota, which is not a page we serve.
@@ -543,6 +734,9 @@ def main() -> None:
         encoding="utf-8",
     )
     print(f"built {len(built)} pages into {DIST}")
+    if retired:
+        print(f"retired {len(retired)} address(es) kept answering, out of the sitemap: "
+              + ", ".join(retired))
     print(f"sitemap: {len(built)} addresses, {dated} carrying a real lastmod, "
           f"{len(built) - dated} deliberately without one")
     if stopped:

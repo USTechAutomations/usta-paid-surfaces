@@ -104,6 +104,7 @@ from pathlib import Path
 from typing import Any, Callable, NamedTuple
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from merge_catalog_adds import family_rows  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
@@ -292,8 +293,17 @@ def surfaces() -> list[Surface]:
       bridge  a page that explains the shop rather than selling a feed
       build   priced in the catalog, built by extras.json (families/offers/)
     """
-    cat = read_json(ROOT / "catalog.json")
-    fams = {f["id"]: f for f in cat["families"]}
+    # family_rows() is catalog.json PLUS any catalog-add-<id>.json fragment that
+    # has not been merged yet. Reading catalog.json alone here would have made a
+    # new feed invisible to this whole file on the day it was built: no stage,
+    # no refusal, no line in the report, and --gate would answer "there is no
+    # surface called that" for a page sitting on disk with real rows on it. One
+    # agent owns catalog.json, so every new family in this estate spends its
+    # first hours as a fragment. A pipeline that cannot see a surface during the
+    # only window where somebody is actively changing it is a pipeline that
+    # measures the settled and misses the moving -- the exact blind spot the
+    # docstring above says this function exists to close.
+    fams = dict(family_rows())
     extras = {}
     if (ROOT / "extras.json").is_file():
         extras = {e["id"]: e for e in read_json(ROOT / "extras.json")}
@@ -569,9 +579,30 @@ def g_lawful(s: Surface, today: dt.date) -> Result:
                       {"position": "unknown", "unattributed": loose})
 
     host = notes.get(HOST_WIDE)
-    refused, missing, lapsed, allowed, by_host = [], [], [], [], []
+    refused, missing, lapsed, allowed, by_host, by_variant = [], [], [], [], [], []
     for sid in sorted(read):
         note = notes.get(sid)
+        if not note:
+            # A reader may stamp its rows with the source id it was given PLUS
+            # the variant it fetched -- usaspending_obligations files one note
+            # per agency-and-position (075:current) and then writes the budget
+            # year it actually asked for onto the row (075:current:2026). The
+            # note is the note for that source; the extra field is which call it
+            # was. Read only the exact key and 36 sources with a real ALLOW note
+            # on disk come back as "no written note", which is a false negative
+            # in the one direction that matters -- it makes an unread source and
+            # a fully cleared one look identical.
+            #
+            # Deliberately narrow. The row id must begin with the note's id
+            # followed by a colon, and exactly one note may match: two candidate
+            # notes means we cannot say which decision applies, so the answer
+            # stays "no note" and the surface stays unknown. A REFUSE note found
+            # this way still refuses; this widens which note is FOUND, never
+            # what a note is allowed to say.
+            hits = [k for k in notes if k != HOST_WIDE and sid.startswith(k + ":")]
+            if len(hits) == 1:
+                note = notes[hits[0]]
+                by_variant.append(f"{sid} (note filed as {hits[0]})")
         if not note and host:
             # Covered by the origin-wide note rather than by a note of its own.
             # Recorded separately so the evidence never claims more checking
@@ -595,6 +626,7 @@ def g_lawful(s: Surface, today: dt.date) -> Result:
     ev = {"store": store, "read_now": sorted(read), "allowed": allowed,
           "refused": refused, "no_note": missing, "lapsed": lapsed,
           "unattributed": loose, "covered_by_host_note": by_host,
+          "matched_by_variant": by_variant,
           "host_note": (host or {}).get("_file")}
     if refused:
         ev["position"] = "refused"
@@ -611,6 +643,9 @@ def g_lawful(s: Surface, today: dt.date) -> Result:
         return Result(UNKNOWN, "; ".join(bits), ev)
     ev["position"] = "open"
     how = f"a dated note allows every source read now: {', '.join(allowed)}"
+    if by_variant:
+        how += (f" (of these, {len(by_variant)} are matched to a note filed under the "
+                f"source id without the variant the reader appends to its rows)")
     if by_host:
         how += (f" (of these, {len(by_host)} rest on the origin-wide note in "
                 f"{(host or {}).get('_file')} rather than a note of their own)")
@@ -1030,6 +1065,40 @@ def next_step(s: Surface, gates: dict[str, Result], blocked: str | None) -> str:
     return f"fix: {r.because}"
 
 
+def find_refusals(rows: list[dict]) -> tuple[list[dict], list[dict]]:
+    """Apply REFUSALS and WORTH_KNOWING to already-measured rows.
+
+    Pulled out of assess() so the build veto and the self-test run the SAME
+    comparison the report runs, off the same table. A second copy of this loop
+    living in the builder is how a build ends up enforcing a slightly different
+    rule from the one PIPELINE.md prints, and then arguing about which is real.
+
+    It takes rows rather than reading anything, which is also what makes it
+    testable: --selftest hands it invented rows and checks it says NO to a
+    jumped stage and nothing at all to a clean one.
+    """
+    refusals, worth_knowing = [], []
+    for row in rows:
+        g = row["gates"]
+        for rule in REFUSALS:
+            if g[rule.higher]["verdict"] == PASS and g[rule.lower]["verdict"] == FAIL:
+                refusals.append({"id": row["id"], "higher": rule.higher,
+                                 "lower": rule.lower, "why": rule.why,
+                                 "detail": g[rule.lower]["because"]})
+        # One line per surface, not one per rule. The rules overlap on purpose --
+        # every priced feed is also a live one -- and printing both halves of the
+        # same fact twice is how a list of eleven real questions turns into
+        # seventeen lines that nobody finishes reading. The first rule that
+        # matches wins, and they are ordered worst first.
+        for rule in WORTH_KNOWING:
+            if g[rule.higher]["verdict"] == PASS and g[rule.lower]["verdict"] == UNKNOWN:
+                worth_knowing.append({"id": row["id"], "higher": rule.higher,
+                                      "lower": rule.lower, "why": rule.why,
+                                      "detail": g[rule.lower]["because"]})
+                break
+    return refusals, worth_knowing
+
+
 def assess(probe: bool = True, today: dt.date | None = None) -> dict:
     """Every surface, every gate, counted. This is the whole machine."""
     today = today or dt.date.today()
@@ -1063,25 +1132,7 @@ def assess(probe: bool = True, today: dt.date | None = None) -> dict:
                           "evidence": v.evidence} for k, v in gates.items()},
         })
 
-    refusals, worth_knowing = [], []
-    for row in rows:
-        g = row["gates"]
-        for rule in REFUSALS:
-            if g[rule.higher]["verdict"] == PASS and g[rule.lower]["verdict"] == FAIL:
-                refusals.append({"id": row["id"], "higher": rule.higher,
-                                 "lower": rule.lower, "why": rule.why,
-                                 "detail": g[rule.lower]["because"]})
-        # One line per surface, not one per rule. The rules overlap on purpose --
-        # every priced feed is also a live one -- and printing both halves of the
-        # same fact twice is how a list of eleven real questions turns into
-        # seventeen lines that nobody finishes reading. The first rule that
-        # matches wins, and they are ordered worst first.
-        for rule in WORTH_KNOWING:
-            if g[rule.higher]["verdict"] == PASS and g[rule.lower]["verdict"] == UNKNOWN:
-                worth_knowing.append({"id": row["id"], "higher": rule.higher,
-                                      "lower": rule.lower, "why": rule.why,
-                                      "detail": g[rule.lower]["because"]})
-                break
+    refusals, worth_knowing = find_refusals(rows)
 
     by_stage: dict[str, list[str]] = {}
     for row in rows:
@@ -1247,20 +1298,34 @@ def write_report(a: dict) -> None:
           "find and grade that. Anything it cannot account for is `unknown`, which "
           "is a real answer and gets reported. It is never quietly dropped, and it "
           "is never rounded up to a pass.", "",
-          "### `--check` is deliberately not wired into the build", "",
-          "`.github/workflows/check.yml` does not run `--check`, and that is on "
-          "purpose rather than an oversight.", "",
-          "`--check` exits non-zero today, on a real refusal that is nobody's build "
-          "error to fix: a page is priced while the permission for one of its "
-          "sources is a written refusal. That is a decision for a person, not a "
-          "defect in the branch someone is about to merge. Wiring it in now would "
-          "turn one open question into a red build for every other person working "
-          "in this repo, and the fastest way out of a red build is to weaken the "
-          "check that raised it. So the refusal is reported here, in a file a "
-          "person reads, and the honesty gate in `scripts/check_site.py` stays the "
-          "only thing that can stop a build.", "",
-          "Wire it in when the Refused list above is empty and the estate can hold "
-          "it there — not before.", "",
+          "### The refusals are wired into the build", "",
+          "Since 2026-08-24 `scripts/build_slices.py` asks `build_veto()` before it "
+          "writes anything, and **refuses to write any page of a family named in the "
+          "Refused list above**. The run then exits non-zero. There is no override "
+          "flag, because an escape hatch on a list this short is an escape hatch that "
+          "gets used instead of the fault getting fixed.", "",
+          "It is per surface, not all-or-nothing, and that is the whole reason it "
+          "could be wired in at all. The earlier note here said to wait until the "
+          "Refused list was empty. That was the right instinct about the wrong "
+          "mechanism: a build that dies whole because one page is refused does turn "
+          "one open question into everybody's red build. A build that writes the "
+          "other twenty-one families and refuses the one that jumped a stage costs "
+          "nobody anything except the person who has to decide about that one page.", "",
+          "The refused family's existing pages are left exactly as they are on disk. "
+          "They are not rebuilt and they are not deleted, because deleting a live "
+          "page is a decision about the estate and the builder is a builder. The "
+          "visible consequence is that a refused feed stops being freshened, so its "
+          "dates stand still until somebody settles it.", "",
+          "Two ways out of a refusal, and both are somebody\'s decision rather than a "
+          "flag: fix the lower gate, or take the price off the page so the higher one "
+          "stops applying.", "",
+          "```",
+          "python3 scripts/pipeline.py --veto <surface>   # the exact answer the build gets",
+          "python3 scripts/pipeline.py --selftest        # proves the rule says NO and YES",
+          "```", "",
+          "The rule itself lives in one function, `find_refusals()`. `--check`, this "
+          "report and the build veto all call it, so there is no second copy to "
+          "disagree with.", "",
           f"This file is the record a person reads. The full working behind every cell "
           f"above, and the note of where each surface was on the last run, are written to "
           f"`{MACHINE.parent}` so they do not churn the repo.", ""]
@@ -1320,6 +1385,144 @@ def write_alert(a: dict, slipped: list[str]) -> None:
 
 
 # ------------------------------------------------------------------ the refusal
+
+
+_VETO: tuple[dict, str | None] | None = None
+
+
+def build_veto(today: dt.date | None = None) -> tuple[dict[str, list[dict]], str | None]:
+    """What the build must NOT write today, and why. Measured once per process.
+
+    Returns ({surface id: [refusal, ...]}, estate_blocker).
+
+    A builder calls this before it writes a page and skips any family named in
+    the first value. The second value is the different, worse case: the estate
+    honesty gate itself is red, so `honest` is unreadable for every surface at
+    once and the per-surface answers below are all the same cascade wearing
+    different names. Reporting that as twenty-seven refusals would bury the one
+    fact that matters -- scripts/check_site.py is failing -- so it comes back
+    on its own and the builder says that instead.
+
+    The network is never touched. A build that changed its mind about what it
+    may write depending on whether a fetch succeeded would be a build nobody
+    could reproduce, so `live` comes back unknown here and no refusal in the
+    list depends on it.
+
+    There is deliberately no override argument. The refusals are seven named
+    pairs, every one of them about money or about a stranger being misled, and
+    an escape hatch on a list that short is an escape hatch that gets used every
+    time rather than the fault getting fixed.
+    """
+    global _VETO
+    if _VETO is not None:
+        return _VETO
+    a = assess(probe=False, today=today or dt.date.today())
+    if a["site_gate"] != PASS:
+        _VETO = ({}, site_gate().because)
+        return _VETO
+    out: dict[str, list[dict]] = {}
+    for r in a["refusals"]:
+        out.setdefault(r["id"], []).append(r)
+    _VETO = (out, None)
+    return _VETO
+
+
+def veto_command(sid: str | None, today: dt.date) -> int:
+    """`--veto [surface]`: the same answer the build gets, for a person to read.
+
+    Exit 0 means the build may write it. Exit 1 means it may not, and names the
+    stage that was jumped. Exit 2 means the estate gate is down and nothing can
+    be written at all.
+    """
+    blocked, estate = build_veto(today)
+    if estate:
+        print(f"THE WHOLE BUILD IS STOPPED: {estate}", file=sys.stderr)
+        return 2
+    if sid:
+        hits = blocked.get(sid, [])
+        if not hits:
+            print(f"yes: the build may write {sid}.")
+            return 0
+        print(f"NO: the build must not write {sid}.", file=sys.stderr)
+        for r in hits:
+            print(f"  {r['higher']} passes while {r['lower']} fails -- {r['why']}",
+                  file=sys.stderr)
+            print(f"      {r['detail']}", file=sys.stderr)
+        return 1
+    if not blocked:
+        print("yes: no surface is blocked; the build may write all of them.")
+        return 0
+    print(f"NO: {len(blocked)} surface(s) must not be written.", file=sys.stderr)
+    for who, hits in sorted(blocked.items()):
+        for r in hits:
+            print(f"  {who}: {r['higher']} passes while {r['lower']} fails -- {r['why']}",
+                  file=sys.stderr)
+    return 1
+
+
+# ---------------------------------------------------------------- the self-test
+#
+# The rule this file exists to enforce had, until today, only ever been asked
+# about a real estate that happened to contain exactly one refusal. A rule that
+# has only ever returned the same answer has not been tested -- nobody had seen
+# it say no to a page that deserved it and yes to a page that did not, back to
+# back, on demand. These two cases do that, through find_refusals(), which is
+# the same function assess() and the build veto both call.
+
+
+def _row(sid: str, **verdicts: str) -> dict:
+    """One invented surface: every gate passes unless this call says otherwise."""
+    gates = {n: {"verdict": verdicts.get(n, PASS), "because": "invented for the self-test",
+                 "evidence": {}} for n in STAGE_NAMES}
+    return {"id": sid, "kind": "feed", "gates": gates}
+
+
+def selftest() -> int:
+    bad = _row("a-bad-page", lawful=FAIL)          # priced sits above a failed lawful
+    good = _row("a-good-page")                     # every gate passed, in order
+    unsure = _row("an-unknown-page", lawful=UNKNOWN)  # not failed: could not be checked
+
+    fails = 0
+    hits, _ = find_refusals([bad])
+    if len(hits) == 1 and hits[0]["lower"] == "lawful" and hits[0]["higher"] == "priced":
+        print("PASS  a page priced above a failed permission note is refused, and the "
+              "message names the pair: "
+              f"{hits[0]['higher']} over {hits[0]['lower']}")
+    else:
+        print(f"FAIL  a deliberately bad page was not refused: {hits}")
+        fails += 1
+
+    hits, _ = find_refusals([good])
+    if not hits:
+        print("PASS  a page that passed every gate in order is not refused")
+    else:
+        print(f"FAIL  a good page was refused anyway: {hits}")
+        fails += 1
+
+    hits, worth = find_refusals([unsure])
+    if not hits and len(worth) == 1:
+        print("PASS  a page whose permission note could not be CHECKED is reported, not "
+              "refused; unknown never rounds up to a fault")
+    else:
+        print(f"FAIL  unknown was treated as a failure: refusals={hits} worth_knowing={worth}")
+        fails += 1
+
+    # And the same three through the real table, so the self-test cannot pass
+    # against a shape assess() no longer produces.
+    a = assess(probe=False)
+    shape = all(set(r["gates"]) == set(STAGE_NAMES) for r in a["rows"])
+    if shape:
+        print(f"PASS  the live table still has all {len(STAGE_NAMES)} gates on every one of "
+              f"its {len(a['rows'])} surfaces, so the invented rows above are the same shape "
+              f"as the real ones")
+    else:
+        print("FAIL  the live table no longer has every gate on every surface; the invented "
+              "rows in this test are not the same shape as the real ones")
+        fails += 1
+
+    print()
+    print(f"{4 - fails} of 4 checks passed")
+    return 1 if fails else 0
 
 
 def gate_command(a: dict, sid: str, stage: str) -> int:
@@ -1394,10 +1597,19 @@ def main() -> int:
                    help="may this surface reach that stage yet? "
                         "exit 0 yes, 1 no, 2 could not check")
     p.add_argument("--explain", metavar="SURFACE", help="every gate for one surface")
+    p.add_argument("--veto", nargs="?", const="", metavar="SURFACE",
+                   help="the answer the build gets: may this be written? "
+                        "exit 0 yes, 1 no, 2 the estate honesty gate is down")
+    p.add_argument("--selftest", action="store_true",
+                   help="prove the refusal rule both ways on invented pages")
     p.add_argument("--today", help="pretend it is this date (YYYY-MM-DD)")
     args = p.parse_args()
 
     today = dt.date.fromisoformat(args.today) if args.today else dt.date.today()
+    if args.selftest:
+        return selftest()
+    if args.veto is not None:
+        return veto_command(args.veto or None, today)
     probe = not args.no_probe and not args.check
     a = assess(probe=probe, today=today)
 

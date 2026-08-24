@@ -13,6 +13,12 @@ may be published lives in exactly one place:
     pages, because there is nothing honest to put on them.
   * A slice that stopped qualifying has its old page deleted, so a page can never
     outlive the rows that justified it.
+  * A family that has jumped a stage in the pipeline is not written at all, and
+    the run exits non-zero. scripts/pipeline.py has always been able to work out
+    that we are charging for a feed whose source we are not allowed to collect;
+    until today nothing stopped the builder from rebuilding that feed's pages
+    anyway. Measuring a fault and then doing the thing regardless is the same as
+    not measuring it.
 
 It also writes the freshness record (families/<family>/data.json) and the two
 permanent sample addresses, so the numbers the site shows and the numbers we
@@ -41,6 +47,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from freshness import late_after  # noqa: E402
 from merge_catalog_adds import family_rows  # noqa: E402
+from pipeline import build_veto  # noqa: E402
 from render_family import check_withheld  # noqa: E402
 from render_family import write as write_family  # noqa: E402
 from render_slice import write as write_slice  # noqa: E402
@@ -342,8 +349,32 @@ def main() -> None:
     warnings: list[str] = []
     shipped_n = skipped_n = 0
 
+    # Asked once, before anything is written, with the network untouched. The
+    # answer is the same list of refusals PIPELINE.md prints and `--check`
+    # exits on, read through the one function all three call.
+    vetoed, estate_down = build_veto(today)
+    if estate_down:
+        print(f"BUILD STOPPED: {estate_down}", file=sys.stderr)
+        print("Nothing was written. The estate honesty gate has to pass before any page "
+              "is rebuilt, because a build on top of a page that is already lying just "
+              "makes more of them.", file=sys.stderr)
+        raise SystemExit(1)
+    refused_n = 0
+
     for mod in mods:
         fid = mod.FAMILY
+        if fid in vetoed:
+            # Refused, not skipped. Nothing of this family is written and nothing
+            # of it is swept either: its pages stay exactly as they are on disk,
+            # because deleting them is a decision about the estate and this is a
+            # builder. The run goes red at the end so the refusal cannot be
+            # scrolled past.
+            for r in vetoed[fid]:
+                print(f"{fid:16} {'*':22} REFUSED  {r['higher']} passes while "
+                      f"{r['lower']} fails -- {r['why']}")
+                print(f"{'':16} {'':22}          {r['detail']}")
+            refused_n += 1
+            continue
         if fid not in rows:
             fail(
                 f"{mod.__name__} builds family {fid!r}, which is in neither catalog.json nor a "
@@ -454,7 +485,7 @@ def main() -> None:
 
     print(
         f"\nslices: {shipped_n} shipped, {skipped_n} skipped, "
-        f"across {len(by_family)} families"
+        f"{refused_n} families refused, across {len(by_family)} families"
     )
     if warnings:
         # Printed last and counted, so a page that drifted out of shape cannot
@@ -462,6 +493,16 @@ def main() -> None:
         print(f"\n{len(warnings)} pages are out of shape. They shipped; fix them in their module:")
         for w in warnings:
             print(f"  - {w}")
+
+    if refused_n:
+        # Non-zero, every time, with no way to turn it off. A refusal that lets
+        # the run finish green is a refusal somebody reads once and then stops
+        # reading. Fix the surface or take its price off; those are the two
+        # exits, and both of them are somebody's decision, not a flag.
+        print(f"\n{refused_n} family(ies) were refused. Run "
+              f"'python3 scripts/pipeline.py --veto <family>' for the whole answer.",
+              file=sys.stderr)
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":
