@@ -81,6 +81,27 @@ UNIVERSE = CLOCK / "universe" / "distress_signals_v1.json"
 MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun",
           "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 
+
+def _fam_cadence_short(days) -> str:
+    """The eyebrow at the top of the family page, counted off the sealed dates.
+
+    It was the literal words "Read daily", typed into the spec, on a page whose
+    own description two lines down already counted the days we actually read.
+    We hold a sealed copy for two of the last fourteen days. Read daily is not
+    two days in fourteen, and both readings agree: the raw fetch table shows the
+    same two days, so this is not a sealing lag behind a daily read -- we did not
+    read on the other twelve either. The page argued with itself, and a buyer who
+    skimmed the top took away the wrong number.
+    """
+    today = datetime.date.today()
+    held = set(days)
+    wanted = [(today - datetime.timedelta(days=i)).isoformat() for i in range(13, -1, -1)]
+    have = sum(1 for d in wanted if d in held)
+    if have == 14:
+        return "Read every one of the last 14 days"
+    return f"Read on {have} of the last 14 days"
+
+
 # Read out of the catalog rather than typed here, so a price the operator sets
 # in one place cannot be contradicted by a page that hard-coded its own.
 PRICE = family_rows().get(FAMILY, {}).get("price") or "Not for sale yet"
@@ -768,7 +789,7 @@ def family_spec() -> dict:
             "id": FAMILY,
             "ready": True,
             "group": "Public records",
-            "cadence": "Read daily",
+            "cadence": _fam_cadence_short(h["days"]),
             "cadence_long": "A dated copy of the front of one Arizona trustee's sale list",
             "crumb": "Arizona trustee sales",
             "h1": "Arizona trustee sale postponements",
