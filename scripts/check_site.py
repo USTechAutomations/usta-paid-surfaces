@@ -836,13 +836,21 @@ def check_buy_buttons() -> None:
 
     for fam in CATALOG["families"]:
         c = fam.get("checkout") or {}
-        if not c.get("url") or c.get("status") != "live":
+        # ANY declared address, not only a proved one. A link that has been
+        # minted is chargeable from the moment it exists, whether or not we have
+        # got round to fetching it, so "declared but not verified yet" is not a
+        # reason to let the page stay silent -- it is money sitting in Stripe
+        # that no customer on earth can reach. If a product is not to be sold,
+        # take the address out of the catalog; do not leave it declared and
+        # unreachable.
+        if not c.get("url"):
             continue
         page = ROOT / "families" / fam["id"] / "index.html"
         if page.is_file() and not buy_buttons(page.read_text(encoding="utf-8")):
-            fail(f"{fam['id']} has a checkout we declared and proved working, and its own page "
-                 f"shows no pay button at all, so every buyer who lands there is still sent to "
-                 f"an email thread. {BUTTON_FIXIT}")
+            fail(f"{fam['id']} declares a checkout at {c['url']} and its own page shows no pay "
+                 f"button at all, so the link is chargeable and nothing anywhere points a buyer "
+                 f"at it. Either put the button on the page or take the address out of "
+                 f"catalog.json. {BUTTON_FIXIT}")
 
 
 if __name__ == "__main__":

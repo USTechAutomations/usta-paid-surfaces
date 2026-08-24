@@ -427,9 +427,25 @@ def cases() -> list[tuple]:
     add(791, "a hand-written button element that offers to subscribe and does nothing",
         lambda e: e.before_body_end(FAM, "<p><button>Subscribe now</button></p>"),
         "goes nowhere"),
-    add(843, "a checkout we proved working, and the page still shows no button",
+    add(850, "a checkout we proved working, and the page still shows no button",
         lambda e: e.re_sub(PAID, r"(?s)<a class=\"btn btn-buy.*?</a>", ""),
         "shows no pay button at all")
+    # The same refusal reached from the other side, and the reason the condition
+    # is "any declared address" and not "a proved one". A link is chargeable the
+    # moment it is minted. Left declared with no button and no verification, it
+    # is money sitting in Stripe that no customer can reach and no check here
+    # used to mention.
+    def minted_and_unreachable(e: Estate) -> None:
+        e.family("crawler", lambda f: f.__setitem__("checkout", {
+            "url": "https://buy.stripe.com/nOtReAl",
+            "lands_on": "buy.stripe.com",
+            "label": "Subscribe — $175 a month",
+            "terms": "Cancel any time.",
+            "after": "You get the feed from the next run.",
+            "status": "unverified"}))
+
+    add(850, "a link is minted and declared, and no page anywhere points at it",
+        minted_and_unreachable, "nothing anywhere points a buyer at it")
 
     # The overlap, proved rather than asserted. The same defect on a CHILD page
     # is caught by the child-price check (line 693); on a FAMILY page the price

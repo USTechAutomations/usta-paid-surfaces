@@ -58,6 +58,11 @@ def parse_price(price: str):
     return int(amounts[0].replace(",", "")) * 100, "monthly" if monthly else "one_time"
 
 
+def _md(obj) -> dict:
+    """Metadata as a plain dict. StripeObject has no .get and no dict()."""
+    return dict(json.loads(str(obj)).get("metadata") or {})
+
+
 def walk(url: str):
     """Return (final_url, http_code) after following every redirect, or (None, why)."""
     try:
@@ -104,6 +109,7 @@ def main() -> int:
         return 1
 
     bad = unknown = 0
+    reached: set[str] = set()
     for fam, c in armed:
         fid, want = fam["id"], parse_price(fam["price"])
         final, code = walk(c["url"])
@@ -117,6 +123,7 @@ def main() -> int:
             bad += 1
             continue
         base = final.split("?")[0]
+        reached.add(base)
         link = by_url.get(base) or by_url.get(final)
         if link is None:
             print(f"{fid:17} unknown  landed on {base} and no active payment link has that "
@@ -149,8 +156,28 @@ def main() -> int:
         basis = "a month" if got[1] == "monthly" else "once"
         print(f"{fid:17} proved   {fam['price']} -> ${got[0] / 100:.2f} {basis} at {base}")
 
-    print(f"\n{len(armed) - bad - unknown} proved, {bad} broken, {unknown} unknown")
-    return 1 if (bad or unknown) else 0
+    # --- money nobody can reach ----------------------------------------------
+    # The gate cannot do this one. It runs offline and can only see what the
+    # catalog declares, so a link minted in Stripe and never written into
+    # catalog.json is invisible to it: chargeable, live, and pointed at by
+    # nothing. Only a look at the account itself can find that.
+    #
+    # Scope is deliberately narrow. This Stripe account is shared with the blog
+    # business and with the permits estate, and their links are none of this
+    # repo's business, so the only ones counted are the ones stamped as ours
+    # when they were minted.
+    ours = {u: l for u, l in by_url.items() if _md(l).get("feeds_family")}
+    stranded = sorted(set(ours) - reached)
+    print(f"\n{len(ours)} active payment link(s) stamped as belonging to /feeds; "
+          f"{len(reached)} address(es) reachable from a page.")
+    for u in stranded:
+        l = ours[u]
+        print(f"  UNREACHABLE  {_md(l).get('feeds_family')} -> {u}\n"
+              f"               a card can be charged on this and no page points at it")
+
+    print(f"\n{len(armed) - bad - unknown} proved, {bad} broken, {unknown} unknown, "
+          f"{len(stranded)} minted and unreachable")
+    return 1 if (bad or unknown or stranded) else 0
 
 
 if __name__ == "__main__":
