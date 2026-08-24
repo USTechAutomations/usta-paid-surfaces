@@ -67,6 +67,36 @@ NEVER_PRINT = ("vanish", "disappear", "withdraw", "remov")
 
 MONTHS = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split()
 
+# Montgomery County, Maryland does not ask for a credit. It asks for a set form
+# of words, and it names them: "Applications using data supplied by
+# data.montgomerycountymd.gov must include the following disclaimers on their
+# sites". So this is quoted, not summarised, and it is quoted WORD FOR WORD --
+# their spelling of WEBISTE included, and their straight quote marks too: the
+# curly ones we normally use are DIFFERENT CHARACTERS, so a curly-quoted copy
+# is not word for word. Tidying a required disclaimer is not
+# tidying, it is writing a different one. Their rows are counted on the coverage
+# page and named on the hand-written family page, so both carry it; the six city
+# pages carry none of their data and so do not.
+MONTGOMERY_DISCLAIMER = (
+    "The data made available here has been modified for use from its original source, "
+    "which is Montgomery County, Maryland (&quot;the County&quot;). THE COUNTY MAKES NO "
+    "REPRESENTATIONS OR WARRANTIES AS TO THE COMPLETENESS, ACCURACY, OR TIMELINESS OF ANY "
+    "DATA. THE COUNTY EXPRESSLY DISCLAIMS ALL WARRANTIES, WHETHER EXPRESS OR IMPLIED, "
+    "INCLUDING ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR "
+    "PURPOSE. THE COUNTY MAKES NO REPRESENTATION OR WARRANTY AS TO THE WEBISTE OR "
+    "APPLICATION USING DATA DRAWN FROM DATA.MONTGOMERYCOUNTYMD.GOV OR FOR THE USEFULNESS "
+    "OR INTEGRITY OF THE WEB SITE OR APPLICATION. The data is subject to change and "
+    "possible deletion, temporarily or permanently. It is understood that the information "
+    "contained in the web feed is being used at one&#39;s own risk."
+)
+
+MONTGOMERY_LEAD = (
+    "Some of the rows counted on this page were supplied by Montgomery County, Maryland. "
+    "Their terms of use do not ask to be credited; they require anyone using their data to "
+    "carry a set form of words. This is that wording, printed word for word as the county "
+    "wrote it, spelling and all:"
+)
+
 # jurisdiction id in the store -> page slug, short name, long name.
 CITIES = [
     ("austin", "austin", "Austin", "Austin, Texas"),
@@ -610,6 +640,14 @@ def coverage(c: sqlite3.Connection, built: list[tuple[str, str, dict]]) -> dict:
 
     return {
         "slug": "coverage",
+        "credit": [
+            "Every permit counted on this page was published by a city or county permit "
+            "board, not by us. The twelve boards are named in the first table above. We "
+            "keep dated copies of what each one put out; the permits, the addresses and "
+            "the wording inside those rows are theirs.",
+            MONTGOMERY_LEAD,
+            "&quot;" + MONTGOMERY_DISCLAIMER + "&quot;",
+        ],
         "name": "What is in this feed and what is not",
         "h1": "Metro permits: the places we hold and the places we do not",
         "lede": (
