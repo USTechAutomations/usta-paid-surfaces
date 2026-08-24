@@ -11,6 +11,21 @@ WHAT THIS WILL NOT DO
   * It never writes the permits engine's link registry, so it cannot change what
     the main site's own /buy route does.
 
+WHAT IT ASKS BEFORE IT MINTS
+  The eleven-stage ladder, through build_veto(), which is the same function the
+  two builders call. Until 2026-08-24 this file had never asked it, and that was
+  not an oversight in one place -- it was a hole in the shape of the whole idea.
+  The ladder decided what may be PUBLISHED and nothing decided what may be SOLD,
+  so every gate could be sitting at a refusal while a payable product was created
+  for that exact family, and nothing anywhere would notice.
+
+  That is not a hypothetical. The payable product for air-permits was created at
+  02:55 UTC on 2026-08-24 and the family came off sale later the same morning.
+  The Arizona source it sells had been refused on 21 August, with the reason
+  written down, three days earlier. Nothing read it, because nothing was wired to
+  read it. Nobody found the address, so there is no harm to report -- but it was
+  open for hours and that is luck, not a control.
+
 WHERE THE AMOUNT COMES FROM
   Two independent sources have to agree before a card can be taken:
 
@@ -35,6 +50,9 @@ import os
 import re
 import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from pipeline import build_blindspots, build_veto  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 CAT = ROOT / "catalog.json"
@@ -175,9 +193,47 @@ def _link_host_ok(url: str) -> bool:
     return host in ALLOWED_LINK_HOSTS
 
 
-def refuse(fam, offers, held) -> tuple[str | None, tuple[int, str] | None]:
-    """Return (reason this feed may NOT take a card, parsed price)."""
+def refuse(fam, offers, held, vetoed, blind) -> tuple[str | None, tuple[int, str] | None]:
+    """Return (reason this feed may NOT take a card, parsed price).
+
+    `vetoed` is the ladder's answer, {surface id: [refusal, ...]}, and it is a
+    REQUIRED argument with no default. A default of {} would mean any caller
+    that forgot it silently minted with no ladder behind it, which is exactly
+    the state this file was in before today, and the state would look identical
+    from the outside. Forgetting it is now a TypeError at the call site.
+
+    `blind` is the SECOND question and it is required for the same reason. It is
+    {surface id: [unknown, ...]} -- every surface where a money gate passes over
+    a gate that came back UNKNOWN. `ai-prices` sat in exactly that state, at
+    `blocked on lawful`, for the whole time it sold at $175 a month: the ladder
+    said "I cannot tell whether we may read this" and nothing read the answer.
+    An unknown that nothing acts on is indistinguishable from a yes.
+
+    A blind spot stops MINTING and nothing else, and the difference matters.
+    Refusing to create a new thing a stranger can pay costs nothing today. It is
+    not the same decision as withdrawing something already on sale, which takes
+    money off live pages and belongs to the operator.
+    """
     fid = fam["id"]
+    # Asked FIRST, before the price is even parsed. A refused surface must not
+    # reach a single line of code that could create, reuse or arm anything, and
+    # the order is the only thing that guarantees that. It also means the reason
+    # a person reads is the ladder's own words rather than a downstream symptom.
+    hits = vetoed.get(fid, [])
+    if hits:
+        said = "; ".join(f"{h['higher']} passes while {h['lower']} fails -- {h['why']} "
+                         f"({h['detail']})" for h in hits)
+        return f"{fid}: the pipeline refuses this surface -- {said}", None
+    # And the unknowns, asked second and answered separately, because they are a
+    # different fact and deserve their own words. A refusal is something we
+    # measured. This is a question we could not answer, standing under a gate
+    # that decides whether somebody can be charged.
+    dark = blind.get(fid, [])
+    if dark:
+        said = "; ".join(f"{h['higher']} passes while {h['lower']} is UNKNOWN -- "
+                         f"{h['why']} ({h['detail']})" for h in dark)
+        return (f"{fid}: the pipeline cannot say whether this surface may be sold -- "
+                f"{said}"), None
     parsed = parse_price(fam.get("price", ""))
     if parsed is None:
         return (f"{fid}: {fam.get('price')!r} is not a single amount, so it cannot become "
@@ -346,24 +402,89 @@ def main() -> int:
     ap.add_argument("--only", action="append", default=[], help="restrict to this feed id (repeatable)")
     args = ap.parse_args()
 
+    # THE LADDER, ASKED BEFORE ANYTHING IS MINTED. Not after, and not alongside.
+    # A link that exists and is then flagged is money that can already be taken:
+    # by the time a report says a family should not have been armed, a stranger
+    # has had the address for however long the report took to write.
+    #
+    # THERE IS NO --force, NO --ignore-veto AND NO --override, AND THERE MUST
+    # NOT BE. This is the call site where somebody will most want one -- late,
+    # under pressure, with a customer waiting and a reason that sounds good. An
+    # escape hatch on a list this short is an escape hatch that gets used every
+    # time instead of the fault getting fixed, and the fault here is always
+    # either a real one or a gate that is wrong about a real family. Both of
+    # those are fixed by a person: mend the gate, or write the decision down.
+    # Neither is fixed by an argument, and an argument would let it be done
+    # without leaving a trace that it was done.
+    #
+    # `--only` is not a way round this either: every family it lets through
+    # still goes to refuse(), which asks the ladder before it asks anything else.
+    vetoed, estate_down = build_veto()
+    # Asked only if the first one did not already stop the run. Both read the
+    # same assessment, so a second call after a known stop is work done to reach
+    # a conclusion already reached.
+    blind, blind_down = ({}, None) if estate_down else build_blindspots()
+    estate_down = estate_down or blind_down
+    if estate_down:
+        print(f"NOTHING MINTED: {estate_down}", file=sys.stderr)
+        print("The estate honesty gate has to pass before any payable product is created. "
+              "While it is red, `honest` is unreadable for every surface at once, so there "
+              "is no surface this can honestly say yes to.", file=sys.stderr)
+        return 1
+
     cat = json.loads(CAT.read_text(encoding="utf-8"))
     offers, held = engine_catalog()
     print(f"sealed permits catalog: {'loaded' if offers else 'NOT on this machine'}\n")
 
-    todo, refused = [], []
+    todo, refused, already_armed, already_dark = [], [], [], []
     for fam in cat["families"]:
         if args.only and fam["id"] not in args.only:
             continue
         if not re.search(r"\$\d", fam.get("price", "")):
             continue
         if (fam.get("checkout") or {}).get("url"):
+            # Nothing is minted for this one, so the ladder cannot stop anything
+            # here -- but if the ladder refuses it, the address that is already
+            # out there is one this estate has decided not to sell. Saying so is
+            # this tool's whole subject. Turning a live link off is not: that is
+            # money and it is an operator's call, so it is reported and left.
+            if fam["id"] in vetoed:
+                already_armed.append(fam["id"])
+            if fam["id"] in blind:
+                already_dark.append(fam["id"])
             print(f"  {fam['id']}: already carries a checkout URL; left exactly as it is")
             continue
-        reason, parsed = refuse(fam, offers, held)
+        reason, parsed = refuse(fam, offers, held, vetoed, blind)
         if reason:
             refused.append(reason)
             continue
         todo.append((fam, SKU_FOR_FEED[fam["id"]], parsed[0], parsed[1]))
+
+    if already_armed:
+        print("ALREADY ARMED AND NOW REFUSED BY THE LADDER -- nothing was changed:")
+        for fid in already_armed:
+            for h in vetoed[fid]:
+                print(f"  - {fid}: {h['higher']} passes while {h['lower']} fails -- {h['why']}")
+                print(f"      {h['detail']}")
+        print("  Its address still takes cards. Switching one off is money and an "
+              "operator decides it.\n")
+
+    if already_dark:
+        # THE ai-prices STATE, said out loud at the money door. These are already
+        # selling. Nothing here withdraws them and nothing here should: taking a
+        # button off a live product is money and an operator decides it. What
+        # this does is make sure the unknown is impossible to miss at the exact
+        # moment somebody is thinking about payable products, instead of living
+        # in a column of a table nobody opened.
+        print("ALREADY SELLING WITH AN UNANSWERED QUESTION UNDER IT -- nothing was "
+              "changed:")
+        for fid in already_dark:
+            for h in blind[fid]:
+                print(f"  - {fid}: {h['higher']} passes while {h['lower']} is UNKNOWN -- "
+                      f"{h['why']}")
+                print(f"      {h['detail']}")
+        print("  This is not a verdict that it may not be sold. It is that nothing on "
+              "this disk can say either way, and it has been selling regardless.\n")
 
     if refused:
         print("REFUSED, and each of these stays an email thread:")

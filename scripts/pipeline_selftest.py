@@ -60,6 +60,43 @@ def expect(gate: str, want: str, got: P.Result, note: str) -> None:
         FAILURES.append(f"{gate}: wanted {want}, got {got.verdict} ({note}) -- {got.because}")
 
 
+
+def expect_because(gate: str, needle: str, got: P.Result, note: str) -> None:
+    """Assert the sentence, not just the verdict.
+
+    Two of the three families this was written for were already failing. What
+    was wrong was what the failure SAID -- it sent somebody to build a sample
+    that already existed. A test that only reads the verdict would have called
+    that green, so this reads the words.
+    """
+    global CHECKED
+    CHECKED += 1
+    ok = needle.lower() in got.because.lower()
+    print(f"  {'ok ' if ok else 'BAD'} {gate:10} says {needle!r:34} {note}")
+    if not ok:
+        FAILURES.append(f"{gate}: wanted the reason to mention {needle!r} ({note}) "
+                        f"-- it said: {got.because}")
+
+
+def expect_not_because(gate: str, needle: str, got: P.Result, note: str) -> None:
+    """Assert a word is ABSENT from the reason.
+
+    The fault this was written for is not a missing word, it is a word that
+    should never have been there: a page linking one format was told the OTHER
+    format was missing. Nothing that reads only the verdict, and nothing that
+    checks the reason mentions the right file, can see that -- both are happy
+    while the sentence names a file the page never offered. So this asks the
+    only question that catches it: is the wrong name in there at all?
+    """
+    global CHECKED
+    CHECKED += 1
+    ok = needle.lower() not in got.because.lower()
+    print(f"  {'ok ' if ok else 'BAD'} {gate:10} never says {needle!r:28} {note}")
+    if not ok:
+        FAILURES.append(f"{gate}: the reason should never mention {needle!r} ({note}) "
+                        f"-- it said: {got.because}")
+
+
 # --------------------------------------------------------------- fixtures
 
 
@@ -339,6 +376,169 @@ def t_sampled(tmp: Path) -> None:
         (empty.page.parent / "sample.json").write_text("[]", encoding="utf-8")
         (empty.page.parent / "sample.csv").write_text("a\n", encoding="utf-8")
         expect("sampled", P.FAIL, P.g_sampled(empty), "the file is there and holds nothing")
+
+        # ---- the other direction: the file is there and the page denies it ----
+        #
+        # Found on the real estate on 2026-08-24 in three families. Two were
+        # already failing for the wrong reason and one was PASSING outright, so
+        # both of those shapes are pinned here.
+
+        # A page that says there is no sample, with the sample beside it. The
+        # verdict does not move -- it was already FAIL -- so the thing that has
+        # to be proved is the SENTENCE.
+        denied = surface(tmp, "s8", fam={"id": "s8", "sample_status": "pass"},
+                         body=page(rail="Sample not ready"))
+        (denied.page.parent / "sample.csv").write_text("a,b\n1,2\n3,4\n", encoding="utf-8")
+        got = P.g_sampled(denied)
+        expect("sampled", P.FAIL, got, "a file on disk the page never mentions")
+        expect_because("sampled", "a stranger reaches by typing it", got,
+                       "and it points at the file, not at building one")
+
+        # The one that was PASSING. Rows printed on the page, so the old gate
+        # had something to like, and 2 rows sitting at a public address that the
+        # page links from nowhere.
+        quiet = surface(tmp, "s9", fam={"id": "s9", "sample_status": "pass"},
+                        body=page(rows=8))
+        (quiet.page.parent / "sample.json").write_text(json.dumps([{"a": 1}, {"a": 2}]),
+                                                       encoding="utf-8")
+        got = P.g_sampled(quiet)
+        expect("sampled", P.FAIL, got, "printed rows no longer excuse an unlinked file")
+        expect_because("sampled", "2 rows", got, "and it counts what is being withheld")
+
+        # THE ONE THAT MUST NOT MOVE. No file anywhere, page says no sample.
+        # This is correct as it stands and a new check that reddens it would be
+        # worse than no check at all.
+        still = surface(tmp, "s10", fam={"id": "s10", "sample_status": "pass"},
+                        body=page(rail="Sample not ready"))
+        got = P.g_sampled(still)
+        expect("sampled", P.FAIL, got, "no file, page says no sample: unchanged")
+        expect_because("sampled", "the page says so itself", got,
+                       "and it still says the old thing, because the old thing is right")
+
+        # Parked with nothing on disk -- az-contractors, which is correct today.
+        # The fault is a file that EXISTS and is denied, never a family that
+        # declines to publish one.
+        parked_clean = surface(tmp, "s11", fam={"id": "s11", "sample_status": "parked",
+                                                "note": "we will not collect this"},
+                               body=page())
+        got = P.g_sampled(parked_clean)
+        expect("sampled", P.FAIL, got, "parked with no file: unchanged")
+        expect_because("sampled", "parked", got, "and still says parked, not something new")
+    finally:
+        P.DIST = old_dist
+
+    # ---- and it has to be the BUILT page it reads, not the hand-written one ----
+    #
+    # Everything above ran with no dist/ at all, so every one of those cases read
+    # families/. That is the exact bug this estate has been pulling out of gate
+    # after gate, so the two cases that can tell the difference get a real built
+    # page to read.
+    old_dist = P.DIST
+    P.DIST = tmp / "dist"
+    try:
+        # The build adds the download link. The source page does not have it, so a
+        # gate reading families/ would call this page a liar for hiding a file it
+        # openly offers.
+        s12 = surface(tmp, "s12", fam={"id": "s12", "sample_status": "pass"}, body=page())
+        b = P.DIST / "s12"
+        b.mkdir(parents=True)
+        (b / "index.html").write_text(page(extra='<a href="sample.json">download</a>'
+                                                 '<a href="sample.csv">csv</a>'),
+                                      encoding="utf-8")
+        (b / "sample.json").write_text(json.dumps([{"a": 1}, {"a": 2}, {"a": 3}]),
+                                       encoding="utf-8")
+        (b / "sample.csv").write_text("a\n1\n2\n3\n", encoding="utf-8")
+        got = P.g_sampled(s12)
+        expect("sampled", P.PASS, got, "the built page links it, so no fault")
+        expect_because("sampled", "3 rows", got, "counted off the built copy")
+
+        # And the same page the other way up: the built copy links nothing and the
+        # file ships next to it. Only a gate reading dist/ can see this at all --
+        # the source folder here has no sample file in it whatsoever.
+        s13 = surface(tmp, "s13", fam={"id": "s13", "sample_status": "pass"},
+                      body=page(extra='<a href="sample.json">download</a>'))
+        b = P.DIST / "s13"
+        b.mkdir(parents=True)
+        (b / "index.html").write_text(page(rows=8), encoding="utf-8")
+        (b / "sample.csv").write_text("a,b\n1,2\n3,4\n5,6\n", encoding="utf-8")
+        got = P.g_sampled(s13)
+        expect("sampled", P.FAIL, got, "the built page hides what the source page offered")
+        expect_because("sampled", "built page", got, "and it says which copy it read")
+        assert not (s13.page.parent / "sample.csv").exists(), (
+            "this case proves nothing if the source folder also has the file")
+
+        # ---- naming only the format the page actually offers ----
+        #
+        # The loop under `if linked:` used to walk both names whenever either was
+        # linked. A page offering the CSV and nothing else was told its sample.json
+        # was missing: a fault it did not have, about a file it had never named.
+        # Zero families are shaped like this today, so none of these cases is
+        # reproducing a live fault -- they are here so the sentence is already true
+        # on the day one appears, which is the only day anybody will read it.
+
+        # CSV linked, CSV present, no JSON anywhere. Passes, and the reason may
+        # not mention the format this page never offered.
+        s14 = surface(tmp, "s14", fam={"id": "s14", "sample_status": "pass"}, body=page())
+        b = P.DIST / "s14"
+        b.mkdir(parents=True)
+        (b / "index.html").write_text(page(extra='<a href="sample.csv">csv</a>'),
+                                      encoding="utf-8")
+        (b / "sample.csv").write_text("a,b\n1,2\n3,4\n5,6\n", encoding="utf-8")
+        assert not (b / "sample.json").exists(), (
+            "this case proves nothing if the JSON is there to be found")
+        got = P.g_sampled(s14)
+        expect("sampled", P.PASS, got, "csv-only page with its csv on disk")
+        expect_because("sampled", "3 rows", got, "counted out of the file it does link")
+        expect_not_because("sampled", "sample.json", got,
+                           "the page never offered one, so it cannot be missing one")
+
+        # The mirror: JSON linked, JSON present, no CSV anywhere. Same fault the
+        # other way round, and it was just as invisible.
+        s15 = surface(tmp, "s15", fam={"id": "s15", "sample_status": "pass"}, body=page())
+        b = P.DIST / "s15"
+        b.mkdir(parents=True)
+        (b / "index.html").write_text(page(extra='<a href="sample.json">json</a>'),
+                                      encoding="utf-8")
+        (b / "sample.json").write_text(json.dumps([{"a": 1}, {"a": 2}, {"a": 3}, {"a": 4}]),
+                                       encoding="utf-8")
+        assert not (b / "sample.csv").exists(), (
+            "this case proves nothing if the CSV is there to be found")
+        got = P.g_sampled(s15)
+        expect("sampled", P.PASS, got, "json-only page with its json on disk")
+        expect_not_because("sampled", "sample.csv", got,
+                           "the page never offered one, so it cannot be missing one")
+
+        # BOTH WAYS. The same branch has to still catch a real broken download,
+        # and still name the right file when it does. Without this the fix above
+        # could have been "stop checking" and every test would have gone green.
+        s16 = surface(tmp, "s16", fam={"id": "s16", "sample_status": "pass"}, body=page())
+        b = P.DIST / "s16"
+        b.mkdir(parents=True)
+        (b / "index.html").write_text(page(extra='<a href="sample.csv">csv</a>'),
+                                      encoding="utf-8")
+        got = P.g_sampled(s16)
+        expect("sampled", P.FAIL, got, "links a csv that is not there: still a fault")
+        expect_because("sampled", "sample.csv", got, "and it names the file it offered")
+        expect_not_because("sampled", "sample.json", got,
+                           "and still not the one it did not")
+
+        # The shape that is deliberately NOT a fault: one format linked, the other
+        # shipping beside it unlinked. Counted into the evidence so it can be found
+        # and decided on, never scored. A gate that reddened this would be inventing
+        # a publishing policy nobody wrote down.
+        s17 = surface(tmp, "s17", fam={"id": "s17", "sample_status": "pass"}, body=page())
+        b = P.DIST / "s17"
+        b.mkdir(parents=True)
+        (b / "index.html").write_text(page(extra='<a href="sample.csv">csv</a>'),
+                                      encoding="utf-8")
+        (b / "sample.csv").write_text("a,b\n1,2\n3,4\n5,6\n", encoding="utf-8")
+        (b / "sample.json").write_text(json.dumps([{"a": 1}]), encoding="utf-8")
+        got = P.g_sampled(s17)
+        expect("sampled", P.PASS, got, "ships an unlinked second format: not a fault")
+        assert got.evidence.get("shipped_unlinked_formats") == ["sample.json"], (
+            "the quietly-shipped format has to be countable, or the decision "
+            f"nobody has made yet cannot be found: {got.evidence}")
+        print("  ok  sampled    counts the unlinked format it does not fault")
     finally:
         P.DIST = old_dist
 

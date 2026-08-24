@@ -92,8 +92,12 @@ mixes them will refuse a surface that was fine all along.
 from __future__ import annotations
 
 import argparse
+import contextlib
+import csv
 import datetime as dt
+import io
 import json
+import os
 import re
 import sqlite3
 import subprocess
@@ -744,7 +748,7 @@ def _bodies_on_disk(store: str) -> tuple[int, int, str] | str:
     """
     db = CLOCKS / store / "data" / f"{store}.db"
     if not db.is_file():
-        return f"there is no store file at {db.name} to look in"
+        return _why_unopenable(db)
     try:
         con = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
         tables = {r[0] for r in con.execute(
@@ -1159,6 +1163,220 @@ def _admits_pause(vis: str, cev: dict) -> tuple[bool, str]:
 # -------------------------------- gate 5: did it actually PRODUCE anything
 
 
+# How far back the calendar question looks. Ninety days is long enough that a
+# week-long hole cannot hide inside it and short enough that it is still about
+# this feed now rather than its whole life. It is stated here rather than passed
+# around, because a window that changes between two readings makes the two
+# readings incomparable and nobody notices.
+WINDOW_DAYS = 90
+
+# THE ONE NUMBER ON THIS PAGE THAT IS A CHOICE RATHER THAN A READING, so it is
+# named, put here where it can be found, and argued for rather than buried.
+#
+# `late_after(cadence)` answers a different question -- how stale the NEWEST row
+# may be right now -- and it is deliberately tight: a daily feed may be 2 days
+# behind. Reused unchanged for a hole in the record, it calls a daily feed that
+# missed two days in a row over three months a broken promise, and on this
+# estate that is 17 families out of 24. A gate that reds two thirds of what it
+# looks at has stopped telling anybody anything.
+#
+# So the hole has to be worse than the point-in-time allowance to count, and
+# "worse" needs a number. This one is CALIBRATED, not derived, and the
+# calibration is the two judgements the operator's lane had already made by hand
+# on 2026-08-24: a daily feed with a three-day run of misses in June was read as
+# healthy, and a daily feed with a seven-day run in August was read as something
+# a buyer paying by the month should be told about. Doubling the allowance is
+# the simplest line that puts both of those where a person already put them.
+#
+# It is one number and it moves every verdict together. If it is wrong, change
+# it here and re-run; do not add exceptions per family.
+#
+# THE RULE, and it is the only thing protecting this number from itself:
+# IT MAY GO UP ONLY WHEN A READING SHOWS IT IS WRONG, NEVER TO MAKE A RED GO AWAY.
+# Widening it will always work. It will clear the board on the first try, every
+# time, and it will look like maintenance while it does. The day somebody raises
+# it to get a green run is the day it stops measuring anything at all -- because
+# a threshold that yields to the answer it produced is just a record of what we
+# already had. If a hole here is being called too harshly, the thing to bring is
+# a count off a store showing the promise was kept, not a bigger number.
+HOLE_ALLOWANCE_MULTIPLE = 2
+
+CADENCE_STAMP = re.compile(r'<meta\s+name="data-cadence-days"\s+content="([^"]+)"', re.I)
+
+
+def _store_db(store: str) -> Path:
+    """The store file, whichever of the two shapes this feed uses."""
+    if store.startswith("/"):
+        return Path(store)
+    return CLOCKS / store / "data" / f"{store}.db"
+
+
+def _why_unopenable(db: Path) -> str:
+    """Why this store cannot be opened, in words that match what is on disk.
+
+    "There is no store file" was being said about a store that is very much
+    there. `ai-terms` keeps its evidence as a FOLDER of dated sealed files --
+    46 of them -- and saying it does not exist sends somebody to look for a
+    missing database instead of at a store shaped differently from the two this
+    knows how to read. The verdict was right and unknown either way; the
+    sentence was false, and the sentence is the part a person acts on.
+
+    A third shape is not a fault and this does not pretend to grade it. Nor does
+    it count the dates in those filenames: a name is a claim about a file, not a
+    row in a table, and this estate does not take dates from filenames.
+    """
+    if db.is_dir():
+        n = sum(1 for _ in db.iterdir()) if db.exists() else 0
+        return (f"{db.name} is a folder of {n} sealed file(s), not a database this "
+                f"knows how to open, so its days cannot be counted here")
+    return f"there is no store file at {db.name} to look in"
+
+
+def _promised_cadence(s: Surface, lanes: list) -> tuple[int | None, str]:
+    """How often the page tells a BUYER to expect something, and where that came from.
+
+    This is not the same number as the fastest lane in the store map, and the
+    difference is not academic -- it decides a verdict. `/feeds/grid` runs six
+    queues, four of them read daily, so the fastest lane says 1. Its page says
+    every 7 days, because two queues are stopped and the page is honest about
+    what a buyer actually gets. Measuring grid against 1 would red the most
+    honest page in the estate for keeping a promise it never made.
+
+    So the page's own stamp wins, and the store map is only the fallback. The
+    promise a buyer can read is the promise we are held to.
+    """
+    page, is_built = buyer_page(s)
+    if page.is_file():
+        m = CADENCE_STAMP.search(page.read_text(encoding="utf-8"))
+        if m and m.group(1).strip().isdigit() and int(m.group(1)) > 0:
+            return int(m.group(1)), f"the {'built' if is_built else 'source'} page's own stamp"
+    lane = min([ln.cadence for ln in lanes if ln.cadence] or [0])
+    if lane:
+        return int(lane), "the store map, because the page carries no cadence stamp"
+    return None, "nothing on the page or in the store map says how often"
+
+
+def _sealed_days(store: str, lanes: list, since: str) -> list[dt.date] | str:
+    """Every distinct day this family sealed anything, read off the DATA table.
+
+    THE RUN LOG IS NOT ASKED. That is the whole point of this reading: when the
+    run log cannot answer -- and on two paid feeds it cannot -- the calendar
+    still can, because the rows carry their own dates. A store that keeps no
+    record of running still cannot fake having rows dated on a day it did not.
+
+    The days are UNIONED across every lane rather than counted per lane, and
+    that is deliberate. A family with a lane deliberately stopped on permission
+    grounds has not stopped producing; it produces less. Judging a stopped lane
+    here would be this gate answering a question that belongs to `honest`, which
+    is the exact mistake that has now cost three verdicts on this estate.
+    """
+    db = _store_db(store)
+    if not db.is_file():
+        return _why_unopenable(db)
+    days: set[str] = set()
+    read, failed = 0, []
+    try:
+        con = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
+    except Exception as exc:  # noqa: BLE001
+        return f"the store could not be opened to count days: {exc}"
+    try:
+        for ln in lanes:
+            where = f" and ({ln.where})" if ln.where else ""
+            try:
+                rows = con.execute(
+                    f"select distinct {ln.column} from {ln.table} "  # noqa: S608
+                    f"where {ln.column} >= ?{where}", (since,)).fetchall()
+            except Exception as exc:  # noqa: BLE001
+                failed.append(f"{ln.table}: {exc.__class__.__name__}")
+                continue
+            read += 1
+            days.update(str(d[0])[:10] for d in rows if d[0])
+    finally:
+        try:
+            con.close()
+        except Exception:  # noqa: BLE001
+            pass
+    if not read:
+        return (f"not one of this feed's {len(lanes)} lane(s) could be counted "
+                f"({'; '.join(failed) or 'no reason given'})")
+    out = []
+    for x in sorted(days):
+        try:
+            out.append(dt.date.fromisoformat(x))
+        except ValueError:
+            continue
+    return out
+
+
+class Hole(NamedTuple):
+    """The longest run of days that sealed nothing, and which days those were."""
+
+    gap: int                     # days between the two sealed days on either side
+    missed: int                  # the dark days in between: what a person actually reads
+    first_dark: dt.date | None
+    last_dark: dt.date | None
+    sealed_before: dt.date | None  # the last day that DID seal, before the run
+    sealed_after: dt.date | None   # the next day that DID seal; None if still dark
+    ongoing: bool                # the run reaches today and may still be growing
+
+
+def _worst_hole(days: list[dt.date], today: dt.date) -> Hole:
+    """The longest run with nothing sealed, and WHICH days those were.
+
+    The dates are the dark days themselves -- the first day that sealed nothing
+    and the last one -- and never the sealed days sitting on either side of them.
+    Those two readings differ by exactly one day at each end, and this returned
+    the fenceposts until 2026-08-24. On civic-agenda the count said seven days
+    and the dates said 10 to 18 August, which is nine days. The count was right.
+    The dates were wrong, and the dates are the half that gets handed to an
+    operator and read out to a paying customer, so the wrong half was the half
+    that mattered. Counted straight off the store afterwards: sealed on the 10th
+    and the 18th, dark on the 11th to the 17th.
+
+    The count and the dates now come out of the same pair and are checked against
+    each other before this returns, so a count and a date range that disagree can
+    no longer leave this function at all.
+
+    The run up to TODAY counts as a hole like any other. Leaving it out would
+    make a feed that stopped a fortnight ago look like a feed with a clean record,
+    which is the shape this whole reading exists to catch. Today itself is never
+    counted dark, because today is not over: a feed last seen yesterday has a hole
+    of nothing, not a hole of one.
+    """
+    gap, start, after, ongoing = 0, days[0], None, False
+    for i in range(len(days) - 1):
+        here = (days[i + 1] - days[i]).days
+        if here > gap:
+            gap, start, after, ongoing = here, days[i], days[i + 1], False
+    tail = (today - days[-1]).days
+    if tail > gap:
+        gap, start, after, ongoing = tail, days[-1], None, True
+
+    missed = gap - 1
+    if missed <= 0:
+        # No dark run, so there is nothing for a sealed day to sit either side OF.
+        # Handing back fenceposts here would offer two real dates for a hole that
+        # does not exist, which is how a fencepost gets mistaken for a hole again.
+        return Hole(gap, 0, None, None, None, None, ongoing)
+    first_dark = start + dt.timedelta(days=1)
+    last_dark = start + dt.timedelta(days=missed)
+    # The two halves, made to agree out loud. This is the whole point of the
+    # rewrite: the old version could not have caught its own off-by-one because
+    # nothing ever compared the number it printed against the dates it printed.
+    assert (last_dark - first_dark).days + 1 == missed, (
+        f"the dark days {first_dark}..{last_dark} and the count {missed} disagree, "
+        f"which is the exact fault this function was rewritten to make impossible")
+    # And the fencepost relationship itself, stated rather than assumed. These two
+    # asserts are the bug written down as arithmetic: the sealed day sits exactly
+    # one day outside the dark run at each end, and nothing that leaves this
+    # function may confuse the two.
+    assert start + dt.timedelta(days=1) == first_dark, (
+        f"the sealed day {start} is not one day before the first dark day {first_dark}")
+    assert after is None or last_dark + dt.timedelta(days=1) == after, (
+        f"the sealed day {after} is not one day after the last dark day {last_dark}")
+    return Hole(gap, missed, first_dark, last_dark, start, after, ongoing)
+
+
 def _run_log(store: str, since: str) -> tuple[int, int, str | None] | str:
     """Runs recorded on or after `since`, and how many rows they sealed.
 
@@ -1168,11 +1386,13 @@ def _run_log(store: str, since: str) -> tuple[int, int, str | None] | str:
     for: a run that finished is not a run that produced. Nine runs that sealed
     nothing look identical to nine healthy runs unless somebody subtracts.
     """
-    if store.startswith("/"):
-        return (f"its rows come from {store}, which keeps no run log we can read")
-    db = CLOCKS / store / "data" / f"{store}.db"
+    # This used to answer "its rows come from somewhere else, which keeps no run
+    # log we can read" for any store outside the clocks folder -- without
+    # opening it. The answer happened to be right for the one feed shaped like
+    # that, and it was still a claim rather than a reading. Open it and look.
+    db = _store_db(store)
     if not db.is_file():
-        return f"there is no store file at {db.name} to look in"
+        return _why_unopenable(db)
     try:
         con = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
         tables = {r[0] for r in con.execute(
@@ -1247,13 +1467,10 @@ def g_producing(s: Surface, collected: Result, today: dt.date) -> Result:
                                "say what it produces")
     store, lanes = found
 
-    # The promise is the FASTEST cadence the family runs to, because that is the
-    # one a buyer is told about first. A family whose quickest lane is daily has
-    # promised something daily.
-    cadence = min([ln.cadence for ln in lanes if ln.cadence] or [0])
+    cadence, promise_from = _promised_cadence(s, lanes)
     if not cadence:
-        return Result(UNKNOWN, "no cadence is written down for this feed, so there is no "
-                               "promise to measure what it produced against")
+        return Result(UNKNOWN, f"{promise_from} often to expect something, so there is no "
+                               f"promise to measure what it produced against")
     limit = late_after(int(cadence))
     # No dead branch here for "the store is completely empty". family_status
     # raises on a lane with no dated rows at all, so `collected` has already
@@ -1264,8 +1481,84 @@ def g_producing(s: Surface, collected: Result, today: dt.date) -> Result:
     since = (today - dt.timedelta(days=limit)).isoformat()
     log = _run_log(store, since)
     ev: dict[str, Any] = {"store": store, "cadence_days": int(cadence),
+                          "cadence_from": promise_from,
                           "allowed_days_behind": limit, "newest_row": newest,
                           "behind_days": behind, "window_from": since}
+
+    # THE SECOND QUESTION, and it is asked off a different table on purpose.
+    #
+    # Everything above asks whether the NEWEST row is recent. A store passes that
+    # the morning after a seven-day hole -- the hole heals itself the moment one
+    # row lands, and nothing anywhere remembers it happened. A buyer paying by
+    # the month for a daily feed did not buy "current again today"; they bought
+    # the days.
+    #
+    # This counts the days off the DATA table's own dates, which is the reading
+    # that still works when the run log does not -- and on two paid feeds it does
+    # not. The two readings are kept apart and BOTH are reported: one of them
+    # being unanswerable must never silence the other, because that is how an
+    # unknown quietly becomes a pass.
+    window_start = (today - dt.timedelta(days=WINDOW_DAYS)).isoformat()
+    sealed = _sealed_days(store, lanes, window_start)
+    hole: Hole | None = None
+    ev["window_days"] = WINDOW_DAYS
+    if isinstance(sealed, str):
+        ev["sealed_days"] = sealed
+    elif not sealed:
+        ev["sealed_days"] = 0
+    else:
+        hole = _worst_hole(sealed, today)
+        ev.update({"sealed_days": len(sealed), "worst_hole_days": hole.missed,
+                   "worst_hole_from": hole.first_dark.isoformat() if hole.first_dark else None,
+                   "worst_hole_to": hole.last_dark.isoformat() if hole.last_dark else None,
+                   "sealed_before_hole":
+                       hole.sealed_before.isoformat() if hole.sealed_before else None,
+                   "sealed_after_hole":
+                       hole.sealed_after.isoformat() if hole.sealed_after else None,
+                   "worst_hole_reaches_today": hole.ongoing})
+
+    hole_allowed = limit * HOLE_ALLOWANCE_MULTIPLE
+    ev["hole_allowed_days"] = hole_allowed
+
+    def broke_its_promise() -> str | None:
+        """The sentence for a hole worse than the allowance, or nothing."""
+        # The threshold is still read off the gap, deliberately unchanged. The
+        # bug being fixed here was in what got PRINTED, not in what counted as
+        # too long, and quietly moving the line while fixing a sentence is how a
+        # calibrated number stops meaning what it was calibrated to.
+        if hole is None or hole.gap <= hole_allowed:
+            return None
+        span = (f"on {hole.first_dark}" if hole.first_dark == hole.last_dark
+                else f"from {hole.first_dark} to {hole.last_dark}")
+        # BOTH readings, each labelled for what it is. This is the shape the
+        # ai-prices coverage page already uses -- it prints every dark day beside
+        # the nearest sealed copy before it and the nearest after it -- and on
+        # that page the mistake this gate made cannot even be expressed, because
+        # a reader is never handed a bare pair of dates to guess the meaning of.
+        # The estate contained the answer to this bug before the bug was made.
+        #
+        # There is deliberately no second wording for a hole that reaches today,
+        # and this is the arithmetic that says why one would never print. When a
+        # hole is ongoing the dark run IS the staleness: `hole.gap` and `behind`
+        # are the same number, both measured from the newest row to today. This
+        # sentence only exists when `hole.gap > hole_allowed`, and hole_allowed
+        # is `limit` doubled, so getting here with an ongoing hole would mean
+        # `behind > 2 * limit` -- and FAULT TWO, `behind > limit`, has already
+        # returned above it. A branch that cannot fire reads as coverage and is
+        # not, so instead of writing one, the impossibility is asserted. If
+        # somebody reorders the gate, this raises with the numbers in hand
+        # rather than quietly printing "the next one on None".
+        assert not hole.ongoing, (
+            f"an ongoing hole reached the calendar sentence: {hole.missed} dark day(s) "
+            f"ending today, which means the store is {hole.gap} day(s) behind against "
+            f"{limit} allowed, so the staleness fault above should have returned first")
+        still = (f", between the sealed copy on {hole.sealed_before} and the next "
+                 f"one on {hole.sealed_after}")
+        return (f"this feed went {hole.missed} day(s) in a row without sealing anything, "
+                f"{span}{still}, and its page promises something every "
+                f"{cadence} day(s). It sealed {len(sealed):,} of the last {WINDOW_DAYS} "
+                f"days. Counted off the rows' own dates, not off the run log, because the "
+                f"run log cannot be made to remember a hole it healed")
 
     if isinstance(log, str):
         ev["run_log"] = log
@@ -1275,10 +1568,33 @@ def g_producing(s: Surface, collected: Result, today: dt.date) -> Result:
                           f"lane here promises something every {cadence} day(s), which "
                           f"allows {limit}. The run log could not be read ({log}), so why "
                           f"it stopped is unknown -- that it stopped is not", ev)
+        broke = broke_its_promise()
+        if broke:
+            # The run log is the reading that failed. This one did not, and a
+            # definite answer from a second reading is not a guess dressed up --
+            # it is the reason there are two readings.
+            return Result(FAIL, f"{broke}. The run log is no help here ({log})", ev)
+        # BOTH readings can fail, and when they do the sentence has to say so
+        # twice rather than printing one of them into a slot meant for the other.
+        # It did exactly that on the first run -- "it sealed there is no store
+        # file at seals to count days in of the last 90 days" -- which is not a
+        # sentence, on a feed where the honest answer is that nothing could be
+        # counted at all.
+        if isinstance(sealed, str):
+            # When both readings fail for the SAME reason -- one store shape that
+            # neither of them can open -- say it once. Printing it twice reads as
+            # two separate problems and makes a person look for a second one that
+            # is not there.
+            both = (f"{log}, and the days could not be counted either ({sealed})"
+                    if log != sealed else f"{log}, so neither reading could be taken")
+            return Result(UNKNOWN,
+                          f"rows are current ({behind}d old, {limit} allowed) and "
+                          f"{both}. Nothing here knows what this feed has produced", ev)
         return Result(UNKNOWN,
-                      f"rows are current ({behind}d old, {limit} allowed), but {log}, so "
-                      f"this cannot say whether the runs behind them produced anything or "
-                      f"merely finished", ev)
+                      f"rows are current ({behind}d old, {limit} allowed) and it sealed "
+                      f"{len(sealed):,} of the last {WINDOW_DAYS} days with no hole over "
+                      f"{hole_allowed}, but {log}, so this cannot say whether the runs "
+                      f"behind those rows produced anything or merely finished", ev)
 
     runs, rows, newest_run = log
     ev.update({"runs_in_window": runs, "rows_sealed_in_window": rows,
@@ -1295,21 +1611,48 @@ def g_producing(s: Surface, collected: Result, today: dt.date) -> Result:
 
     # FAULT TWO. Nothing arrived, whether or not anything ran.
     if behind > limit:
+        # ROWS WRITTEN IS NOT ROWS ADVANCED, and this is the branch that has to
+        # say so out loud. A collector that runs, succeeds and seals real rows
+        # while the newest date never moves is the one state a run log is least
+        # able to catch: every number it keeps looks healthy. It is not a
+        # collector that failed. It is a collector that re-sealed yesterday.
+        if runs and rows:
+            ev["produced_but_not_new"] = True
+            return Result(FAIL,
+                          f"{runs} run(s) since {since} sealed {rows:,} row(s) and not one "
+                          f"of them was new: the newest row anywhere is still {newest}, "
+                          f"{behind} days back against {limit} allowed. The runs produced. "
+                          f"What they produced had already been produced", ev)
         why = (f"and no run has been recorded since {newest_run}" if not runs and newest_run
-               else f"and no run has ever been recorded" if not runs
+               else "and no run has ever been recorded" if not runs
                else f"across {runs} run(s) that sealed {rows:,} row(s)")
         return Result(FAIL,
                       f"the newest row anywhere is {newest} which is {behind} days back, "
-                      f"the fastest lane here promises something every {cadence} day(s) "
+                      f"the page promises something every {cadence} day(s) "
                       f"and may be {limit} behind, {why}", ev)
+
+    # FAULT THREE. The newest row is fine and the window is not. This is the one
+    # the other two cannot reach: nothing above it is false, and the feed still
+    # did not deliver the days it was paid for.
+    broke = broke_its_promise()
+    if broke:
+        return Result(FAIL, broke, ev)
 
     if not runs:
         return Result(UNKNOWN,
                       f"rows are current ({behind}d old), but no run is recorded since "
                       f"{since}, so what produced them cannot be shown", ev)
+    if isinstance(sealed, str):
+        # The run log says it produced and the calendar could not be counted. That
+        # is half an answer, and half an answer is not a pass.
+        return Result(UNKNOWN,
+                      f"{rows:,} row(s) sealed by {runs} run(s) since {since} and the "
+                      f"newest row is {behind}d back, but the days could not be counted "
+                      f"({sealed}), so whether it kept up over the window is unknown", ev)
     return Result(PASS,
                   f"{rows:,} row(s) sealed by {runs} run(s) since {since}; newest row is "
-                  f"{newest}, {behind}d back against {limit} allowed", ev)
+                  f"{newest}, {behind}d back against {limit} allowed; {len(sealed):,} of "
+                  f"the last {WINDOW_DAYS} days sealed with no hole over {hole_allowed}", ev)
 
 
 def g_honest(s: Surface, collected: Result, today: dt.date) -> Result:
@@ -1419,6 +1762,69 @@ def g_honest(s: Surface, collected: Result, today: dt.date) -> Result:
 # ------------------------------------------------- gate 5: is there a sample
 
 
+SAMPLE_FILES = ("sample.json", "sample.csv")
+
+
+def _csv_rows(f: Path) -> int | None:
+    """Rows in a sample.csv, counted the way the PAGE counts them.
+
+    Deliberately the same reading as render_family.sample_facts(): a real CSV
+    parser, header dropped. Counting lines instead is close enough almost always
+    and wrong exactly when it matters -- one quoted cell with a newline in it and
+    this gate would tell a page it is lying about a number the page got right.
+    A gate that reads a file differently from the thing it is checking will
+    eventually argue with it, and the gate will sound authoritative while losing.
+
+    One deliberate difference from the renderer. A header with nothing under it
+    is 0 here, where the renderer returns nothing: the renderer needs a shape to
+    describe and has none, but "the file is empty" is a real and useful answer to
+    the question this gate asks. Nothing is returned only when the file could not
+    be read at all, which is not the same as finding it empty.
+    """
+    try:
+        with f.open(encoding="utf-8", newline="") as fh:
+            rows = list(csv.reader(fh))
+    except (OSError, UnicodeDecodeError, csv.Error):
+        return None
+    return max(len(rows) - 1, 0)
+
+
+def _sample_row_count(folder: Path) -> int | None:
+    """How many rows the file actually holds, or nothing if it cannot be counted.
+
+    Nothing, not zero. A file this cannot open is not an empty file, and saying
+    "0 rows" about a file we failed to read is the kind of confident wrong number
+    that gets acted on.
+    """
+    for name in SAMPLE_FILES:
+        f = folder / name
+        if not f.is_file():
+            continue
+        try:
+            if name.endswith(".json"):
+                doc = read_json(f)
+                return len(doc) if isinstance(doc, list) else len(doc.get("rows") or [])
+            counted = _csv_rows(f)
+            if counted is None:
+                continue
+            return counted
+        except (OSError, ValueError, TypeError, AttributeError):
+            continue
+    return None
+
+
+def _sample_on_disk(page: Path, raw: str) -> tuple[list[str], list[str]]:
+    """What is beside the page, and what the page admits to. Two lists, kept apart.
+
+    They are returned separately rather than as one "is it hidden" answer,
+    because the interesting cases are the disagreements between them and a
+    single boolean would flatten those into each other.
+    """
+    beside = [n for n in SAMPLE_FILES if (page.parent / n).is_file()]
+    linked = [n for n in SAMPLE_FILES if n in raw]
+    return beside, linked
+
+
 def g_sampled(s: Surface) -> Result:
     """A sample a stranger can actually look at, proved against what is on disk.
 
@@ -1432,6 +1838,25 @@ def g_sampled(s: Surface) -> Result:
     So the page's own sample rail is read first -- if it says the sample is not
     ready, that is the answer and we believe it -- and then whatever it promises
     is checked against disk.
+
+    AND THE OTHER DIRECTION, which this gate did not ask for a long time. Every
+    branch below asked "the page promises a sample, so is the file there?".
+    Nothing asked "the file is there, so does the page own up to it?" -- and a
+    page that promises nothing has nothing to break, so it sailed through.
+
+    Counted on 2026-08-24: three families ship a sample file at a public address
+    and link it from nowhere. `trustee-sales` PASSED this gate while holding 20
+    rows nobody is told about. `dc-siting` and `vendor-prices` failed it for the
+    wrong reason -- "the page says so itself: sample not ready", which is a true
+    sentence that sends somebody off to build a sample that already exists and is
+    already public. A verdict can be the right way up and still point at the
+    wrong file to fix.
+
+    One shape is deliberately NOT a fault here: a page that links one format and
+    ships the other unlinked. That page is not denying a buyer anything, and
+    whether a second format should be published quietly is a decision somebody
+    has to make rather than one a gate should invent. Both counts go into the
+    evidence so it stays visible and countable; today it happens zero times.
     """
     if s.kind != "feed":
         return Result(NA, "a bridge page sells no rows, so it owes no sample")
@@ -1443,8 +1868,36 @@ def g_sampled(s: Surface) -> Result:
     status = (s.fam or {}).get("sample_status")
     m = SAMPLE_RAIL.search(raw)
     rail = visible(m.group(1)).strip() if m else ""
+    beside, linked = _sample_on_disk(page, raw)
     ev: dict[str, Any] = {"sample_status": status, "rail": rail,
-                          "read": "built" if is_built else "source"}
+                          "read": "built" if is_built else "source",
+                          "sample_files_beside_page": beside,
+                          "sample_files_linked": linked}
+
+    # THE REVERSE DIRECTION, and it runs FIRST on purpose.
+    #
+    # The temptation is to put it at the bottom, after the branches that already
+    # work. That would leave the two families that say "sample not ready" being
+    # told to go and make a sample -- while the sample sits beside the page at an
+    # address a stranger can type. The first sentence a person reads has to point
+    # at the real thing to fix, so this asks before anything else does.
+    #
+    # `beside` is read off the page a buyer actually loads, which is the built
+    # one wherever there is one. Reading families/ here would ask whether the
+    # file is public by looking somewhere nothing is served from.
+    if beside and not linked:
+        rows = _sample_row_count(page.parent)
+        ev["unlinked_sample_rows"] = rows
+        held = " and ".join(f"`{n}`" for n in beside)
+        verb = "is" if len(beside) == 1 else "are"
+        count = (f"{rows:,} rows" if rows is not None
+                 else "rows this gate could not count")
+        return Result(FAIL,
+                      f"the page links no sample at all and {held} {verb} sitting beside "
+                      f"it holding {count}. The page tells a stranger there is nothing to "
+                      f"look at, and there is something to look at, at a public address a "
+                      f"stranger reaches by typing it. Read from the "
+                      f"{'built' if is_built else 'source'} page", ev)
 
     # The page's own words come first. If it tells a buyer there is nothing to
     # look at, that settles it -- and it settles it in the direction that cannot
@@ -1459,9 +1912,16 @@ def g_sampled(s: Surface) -> Result:
     # Now the counted part, which is the only part worth having. sample_status
     # is a claim in a file; below this line nothing is believed that cannot be
     # counted off disk or off the page.
-    if "sample.json" in raw or "sample.csv" in raw:
-        rows = None
-        for name in ("sample.json", "sample.csv"):
+    if linked:
+        # ONLY the formats the page actually offers. This loop used to walk both
+        # names whenever either one was linked, so a page linking sample.csv and
+        # nothing else was told "the page offers sample.json and there is no such
+        # file beside it" -- naming a file it had never mentioned. The verdict was
+        # the right way up and the sentence was about the wrong file, which sends
+        # somebody to fix a promise nobody made. Same fault as the one this gate
+        # exists to catch, one level up: a true-sounding reason pointing elsewhere.
+        rows, counted_from = None, None
+        for name in linked:
             here = [p for p in (page.parent / name, s.page.parent / name) if p.is_file()]
             ev[name] = bool(here)
             if not here:
@@ -1472,12 +1932,42 @@ def g_sampled(s: Surface) -> Result:
                 try:
                     doc = read_json(here[0])
                     rows = len(doc) if isinstance(doc, list) else len(doc.get("rows", []) or [])
+                    counted_from = name
                 except (OSError, ValueError) as exc:
                     return Result(FAIL, f"sample.json will not parse: {exc}", ev)
+
+        # A page that links the CSV and not the JSON still has to have its rows
+        # counted, and they are counted out of the file it does link. This is not
+        # a new policy: render_family.sample_facts() already counts sample.csv off
+        # disk to write the row count onto the page, so the gate is reading the
+        # same file the same way and can only ever agree or catch a real drift.
+        if rows is None:
+            f = next((c for c in (page.parent / "sample.csv", s.page.parent / "sample.csv")
+                      if c.is_file()), None)
+            if f is None:
+                return Result(UNKNOWN,
+                              "the page links a sample this gate cannot find to count", ev)
+            rows, counted_from = _csv_rows(f), "sample.csv"
+            if rows is None:
+                # Not a fault. A file this cannot open may still open perfectly
+                # in the spreadsheet the buyer opens it in, and calling that a
+                # broken promise would be guessing about somebody else's machine.
+                return Result(UNKNOWN,
+                              f"the page offers sample.csv and it is there, and this gate "
+                              f"could not read it to count the rows. Whether a buyer can "
+                              f"open it is not something this can answer from here", ev)
+
         ev["sample_rows"] = rows
+        ev["counted_from"] = counted_from
+        # The shape that is NOT a fault: linking one format while the other ships
+        # beside it unlinked. Counted so it stays visible, never scored. Whether a
+        # page may quietly publish a format it does not name is somebody's decision
+        # to make, not one a gate should make by raising a flag about it.
+        ev["shipped_unlinked_formats"] = [n for n in beside if n not in linked]
         if not rows:
             return Result(FAIL, "the sample file is there and holds no rows", ev)
-        return Result(PASS, f"a downloadable sample of {rows:,} rows", ev)
+        return Result(PASS, f"a downloadable sample of {rows:,} rows, counted out of "
+                            f"{counted_from}", ev)
 
     # No file offered. Rows printed on the page are a real sample too -- that is
     # how mesa-code shows its work -- but three is the floor. One row is an
@@ -1694,9 +2184,76 @@ def find_refusals(rows: list[dict]) -> tuple[list[dict], list[dict]]:
             if g[rule.higher]["verdict"] == PASS and g[rule.lower]["verdict"] == rule.when:
                 worth_knowing.append({"id": row["id"], "higher": rule.higher,
                                       "lower": rule.lower, "why": rule.why,
+                                      "when": rule.when,
                                       "detail": g[rule.lower]["because"]})
                 break
     return refusals, worth_knowing
+
+
+
+def shipped_pages_check(today: dt.date) -> dict:
+    """Ask the BUILT pages the questions, and ask whether anyone is listening.
+
+    `scripts/check_built.py` is the only gate that reads what actually ships. It
+    was written because the existing page gate reads `families/` -- the source
+    tree -- and the deploy runs it BEFORE the build, so the masthead, the
+    tracking tag and the freshness stamps have never been looked at by anything,
+    and five pages that ship have no source page at all.
+
+    Two answers come back, and they are kept apart on purpose:
+
+      1. What the built tree says right now.
+      2. Whether the deploy script actually calls the thing. A gate nobody runs
+         is not a gate, it is a file. That question is answered by reading the
+         deploy script rather than by remembering, because the whole point is
+         that it should flip on its own the day somebody wires it in.
+
+    Nothing here can stop a build. It reports, because the build has already
+    happened by the time this question can be asked at all.
+    """
+    out = {"state": "unknown", "because": "", "checked": 0, "total": 0,
+           "skipped": [], "faults": [], "wired": False, "runs_before_build": False}
+
+    deploy = ROOT / "scripts" / "refresh_and_deploy.sh"
+    if deploy.is_file():
+        try:
+            script = deploy.read_text(encoding="utf-8")
+        except OSError:
+            script = ""
+        out["wired"] = "check_built.py" in script
+        # The ordering fault, read rather than remembered.
+        lines = [ln for ln in script.splitlines() if not ln.lstrip().startswith("#")]
+        site = next((i for i, ln in enumerate(lines) if "check_site.py" in ln), None)
+        build = next((i for i, ln in enumerate(lines) if "build_site.py" in ln), None)
+        out["runs_before_build"] = site is not None and build is not None and site < build
+
+    try:
+        sys.path.insert(0, str(ROOT / "scripts"))
+        import check_built  # noqa: PLC0415
+    except Exception as exc:  # pragma: no cover - the gate is missing entirely
+        out["because"] = f"the built-page gate could not be loaded ({exc.__class__.__name__})"
+        return out
+    if not check_built.DIST.is_dir():
+        out["because"] = ("nothing has been built on this machine, so there is no shipped "
+                          "page to read. That is not a pass")
+        return out
+    try:
+        rep = check_built.run(today)
+    except Exception as exc:  # pragma: no cover - defensive, never a pass
+        out["because"] = f"the built-page gate stopped part way ({exc.__class__.__name__})"
+        return out
+    out["total"] = len(check_built.shipped_pages())
+    out["checked"] = len(rep.checked)
+    out["skipped"] = [f"{w}: {why}" for w, why in rep.skipped]
+    out["faults"] = list(rep.faults) + list(rep.unreadable)
+    seen = len(rep.checked) + len(rep.skipped)
+    if seen + len(rep.unreadable) != out["total"]:
+        out["state"] = "unknown"
+        out["because"] = (f"{out['total']} pages ship and only {seen} were accounted for, "
+                          f"so the coverage number cannot be trusted")
+        return out
+    out["state"] = "fail" if out["faults"] else "pass"
+    return out
 
 
 def assess(probe: bool = True, today: dt.date | None = None) -> dict:
@@ -1750,6 +2307,7 @@ def assess(probe: bool = True, today: dt.date | None = None) -> dict:
         # Asked of every reader on the machine, not only the ones with a page,
         # so a store nobody sells is still counted. See raw_body_sweep().
         "raw_bodies": raw_body_sweep(),
+        "shipped": shipped_pages_check(today),
         "site_gate": site_gate().verdict,
     }
 
@@ -1786,11 +2344,29 @@ def print_table(a: dict) -> None:
           f"{len(done)} are all the way through ({', '.join(done) or 'none'}).")
     print(f"{len(unknown)} are held at a gate nobody could decide, which is not the same "
           f"as failing it: {', '.join(unknown) or 'none'}")
+    print(f"Every date and day count below is on {clock()}.")
     if a["refusals"]:
         print(f"\nREFUSED ({len(a['refusals'])}):")
         for r in a["refusals"]:
             print(f"  {r['id']}: {r['higher']} passes and {r['lower']} fails -- {r['why']}")
             print(f"      {r['detail']}")
+    # THE UNANSWERED QUESTIONS THAT ARE ABOUT MONEY, ON THEIR OWN AND FIRST.
+    # Printed apart from the list below because that is the whole finding: these
+    # used to be one line each in the middle of it, and an unknown nobody picks
+    # out is an unknown nobody acts on.
+    spots = money_blind_spots(a["worth_knowing"])
+    if spots:
+        print(f"\nSELLING WITH THE QUESTION STILL OPEN ({sum(len(v) for v in spots.values())} "
+              f"on {len(spots)} surface(s)) -- somebody can be charged for these today and "
+              f"nothing here can say whether they may be sold:")
+        for sid, ws in sorted(spots.items()):
+            for w in ws:
+                print(f"  {sid}: {w['higher']} passes while {w['lower']} is UNKNOWN -- "
+                      f"{w['why']}")
+                print(f"      {w['detail']}")
+        print("  Minting refuses these. Certifying says so and stamps them anyway: they "
+              "are already selling, and taking a pay button off a live product is an "
+              "operator's decision.")
     if a["worth_knowing"]:
         print(f"\nworth knowing ({len(a['worth_knowing'])}):")
         for r in a["worth_knowing"]:
@@ -1816,9 +2392,19 @@ def write_report(a: dict) -> None:
     other people are committing to.
     """
     L = ["# The Feed Page Pipeline", "",
-         f"Counted on {a['generated']} by `scripts/pipeline.py`. **Do not edit this file** "
-         f"-- every number in it is read off the estate and a hand edit is gone on the "
-         f"next run.", ""]
+         f"Counted on {a['generated']} ({clock()}) by `scripts/pipeline.py`. "
+         f"**Do not edit this file** -- every number in it is read off the estate and a "
+         f"hand edit is gone on the next run.", "",
+         # A BARE DATE IS AN UNLABELLED UNIT HERE. Every "days back", every hole
+         # and every cadence check below is counted against the clock named
+         # above. A collector writes its own seal date, and whether it writes it
+         # on that clock or on UTC is not something this file can see, so near a
+         # midnight the two can name different days. Said out loud rather than
+         # left for somebody to trip over.
+         f"> Every date, gap and \"days back\" below is counted on **{clock()}**. The "
+         f"seal dates they are counted against are written by the collectors, and which "
+         f"clock each of those uses is not readable from here -- so within a few hours of "
+         f"midnight a day count can be one out. Unknown, not assumed.", ""]
     if not a["probed"]:
         L += ["> This run was told not to touch the network, so nothing below knows whether "
               "the published addresses answer.", ""]
@@ -1876,10 +2462,37 @@ def write_report(a: dict) -> None:
     else:
         L += ["## Refused", "", "Nothing. `--check` is green.", ""]
 
+    # THE UNANSWERED QUESTIONS THAT ARE ABOUT MONEY, PULLED OUT AND PUT FIRST.
+    # They used to be one line each in the middle of the list below, which is the
+    # whole fault: an unknown that nothing acts on is indistinguishable from a
+    # yes. This section is what the minting step and the certifying step now read
+    # by name, so what a person sees here and what a script does are the same
+    # answer rather than two things that can drift apart.
+    spots = money_blind_spots(a["worth_knowing"])
+    if spots:
+        n = sum(len(v) for v in spots.values())
+        L += ["## Selling with the question still open", "",
+              f"{n} money gate(s) on {len(spots)} surface(s) stand over a gate that came "
+              f"back **unknown** — not failed, unanswered. Somebody can be charged for "
+              f"these today and nothing on this disk can say whether they may be sold.", "",
+              "`scripts/mint_feed_links.py` refuses to create anything new for these. "
+              "`scripts/verify_checkouts.py` says so out loud and stamps them anyway, on "
+              "purpose: they are all already selling, and withholding a stamp ages the "
+              "`verified` date out and takes the pay button off a live product. That is "
+              "money coming off the estate and an operator decides it, not a script.", ""]
+        for sid, ws in sorted(spots.items()):
+            for w in ws:
+                L.append(f"- **`{sid}`** — `{w['higher']}` passes while `{w['lower']}` is "
+                         f"**unknown**: {w['why']}. {w['detail']}")
+        L += ["", "To close one, answer the gate underneath it. A written, dated "
+              "permission note tied to the sources the store actually names is what turns "
+              "an unknown into a pass; nothing here upgrades one on its own.", ""]
+
     if a["worth_knowing"]:
         L += ["## Worth knowing", "",
               "Not refusals — a gate nobody could decide, sitting under one that passed. "
-              "These do not stop a build; they are the questions to answer next.", ""]
+              "These do not stop a build; they are the questions to answer next. The "
+              "money ones are repeated above because that is where they get acted on.", ""]
         for r in a["worth_knowing"]:
             L.append(f"- **`{r['id']}`** — {r['why']}. {r['detail']}")
         L.append("")
@@ -1914,6 +2527,45 @@ def write_report(a: dict) -> None:
           "find and grade that. Anything it cannot account for is `unknown`, which "
           "is a real answer and gets reported. It is never quietly dropped, and it "
           "is never rounded up to a pass.", "",
+          "### The refusals are wired into the money, not just the build", "",
+          "Until 2026-08-24 the ladder governed publishing and did not govern money "
+          "being created. `scripts/mint_feed_links.py` -- the only file here that "
+          "makes a thing a stranger can pay -- had never asked `build_veto()` once. "
+          "So every gate on this page could be sitting at a refusal while a payable "
+          "product was minted for that exact family, and nothing anywhere noticed. "
+          "The payable product for `air-permits` was created at 02:55 UTC that day "
+          "and the family came off sale the same morning; the Arizona source it "
+          "sells had been refused three days earlier with the reason written down. "
+          "**The verdict was right, the evidence was on disk, and the part of the "
+          "system that earns was not reading it.**", "",
+          "It asks now, before anything is minted rather than after, because a link "
+          "that exists and is then flagged is money that can already be taken. There "
+          "is no override argument at that call site and there must not be: it is "
+          "the one place somebody will most want one, late and with a good reason. "
+          "`scripts/mint_feed_links_selftest.py` proves both directions off the real "
+          "ladder -- refused for the family whose `lawful` gate really fails, minted "
+          "for one that passes the whole way -- and proves the check can go red by "
+          "running against a copy with the refusal deleted.", "",
+          "**The second door is now shut as well.** `scripts/verify_checkouts.py` "
+          "writes the stamp `scripts/check_site.py` reads before it will ship a pay "
+          "button, and it wrote that stamp on the strength of one question: does the "
+          "address respond. On 2026-08-24 those two questions came apart. The "
+          "`air-permits` address answered 200 all day and still does; the family may "
+          "not lawfully be sold. A run that morning would have certified a working "
+          "link to something we had decided not to sell. It asks the ladder now, "
+          "before it fetches anything, and **withholds** the stamp from a refused "
+          "surface: nothing is un-stamped, no record is cleared and no status is set "
+          "to dead. Refusing to renew is the safe direction -- an existing date ages "
+          "out on its own and the gate already handles that, while clearing one is a "
+          "step towards changing what a customer can buy. There is no override "
+          "argument there either. `scripts/verify_checkouts_selftest.py` proves it "
+          "both ways against a copy, with every fetch faked, and measures what the "
+          "wiring is worth: run the identical case with an empty ladder and the "
+          "refused family is stamped `live` and dated today, because nothing else in "
+          "that file was ever going to stop it.", "",
+          "One door is still open and is left open deliberately. `check_site.py` "
+          "reads that stamp and never asks the ladder itself, so a stamp already "
+          "standing still ships a button. That is the next job, not this one.", "",
           "### The refusals are wired into the build", "",
           "Since 2026-08-24 `scripts/build_slices.py` asks `build_veto()` before it "
           "writes anything, and **refuses to write any page of a family named in the "
@@ -2064,6 +2716,74 @@ def write_report(a: dict) -> None:
               "say which half is the mistake. The byte counts are what is held on disk "
               "after compression, not the size of the original downloads.", ""]
 
+    ship = a.get("shipped") or {}
+    if ship:
+        L += ["### Does anything check the pages that actually ship?", "",
+              "The page rules are enforced on `families/` -- the source tree -- and the "
+              "deploy runs that check BEFORE the build. So everything the build adds has "
+              "never been looked at by any gate: the masthead, the tracking tag, and the "
+              "two freshness stamps the live probe later judges a feed on. Five pages ship "
+              "with no source page behind them at all, and were never passed by that "
+              "check, only missed by it.", "",
+              "`scripts/check_built.py` reads the built tree instead. Every page it finds "
+              "is checked, skipped with a reason, or named as unreadable -- there is no "
+              "fourth outcome, so a page cannot go quiet by being unlisted.", ""]
+        if ship["state"] == "unknown":
+            L += [f"**Right now: unknown.** {ship['because']}.", ""]
+        elif ship["state"] == "pass":
+            L += [f"**Right now: every one of the {ship['total']} shipped pages passes.** "
+                  f"{ship['checked']} checked, {len(ship['skipped'])} skipped with a "
+                  f"reason.", ""]
+        else:
+            L += [f"**Right now: {len(ship['faults'])} problem(s) on pages that ship.** "
+                  f"{ship['checked']} of {ship['total']} checked.", ""]
+            L += [f"- {f}" for f in ship["faults"][:12]] + [""]
+        for line in ship["skipped"]:
+            L += [f"- skipped {line}", ""]
+        if not ship["wired"]:
+            L += ["**Nothing runs it yet.** The deploy script does not mention it, so the "
+                  "verdict above is one this file asked for and nothing else reads. It "
+                  "belongs after the build and before the upload; running it before the "
+                  "build would read the PREVIOUS build and report a stale answer as a "
+                  "current one. This line will change on its own once it is wired in.", ""]
+        if ship["runs_before_build"]:
+            L += ["The deploy still runs the source-tree page check before the build, "
+                  "which is where the original fault lives.", ""]
+
+    # Who wrote what, in the file the next person opens. Three lanes were editing
+    # this repo at once and each was handed a list of files it owned. One edit
+    # here went outside that list. It was reported up at the time, which is the
+    # part that mattered, but a message in a thread is gone by next week and the
+    # tree is what somebody reads. So it is written down where the change is.
+    L += ["## Who changed what, outside the lane that owns it", "",
+          "`scripts/pipeline_selftest.py` was edited by the lane that owns "
+          "`scripts/pipeline.py`, and that file was not on its list. It was done "
+          "deliberately and reported before it was done: the gates in `pipeline.py` "
+          "changed, and the only thing that proves a gate reaches both of its "
+          "verdicts lives in that file. Changing a gate and leaving its proof alone "
+          "would have left every new branch untested while the suite still printed "
+          "green, which is worse than the trespass.", "",
+          "`scripts/mint_feed_links.py` was edited by the same lane, on instruction, "
+          "to ask `build_veto()` before it mints. It was not on that lane's list "
+          "either. The change adds one question and removes no capability: nothing "
+          "about which families may be minted changes except that a family the "
+          "ladder refuses is now stopped. `scripts/mint_feed_links_selftest.py` is "
+          "new and proves it both ways. Neither file was run against Stripe: no key "
+          "was read and no product, price or link was created, reused, archived or "
+          "modified.", "",
+          "`scripts/verify_checkouts.py` was edited by the same lane, on the same "
+          "instruction, to ask `build_veto()` before it certifies a pay button, and "
+          "`scripts/verify_checkouts_selftest.py` is new. That change also removes no "
+          "capability: it withholds a stamp it would have written and never removes "
+          "one it already wrote. It was run only in `--dry`, which writes nothing at "
+          "all; every case that writes runs against a copy in a temporary folder with "
+          "every fetch faked, and the real `catalog.json` is compared byte for byte "
+          "before and after to prove it.", "",
+          "Nothing else outside that lane was touched. `catalog.json`, "
+          "`scripts/build_wave2.py`, `scripts/build_site.py`, "
+          "`scripts/prove_checkouts.py` and every existing `families/` folder were "
+          "read and not written.", ""]
+
     L += [
           f"This file is the record a person reads. The full working behind every cell "
           f"above, and the note of where each surface was on the last run, are written to "
@@ -2113,7 +2833,8 @@ def write_alert(a: dict, slipped: list[str]) -> None:
         ALERT.unlink(missing_ok=True)
         return
     lines = ["# feeds pipeline", "",
-             f"when: {dt.datetime.now(dt.timezone.utc):%Y-%m-%dT%H:%M:%SZ}",
+             f"when: {dt.datetime.now(dt.timezone.utc):%Y-%m-%dT%H:%M:%SZ} "
+             f"({dt.datetime.now().astimezone():%Y-%m-%d %H:%M} on {clock()})",
              f"surfaces: {a['surfaces']}", ""]
     for r in a["refusals"]:
         lines.append(f"- REFUSED {r['id']}: {r['higher']} passes while {r['lower']} fails "
@@ -2164,6 +2885,178 @@ def build_veto(today: dt.date | None = None) -> tuple[dict[str, list[dict]], str
         out.setdefault(r["id"], []).append(r)
     _VETO = (out, None)
     return _VETO
+
+
+def estate_stop(gate: Result) -> tuple[str | None, int]:
+    """The headline and the exit code the estate honesty gate earns.
+
+    A RUN THAT ANNOUNCES A STOP MUST NOT EXIT 0. That is the whole of this
+    function, and it is a function rather than three lines inside main() so it
+    can be asked directly in the self-test. The ordinary run used to print the
+    honesty gate's failure into every surface's row, write the report, and
+    return 0. A person reading the table saw it. A caller reading the exit code
+    saw success, which is the same trap as a green run log over a collector that
+    sealed nothing -- the words were right and the number was wrong, and the
+    number is the half that machines read.
+
+    The two non-zero answers are kept apart on purpose and never merged into one
+    FAIL bucket. `1` means the estate really is lying: check_site.py ran and said
+    so. `2` means nobody knows, because the gate itself could not be run, and an
+    unknown must never round up to a pass or down to a fault.
+
+    THESE NUMBERS ARE NOT THE SAME AS `--veto`'s. That command has its own
+    three-way contract, written in its docstring and relied on by
+    scripts/build_slices.py: for it, `2` means the estate gate is down and
+    nothing may be written at all, whatever the reason. It is not changed here,
+    because changing an exit code another file already reads is a bigger thing
+    than the fault being fixed. So: same words, different numbers, on purpose --
+    and said out loud rather than left for somebody to trip over.
+    """
+    if gate.verdict == PASS:
+        return None, 0
+    if gate.verdict == FAIL:
+        return (f"THE WHOLE BUILD IS STOPPED: {gate.because}\n"
+                f"Every `honest` verdict below is that one failure wearing a different "
+                f"name, so read this line and not the column."), 1
+    return (f"THE ESTATE HONESTY GATE COULD NOT BE RUN: {gate.because}\n"
+            f"That is unknown, not clean. Nothing below can say whether a page is "
+            f"telling the truth about its own rows."), 2
+
+
+def _zone_name() -> str | None:
+    """The IANA name of this machine's clock, or nothing if it cannot be trusted.
+
+    THIS MACHINE HAS TWO ANSWERS AND ONE OF THEM IS WRONG. `/etc/timezone` says
+    `Etc/UTC`; `/etc/localtime` points at `America/Phoenix`, and the clock really
+    is seven hours behind UTC, so the second one is the true one and the first is
+    stale. Reading the stale file would print a confident label that is a whole
+    zone out -- worse than printing nothing, because a wrong unit is read as a
+    right one.
+
+    So the name is taken from the symlink, then CHECKED against the offset the
+    clock is actually running at. If the two disagree, or if the name cannot be
+    read at all, this returns nothing and the caller prints the offset on its
+    own. The offset is always true; the name is a convenience that has to earn
+    its place on the line.
+    """
+    try:
+        target = os.path.realpath("/etc/localtime")
+        name = target.split("zoneinfo/", 1)[1] if "zoneinfo/" in target else None
+    except OSError:
+        return None
+    if not name:
+        return None
+    try:
+        from zoneinfo import ZoneInfo
+        now = dt.datetime.now()
+        if now.astimezone(ZoneInfo(name)).utcoffset() != now.astimezone().utcoffset():
+            return None      # the name and the clock disagree: say neither
+    except Exception:
+        return None
+    return name
+
+
+def clock() -> str:
+    """The name of the clock every date in this file is measured on.
+
+    A BARE TIME IS AN UNLABELLED UNIT. This machine runs on America/Phoenix and
+    a good deal of what it reads -- run logs, the payment platform's activity
+    log, the alert file this very script writes -- is stamped in UTC, seven
+    hours ahead. "2026-08-24" means two different days depending on which of
+    those you meant, and a day is exactly the size of the mistake that produced
+    a seven-day hole nobody could see. So every schedule this file prints says
+    which clock it is on, in the same sentence, rather than leaving the reader
+    to assume the one they happen to use.
+    """
+    now = dt.datetime.now().astimezone()
+    off = now.strftime("%z")
+    said = f"{now.tzname()}, UTC{off[:3]}:{off[3:]}"
+    name = _zone_name()
+    return f"{name}, {said}" if name else f"{said} (zone name unknown on this machine)"
+
+
+# The gates that mean somebody can be charged. A gate below one of these coming
+# back UNKNOWN is the thing this section is about.
+MONEY_GATES = ("priced", "payable")
+
+_BLIND: tuple[dict[str, list[dict]], str | None] | None = None
+
+
+def money_blind_spots(worth_knowing: list[dict]) -> dict[str, list[dict]]:
+    """The reported-only lines that are about MONEY and about an UNKNOWN.
+
+    A pure function over already-measured rows, for the same reason
+    find_refusals() is one: the self-test can hand it invented lines and prove it
+    keeps the right ones and drops the rest, without a store, a page or a clock
+    anywhere near it.
+
+    TWO FILTERS, AND BOTH ARE LOAD-BEARING. Dropping the `when` filter would
+    sweep in the one WORTH_KNOWING entry that fires on a FAIL, which carries a
+    written operator decision to stay reporting-only and an instruction for what
+    would have to change first. Dropping the gate filter would sweep in the
+    `live`-over-`lawful` pair, which is about a page being in front of strangers
+    and not about anybody being charged. Promoting either is a decision with a
+    name on it, and it is not this.
+    """
+    out: dict[str, list[dict]] = {}
+    for w in worth_knowing:
+        if w.get("when") == UNKNOWN and w["higher"] in MONEY_GATES:
+            out.setdefault(w["id"], []).append(w)
+    return out
+
+
+def build_blindspots(today: dt.date | None = None
+                     ) -> tuple[dict[str, list[dict]], str | None]:
+    """Every surface where a MONEY gate passes over a gate that came back UNKNOWN.
+
+    AN UNKNOWN THAT NOTHING ACTS ON IS INDISTINGUISHABLE FROM A YES. That is the
+    whole reason this exists, and it is not a hypothetical. `ai-prices` sat at
+    `blocked on lawful` -- the store names no source on its rows, so no written
+    permission note can be tied to what was actually read -- for the entire time
+    it sold at $175 a month. The ladder had an opinion. The opinion was "I cannot
+    tell". Money flowed anyway, because the only thing that ever read that
+    opinion was a table a person had to open.
+
+    THIS IS NOT A NEW VERDICT AND IT DOES NOT UPGRADE ONE. The pairs come
+    straight out of WORTH_KNOWING, which has always fired on exactly these
+    unknowns, and the verdict stays `unknown` everywhere it is printed. What
+    changes is that a caller can now ask for them by name at the moment it is
+    about to create something a stranger can pay, instead of the answer existing
+    only in prose.
+
+    WHY IT IS A SEPARATE FUNCTION FROM build_veto(). Two reasons, and the second
+    one is the important one:
+
+      * build_veto()'s signature is read by scripts/build_slices.py and
+        scripts/build_site.py, which belong to another lane. Adding a third
+        element to what it returns would break both.
+      * A refusal and a blind spot deserve different answers. A refusal is a
+        fault we measured. A blind spot is a question we could not answer, and
+        the right response to it depends entirely on what is about to happen:
+        refusing to CREATE something new costs nothing, while withdrawing
+        something already selling takes money off five live pages and is an
+        operator's decision, not a script's.
+
+    Filtered to the money gates on purpose. WORTH_KNOWING also carries a
+    `live`-over-`lawful` pair, which is about a page being in front of strangers
+    rather than about being charged, and one entry that fires on a FAIL and
+    carries a written operator decision to stay reporting-only. Neither is
+    swept up here. Promoting either is a decision with a name on it, not a side
+    effect of this filter.
+
+    The network is never touched, and the answer is memoised for the same reason
+    build_veto()'s is: asking twice in one process must not be able to give two
+    different answers.
+    """
+    global _BLIND
+    if _BLIND is not None:
+        return _BLIND
+    a = assess(probe=False, today=today or dt.date.today())
+    if a["site_gate"] != PASS:
+        _BLIND = ({}, site_gate().because)
+        return _BLIND
+    _BLIND = (money_blind_spots(a["worth_knowing"]), None)
+    return _BLIND
 
 
 def veto_command(sid: str | None, today: dt.date) -> int:
@@ -2229,6 +3122,7 @@ def selftest() -> int:
     kept_unsure = _row("a-page-with-no-word-on-keeping", keepable=UNKNOWN)
 
     fails = 0
+    cannot = 0   # subject gone: never a pass, never a fault -- exit 2
     checks = 4
     hits, _ = find_refusals([bad])
     if len(hits) == 1 and hits[0]["lower"] == "lawful" and hits[0]["higher"] == "priced":
@@ -2266,6 +3160,253 @@ def selftest() -> int:
         print("FAIL  the live table no longer has every gate on every surface; the invented "
               "rows in this test are not the same shape as the real ones")
         fails += 1
+
+    # ---- a run that announces a stop must not exit 0 ------------------------
+    #
+    # THE FAULT THIS CATCHES IS THE NUMBER, NOT THE WORDS. The ordinary run has
+    # always printed the honesty gate's failure -- into every surface's `honest`
+    # column, and into PIPELINE.md -- and then returned 0. Everything it said was
+    # true. A caller reading only the exit code, which is what a caller reads,
+    # saw a clean run. It is the same shape as a green run log over a collector
+    # that sealed nothing.
+    #
+    # The last check is the one that matters, because it is the property rather
+    # than three examples of it: a headline and an exit code of 0 must never come
+    # back together, whatever the gate said.
+    checks += 5
+    head, code = estate_stop(Result(PASS, "scripts/check_site.py passes", {}))
+    if head is None and code == 0:
+        print("PASS  a passing estate gate says nothing and exits 0")
+    else:
+        print(f"FAIL  a passing estate gate produced {code} and {head!r}")
+        fails += 1
+
+    head, code = estate_stop(Result(FAIL, "scripts/check_site.py is failing: a page lies", {}))
+    if (code == 1 and head and "THE WHOLE BUILD IS STOPPED" in head
+            and "a page lies" in head and "could not be run" not in head):
+        print("PASS  a failing estate gate exits 1 and says the estate is lying, in the "
+              "gate's own words")
+    else:
+        print(f"FAIL  a failing estate gate produced {code} and {head!r}")
+        fails += 1
+
+    head, code = estate_stop(Result(UNKNOWN, "check_site.py could not be started", {}))
+    if (code == 2 and head and "could not be run" in head.lower()
+            and "THE WHOLE BUILD IS STOPPED" not in head):
+        print("PASS  an estate gate nobody could run exits 2 and is not reported as a "
+              "failure; unknown is its own answer and keeps its own number")
+    else:
+        print(f"FAIL  an unrunnable estate gate produced {code} and {head!r}")
+        fails += 1
+
+    # AND THE WIRING, not just the function. Every check above this one would
+    # stay green if somebody changed the last line of main() back to `return 0`,
+    # because they ask estate_stop() directly and main() is what calls it. So the
+    # ordinary run is run, in this process, against a red gate, with every write
+    # replaced by a no-op: no report, no ledger, no alert, no network.
+    real_gate, real_report = site_gate, write_report
+    real_alert, real_ledger, real_veto, real_argv = write_alert, update_ledger, _VETO, sys.argv
+    try:
+        globals()["site_gate"] = lambda: Result(FAIL, "check_site.py is failing: a page lies",
+                                                {})
+        globals()["write_report"] = lambda a: None
+        globals()["write_alert"] = lambda a, sl: None
+        globals()["update_ledger"] = lambda a: []
+        globals()["_VETO"] = None
+        sys.argv = ["pipeline.py", "--no-probe"]
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
+            ran = main()
+        said = "THE WHOLE BUILD IS STOPPED" in buf.getvalue()
+    finally:
+        globals()["site_gate"], globals()["write_report"] = real_gate, real_report
+        globals()["write_alert"], globals()["update_ledger"] = real_alert, real_ledger
+        globals()["_VETO"], sys.argv = real_veto, real_argv
+    if ran == 1 and said:
+        print("PASS  and the ordinary run really hands that number back: with the estate "
+              "gate red it announces the stop and exits 1, not 0")
+    else:
+        print(f"FAIL  the ordinary run announced={said} and exited {ran}, which is the "
+              f"exact fault this block exists for if it is 0")
+        fails += 1
+
+    both = [(v, *estate_stop(Result(v, "whatever it said", {})))
+            for v in (PASS, FAIL, UNKNOWN)]
+    lying = [(v, c) for v, h, c in both if h and c == 0]
+    if not lying and {c for _, _, c in both} == {0, 1, 2}:
+        print("PASS  no verdict produces a stop and an exit code of 0 at the same time, "
+              "and all three codes are reachable")
+    else:
+        print(f"FAIL  a stop came back with exit 0, or a code was unreachable: {both}")
+        fails += 1
+
+    # ---- the unknown that nothing acted on ---------------------------------
+    #
+    # `ai-prices` sat at `blocked on lawful` -- the store names no source on its
+    # rows, so no permission note can be tied to what was read -- for the entire
+    # time it sold at $175 a month. The ladder had an opinion and the opinion was
+    # "I cannot tell". Nothing read it, and an unknown that nothing acts on is
+    # indistinguishable from a yes.
+    #
+    # These four prove the filter keeps exactly the money-over-unknown lines and
+    # drops everything else, off invented lines. Nothing here is read from disk.
+    checks += 4
+    lines = [
+        {"id": "sells-blind", "higher": "priced", "lower": "lawful", "when": UNKNOWN,
+         "why": "charging with no note", "detail": "no written note for a-source"},
+        {"id": "just-published", "higher": "live", "lower": "lawful", "when": UNKNOWN,
+         "why": "in front of strangers with no note", "detail": "no written note"},
+        {"id": "measured-fault", "higher": "priced", "lower": "keepable", "when": FAIL,
+         "why": "keeps what its note said it would not", "detail": "7 files held"},
+    ]
+    spots = money_blind_spots(lines)
+    if list(spots) == ["sells-blind"] and spots["sells-blind"][0]["lower"] == "lawful":
+        print("PASS  a money gate standing over an UNKNOWN one is picked up by name")
+    else:
+        print(f"FAIL  the money-over-unknown line was not picked up alone: {spots}")
+        fails += 1
+
+    if "just-published" not in spots:
+        print("PASS  and a page merely being in front of strangers is not swept in; that "
+              "pair is about publishing, not about anybody being charged")
+    else:
+        print(f"FAIL  a live-over-lawful line was treated as a money question: {spots}")
+        fails += 1
+
+    if "measured-fault" not in spots:
+        print("PASS  and the one reported-only entry that fires on a FAIL is not swept in "
+              "either; promoting it is a decision with a name on it, not a filter")
+    else:
+        print(f"FAIL  a FAIL-fired reported-only line was promoted by this filter: {spots}")
+        fails += 1
+
+    if not money_blind_spots([]):
+        print("PASS  and an estate with nothing unanswered produces no blind spots, so "
+              "this cannot come out full on every run")
+    else:
+        print("FAIL  money_blind_spots invented a blind spot out of an empty list")
+        fails += 1
+
+    # ---- the same question, asked of the REAL estate -----------------------
+    #
+    # The four above are invented lines handed straight to the filter. They
+    # prove the filter sorts correctly and they prove nothing else, and the
+    # fault being fixed here was never a sorting bug: the rule was right and
+    # NOTHING CALLED IT. Delete the priced-over-lawful entry out of
+    # WORTH_KNOWING and all four stay green, because none of them goes anywhere
+    # near the rules table. These three do, by asking the live ladder.
+    #
+    # Both directions off real families, both named out loud. The expected set
+    # is derived a SECOND WAY -- straight off each surface's two verdicts --
+    # rather than by re-running the same filter, so the two routes have to agree
+    # or this goes red.
+    #
+    # If either shape has left the estate this says COULD NOT BE RUN and the
+    # whole self-test exits 2. A test whose subject has gone is not a test that
+    # passed, and that is the same mistake as a green run log over a collector
+    # that sealed nothing.
+    checks += 3
+    real = assess(probe=False)
+    real_rows = {r["id"]: r for r in real["rows"]}
+    real_blind, real_down = build_blindspots()
+
+    def _verdict(sid: str, gate: str) -> str | None:
+        g = real_rows.get(sid, {}).get("gates", {}).get(gate)
+        return g.get("verdict") if isinstance(g, dict) else None
+
+    sells = [i for i in real_rows if _verdict(i, "priced") == PASS]
+    sells_unanswered = sorted(i for i in sells if _verdict(i, "lawful") == UNKNOWN)
+    sells_with_a_note = sorted(i for i in sells if _verdict(i, "lawful") == PASS)
+
+    if real_down is not None:
+        print(f"COULD NOT BE RUN  the estate honesty gate is down ({real_down}), so the "
+              f"ladder has no per-surface answer to check today")
+        cannot += 3
+    elif not sells_unanswered or not sells_with_a_note:
+        print(f"COULD NOT BE RUN  the estate no longer holds both shapes this needs: "
+              f"selling-with-an-unknown={sells_unanswered or 'none'}, "
+              f"selling-with-a-note={sells_with_a_note or 'none'}")
+        cannot += 3
+    else:
+        if sorted(real_blind) == sells_unanswered:
+            print(f"PASS  every family really selling over a lawful UNKNOWN comes back "
+                  f"named: {', '.join(sells_unanswered)}")
+        else:
+            print(f"FAIL  the live ladder and the two verdicts disagree about who is "
+                  f"selling blind: named={sorted(real_blind)} "
+                  f"actually={sells_unanswered}")
+            fails += 1
+
+        overlap = sorted(set(real_blind) & set(sells_with_a_note))
+        if not overlap:
+            print(f"PASS  and a family selling on a real dated permission note is NOT "
+                  f"named, so this is not just flagging everything that takes money: "
+                  f"{', '.join(sells_with_a_note)} all pass")
+        else:
+            print(f"FAIL  a family with a real permission note was named as a blind "
+                  f"spot: {overlap}")
+            fails += 1
+
+        # The wording, not just the colour. An unknown printed as a failure is a
+        # false claim about a source we have simply not checked, and every
+        # verdict test in this file would stay green while it was made.
+        words = [w for ws in real_blind.values() for w in ws]
+        said = " ".join(f"{w.get('why', '')} {w.get('detail', '')}" for w in words)
+        if words and all(w.get("when") == UNKNOWN for w in words) and "fail" not in said.lower():
+            print(f"PASS  and all {len(words)} of them stay the verdict they were -- "
+                  f"unknown -- with no line calling a source failed")
+        else:
+            print(f"FAIL  a blind spot was reported as something other than unknown, or "
+                  f"its words claimed a failure: {said!r}")
+            fails += 1
+
+    # ---- the clock, named rather than assumed ------------------------------
+    #
+    # A bare date in a system that mixes UTC and America/Phoenix is an unlabelled
+    # unit, and a day is exactly the size of the mistake it causes. These prove
+    # the label is real and that it refuses to lie: this machine has TWO stored
+    # answers for its own zone and one of them (`/etc/timezone`, saying Etc/UTC)
+    # is seven hours out. A confident wrong label is worse than none.
+    checks += 3
+    said = clock()
+    now = dt.datetime.now().astimezone()
+    if now.strftime("%z")[:3] in said and (now.tzname() or "") in said:
+        print(f"PASS  the clock is named with its real offset, not assumed: {said}")
+    else:
+        print(f"FAIL  the clock label does not carry this machine's real offset: {said!r} "
+              f"against {now.strftime('%z')}")
+        fails += 1
+
+    _real_realpath = os.path.realpath
+    try:
+        os.path.realpath = lambda p: "/usr/share/zoneinfo/Etc/UTC"
+        lying = _zone_name()
+    finally:
+        os.path.realpath = _real_realpath
+    if lying is None:
+        print("PASS  and a stored zone name that disagrees with the running clock is "
+              "dropped, not printed; the offset stands on its own")
+    else:
+        print(f"FAIL  a zone name seven hours out of step with the clock was printed as "
+              f"fact: {lying!r}")
+        fails += 1
+
+    if _zone_name() is not None:
+        print(f"PASS  and the check can still say yes, so it is not simply refusing "
+              f"everything: {_zone_name()}")
+    else:
+        print("COULD NOT BE RUN  this machine's stored zone name cannot be confirmed "
+              "against its clock, so the positive half of that pair has no subject")
+        cannot += 1
+
+    # `ai-prices` is the case that started this. Named on purpose, and reported
+    # either way rather than asserted, because another lane owns that surface and
+    # a note landing on it is a fix, not a regression.
+    _aip = _verdict("ai-prices", "lawful")
+    print(f"      the case this came from: ai-prices lawful is {_aip}, priced is "
+          f"{_verdict('ai-prices', 'priced')}"
+          + (", so it is named above" if "ai-prices" in real_blind else
+             ", so it is not selling today and cannot be named"))
 
     # ---- the keeping gate, proved in both directions -----------------------
     checks += 3
@@ -2370,22 +3511,36 @@ def selftest() -> int:
         con.commit()
         con.close()
 
-    def _ask(tmp: Path, name: str, today: dt.date) -> Result:
-        """Run the real gate against an invented store, then put the world back."""
+    def _ask(tmp: Path, name: str, today: dt.date, lane_cadence: int = 1,
+             page_cadence: int | None = None) -> Result:
+        """Run the real gate against an invented store, then put the world back.
+
+        `page_cadence` builds a page carrying a real cadence stamp, because the
+        rule that the PAGE's promise beats the store map is the rule that keeps
+        `/feeds/grid` green and it cannot be taken on trust.
+        """
         surf = Surface(name, "feed", None, None, Path("nowhere"))
-        lane = fs.Lane("the only lane", "thing", "snapshot_date", "", 1, False)
+        lane = fs.Lane("the only lane", "thing", "snapshot_date", "", lane_cadence, False)
         old_clocks, old_lanes = CLOCKS, fs._lanes
-        old_store = fs._store_path
+        old_store, old_dist = fs._store_path, DIST
         try:
             globals()["CLOCKS"] = tmp
             fs._lanes = lambda fid: (name, (lane,))
             fs._store_path = lambda st: tmp / st / "data" / f"{st}.db"
+            if page_cadence is not None:
+                built = tmp / "dist" / name
+                built.mkdir(parents=True, exist_ok=True)
+                (built / "index.html").write_text(
+                    f'<meta name="data-cadence-days" content="{page_cadence}">',
+                    encoding="utf-8")
+                globals()["DIST"] = tmp / "dist"
             return g_producing(surf, g_collected(surf, today), today)
         finally:
             globals()["CLOCKS"] = old_clocks
             fs._lanes, fs._store_path = old_lanes, old_store
+            globals()["DIST"] = old_dist
 
-    checks += 5
+    checks += 14
     tmp = Path(tempfile.mkdtemp(prefix="pipeline-producing-"))
     try:
         today = dt.date(2026, 8, 24)
@@ -2453,12 +3608,201 @@ def selftest() -> int:
             print(f"FAIL  an empty store came out of the producing gate as {r.verdict}: "
                   f"{r.because}")
             fails += 1
+
+        # ---- the calendar reading: the hole that heals itself overnight ----
+
+        def days(*runs: tuple[str, str]) -> list[str]:
+            """Dated rows for every day in each range, so a hole is a real absence."""
+            out: list[str] = []
+            for a, b in runs:
+                d, end = dt.date.fromisoformat(a), dt.date.fromisoformat(b)
+                while d <= end:
+                    out.append(d.isoformat())
+                    d += dt.timedelta(days=1)
+            return out
+
+        # 6. THE ONE THIS READING EXISTS FOR. A seven-day hole, and the newest
+        #    row is TODAY. Every check above this one is satisfied: rows are
+        #    current, runs are booked, runs sealed rows. The week is simply gone,
+        #    and until now nothing anywhere remembered it.
+        healed = days(("2026-06-20", "2026-08-10"), ("2026-08-18", "2026-08-24"))
+        _store(tmp, "healed-hole", healed, [(d, 40) for d in healed[-5:]])
+        r = _ask(tmp, "healed-hole", today)
+        if r.verdict == FAIL and "7 day(s) in a row" in r.because:
+            print(f"PASS  a seven-day hole is a fault even though the newest row is today: "
+                  f"{r.because}")
+        else:
+            print(f"FAIL  a healed hole was not caught: {r.verdict} -- {r.because}")
+            fails += 1
+
+        # 7. And it names the dates, because "it had a hole" sends nobody anywhere.
+        #
+        # THIS CHECK USED TO ASSERT "2026-08-10 to 2026-08-18" -- the sealed days
+        # on either side of the hole, not the dark days. The fixture seals through
+        # the 10th and again from the 18th, so the days that sealed nothing are the
+        # 11th to the 17th: seven of them, which is the number the same sentence
+        # was already printing. The test agreed with the code because it had been
+        # written from the code's output rather than from the fixture, so the two
+        # of them were wrong together and green about it. A test copied from what
+        # the code said can only ever confirm what the code said.
+        #
+        # The sentence now names the sealed days ON PURPOSE, the way the ai-prices
+        # coverage page does: every dark day, then the nearest sealed copy either
+        # side of it, each one labelled for what it is. That page was built before
+        # this bug was made and it is immune to it, because on it a reader is never
+        # handed a bare pair of dates and left to work out which kind they are.
+        #
+        # So the test cannot go on banning the sealed days outright. It pins three
+        # things instead, and the middle one is the one that matters:
+        #   - the dark range 11th to 17th is named as the dark range;
+        #   - the WRONG range -- the fencepost pair, 10th to 18th, and both of its
+        #     half-and-half cousins -- appears NOWHERE, in any wording;
+        #   - the sealed days appear ONLY inside the clause that says they sealed.
+        #     That last one is checked by cutting the labelled clause out and then
+        #     looking for the dates in what is left. A stray 2026-08-10 anywhere
+        #     else is the fencepost error growing back with a label pasted over it.
+        dark = "from 2026-08-11 to 2026-08-17" in r.because
+        counts = "sealed 59 of the last 90 days" in r.because
+        labelled = ("between the sealed copy on 2026-08-10 and the next one on "
+                    "2026-08-18") in r.because
+        wrong = [w for w in ("from 2026-08-10 to 2026-08-18",
+                             "from 2026-08-10 to 2026-08-17",
+                             "from 2026-08-11 to 2026-08-18") if w in r.because]
+        rest = r.because.replace("between the sealed copy on 2026-08-10 and the next "
+                                 "one on 2026-08-18", "")
+        stray = [d for d in ("2026-08-10", "2026-08-18") if d in rest]
+        if dark and counts and labelled and not wrong and not stray:
+            print("PASS  it names the DARK days 11th to 17th as dark, and the sealed "
+                  "copies either side as sealed, so neither can be read as the other")
+        else:
+            why = (f"it prints the fencepost pair as the hole: {wrong}" if wrong
+                   else f"a sealed day appears outside its own clause: {stray}" if stray
+                   else "the labelled sealed-copy clause is missing" if not labelled
+                   else "the dark dates or the count are missing")
+            print(f"FAIL  the hole message does not carry its own numbers ({why}): "
+                  f"{r.because}")
+            fails += 1
+
+        # 7b. THE ORDERING THIS SENTENCE NOW DEPENDS ON, pinned by a fixture
+        #     rather than by the comment next to it. The calendar sentence has
+        #     one wording, for a hole with a sealed day on BOTH sides, and it
+        #     asserts that a hole reaching today never gets that far. That is a
+        #     claim about which fault returns first, so it is tested as one: a
+        #     store that stopped on 11 Aug and has sealed nothing since must come
+        #     back as "13 days back", the staleness fault, and must never print
+        #     the hole sentence. If somebody reorders the gate, the assert inside
+        #     it raises and this check goes red with the numbers in the message,
+        #     which is the point of asserting instead of writing a dead branch.
+        stopped = days(("2026-06-20", "2026-08-11"))
+        _store(tmp, "still-dark", stopped, [(d, 40) for d in stopped[-3:]])
+        r = _ask(tmp, "still-dark", today)
+        never = "in a row without sealing anything" in r.because or "None" in r.because
+        if r.verdict == FAIL and "13 days back" in r.because and not never:
+            print(f"PASS  a feed still dark today is the staleness fault, not the hole "
+                  f"sentence, so no half-filled 'and the next one on ...' can print: "
+                  f"{r.because}")
+        else:
+            why = ("the calendar sentence printed for a hole with no sealed day after it"
+                   if never else "the staleness fault did not fire")
+            print(f"FAIL  an ongoing dark run came back wrong ({why}): {r.verdict} -- "
+                  f"{r.because}")
+            fails += 1
+
+        # 8. THE KNOWN-NEGATIVE, and the reason the promise is read off the page.
+        #    The same seven-day hole on a feed whose PAGE says every 7 days. This
+        #    is /feeds/grid: four queues read daily, two deliberately stopped and
+        #    named on the page with their last dates, so the page promises weekly.
+        #    The store map still says its fastest lane is daily. Measured against
+        #    the store map this fails; measured against the promise a buyer can
+        #    actually read, it is a feed doing exactly what it said.
+        r = _ask(tmp, "healed-hole", today, lane_cadence=1, page_cadence=7)
+        if r.verdict == PASS:
+            print(f"PASS  the same hole is no fault when the page promised weekly, which "
+                  f"is what keeps the most honest page in the estate green: {r.because}")
+        else:
+            print(f"FAIL  a page promising weekly was faulted for a 7-day gap: "
+                  f"{r.verdict} -- {r.because}")
+            fails += 1
+
+        # 9. The two readings are independent, and this proves it. No run log at
+        #    all -- the reading that answered every case above is gone -- and the
+        #    hole is still found, because the rows carry their own dates. This is
+        #    the case the two paid feeds with unreadable run logs are in.
+        _store(tmp, "hole-no-log", healed, [], run_log=False)
+        r = _ask(tmp, "hole-no-log", today)
+        if r.verdict == FAIL and "run log is no help" in r.because:
+            print(f"PASS  with no run log at all the hole is still found, off the rows' "
+                  f"own dates: {r.because}")
+        else:
+            print(f"FAIL  a missing run log silenced the calendar: {r.verdict} -- "
+                  f"{r.because}")
+            fails += 1
+
+        # 10. And the other way: no run log, no hole. That must stay UNKNOWN. A
+        #     second reading coming back clean is not permission to call the
+        #     first one answered -- this is exactly where an unknown would round
+        #     itself up to a pass.
+        clean = days(("2026-06-20", "2026-08-24"))
+        _store(tmp, "clean-no-log", clean, [], run_log=False)
+        r = _ask(tmp, "clean-no-log", today)
+        if r.verdict == UNKNOWN:
+            print(f"PASS  a clean calendar does not promote a missing run log to a pass: "
+                  f"{r.because}")
+        else:
+            print(f"FAIL  a clean calendar rounded a missing run log up to {r.verdict}: "
+                  f"{r.because}")
+            fails += 1
+
+        # 11. ROWS WRITTEN IS NOT ROWS ADVANCED. Runs ran, runs sealed real rows,
+        #     and the newest date never moved. Every number a run log keeps looks
+        #     healthy here, which is why the sentence has to say what happened
+        #     rather than just that something is late.
+        _store(tmp, "resealing", days(("2026-06-20", "2026-08-13")),
+               [("2026-08-22", 17), ("2026-08-23", 17), ("2026-08-24", 17)])
+        r = _ask(tmp, "resealing", today)
+        if r.verdict == FAIL and "had already been produced" in r.because:
+            print(f"PASS  runs that sealed real rows and advanced nothing are named as "
+                  f"that, not as silence: {r.because}")
+        else:
+            print(f"FAIL  re-sealing was not named: {r.verdict} -- {r.because}")
+            fails += 1
+
+        # 12/13. A THIRD STORE SHAPE, described rather than denied. `ai-terms`
+        #        keeps its evidence as a folder of dated sealed files, and both
+        #        readings used to answer "there is no store file" about a store
+        #        that is sitting right there. Unknown was the right verdict and
+        #        the reason was a false sentence, which is the pairing this whole
+        #        session keeps finding. Both ways: a folder must be called a
+        #        folder, and a genuinely absent store must still be called absent.
+        shape = tmp / "a-folder-of-seals"
+        shape.mkdir()
+        for d in ("2026-08-22.txt", "2026-08-23.txt", "2026-08-24.txt"):
+            (shape / d).write_text("sealed\n", encoding="utf-8")
+        said = _why_unopenable(shape)
+        if "folder of 3 sealed file(s)" in said and "no store file" not in said:
+            print(f"PASS  a store that is a folder is described as one: {said}")
+        else:
+            print(f"FAIL  a folder store was not described as a folder: {said}")
+            fails += 1
+
+        gone = _why_unopenable(tmp / "nothing-here.db")
+        if "there is no store file" in gone:
+            print(f"PASS  and a store that really is absent still says so: {gone}")
+        else:
+            print(f"FAIL  an absent store stopped saying it was absent: {gone}")
+            fails += 1
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
 
     print()
-    print(f"{checks - fails} of {checks} checks passed")
-    return 1 if fails else 0
+    print(f"{checks - fails - cannot} of {checks} checks passed")
+    if fails:
+        return 1
+    if cannot:
+        print(f"{cannot} check(s) COULD NOT BE RUN -- their subject is no longer on the "
+              f"estate. That is unknown, not clean, so this exits 2 rather than green.")
+        return 2
+    return 0
 
 
 def gate_command(a: dict, sid: str, stage: str) -> int:
@@ -2554,21 +3898,35 @@ def main() -> int:
     if args.explain:
         return explain(a, args.explain)
 
+    # Said BEFORE the table as well as after it. A stop printed only at the
+    # bottom of a hundred-line table is a stop nobody reads.
+    headline, stopped = estate_stop(site_gate())
+    if headline:
+        print(headline, file=sys.stderr)
+        print(file=sys.stderr)
+
     print_table(a)
     if args.check:
         if a["refusals"]:
             print(f"\n{len(a['refusals'])} refusal(s). Nothing was written.", file=sys.stderr)
             return 1
         print("\nno refusals")
-        return 0
+        # A clean refusal list while the estate gate is red is not a pass. The
+        # refusals are per surface; this is the whole estate, and it outranks
+        # them.
+        return stopped
 
     slipped = update_ledger(a)
     for s in slipped:
         print(f"  WENT BACKWARDS: {s}")
     write_alert(a, slipped)
     write_report(a)
+    # The report is still written, deliberately: it is how a person finds out
+    # what is wrong. What changes is the number the run hands back afterwards.
     print(f"\nwrote {REPORT.relative_to(ROOT)}; full working in {MACHINE}")
-    return 0
+    if headline:
+        print(headline, file=sys.stderr)
+    return stopped
 
 
 if __name__ == "__main__":
