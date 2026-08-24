@@ -513,9 +513,12 @@ def coverage(c: sqlite3.Connection, st: dict, ch: dict, built: list[dict]) -> di
             f"on this page and cannot be put on any ZIP page.",
         ],
         "limits": [
-            f"<strong>{len(all_zips) - len(built)} ZIPs in this store have no page here.</strong> "
+            f"<strong>{len(all_zips) - len(built)} "
+            f"{plural(len(all_zips) - len(built), 'ZIP in this store has', 'ZIPs in this store have')}"
+            f" no page here.</strong> "
             + ", ".join(z for z in all_zips if z not in shipped)
-            + ". They are sealed the same way. A ZIP gets a page when it has at least "
+            + f". {plural(len(all_zips) - len(built), 'It is', 'They are')} sealed the same way. "
+            f"A ZIP gets a page when it has at least "
             f"{MIN_PER_TABLE} cases that changed status AND {MIN_PER_TABLE} that arrived, so a "
             "page is never one table plus a decoration. We will say what we hold for the rest "
             "in an email rather than guess on a page.",
