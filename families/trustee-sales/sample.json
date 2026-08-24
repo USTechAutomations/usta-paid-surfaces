@@ -1,0 +1,156 @@
+{
+  "family": "trustee-sales",
+  "generated": "2026-08-24",
+  "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
+  "rows_published": 20,
+  "columns": 5,
+  "headers": [
+    "File number",
+    "Where",
+    "Sale was",
+    "Sale became",
+    "Between these two reads"
+  ],
+  "rows": [
+    [
+      "26-05471-DF-AZ",
+      "Laveen, Maricopa 85339",
+      "21 Jul 2026",
+      "24 Aug 2026 34 days later",
+      "20 Jul 2026 \u2192 24 Aug 2026"
+    ],
+    [
+      "26-02957-QS-AZ",
+      "Tucson, Pima 85714",
+      "13 Aug 2026",
+      "25 Aug 2026 12 days later",
+      "11 Aug 2026 \u2192 24 Aug 2026"
+    ],
+    [
+      "25-09895-DM-AZ",
+      "Chandler, Maricopa 85248",
+      "27 Jul 2026",
+      "24 Aug 2026 28 days later",
+      "27 Jul 2026 \u2192 24 Aug 2026"
+    ],
+    [
+      "26-01891-SF-AZ",
+      "Phoenix, Maricopa 85033",
+      "29 Jun 2026",
+      "13 Aug 2026 45 days later",
+      "28 Jun 2026 \u2192 11 Aug 2026"
+    ],
+    [
+      "26-06465-SM-AZ",
+      "Tucson, Pima 85741",
+      "29 Jul 2026",
+      "12 Aug 2026 14 days later",
+      "29 Jul 2026 \u2192 10 Aug 2026"
+    ],
+    [
+      "25-13788-MS-AZ",
+      "Golden Valley, Mohave 86413",
+      "27 Jul 2026",
+      "10 Aug 2026 14 days later",
+      "26 Jul 2026 \u2192 9 Aug 2026"
+    ],
+    [
+      "26-08033-AB-AZ",
+      "Phoenix, Maricopa 85041",
+      "7 Aug 2026",
+      "15 Oct 2026 69 days later",
+      "6 Aug 2026 \u2192 7 Aug 2026"
+    ],
+    [
+      "25-12330-SF-AZ",
+      "Green Valley, Pima 85614",
+      "6 Aug 2026",
+      "25 Aug 2026 19 days later",
+      "5 Aug 2026 \u2192 6 Aug 2026"
+    ],
+    [
+      "24-03087-SF-AZ",
+      "Lake Havasu City, Mohave 86406",
+      "6 Aug 2026",
+      "13 Aug 2026 7 days later",
+      "5 Aug 2026 \u2192 6 Aug 2026"
+    ],
+    [
+      "26-04343-SP-AZ",
+      "Phoenix, Maricopa 85042",
+      "5 Aug 2026",
+      "8 Sep 2026 34 days later",
+      "4 Aug 2026 \u2192 5 Aug 2026"
+    ],
+    [
+      "26-04842-RM-AZ",
+      "Tucson, Pima 85745",
+      "4 Aug 2026",
+      "8 Sep 2026 35 days later",
+      "3 Aug 2026 \u2192 4 Aug 2026"
+    ],
+    [
+      "26-06220-SF-AZ",
+      "Phoenix, Maricopa 85022",
+      "30 Jul 2026",
+      "6 Aug 2026 7 days later",
+      "29 Jul 2026 \u2192 30 Jul 2026"
+    ],
+    [
+      "25-11510-SF-AZ",
+      "Peoria, Maricopa 85345",
+      "30 Jul 2026",
+      "7 Aug 2026 8 days later",
+      "29 Jul 2026 \u2192 30 Jul 2026"
+    ],
+    [
+      "25-09115-PM-AZ",
+      "Phoenix, Maricopa 85029",
+      "30 Jul 2026",
+      "3 Sep 2026 35 days later",
+      "29 Jul 2026 \u2192 30 Jul 2026"
+    ],
+    [
+      "25-02232-PM-AZ",
+      "Wittmann, Maricopa 85361",
+      "30 Jul 2026",
+      "3 Sep 2026 35 days later",
+      "29 Jul 2026 \u2192 30 Jul 2026"
+    ],
+    [
+      "26-06544-MS-AZ",
+      "Elfrida, Cochise 85610",
+      "29 Jul 2026",
+      "9 Sep 2026 42 days later",
+      "28 Jul 2026 \u2192 29 Jul 2026"
+    ],
+    [
+      "26-06343-GM-AZ",
+      "Tucson, Pima 85705",
+      "29 Jul 2026",
+      "9 Sep 2026 42 days later",
+      "28 Jul 2026 \u2192 29 Jul 2026"
+    ],
+    [
+      "26-04751-SF-AZ",
+      "Tucson, Pima 85745",
+      "29 Jul 2026",
+      "9 Sep 2026 42 days later",
+      "28 Jul 2026 \u2192 29 Jul 2026"
+    ],
+    [
+      "25-40493-WF-AZ",
+      "Sierra Vista, Cochise 85635",
+      "29 Jul 2026",
+      "9 Sep 2026 42 days later",
+      "28 Jul 2026 \u2192 29 Jul 2026"
+    ],
+    [
+      "25-12331-SF-AZ",
+      "Gilbert, Maricopa 85234",
+      "16 Jul 2026",
+      "30 Jul 2026 14 days later",
+      "16 Jul 2026 \u2192 28 Jul 2026"
+    ]
+  ]
+}

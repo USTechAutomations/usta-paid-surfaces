@@ -476,6 +476,24 @@
       "contact_cta": "Email us the agencies you are following",
       "contact_note": "We hold 3 dated copies, 19 to 21 August 2026, covering 18 agencies. We have not checked whether USAspending serves the older figure itself, and we will tell you that too. There is nothing to buy yet.",
       "foot": "Every figure, agency and date on this page was read out of our own sealed copies at build time. Where we do not know something, the page says so rather than filling it in."
+    },
+    {
+      "id": "trustee-sales",
+      "name": "Arizona trustee sale postponements",
+      "short": "Arizona trustee sale postponements",
+      "buyer": "Arizona foreclosure bidders, title and escrow desks, and lenders tracking their own posted sales",
+      "who": "Arizona foreclosure bidders, title and escrow desks, and lenders who need to know what a posted sale date was before it moved, not only what it says today.",
+      "group": "Public records",
+      "cadence": "read daily",
+      "cadence_long": "A dated copy of the front of one Arizona trustee's sale list.",
+      "price": "Not for sale yet",
+      "sample_status": "pass",
+      "note": "NOT PRICED, and the price is not this build's decision. Counted 2026-08-24 out of ~/Claude CLI/clocks/distress_signals/data/distress_signals.db, table nts: 454 dated rows, 167 file numbers, 38 days with rows between 2026-06-24 and 2026-08-24, 10 counties, 49 towns. 43 sale-date moves across 36 properties, and all 43 pushed the sale LATER -- not one was ever brought forward. Three counting traps are handled in scripts/slice_trustee_sales.py and every one of them changes a headline number: (1) the sale-date cell is text and often carries a second bracketed date, so counting distinct text gives 38 changed files while counting the date that says when the sale is gives 36; (2) the bracketed date is later than the plain one on 61 rows and earlier on 29, so it cannot be called 'the previous date' and this build never names it -- it counts only what happened next, which is that of the 32 followable cases the sale landed on the bracketed date 32 times and elsewhere 0 times, with 29 more never seen again and counted on neither side; (3) a logged-off visit returns PAGE ONE ONLY, at most twenty rows soonest-first, so this is the front of ONE trustee's queue and never the state. No page of 'vanished sales' was built: 448 of 454 rows carried a future sale date on the day we read them, so a file disappearing is its date arriving, and publishing that as an event would be inventing one. No bid-movement page either -- only 4 files ever showed a changed opening bid, under the 5-row floor. Permission is written and dated: universe/distress_signals_v1.json, source tb_az, decision ALLOW, checked 2026-08-23, review 2026-11-16, basis government_public_record under A.R.S. 33-808, retention_allowed true, raw_body true, pii none_expected, with an operator override dated 2026-08-23. Counted, not assumed: there is no name and no street address in any of the 454 rows or in the raw copy -- file number, status, county, city, ZIP, sale date and time, loan date, original loan amount, bids, cancelled flag, and nothing else. The reader is armed and fires daily; it ran on 52 days and came back with nothing on 14 of them, including every day from 12 to 23 August 2026, and the page says so in words rather than letting a reader find it in the dates.",
+      "contact_h2": "Start the thread",
+      "contact_p": "We are not charging for this feed yet. Tell us which Arizona counties you follow and we will tell you what our dated copies hold for them, and how old the newest one is, before you spend anything.",
+      "contact_cta": "Email us the counties you are following",
+      "contact_note": "We hold 454 dated rows on 38 days, 24 June to 24 August 2026, covering 167 properties in 10 counties. It is the front of one trustee's list, not the whole state, and we will say so again when we reply.",
+      "foot": "Every count, date and county on this page was read out of our own dated copies at the moment the page was built. Where we do not know something, the page says so rather than filling it in."
     }
   ],
   "map": "MAP.md"
