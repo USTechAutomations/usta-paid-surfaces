@@ -284,6 +284,17 @@ strong { font-weight: 650; color: var(--fg); }
 .cards { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
 .hub-groups { display: grid; gap: 2.5rem; }
 .group { max-width: none; }
+
+/* The list of a feed's own pages, printed on the feed's page. Columns, not one
+   long line: twenty-seven states stacked vertically is a wall, and a reader
+   scanning for one name reads across a column far faster than down a list.
+   break-inside keeps a name from being split over a column boundary. */
+.slice-index { margin-top: 2.75rem; border-top: 1px solid var(--line); padding-top: 1.75rem; }
+.slice-index h2 { margin-bottom: .9rem; }
+.slice-list { columns: 3 190px; column-gap: 1.75rem; list-style: none; padding: 0; margin: 0 0 .9rem; }
+.slice-list li { break-inside: avoid; margin: 0 0 .5rem; }
+.slice-list a { text-decoration: none; }
+.slice-list a:hover { text-decoration: underline; }
 .card {
   display: block; background: var(--surface);
   border: 1px solid var(--line); border-radius: var(--radius);

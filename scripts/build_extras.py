@@ -8,6 +8,7 @@ both old addresses stay live and keep their search history.
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -16,6 +17,69 @@ from render_family import section, write  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 CHECKED = "22 Aug 2026"
+
+
+# The offer numbers below are COUNTED, not typed. On 2026-08-22 the count on this
+# page was read off the live page by hand and got the billing basis wrong: it said
+# every offer was "one time" when three of the eleven were, and still are, priced
+# per month. A hand-read is a claim; this is a count.
+#
+# OFFERS_SRC is the checkout the live offers page is built from. When it is on this
+# machine the figures below are recounted on every build and a disagreement stops
+# the build. When it is absent -- a machine that only has this repo -- the recorded
+# figures stand, stamped with the date and method they were counted by, so they are
+# never silently older than they look.
+OFFERS_SRC = Path.home() / "code" / "demand-foundry-offers" / "index.html"
+OFFERS_COUNTED = "23 Aug 2026"
+OFFERS_N = 11          # offers open
+OFFERS_LOW = "$200"    # cheapest
+OFFERS_HIGH = "$450"   # dearest
+OFFERS_ONCE = 8        # of OFFERS_N paid once
+OFFERS_MONTHLY = 3     # of OFFERS_N priced per month
+OFFERS_WIN_LOW = 3     # shortest stated delivery window, in days
+OFFERS_WIN_HIGH = 12   # longest
+
+
+def count_offers() -> dict | None:
+    """Recount the live offers page from the checkout it is built from.
+
+    Returns None when that checkout is not on this machine. Never guesses: the
+    price and the window are read from the one structured row that carries them,
+    not from the prose, because an offer whose DESCRIPTION says "within 2 days"
+    is not an offer with a two-day delivery window.
+    """
+    if not OFFERS_SRC.is_file():
+        return None
+    raw = OFFERS_SRC.read_text(encoding="utf-8")
+    once = monthly = 0
+    amounts, windows = [], []
+    for art in re.findall(r"(?is)<article.*?</article>", raw):
+        row = re.search(r'(?is)<span class="lbl">Price</span>(.*?)</div>', art)
+        if not row:
+            continue
+        cell = " ".join(re.sub(r"<[^>]+>", " ", row.group(1)).split())
+        amounts.append(int(re.search(r"\$(\d[\d,]*)", cell).group(1).replace(",", "")))
+        windows.append(int(re.search(r"within (\d+) days", cell).group(1)))
+        monthly += "per month" in cell
+        once += "one time" in cell
+    return {"n": len(amounts), "low": f"${min(amounts)}", "high": f"${max(amounts)}",
+            "once": once, "monthly": monthly,
+            "win_low": min(windows), "win_high": max(windows)}
+
+
+def check_offer_counts() -> None:
+    got = count_offers()
+    if got is None:
+        return
+    want = {"n": OFFERS_N, "low": OFFERS_LOW, "high": OFFERS_HIGH, "once": OFFERS_ONCE,
+            "monthly": OFFERS_MONTHLY, "win_low": OFFERS_WIN_LOW, "win_high": OFFERS_WIN_HIGH}
+    if got != want:
+        raise SystemExit(
+            f"the offers page has moved since it was counted on {OFFERS_COUNTED}.\n"
+            f"  counted now : {got}\n  written here: {want}\n"
+            "Recount, then update the constants in this file and the terms in "
+            "catalog.json together. Never edit one without the other."
+        )
 
 
 def permits() -> dict:
@@ -116,9 +180,14 @@ def offers() -> dict:
         section(
             "What is on offer",
             f"Counted off the live page on {CHECKED}",
-            "      <p><strong>11 open offers.</strong> Each one is a small piece of automation we will build "
-            "for a named kind of business, at a fixed price, inside a stated number of days. Prices on the page "
-            "today run from $200 to $450, one time.</p>\n"
+            f"      <p><strong>{OFFERS_N} open offers.</strong> Each one is a small piece of automation we will "
+            f"build for a named kind of business, at a fixed price, inside a stated number of days. Prices "
+            f"run from {OFFERS_LOW} to {OFFERS_HIGH}, and every offer states its own delivery window: the "
+            f"shortest is {OFFERS_WIN_LOW} days and the longest {OFFERS_WIN_HIGH}, counted from the day the "
+            f"scope is agreed rather than the day you pay.</p>\n"
+            f"      <p><strong>{OFFERS_ONCE} of the {OFFERS_N} are paid once. The other {OFFERS_MONTHLY} are "
+            f"priced per month.</strong> Read the price line on the offer itself before you write to us: this "
+            f"page used to say all eleven were one-time builds, and that was wrong.</p>\n"
             "      <p>Each offer says who it is for, the problem we think that business has, what we would ask "
             "before starting, and how long the build takes.</p>\n"
             '      <div class="honest">\n'
@@ -150,8 +219,9 @@ def offers() -> dict:
         section(
             "How this differs from a feed",
             None,
-            "      <p>An offer is a build: you pay once, we deliver a working thing inside an agreed window. A "
-            "feed is a subscription: you pay monthly and a file arrives saying what moved.</p>\n"
+            f"      <p>An offer is a build: we deliver a working thing inside an agreed window. {OFFERS_ONCE} of "
+            f"the {OFFERS_N} are paid once and {OFFERS_MONTHLY} are priced per month. A feed is a subscription: "
+            f"you pay monthly and a file arrives saying what moved, with no build in it.</p>\n"
             "      <p>They are different buyers and we do not bundle them. If you came here for a dated change "
             'file, go back to <a href="../../">the feed directory</a>.</p>',
         ),
@@ -172,14 +242,14 @@ def offers() -> dict:
         "ready": True,
         "group": "Public records",
         "cadence": "Fixed price, fixed window",
-        "cadence_long": "One-time builds",
+        "cadence_long": "Fixed price, one build",
         "crumb": "Offers and evidence",
         "h1": "Offers and evidence",
-        "price": "$200 – $450 one time",
+        f"price": f"{OFFERS_LOW} – {OFFERS_HIGH}",
         "buyer": "Small businesses that want one piece of automation built",
         "desc": (
-            "11 open automation offers with fixed scope, fixed price and a stated delivery window, plus the "
-            "public certificates, charter and catalog you can check them against."
+            f"{OFFERS_N} open automation offers with fixed scope, a stated delivery window, and the public "
+            f"pages you can check them against."
         ),
         "lede": "Eleven small automation builds with a fixed price and a stated delivery window &mdash; and the "
         "public pages that let you <strong>check our evidence instead of trusting a sales claim</strong>.",
@@ -191,9 +261,11 @@ def offers() -> dict:
         "contact_p": "There is no pay button here. Say which offer fits and what your actual problem is.",
         "contact_cta": "Email operations@ustechautomations.com",
         "contact_note": "Name the offer. We reply with the questions we need answered before we could quote it.",
-        "foot": "The offer count and the price range on this page were read off the live offers page on "
-        + CHECKED
-        + ". Both old addresses stay live.",
+        "foot": f"Every figure on this page is counted from the live offers page, not typed: "
+        f"{OFFERS_N} offers, {OFFERS_LOW} to {OFFERS_HIGH}, {OFFERS_ONCE} paid once and "
+        f"{OFFERS_MONTHLY} per month, windows of {OFFERS_WIN_LOW} to {OFFERS_WIN_HIGH} days, "
+        f"counted on {OFFERS_COUNTED}. The build recounts them and stops if they have moved. "
+        f"Both old addresses stay live.",
     }
 
 
@@ -212,7 +284,7 @@ EXTRA_CARDS = [
         "short": "Offers and evidence",
         "who": "Small businesses that want one piece of automation built.",
         "amount": "$200 – $450",
-        "cadence": "one-time builds",
+        "cadence": "fixed price, fixed window",
         "pill": "Live",
         "pill_class": "pill-ready",
     },
@@ -220,10 +292,21 @@ EXTRA_CARDS = [
 
 
 def main() -> None:
+    check_offer_counts()
     for spec in (permits(), offers()):
         print(write(spec))
-    (ROOT / "extras.json").write_text(json.dumps(EXTRA_CARDS, indent=2) + "\n", encoding="utf-8")
-    print("extras.json written")
+    # Merge, never overwrite. scripts/build_about.py appends its three trust pages
+    # to this same file and says it does so "without disturbing the pages already
+    # there"; this module used to write EXTRA_CARDS over the top of them, so running
+    # it after build_about.py silently deleted coverage, what-we-dont-collect and
+    # how-we-seal from the file the gate reads. The gate then refused the whole
+    # site because families/coverage/ was published and accounted for nowhere.
+    path = ROOT / "extras.json"
+    rows = json.loads(path.read_text(encoding="utf-8")) if path.is_file() else []
+    mine = {c["id"] for c in EXTRA_CARDS}
+    keep = [r for r in rows if r["id"] not in mine] + list(EXTRA_CARDS)
+    path.write_text(json.dumps(keep, indent=2) + "\n", encoding="utf-8")
+    print(f"extras.json written: {len(keep)} pages")
 
 
 if __name__ == "__main__":

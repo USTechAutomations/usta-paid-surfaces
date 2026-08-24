@@ -55,7 +55,12 @@ def card(f):
 
 
 def main():
-    fams = CAT["families"]
+    # A "build" is in the catalog for its price and its terms, not because it is a
+    # feed. families/offers/ is a door to 11 one-off automation builds: no clock, no
+    # dated file, no freshness. It is already shown from extras.json in its own
+    # group, so counting it here would both overstate the number of feeds and draw
+    # its card on the hub twice.
+    fams = [f for f in CAT["families"] if f.get("kind") != "build"]
     # Every number on the hub is counted here, from catalog.json, on every build.
     # Nothing about the directory is typed into index.html by hand any more: on
     # 2026-08-22 the hub read "16 feeds, 11 ready" while the catalog held 22

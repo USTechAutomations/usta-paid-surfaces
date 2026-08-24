@@ -18,10 +18,18 @@ exit code for each:
     something answered 404            -> 1
     something answered 301            -> 1
     nothing answered at all           -> 2, and the word "unknown", never "down"
+    the version changed mid-run       -> 3, and no verdict either way
+    a page 404s and then answers 200  -> 3, and no verdict either way
 
-That last one is the one worth the trouble. A harness that calls our own broken
-network an outage on their server is worse than no harness, because it produces
-a confident wrong answer.
+The last three are the ones worth the trouble. A harness that calls our own
+broken network an outage on their server is worse than no harness, because it
+produces a confident wrong answer -- and so is one that reads a half-finished
+deploy as seventy-five missing pages, which is a thing that has already happened
+to us on these exact addresses.
+
+The pretend server can therefore do two more things: change its version tag
+halfway through a run, and refuse one address the first time it is asked and
+serve it the second time. Both are what a rollout looks like from outside.
 """
 from __future__ import annotations
 
@@ -39,6 +47,15 @@ PY = sys.executable
 MISSING = "/feeds/quakes/texas"          # served as 404
 MOVED = "/feeds/recalls/texas"           # served as 301
 
+# What a deploy looks like from outside, switched on one case at a time.
+STATE = {
+    "version": "v1",   # goes out as the ETag, the way a real server names a build
+    "flip_after": 0,   # after this many requests, start calling itself v2
+    "hits": 0,
+    "flaky": set(),    # 404 the first time asked, 200 the second -- a rollout
+    "per_path": {},
+}
+
 
 class Handler(BaseHTTPRequestHandler):
     def log_message(self, *a):  # keep the rehearsal quiet
@@ -46,6 +63,13 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         path = self.path.rstrip("/") or "/feeds"
+        STATE["hits"] += 1
+        STATE["per_path"][path] = STATE["per_path"].get(path, 0) + 1
+        if STATE["flip_after"] and STATE["hits"] > STATE["flip_after"]:
+            STATE["version"] = "v2"
+        if path in STATE["flaky"] and STATE["per_path"][path] == 1:
+            self.send_error(404, "Not Found")
+            return
         if path == MISSING:
             self.send_error(404, "Not Found")
             return
@@ -62,6 +86,7 @@ class Handler(BaseHTTPRequestHandler):
         body = f.read_bytes()
         self.send_response(200)
         self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.send_header("ETag", f'"{STATE["version"]}"')
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
@@ -124,6 +149,42 @@ def main() -> None:
           {"ok": n - 2, "not_200": 2, "redirects": 1, "other_status": 1, "unknown": 0},
           ["--base", base, "--pace", "0", "--limit", str(n)])
 
+    # The scar, rehearsed. A run taken while the version is changing under it
+    # must refuse to give a verdict, even when nothing at all answered wrong.
+    STATE["hits"] = 0          # the count is per-case, not per-session
+    STATE["flip_after"] = 2
+    check("a version change mid-run withholds the verdict", 3,
+          {"ok": 3, "not_200": 0, "redirects": 0, "other_status": 0, "unknown": 0,
+           "version_changed_during_run": True},
+          ["--base", base, "--pace", "0", "--limit", "3"])
+    STATE["flip_after"] = 0
+    STATE["version"] = "v1"
+
+    # The whole point, stated as a test: a page really did answer 404, and the
+    # version really did move, so the 404 is NOT reported as a broken page. It
+    # becomes an unknown and the run gives no verdict. This is the case that was
+    # got wrong for real, at a cost of 75 pages reported missing that were fine.
+    STATE["hits"] = 0
+    STATE["flip_after"] = 5
+    check("a real 404 during a version change becomes unknown, not a failure", 3,
+          {"ok": first_missing - 1, "not_200": 0, "redirects": 0, "other_status": 0,
+           "unknown": 1, "version_changed_during_run": True},
+          ["--base", base, "--pace", "0", "--limit", str(first_missing)])
+    STATE["flip_after"] = 0
+    STATE["version"] = "v1"
+
+    # And the shape it actually took: pages that answer 404 and then answer 200
+    # a few minutes later. That is not a broken page and not a working one.
+    flaky_path = paths[1]
+    STATE["flaky"] = {flaky_path}
+    STATE["per_path"].clear()
+    check("a page that 404s then answers 200 withholds the verdict", 3,
+          {"ok": 3, "not_200": 0, "redirects": 0, "other_status": 0, "unknown": 0,
+           "version_changed_during_run": True},
+          ["--base", base, "--pace", "0", "--limit", "3"])
+    STATE["flaky"] = set()
+    STATE["per_path"].clear()
+
     # 2. Nothing listening: must be unknown, must not be called a failure.
     srv.shutdown()
     srv.server_close()
@@ -142,7 +203,7 @@ def main() -> None:
         for f in failures:
             print("FAIL  " + f)
         raise SystemExit(1)
-    print("all four verdicts reached, and each one picked the right exit code.")
+    print("all seven verdicts reached, and each one picked the right exit code.")
 
 
 if __name__ == "__main__":

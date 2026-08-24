@@ -419,6 +419,26 @@
       "contact_cta": "Email us your companies and we will tell you what we can read",
       "contact_note": "We will tell you which of your companies we can read, and since when. If none of them are readable we will say so, and there is nothing to buy here either way.",
       "foot": "Every row on this page was read out of the saved jobs and careers pages themselves, out of the list the company publishes inside its own page. Pages whose fingerprint changes on every copy were counted separately and never sold as hiring changes."
+    },
+    {
+      "id": "offers",
+      "name": "Offers and evidence",
+      "kind": "build",
+      "buyer": "Small businesses that want one piece of automation built",
+      "cadence": "Fixed price, fixed window",
+      "price": "$200 – $450",
+      "sample_status": "pass",
+      "live": "https://ustechautomations.com/feeds/offers/",
+      "note": "Not a dated feed. This is a door to the 11 open automation builds at ustechautomations.com/offers, which keep their own address. kind=\"build\" keeps it out of the feed counts on the hub and out of the reader table on families/coverage/, because it has no clock, no data table and no freshness: counting it as a feed would overstate both. Counted from the live offers page on 2026-08-23: 11 offers, $200 to $450, 8 paid once and 3 priced per month, delivery windows of 3 to 12 days, every offer stating one. Those figures are recounted on every build by check_offer_counts() in scripts/build_extras.py, which stops the build if the source has moved. CORRECTED 2026-08-23: the page said all 11 were \"one time\" and 3 of them were priced per month on 13 Aug and still are, so the claim was wrong when it was hand-typed on 22 Aug, not merely stale. OPEN, OPERATOR DECISION: there is no refund or delivery-failure remedy anywhere in this estate -- the only \"guarantee\" wording is the provenance charter, which is about traceability, not money. The terms below therefore say when we charge and promise to tell you if the window slips, and claim no refund. Do not add one without the operator.",
+      "group": "Public records",
+      "short": "Offers and evidence",
+      "who": "Small businesses that want one piece of automation built.",
+      "checkout": {
+        "terms": "$200 to $450 for one named build, agreed in an email thread before you pay anything. There is no pay button here or on the offers page behind it. Which of the 11 offers you pick decides both the amount and the basis: 8 of the 11 are paid once, 3 are priced per month, and the price line on the offer itself says which one yours is. Every offer states its own delivery window, from 3 days to 12, and that window runs from the day we agree the scope with you, not from the day you pay. None of the 11 is a finished product; each is built to the scope it states and nothing wider.",
+        "after": "You name the offer and your actual problem, and we reply with the questions we need answered before we could quote it. Nothing is charged until the scope and the window are agreed with you in that thread. If we cannot meet the agreed window we tell you in the same thread rather than letting the date pass quietly. A build is not a subscription and we do not bundle one with a change feed: if you came here for a dated file of what moved, the feed directory is the other product.",
+        "status": "none",
+        "note": "No Stripe link. This record is the written terms of a product sold through an email thread, and the page prints them. verify_checkouts.py skips a record with no url; check_site.py still refuses any pay link on a page whose record has none. The terms deliberately state no refund and no money-back remedy, because this estate has never published one and inventing a money promise is the operator's call, not a writer's."
+      }
     }
   ],
   "map": "MAP.md"

@@ -543,7 +543,24 @@ def coverage(today: dt.date) -> dict:
         (fams[f].get("short") or fams[f]["name"])
         for f in fams
         if f not in covered and fams[f].get("sample_status") != "parked"
+        and fams[f].get("kind") != "build"
     )
+
+    # Sold, and not a reader. A build has no clock, no dated rows and no freshness,
+    # so it cannot honestly take a row in the table above -- every column there
+    # would be a dash. It still has a price, and this is the page a buyer reads to
+    # compare prices, so it is listed here rather than left off the only page that
+    # puts our prices side by side.
+    builds = [f for f in fams.values()
+              if f.get("kind") == "build" and "$" in f.get("price", "")]
+    build_rows = [(
+        f'<strong>{esc(f.get("short") or f["name"])}</strong>'
+        f'<span class="sub">{esc(f.get("who", ""))}</span>',
+        'A build, not a feed<span class="sub">We deliver a working thing once, inside an '
+        "agreed window. Nothing dated arrives afterwards.</span>",
+        f'{esc(f["price"])}<span class="sub">Sold as {esc(f.get("short") or f["name"])}. '
+        "Each offer states its own price and its own window; ask before you pay.</span>",
+    ) for f in builds]
 
     facts = [
         f"<strong>{len(measured)} readers, {total_rows:,} dated rows, {total_runs:,} sealed "
@@ -619,7 +636,13 @@ def coverage(today: dt.date) -> dict:
                         "Still reading?", "Sold today"],
             "rows": rows,
             "moved_col": None,
-        }],
+        }] + ([{
+            "caption": "Sold, but not a dated feed",
+            "stamp": f"Counted {day(today.isoformat())}",
+            "headers": ["What it is", "What arrives", "Sold today"],
+            "rows": build_rows,
+            "moved_col": None,
+        }] if build_rows else []),
         "facts": facts,
         "limits": limits,
     }

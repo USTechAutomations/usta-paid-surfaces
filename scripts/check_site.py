@@ -287,9 +287,149 @@ def check_description_price(page_id: str, raw: str, price: str) -> None:
                      f"{price!r}: {d[:70]}...")
 
 
+# ---------------------------------------------------------------------------
+# The hole these three checks close.
+#
+# Every price check above starts from catalog.json and walks OUT to a page. So
+# a page that is in no catalog was never price-checked at all: not wrongly
+# checked, not skipped with a warning -- never looked at. families/offers/ has
+# been quoting $200 - $450 on a live page with no catalog entry behind it, and
+# no line of code in this file could see the amount.
+#
+# families/coverage/ was the same fault wearing different clothes. It reprints
+# ten product prices, and every one of them happens to be right today. That is
+# luck. Reprice anything and that page contradicts the product page silently.
+#
+# So these three walk the PAGES on disk and come back to the catalog, which is
+# the direction that cannot be dodged by not being in the catalog.
+# ---------------------------------------------------------------------------
+PRICE_RAIL = re.compile(r'<dd class="price">(.*?)</dd>', re.S)
+# The page's own search line and tab title. Deliberately NOT the body: an
+# ai-prices page prints six hundred dollar amounts that are the product, not
+# the price of it, and a check that cannot tell those apart is a check nobody
+# will keep.
+CHROME = re.compile(
+    r'<title>(.*?)</title>|'
+    r'<meta (?:name|property)="(?:og:|twitter:)?(?:title|description)" content="(.*?)">', re.S)
+# One row of the price list on families/coverage/: an amount, and the name of
+# the product it is the price of.
+SOLD_AS = re.compile(r'<td>([^<]*\$[^<]*)<span class="sub">Sold as ([^.<]+)\.')
+MONEY = re.compile(r"\$\s?\d[\d,]*(?:\.\d+)?")
+PRICE_FIXIT = ("Fix the page, never a shared price constant -- one constant is read by up "
+               "to 37 products, so editing it to fix one page moves the other 36.")
+
+
+def _amounts(text: str) -> set[str]:
+    return {m.group(0).replace(" ", "") for m in MONEY.finditer(text)}
+
+
+def _catalog_amounts() -> set[str]:
+    out: set[str] = set()
+    for fam in CATALOG["families"]:
+        out |= _amounts(fam.get("price", ""))
+    return out
+
+
+def _family_dirs() -> list[Path]:
+    return sorted(d for d in (ROOT / "families").iterdir()
+                  if d.is_dir() and (d / "index.html").is_file())
+
+
+def check_family_dirs_accounted() -> None:
+    """Both directions between the catalog and the folders on disk.
+
+    One direction was already here: the loop in main() opens the page for every
+    catalogue entry and fails when the file is missing. The other direction was
+    only half covered -- check_slices() catches an unlisted family that HAS
+    child pages, so a family with no children could sit in the folder, be
+    published, be linked, and appear in no list anywhere.
+    """
+    known = {fam["id"] for fam in CATALOG["families"]}
+    extras = ROOT / "extras.json"
+    if extras.is_file():
+        known |= {e["id"] for e in json.loads(extras.read_text(encoding="utf-8"))}
+    for d in _family_dirs():
+        if d.name not in known:
+            fail(f"families/{d.name}/ is built and published but appears in neither "
+                 f"catalog.json nor extras.json, so nothing checks its price, its "
+                 f"sample or its status. Add it to one of them, or stop building it.")
+
+
+def check_prices_on_disk() -> None:
+    """Walk the pages and come back to the catalog, not the other way round.
+
+    Three ways a price can be wrong, and none of them were reachable from a
+    catalog-first walk:
+
+      * a page names an amount and is in no catalog at all
+      * a page's price rail disagrees with the catalogue entry it does have
+      * a page's tab title or search line names an amount we do not sell
+    """
+    known = {fam["id"]: fam for fam in CATALOG["families"]}
+    sold = _catalog_amounts()
+    for d in _family_dirs():
+        raw = (d / "index.html").read_text(encoding="utf-8")
+        m = PRICE_RAIL.search(raw)
+        rail = text(m.group(1)) if m else ""
+        fam = known.get(d.name)
+        if "$" in rail:
+            if fam is None:
+                fail(f"families/{d.name}/ prints a price of its own ({rail!r}) and has no "
+                     f"entry in catalog.json, so no check in this file has ever compared "
+                     f"that amount with anything. Give it a catalog entry, or take the "
+                     f"amount off the page. {PRICE_FIXIT}")
+            if rail != fam["price"]:
+                fail(f"families/{d.name}/ shows {rail!r} in its price rail and catalog.json "
+                     f"says {fam['price']!r}. {PRICE_FIXIT}")
+        chrome = " ".join(a or b for a, b in CHROME.findall(raw))
+        for stray in sorted(_amounts(text(chrome)) - sold):
+            fail(f"families/{d.name}/ names {stray} in its tab title or its search line, "
+                 f"and catalog.json sells no product at that amount. {PRICE_FIXIT}")
+
+
+def check_price_list_page() -> None:
+    """The one page that reprints everybody else's price, held to their prices.
+
+    families/coverage/ is a price list. Ten rows, ten amounts, each labelled
+    with the product it belongs to. Nothing checked any of them, so it could
+    have gone on advertising last week's price for as long as nobody opened it
+    next to the product page. It is rebuilt by scripts/slice_about.py, so the
+    fix for anything below is a rebuild, never a hand edit.
+    """
+    page = ROOT / "families" / "coverage" / "index.html"
+    if not page.is_file():
+        return
+    raw = page.read_text(encoding="utf-8")
+    by_short = {fam["short"]: fam for fam in CATALOG["families"]}
+    listed = set()
+    for amount, short in SOLD_AS.findall(raw):
+        amount, short = amount.strip(), short.strip()
+        fam = by_short.get(short)
+        if fam is None:
+            fail(f"the price list on families/coverage/ quotes {amount} for {short!r}, "
+                 f"which is not a product in catalog.json. Rebuild it with "
+                 f"scripts/slice_about.py.")
+        listed.add(short)
+        if fam["price"] != amount:
+            fail(f"the price list on families/coverage/ says {short!r} costs {amount}; "
+                 f"catalog.json says {fam['price']}. A buyer reading the list and the "
+                 f"product page is being told two different numbers. Rebuild it with "
+                 f"scripts/slice_about.py.")
+    for fam in CATALOG["families"]:
+        if "$" in fam.get("price", "") and fam["short"] not in listed:
+            fail(f"{fam['id']} sells at {fam['price']} and is missing from the price list "
+                 f"on families/coverage/, which is the page a buyer reads to compare. "
+                 f"Rebuild it with scripts/slice_about.py.")
+
+
 def main() -> None:
     # The rule before the pages: a broken classifier makes a clean sweep.
     check_privacy_rule()
+    # Then the pages-to-catalog direction, before the catalog-to-pages loop
+    # below, because a page in no catalog is invisible to everything after this.
+    check_family_dirs_accounted()
+    check_prices_on_disk()
+    check_price_list_page()
     hub = (ROOT / "index.html").read_text(encoding="utf-8")
     if MAILTO not in hub:
         fail("hub missing operations@ mailto")

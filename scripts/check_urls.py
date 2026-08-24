@@ -36,15 +36,39 @@ us before.
     a session. Recording the address is free; pulling on it is not our call to
     make by default. --include-pay-targets adds them.
 
-Exit code, so a caller can tell the three apart without reading the text:
+5.  A RUN TAKEN DURING A DEPLOY HAS NO VERDICT. This one is paid for in scar
+    tissue: a sweep of these same addresses reported 75 of 201 missing, and
+    every one of them answered 200 a few minutes later. Nothing was broken. The
+    new version was still rolling out, so some requests landed on a server that
+    had the pages and some on a server that did not.
+
+    A sweep cannot tell those apart from the outside, so it must not try. What
+    it can tell is whether the published version held still while it worked, and
+    that is what this measures. One page is used as a witness. It is fetched at
+    the start, every twenty-five addresses, and at the end, and each time we
+    keep a mark of what came back -- the server's own version tag if it sends
+    one, otherwise a short fingerprint of the page. More than one distinct mark
+    across a run means the thing being measured changed while it was being
+    measured. Then anything that did not answer 200 is recorded as unknown, not
+    as a failure, and the run refuses to give a verdict at all.
+
+    Anything that did not answer 200 is also asked a second time at the end of
+    the run. A second refusal is evidence. An address that fails and then works
+    is not a working address and not a broken one either -- it is proof the
+    version moved underneath us, and it withholds the verdict the same way.
+
+Exit code, so a caller can tell them apart without reading the text:
     0   every address answered 200
     1   at least one answered something else -- a real finding
     2   nothing failed, but at least one address could not be reached, so the
         run does not have a verdict for all of them
+    3   the published version changed during the run. NO verdict, in either
+        direction: what this run saw is not evidence about any address.
 """
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import socket
 import ssl
@@ -59,6 +83,7 @@ MANIFEST = ROOT / "urls.json"
 UA = "usta-feeds-linkcheck/1.0 (+https://ustechautomations.com/feeds)"
 DEFAULT_PACE = 5.0
 TIMEOUT = 20
+WITNESS_EVERY = 25   # addresses between two looks at the witness page
 
 
 class NoRedirects(urllib.request.HTTPRedirectHandler):
@@ -105,7 +130,36 @@ def land(url: str) -> dict:
         return {"status": None, "final": str(e)}
 
 
-def targets(args) -> list[dict]:
+def witness_mark(url: str) -> dict:
+    """Is this the same published version as a minute ago?
+
+    Not "is the page correct" -- only "is it the same one". The server's own
+    version tag is the best answer when it sends one, because it changes on a
+    redeploy whether or not this page's words did. Failing that, a short
+    fingerprint of what came back says the same thing well enough.
+    """
+    req = urllib.request.Request(url, headers={"User-Agent": UA}, method="GET")
+    try:
+        with _opener(False).open(req, timeout=TIMEOUT) as r:
+            body = r.read()
+            tag = (r.headers.get("ETag") or "").strip()
+            return {"seen": True,
+                    "mark": tag or hashlib.sha256(body).hexdigest()[:16],
+                    "via": "the server's version tag" if tag else "the page contents"}
+    except Exception as e:  # noqa: BLE001 -- a witness we cannot read is not a failure
+        return {"seen": False, "mark": "", "via": "",
+                "why": str(getattr(e, "reason", e))}
+
+
+def witness_url(manifest: dict, args) -> str:
+    """The page we keep an eye on. The hub, because every deploy rebuilds it."""
+    rows = manifest["rows"]
+    hub = next((r for r in rows if r.get("kind") == "hub"),
+               min(rows, key=lambda r: len(r["path"])))
+    return hub["url"] if args.base is None else args.base.rstrip("/") + hub["path"]
+
+
+def targets(args) -> tuple[list[dict], dict]:
     if not MANIFEST.is_file():
         raise SystemExit("urls.json is missing. Run: python3 scripts/url_manifest.py")
     m = json.loads(MANIFEST.read_text(encoding="utf-8"))
@@ -118,7 +172,7 @@ def targets(args) -> list[dict]:
         for u in sorted({r["pay_url"] for r in m["rows"] if r["pay_url"]}):
             url = u if args.base is None else args.base.rstrip("/") + u[len(site):]
             out.append({"url": url, "path": u, "what": "pay target"})
-    return out[: args.limit] if args.limit else out
+    return (out[: args.limit] if args.limit else out), m
 
 
 def main() -> None:
@@ -137,10 +191,19 @@ def main() -> None:
     ap.add_argument("--quiet", action="store_true", help="only the summary")
     args = ap.parse_args()
 
-    rows = targets(args)
+    rows, manifest = targets(args)
     print(f"checking {len(rows)} addresses, one at a time, {args.pace}s apart")
     if args.base:
         print(f"against {args.base} -- this is a rehearsal, not the live site")
+
+    # The witness, watched from before the first address to after the last one.
+    wurl = witness_url(manifest, args)
+    marks: list[dict] = [witness_mark(wurl)]
+    if marks[0]["seen"]:
+        print(f"watching {wurl} for a version change, by {marks[0]['via']}")
+    else:
+        print(f"could NOT read {wurl}, so this run cannot tell whether a deploy "
+              f"was in flight while it worked")
     print()
 
     results = []
@@ -159,6 +222,38 @@ def main() -> None:
         if not args.quiet:
             shown = r["status"] if r["status"] is not None else "unreachable"
             print(f"  [{i:>3}/{len(rows)}] {shown:>11}  {t['path']}")
+        if i % WITNESS_EVERY == 0:
+            marks.append(witness_mark(wurl))
+    marks.append(witness_mark(wurl))
+
+    # Ask everything that did not answer 200 a second time. A second refusal is
+    # evidence; an address that fails and then works is proof the ground moved.
+    flipped = []
+    again = [r for r in results if r["outcome"] in ("redirect", "other")]
+    if again:
+        print(f"\n  asking the {len(again)} that did not answer 200 a second time")
+        for r in again:
+            time.sleep(max(args.pace, 2.0))
+            second = fetch(r["url"], args.follow)
+            r["second_status"] = second["status"]
+            if second["outcome"] == "ok":
+                flipped.append(dict(r))
+                r.update({k: second[k] for k in ("status", "final", "location", "outcome")})
+                if not args.quiet:
+                    print(f"        {r['path']} answered 200 the second time")
+
+    seen = {m["mark"] for m in marks if m["seen"]}
+    moved = len(seen) > 1 or bool(flipped)
+
+    if moved:
+        # No verdict, in either direction. Everything that did not answer 200 is
+        # an unknown now: this run measured a moving target and cannot say
+        # whether any address is broken.
+        for r in results:
+            if r["outcome"] in ("redirect", "other"):
+                r["outcome"] = "unknown"
+                r["why"] = ("the published version changed during this run, so this "
+                            "status is not evidence about the address")
 
     ok = [r for r in results if r["outcome"] == "ok"]
     red = [r for r in results if r["outcome"] == "redirect"]
@@ -170,9 +265,25 @@ def main() -> None:
     print(f"answered 200          : {len(ok)}")
     print(f"did NOT answer 200    : {len(red) + len(other)}"
           f"   ({len(red)} redirected, {len(other)} another status)")
-    print(f"could not be reached  : {len(unk)}"
-          f"   (unknown -- our end of the wire, not a verdict on theirs)")
+    why_unknown = ("unknown -- the version moved mid-run, or our end of the wire; "
+                   "either way not a verdict on the page") if moved else \
+                  ("unknown -- our end of the wire, not a verdict on theirs")
+    print(f"no answer for         : {len(unk)}   ({why_unknown})")
     print("=" * 64)
+
+    if moved:
+        print()
+        print("!" * 64)
+        print("NO VERDICT. The published version changed while this run was "
+              "working, so nothing here is evidence about any address.")
+        if len(seen) > 1:
+            print(f"  the witness page {wurl} came back {len(seen)} different ways "
+                  f"across {len([m for m in marks if m['seen']])} looks")
+        for f in flipped:
+            print(f"  {f['path']} answered {f['status']} and then answered 200")
+        print("What to do: wait for the deploy to finish, then run this again. "
+              "Do not report any of this as a broken page.")
+        print("!" * 64)
 
     if red:
         print("\nAddresses that redirect. A redirect is not a working page: the "
@@ -187,20 +298,24 @@ def main() -> None:
         for r in other:
             print(f"  {r['status']} {r['path']}")
     if unk:
-        print("\nAddresses we could not reach at all. This is NOT a finding about "
-              "the server -- we have no answer for these, and the run is "
-              "incomplete until we do:")
+        print("\nAddresses we have no answer for. This is NOT a finding about "
+              "the server -- the run is incomplete until we do:")
         for r in unk:
-            print(f"  unknown {r['path']}  ({r.get('why', 'no reason given')})")
+            saw = f" [saw {r['status']}]" if r.get("status") is not None else ""
+            print(f"  unknown {r['path']}{saw}  ({r.get('why', 'no reason given')})")
 
     if args.out:
         Path(args.out).write_text(json.dumps({
             "base": args.base or "live",
             "checked": len(results), "ok": len(ok), "not_200": len(red) + len(other),
             "redirects": len(red), "other_status": len(other), "unknown": len(unk),
+            "version_changed_during_run": moved,
+            "witness": {"url": wurl, "looks": marks, "distinct_marks": sorted(seen)},
             "rows": results}, indent=2) + "\n", encoding="utf-8")
         print(f"\nevery row written to {args.out}")
 
+    if moved:
+        raise SystemExit(3)
     if red or other:
         raise SystemExit(1)
     raise SystemExit(2 if unk else 0)

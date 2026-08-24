@@ -27,7 +27,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import family_status  # noqa: E402
-from freshness import check_freshness  # noqa: E402
+from freshness import NEWEST_META, check_freshness  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
@@ -148,7 +148,94 @@ def facts_of(html: str) -> list[str]:
     return sorted(FACT.findall(visible(html)))
 
 
-def build_page(src: Path, family: str, crumb_label: str | None, path: str | None = None) -> str:
+SLICE_NAME = re.compile(r'<meta name="data-slice-name" content="([^"]*)">')
+
+
+def slice_index(fid: str, fam_dir: Path, raw: str) -> str:
+    """Every child page of a feed, linked from the feed's own page.
+
+    Generated here rather than typed into the family page, for a counted
+    reason. On 2026-08-23, seven of the nineteen families linked their own
+    slices because somebody had typed those links by hand, and twelve linked
+    none. The result was that 107 of the 201 published pages had no inbound
+    link from anywhere on the site: a reader on /feeds/grid could not reach
+    Minnesota by clicking, only by guessing the address. A hand-typed
+    navigation list goes out of date the first time a slice is added, so this
+    one is built from the folders that actually shipped and cannot disagree
+    with them.
+
+    ORDER is alphabetical by the name each slice gives itself, in columns. The
+    obvious alternative -- group the places apart from the cuts, states in one
+    list and "prices that went up" in another -- was rejected on purpose:
+    deciding what counts as a place needs a hand-kept list of place names, and
+    a hand-kept list is exactly what broke navigation here in the first place.
+    Alphabetical is how a person finds Minnesota among twenty-six states.
+
+    The coverage page is held out at the end because it is a different kind of
+    page: it describes the feed instead of cutting it.
+
+    A slice that is NOT FOR SALE is still linked. Some are deliberately
+    unpriced and say so on their own face. Leaving those out of the navigation
+    would make the estate look tidier than it is, which is the opposite of what
+    these pages are for.
+
+    The words come from each slice's own data-slice-name, never retyped here,
+    so this list cannot start calling a page something the page does not call
+    itself.
+
+    NOTHING IS ADDED where the family page ALREADY links every one of its
+    children. On 2026-08-23 that was true of exactly one family, ai-prices,
+    which carries a hand-written list with a sentence of description under
+    each entry -- better reading than a bare list of names. Printing this
+    block underneath it would have shown a visitor the same seventeen links
+    twice, which is the wall this function exists to avoid.
+
+    That skip is not a hand-kept exception and needs nobody to maintain it.
+    The test is recomputed on every build against the folders that shipped,
+    so the moment a new child page appears and the hand-written list does not
+    mention it, the page stops linking all of its children and this block
+    comes back on its own, carrying the new page with it. Tidy when the hand
+    is keeping up; complete the instant it stops.
+    """
+    kids = [d for d in sorted(fam_dir.iterdir()) if d.is_dir() and (d / "index.html").is_file()]
+    if not kids:
+        return ""
+    # Does the page already do this job itself? Counted, not assumed: a child
+    # counts as linked only if some anchor on the page points at exactly it.
+    linked = {m.group(1) for m in re.finditer(
+        rf'href="(?:{re.escape(BASE)}|/feeds)/{re.escape(fid)}/([a-z0-9-]+)"', raw)}
+    if all(d.name in linked for d in kids):
+        return ""
+    rows = []
+    for d in kids:
+        m = SLICE_NAME.search((d / "index.html").read_text(encoding="utf-8"))
+        if not m:
+            fail(f"{fid}/{d.name} has no data-slice-name, so it cannot be listed on its family page")
+        rows.append((m.group(1), d.name))
+    cover = [r for r in rows if r[1] == "coverage"]
+    rest = sorted((r for r in rows if r[1] != "coverage"), key=lambda r: r[0].lower())
+    items = "\n".join(
+        f'        <li><a href="{BASE}/{fid}/{slug}">{name}</a></li>' for name, slug in rest
+    )
+    tail = ""
+    if cover:
+        name, slug = cover[0]
+        tail = f'\n      <p class="note"><a href="{BASE}/{fid}/{slug}">{name}</a></p>'
+    return (
+        '\n\n  <div class="wrap">\n'
+        '    <section class="group slice-index">\n'
+        "      <h2>Every page in this feed</h2>\n"
+        '      <ul class="slice-list">\n'
+        f"{items}\n"
+        "      </ul>"
+        f"{tail}\n"
+        "    </section>\n"
+        "  </div>\n"
+    )
+
+
+def build_page(src: Path, family: str, crumb_label: str | None, path: str | None = None,
+               extra_main: str = "") -> str:
     """Build one page. `path` is the address it lives at under /feeds.
 
     A family page's address is just its id, so it is left to default. A slice
@@ -158,6 +245,19 @@ def build_page(src: Path, family: str, crumb_label: str | None, path: str | None
     """
     raw = src.read_text(encoding="utf-8")
     out = raw
+
+    # The generated navigation goes in FIRST, before anything below runs, so it
+    # is checked by exactly the gates every hand-written block is checked by:
+    # the internal-doc leak test, the github.io test, the fact-preservation
+    # test. Injecting it after those ran would have created one blessed path
+    # through this function that nothing inspects, and that is how a bad link
+    # ships. It carries no number, price or claim -- only links and the names
+    # the slices already give themselves -- so the fact check has nothing new
+    # to weigh and nothing old goes missing.
+    if extra_main:
+        if out.count("</main>") != 1:
+            fail(f"{family}: expected exactly one </main> to put the page list before")
+        out = out.replace("</main>", extra_main + "</main>", 1)
 
     # --- head: canonical, og:url, stylesheet, robots, GTM ---
     rel = "" if family == "hub" else (path or family)
@@ -237,7 +337,35 @@ def build_page(src: Path, family: str, crumb_label: str | None, path: str | None
     return out
 
 
+def check_one_home() -> None:
+    """Every page is built from exactly one list, and this says which one first.
+
+    Two lists build folders in dist: catalog.json builds a folder for each family,
+    extras.json builds one for each bridge and trust page. A page named in both got
+    its folder made twice and the build stopped at "File exists: dist/<id>", which
+    names the symptom and not one of the two files you have to open to fix it.
+
+    kind="build" is the one legal overlap: the catalog carries that entry's price
+    and its written terms, extras.json builds its page, and the family loop below
+    skips it. Any other id in both lists is a mistake, and it is cheaper to be told
+    that here than to read a traceback from pathlib.
+    """
+    extras = ROOT / "extras.json"
+    if not extras.is_file():
+        return
+    ext = {e["id"] for e in json.loads(extras.read_text(encoding="utf-8"))}
+    clash = sorted(f["id"] for f in CATALOG["families"]
+                   if f["id"] in ext and f.get("kind") != "build")
+    if clash:
+        fail(f"{', '.join(clash)} is named in both catalog.json and extras.json, so this "
+             f"build would try to create dist/{clash[0]} twice. Decide which list owns the "
+             f"page: catalog.json for a dated feed we sell, extras.json for a bridge or "
+             f"trust page. If it is priced in the catalog but built elsewhere, mark it "
+             f'kind: "build" and the family loop will skip it.')
+
+
 def main() -> None:
+    check_one_home()
     if DIST.exists():
         shutil.rmtree(DIST)
     DIST.mkdir(parents=True)
@@ -258,11 +386,31 @@ def main() -> None:
 
     for fam in CATALOG["families"]:
         fid = fam["id"]
+        # A kind="build" entry is priced and described in the catalog, and built
+        # somewhere else. families/offers/ is the one today: a door to 11 one-off
+        # automation builds, with no clock, no data table and no freshness. It is
+        # in catalog.json so that its price and its written terms are checked like
+        # every other product's, and it is in extras.json because that is what
+        # actually builds its page -- so walking it here too made the build try to
+        # create dist/offers twice and stop.
+        #
+        # Do not "fix" a kind="build" entry by giving it a folder here, and do not
+        # fix the collision by deleting either line: dropping the catalog line puts
+        # a live $200-$450 page back beyond the reach of the price check and throws
+        # away its terms, and dropping the extras line deletes the page itself.
+        if fam.get("kind") == "build":
+            continue
         src = ROOT / "families" / fid / "index.html"
         if not src.is_file():
             fail(f"missing source page for {fid}")
         crumb = fam["name"]
-        page = build_page(src, fid, crumb)
+        # Its own child pages, linked. Built from the folders on disk rather
+        # than from the catalog, because the catalog says what we meant to
+        # publish and the folders say what we did.
+        page = build_page(
+            src, fid, crumb,
+            extra_main=slice_index(fid, ROOT / "families" / fid, src.read_text(encoding="utf-8")),
+        )
         # A family page is written by hand, so it cannot notice that its own
         # source stopped being read. The child pages compute that sentence every
         # build; this gives the parent the same protection. It is added here
@@ -358,16 +506,45 @@ def main() -> None:
     # sitemap for the new prefix
     # Every published address, whole. Taking the last path segment used to turn
     # /feeds/grid/minnesota into /feeds/minnesota, which is not a page we serve.
+    #
+    # lastmod is READ BACK OFF THE PAGE WE JUST WROTE. It is not computed here
+    # and it is never the build time or the file's modified time, and that rule
+    # is the whole point of the field.
+    #
+    # Every page in this estate is rebuilt nightly whether or not its data
+    # moved. A build-time stamp would therefore mark all 201 addresses as
+    # changed today, every day. That is false, and it is also self-defeating: a
+    # lastmod that always says today is one a search engine learns to discount,
+    # so we would have given up the signal by using it. The date that belongs
+    # here is the date of the newest sealed row behind the page, which is the
+    # same date the page prints and the same date the freshness gate checks.
+    # Reading it back off the built page rather than recomputing it means there
+    # is one source for that fact instead of two that can drift.
+    #
+    # A page with no data date -- the hub, the coverage and policy pages, the
+    # two bridge pages, a family we cannot collect at all -- gets NO lastmod.
+    # The sitemap spec allows the field to be absent. A missing date is honest;
+    # a guessed one would be the freshness lie in a new file.
     urls = ""
+    dated = 0
     for p in built:
         rel = p[len("/feeds/"):].strip("/") if p.startswith("/feeds/") else p.strip("/")
-        urls += f"<url><loc>{BASE}</loc></url>" if not rel else f"<url><loc>{BASE}/{rel}</loc></url>"
+        loc = BASE if not rel else f"{BASE}/{rel}"
+        page_file = (DIST / "index.html") if not rel else (DIST / rel / "index.html")
+        m = NEWEST_META.search(page_file.read_text(encoding="utf-8"))
+        if m:
+            dated += 1
+            urls += f"<url><loc>{loc}</loc><lastmod>{m.group(1)}</lastmod></url>"
+        else:
+            urls += f"<url><loc>{loc}</loc></url>"
     (DIST / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + urls + "</urlset>",
         encoding="utf-8",
     )
     print(f"built {len(built)} pages into {DIST}")
+    print(f"sitemap: {len(built)} addresses, {dated} carrying a real lastmod, "
+          f"{len(built) - dated} deliberately without one")
     if stopped:
         # Loud on purpose. Four feeds we take money for had a switched-off
         # reader on 2026-08-22 and nothing on the site said so.
