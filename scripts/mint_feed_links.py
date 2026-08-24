@@ -118,7 +118,13 @@ LABEL_FOR_FEED = {
     "agent-register": "Buy one archive copy — $99",
     "agentic-commerce": "Subscribe — $59 a month",
     "ai-prices": "Subscribe — $175 a month",
-    "air-permits": "Subscribe — $175 a month",
+    # air-permits is deliberately NOT here. It came off sale on 2026-08-24
+    # because one of the two sources it sold is one we refused to collect, and
+    # the wording left behind here would have minted a $175-a-month button for
+    # a family the catalog prices at "Not for sale yet". Leaving the line out
+    # makes this tool refuse the family by name rather than mint the wrong
+    # thing. Put it back when the Texas-only product is built, with that
+    # product's own wording, never this one.
     "civic-agenda": "Subscribe — $175 a month",
     "permit-metros": "Subscribe — $79 a month",
     "ttb": "Subscribe — $99 a month",
