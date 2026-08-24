@@ -92,8 +92,21 @@ FULL_NAMES = {
 }
 
 # Publishers whose written terms make the credit a CONDITION rather than good
-# manners. Only these get the second sentence.
-CREDIT_REQUIRED = ("caiso",)
+# manners. Only these get a second sentence, and each one gets its own, because
+# the two conditions are not the same condition. The California ISO asks to be
+# named. The Southwest Power Pool grants the copying only with a citation AND
+# only outside a commercial publication, so their sentence has to say both
+# halves: a credit on a page with a price on it does not meet their terms, and
+# saying only the first half would read as if it did.
+CREDIT_REQUIRED = {
+    "caiso": ("The {name} allows this use on the written condition that they are "
+              "credited by name. So, plainly: this page uses material published by "
+              "the {name}."),
+    "spp": ("The {name} allows their material to be copied and passed on only with a "
+            "proper credit, and only outside a commercial publication. So, plainly: "
+            "this page uses material published by the {name}, and this page is not "
+            "for sale."),
+}
 
 
 def _credit(isos: list[str]) -> list[str]:
@@ -116,11 +129,7 @@ def _credit(isos: list[str]) -> list[str]:
     ]
     for i in seen:
         if i in CREDIT_REQUIRED:
-            out.append(
-                f"The {FULL_NAMES[i]} allows this use on the written condition that "
-                f"they are credited by name. So, plainly: this page uses material "
-                f"published by the {FULL_NAMES[i]}."
-            )
+            out.append(CREDIT_REQUIRED[i].format(name=FULL_NAMES[i]))
     return out
 
 # Operators we still publish a page for but no longer sell.
