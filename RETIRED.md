@@ -68,9 +68,13 @@ STILL OPEN AND NOT MINE TO DECIDE: this family and its 15 child pages still publ
 - **The note's last word on the payment link is stale, and dangerously so.** It
   says in capitals that anyone holding the address can still start a subscription
   and that switching it off "has not been taken". It was taken later the same day:
-  the team lead reports switching the link off and reading it back. I cannot read
-  the payment platform from this lane, so from here the link's state is **reported
-  off, not verified by me** — treat the sentence in the block above as a snapshot
-  of the morning, not as today's answer.
+  the team lead switched the link off and then **read it back from the payment
+  platform's own interface on 2026-08-24 at about 21:15 UTC: the link stamped
+  `ai-price-change-record` reports `active=false`.** That is a read of the
+  platform's own field, which is the only thing that answers this question — a
+  switched-off link still serves an identical-looking page, so no amount of
+  fetching it proves anything. This lane cannot make that read; the team lead
+  made it. Treat the sentence in the block above as a snapshot of the morning,
+  not as today's answer.
 - The item it left open — *"this family and its 15 child pages still publish the
   refused publisher's prices, free"* — is what this retirement closes.
