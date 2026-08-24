@@ -78,6 +78,85 @@ def walk(url: str):
     return final.strip(), code
 
 
+_WALKED: dict[str, tuple] = {}
+
+
+def walked(url: str):
+    """walk(), remembered. The same address is now asked for from two directions
+    -- once as a catalog row and once as something a page points at -- and a
+    checkout must not be fetched twice just because we looked it up twice."""
+    if url not in _WALKED:
+        _WALKED[url] = walk(url)
+    return _WALKED[url]
+
+
+def page_addresses(root: Path) -> dict[str, list[str]]:
+    """Every checkout address a BUILT PAGE actually shows, address -> pages.
+
+    Read with the gate's own button detector, deliberately, so that this script
+    and check_site.py can never disagree about what counts as a pay button. A
+    second, private idea of "button" living in here would be a rule that passes
+    while the estate is broken.
+    """
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import check_site as gate
+
+    # Pages, not buttons. Most of these pages carry the same button twice, once
+    # at the top and once at the bottom, and counting those as two would put a
+    # true number next to a false word.
+    found: dict[str, set[str]] = {}
+    for page in sorted(root.rglob("index.html")):
+        who = str(page.parent.relative_to(root)) or "."
+        for href, _label in gate.buy_buttons(page.read_text(encoding="utf-8")):
+            found.setdefault(href, set()).add(who)
+    return {a: sorted(w) for a, w in found.items()}
+
+
+def reach_report(on_pages: dict[str, list[str]], declared: dict[str, str],
+                 ours: dict[str, str], walker) -> dict:
+    """Who can actually reach what. Pure, so it can be proved without a network.
+
+    Reachability is counted from the built pages and from nothing else. A
+    catalog row is a note we wrote to ourselves; it is not a thing a customer
+    can open, and asking the catalog whether the catalog is reachable is letting
+    the paper mark itself -- it agrees every time.
+
+    grid is the case that proves the point, and it is why this was rewritten.
+    grid is hand-written, no generator owns it, and its button points at our own
+    /permits/offers/.../buy address, which only becomes a Stripe address after a
+    redirect. So a rule that greps for buy.stripe.com calls grid unreachable
+    while 28 built pages point straight at it, and a rule that reads the catalog
+    calls grid reachable even if every one of those pages lost its button. Only
+    following the address a page really shows answers it. A hand-written page is
+    the test case for every rule in this repo.
+    """
+    reached: dict[str, list[str]] = {}
+    broken: dict[str, str] = {}
+    for addr, pages in sorted(on_pages.items()):
+        final, code = walker(addr)
+        if final is None:
+            broken[addr] = code
+            continue
+        host = final.split("/")[2] if "://" in final else ""
+        if code != "200" or not host.endswith("stripe.com"):
+            broken[addr] = f"answered {code} and ended on {host or final!r}"
+            continue
+        reached.setdefault(final.split("?")[0], []).extend(pages)
+    return {
+        "reached": reached,
+        "broken": broken,
+        # A row that says "this takes a card" while no built page shows it.
+        "declared_unreached": sorted(f for f, u in declared.items()
+                                     if u not in on_pages),
+        # A link we minted for /feeds that no built page can get a buyer to.
+        "ours_unreached": sorted(u for u in ours if u not in reached),
+        # A link our pages send buyers to that we did not mint. Not a fault --
+        # it is another surface's product and rule 3 says we never touch it --
+        # but it must be named out loud, never assumed to be ours to change.
+        "borrowed": sorted(u for u in reached if u not in ours),
+    }
+
+
 def main() -> int:
     cat = json.loads(CAT.read_text(encoding="utf-8"))
     rows = [(f, (f.get("checkout") or {})) for f in cat["families"]]
@@ -112,7 +191,7 @@ def main() -> int:
     reached: set[str] = set()
     for fam, c in armed:
         fid, want = fam["id"], parse_price(fam["price"])
-        final, code = walk(c["url"])
+        final, code = walked(c["url"])
         if final is None:
             print(f"{fid:17} unknown  {code}")
             unknown += 1
@@ -157,27 +236,42 @@ def main() -> int:
         print(f"{fid:17} proved   {fam['price']} -> ${got[0] / 100:.2f} {basis} at {base}")
 
     # --- money nobody can reach ----------------------------------------------
-    # The gate cannot do this one. It runs offline and can only see what the
-    # catalog declares, so a link minted in Stripe and never written into
-    # catalog.json is invisible to it: chargeable, live, and pointed at by
-    # nothing. Only a look at the account itself can find that.
+    # Counted from the built pages. See reach_report() for why the catalog is
+    # not allowed to answer this question about itself.
     #
-    # Scope is deliberately narrow. This Stripe account is shared with the blog
-    # business and with the permits estate, and their links are none of this
-    # repo's business, so the only ones counted are the ones stamped as ours
-    # when they were minted.
-    ours = {u: l for u, l in by_url.items() if _md(l).get("feeds_family")}
-    stranded = sorted(set(ours) - reached)
-    print(f"\n{len(ours)} active payment link(s) stamped as belonging to /feeds; "
-          f"{len(reached)} address(es) reachable from a page.")
-    for u in stranded:
-        l = ours[u]
-        print(f"  UNREACHABLE  {_md(l).get('feeds_family')} -> {u}\n"
-              f"               a card can be charged on this and no page points at it")
+    # Scope: this Stripe account is shared with the blog business and with the
+    # permits estate. Only links stamped as ours when they were minted are ours
+    # to call stranded; the rest are named and left alone, per rule 3.
+    ours = {u: _md(l).get("feeds_family") for u, l in by_url.items()
+            if _md(l).get("feeds_family")}
+    declared = {f["id"]: c["url"] for f, c in armed}
+    on_pages = page_addresses(ROOT / "families")
+    r = reach_report(on_pages, declared, ours, walked)
 
+    shown = {w for pages in on_pages.values() for w in pages}
+    print(f"\n{len(shown)} of {len(list((ROOT / 'families').rglob('index.html')))} built pages "
+          f"show a pay button, between them pointing at {len(on_pages)} distinct address(es):")
+    for addr, pages in sorted(on_pages.items()):
+        print(f"  {len(pages):>3} page(s) -> {addr}")
+
+    for addr, why in sorted(r["broken"].items()):
+        n = len(on_pages[addr])
+        print(f"  BROKEN       {n} built page(s) show {addr} and it {why}")
+    for fid in r["declared_unreached"]:
+        print(f"  UNREACHABLE  {fid} declares {declared[fid]} and no built page shows it, "
+              f"so a card can be charged on it and nothing points a buyer at it")
+    for u in r["ours_unreached"]:
+        print(f"  UNREACHABLE  the link we minted for {ours[u]} -> {u}\n"
+              f"               is live in Stripe and no built page reaches it")
+    for u in r["borrowed"]:
+        print(f"  borrowed     {u}\n"
+              f"               our pages send buyers here and we did not mint it: it belongs "
+              f"to another surface, so it is named, not touched")
+
+    unreachable = len(r["declared_unreached"]) + len(r["ours_unreached"])
     print(f"\n{len(armed) - bad - unknown} proved, {bad} broken, {unknown} unknown, "
-          f"{len(stranded)} minted and unreachable")
-    return 1 if (bad or unknown or stranded) else 0
+          f"{len(r['broken'])} dead button(s), {unreachable} minted and unreachable")
+    return 1 if (bad or unknown or unreachable or r["broken"]) else 0
 
 
 if __name__ == "__main__":

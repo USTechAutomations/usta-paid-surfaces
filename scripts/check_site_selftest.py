@@ -337,7 +337,7 @@ def cases() -> list[tuple]:
         e.extras_add("zz-orphan")
         e.before_body_end(HUB, "<!-- zz-orphan -->")
 
-    add(677, "a folder full of child pages that no catalog entry describes",
+    add(678, "a folder full of child pages that no catalog entry describes",
         orphan_with_children, "in neither catalog.json nor a catalog-add fragment")
 
     def children_with_no_parent(e: Estate) -> None:
@@ -347,20 +347,20 @@ def cases() -> list[tuple]:
             "price": "Not for sale", "sample_status": "pass", "group": "Test",
             "short": "Zed", "who": "nobody"}, indent=2))
 
-    add(679, "child pages with no family page above them, so nothing links to them",
+    add(680, "child pages with no family page above them, so nothing links to them",
         children_with_no_parent, "children are unreachable")
-    add(683, "a family we cannot collect still has child pages selling it",
+    add(684, "a family we cannot collect still has child pages selling it",
         lambda e: e.write("families/az-contractors/kid/index.html",
                           MIN_PAGE.format(t="Zed kid", body="A test page.")),
         "parked but has child pages")
-    add(689, "a child page loses the address a buyer writes to",
+    add(690, "a child page loses the address a buyer writes to",
         lambda e: e.sub(KID, MAILTO, "mailto:nobody@example.com"), "missing mailto")
-    add(691, "a child page grows a claim we cannot stand behind",
+    add(692, "a child page grows a claim we cannot stand behind",
         lambda e: e.before_body_end(KID, "<p>Trusted by Fortune 500 teams.</p>"),
         "contains forbidden")
-    add(693, "a child page shows a different price from the family above it",
+    add(694, "a child page shows a different price from the family above it",
         lambda e: e.sub(KID, "$99/mo", "$0/mo"), "does not show its parent's price")
-    add(695, "a child page carries no read date, so nothing can prove it is current",
+    add(696, "a child page carries no read date, so nothing can prove it is current",
         lambda e: e.sub(KID, 'name="data-newest"', 'name="data-newest-was-here"'),
         "nothing can prove it is current")
     # -- the button itself ----------------------------------------------------
@@ -387,19 +387,19 @@ def cases() -> list[tuple]:
         e.sub(FAM, f'href="{url}"', 'href="https://ustechautomations.com/feeds/ttb"',
               count=1)
 
-    add(791, "a page shows a pay button and clicking it does nothing",
+    add(795, "a page shows a pay button and clicking it does nothing",
         button_to_nowhere, "goes nowhere")
-    add(791, "a pay button dressed as a checkout that quietly goes to the inbox",
+    add(795, "a pay button dressed as a checkout that quietly goes to the inbox",
         button_to_the_inbox, "goes nowhere")
-    add(795, "a button sends the buyer to an address the catalog never declared",
+    add(799, "a button sends the buyer to an address the catalog never declared",
         button_somewhere_else, "not the checkout this page's catalog row declares")
     # count=1 so only the button's own wording moves. The price rail, the tab
     # title and the search line all still say $99, which is what every price
     # check in this gate reads -- none of them has ever looked at a button.
-    add(803, "a button offers to charge an amount we do not sell at",
+    add(807, "a button offers to charge an amount we do not sell at",
         lambda e: e.sub(FAM, "$99 a month", "$149 a month", count=1),
         "offering to charge $149"),
-    add(807, "a monthly subscription with a button that says it is paid once",
+    add(811, "a monthly subscription with a button that says it is paid once",
         lambda e: e.sub(FAM, "Subscribe — $99 a month", "Buy once — $99", count=1),
         "one of them is a subscription and the other is paid once")
     # The quiet one, and the one that actually happened: the children under five
@@ -410,24 +410,24 @@ def cases() -> list[tuple]:
     # worst of the three: "$9" is a SUBSTRING of "$99/mo", so a substring test
     # waved through a button understating the price ten times over. Every price
     # we sell was open to it -- $249 -> $24, $175 -> $17, $59 -> $5.
-    add(803, "a button understates the price by a factor of ten",
+    add(807, "a button understates the price by a factor of ten",
         lambda e: e.sub(FAM, "$99 a month", "$9 a month", count=1),
         "offering to charge $9"),
     # Single quotes are what anyone hand-writing one line of HTML reaches for,
     # and the pay-link check above still cannot see them: its pattern requires a
     # double quote. So this address is invisible to everything except the button
     # check, which is the point of the case.
-    add(795, "a checkout address written in single quotes, invisible to the pay-link check",
+    add(799, "a checkout address written in single quotes, invisible to the pay-link check",
         lambda e: e.before_body_end(
             FAM, "<p><a class='btn btn-buy' href='https://buy.stripe.com/nOtReAl'>"
                  "Subscribe &mdash; $99 a month</a></p>"),
         "not the checkout this page's catalog row declares"),
     # A <button> is a pay button to every reader and was not an <a>, so reading
     # only anchors let one straight through.
-    add(791, "a hand-written button element that offers to subscribe and does nothing",
+    add(795, "a hand-written button element that offers to subscribe and does nothing",
         lambda e: e.before_body_end(FAM, "<p><button>Subscribe now</button></p>"),
         "goes nowhere"),
-    add(850, "a checkout we proved working, and the page still shows no button",
+    add(854, "a checkout we proved working, and the page still shows no button",
         lambda e: e.re_sub(PAID, r"(?s)<a class=\"btn btn-buy.*?</a>", ""),
         "shows no pay button at all")
     # The same refusal reached from the other side, and the reason the condition
@@ -444,12 +444,12 @@ def cases() -> list[tuple]:
             "after": "You get the feed from the next run.",
             "status": "unverified"}))
 
-    add(850, "a link is minted and declared, and no page anywhere points at it",
+    add(854, "a link is minted and declared, and no page anywhere points at it",
         minted_and_unreachable, "nothing anywhere points a buyer at it")
 
     # The overlap, proved rather than asserted. The same defect on a CHILD page
-    # is caught by the child-price check (line 693); on a FAMILY page the price
-    # checks get there first, at line 533. Both cases earn their place: line 693
+    # is caught by the child-price check (line 694); on a FAMILY page the price
+    # checks get there first, at line 533. Both cases earn their place: line 694
     # is the only thing guarding the child pages, and the price checks do not
     # walk them.
     add(533, "the same defect on a family page is caught by the newer check first",
@@ -457,6 +457,23 @@ def cases() -> list[tuple]:
             FAM, r'(<meta (?:name|property)="(?:og:|twitter:)?description" content=")',
             r'\g<1>$4321. '),
         "names $4321 in its tab title or its search line")
+    # A record that is NOT selling, carrying a checkout address in its prose.
+    # This is not hypothetical: quakes was held on 24 Aug and its address was
+    # left in a note so nothing would be re-minted, and within the hour an audit
+    # grepped the catalog, saw a live-looking address on the quakes row, and
+    # reported it as a chargeable checkout no page could reach. Both address
+    # shapes this estate uses are proved, because the two-hop /buy shape is the
+    # one every grep in this repo has historically failed to see.
+    add(884, "a held product keeps its Stripe address written out in a note",
+        lambda e: e.family("quakes", lambda f: f["checkout"].__setitem__(
+            "note", "Held. The link is https://buy.stripe.com/28E9AM4h0bSOcnW6r80sU0D "
+                    "and it does not need minting again.")),
+        "spells out a checkout address"),
+    add(884, "a product sold by email keeps a two-hop /buy address in a note",
+        lambda e: e.family("crawler", lambda f: f["checkout"].__setitem__(
+            "note", "Sold by email for now. The address, when we want it, is "
+                    "https://ustechautomations.com/permits/offers/crawler-policy-sentinel/buy")),
+        "spells out a checkout address"),
     return C
 
 
@@ -616,6 +633,23 @@ def honest_cases() -> list[tuple]:
         ("a family page that prints an amount as data, not as its price",
          lambda e: e.before_body_end(
              FAM, "<table><tr><th>Fee</th></tr><tr><td>$1,250.00</td></tr></table>")),
+        # The other half of the held-record rule. Saying how to FIND a link is
+        # exactly what we want a held record to do -- the whole point of the
+        # check is to push people towards the stamp and away from the address.
+        # If this were refused, the check would be a ban on writing anything
+        # useful down, and the next person in a hurry would delete it.
+        ("a held product saying how to find its link by the stamp it was minted with",
+         lambda e: e.family("quakes", lambda f: f["checkout"].__setitem__(
+             "note", "Held. The link exists and is live. Find it by its Stripe stamp, "
+                     "permits_sku=quake-record-attestation. Nothing needs minting again."))),
+        # And a held record may still name the surface a link lives on. That is
+        # a page address, not a checkout address, and refusing it would leave a
+        # held record unable to say where the money is being taken today.
+        ("a held product naming the other estate's offer page, which is not a checkout",
+         lambda e: e.family("quakes", lambda f: f["checkout"].__setitem__(
+             "note", "Held here. The permits estate still sells it from "
+                     "ustechautomations.com/permits/offers/quake-record-attestation, "
+                     "which is not this repo's page to change."))),
     ]
 
 

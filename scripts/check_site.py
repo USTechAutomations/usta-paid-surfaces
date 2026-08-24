@@ -651,6 +651,7 @@ def main() -> None:
 
     check_slices()
     check_buy_buttons()
+    check_held_records()
     print("ok")
 
 
@@ -734,6 +735,9 @@ TAGS = re.compile(r"<[^>]+>")
 # Words that say the money comes back every month, in a label or in a price.
 RECURS = re.compile(r"/mo\b|\bper month\b|\ba month\b|\bmonthly\b|\bsubscribe\b", re.I)
 GOES_NOWHERE = {"", "#", "javascript:void(0)", "javascript:;"}
+# A checkout address, in either shape this estate uses: a Stripe link, or one of
+# our own /permits/offers/<sku>/buy addresses that redirects to one.
+CHECKOUT_SHAPED = re.compile(r"buy\.stripe\.com/\S|/permits/offers/[a-z0-9-]+/buy\b", re.I)
 BUTTON_FIXIT = ("Arm it with scripts/mint_feed_links.py, prove it with "
                 "scripts/prove_checkouts.py, and let scripts/build_slices.py or "
                 "scripts/arm_family_pages.py write the button. Never type a checkout "
@@ -851,6 +855,38 @@ def check_buy_buttons() -> None:
                  f"button at all, so the link is chargeable and nothing anywhere points a buyer "
                  f"at it. Either put the button on the page or take the address out of "
                  f"catalog.json. {BUTTON_FIXIT}")
+
+
+
+def check_held_records() -> None:
+    """A record that is not selling must hold no checkout address, anywhere.
+
+    quakes was held on 24 Aug because an audit doubted the page, and its address
+    was written out in full in a note so nothing would be re-minted when the hold
+    lifted. Well meant, and it cost an hour: the next reader grepped the catalog,
+    found a live-looking address sitting in the quakes record, and reported quakes
+    as a chargeable checkout that no page on the site could reach. Nothing was
+    actually wrong. The file simply could not tell a live address from a
+    remembered one, and neither could the person reading it.
+
+    So a record with no url carries no address at all. Say how to FIND the link --
+    the stamp it was minted with -- never where it is. A remembered address is
+    indistinguishable from a live one to every reader, human or grep, and this
+    catalog is read by both.
+    """
+    for fam in CATALOG["families"]:
+        c = fam.get("checkout") or {}
+        if c.get("url"):
+            continue
+        for field, value in sorted(c.items()):
+            m = CHECKOUT_SHAPED.search(str(value))
+            if m:
+                fail(f"{fam['id']} is not selling -- its catalog row declares no checkout url -- "
+                     f"and yet its {field!r} spells out a checkout address, {m.group(0)!r}. "
+                     f"Anyone reading this file, or grepping it, sees a live checkout on a "
+                     f"product we are not selling. Take the address out and say how to find "
+                     f"the link instead: name the stamp it was minted with, so nothing gets "
+                     f"minted twice without an address sitting here looking chargeable.")
 
 
 if __name__ == "__main__":
