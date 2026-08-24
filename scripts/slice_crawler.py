@@ -793,7 +793,13 @@ FALLBACK_WORDS = {
     "contact_h2": "Start the thread",
     "contact_p": "Send the list of sites you follow. We send a checkout link in that "
                  "thread. A person still emails the file.",
-    "contact_cta": "Email us for the $175/mo checkout link",
+    # No price typed in here. _words() fills this one from the catalog row
+    # instead, because nothing in check_site.py reads a mailto CTA: its button
+    # check skips any wording that does not START with a buy word, and "Email us
+    # for the ... checkout link" is deliberately one of the phrases it skips. A
+    # stale amount in this sentence would sit under a correct price rail on a
+    # live page and no gate would say a word.
+    "contact_cta": None,
     "contact_note": "We will tell you which of your sites we already hold, and since "
                     "when, before you pay.",
 }
@@ -815,7 +821,15 @@ def _fam_row() -> dict:
 
 
 def _words(fam: dict, key: str) -> str:
-    return fam.get(key) or FALLBACK_WORDS[key]
+    return fam.get(key) or FALLBACK_WORDS[key] or _ask_cta(fam)
+
+
+def _ask_cta(fam: dict) -> str:
+    """The mailto wording, built from the catalog price rather than typed."""
+    price = fam.get("price") or ""
+    if "$" not in price:
+        return "Email us about the copies we hold"
+    return f"Email us for the {price} checkout link"
 
 
 def _days_behind() -> int:

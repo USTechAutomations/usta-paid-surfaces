@@ -10,15 +10,61 @@ import html
 import json
 import sqlite3
 import sys
+import urllib.parse
 from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from render_family import section, table, write  # noqa: E402
+from render_family import price_of, section, table, write  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 S = lambda n: json.loads((ROOT / "samples" / f"{n}.json").read_text(encoding="utf-8"))
 esc = html.escape
+
+
+def price(fid: str) -> str:
+    """What this family costs. Read out of catalog.json, never typed in here.
+
+    Every price-bearing sentence on these three pages is built from this one
+    value: the price rail, the tab title, the search line, the mail subject and
+    the words on the button.
+
+    This file used to carry its own copy. On 2026-08-24 it printed "$175/mo" for
+    new-entities and mesa-code while catalog.json said "Not for sale yet" for
+    both, and a re-run put a monthly charge on the face of a feed we have said
+    in public we are not selling. mesa-code escaped only because its search line
+    ran over the 155-character ceiling and the write refused -- luck, not a
+    guard, and luck that a one-line edit would have taken away.
+
+    render_family.price_of() refuses outright if a spec still carries its own
+    price, so the copy cannot come back quietly.
+    """
+    return price_of({"id": fid})
+
+
+# The paragraph a page carries under its rail when there is nothing to buy on
+# it. The point of it is that the reader learns WHY before they go looking for
+# a button that is not there.
+NOT_FOR_SALE_NOTE = (
+    "<strong>{price}.</strong> We are not charging for this feed. A monthly price is a "
+    "promise that a new file turns up next month, and we are not making that promise here "
+    "yet. What is on this page was read out of our own dated copies, it is real, and it is "
+    "free to read."
+)
+
+
+ASK_FREE_TAIL = "A person still emails the file. There is no automatic login yet."
+
+
+def mail_subject(stem: str, p: str) -> str:
+    """The subject line on every mailto: on the page, built from the same price.
+
+    A page with nothing to buy asks a different question, so it gets a different
+    subject: nobody should have to open an email headed "$175/mo" to ask what
+    dated copies we hold of something that is free to read.
+    """
+    tail = p if "$" in p else "\u2014 what do you hold"
+    return urllib.parse.quote(f"{stem} {tail}")
 
 
 def d(iso: str) -> str:
@@ -130,6 +176,8 @@ def mesa_code() -> dict:
     -> In Violation -> Closed), both times to a status it had not held. The field
     is now status_changed_reverted: 0 with status_changed_twice: 1 beside it.
     """
+    p = price("mesa-code")
+    sale = "$" in p
     j = S("mesa-code")
     v = j["verified"]
     frm, to = d(j["from"]), d(j["to"])
@@ -228,7 +276,9 @@ def mesa_code() -> dict:
             None,
             '      <ol class="steps">\n'
             "        <li>You email us and say you want the Mesa file.</li>\n"
-            "        <li>We send a checkout link in that thread.</li>\n"
+            + ("        <li>We send a checkout link in that thread.</li>\n" if sale
+               else "        <li>It costs nothing to ask.</li>\n")
+            +
             "        <li>A person emails you the what-moved file, and names anything we could not collect.</li>\n"
             "      </ol>",
         ),
@@ -237,25 +287,26 @@ def mesa_code() -> dict:
         "sections": secs,
         "id": "mesa-code",
         "ready": True,
+        "hero_note": None if sale else NOT_FOR_SALE_NOTE.format(price=p),
         "group": "Local government records",
         "cadence": "Monthly window",
         "cadence_long": "Monthly file",
         "crumb": "Mesa code compliance",
         "h1": "Mesa code-compliance changes",
-        "price": "$175/mo",
         "buyer": "Mesa contractors, property managers, and local-government software",
         "desc": (
-            f"Named Mesa AZ code-compliance cases that changed status between {frm} and {to}. "
-            f'{v["status_changed"]:,} status changes, {v["entered_watchlist"]:,} cases entered the watchlist, '
-            f'{v["left_watchlist"]} left it. $175/mo. Email operations@.'
+            f"Named Mesa AZ code-compliance cases that changed status between {frm} and {to}: "
+            f'{v["status_changed"]:,} of them. {p}. Email operations@.'
         ),
         "lede": "Mesa&rsquo;s code portal shows what a case looks like <strong>today</strong> and overwrites "
         "what it looked like before. <strong>We keep the earlier copy, so you get what moved.</strong>",
         "pill_label": "Named cases on this page",
-        "subj": "Mesa%20code-compliance%20feed%20%24175/mo",
+        "subj": mail_subject("Mesa code-compliance feed", p),
         "contact_h2": "Start the thread",
-        "contact_p": "We send a checkout link. A person still emails the file. There is no automatic login yet.",
-        "contact_cta": "Email us for the $175/mo checkout link",
+        "contact_p": (f"We send a checkout link. {ASK_FREE_TAIL}" if sale
+                      else f"It costs nothing to ask. {ASK_FREE_TAIL}"),
+        "contact_cta": (f"Email us for the {p} checkout link" if sale
+                        else "Email us about the copies we hold"),
         "contact_note": "Tell us whether you want code cases, building issues, or both, and we will say "
         "what we hold before you pay.",
         "foot": "Every case number on this page comes from two dated copies we sealed ourselves. "
@@ -264,6 +315,8 @@ def mesa_code() -> dict:
 
 
 def ttb() -> dict:
+    p = price("ttb")
+    sale = "$" in p
     j = S("ttb")
     frm, to = d(j["from"]), d(j["to"])
     NOTNAME = '<span class="sub">name not in our copy</span>'
@@ -348,26 +401,26 @@ def ttb() -> dict:
         "sections": secs,
         "id": "ttb",
         "ready": True,
+        "hero_note": None if sale else NOT_FOR_SALE_NOTE.format(price=p),
         "group": "Other dated records",
         "cadence": "Weekly by email",
         "cadence_long": "A person emails it weekly",
         "crumb": "TTB appear / disappear",
         "h1": "TTB appear / disappear list",
-        "price": "$99/mo",
         "buyer": "Beverage compliance and wholesaler operations",
         "desc": (
             f"Named US alcohol permits that appeared or stopped being listed between {frm} and {to}. "
-            f'{j["appeared_count"]} appeared, {j["gone_count"]} gone. $99/mo. Email operations@.'
+            f'{j["appeared_count"]} appeared, {j["gone_count"]} gone. {p}. Email operations@.'
         ),
         "lede": "Every time the TTB publishes the permit list, the new one overwrites the last. "
         "<strong>We keep the old copies, so you get the permits that appeared and the ones that stopped "
         "being listed</strong>, for one state or territory you name.",
         "pill_label": "Named permits on this page",
-        "subj": "TTB%20list%20%2499/mo",
+        "subj": mail_subject("TTB list", p),
         "contact_h2": "Start the thread",
         "contact_p": "Say which state or territory you follow. We send a checkout link in that thread. "
         "A person still emails the file.",
-        "contact_cta": "Email us for the $99/mo checkout link",
+        "contact_cta": f"Email us for the {p} checkout link",
         "contact_note": "We will tell you which weeks we hold for your state before you pay.",
         "foot": "Every permit number on this page comes from two dated copies we sealed ourselves. Where our "
         "copy has no business name, the row says so rather than leaving a quiet gap.",
@@ -382,6 +435,8 @@ def new_entities() -> dict:
     reproduce under any reading. The page now says what the re-count found, and
     drops the rows that re-count disqualified.
     """
+    p = price("new-entities")
+    sale = "$" in p
     j = S("new-entities")
     v = j["verified"]
     metro = j["jurisdiction"].replace("-", " ").title()
@@ -393,7 +448,14 @@ def new_entities() -> dict:
         for r in j["appeared"]
         if r["name"] not in drop
     ]
-    also = ", ".join(x.strip().replace("-", " ").title() for x in j["also_has"].split(","))
+    # .title() is right for "los-angeles" and wrong for "nyc": it printed the
+    # city's name as "Nyc" on a page we charge for. A place name is not ours to
+    # restyle, so the ones a general rule gets wrong are spelled out here.
+    METRO_NAMES = {"nyc": "New York City"}
+    also = ", ".join(
+        METRO_NAMES.get(x.strip(), x.strip().replace("-", " ").title())
+        for x in j["also_has"].split(",")
+    )
     secs = [
         section(
             "Public sample",
@@ -414,16 +476,26 @@ def new_entities() -> dict:
             "are deliberately not here, and the next section says exactly which and why.</p>",
         ),
         section(
-            "What we took out of this sample, and why",
+            # Named for the table on this page, not for the file below it.
+            # The two are different files and this page used to blur them: the
+            # old heading said "what we took out of this sample", and a buyer
+            # who opened the sample file found two of the three names sitting
+            # in it. Nothing had been taken out of anything -- these three are
+            # the names the re-count did not treat as new.
+            "What is not in the table above, and why",
             None,
             '      <div class="honest">\n'
             + "".join(
                 f"        <p><strong>{esc(k)}</strong> &mdash; {esc(reason)}.</p>\n"
                 for k, reason in drop.items()
             )
-            + "        <p>Two of those three are people filing under their own name rather than a company "
-            "name. We leave people out of a shop window on purpose. They are in the file you buy only if you "
-            "ask for them.</p>\n"
+            + "        <p>Those three reasons are about the table above, which shows 9 of that "
+            "day&rsquo;s 23 names. Not one of them is a claim about the file you can download.</p>\n"
+            "        <p><strong>What we do about people is narrower than it sounds.</strong> Every address we "
+            "print is cut back to the street, so a flat or unit number never appears. We hold a whole row "
+            "back only when it is a person&rsquo;s own name <em>and</em> the address on it carries that flat "
+            "or unit number. The free sample file below carries no address column at all, and names filed by "
+            "people are in it.</p>\n"
             "      </div>",
         ),
         section(
@@ -442,13 +514,17 @@ def new_entities() -> dict:
         section(
             "Which metros we hold",
             None,
-            f"      <p>The sample above is <strong>{metro}</strong>. We also hold "
-            f"<strong>{esc(also)}</strong>. Ask for the metro you actually lend or sell into and we will "
+            f"      <p>The table above is <strong>{metro}</strong>. We also hold "
+            f"<strong>{esc(also)}</strong>. The free sample file below is a slice across the metros we "
+            "hold rather than one metro, so do not read it as the "
+            f"{metro} file. Ask for the metro you actually lend or sell into and we will "
             "tell you what we hold for it before you pay, not after.</p>\n"
             '      <div class="honest">\n'
-            "        <p><strong>The filing list does not carry an industry code.</strong> Every row in this "
-            "sample has an empty industry field because the source leaves it empty, not because we dropped it. "
-            "If you need the business type, say so and we will tell you honestly whether we can get it.</p>\n"
+            "        <p><strong>The filing register does not carry an industry code.</strong> What it does "
+            "carry is the city&rsquo;s own words for the trade, and that is a column in the file below. It is "
+            "filled in on most rows and blank on some, because the source leaves it blank, not because we "
+            "dropped it. If you need a proper business type, say so and we will tell you honestly whether we "
+            "can get it.</p>\n"
             "      </div>",
         ),
         section(
@@ -478,7 +554,10 @@ def new_entities() -> dict:
             None,
             '      <ol class="steps">\n'
             "        <li>You email us and name the metro.</li>\n"
-            "        <li>We tell you what we hold for it, then send a checkout link in that thread.</li>\n"
+            + ("        <li>We tell you what we hold for it, then send a checkout link in that "
+               "thread.</li>\n" if sale
+               else "        <li>We tell you what we hold for it and it costs nothing to ask.</li>\n")
+            +
             "        <li>A person emails you the new-names file, and names anything we could not collect.</li>\n"
             "      </ol>",
         ),
@@ -487,26 +566,29 @@ def new_entities() -> dict:
         "sections": secs,
         "id": "new-entities",
         "ready": True,
+        "hero_note": None if sale else NOT_FOR_SALE_NOTE.format(price=p),
         "group": "Local government records",
         "cadence": "Per new file",
         "cadence_long": "Per new file",
         "crumb": "New business filings",
         "h1": "New business filings",
-        "price": "$175/mo",
         "buyer": "Lenders, B2B onboarding teams, and local software",
         "desc": (
             f"Named {metro} companies recorded on {rec}: {v['filings_recorded']} filings, "
             f"{v['distinct_names']} distinct names, {v['never_seen_before']} never seen before. "
-            "$175/mo. Email operations@."
+            f"{p}. Email operations@."
         ),
         "lede": "A brand new company is a buyer before anyone has sold to it. "
         "<strong>We walk the filing register on a schedule and keep every name, so you get the ones that are "
         "new since your last file.</strong>",
         "pill_label": "Named companies on this page",
-        "subj": "New%20business%20filings%20%24175/mo",
+        "subj": mail_subject("New business filings", p),
         "contact_h2": "Start the thread",
-        "contact_p": "Name your metro. We send a checkout link in that thread. A person still emails the file.",
-        "contact_cta": "Email us for the $175/mo checkout link",
+        "contact_p": ("Name your metro. We send a checkout link in that thread. A person still "
+                      "emails the file." if sale else
+                      "Name your metro. It costs nothing to ask. A person still emails the file."),
+        "contact_cta": (f"Email us for the {p} checkout link" if sale
+                        else "Email us about the copies we hold"),
         "contact_note": "We will tell you what we hold for your metro before you pay.",
         "foot": "Every company name on this page comes from a public filing register we walk and record "
         "ourselves. Rows we could not stand behind were taken out and named above rather than quietly dropped.",
@@ -534,5 +616,21 @@ def new_entities() -> dict:
 # adding a family here, ask first whether it can have a slice module instead.
 
 if __name__ == "__main__":
-    for spec in (ttb(), mesa_code(), new_entities()):
-        print(write(spec))
+    # Built one at a time, and a family that refuses does not take the ones
+    # after it down with it. The old loop built the specs inside the for
+    # statement, so the first refusal ended the run: on 2026-08-23 mesa-code
+    # tripped the search-line ceiling and new-entities -- the family this run
+    # was for -- was never reached, and nothing said so. The run still ends
+    # non-zero, and every refusal is printed with its reason.
+    failed = []
+    for name, build in (("ttb", ttb), ("mesa-code", mesa_code), ("new-entities", new_entities)):
+        try:
+            print(write(build()))
+        except Exception as exc:  # noqa: BLE001 - the reason is the whole point
+            failed.append((name, exc))
+            print(f"REFUSED {name}: {exc}")
+    if failed:
+        raise SystemExit(
+            f"{len(failed)} of 3 families were not written: "
+            + ", ".join(n for n, _ in failed)
+        )

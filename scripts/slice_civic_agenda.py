@@ -1385,7 +1385,16 @@ def family_spec() -> dict:
     from pathlib import Path
 
     sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from merge_catalog_adds import family_rows  # noqa: E402
     from render_family import section, table  # noqa: E402
+
+    # The one place this family's price is decided. It used to be typed twice --
+    # once here in the spec and once into the mailto wording below -- and the
+    # mailto copy is the dangerous one: check_site.py reads the price rail, the
+    # tab title and the search line, and deliberately never the body, so a stale
+    # amount in "Email us for the ... checkout link" would sit under a correct
+    # rail on a live page with nothing to catch it.
+    price = family_rows().get(FAMILY, {}).get("price") or "Not for sale yet"
 
     all_slices = slices()
     govs = [s for s in all_slices if s["slug"] != "coverage"]
@@ -1702,7 +1711,6 @@ def family_spec() -> dict:
         "cadence_long": "Sealed nearly every day, gaps named below",
         "crumb": "City and county agendas",
         "h1": "City and county agenda changes",
-        "price": "$175/mo",
         "buyer": "Government-affairs teams, land-use lawyers, construction bidders, local reporters",
         # Search cuts a description off at about 155 characters, and check_site.py
         # refuses to build one longer than that. Counts first, date last.
@@ -1716,11 +1724,12 @@ def family_spec() -> dict:
         "what the "
         "agenda said on the day you looked.</strong>",
         "pill_label": "Named meetings on this page",
-        "subj": "City%20and%20county%20agenda%20changes%20%24175/mo",
+        "subj": urllib.parse.quote(f"City and county agenda changes {price}"),
         "contact_h2": "Start the thread",
         "contact_p": "Name the city or county and the bodies you follow. We send a checkout link in "
         "that thread. A person still emails the file.",
-        "contact_cta": "Email us for the $175/mo checkout link",
+        "contact_cta": (f"Email us for the {price} checkout link" if "$" in price
+                        else "Email us about the copies we hold"),
         "contact_note": "We will tell you what we hold for your government, and since when, before "
         "you pay.",
         "foot": "Every body name, meeting date and sealed date on this page was read out of our own "

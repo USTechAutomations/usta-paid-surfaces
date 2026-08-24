@@ -207,6 +207,54 @@ def fam_row(fid: str) -> dict:
     return _FAM_ROWS.get(fid, {})
 
 
+def price_of(spec: dict) -> str:
+    """What this family costs, read out of catalog.json rather than off the caller.
+
+    catalog.json is the one place a price is decided. Every page that prints a
+    price now reads it from here, so there is nothing left for a build script to
+    disagree with.
+
+    It is the second copy that does the damage, not the wrong one. On
+    2026-08-24 scripts/build_wave2.py carried its own "$175/mo" for
+    new-entities while catalog.json said "Not for sale yet". Someone re-ran the
+    builder and the page went out with a price rail, a title, a search line and
+    a mail subject all quoting a monthly charge for a feed we have said in
+    public we are not selling. mesa-code carried the identical second copy and
+    only escaped because its search line ran 30 characters over the ceiling and
+    the write refused -- luck, not a guard.
+
+    So a spec that carries its own price is not silently overruled, it is
+    refused. Being overruled would leave the second copy sitting in the source
+    for the next person to trust. The two have to be made to agree by deleting
+    one of them, and the one that goes is never catalog.json.
+
+    A page with no catalog row at all -- the free bridge pages built by
+    build_about.py and build_extras.py -- keeps saying what its own module says,
+    because there is no other answer to read.
+    """
+    fid = str(spec.get("id") or "")
+    row = fam_row(fid)
+    catalogued = str(row.get("price") or "").strip()
+    own = str(spec.get("price") or "").strip()
+    if catalogued and own and own != catalogued:
+        raise ValueError(
+            f"{fid}: this module carries its own price {own!r} while catalog.json "
+            f"says {catalogued!r}. A price lives in catalog.json and nowhere else. "
+            f"Delete the copy in the module and read it from the catalog row -- do "
+            f"not change the catalog to match the module, and never edit a shared "
+            f"price constant to fix one page. Nothing was written."
+        )
+    if catalogued:
+        return catalogued
+    if own:
+        return own
+    raise ValueError(
+        f"{fid or 'this page'}: no price anywhere. catalog.json has no row for it "
+        f"and the module did not name one, so there is nothing honest to print on "
+        f"the price rail. Nothing was written."
+    )
+
+
 def sample_status(fid: str) -> str:
     """What catalog.json says about this family's sample, read fresh off disk.
 
@@ -266,7 +314,7 @@ def delivery_sentence(spec: dict) -> str:
     override = spec.get("delivery") or fam_row(str(spec.get("id") or "")).get("delivery")
     if override:
         return override
-    price = str(spec.get("price", ""))
+    price = price_of(spec)
     if "$" not in price:
         return (
             "<strong>Nothing on this page is for sale.</strong> The sample file is free to "
@@ -275,7 +323,11 @@ def delivery_sentence(spec: dict) -> str:
     what = "the whole file" if "/mo" in price else "what you asked for"
     return (
         f"<strong>What arrives after you pay:</strong> a person emails you {what} as a CSV "
-        "&mdash; the same plain spreadsheet as the sample above, not a login and not a web "
+        # "the sample above" is one phrase pointing at two different files: the
+        # worked example printed on the page, and the sample file the door hands
+        # over. On /feeds/new-entities that ambiguity turned three true sentences
+        # about the table into three false ones about the file. Say which.
+        "&mdash; the same plain spreadsheet as the sample file above, not a login and not a web "
         "page &mdash; within one working day of your payment."
     )
 
@@ -317,7 +369,7 @@ def sample_door(spec: dict) -> str:
     n_rows, n_cols = got
     csv_url = f"{FEEDS_BASE}/{fid}/sample.csv"
     json_url = f"{FEEDS_BASE}/{fid}/sample.json"
-    for_sale = "$" in str(spec.get("price", ""))
+    for_sale = "$" in price_of(spec)
     heading = "See the file before you pay" if for_sale else "See the file we hold"
     rest = (
         "that is the part you are paying for"
@@ -410,7 +462,7 @@ def offer_block(spec: dict) -> tuple[str, str]:
         return hero, door + sec
 
     url = c["url"]
-    label = c.get("label") or f'Subscribe — {spec["price"]}'
+    label = c.get("label") or f'Subscribe — {price_of(spec)}'
     terms = c.get("terms") or "Cancel any time by email."
     after = c.get("after") or (
         "After you pay we email you within one working day to confirm exactly what you get and when."
@@ -422,7 +474,7 @@ def offer_block(spec: dict) -> tuple[str, str]:
     )
     sec = f"""    <section class="contact buy">
       <h2>{html.escape(spec["contact_h2"])}</h2>
-      <p class="buy-price"><strong>{html.escape(spec["price"])}</strong> &middot; {html.escape(spec["cadence_long"])}</p>
+      <p class="buy-price"><strong>{html.escape(price_of(spec))}</strong> &middot; {html.escape(spec["cadence_long"])}</p>
       <a class="btn btn-buy btn-lg" href="{url}" data-checkout="{spec["id"]}" rel="noopener">{html.escape(label)}</a>
       <p class="mail-note">{html.escape(terms)} {html.escape(after)}</p>
       <p class="mail-note">Rather ask first? <a href="{mail}">Email operations@ustechautomations.com</a>. {spec["contact_note"]}</p>
@@ -433,12 +485,19 @@ def offer_block(spec: dict) -> tuple[str, str]:
 
 def render(spec: dict) -> str:
     ready = spec["ready"]
+    price = price_of(spec)
     hero_cta, offer = offer_block(spec)
+    # A page with nothing to buy says so under the rail, before the reader goes
+    # hunting for a button that is not there. It was hand-typed onto four pages
+    # and generated onto none, which is why a re-run of build_wave2.py could
+    # take it straight back off new-entities without anything noticing.
+    if spec.get("hero_note"):
+        hero_cta = f'    <p class="hero-note">{spec["hero_note"]}</p>\n' + hero_cta
     out = PAGE.format(
         hero_cta=hero_cta,
         offer=offer,
         id=spec["id"],
-        title=f'{spec["h1"]} — {spec["price"]}',
+        title=f'{spec["h1"]} — {price}',
         desc=spec["desc"],
         crumb=spec["crumb"],
         group=spec["group"],
@@ -451,7 +510,7 @@ def render(spec: dict) -> str:
         pill_label=spec["pill_label"],
         h1=spec["h1"],
         lede=spec["lede"],
-        price=spec["price"],
+        price=price,
         buyer=spec["buyer"],
         sections="\n".join(spec["sections"]),
         subj=spec["subj"],
@@ -474,6 +533,16 @@ def render(spec: dict) -> str:
 MAX_DESC = 155
 
 
+# A page that was hand-corrected after its generator went stale says so, in a
+# comment at the very top of the file. On 2026-08-23 that warning was the only
+# thing standing between /feeds/ttb and its own generator, and it did not stand:
+# running the generator silently reverted the hand-corrected terms paragraph on
+# a page that takes $99 a month. A warning a machine cannot read is not a guard,
+# so write() reads it now. Take the comment out of the page deliberately if the
+# generator has caught up; do not work around this by writing the file directly.
+DO_NOT_RUN = "do not run it)"
+
+
 def write(spec: dict) -> Path:
     d = spec["desc"]
     if len(d) > MAX_DESC:
@@ -484,6 +553,15 @@ def write(spec: dict) -> Path:
             f"overwritten every time this module runs. {d!r}"
         )
     dest = ROOT / "families" / spec["id"] / "index.html"
+    if dest.is_file():
+        head = dest.read_text(encoding="utf-8", errors="replace")[:800]
+        if DO_NOT_RUN in head:
+            raise ValueError(
+                f"{spec['id']}: the page on disk carries a written warning not to run "
+                f"its generator, so this run would have overwritten a hand-corrected "
+                f"page. Read the comment at the top of {dest} and fix whatever it "
+                f"names before building this family again. Nothing was written."
+            )
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(render(spec), encoding="utf-8")
     return dest

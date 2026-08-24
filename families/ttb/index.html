@@ -1,7 +1,14 @@
 <!doctype html>
 <!-- The terms paragraph below is copied verbatim from catalog.json families[ttb].checkout.
-     Edit the catalog, not this line. This page is hand-written (scripts/build_wave2.py, which
-     still holds this product's SUPERSEDED pre-2026-08-22 price - do not run it). -->
+     Edit the catalog, not this line. This page is hand-written and the generator has NOT caught
+     up with it (scripts/build_wave2.py - do not run it).
+     The price half of that warning is now closed: on 2026-08-24 the module stopped carrying its
+     own copy of the price and reads it from catalog.json, so it can no longer hold a superseded
+     one. Two hand-corrections are still ahead of the generator and would be silently reverted:
+     the rail under the buy heading reads "3 reads so far, 3 and 8 days apart", counted, where the
+     generator prints "A person emails it weekly", a rhythm this very page says we cannot claim
+     from two gaps; and the sample door carries the written terms, which the generator drops.
+     Fix those in build_wave2.py::ttb(), delete this comment, then build. -->
 <html lang="en">
 <head>
   <meta charset="utf-8">
