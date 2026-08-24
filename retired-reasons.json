@@ -1,0 +1,15 @@
+[
+  {
+    "addr": "ai-prices",
+    "name": "AI list-price window",
+    "reason": "This whole feed was retired on 24 August 2026, and not because we ran out of records to show. It was built by copying one other company's published list, and that company's written terms forbid copying it. Every page in the feed came down on the same day."
+  },
+  {
+    "addr": "civic-agenda/king-county",
+    "reason": "This page came down on 24 August 2026, and not because we ran out of records. We read this council's agendas from the council's own website, and that website's terms of use forbid republishing what is on it. We stopped reading it and took the page down the same day."
+  },
+  {
+    "addr": "civic-agenda/mesa",
+    "reason": "This page came down on 24 August 2026, and not because we ran out of records. The agenda site we read it from is published under a licence that bars commercial use, and this is a shop. We stopped reading that site and took the page down the same day."
+  }
+]

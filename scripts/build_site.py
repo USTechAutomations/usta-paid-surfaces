@@ -36,6 +36,9 @@ CATALOG = json.loads((ROOT / "catalog.json").read_text(encoding="utf-8"))
 # Every address we have ever published. See the comment at the top of the file
 # itself. Nothing is ever taken out of it.
 PUBLISHED = ROOT / "published-addresses.txt"
+# Why a given address stopped. Optional file; every address it does not name
+# keeps the default sentence below, which is the floor rule.
+RETIRED_REASONS = ROOT / "retired-reasons.json"
 
 BASE = "https://ustechautomations.com/feeds"
 GTM_ID = "GTM-KTB2LC8C"
@@ -407,15 +410,11 @@ RETIRED_HTML = """<!doctype html>
       <h1>This page is retired</h1>
       <p>There used to be a page at this address, in the {crumb} feed. There is
       nothing to show here now, and there is nothing for sale on this page.</p>
-      <p>A page in this shop is generated from the dated copies we hold. When
-      what we hold for one slice falls below the floor we set for it, the page
-      stops being generated rather than being padded out with rows we do not
-      have. That is what happened here.</p>
+      <p>{reason}</p>
       <p>We do not delete addresses, because other people have bookmarked them
       and search engines have recorded them. So this address keeps answering and
       tells you the truth instead of a not-found error.</p>
-      <p><a href="{parent}">{crumb}</a> is the page this one belonged to, and it
-      says what we hold today. <a href="{base}">Every feed we publish</a> is on
+      <p>{parent_line} <a href="{base}">Every feed we publish</a> is on
       the front page.</p>
     </section>
   </div>
@@ -430,6 +429,52 @@ RETIRED_HTML = """<!doctype html>
 </body>
 </html>
 """
+
+
+DEFAULT_RETIRED_REASON = (
+    "A page in this shop is generated from the dated copies we hold. When what we "
+    "hold for one slice falls below the floor we set for it, the page stops being "
+    "generated rather than being padded out with rows we do not have. That is what "
+    "happened here."
+)
+
+
+def _reasons() -> list[dict]:
+    """Read retired-reasons.json, longest address prefix first.
+
+    The default sentence above says a page stopped because we ran out of rows.
+    For most retired addresses that is exactly what happened. For some it is
+    FALSE, and a retired page that states a false cause is the same fault as a
+    price page that states a false price -- it is just quieter, because nobody
+    goes looking at a page that says it has nothing on it.
+
+    On 2026-08-24 two civic addresses were retired because the publisher's own
+    terms forbid republishing their material, and both went live saying they had
+    run out of rows. That is what this file exists to stop. Longest prefix wins,
+    so a whole family can carry one reason and a single child can override it.
+    """
+    if not RETIRED_REASONS.is_file():
+        return []
+    rows = json.loads(RETIRED_REASONS.read_text(encoding="utf-8"))
+    for r in rows:
+        if not r.get("addr") or not r.get("reason"):
+            fail(f"{RETIRED_REASONS.name}: every entry needs an addr and a reason; got {r!r}")
+    return sorted(rows, key=lambda r: len(r["addr"]), reverse=True)
+
+
+def _retired_reason(addr: str, rows: list[dict]) -> str:
+    for r in rows:
+        if addr == r["addr"] or addr.startswith(r["addr"] + "/"):
+            return r["reason"]
+    return DEFAULT_RETIRED_REASON
+
+
+def _retired_name(family: str, rows: list[dict]) -> str | None:
+    """A display name for a family whose catalog row has gone with the product."""
+    for r in rows:
+        if r["addr"] == family and r.get("name"):
+            return r["name"]
+    return None
 
 
 def write_retired(built: list[str]) -> list[str]:
@@ -475,13 +520,26 @@ def write_retired(built: list[str]) -> list[str]:
     made = {p[len("/feeds/"):].strip("/") for p in built if p.startswith("/feeds/")}
     made.discard("")
 
+    reasons = _reasons()
+    going = sorted(listed - made)
+    gone_families = {a for a in going if "/" not in a}
     retired = []
-    for addr in sorted(listed - made):
+    for addr in going:
         family = addr.split("/")[0]
-        crumb_name = next((f["name"] for f in CATALOG["families"] if f["id"] == family), family)
+        crumb_name = next((f["name"] for f in CATALOG["families"] if f["id"] == family), None)
+        crumb_name = crumb_name or _retired_name(family, reasons) or family
+        if addr == family:
+            parent_line = ("There is no feed page to send you on to: the whole feed this "
+                           "address belonged to is retired.")
+        elif family in gone_families:
+            parent_line = (f'<a href="{BASE}/{family}">{crumb_name}</a> is the feed this page '
+                           f'belonged to, and it is retired too.')
+        else:
+            parent_line = (f'<a href="{BASE}/{family}">{crumb_name}</a> is the page this one '
+                           f'belonged to, and it says what we hold today.')
         page = RETIRED_HTML.format(
             base=BASE, addr=addr, family=family, crumb=crumb_name,
-            parent=f"{BASE}/{family}",
+            reason=_retired_reason(addr, reasons), parent_line=parent_line,
         )
         outdir = DIST / addr
         if (outdir / "index.html").is_file():
