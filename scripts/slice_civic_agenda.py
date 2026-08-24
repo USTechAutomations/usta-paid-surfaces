@@ -40,18 +40,128 @@ FAMILY = "civic-agenda"
 DB = "/home/gmullins/Claude CLI/clocks/civic_agenda/data/civic_agenda.db"
 
 # slug -> (source_id, name, what the government is called in a sentence)
+#
+# Two governments were taken out of this map on 2026-08-24 by an operator
+# decision, after their own written terms were fetched and read. They are listed
+# in WITHDRAWN below rather than deleted, because a name that simply vanishes
+# from a source map looks like a typo to whoever reads this next, and the reason
+# is the only part that stops someone quietly putting it back.
 GOVERNMENTS = {
     "chicago": ("elms:chicago", "Chicago", "the City of Chicago"),
     "seattle": ("legistar:seattle", "Seattle", "the City of Seattle"),
-    "king-county": ("legistar:kingcounty", "King County", "King County, Washington"),
-    "mesa": ("legistar:mesa", "Mesa", "the City of Mesa, Arizona"),
     "austin": ("legistar:austintexas", "Austin", "the City of Austin"),
     "phoenix": ("legistar:phoenix", "Phoenix", "the City of Phoenix"),
     "columbus": ("legistar:columbus", "Columbus", "the City of Columbus, Ohio"),
     "la-county": ("legistar:lacounty", "Los Angeles County", "Los Angeles County"),
 }
 
+# Governments whose material may not be published here. Nothing in this file may
+# read from these ids. Kept as a record, and as the thing to check before anyone
+# adds a name back into GOVERNMENTS.
+#
+# King County, Washington -- their terms of use say, in their own words, "You may
+# not publish, display, distribute or commercially exploit any of the the website
+# or app or the content therein without the prior written permission of King
+# County." We hold no such permission. That sentence bans publishing, not only
+# charging, so their rows come off the free pages too. Their separate statement
+# that county records are open for public review does not answer it: being
+# allowed to look at something and being allowed to republish it are different
+# questions, and this page answers the second one no.
+#
+# Mesa, Arizona -- their policies page puts website content under a Creative
+# Commons Attribution-Noncommercial-Share Alike licence and says downloads are
+# for "personal, non-commercial use". This family has a price on it. Mesa also
+# runs an open-data portal whose licence permits commercial use, and that does
+# NOT help: that licence names the two hosts it covers and we read neither. We
+# take Mesa's agendas from the council-system supplier. A permission only counts
+# if it reaches the address we actually call.
+#
+# Same city, opposite answer elsewhere, and the two must not be confused: Mesa's
+# building-code data IS permitted, because there the publisher connected their
+# licence to the host we really read. That is the mesa-code family, not this one.
+WITHDRAWN = {
+    "king-county": ("legistar:kingcounty", "King County", "King County, Washington"),
+    "mesa": ("legistar:mesa", "Mesa", "the City of Mesa, Arizona"),
+}
+
 GOV_BY_SOURCE = {sid: name for sid, name, _long in GOVERNMENTS.values()}
+
+
+def _gov_names() -> list[str]:
+    """The governments this page may publish, in the order the map holds them."""
+    return [name for _sid, name, _long in GOVERNMENTS.values()]
+
+
+def _gov_count_words() -> str:
+    """How many governments, spelled out, because the sentences around it read that way.
+
+    Six sentences on this page used to type the word "eight". When two
+    governments came off on 2026-08-24 every one of them would have gone on
+    saying eight over six, on a page whose whole argument is that we tell you
+    what we do not hold.
+    """
+    words = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six",
+             7: "seven", 8: "eight", 9: "nine", 10: "ten"}
+    n = len(GOVERNMENTS)
+    return words.get(n, str(n))
+
+
+def _and_list(names) -> str:
+    """Join names the way a person writes them, with the last one after "and"."""
+    names = list(names)
+    if len(names) < 2:
+        return names[0] if names else ""
+    return ", ".join(names[:-1]) + ", and " + names[-1]
+
+
+# The supplier, by the shape of the source id. Nobody reading these pages could
+# have worked out where the records come from: before 2026-08-24 this family
+# named the supplier zero times and used the words "credit" and "attribution"
+# zero times, on a page carrying a price.
+SUPPLIERS = {
+    "legistar": "Legistar, the council-records system run by Granicus",
+    "elms": "the Chicago City Clerk's ELMS records system",
+}
+
+
+def _supplier_of(source_id: str) -> str:
+    return SUPPLIERS.get(source_id.split(":", 1)[0], "the government's own records system")
+
+
+def _rows_intro(name: str, longname: str, source_id: str) -> str:
+    """The sentence directly above the rows, naming who the records belong to.
+
+    A credit belongs next to the data, not in the sales copy. The mistake this
+    avoids is already on record elsewhere in this estate: the California ISO
+    credit lives inside a subscribe box on 22 pages, which makes it product copy
+    that disappears the moment anyone rewords the box.
+
+    Austin is named as the source in their own words as well as ours. They gave
+    the clearest permission of any government in this feed -- "free and without
+    restriction", "in the public domain" -- and asked for credit as a request
+    rather than a condition. We honour it anyway.
+    """
+    base = (
+        "These are rows we read out of dated copies we keep ourselves. The live "
+        "source shows today only, so once a row moves, what it said before is gone "
+        "from the place you would go to look."
+    )
+    credit = (
+        f"<br><span class=\"sub\">Source: the meeting records of {longname}, "
+        f"read through {_supplier_of(source_id)}. The records are theirs; the "
+        "dated copies and the comparison between them are ours.</span>"
+    )
+    if source_id == "legistar:austintexas":
+        credit = (
+            "<br><span class=\"sub\">Source: the meeting records of the City of "
+            f"Austin, read through {_supplier_of(source_id)}. Austin publishes "
+            "this material free and without restriction and asks to be credited; "
+            "we credit them here. The records are theirs; the dated copies and "
+            "the comparison between them are ours.</span>"
+        )
+    return base + credit
+
+
 
 # Fields on a meeting record that a reader would recognise as having moved.
 EVENT_FIELDS = [
@@ -988,8 +1098,8 @@ def _gov_slice(conn, slug, source_id, name, longname, today) -> dict | None:
     facts += tail
 
     # limits, strongest first and cut to six. The two the brief demands -- only
-    # these eight governments, and only what happened between two of our reads --
-    # are never the ones that fall off the end.
+    # the governments named in GOVERNMENTS, and only what happened between two of
+    # our reads -- are never the ones that fall off the end.
     limits = []
     behind = (today - date.fromisoformat(newest)).days
     if behind > 2:
@@ -1046,8 +1156,8 @@ def _gov_slice(conn, slug, source_id, name, longname, today) -> dict | None:
         f"pretend we did. {_missed_sentence(_run_health(conn))}"
     )
     limits.append(
-        "We hold eight governments and no others: Chicago, Seattle, King County, Mesa, Austin, "
-        "Phoenix, Columbus, and Los Angeles County."
+        f"We hold {_gov_count_words()} governments and no others: "
+        f"{_and_list(_gov_names())}."
     )
     if ask["item_days"] or ask["event_days"]:
         limits.append(
@@ -1094,7 +1204,7 @@ def _gov_slice(conn, slug, source_id, name, longname, today) -> dict | None:
         f"<strong>We keep a dated copy on most days and name the days we missed, so you get "
         f"what moved.</strong>",
         "desc": f"{total:,} named {name} meetings and agenda items that moved between two dated "
-        f"copies we sealed, over {len(days)} sealed days. Newest {_day(newest)}. $175/mo.",
+        f"copies we sealed, over {len(days)} sealed days. Newest {_day(newest)}.{_price_tail()}",
         "newest": newest,
         "oldest": oldest,
         "runs": len(days),
@@ -1104,6 +1214,9 @@ def _gov_slice(conn, slug, source_id, name, longname, today) -> dict | None:
         "read_label": _read_rail(days, today),
         "row_count": ev_rows[0] + mt_rows[0],
         "tables": tables,
+        # The credit sits here, immediately above the rows, and not in the
+        # subscribe box. See _rows_intro().
+        "rows_intro": _rows_intro(name, longname, source_id),
         "facts": facts,
         "limits": limits,
         # not part of the fixed interface, but the family page reads them
@@ -1167,16 +1280,33 @@ def _run_health(conn) -> dict:
             cur = [m]
     if cur:
         streaks.append(cur)
+    # Only the governments this page may publish. The collector still reads the
+    # two that came off on 2026-08-24, so the run log still counts them, and
+    # every number taken from it here would otherwise have carried them:
+    #
+    #   - the error list named a source by its raw id when the name was not in
+    #     the map, so a bad day for King County would have printed
+    #     "legistar:kingcounty" on a page that says King County is gone
+    #   - "All 8 sources answered" would have sat under a sentence saying we
+    #     hold six governments
+    #
+    # Both are the same mistake -- reading the collector's world onto a page that
+    # publishes a smaller one.
+    published = {sid for sid, _n, _l in GOVERNMENTS.values()}
     partial = []
     for r in rows:
         if r["sources_error"]:
             names = sorted(
-                GOV_BY_SOURCE.get(k, k)
+                GOV_BY_SOURCE[k]
                 for k, v in json.loads(r["manifest_json"] or "{}").items()
-                if v.get("errors")
+                if v.get("errors") and k in published
             )
-            partial.append((r["snapshot_date"], names))
+            if names:
+                partial.append((r["snapshot_date"], names))
     newest = rows[-1]
+    newest_manifest = json.loads(newest["manifest_json"] or "{}")
+    newest_seen = [k for k in newest_manifest if k in published]
+    newest_bad = [k for k in newest_seen if newest_manifest[k].get("errors")]
     return {
         "runs": len(rows),
         "days": len(days),
@@ -1189,9 +1319,31 @@ def _run_health(conn) -> dict:
         "longest": max(streaks, key=len) if streaks else [],
         "singles": [g[0] for g in streaks if len(g) == 1],
         "partial": partial,
-        "newest_clean": newest["sources_ok"] == newest["sources_total"],
-        "newest_sources": newest["sources_total"],
+        "newest_clean": not newest_bad,
+        "newest_sources": len(newest_seen) or len(published),
     }
+
+
+def _price_tail() -> str:
+    """The price for a child page's search line, read from the catalog, never typed.
+
+    Every one of the seven child pages used to end its search line with the
+    amount typed in by hand. On 2026-08-24 this family came off sale, the
+    catalog said "Not for sale yet", and seven search results went on offering
+    $175 a month over a page with no button on it. That is the same fault
+    scripts/check_site.py already refuses to build on the price rail and the tab
+    title, and the search line is the half a stranger reads FIRST, before they
+    ever open the page.
+
+    Copied deliberately from slice_air_permits._price_tail(), which was written
+    for the same day and the same reason. Say nothing at all when there is no
+    price: "Not for sale yet" is a state, not an offer, and a search result is
+    no place to advertise one.
+    """
+    from merge_catalog_adds import family_rows  # noqa: E402
+
+    price = family_rows().get(FAMILY, {}).get("price") or ""
+    return f" {price}." if "$" in price else ""
 
 
 def _fam_cadence_long() -> str:
@@ -1303,8 +1455,11 @@ def _coverage_slice(conn, govs, today) -> dict:
         "h1": "Civic agendas: what we hold",
         "lede": "Every government in this feed, the bodies we watch inside it, how much we hold, "
         "and the day we last sealed a copy.",
-        "desc": "The eight governments in this feed, with the bodies, meetings and items we hold "
-        f"for each and the day we last sealed a copy. Newest {_day(newest_all)}. $175/mo.",
+        # Counted, never typed. This said "The eight governments" while the map
+        # above held eight; when two came off on 2026-08-24 the sentence would
+        # have gone on saying eight over six.
+        "desc": f"The {len(govs)} governments in this feed, with the bodies, meetings and items "
+        f"we hold for each and the day we last sealed a copy. Newest {_day(newest_all)}.{_price_tail()}",
         "newest": newest_all,
         "oldest": oldest_all,
         "runs": runs,
@@ -1351,8 +1506,8 @@ def _coverage_slice(conn, govs, today) -> dict:
             else []
         ),
         "limits": [
-            "These eight governments are the whole feed. We do not hold any other city or county, "
-            "and we will say so rather than guess.",
+            f"These {_gov_count_words()} governments are the whole feed. We do not hold any "
+            "other city or county, and we will say so rather than guess.",
             "We can only show you a change that happened between two of our reads.",
             "We ask each government for the meetings dated in the last two weeks and ahead, and "
             "for the items it edited in the last week. That window is what we hold, not a whole "
@@ -1542,6 +1697,11 @@ def family_spec() -> dict:
     # amount in "Email us for the ... checkout link" would sit under a correct
     # rail on a live page with nothing to catch it.
     price = family_rows().get(FAMILY, {}).get("price") or "Not for sale yet"
+    # A price is a price only when it names an amount. Everything below that
+    # describes buying -- a checkout link, cancelling a month, what happens
+    # before you pay -- has to ask this first, or the page goes on selling
+    # something the catalog has taken off sale.
+    sale = "$" in price
 
     all_slices = slices()
     govs = [s for s in all_slices if s["slug"] != "coverage"]
@@ -1551,10 +1711,22 @@ def family_spec() -> dict:
     # Counted here rather than typed, so the sentence below cannot drift away
     # from the store. raw_fetches proves the other half: it holds only the list
     # endpoints, never one of these agenda links.
+    #
+    # Counted over the governments this page is allowed to publish, NOT over the
+    # whole store. The store still holds King County and Mesa rows -- the reading
+    # was never the problem and nothing was deleted -- and an unfiltered count
+    # here would have quietly put those two back into a published number on the
+    # very page that says they are gone. Every other query in this file already
+    # filters by source_id; this one did not, which is exactly why it needed
+    # finding rather than assuming.
     _c = _connect()
     try:
+        _ids = [sid for sid, _n, _l in GOVERNMENTS.values()]
+        _marks = ",".join("?" * len(_ids))
         agenda_total, agenda_linked = _c.execute(
-            "select count(*), sum(agenda_url is not null and agenda_url <> '') from events"
+            "select count(*), sum(agenda_url is not null and agenda_url <> '') "
+            f"from events where source_id in ({_marks})",
+            _ids,
         ).fetchone()
     finally:
         _c.close()
@@ -1653,6 +1825,29 @@ def family_spec() -> dict:
             + "\n      <p>Every body name, every meeting date and every pair of sealed dates on this "
             "page was read out of our own dated copies at the moment the page was built.</p>",
         ),
+        # Directly under the sample table, because a credit that lives in the
+        # sales copy is not a credit. See _rows_intro() for the same rule applied
+        # to each government's own page.
+        section(
+            "Whose records these are",
+            None,
+            "      <p>We did not write any of this down first. Every row above began as a "
+            f"public meeting record kept by one of {_gov_count_words()} governments: "
+            f"{_and_list(_gov_names())}. We read them through "
+            f"{_and_list(sorted({_supplier_of(sid) for sid, _n, _l in GOVERNMENTS.values()}))}"
+            ". The records belong to those governments. What is ours is the dated copies "
+            "and the comparison between them.</p>\n"
+            "      <p><strong>The City of Austin</strong> publishes this material free and "
+            "without restriction and asks to be credited for it. They asked; we are "
+            "crediting them, here and on their own page.</p>\n"
+            "      <p>Two governments were taken off this feed on 24 August 2026 after we "
+            "read their written terms: King County, Washington, whose terms forbid "
+            "republishing their material, and the City of Mesa, Arizona, whose agenda "
+            "site is published under a licence that does not allow commercial use. Their "
+            "records are not on these pages and are not in the file you would be sent. "
+            "Nothing about that is a fault in the data, and it did not cause any gap in "
+            "what we hold for anyone else.</p>",
+        ),
         section(
             "What we catch, and how many of each",
             None,
@@ -1739,14 +1934,16 @@ def family_spec() -> dict:
             )
             + '\n      <div class="honest">\n'
             "        <p><strong>Subjects on this page are cut short to fit.</strong> They run to "
-            "several hundred characters in the record. The file you buy carries the whole thing, "
-            "before and after.</p>\n"
+            "several hundred characters in the record. "
+            + ("The file you buy carries the whole thing, before and after."
+               if sale else "The file itself carries the whole thing, before and after.")
+            + "</p>\n"
             "      </div>",
         ),
         section(
             "Which governments we hold",
             f"{bodies:,} bodies \u00b7 {meetings:,} meetings \u00b7 {items_held:,} items",
-            "      <p>Eight governments. This is the whole feed, not a sample of a bigger one.</p>\n"
+            f"      <p>{_gov_count_words().capitalize()} governments. This is the whole feed, not a sample of a bigger one.</p>\n"
             + table(
                 cov["tables"][0]["headers"],
                 cov["tables"][0]["rows"],
@@ -1781,7 +1978,7 @@ def family_spec() -> dict:
             f"sealed copy. {_missed_sentence(health)}</p>\n"
             + "      </div>\n"
             + "      <p>Ask for the city or county you actually work in. If we do not hold it we "
-            "will tell you that instead of selling you one of the eight we do.</p>",
+            f"will tell you that instead of selling you one of the {_gov_count_words()} we do.</p>",
         ),
         # Every priced parent page in this estate names its own limits under one
         # heading, in one place, above the price. This family said most of these
@@ -1799,8 +1996,9 @@ def family_spec() -> dict:
             f"        <p><strong>{len(GOVERNMENTS)} governments, and no others.</strong> "
             + ", ".join(name for _sid, name, _long in GOVERNMENTS.values())
             + ". If the council you follow is not one of those, this feed holds nothing for "
-            "you, and we would rather say so before you pay than after.</p>\n"
-            "        <p><strong>A meeting dropping off the list is usually the calendar moving, "
+            + ("you, and we would rather say so before you pay than after.</p>\n" if sale
+               else "you, and we would rather say so on this page than in an email.</p>\n")
+            + "        <p><strong>A meeting dropping off the list is usually the calendar moving, "
             "not a cancellation.</strong> These lists only show a window, so a meeting leaves one "
             "by happening. The tables above keep those out on purpose rather than selling you a "
             "date passing as news.</p>\n"
@@ -1816,7 +2014,8 @@ def family_spec() -> dict:
             "      <p>You can open any of these meeting lists right now, for free. What you cannot "
             "open is yesterday&rsquo;s. The list is replaced in place, the agenda file is replaced "
             "in place, and neither keeps a history you can reach.</p>\n"
-            "      <p>To get what moved you would have to read eight meeting lists every day, keep "
+            f"      <p>To get what moved you would have to read {_gov_count_words()} meeting lists "
+            "every day, keep "
             "every copy, and then work out which differences are real. That last part is most of "
             "the work: these records carry a version number that moves when nothing else has, and "
             "meetings drop off the list for the ordinary reason that the date has passed. Count "
@@ -1835,20 +2034,25 @@ def family_spec() -> dict:
             "        <li><strong>Meetings that were pulled before they happened, kept separate from "
             'meetings whose date simply passed</strong><span class="sub">One of those is news. The '
             "other is a calendar.</span></li>\n"
-            "        <li><strong>The governments you name, not all eight</strong>"
-            '<span class="sub">And we tell you what we hold for each one before you pay.</span></li>\n'
-            "        <li><strong>Cancel any month by email</strong>"
-            '<span class="sub">No account to close, no notice period.</span></li>\n'
-            "      </ul>",
+            f"        <li><strong>The governments you name, not all {_gov_count_words()}</strong>"
+            + ('<span class="sub">And we tell you what we hold for each one before you pay.'
+               "</span></li>\n" if sale else
+               '<span class="sub">And we tell you what we hold for each one.</span></li>\n')
+            + ("        <li><strong>Cancel any month by email</strong>"
+               '<span class="sub">No account to close, no notice period.</span></li>\n'
+               if sale else "")
+            + "      </ul>",
         ),
         section(
             "How it works",
             None,
             '      <ol class="steps">\n'
             "        <li>You email us and name the governments and the bodies you follow.</li>\n"
-            "        <li>We tell you what we hold for them and since when, then send a checkout "
-            "link in that thread.</li>\n"
-            "        <li>A person emails you the changes file, and names anything we could not "
+            + ("        <li>We tell you what we hold for them and since when, then send a checkout "
+               "link in that thread.</li>\n" if sale else
+               "        <li>We tell you what we hold for them and since when. There is nothing to "
+               "buy today, so there is no checkout link to send.</li>\n")
+            + "        <li>A person emails you the changes file, and names anything we could not "
             "collect that day.</li>\n"
             "      </ol>",
         ),
@@ -1872,17 +2076,22 @@ def family_spec() -> dict:
             f"ourselves. Newest {_day(newest)}."
         ),
         "lede": "Councils replace an agenda in place and the site says nothing. "
-        "<strong>We seal dated copies of eight meeting lists, and name every day we did not, so "
-        "you can prove what the agenda said on the day you looked.</strong>",
+        f"<strong>We seal dated copies of {_gov_count_words()} meeting lists, and name every day "
+        "we did not, so you can prove what the agenda said on the day you looked.</strong>",
         "pill_label": "Named meetings on this page",
         "subj": urllib.parse.quote(f"City and county agenda changes {price}"),
         "contact_h2": "Start the thread",
-        "contact_p": "Name the city or county and the bodies you follow. We send a checkout link in "
-        "that thread. A person still emails the file.",
+        "contact_p": ("Name the city or county and the bodies you follow. We send a checkout link "
+                      "in that thread. A person still emails the file."
+                      if "$" in price else
+                      "This feed is not for sale today. Name the city or county and the bodies you "
+                      "follow and we will tell you what we hold and since when. A person answers."),
         "contact_cta": (f"Email us for the {price} checkout link" if "$" in price
                         else "Email us about the copies we hold"),
-        "contact_note": "We will tell you what we hold for your government, and since when, before "
-        "you pay.",
+        "contact_note": ("We will tell you what we hold for your government, and since when, "
+                         "before you pay." if sale else
+                         "We will tell you what we hold for your government, and since when. "
+                         "There is nothing to pay."),
         "foot": "Every body name, meeting date and sealed date on this page was read out of our own "
         "dated copies when the page was built. Meetings that dropped off a list because the date had "
         "passed are counted separately and kept off these tables rather than sold as withdrawals.",

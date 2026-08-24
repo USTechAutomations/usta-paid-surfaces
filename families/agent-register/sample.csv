@@ -1,4 +1,5 @@
 server_name,first_copy_of_ours,date_the_register_gives,where_it_answers
+io.github.crypto-yannso/tryx402,2026-08-24,2026-08-24,no address in the record
 io.github.nexus-mcp-infra/x402-receipt-verifier,2026-08-23,2026-08-23,x402-receipt-verifier-325572559480.us-central1.run.app
 io.github.nexus-mcp-infra/new-x402-listings-feed,2026-08-23,2026-08-22,new-x402-listings-feed-325572559480.us-central1.run.app
 io.github.ANAMIZED/x402-cloudflare-starter,2026-08-23,2026-08-23,no address in the record
@@ -23,4 +24,3 @@ com.scriptmasterlabs/x402-gateway,2026-08-09,2026-08-08,acp-x402-scriptmasterlab
 io.github.ZadenGG/x402-snap,2026-08-07,2026-08-06,x402-snap.zaden-gaming.workers.dev
 io.github.Senpi-Station/x402-web-extract,2026-08-04,2026-08-04,x402-web-extract.senpi-agent.workers.dev
 io.github.michaelhutchings626-hub/alien-plugg-x402,2026-08-03,2026-08-03,base44.app
-io.github.Mahesvannan/tx402,2026-08-03,2026-08-03,no address in the record

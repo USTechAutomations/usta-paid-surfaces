@@ -212,6 +212,36 @@ REASON_DISPROVED = frozenset({
     "spend_restate",
 })
 
+# One reader whose recorded reason was not merely wrong but wrong IN KIND.
+#
+# trading_forecasts reads this machine's own trading-system output -- its
+# universe declares two file:// paths on this host and nothing else. There is no
+# outside publisher at all, so "the publisher already keeps a free archive" is
+# not a false statement about it, it is a statement with nothing to be true or
+# false about. Saying "the reason did not hold up", the way the other six do,
+# would still leave a stranger thinking there is a publisher somewhere who was
+# checked. There is not one.
+#
+# The operator's 2026-08-24 decision already says this. The page kept printing
+# the old sentence anyway, because that record has to quote the phrase it is
+# retracting and the matcher read the quotation as the reason -- see
+# _asserted(). Both halves are fixed: the matcher no longer reads a citation as
+# a claim, and this row now says the true reason out loud.
+#
+# Keyed on the reader AND on the correction still saying what it says, so if the
+# operator ever writes a different decision this override retires with it. This
+# changes only what the page says. It relights nothing: real-money trading is a
+# closed area on this estate and this collector stays off regardless.
+NO_PUBLISHER = frozenset({"trading_forecasts"})
+NO_PUBLISHER_MARKER = "no publisher"
+
+
+def no_publisher(rec: dict) -> bool:
+    """Is this the reader that has no publisher to have an archive?"""
+    return (rec.get("clock_id") in NO_PUBLISHER
+            and NO_PUBLISHER_MARKER in rec.get("basis", ""))
+
+
 # The Arizona checks, said plainly. The exact note we wrote on the day sits
 # underneath each one, so a lawyer reads our working and not our summary of it.
 AZ_PLAIN = {
@@ -406,10 +436,43 @@ def stop_decisions() -> dict[str, dict]:
     return latest
 
 
+QUOTE_CHARS = "\"'\u2018\u2019\u201c\u201d"
+
+
+def _asserted(basis: str, marker: str) -> bool:
+    """Does this basis STATE the marker, rather than quote it?
+
+    A record that corrects an earlier reason has to name the sentence it is
+    retracting, and the only way to name a sentence is to write it down. So the
+    disproved wording appears, in quotation marks, inside the very record that
+    exists to say it was wrong -- and a plain `marker in basis` finds it there
+    and prints the retracted sentence as though it were the reason.
+
+    That is not hypothetical. trading_forecasts' 2026-08-24 decision says the
+    phrase "cannot be true or false of it", and this page went on telling
+    strangers that a publisher keeps a free archive of a file our own machine
+    writes. A correction that names the mistake must not be readable AS the
+    mistake.
+
+    So an occurrence wrapped in quotation marks does not count. Only an
+    occurrence the record asserts in its own voice does.
+    """
+    start = 0
+    while True:
+        i = basis.find(marker, start)
+        if i < 0:
+            return False
+        before = basis[i - 1] if i else ""
+        after = basis[i + len(marker):i + len(marker) + 1]
+        if not (before in QUOTE_CHARS and after in QUOTE_CHARS):
+            return True
+        start = i + len(marker)
+
+
 def stop_reason(rec: dict) -> str:
     basis = rec.get("basis", "")
     for marker, words in STOP_REASONS:
-        if marker in basis:
+        if _asserted(basis, marker):
             return words
     first = basis.split(". ")[0].strip()
     return (first + ".") if first and not first.endswith(".") else (first or "No reason recorded.")
@@ -426,7 +489,7 @@ def reason_disproved(rec: dict) -> bool:
     and delete a name from a list.
     """
     return (rec.get("clock_id") in REASON_DISPROVED
-            and DISPROVED_MARKER in rec.get("basis", ""))
+            and _asserted(rec.get("basis", ""), DISPROVED_MARKER))
 
 
 def stop_reason_cell(rec: dict) -> str:
@@ -440,6 +503,20 @@ def stop_reason_cell(rec: dict) -> str:
     or writing a new confident sentence to replace a disproved one, which is the
     original mistake again at speed.
     """
+    if no_publisher(rec):
+        return (
+            f'<strong>There is no publisher, so there is no archive.</strong>'
+            f'<span class="sub">This is the only reader on this page that copies '
+            f'nothing from anybody. It reads two files our own machine writes, '
+            f'from a test that predicted prices and then checked itself against '
+            f'what happened. On {esc(day(REASON_DISPROVED_ON))} we found we had '
+            f'recorded the same reason here as elsewhere -- that the publisher '
+            f'keeps a free archive -- and there is no publisher for that to be '
+            f'true of. The real reason it is off: it existed to build up a record '
+            f'for trading with real money, and trading with real money is closed '
+            f'here for good. It stays off whatever any archive does. The copies '
+            f'already taken were kept.</span>'
+        )
     if not reason_disproved(rec):
         return esc(stop_reason(rec))
     return (

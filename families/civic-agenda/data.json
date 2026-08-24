@@ -19,22 +19,6 @@
       "cadence_days": 1
     },
     {
-      "slug": "king-county",
-      "newest": "2026-08-24",
-      "oldest": "2026-06-11",
-      "runs": 63,
-      "row_count": 6540,
-      "cadence_days": 1
-    },
-    {
-      "slug": "mesa",
-      "newest": "2026-08-24",
-      "oldest": "2026-06-11",
-      "runs": 63,
-      "row_count": 4349,
-      "cadence_days": 1
-    },
-    {
       "slug": "austin",
       "newest": "2026-08-24",
       "oldest": "2026-06-11",
@@ -71,7 +55,7 @@
       "newest": "2026-08-24",
       "oldest": "2026-06-11",
       "runs": 68,
-      "row_count": 97859,
+      "row_count": 86970,
       "cadence_days": 1
     }
   ]

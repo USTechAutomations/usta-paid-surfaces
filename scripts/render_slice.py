@@ -211,10 +211,23 @@ def offer_spec(fam: dict, spec: dict) -> dict:
             "We reply with what we hold for this one, and with what we do not hold, "
             "before you spend anything."
         ),
-        "contact_cta": fam.get("contact_cta") or f"Email us for the {price} checkout link",
+        # A price is a price only when it names an amount. "Not for sale yet" is
+        # a state, not an offer, and these two defaults used to paste it into an
+        # offer anyway: 24 live child pages read "Email us for the Not for sale
+        # yet checkout link" on 2026-08-24, across two families that had been
+        # taken off sale. The family page had already learned this -- both
+        # slice_civic_agenda.family_spec() and slice_air_permits guard on the
+        # dollar sign -- and the children were still saying it, because the
+        # guard lived in the modules instead of here. check_site.py cannot catch
+        # it: it reads the price rail, the tab title and the search line, and
+        # deliberately never the body.
+        "contact_cta": fam.get("contact_cta") or (
+            f"Email us for the {price} checkout link" if "$" in price
+            else "Email us about the copies we hold"
+        ),
         "contact_note": fam.get("contact_note") or (
             f'Say that you want {spec["name"]} and we will tell you which weeks we hold for it '
-            "before you pay."
+            + ("before you pay." if "$" in price else "and since when.")
         ),
     }
 

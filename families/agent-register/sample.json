@@ -12,6 +12,12 @@
   ],
   "rows": [
     [
+      "io.github.crypto-yannso/tryx402",
+      "2026-08-24",
+      "2026-08-24",
+      "no address in the record"
+    ],
+    [
       "io.github.nexus-mcp-infra/x402-receipt-verifier",
       "2026-08-23",
       "2026-08-23",
@@ -154,12 +160,6 @@
       "2026-08-03",
       "2026-08-03",
       "base44.app"
-    ],
-    [
-      "io.github.Mahesvannan/tx402",
-      "2026-08-03",
-      "2026-08-03",
-      "no address in the record"
     ]
   ]
 }

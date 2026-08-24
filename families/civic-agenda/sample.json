@@ -17,37 +17,37 @@
   ],
   "rows": [
     [
-      "Mesa",
+      "Austin",
       "meeting",
-      "City Council",
+      "Economic Opportunity Committee",
       "",
       "",
-      "2026-10-05",
-      "Pulled off the calendar before the meeting",
-      "2026-08-23",
-      "2026-08-24"
+      "2026-09-18",
+      "Added to the calendar",
+      "2026-08-22",
+      "2026-08-23"
     ],
     [
-      "Mesa",
+      "Austin",
       "meeting",
-      "City Council Study Session",
+      "Audit and Finance Committee",
       "",
       "",
-      "2026-10-05",
-      "Pulled off the calendar before the meeting",
-      "2026-08-23",
-      "2026-08-24"
+      "2026-09-16",
+      "Added to the calendar",
+      "2026-08-22",
+      "2026-08-23"
     ],
     [
-      "Mesa",
+      "Seattle",
       "meeting",
-      "City Council Study Session",
+      "Transportation, Waterfront, and Seattle Center Committee",
       "",
       "",
-      "2026-10-08",
-      "Pulled off the calendar before the meeting",
-      "2026-08-23",
-      "2026-08-24"
+      "2026-08-20",
+      "Minutes posted",
+      "2026-08-21",
+      "2026-08-22"
     ],
     [
       "Seattle",
@@ -145,17 +145,6 @@
       "An ordinance appropriating money to pay certain claims for the week of August 3, 2026, through August 7, 2026, and ordering the payment thereof; and ratifying and confirming certain prior acts.",
       "",
       "Passed at Full Council -> Passed",
-      "2026-08-21",
-      "2026-08-22"
-    ],
-    [
-      "King County",
-      "agenda item",
-      "Metropolitan King County Council",
-      "2026-0226",
-      "A MOTION confirming the executive's appointment of Sili Savusa, who resides in council district eight, to the King County communities of opportunity-best starts for kids levy advisory board as a community member who reflects demographic characteristics of the communities that qualify for funding.",
-      "",
-      "In Council -> ATS Review",
       "2026-08-21",
       "2026-08-22"
     ],
@@ -288,6 +277,17 @@
       "Exemption from physical barrier requirement for commercial driveway alley access for BM International Builders, Inc.",
       "",
       "\u201cThirteen 28-32 W Grand LLC\u201d -> \u201cBM International Builders, Inc.\u201d",
+      "2026-08-20",
+      "2026-08-21"
+    ],
+    [
+      "Seattle",
+      "agenda item",
+      "Transportation, Waterfront, and Seattle Center Committee",
+      "Res 32215",
+      "A resolution appointing the members of the Transportation Funding Task Force.",
+      "",
+      "In Committee -> Voted out of Commitee",
       "2026-08-20",
       "2026-08-21"
     ]
