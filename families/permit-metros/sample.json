@@ -1,6 +1,6 @@
 {
   "family": "permit-metros",
-  "generated": "2026-08-23",
+  "generated": "2026-08-24",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "rows_published": 24,
   "columns": 7,
@@ -16,37 +16,37 @@
   "rows": [
     [
       "Austin",
+      "2026-109724 BP",
+      "9 KERN RAMBLE",
+      "AM Construction Management LLC",
+      "R- 434 Addition & Alterations / Addition and Remodel",
+      "22 Aug 2026",
+      "24 Aug 2026"
+    ],
+    [
+      "Austin",
+      "2026-109725 BP",
+      "9 KERN RAMBLE",
+      "AM Construction Management LLC",
+      "R- 434 Addition & Alterations / Addition and Remodel",
+      "22 Aug 2026",
+      "24 Aug 2026"
+    ],
+    [
+      "Austin",
+      "2026-109726 BP",
+      "9 KERN RAMBLE",
+      "AM Construction Management LLC",
+      "R- 101 Single Family Houses / New",
+      "22 Aug 2026",
+      "24 Aug 2026"
+    ],
+    [
+      "Austin",
       "2000-006843 BP",
       "2607 PARK VIEW DR",
       "not given",
       "R- 434 Addition & Alterations / Addition",
-      "21 Aug 2026",
-      "23 Aug 2026"
-    ],
-    [
-      "Austin",
-      "2025-086124 BP",
-      "2006 GARDEN ST",
-      "Davis Pool Steel LLC",
-      "R- 329 Res Structures Other Than Bldg / New",
-      "21 Aug 2026",
-      "23 Aug 2026"
-    ],
-    [
-      "Austin",
-      "2025-160008 BP",
-      "2802 STRATFORD DR",
-      "MG CONSTRUCTION WORKS LLC",
-      "R- 329 Res Structures Other Than Bldg / New",
-      "21 Aug 2026",
-      "23 Aug 2026"
-    ],
-    [
-      "Austin",
-      "2026-056779 BP",
-      "4312 RED RIVER ST",
-      "Remodel Boutique LLC",
-      "R- 434 Addition & Alterations / Addition and Remodel",
       "21 Aug 2026",
       "23 Aug 2026"
     ],
@@ -160,39 +160,66 @@
     ],
     [
       "Scottsdale",
-      "324005",
-      "8300 E SHEA BL",
-      "IRONMAN FENCE LLC",
-      "FENCE",
-      "14 Aug 2026",
-      "17 Aug 2026"
-    ],
-    [
-      "Scottsdale",
-      "324323",
-      "29590 N 82ND ST",
-      "JP MALONE CONSTRUCTION INC",
-      "SFR-DETACH STRUCTURE",
-      "14 Aug 2026",
-      "17 Aug 2026"
-    ],
-    [
-      "Scottsdale",
-      "324281",
-      "6880 E WINDSTONE TR",
+      "324342",
+      "6708 E WILSHIRE DR",
       "OWNER BUILDER",
-      "BARN",
-      "13 Aug 2026",
-      "17 Aug 2026"
+      "SFR-REMODEL",
+      "21 Aug 2026",
+      "24 Aug 2026"
     ],
     [
       "Scottsdale",
-      "324315",
-      "3532 N CARHILL AV",
-      "STICKS AND BRICKS DEVELOPMENT",
+      "324344",
+      "27231 N 65TH PL",
+      "Vista Montana Builders",
       "SFR-CUSTOM IN SUBDIVISION",
-      "13 Aug 2026",
-      "17 Aug 2026"
+      "21 Aug 2026",
+      "24 Aug 2026"
+    ],
+    [
+      "Scottsdale",
+      "324345",
+      "10040 E HAPPY VALLEY RD",
+      "manship builders",
+      "SFR-CUSTOM IN SUBDIVISION",
+      "21 Aug 2026",
+      "24 Aug 2026"
+    ],
+    [
+      "Scottsdale",
+      "324346",
+      "10040 E HAPPY VALLEY RD",
+      "manship builders",
+      "NATIVE PLANT",
+      "21 Aug 2026",
+      "24 Aug 2026"
+    ],
+    [
+      "Seattle",
+      "7145786-CN",
+      "4406 23RD AVE SW",
+      "not given",
+      "Building / Addition/Alteration",
+      "22 Aug 2026",
+      "24 Aug 2026"
+    ],
+    [
+      "Seattle",
+      "7159204-CN",
+      "3045 19TH AVE S",
+      "not given",
+      "Building / Addition/Alteration",
+      "22 Aug 2026",
+      "24 Aug 2026"
+    ],
+    [
+      "Seattle",
+      "7159352-CN",
+      "2518 30th AVE S",
+      "not given",
+      "Building / Addition/Alteration",
+      "21 Aug 2026",
+      "24 Aug 2026"
     ],
     [
       "Seattle",
@@ -200,33 +227,6 @@
       "1024 5TH AVE W",
       "not given",
       "Building / New",
-      "21 Aug 2026",
-      "23 Aug 2026"
-    ],
-    [
-      "Seattle",
-      "7147572-CN",
-      "4216 SW MYRTLE ST",
-      "not given",
-      "Building / Addition/Alteration",
-      "21 Aug 2026",
-      "23 Aug 2026"
-    ],
-    [
-      "Seattle",
-      "7147597-CN",
-      "551 28TH AVE",
-      "not given",
-      "Building / Addition/Alteration",
-      "21 Aug 2026",
-      "23 Aug 2026"
-    ],
-    [
-      "Seattle",
-      "7158720-CN",
-      "7708 EAST GREEN LAKE DR N",
-      "not given",
-      "Building / Addition/Alteration",
       "21 Aug 2026",
       "23 Aug 2026"
     ]
