@@ -52,9 +52,31 @@ COMMERCIAL_TAIL = re.compile(
     r"|VARIOUS|CITYWIDE|PUBLIC)\b", re.I)
 
 # Words that start a unit designator. Cut here, whatever follows.
+#
+# The trailing `(?![A-Za-z])` is load-bearing. Without it each of these words
+# matched as a bare prefix, so the rule read the first two letters of FLORIAN as
+# `FL` and cut `10942 E FLORIAN AVE` down to `10942 E`. FLAGSTAFF, LOTUS and
+# UNITY went the same way. That is not a privacy win: the part it deleted was
+# the street's name, not anybody's door number, and because a cut address also
+# makes has_unit() true it dragged suppress() with it -- rows on a street called
+# FLORIAN were being withheld from a page we charge for as though they were
+# somebody's flat.
+#
+# The obvious repair is `\b` and it is wrong. `\b` needs a word character on one
+# side and a non-word character on the other, and in `APT3` both sides are word
+# characters, so `\b` does not match there and a real flat number would start
+# shipping. A negative lookahead for a letter says the thing we actually mean --
+# a unit marker may be followed by a digit, a space, a comma or nothing at all,
+# but if another letter follows it then it was never a unit marker, it was the
+# front of a longer word.
+#
+# `#` sits outside the lookahead on purpose. `#A` is a real flat and the marker
+# there IS followed by a letter, so holding it to the same test would start
+# printing door numbers -- the one direction this file may never fail in.
 UNIT_MARKER = re.compile(
-    r"(?:^|\s|,)(APT|APARTMENT|UNIT|FL|FLR|FLOOR|RM|ROOM|TRLR|TRAILER|LOT|"
-    r"BSMT|BASEMENT|REAR|FRNT|FRONT|SIDE|UPPR|UPPER|LOWR|LOWER|#)", re.I)
+    r"(?:^|\s|,)((?:APT|APARTMENT|UNIT|FL|FLR|FLOOR|RM|ROOM|TRLR|TRAILER|LOT|"
+    r"BSMT|BASEMENT|REAR|FRNT|FRONT|SIDE|UPPR|UPPER|LOWR|LOWER)(?![A-Za-z])|#)",
+    re.I)
 
 # The last word of a street name, in the spellings these four city files use.
 # Anything printed after the last one of these is a unit designator, not a
