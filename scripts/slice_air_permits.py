@@ -110,7 +110,9 @@ AZ = {
 # The dated review that stopped the Arizona list, read rather than retyped.
 #
 # The two states behind this feed are not in the same position and the page must
-# not imply they are. Texas is read every day. Arizona was stopped by us, on
+# not imply they are. Texas is still being read -- 9 of the last 14 days, counted
+# off the sealed dates rather than off the cadence number, which is a median gap
+# and cannot see a five-day hole. Arizona was stopped by us, on
 # purpose, on a dated review: we could not evidence permission to keep reading
 # it, so we stopped. That is a different fact from "late", and the page said the
 # wrong one of the two for two days.
@@ -188,13 +190,170 @@ def _refused_note(source_id: str) -> str | None:
     # ADEQ into aDEQ; an agency's name is not ours to restyle.
     tail = f" It starts again if {reopen}, and not before." if reopen else ""
     again = f" We look at that again on {_d(ref['again_on'])}." if ref.get("again_on") else ""
+
+    # THE ORDER IS THE POINT, AND IT IS WHY THIS PARAGRAPH IS LONG.
+    #
+    # What this used to say was: collection has paused, and on 21 Aug 2026 we
+    # reviewed permission, could not evidence it, and stopped. Every word of
+    # that is true and the paragraph as a whole was not, because it let the
+    # decision of the 21st explain a gap that began on the 13th for a reason of
+    # our own making. Our last Arizona copy is 13 Aug. From the 14th to the 17th
+    # our own collector ran and never opened a connection -- counted below out
+    # of the fetch log, which is the right table for "did we ask", though never
+    # for "how fresh is this" -- and collection came back on the 18th for Texas
+    # only. The refusal was written eight days into an outage that had already
+    # happened.
+    #
+    # Both facts do us credit and neither needs hiding. Stitching them into one
+    # tidy sentence is worse than saying both, and tidier-than-true on a page
+    # that has taken money is the thing this repo exists to not do.
+    with _conn() as c:
+        last = _sealed_days(c, source_id)[-1]
+        silent, runs = _blank_days(c, last, ref["on"])
+    blank = ""
+    if silent:
+        span = (f"on {_d(silent[0])}" if len(silent) == 1
+                else f"from {_d(silent[0])} to {_d(silent[-1])}")
+        blank = (
+            f" Then, {span}, our own collector ran and asked the state for nothing at all: a "
+            f"permission note it requires was missing, so it stopped before it fetched anything. "
+            f"{_n(runs)} runs went by over those {_n(len(silent))} days, every one of them "
+            f"recorded as a success, and not one of them opened a connection. That was ours, not "
+            f"the state's. Why the note was missing we do not know, and we are not going to make "
+            f"a reason up to fill the hole."
+        )
+    gap = _days_between(last, ref["on"])
+    order = (f" On {_d(ref['on'])} we reviewed whether we could evidence permission to keep "
+             f"reading this source, could not, and refused it"
+             + (f" -- {gap} days after the last copy above, not on the day of it" if gap > 1 else "")
+             + ". The refusal is real and it stands. It is not what started the gap.")
     return (
-        f"<strong>{PAUSED_PHRASE.capitalize()} on this list, and we are the ones who "
-        f"stopped it.</strong> On {_d(ref['on'])} we reviewed whether we could evidence "
-        f"permission to keep reading it, could not, and stopped. This is not a list that "
-        f"is running late and will catch up.{tail}{again} The Texas list on this page is "
-        f"still read every day and its numbers do move."
+        f"<strong>{PAUSED_PHRASE.capitalize()} on this list.</strong> Three separate things "
+        f"happened here, in this order, and only the last of them was a decision about "
+        f"permission. Our newest copy of this list is {_d(last)}.{blank}{order} This is not a "
+        f"list that is running late and will catch up.{tail}{again}"
     )
+
+
+def _blank_days(c: sqlite3.Connection, after: str = "", before: str = "") -> tuple[list[str], int]:
+    """Days we ran and asked for nothing at all, and how many runs that was.
+
+    A run that finished is not a run that produced, and a run that never opened
+    a connection is not either. These are the days collection_runs has a row for
+    and raw_fetches has none: the collector started, stopped before it fetched,
+    and recorded a success. Nine such runs went by over four days in August and
+    nothing anywhere flagged them, because from the outside a run that collects
+    nothing looks exactly like a healthy one.
+
+    Every source, not just this one. The question is whether the run opened a
+    connection at all; scoping this to one source would count the days we simply
+    did not read that source, which have other causes, and would make the
+    sentences built on it claim more than the evidence carries.
+
+    The fetch log is the right table for "did we ask" and the wrong one for "how
+    fresh is this". Freshness is read from the data table and only ever from
+    there. Nothing in this function is allowed near a date on a page.
+    """
+    where, args = "", []
+    if after:
+        where += " AND snapshot_date > ?"
+        args.append(after)
+    if before:
+        where += " AND snapshot_date <= ?"
+        args.append(before)
+    ran = {r[0] for r in c.execute(
+        f"SELECT DISTINCT snapshot_date FROM collection_runs WHERE 1=1{where}", args)}
+    asked = {r[0] for r in c.execute(
+        f"SELECT DISTINCT snapshot_date FROM raw_fetches WHERE 1=1{where}", args)}
+    days = sorted(ran - asked)
+    if not days:
+        return [], 0
+    marks = ",".join("?" * len(days))
+    runs = c.execute(
+        f"SELECT COUNT(*) FROM collection_runs WHERE snapshot_date IN ({marks})", days
+    ).fetchone()[0]
+    return days, runs
+
+
+_BLANK: list[str] | None = None
+
+
+def _blanks() -> list[str]:
+    """Every blank day in the store, read once. Used to explain a missed day."""
+    global _BLANK
+    if _BLANK is None:
+        with _conn() as c:
+            _BLANK, _ = _blank_days(c)
+    return _BLANK
+
+
+def _recent(days: list[str], today: dt.date, window: int = 14) -> tuple[int, list[str]]:
+    """How many of the last `window` days we hold a copy for, and which we do not.
+
+    Counted off the sealed dates in the data table. NOT off the cadence number:
+    that is a median gap over the whole series, and a median cannot see a
+    five-day hole in the last fortnight. It read "every day" while we held nine
+    days out of fourteen, and "every day" is a promise a buyer can check.
+    """
+    wanted = [today - dt.timedelta(days=i) for i in range(window - 1, -1, -1)]
+    held = set(days)
+    missing = [d.isoformat() for d in wanted if d.isoformat() not in held]
+    return window - len(missing), missing
+
+
+def _read_phrase(days: list[str], today: dt.date | None = None, window: int = 14) -> str:
+    """The one sentence saying how often we really read a list lately.
+
+    Counted, and where we can, accounted for. A missed day we can explain and a
+    missed day we cannot are different facts and the page says which is which,
+    because "we do not know" printed next to a date is worth more to a buyer
+    than a tidy sentence that covers both.
+    """
+    today = today or dt.date.today()
+    have, missing = _recent(days, today, window)
+    if not missing:
+        return (f"We read this source every day: we hold a copy for all {window} of the "
+                f"last {window}.")
+    known = [m for m in missing if m in _blanks()]
+    rest = [m for m in missing if m not in _blanks()]
+    out = f"We hold a copy for {have} of the last {window} days. "
+    if known:
+        span = (_d(known[0]) if len(known) == 1
+                else f"{_d(known[0])} to {_d(known[-1])}")
+        out += (f"{'On' if len(known) == 1 else 'From'} {span} our own collector ran and never "
+                f"asked for anything: a permission "
+                f"note it requires was missing. That was ours, not the state's, and why the "
+                f"note was missing we do not know. ")
+    if rest:
+        word = "day" if len(rest) == 1 else "days"
+        out += (f"For {_list([_d(r) for r in rest])} we hold nothing and the store records no "
+                f"reason at all: {'that is a' if len(rest) == 1 else 'those are'} {word} we "
+                f"cannot account for.")
+    return out.strip()
+
+
+def _seal_record(days: list[str], today: dt.date | None = None, window: int = 14) -> str:
+    """Short words for how often we sealed, counted rather than averaged."""
+    have, missing = _recent(days, today or dt.date.today(), window)
+    if not missing:
+        return "every day"
+    return f"on {have} of the last {window} days"
+
+
+def _read_label(days: list[str], today: dt.date | None = None, window: int = 14) -> str:
+    """The Read cell on the rail. Same count, in as few words as it takes."""
+    have, missing = _recent(days, today or dt.date.today(), window)
+    if not missing:
+        return "Every day"
+    return f"{have} of the last {window} days"
+
+
+def _held_phrase(days: list[str]) -> str:
+    """What we hold of a list we have stopped reading. Counted, never promised."""
+    span = _days_between(days[0], days[-1]) + 1
+    return (f"We are not reading this source now. We hold {_n(len(days))} copies of it, "
+            f"covering {_n(len(days))} of the {_n(span)} days from {_d(days[0])} to "
+            f"{_d(days[-1])}.")
 
 
 # ---------------------------------------------------------------- plumbing
@@ -251,13 +410,14 @@ def _list(items: list[str]) -> str:
     return ", ".join(items[:-1]) + " and " + items[-1]
 
 
-def _every(days: int) -> str:
-    """Plain words for a cadence. No page should ever read 'about every 1 day'."""
-    if days <= 1:
-        return "every day"
-    if days == 7:
-        return "about every week"
-    return f"about every {days} days"
+# _every() used to live here: it turned a cadence number into words, and words
+# built from a cadence number are how this page came to say "every day" on a
+# fortnight where we held nine days out of fourteen. The cadence is a median gap
+# over the whole series and a median cannot see a five-day hole. Nothing on this
+# page describes how often we read a list from that number any more; the
+# sentences are counted off the sealed dates by _recent(), and the helpers above
+# it. Deleted rather than left sitting here, because a helper that returns
+# "every day" is a thing somebody reaches for.
 
 
 def _skip(slug: str, why: str) -> None:
@@ -530,7 +690,8 @@ def _tx_new(c: sqlite3.Connection, days: list[str]) -> dict | None:
 
     facts = [
         f"Texas publishes the air permits heavy industry is waiting on and overwrites the page "
-        f"every day. On {_d(new_day)} there were {_n(on_list)} applications pending; on "
+        f"in place: each copy replaces the last, so a day nobody takes a copy is a day gone for "
+        f"good. On {_d(new_day)} there were {_n(on_list)} applications pending; on "
         f"{_d(old_day)} there were {_n(was_on_list)}.",
         f"{_n(len(appeared))} named applications are on the {_d(new_day)} copy and were not on "
         f"the {_d(old_day)} one. Each row names the applicant, the site, the state's own permit "
@@ -562,6 +723,15 @@ def _tx_new(c: sqlite3.Connection, days: list[str]) -> dict | None:
         "oldest": days[0],
         "runs": len(days),
         "cadence_days": cadence,
+        # Counted off the sealed dates, not off the cadence number above.
+        #
+        # Left to itself the rail prints "Every day" and the paragraph prints
+        # "We read this source every day", both built from a median gap that
+        # cannot see a five-day hole. On the day this was written we held nine
+        # of the last fourteen days. A buyer can check that against the dates in
+        # the table below, which is exactly why it has to be right.
+        "read_phrase": _read_phrase(days),
+        "read_label": _read_label(days),
         "row_count": held,
         "tables": tables,
         "facts": facts,
@@ -643,10 +813,10 @@ def _tx_moved(c: sqlite3.Connection, days: list[str]) -> dict | None:
          f"Those moves fall into {_n(len(pairs))} different before-and-after pairs. The table "
          f"below shows which sealed copy caught each one."),
         (f"Every one of them is pinned to the exact day our copy first read differently, "
-         f"because we seal this list {_every(cadence)}."
+         f"because we seal this list {_seal_record(days)}."
          if len(caught) == len(moved) else
          f"{_n(len(caught))} of the {_n(len(moved))} are pinned to the exact day our copy first "
-         f"read differently, because we seal this list {_every(cadence)}."),
+         f"read differently, because we seal this list {_seal_record(days)}."),
         f"We hold {_n(len(days))} sealed copies, from {_d(days[0])} to {_d(days[-1])}, and "
         f"{_n(held)} dated Texas rows across them.",
     ]
@@ -679,6 +849,9 @@ def _tx_moved(c: sqlite3.Connection, days: list[str]) -> dict | None:
         "oldest": days[0],
         "runs": len(days),
         "cadence_days": cadence,
+        # Counted, not averaged. See texas-new for why.
+        "read_phrase": _read_phrase(days),
+        "read_label": _read_label(days),
         "row_count": held,
         "tables": tables,
         "facts": facts,
@@ -868,11 +1041,11 @@ def _az_air(c: sqlite3.Connection, days: list[str]) -> dict | None:
         # a dated review of ours rather than being late. Without this the page
         # printed "until collection starts again", which points a buyer at a
         # restart only the agency can trigger.
-        "read_phrase": ("We read this source every day until we stopped."
-                        if _refused_note(AZ["source_id"]) else None),
+        "read_phrase": (_held_phrase(days) if _refused_note(AZ["source_id"]) else None),
         # The rail at the top said "Every day", which is what the cadence number
-        # produces and is not what we do any more.
-        "read_label": (f"Every day until {_d(days[-1])}. Stopped."
+        # produces, is not what we do any more, and was not quite true while we
+        # were doing it: 33 copies across 35 days is not 35 copies.
+        "read_label": (f"{_n(len(days))} copies to {_d(days[-1])}. Stopped."
                        if _refused_note(AZ["source_id"]) else None),
         "paused_note": _refused_note(AZ["source_id"]),
         "row_count": held,
@@ -945,9 +1118,9 @@ def _data_centers(c: sqlite3.Connection, days: list[str]) -> dict | None:
         f"On {_d(new_day)} there were {len(keys)} air permit applications pending in Texas whose "
         f"own facility or applicant name contains the words data centre. Every one of them is "
         f"named in the table below.",
-        f"{_n(moves)} of the {len(keys)} changed stage inside the copies we hold, and because we "
-        f"seal this list {_every(cadence)}, each of those is pinned to the day our copy first "
-        f"read differently.",
+        f"{_n(moves)} of the {len(keys)} changed stage inside the copies we hold. We seal this "
+        f"list {_seal_record(days)}, so each of those is pinned to the day our copy first read "
+        f"differently -- which is the day it moved only if we sealed that day.",
         f"We hold {_n(held)} dated rows naming these applications, across {_n(len(days))} sealed "
         f"copies from {_d(days[0])} to {_d(days[-1])}.",
         "Every Texas row carries a link to the agency's own application paper, including these. "
@@ -990,6 +1163,9 @@ def _data_centers(c: sqlite3.Connection, days: list[str]) -> dict | None:
         "oldest": days[0],
         "runs": len(days),
         "cadence_days": cadence,
+        # Counted, not averaged. See texas-new for why.
+        "read_phrase": _read_phrase(days),
+        "read_label": _read_label(days),
         "row_count": held,
         "tables": tables,
         "facts": facts,
@@ -1122,9 +1298,10 @@ def _coverage(c: sqlite3.Connection, tx_days: list[str], az_days: list[str]) -> 
         # Arizona and has to say what actually happened to it. The default one
         # also claims no number on the page moves, and half this page is Texas,
         # which moved today.
-        "read_phrase": ("We read Texas every day. We read Arizona every day until we stopped."
+        "read_phrase": (f"Texas: {_read_phrase(tx_days)} Arizona: {_held_phrase(az_days)}"
                         if _refused_note(AZ["source_id"]) else None),
-        "read_label": (f"Texas every day. Arizona stopped {_d(az_days[-1])}."
+        "read_label": (f"Texas {_read_label(tx_days).lower()}. Arizona stopped "
+                       f"{_d(az_days[-1])}."
                        if _refused_note(AZ["source_id"]) else None),
         "paused_note": _refused_note(AZ["source_id"]),
         "row_count": total,
@@ -1293,14 +1470,19 @@ def family_spec() -> dict:
         missing = sum(g[2] for g in gaps)
 
     changes = len(tx_app) + len(tx_mov) + len(az_app) + len(az_mov)
-    tx_fresh = freshness_line(tx_days[-1], tx_days[0], len(tx_days), _cadence(tx_days))
+    # Counted off the sealed dates. freshness_line's own default sentence is
+    # built from the cadence number, which is a median gap; the median said
+    # "every day" while we held nine days out of fourteen, and "every day" is a
+    # promise a buyer can check against the dates printed further down the same
+    # page.
+    tx_fresh = freshness_line(tx_days[-1], tx_days[0], len(tx_days), _cadence(tx_days),
+                              read_phrase=_read_phrase(tx_days))
     # Arizona gets the refused wording when a dated review refused its source,
     # and the ordinary paused wording when none did. See _refused_note().
     az_note = _refused_note(AZ["source_id"])
     az_fresh = freshness_line(
         az_days[-1], az_days[0], len(az_days), _cadence(az_days),
-        read_phrase=("We read this source every day until we stopped."
-                     if az_note else None),
+        read_phrase=(_held_phrase(az_days) if az_note else None),
         paused_note=az_note,
     )
     behind = _days_between(az_days[-1], tx_days[-1])
@@ -1435,7 +1617,16 @@ def family_spec() -> dict:
         "sample_dt": "Public sample",
         "group": fam["group"],
         "cadence": fam["cadence"],
-        "cadence_long": fam.get("cadence_long", fam["cadence"]),
+        # Counted here, not read from the catalog row.
+        #
+        # The catalog carries a copy of this sentence and a catalog row is typed
+        # by a person on the day it is written. This one said "Texas sealed
+        # nearly every day" while we held nine days out of fourteen. A number
+        # nobody recomputes is a number that goes wrong quietly, so the page
+        # counts it every build and the catalog copy is only a snapshot.
+        "cadence_long": (f"Texas: {_read_label(tx_days).lower()} at {_d(tx_days[-1])}, with "
+                         f"every missed day named on the page. Arizona: {_n(len(az_days))} "
+                         f"dated copies to {_d(az_days[-1])}, not being added to"),
         "crumb": "Pending air permits",
         "h1": "Air permit applications while they are still pending",
         "price": price,

@@ -15,10 +15,20 @@ ROOT = Path(__file__).resolve().parents[1]
 CAT = json.loads((ROOT / "catalog.json").read_text(encoding="utf-8"))
 esc = html.escape
 
+# The sections of the directory, in the order they are drawn.
+#
+# Every group name any family carries has to appear here. A family whose group
+# is missing from this list is not drawn at all -- the loop below walks ORDER,
+# not the catalog -- and nothing used to notice: the eyebrow counts every family
+# in the catalog, so the hub printed "23 feeds" over 22 cards and the missing one
+# had no way of being found except by looking for it. trustee-sales landed on
+# 2026-08-24 carrying the group "Public records", which was not in this list, and
+# it vanished exactly that quietly. The check under the loop now refuses instead.
 ORDER = [
     "Energy and siting",
     "Software and AI pages",
     "Local government records",
+    "Public records",
     "Construction records",
     "Other dated records",
 ]
@@ -97,6 +107,22 @@ def main():
 """
 
     groups = ""
+    # Refuse before drawing anything, rather than drawing a directory that is
+    # quietly short. A hub that leaves a feed out is the same defect as a feed
+    # page that leaves a gap out, and this one is harder to see because the
+    # count above the cards still adds the missing family in.
+    stray = sorted({f["group"] for f in fams} - set(ORDER))
+    if stray:
+        missing = ", ".join(
+            f"{f['id']} ({f['group']})" for f in fams if f["group"] in stray)
+        raise SystemExit(
+            f"build_hub: {len(stray)} group name(s) in catalog.json have no section on the hub: "
+            f"{', '.join(stray)}. These feeds would not be drawn at all, while the count above "
+            f"the directory would still include them: {missing}. Add the section to ORDER in "
+            f"this file, or change the family's group in catalog.json to one that exists. Do "
+            f"not remove the family from the count to make the numbers agree."
+        )
+
     for g in ORDER:
         rows = [f for f in fams if f["group"] == g]
         if not rows:
