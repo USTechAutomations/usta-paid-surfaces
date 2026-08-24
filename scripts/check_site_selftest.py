@@ -669,7 +669,13 @@ def build(box: Path) -> None:
     """A complete, working copy of the estate. Never the real one."""
     shutil.rmtree(box, ignore_errors=True)
     (box / "scripts").mkdir(parents=True)
-    for name in ESTATE:
+    # The fragments come too. A family may live in catalog-add-<id>.json instead
+    # of catalog.json, and a copy that leaves those behind is not the estate: the
+    # family arrives with no home, the untouched copy fails on it, and every case
+    # below is voided. That is not a hypothetical -- it happened the first hour a
+    # fragment existed, and it will happen again on whichever family is added
+    # next, so this is a glob and not a list of names.
+    for name in (*ESTATE, *sorted(p.name for p in ROOT.glob("catalog-add-*.json"))):
         src = ROOT / name
         if src.is_dir():
             shutil.copytree(src, box / name)
