@@ -65,5 +65,12 @@ STILL OPEN AND NOT MINE TO DECIDE: this family and its 15 child pages still publ
   was never recounted after it was written. The number was quoted, not counted.
 - It named `sample_status: fail` as the nearest available label. That reasoning
   is now moot: the family has no row and no folder, so there is no status to set.
+- **The note's last word on the payment link is stale, and dangerously so.** It
+  says in capitals that anyone holding the address can still start a subscription
+  and that switching it off "has not been taken". It was taken later the same day:
+  the team lead reports switching the link off and reading it back. I cannot read
+  the payment platform from this lane, so from here the link's state is **reported
+  off, not verified by me** — treat the sentence in the block above as a snapshot
+  of the morning, not as today's answer.
 - The item it left open — *"this family and its 15 child pages still publish the
   refused publisher's prices, free"* — is what this retirement closes.
