@@ -42,17 +42,12 @@
       "short": "Earthquake record archive",
       "who": "Researchers and reporters who need what USGS said on a past day.",
       "checkout": {
-        "url": "https://ustechautomations.com/permits/offers/quake-record-attestation/buy",
-        "lands_on": "buy.stripe.com",
-        "label": "Buy the record — $249",
-        "terms": "$249 once, for one named event. There is nothing to cancel and no subscription behind it. Where we hold only one dated copy of an event the price is $79, arranged by email rather than by this button, and we tell you which of the two yours is before you pay anything. A date window rather than a single event is quoted by email.",
+        "terms": "$249 once, for one named event. There is nothing to cancel and no subscription behind it. Where we hold only one dated copy of an event the price is $79, arranged by email as well, and we tell you which of the two yours is before you pay anything. A date window rather than a single event is quoted by email.",
         "after": "After you pay a person emails you the sealed record for the event you name, with the date we sealed each copy.",
-        "status": "live",
-        "checked": "2026-08-23",
-        "verified": "2026-08-23"
+        "status": "held",
+        "note": "HELD 2026-08-24 by the operator. The button came OFF this page, it was not withheld: the page carried a working one and an audit questioned whether what it says about which days we hold is still true. A page must be true before it can carry a button, so nothing takes a card here until that is settled. NOTHING NEEDS RE-MINTING when it clears. The link is minted, live and proved: https://ustechautomations.com/permits/offers/quake-record-attestation/buy, which answers 302 to buy.stripe.com/28E9AM4h0bSOcnW6r80sU0D, $249 once, fetched and read back from Stripe on 2026-08-23. Put that url back here with label \"Buy the record \\u2014 $249\", rebuild the slices, and re-run scripts/prove_checkouts.py. That Stripe link belongs to the permits estate and is still reachable from /permits/offers/quake-record-attestation, which is not this repo's page to change."
       },
-      "contact_h2": "Buy the record for one named event",
-      "closed": "The collector that took these copies is switched off. We stopped reading USGS on 21 Aug 2026 and this archive is finished, not late."
+      "contact_h2": "Buy the record for one named event"
     },
     {
       "id": "ttb",

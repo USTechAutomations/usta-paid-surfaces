@@ -384,9 +384,13 @@ def _copies_fact() -> str:
     return (
         f"We hold two or more dated copies for {d['seen_twice']:,} of "
         f"{d['total_events']:,} events, and a single copy for the other "
-        f"{d['seen_once']:,}. The button on this page is for the first kind. Where we hold "
+        # Says "the price on this page", never "the button on this page". Whether
+        # a button is there is a decision that changes; the price is not, and a
+        # page pointing at a button that has been taken off is a page telling
+        # the reader something untrue.
+        f"{d['seen_once']:,}. The price on this page is for the first kind. Where we hold "
         f"one copy there is nothing to compare it with, so that copy is "
-        f"{SINGLE_COPY_PRICE} and it is arranged by email rather than by this button -- "
+        f"{SINGLE_COPY_PRICE}, arranged by email -- "
         f"send the event id and we say which of the two yours is before you pay anything."
     )
 
