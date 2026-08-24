@@ -1,0 +1,78 @@
+{
+  "family": "crawler",
+  "generated": "2026-08-23",
+  "slices": [
+    {
+      "slug": "gptbot",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-09",
+      "runs": 73,
+      "row_count": 287,
+      "cadence_days": 1
+    },
+    {
+      "slug": "claudebot",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-09",
+      "runs": 73,
+      "row_count": 294,
+      "cadence_days": 1
+    },
+    {
+      "slug": "google-extended",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-09",
+      "runs": 73,
+      "row_count": 276,
+      "cadence_days": 1
+    },
+    {
+      "slug": "ccbot",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-09",
+      "runs": 73,
+      "row_count": 254,
+      "cadence_days": 1
+    },
+    {
+      "slug": "perplexitybot",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-09",
+      "runs": 73,
+      "row_count": 180,
+      "cadence_days": 1
+    },
+    {
+      "slug": "started-blocking",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-09",
+      "runs": 73,
+      "row_count": 789,
+      "cadence_days": 1
+    },
+    {
+      "slug": "stopped-blocking",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-09",
+      "runs": 73,
+      "row_count": 67,
+      "cadence_days": 1
+    },
+    {
+      "slug": "stopped-naming",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-09",
+      "runs": 73,
+      "row_count": 1496,
+      "cadence_days": 1
+    },
+    {
+      "slug": "coverage",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-09",
+      "runs": 73,
+      "row_count": 100000,
+      "cadence_days": 1
+    }
+  ]
+}

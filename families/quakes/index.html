@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Earthquake record archive — $249</title>
-  <meta name="description" content="What USGS published on a past day. $249 for a named event or date window. Email operations@.">
+  <meta name="description" content="What USGS published on a past day. $249 for one named event; date windows quoted by email.">
   <link rel="canonical" href="https://ustechautomations.com/feeds/quakes">
   <link rel="stylesheet" href="../../styles.css">
   <meta name="theme-color" content="#7a2e20">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%237a2e20'/%3E%3Cpath d='M3 4h10M3 8h10M3 12h6' stroke='white' stroke-width='1.6'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%237a3b12'/%3E%3Cpath d='M3 4h10M3 8h10M3 12h6' stroke='white' stroke-width='1.6'/%3E%3C/svg%3E">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="US Tech Automations — dated change feeds">
   <meta property="og:url" content="https://ustechautomations.com/feeds/quakes">
   <meta property="og:title" content="Earthquake record archive — $249">
   <meta name="twitter:title" content="Earthquake record archive — $249">
-  <meta property="og:description" content="What USGS published on a past day. $249 for a named event or date window. Email operations@.">
-  <meta name="twitter:description" content="What USGS published on a past day. $249 for a named event or date window. Email operations@.">
+  <meta property="og:description" content="What USGS published on a past day. $249 for one named event; date windows quoted by email.">
+  <meta name="twitter:description" content="What USGS published on a past day. $249 for one named event; date windows quoted by email.">
   <meta name="twitter:card" content="summary">
 </head>
 <body data-family="quakes">
@@ -37,7 +37,23 @@
     <dl class="rail">
       <div><dt>Price</dt><dd class="price">$249</dd></div>
       <div><dt>Built for</dt><dd>Researchers and reporters who need what USGS said on a past day</dd></div>
-      <div><dt>Cadence</dt><dd>Per named event</dd></div>
+      <div><dt>Cadence</dt><dd>Per named event. Reading restarted 23 Aug 2026.</dd></div>
+      <!-- The dates here and in "What if you stop?" are MIN and MAX of snapshot_date in the
+           quake table, recounted 2026-08-23 read-only, not a file time and not the run log:
+           55 sealed days, 13,452 dated event records, 2026-06-23 to 2026-08-24, with 8 days
+           inside that range holding no copy (4 Jul, 15 Jul, 14-17 Aug, 22 Aug, 23 Aug).
+           The 2026-08-24 stamp is the collector writing a UTC date while it is still the
+           23rd here; it is a real sealed copy, not a typo.
+
+           THIS PAGE ROTS. The last comment here said the collector was switched off and the
+           window could not move. On 2026-08-23 the operator wrote a RELIT decision and turned
+           it back on, and this hand-written page went on telling buyers the archive was closed
+           behind a live card button. The child pages under this one derive that sentence from
+           the decision record now and cannot say it again; this page has no generator, so the
+           only thing standing between it and the same lie is whoever reads this. Recount these
+           dates and re-read
+           "Claude CLI/clocks/monitor/stop_decisions/**" before every publish. -->
+      <div><dt>Window we hold</dt><dd>23 Jun 2026 &ndash; 24 Aug 2026, and 8 days inside that have no copy.</dd></div>
       <div><dt>Public sample</dt><dd><span class="pill pill-ready">Named event on this page</span></dd></div>
     </dl>
   </div>
@@ -48,7 +64,7 @@
 
     <section>
       <h2>Public sample<span class="seal">18 Aug 2026 vs 19 Aug 2026 · USGS event hv75020387</span></h2>
-      <p>One product page. Many events. You name an event or a date window. We hand you what USGS asserted at each seal we hold, and what changed between them.</p>
+      <p>One product page. Many events. You name an event, and we hand you what USGS asserted at each seal we hold for it, and what changed between them. A date window rather than a single event is quoted by email.</p>
 
       <div class="evidence">
         <div class="evidence-head">
@@ -73,24 +89,92 @@
       <ul class="spec">
         <li><strong>Dated copies we sealed</strong><span class="sub">Not a live scrape of today’s feed.</span></li>
         <li><strong>What changed between those copies</strong><span class="sub">What USGS asserted at each seal we hold.</span></li>
-        <li><strong>One named event or one date window per $249</strong><span class="sub">You name the event id or the dates.</span></li>
+        <li><strong>One named event per $249</strong><span class="sub">You name the event id. A date window is quoted by email instead.</span></li>
       </ul>
+      <div class="honest">
+        <p><strong>$249 is the price when we hold two or more dated copies of your event.</strong>
+        That is what makes a change: two copies, and the difference between them. Where we hold
+        only one copy there is nothing to compare it with, so there is no change to sell you and
+        the price is <strong>$79</strong> for that single sealed copy. We check which of the two
+        your event is and tell you before you pay, not after. The $79 one has no pay button yet
+        &mdash; <a href="mailto:operations@ustechautomations.com?subject=Earthquake%20record%20%E2%80%94%20single%20copy%20%2479">email
+        operations@ustechautomations.com</a> with the event id and a person answers with which
+        seals exist for it and what it costs.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>What this page cannot tell you</h2>
+      <div class="honest">
+        <p><strong>We hold what we sealed, and nothing else.</strong> There are days inside our
+        range with no copy at all, and there is nothing at all before our first copy or after our
+        last one. If your event happened outside that window, or was revised outside it, we cannot
+        help and we will say so in the first reply.</p>
+        <p><strong>We do not know why a number changed.</strong> We can show you that USGS said one
+        thing on one day and something else on another, both read out of copies we dated ourselves.
+        We do not know what the analyst did in between, we never ring anybody up to ask, and we do
+        not say which reading is the right one.</p>
+        <p><strong>This is not a seismology service and it is not a warning system.</strong> It is a
+        record of what one public catalog said on the days we copied it. Nothing on this page is a
+        judgement about USGS, about any event, or about anybody&rsquo;s building.</p>
+      </div>
     </section>
 
     <section>
       <h2>How it works</h2>
       <ol class="steps">
-        <li>You email us the event id or the date window you need.</li>
-        <li>We send a checkout link in that thread.</li>
+        <li>You buy below, or you email us first and we send the same checkout link in that thread.</li>
+        <li>You reply with the event id you need, and we say which seals we hold for it. If what you need is a date window rather than one event, say so before you pay and we quote it.</li>
         <li>A person emails you what USGS asserted at each seal we hold, and what changed between them.</li>
       </ol>
     </section>
 
     <section class="contact">
-      <h2>Start the thread</h2>
-      <p><strong>No pay button.</strong> Email <a href="mailto:operations@ustechautomations.com?subject=Earthquake%20record%20%24249">operations@ustechautomations.com</a> with the event id or dates. We send a checkout link. A person still emails the file after you pay. There is no automatic login yet.</p>
-      <a class="mail" href="mailto:operations@ustechautomations.com?subject=Earthquake%20record%20%24249">Email us for the $249 checkout link</a>
-      <p class="mail-note">Name the event id or the date window in the first email.</p>
+      <h2>See the file before you pay</h2>
+      <p>You do not have to take our word for what is in the file. Here are <strong>25 rows of the real thing</strong>, carrying all 7 of its columns, cut out of the dated copies we sealed ourselves. Nothing in it is made up and nothing in it is tidied up.</p>
+      <ul class="spec">
+        <li><a href="https://ustechautomations.com/feeds/quakes/sample.csv">Open the 25 rows as a CSV</a><span class="sub">A plain spreadsheet file. It saves to your machine rather than painting itself into a browser tab, and it opens in Excel, Numbers or Google Sheets.</span></li>
+        <li><a href="https://ustechautomations.com/feeds/quakes/sample.json">The same 25 rows as JSON</a><span class="sub">The same rows again, laid out for reading with code.</span></li>
+      </ul>
+      <p class="mail-note"><strong>What arrives after you pay:</strong> a person emails you what you asked for as a CSV &mdash; the same plain spreadsheet as the sample above, not a login and not a web page &mdash; within one working day of your payment.</p>
+      <p class="mail-note">These 25 rows are a slice of the file, not the whole of it. What we cannot show you here is how far back it goes: that is the part you are paying for.</p>
+    </section>
+    <section class="contact buy">
+      <h2>Buy the record for one event</h2>
+      <p class="buy-price"><strong>$249</strong> &middot; one named event, paid once</p>
+      <a class="btn btn-buy btn-lg" href="https://ustechautomations.com/permits/offers/quake-record-attestation/buy" data-checkout="quakes" rel="noopener">Buy the record &mdash; $249</a>
+      <p class="mail-note">$249 once, for one named event. There is nothing to cancel and no subscription behind it. Where we hold only one dated copy of an event the price is $79, arranged by email rather than by this button, and we tell you which of the two yours is before you pay anything. A date window rather than a single event is quoted by email: <a href="mailto:operations@ustechautomations.com?subject=Earthquake%20record%20%E2%80%94%20date%20window">ask us for a price</a> before you pay, because this button does not cover one.</p>
+      <p class="mail-note">After you pay, reply to the receipt with the event id. A person emails you what USGS asserted at each seal we hold for it, and names any day in that event&rsquo;s range that we did not seal.</p>
+      <p class="mail-note">Want to check we hold your dates first? <a href="mailto:operations@ustechautomations.com?subject=Earthquake%20record%20%E2%80%94%20which%20days%20do%20you%20hold">Email operations@ustechautomations.com</a> with the event id. We answer that before you spend anything.</p>
+    </section>
+
+    <section>
+      <h2>Questions people ask before they pay</h2>
+
+      <h3>USGS is free. Why pay you for it?</h3>
+      <p>You are not paying for the catalog. You are paying for what it said on a day that has since been overwritten.</p>
+      <p>USGS revises an event in place, so today&rsquo;s page is the only version you can fetch. Event <code>hv75020387</code> read 2.33 on 18 Aug 2026 and 1.75 the next morning, and only 1.75 survives in the live catalog. If you saved your own copy on the day, you do not need us.</p>
+
+      <h3>How do I know these numbers are real?</h3>
+      <p>Look up <code>hv75020387</code> in the USGS catalog and you will find a real event with a magnitude of 1.75. That is the half we cannot prove to you on a web page, and it is the half you are buying.</p>
+      <p>What we send is the copy itself with the date we sealed it, not our summary of it. Where our copy is missing a day inside the window you asked for, the file names that day rather than skipping over it.</p>
+
+      <h3>Do you hold the day I need?</h3>
+      <p>Probably not for every date you want, and we say which before you pay rather than after.</p>
+      <p>We seal what we sealed. There are days inside our range with no copy, and the file you get names each one. <a href="mailto:operations@ustechautomations.com?subject=Earthquake%20record%20%E2%80%94%20which%20days%20do%20you%20hold">Send us the event id</a> and we will tell you which seals exist for it in a two-line reply.</p>
+
+      <h3>What counts as one purchase?</h3>
+      <p>One named event that you name by its event id. If your question needs a second unrelated event, that is a second $249. A date window rather than a single event is not what this button buys &mdash; <a href="mailto:operations@ustechautomations.com?subject=Earthquake%20record%20%E2%80%94%20date%20window">email us</a> and we quote one.</p>
+
+      <h3>You are a small company. What if you stop?</h3>
+      <p>It would not change what you bought. This collector was switched off for a stretch, and on 23 Aug 2026 we turned it back on by a dated decision, so it is reading again now. Either way, what you pay for is dated copies we already hold.</p>
+      <p>That is the point of it: a one-time file out of copies already taken, not a subscription to new ones. What we send is a plain file you keep that still opens if we are not here next year. Our oldest copy is 23 Jun 2026 and our newest is 24 Aug 2026, and there are 8 days inside that range we hold nothing for &mdash; 4 Jul, 15 Jul, 14 to 17 Aug, 22 Aug and 23 Aug. We name those before you pay rather than after.</p>
+    </section>
+
+    <section class="contact buy">
+      <p class="buy-price"><strong>$249</strong> &middot; one named event, paid once</p>
+      <a class="btn btn-buy btn-lg" href="https://ustechautomations.com/permits/offers/quake-record-attestation/buy" data-checkout="quakes" rel="noopener">Buy the record &mdash; $249</a>
+      <p class="mail-note">Or <a href="mailto:operations@ustechautomations.com?subject=Earthquake%20record%20%24249">email operations@ustechautomations.com</a> with the event id and we send the same checkout link in that thread.</p>
     </section>
 
   </div>

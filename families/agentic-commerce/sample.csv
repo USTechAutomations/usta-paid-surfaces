@@ -1,0 +1,12 @@
+company,file,path,last_read_it_was_absent,status_that_day,first_read_it_was_there,first_line_of_the_file,state_on_2026-08-23
+purple.com,Agent-instructions file,/llms.txt,2026-06-11,404,2026-06-12,# Purple,there
+anker.com,Checkout manifest,/.well-known/ucp,2026-06-24,404,2026-06-25,version 2026-04-08,there
+nordictrack.com,Agent-instructions file,/llms.txt,2026-06-30,404,2026-07-01,# NordicTrack,there
+peakdesign.com,Agent-instructions file,/llms.txt,2026-07-14,404,2026-07-17,# Agent Instructions — Peak Design,there
+zennioptical.com,Agent-instructions file,/llms.txt,2026-07-16,404,2026-07-17,# Zenni Optical,there
+on-running.com,Agent-instructions file,/llms.txt,2026-07-27,200 with a web page,2026-07-28,# On,there
+roguefitness.com,Checkout manifest,/.well-known/ucp,2026-07-27,404,2026-07-28,version 2026-04-08,taken down again
+dillards.com,Agent-instructions file,/llms.txt,2026-07-29,200 with a web page,2026-07-30,## Ground Truth Reference,there
+bowflex.com,Agent-instructions file,/llms.txt,2026-08-17,410,2026-08-21,# Agent Instructions — BowFlex,there
+bowflex.com,Checkout manifest,/.well-known/ucp,2026-08-17,410,2026-08-21,version 2026-04-08,there
+chubbiesshorts.com,Agent-instructions file,/llms.txt,2026-08-17,404,2026-08-21,# Chubbies,there

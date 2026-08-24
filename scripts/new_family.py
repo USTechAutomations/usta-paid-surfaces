@@ -45,7 +45,7 @@ def main() -> None:
             "note": "Scaffold only. Do not sell hard until a real sample is on the page.",
         }
     )
-    catalog_path.write_text(json.dumps(catalog, indent=2) + "\n", encoding="utf-8")
+    catalog_path.write_text(json.dumps(catalog, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(dest / "index.html")
 
 

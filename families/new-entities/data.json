@@ -1,0 +1,30 @@
+{
+  "family": "new-entities",
+  "generated": "2026-08-23",
+  "slices": [
+    {
+      "slug": "san-francisco",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-26",
+      "runs": 48,
+      "row_count": 4317,
+      "cadence_days": 1
+    },
+    {
+      "slug": "chicago",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-26",
+      "runs": 48,
+      "row_count": 3220,
+      "cadence_days": 1
+    },
+    {
+      "slug": "coverage",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-26",
+      "runs": 48,
+      "row_count": 18327,
+      "cadence_days": 1
+    }
+  ]
+}

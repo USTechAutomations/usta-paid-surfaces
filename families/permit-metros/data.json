@@ -1,0 +1,62 @@
+{
+  "family": "permit-metros",
+  "generated": "2026-08-23",
+  "slices": [
+    {
+      "slug": "coverage",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-07",
+      "runs": 795,
+      "row_count": 1755571,
+      "cadence_days": 1
+    },
+    {
+      "slug": "austin",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-07",
+      "runs": 72,
+      "row_count": 105543,
+      "cadence_days": 1
+    },
+    {
+      "slug": "chicago",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-09",
+      "runs": 70,
+      "row_count": 93303,
+      "cadence_days": 1
+    },
+    {
+      "slug": "new-york",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-09",
+      "runs": 70,
+      "row_count": 71019,
+      "cadence_days": 1
+    },
+    {
+      "slug": "san-francisco",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-07",
+      "runs": 72,
+      "row_count": 137242,
+      "cadence_days": 1
+    },
+    {
+      "slug": "scottsdale",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-07",
+      "runs": 72,
+      "row_count": 40827,
+      "cadence_days": 1
+    },
+    {
+      "slug": "seattle",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-09",
+      "runs": 70,
+      "row_count": 61760,
+      "cadence_days": 1
+    }
+  ]
+}

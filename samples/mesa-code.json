@@ -137,7 +137,8 @@
   "opened_in_window": 469,
   "status_changed": 415,
   "left_watchlist": 48,
-  "status_changed_reverted": 1,
+  "status_changed_reverted": 0,
+  "status_changed_twice": 1,
   "quiet_days_correct": 17,
   "note": "751 is cases that ENTERED this watchlist in the window, not cases opened. 469 of the 751 were opened during the window. 48 is cases that STOPPED matching the statuses we track; we cannot tell whether they closed or were removed."
  }

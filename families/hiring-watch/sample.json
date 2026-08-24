@@ -1,0 +1,269 @@
+{
+  "family": "hiring-watch",
+  "generated": "2026-08-23",
+  "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
+  "rows_published": 25,
+  "columns": 8,
+  "headers": [
+    "company",
+    "what_moved",
+    "role_title",
+    "previous_title",
+    "where",
+    "team",
+    "first_copy",
+    "second_copy"
+  ],
+  "rows": [
+    [
+      "front.com",
+      "role appeared on the page",
+      "Senior Software Engineer, Mobile Platform (React Native)",
+      "",
+      "Remote, US",
+      "",
+      "2026-08-19",
+      "2026-08-20"
+    ],
+    [
+      "sproutsocial.com",
+      "role appeared on the page",
+      "Senior Financial Reporting Analyst",
+      "",
+      "Remote US",
+      "Finance",
+      "2026-08-21",
+      "2026-08-22"
+    ],
+    [
+      "ahrefs.com",
+      "role appeared on the page",
+      "Product Marketer - Letaido",
+      "",
+      "Cambridge, MA, United States; Palo Alto, CA, United States",
+      "Marketing",
+      "2026-08-11",
+      "2026-08-12"
+    ],
+    [
+      "front.com",
+      "role appeared on the page",
+      "Software Engineering Intern - Spring/Summer 2027",
+      "",
+      "Paris, France",
+      "",
+      "2026-08-12",
+      "2026-08-13"
+    ],
+    [
+      "sproutsocial.com",
+      "role came down off the page",
+      "Customer Success Manager, Key Accounts",
+      "",
+      "Remote US",
+      "Customer Experience",
+      "2026-08-21",
+      "2026-08-22"
+    ],
+    [
+      "ahrefs.com",
+      "role appeared on the page",
+      "Head of Performance Marketing - Letaido",
+      "",
+      "Cambridge, MA, United States; Palo Alto, CA, United States",
+      "Marketing",
+      "2026-08-11",
+      "2026-08-12"
+    ],
+    [
+      "front.com",
+      "role came down off the page",
+      "Security Operations Engineer (Contractor)",
+      "",
+      "Santiago, Chile",
+      "",
+      "2026-08-12",
+      "2026-08-13"
+    ],
+    [
+      "sproutsocial.com",
+      "role came down off the page",
+      "Customer Adoption Consultant",
+      "",
+      "Remote US",
+      "Customer Experience",
+      "2026-08-21",
+      "2026-08-22"
+    ],
+    [
+      "ahrefs.com",
+      "role appeared on the page",
+      "Head of Partnerships - Letaido",
+      "",
+      "Cambridge, MA, United States; Palo Alto, CA, United States",
+      "Marketing",
+      "2026-08-11",
+      "2026-08-12"
+    ],
+    [
+      "front.com",
+      "role came down off the page",
+      "Security Operations Engineer (Contractor)",
+      "",
+      "San Francisco, CA",
+      "",
+      "2026-08-12",
+      "2026-08-13"
+    ],
+    [
+      "sproutsocial.com",
+      "role appeared on the page",
+      "Talent Acquisition Partner, Sales",
+      "",
+      "Remote US",
+      "People",
+      "2026-08-20",
+      "2026-08-21"
+    ],
+    [
+      "ahrefs.com",
+      "role appeared on the page",
+      "Head of Growth/Organic - Letaido",
+      "",
+      "Cambridge, MA, United States; Palo Alto, CA, United States",
+      "Marketing",
+      "2026-08-11",
+      "2026-08-12"
+    ],
+    [
+      "front.com",
+      "role came down off the page",
+      "Security Operations Engineer (Contractor)",
+      "",
+      "Remote, Argentina",
+      "",
+      "2026-08-12",
+      "2026-08-13"
+    ],
+    [
+      "sproutsocial.com",
+      "role appeared on the page",
+      "Strategic Services Consultant (Implementations)",
+      "",
+      "Remote US",
+      "Customer Experience",
+      "2026-08-20",
+      "2026-08-21"
+    ],
+    [
+      "ahrefs.com",
+      "role came down off the page",
+      "Video Producer",
+      "",
+      "Cambridge, MA, United States",
+      "Marketing",
+      "2026-08-09",
+      "2026-08-10"
+    ],
+    [
+      "front.com",
+      "same job id, new title",
+      "Director, Account Management",
+      "Senior Manager, Account Management",
+      "San Francisco, CA",
+      "",
+      "2026-08-12",
+      "2026-08-13"
+    ],
+    [
+      "sproutsocial.com",
+      "role appeared on the page",
+      "Customer Adoption Consultant",
+      "",
+      "Remote US",
+      "Customer Experience",
+      "2026-08-20",
+      "2026-08-21"
+    ],
+    [
+      "ahrefs.com",
+      "role appeared on the page",
+      "Events Marketing Executive",
+      "",
+      "Cambridge, MA, United States; Palo Alto, CA, United States",
+      "Marketing",
+      "2026-08-05",
+      "2026-08-06"
+    ],
+    [
+      "front.com",
+      "same job id, new title",
+      "Director, Account Management",
+      "Senior Manager, Account Management",
+      "Chicago, IL",
+      "",
+      "2026-08-12",
+      "2026-08-13"
+    ],
+    [
+      "sproutsocial.com",
+      "role appeared on the page",
+      "Senior Systems Administrator (B2B)",
+      "",
+      "Hybrid Poland",
+      "IT",
+      "2026-08-19",
+      "2026-08-20"
+    ],
+    [
+      "ahrefs.com",
+      "role came down off the page",
+      "Events Marketing Executive",
+      "",
+      "Remote - Europe",
+      "Marketing",
+      "2026-08-02",
+      "2026-08-03"
+    ],
+    [
+      "front.com",
+      "role came down off the page",
+      "Account Manager",
+      "",
+      "San Francisco, CA",
+      "",
+      "2026-08-12",
+      "2026-08-13"
+    ],
+    [
+      "sproutsocial.com",
+      "role appeared on the page",
+      "Senior Director, Decision Analytics",
+      "",
+      "Remote US",
+      "Engineering",
+      "2026-08-19",
+      "2026-08-20"
+    ],
+    [
+      "ahrefs.com",
+      "role came down off the page",
+      "Events Operations Executive",
+      "",
+      "Singapore",
+      "Marketing",
+      "2026-06-16",
+      "2026-06-17"
+    ],
+    [
+      "front.com",
+      "role came down off the page",
+      "Account Manager",
+      "",
+      "Chicago, IL",
+      "",
+      "2026-08-12",
+      "2026-08-13"
+    ]
+  ]
+}

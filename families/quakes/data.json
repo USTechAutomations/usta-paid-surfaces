@@ -1,0 +1,70 @@
+{
+  "family": "quakes",
+  "generated": "2026-08-23",
+  "slices": [
+    {
+      "slug": "california",
+      "newest": "2026-08-24",
+      "oldest": "2026-06-23",
+      "runs": 63,
+      "row_count": 13,
+      "cadence_days": 1
+    },
+    {
+      "slug": "alaska",
+      "newest": "2026-08-24",
+      "oldest": "2026-06-23",
+      "runs": 63,
+      "row_count": 9,
+      "cadence_days": 1
+    },
+    {
+      "slug": "texas",
+      "newest": "2026-08-24",
+      "oldest": "2026-06-23",
+      "runs": 63,
+      "row_count": 6,
+      "cadence_days": 1
+    },
+    {
+      "slug": "magnitude-revised",
+      "newest": "2026-08-24",
+      "oldest": "2026-06-23",
+      "runs": 63,
+      "row_count": 19,
+      "cadence_days": 1
+    },
+    {
+      "slug": "depth-revised",
+      "newest": "2026-08-24",
+      "oldest": "2026-06-23",
+      "runs": 63,
+      "row_count": 28,
+      "cadence_days": 1
+    },
+    {
+      "slug": "place-revised",
+      "newest": "2026-08-24",
+      "oldest": "2026-06-23",
+      "runs": 63,
+      "row_count": 16,
+      "cadence_days": 1
+    },
+    {
+      "slug": "most-revised",
+      "newest": "2026-08-24",
+      "oldest": "2026-06-23",
+      "runs": 63,
+      "row_count": 11,
+      "cadence_days": 1
+    },
+    {
+      "slug": "coverage",
+      "newest": "2026-08-24",
+      "oldest": "2026-06-23",
+      "runs": 63,
+      "row_count": 59,
+      "cadence_days": 1
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "family": "recalls",
+  "generated": "2026-08-23",
+  "slices": [
+    {
+      "slug": "coverage",
+      "newest": "2026-08-21",
+      "oldest": "2026-06-23",
+      "runs": 58,
+      "row_count": 5738,
+      "cadence_days": 1
+    },
+    {
+      "slug": "status-changes",
+      "newest": "2026-08-21",
+      "oldest": "2026-06-23",
+      "runs": 58,
+      "row_count": 16,
+      "cadence_days": 1
+    },
+    {
+      "slug": "newly-listed",
+      "newest": "2026-08-21",
+      "oldest": "2026-06-23",
+      "runs": 58,
+      "row_count": 292,
+      "cadence_days": 1
+    },
+    {
+      "slug": "class-i",
+      "newest": "2026-08-21",
+      "oldest": "2026-06-23",
+      "runs": 58,
+      "row_count": 133,
+      "cadence_days": 1
+    },
+    {
+      "slug": "class-ii",
+      "newest": "2026-08-21",
+      "oldest": "2026-06-23",
+      "runs": 58,
+      "row_count": 127,
+      "cadence_days": 1
+    },
+    {
+      "slug": "class-iii",
+      "newest": "2026-08-21",
+      "oldest": "2026-06-23",
+      "runs": 58,
+      "row_count": 32,
+      "cadence_days": 1
+    },
+    {
+      "slug": "idaho",
+      "newest": "2026-08-21",
+      "oldest": "2026-06-23",
+      "runs": 58,
+      "row_count": 41,
+      "cadence_days": 1
+    },
+    {
+      "slug": "california",
+      "newest": "2026-08-21",
+      "oldest": "2026-06-23",
+      "runs": 58,
+      "row_count": 36,
+      "cadence_days": 1
+    },
+    {
+      "slug": "new-york",
+      "newest": "2026-08-21",
+      "oldest": "2026-06-23",
+      "runs": 58,
+      "row_count": 29,
+      "cadence_days": 1
+    },
+    {
+      "slug": "florida",
+      "newest": "2026-08-21",
+      "oldest": "2026-06-23",
+      "runs": 58,
+      "row_count": 24,
+      "cadence_days": 1
+    },
+    {
+      "slug": "maryland",
+      "newest": "2026-08-21",
+      "oldest": "2026-06-23",
+      "runs": 58,
+      "row_count": 22,
+      "cadence_days": 1
+    },
+    {
+      "slug": "pennsylvania",
+      "newest": "2026-08-21",
+      "oldest": "2026-06-23",
+      "runs": 58,
+      "row_count": 20,
+      "cadence_days": 1
+    },
+    {
+      "slug": "new-jersey",
+      "newest": "2026-08-21",
+      "oldest": "2026-06-23",
+      "runs": 58,
+      "row_count": 19,
+      "cadence_days": 1
+    },
+    {
+      "slug": "wisconsin",
+      "newest": "2026-08-21",
+      "oldest": "2026-06-23",
+      "runs": 58,
+      "row_count": 18,
+      "cadence_days": 1
+    },
+    {
+      "slug": "north-carolina",
+      "newest": "2026-08-21",
+      "oldest": "2026-06-23",
+      "runs": 58,
+      "row_count": 13,
+      "cadence_days": 1
+    },
+    {
+      "slug": "texas",
+      "newest": "2026-08-21",
+      "oldest": "2026-06-23",
+      "runs": 58,
+      "row_count": 11,
+      "cadence_days": 1
+    },
+    {
+      "slug": "illinois",
+      "newest": "2026-08-21",
+      "oldest": "2026-06-23",
+      "runs": 58,
+      "row_count": 6,
+      "cadence_days": 1
+    },
+    {
+      "slug": "missouri",
+      "newest": "2026-08-21",
+      "oldest": "2026-06-23",
+      "runs": 58,
+      "row_count": 5,
+      "cadence_days": 1
+    },
+    {
+      "slug": "arizona",
+      "newest": "2026-08-21",
+      "oldest": "2026-06-23",
+      "runs": 58,
+      "row_count": 5,
+      "cadence_days": 1
+    }
+  ]
+}

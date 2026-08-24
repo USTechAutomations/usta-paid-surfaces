@@ -1,0 +1,142 @@
+{
+  "family": "ai-prices",
+  "generated": "2026-08-23",
+  "slices": [
+    {
+      "slug": "coverage",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-11",
+      "runs": 65,
+      "row_count": 23091,
+      "cadence_days": 1
+    },
+    {
+      "slug": "movers",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-11",
+      "runs": 65,
+      "row_count": 716,
+      "cadence_days": 1
+    },
+    {
+      "slug": "cuts",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-11",
+      "runs": 65,
+      "row_count": 373,
+      "cadence_days": 1
+    },
+    {
+      "slug": "rises",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-11",
+      "runs": 65,
+      "row_count": 343,
+      "cadence_days": 1
+    },
+    {
+      "slug": "restless",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-11",
+      "runs": 65,
+      "row_count": 716,
+      "cadence_days": 1
+    },
+    {
+      "slug": "cheapest",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-11",
+      "runs": 65,
+      "row_count": 422,
+      "cadence_days": 1
+    },
+    {
+      "slug": "openai",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-11",
+      "runs": 65,
+      "row_count": 4556,
+      "cadence_days": 1
+    },
+    {
+      "slug": "qwen",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-11",
+      "runs": 65,
+      "row_count": 3173,
+      "cadence_days": 1
+    },
+    {
+      "slug": "google",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-11",
+      "runs": 65,
+      "row_count": 2026,
+      "cadence_days": 1
+    },
+    {
+      "slug": "anthropic",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-11",
+      "runs": 65,
+      "row_count": 1203,
+      "cadence_days": 1
+    },
+    {
+      "slug": "mistralai",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-11",
+      "runs": 65,
+      "row_count": 1219,
+      "cadence_days": 1
+    },
+    {
+      "slug": "z-ai",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-11",
+      "runs": 65,
+      "row_count": 787,
+      "cadence_days": 1
+    },
+    {
+      "slug": "deepseek",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-11",
+      "runs": 65,
+      "row_count": 749,
+      "cadence_days": 1
+    },
+    {
+      "slug": "nvidia",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-11",
+      "runs": 65,
+      "row_count": 714,
+      "cadence_days": 1
+    },
+    {
+      "slug": "minimax",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-11",
+      "runs": 65,
+      "row_count": 536,
+      "cadence_days": 1
+    },
+    {
+      "slug": "moonshotai",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-11",
+      "runs": 65,
+      "row_count": 436,
+      "cadence_days": 1
+    },
+    {
+      "slug": "meta-llama",
+      "newest": "2026-08-23",
+      "oldest": "2026-06-11",
+      "runs": 65,
+      "row_count": 656,
+      "cadence_days": 1
+    }
+  ]
+}

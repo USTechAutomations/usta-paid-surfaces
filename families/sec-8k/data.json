@@ -1,0 +1,46 @@
+{
+  "family": "sec-8k",
+  "generated": "2026-08-23",
+  "slices": [
+    {
+      "slug": "coverage",
+      "newest": "2026-08-21",
+      "oldest": "2026-06-23",
+      "runs": 52,
+      "row_count": 11370,
+      "cadence_days": 1
+    },
+    {
+      "slug": "auditor-changes",
+      "newest": "2026-08-13",
+      "oldest": "2026-06-23",
+      "runs": 49,
+      "row_count": 49,
+      "cadence_days": 1
+    },
+    {
+      "slug": "officer-changes",
+      "newest": "2026-08-13",
+      "oldest": "2026-06-23",
+      "runs": 49,
+      "row_count": 554,
+      "cadence_days": 1
+    },
+    {
+      "slug": "listing-warnings",
+      "newest": "2026-08-13",
+      "oldest": "2026-06-23",
+      "runs": 49,
+      "row_count": 65,
+      "cadence_days": 1
+    },
+    {
+      "slug": "accounts-withdrawn",
+      "newest": "2026-08-13",
+      "oldest": "2026-06-23",
+      "runs": 49,
+      "row_count": 11,
+      "cadence_days": 1
+    }
+  ]
+}

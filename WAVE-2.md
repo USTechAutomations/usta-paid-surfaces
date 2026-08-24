@@ -4,4 +4,4 @@ Canonical brief: `~/grok-playground/output/HOST-PICKUP-2026-08-21/fix-plan/CLAUD
 
 Samples: `~/grok-playground/output/HOST-PICKUP-2026-08-21/fix-plan/feeds-wave2-samples/`
 
-Only two new folders: `mesa-code`, `new-entities`. Park Arizona. Do not scaffold empty families. `scripts/check_site.py` must print `ok`.
+Family pages (`mesa-code`, `new-entities`, …) are already live. Next job is child pages: `CLAUDE-CHILDREN.md`. Park Arizona. Do not scaffold empty families. `scripts/check_site.py` must print `ok`.
