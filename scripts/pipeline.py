@@ -1228,6 +1228,25 @@ def write_report(a: dict) -> None:
           f"`--gate` exits 0 for yes, 1 for \"it has not earned this\", and 2 for "
           f"\"something could not be checked\" — two different answers that must not be "
           f"treated as one.", "",
+          "### If a thing cannot report a failure, it will be read as healthy", "",
+          "Before you add another health check to this estate, read this. It is the "
+          "same mistake three times, and the next one will look just as reasonable "
+          "as the first three did.", "",
+          "A switched-off job cannot fail, so eleven of them sat switched off for a "
+          "week while every alarm stayed green. A collector the roll-call could not "
+          "see was never graded, so two of them ran unwatched for ten days. A page "
+          "that was built but never published answers nothing at all, and for weeks "
+          "nobody asked, because the thing that publishes it had never once "
+          "succeeded and never once said so.", "",
+          "The common shape: **from the outside, nothing-happened and "
+          "everything-is-fine look exactly the same.** A check that only asks \"did "
+          "anything break?\" gets silence back and calls it a pass. Silence was the "
+          "failure.", "",
+          "So a check in this estate has to start from a list of what is SUPPOSED to "
+          "exist, and account for every name on it -- not walk what it happens to "
+          "find and grade that. Anything it cannot account for is `unknown`, which "
+          "is a real answer and gets reported. It is never quietly dropped, and it "
+          "is never rounded up to a pass.", "",
           "### `--check` is deliberately not wired into the build", "",
           "`.github/workflows/check.yml` does not run `--check`, and that is on "
           "purpose rather than an oversight.", "",
