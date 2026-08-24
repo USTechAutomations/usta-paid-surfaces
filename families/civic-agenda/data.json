@@ -4,74 +4,74 @@
   "slices": [
     {
       "slug": "chicago",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-06-11",
-      "runs": 61,
-      "row_count": 48797,
+      "runs": 62,
+      "row_count": 49597,
       "cadence_days": 1
     },
     {
       "slug": "seattle",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-06-11",
-      "runs": 61,
-      "row_count": 5821,
+      "runs": 62,
+      "row_count": 5937,
       "cadence_days": 1
     },
     {
       "slug": "king-county",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-06-11",
-      "runs": 62,
-      "row_count": 6402,
+      "runs": 63,
+      "row_count": 6540,
       "cadence_days": 1
     },
     {
       "slug": "mesa",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-06-11",
-      "runs": 62,
-      "row_count": 4285,
+      "runs": 63,
+      "row_count": 4349,
       "cadence_days": 1
     },
     {
       "slug": "austin",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-06-11",
-      "runs": 61,
-      "row_count": 4054,
+      "runs": 62,
+      "row_count": 4114,
       "cadence_days": 1
     },
     {
       "slug": "phoenix",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-06-11",
-      "runs": 62,
-      "row_count": 6189,
+      "runs": 63,
+      "row_count": 6341,
       "cadence_days": 1
     },
     {
       "slug": "columbus",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-06-11",
-      "runs": 62,
-      "row_count": 10554,
+      "runs": 63,
+      "row_count": 10667,
       "cadence_days": 1
     },
     {
       "slug": "la-county",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-06-11",
-      "runs": 62,
-      "row_count": 10131,
+      "runs": 63,
+      "row_count": 10314,
       "cadence_days": 1
     },
     {
       "slug": "coverage",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-06-11",
-      "runs": 67,
-      "row_count": 96233,
+      "runs": 68,
+      "row_count": 97859,
       "cadence_days": 1
     }
   ]
