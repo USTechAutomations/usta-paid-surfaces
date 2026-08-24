@@ -1,7 +1,7 @@
 {
   "site": "https://ustechautomations.com",
   "base_path": "/feeds",
-  "pages": 201,
+  "pages": 227,
   "notes": [],
   "rows": [
     {
@@ -72,8 +72,8 @@
       "title": "What is and is not in the agent register feed \u2014 $99 once",
       "price": "$99 once",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/5kQ14g9Bk2ie0FedTA0sU0Q",
       "built_from": "dist/agent-register/coverage/index.html"
     },
     {
@@ -84,8 +84,8 @@
       "title": "Every agent server the register listed on our newest copy \u2014 $99 once",
       "price": "$99 once",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/5kQ14g9Bk2ie0FedTA0sU0Q",
       "built_from": "dist/agent-register/every-server/index.html"
     },
     {
@@ -96,8 +96,8 @@
       "title": "Agent server register archive \u2014 $99 once",
       "price": "$99 once",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/5kQ14g9Bk2ie0FedTA0sU0Q",
       "built_from": "dist/agent-register/index.html"
     },
     {
@@ -108,8 +108,8 @@
       "title": "Agent servers that shipped a new version while we were watching \u2014 $99 once",
       "price": "$99 once",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/5kQ14g9Bk2ie0FedTA0sU0Q",
       "built_from": "dist/agent-register/new-versions/index.html"
     },
     {
@@ -120,8 +120,8 @@
       "title": "Agent servers that joined the register while we were watching \u2014 $99 once",
       "price": "$99 once",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/5kQ14g9Bk2ie0FedTA0sU0Q",
       "built_from": "dist/agent-register/newly-listed/index.html"
     },
     {
@@ -132,8 +132,8 @@
       "title": "Which companies tell an AI assistant what they sell \u2014 $59/mo",
       "price": "$59/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/3cI3co28S8GCbjS16O0sU0R",
       "built_from": "dist/agentic-commerce/agent-instructions/index.html"
     },
     {
@@ -144,8 +144,8 @@
       "title": "The companies that will not answer our reader, and what we do about it \u2014 $59/mo",
       "price": "$59/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/3cI3co28S8GCbjS16O0sU0R",
       "built_from": "dist/agentic-commerce/cannot-read/index.html"
     },
     {
@@ -156,8 +156,8 @@
       "title": "Which companies let a robot reach their checkout \u2014 $59/mo",
       "price": "$59/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/3cI3co28S8GCbjS16O0sU0R",
       "built_from": "dist/agentic-commerce/checkout-manifest/index.html"
     },
     {
@@ -168,8 +168,8 @@
       "title": "What the machine-buyable files feed covers, and what it does not \u2014 $59/mo",
       "price": "$59/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/3cI3co28S8GCbjS16O0sU0R",
       "built_from": "dist/agentic-commerce/coverage/index.html"
     },
     {
@@ -180,8 +180,8 @@
       "title": "The day each company opened a door to an automated buyer \u2014 $59/mo",
       "price": "$59/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/3cI3co28S8GCbjS16O0sU0R",
       "built_from": "dist/agentic-commerce/doors-opened/index.html"
     },
     {
@@ -192,8 +192,8 @@
       "title": "Machine-buyable storefront files \u2014 $59/mo",
       "price": "$59/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/3cI3co28S8GCbjS16O0sU0R",
       "built_from": "dist/agentic-commerce/index.html"
     },
     {
@@ -204,8 +204,8 @@
       "title": "The companies with no machine-readable door at all \u2014 $59/mo",
       "price": "$59/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/3cI3co28S8GCbjS16O0sU0R",
       "built_from": "dist/agentic-commerce/no-machine-door/index.html"
     },
     {
@@ -216,8 +216,8 @@
       "title": "The 200 that is not a file, and why every count depends on it \u2014 $59/mo",
       "price": "$59/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/3cI3co28S8GCbjS16O0sU0R",
       "built_from": "dist/agentic-commerce/two-hundred-not-a-file/index.html"
     },
     {
@@ -228,8 +228,8 @@
       "title": "Anthropic list prices, and the fact that they have not moved \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/7sY9AM14O0a6afOdTA0sU0N",
       "built_from": "dist/ai-prices/anthropic/index.html"
     },
     {
@@ -240,8 +240,8 @@
       "title": "What the cheapest and the dearest models list today \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/7sY9AM14O0a6afOdTA0sU0N",
       "built_from": "dist/ai-prices/cheapest/index.html"
     },
     {
@@ -252,8 +252,8 @@
       "title": "What the AI price feed covers, and what it does not \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/7sY9AM14O0a6afOdTA0sU0N",
       "built_from": "dist/ai-prices/coverage/index.html"
     },
     {
@@ -264,8 +264,8 @@
       "title": "Model prices that went down \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/7sY9AM14O0a6afOdTA0sU0N",
       "built_from": "dist/ai-prices/cuts/index.html"
     },
     {
@@ -276,8 +276,8 @@
       "title": "What moved in DeepSeek list prices \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/7sY9AM14O0a6afOdTA0sU0N",
       "built_from": "dist/ai-prices/deepseek/index.html"
     },
     {
@@ -288,8 +288,8 @@
       "title": "What moved in Google list prices \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/7sY9AM14O0a6afOdTA0sU0N",
       "built_from": "dist/ai-prices/google/index.html"
     },
     {
@@ -300,8 +300,8 @@
       "title": "AI list-price window \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/7sY9AM14O0a6afOdTA0sU0N",
       "built_from": "dist/ai-prices/index.html"
     },
     {
@@ -312,8 +312,8 @@
       "title": "What moved in Meta list prices \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/7sY9AM14O0a6afOdTA0sU0N",
       "built_from": "dist/ai-prices/meta-llama/index.html"
     },
     {
@@ -324,8 +324,8 @@
       "title": "What moved in MiniMax list prices \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/7sY9AM14O0a6afOdTA0sU0N",
       "built_from": "dist/ai-prices/minimax/index.html"
     },
     {
@@ -336,8 +336,8 @@
       "title": "What moved in Mistral list prices \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/7sY9AM14O0a6afOdTA0sU0N",
       "built_from": "dist/ai-prices/mistralai/index.html"
     },
     {
@@ -348,8 +348,8 @@
       "title": "What moved in MoonshotAI list prices \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/7sY9AM14O0a6afOdTA0sU0N",
       "built_from": "dist/ai-prices/moonshotai/index.html"
     },
     {
@@ -360,8 +360,8 @@
       "title": "Which model prices moved between our last two reads \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/7sY9AM14O0a6afOdTA0sU0N",
       "built_from": "dist/ai-prices/movers/index.html"
     },
     {
@@ -372,8 +372,8 @@
       "title": "What moved in NVIDIA list prices \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/7sY9AM14O0a6afOdTA0sU0N",
       "built_from": "dist/ai-prices/nvidia/index.html"
     },
     {
@@ -384,8 +384,8 @@
       "title": "What moved in OpenAI list prices \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/7sY9AM14O0a6afOdTA0sU0N",
       "built_from": "dist/ai-prices/openai/index.html"
     },
     {
@@ -396,8 +396,8 @@
       "title": "What moved in Qwen list prices \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/7sY9AM14O0a6afOdTA0sU0N",
       "built_from": "dist/ai-prices/qwen/index.html"
     },
     {
@@ -408,8 +408,8 @@
       "title": "The model prices that keep moving \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/7sY9AM14O0a6afOdTA0sU0N",
       "built_from": "dist/ai-prices/restless/index.html"
     },
     {
@@ -420,8 +420,8 @@
       "title": "Model prices that went up \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/7sY9AM14O0a6afOdTA0sU0N",
       "built_from": "dist/ai-prices/rises/index.html"
     },
     {
@@ -432,8 +432,8 @@
       "title": "What moved in Z.ai list prices \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/7sY9AM14O0a6afOdTA0sU0N",
       "built_from": "dist/ai-prices/z-ai/index.html"
     },
     {
@@ -540,8 +540,8 @@
       "title": "Arizona air permit applications, with the water and waste rows dropped \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/8x28wI14Of50ds05n40sU0S",
       "built_from": "dist/air-permits/arizona-air/index.html"
     },
     {
@@ -552,8 +552,8 @@
       "title": "What is and is not in the air permit feed \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/8x28wI14Of50ds05n40sU0S",
       "built_from": "dist/air-permits/coverage/index.html"
     },
     {
@@ -564,8 +564,8 @@
       "title": "Data centres waiting on a Texas air permit \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/8x28wI14Of50ds05n40sU0S",
       "built_from": "dist/air-permits/data-centers/index.html"
     },
     {
@@ -576,8 +576,8 @@
       "title": "Air permit applications while they are still pending \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/8x28wI14Of50ds05n40sU0S",
       "built_from": "dist/air-permits/index.html"
     },
     {
@@ -588,8 +588,8 @@
       "title": "Texas air permit applications that moved a stage \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/8x28wI14Of50ds05n40sU0S",
       "built_from": "dist/air-permits/texas-moved/index.html"
     },
     {
@@ -600,8 +600,8 @@
       "title": "Texas air permit applications that turned up on the pending list \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/8x28wI14Of50ds05n40sU0S",
       "built_from": "dist/air-permits/texas-new/index.html"
     },
     {
@@ -624,8 +624,8 @@
       "title": "Austin agenda changes \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/4gMcMYbJs1ea73Cg1I0sU0P",
       "built_from": "dist/civic-agenda/austin/index.html"
     },
     {
@@ -636,8 +636,8 @@
       "title": "Chicago agenda changes \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/4gMcMYbJs1ea73Cg1I0sU0P",
       "built_from": "dist/civic-agenda/chicago/index.html"
     },
     {
@@ -648,8 +648,8 @@
       "title": "Columbus agenda changes \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/4gMcMYbJs1ea73Cg1I0sU0P",
       "built_from": "dist/civic-agenda/columbus/index.html"
     },
     {
@@ -660,8 +660,8 @@
       "title": "Civic agendas: what we hold \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/4gMcMYbJs1ea73Cg1I0sU0P",
       "built_from": "dist/civic-agenda/coverage/index.html"
     },
     {
@@ -672,8 +672,8 @@
       "title": "City and county agenda changes \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/4gMcMYbJs1ea73Cg1I0sU0P",
       "built_from": "dist/civic-agenda/index.html"
     },
     {
@@ -684,8 +684,8 @@
       "title": "King County agenda changes \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/4gMcMYbJs1ea73Cg1I0sU0P",
       "built_from": "dist/civic-agenda/king-county/index.html"
     },
     {
@@ -696,8 +696,8 @@
       "title": "Los Angeles County agenda changes \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/4gMcMYbJs1ea73Cg1I0sU0P",
       "built_from": "dist/civic-agenda/la-county/index.html"
     },
     {
@@ -708,8 +708,8 @@
       "title": "Mesa agenda changes \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/4gMcMYbJs1ea73Cg1I0sU0P",
       "built_from": "dist/civic-agenda/mesa/index.html"
     },
     {
@@ -720,8 +720,8 @@
       "title": "Phoenix agenda changes \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/4gMcMYbJs1ea73Cg1I0sU0P",
       "built_from": "dist/civic-agenda/phoenix/index.html"
     },
     {
@@ -732,8 +732,8 @@
       "title": "Seattle agenda changes \u2014 $175/mo",
       "price": "$175/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/4gMcMYbJs1ea73Cg1I0sU0P",
       "built_from": "dist/civic-agenda/seattle/index.html"
     },
     {
@@ -1071,6 +1071,54 @@
       "pay": "email only",
       "pay_url": "",
       "built_from": "dist/dc-siting/texas/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/fed-obligations/coverage",
+      "path": "/feeds/fed-obligations/coverage",
+      "family": "fed-obligations",
+      "kind": "slice",
+      "title": "Federal obligation figures: what we hold \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/fed-obligations/coverage/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/fed-obligations",
+      "path": "/feeds/fed-obligations",
+      "family": "fed-obligations",
+      "kind": "family",
+      "title": "Federal agency obligation changes \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/fed-obligations/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/fed-obligations/mix-shift",
+      "path": "/feeds/fed-obligations/mix-shift",
+      "family": "fed-obligations",
+      "kind": "slice",
+      "title": "What moved in the 2026 budget year between our reads \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/fed-obligations/mix-shift/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/fed-obligations/restatements",
+      "path": "/feeds/fed-obligations/restatements",
+      "family": "fed-obligations",
+      "kind": "slice",
+      "title": "Figures for the 2025 budget year that moved after it closed \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/fed-obligations/restatements/index.html"
     },
     {
       "url": "https://ustechautomations.com/feeds/grid/arkansas",
@@ -1553,6 +1601,174 @@
       "built_from": "dist/markets-resolved/re-resolved/index.html"
     },
     {
+      "url": "https://ustechautomations.com/feeds/mesa-code/85201",
+      "path": "/feeds/mesa-code/85201",
+      "family": "mesa-code",
+      "kind": "slice",
+      "title": "Mesa code cases in 85201 that moved between our dated copies \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/mesa-code/85201/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/mesa-code/85202",
+      "path": "/feeds/mesa-code/85202",
+      "family": "mesa-code",
+      "kind": "slice",
+      "title": "Mesa code cases in 85202 that moved between our dated copies \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/mesa-code/85202/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/mesa-code/85203",
+      "path": "/feeds/mesa-code/85203",
+      "family": "mesa-code",
+      "kind": "slice",
+      "title": "Mesa code cases in 85203 that moved between our dated copies \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/mesa-code/85203/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/mesa-code/85204",
+      "path": "/feeds/mesa-code/85204",
+      "family": "mesa-code",
+      "kind": "slice",
+      "title": "Mesa code cases in 85204 that moved between our dated copies \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/mesa-code/85204/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/mesa-code/85205",
+      "path": "/feeds/mesa-code/85205",
+      "family": "mesa-code",
+      "kind": "slice",
+      "title": "Mesa code cases in 85205 that moved between our dated copies \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/mesa-code/85205/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/mesa-code/85206",
+      "path": "/feeds/mesa-code/85206",
+      "family": "mesa-code",
+      "kind": "slice",
+      "title": "Mesa code cases in 85206 that moved between our dated copies \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/mesa-code/85206/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/mesa-code/85207",
+      "path": "/feeds/mesa-code/85207",
+      "family": "mesa-code",
+      "kind": "slice",
+      "title": "Mesa code cases in 85207 that moved between our dated copies \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/mesa-code/85207/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/mesa-code/85208",
+      "path": "/feeds/mesa-code/85208",
+      "family": "mesa-code",
+      "kind": "slice",
+      "title": "Mesa code cases in 85208 that moved between our dated copies \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/mesa-code/85208/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/mesa-code/85209",
+      "path": "/feeds/mesa-code/85209",
+      "family": "mesa-code",
+      "kind": "slice",
+      "title": "Mesa code cases in 85209 that moved between our dated copies \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/mesa-code/85209/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/mesa-code/85210",
+      "path": "/feeds/mesa-code/85210",
+      "family": "mesa-code",
+      "kind": "slice",
+      "title": "Mesa code cases in 85210 that moved between our dated copies \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/mesa-code/85210/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/mesa-code/85212",
+      "path": "/feeds/mesa-code/85212",
+      "family": "mesa-code",
+      "kind": "slice",
+      "title": "Mesa code cases in 85212 that moved between our dated copies \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/mesa-code/85212/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/mesa-code/85213",
+      "path": "/feeds/mesa-code/85213",
+      "family": "mesa-code",
+      "kind": "slice",
+      "title": "Mesa code cases in 85213 that moved between our dated copies \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/mesa-code/85213/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/mesa-code/85215",
+      "path": "/feeds/mesa-code/85215",
+      "family": "mesa-code",
+      "kind": "slice",
+      "title": "Mesa code cases in 85215 that moved between our dated copies \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/mesa-code/85215/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/mesa-code/coverage",
+      "path": "/feeds/mesa-code/coverage",
+      "family": "mesa-code",
+      "kind": "slice",
+      "title": "Mesa code compliance: the ZIPs we hold and the ones without a page \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/mesa-code/coverage/index.html"
+    },
+    {
       "url": "https://ustechautomations.com/feeds/mesa-code",
       "path": "/feeds/mesa-code",
       "family": "mesa-code",
@@ -1601,6 +1817,30 @@
       "built_from": "dist/new-entities/index.html"
     },
     {
+      "url": "https://ustechautomations.com/feeds/new-entities/los-angeles",
+      "path": "/feeds/new-entities/los-angeles",
+      "family": "new-entities",
+      "kind": "slice",
+      "title": "This page is retired \u2014 US Tech Automations feeds",
+      "price": "n/a",
+      "sells": false,
+      "pay": "no cta found",
+      "pay_url": "",
+      "built_from": "dist/new-entities/los-angeles/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/new-entities/nyc",
+      "path": "/feeds/new-entities/nyc",
+      "family": "new-entities",
+      "kind": "slice",
+      "title": "This page is retired \u2014 US Tech Automations feeds",
+      "price": "n/a",
+      "sells": false,
+      "pay": "no cta found",
+      "pay_url": "",
+      "built_from": "dist/new-entities/nyc/index.html"
+    },
+    {
       "url": "https://ustechautomations.com/feeds/new-entities/san-francisco",
       "path": "/feeds/new-entities/san-francisco",
       "family": "new-entities",
@@ -1617,8 +1857,8 @@
       "path": "/feeds/offers",
       "family": "offers",
       "kind": "bridge",
-      "title": "Offers and evidence \u2014 $200 \u2013 $450 one time",
-      "price": "$200 \u2013 $450 one time",
+      "title": "Offers and evidence \u2014 $200 \u2013 $450",
+      "price": "$200 \u2013 $450",
       "sells": true,
       "pay": "email only",
       "pay_url": "",
@@ -1632,8 +1872,8 @@
       "title": "What entered the Austin permit list this week \u2014 $79/mo",
       "price": "$79/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/8x2bIU5l4aOKafO8zg0sU0O",
       "built_from": "dist/permit-metros/austin/index.html"
     },
     {
@@ -1644,8 +1884,8 @@
       "title": "What entered the Chicago permit list this week \u2014 $79/mo",
       "price": "$79/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/8x2bIU5l4aOKafO8zg0sU0O",
       "built_from": "dist/permit-metros/chicago/index.html"
     },
     {
@@ -1656,8 +1896,8 @@
       "title": "Metro permits: the places we hold and the places we do not \u2014 $79/mo",
       "price": "$79/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/8x2bIU5l4aOKafO8zg0sU0O",
       "built_from": "dist/permit-metros/coverage/index.html"
     },
     {
@@ -1668,8 +1908,8 @@
       "title": "Metro issued-permit changes \u2014 $79/mo",
       "price": "$79/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/8x2bIU5l4aOKafO8zg0sU0O",
       "built_from": "dist/permit-metros/index.html"
     },
     {
@@ -1680,8 +1920,8 @@
       "title": "What entered the New York City permit list this week \u2014 $79/mo",
       "price": "$79/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/8x2bIU5l4aOKafO8zg0sU0O",
       "built_from": "dist/permit-metros/new-york/index.html"
     },
     {
@@ -1692,8 +1932,8 @@
       "title": "What entered the San Francisco permit list this week \u2014 $79/mo",
       "price": "$79/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/8x2bIU5l4aOKafO8zg0sU0O",
       "built_from": "dist/permit-metros/san-francisco/index.html"
     },
     {
@@ -1704,8 +1944,8 @@
       "title": "What entered the Scottsdale permit list this week \u2014 $79/mo",
       "price": "$79/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/8x2bIU5l4aOKafO8zg0sU0O",
       "built_from": "dist/permit-metros/scottsdale/index.html"
     },
     {
@@ -1716,8 +1956,8 @@
       "title": "What entered the Seattle permit list this week \u2014 $79/mo",
       "price": "$79/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/8x2bIU5l4aOKafO8zg0sU0O",
       "built_from": "dist/permit-metros/seattle/index.html"
     },
     {
@@ -2160,8 +2400,8 @@
       "title": "California alcohol permits: who appeared and who dropped off the list \u2014 $99/mo",
       "price": "$99/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
       "built_from": "dist/ttb/california/index.html"
     },
     {
@@ -2172,8 +2412,8 @@
       "title": "Colorado alcohol permits: who appeared and who dropped off the list \u2014 $99/mo",
       "price": "$99/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
       "built_from": "dist/ttb/colorado/index.html"
     },
     {
@@ -2184,8 +2424,8 @@
       "title": "What the alcohol permit feed covers, and what it does not \u2014 $99/mo",
       "price": "$99/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
       "built_from": "dist/ttb/coverage/index.html"
     },
     {
@@ -2196,9 +2436,21 @@
       "title": "Distilled spirits plants: who appeared and who dropped off the list \u2014 $99/mo",
       "price": "$99/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
       "built_from": "dist/ttb/distilled-spirits-plant/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/ttb/florida",
+      "path": "/feeds/ttb/florida",
+      "family": "ttb",
+      "kind": "slice",
+      "title": "This page is retired \u2014 US Tech Automations feeds",
+      "price": "n/a",
+      "sells": false,
+      "pay": "no cta found",
+      "pay_url": "",
+      "built_from": "dist/ttb/florida/index.html"
     },
     {
       "url": "https://ustechautomations.com/feeds/ttb/georgia",
@@ -2208,8 +2460,8 @@
       "title": "Georgia alcohol permits: who appeared and who dropped off the list \u2014 $99/mo",
       "price": "$99/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
       "built_from": "dist/ttb/georgia/index.html"
     },
     {
@@ -2220,8 +2472,8 @@
       "title": "Illinois alcohol permits: who appeared and who dropped off the list \u2014 $99/mo",
       "price": "$99/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
       "built_from": "dist/ttb/illinois/index.html"
     },
     {
@@ -2232,8 +2484,8 @@
       "title": "Alcohol importers: who appeared and who dropped off the list \u2014 $99/mo",
       "price": "$99/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
       "built_from": "dist/ttb/importer/index.html"
     },
     {
@@ -2244,8 +2496,8 @@
       "title": "TTB appear / disappear list \u2014 $99/mo",
       "price": "$99/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
       "built_from": "dist/ttb/index.html"
     },
     {
@@ -2256,8 +2508,8 @@
       "title": "Massachusetts alcohol permits: who appeared and who dropped off the list \u2014 $99/mo",
       "price": "$99/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
       "built_from": "dist/ttb/massachusetts/index.html"
     },
     {
@@ -2268,8 +2520,8 @@
       "title": "Michigan alcohol permits: who appeared and who dropped off the list \u2014 $99/mo",
       "price": "$99/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
       "built_from": "dist/ttb/michigan/index.html"
     },
     {
@@ -2280,8 +2532,8 @@
       "title": "New Jersey alcohol permits: who appeared and who dropped off the list \u2014 $99/mo",
       "price": "$99/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
       "built_from": "dist/ttb/new-jersey/index.html"
     },
     {
@@ -2292,8 +2544,8 @@
       "title": "New York alcohol permits: who appeared and who dropped off the list \u2014 $99/mo",
       "price": "$99/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
       "built_from": "dist/ttb/new-york/index.html"
     },
     {
@@ -2304,8 +2556,8 @@
       "title": "North Carolina alcohol permits: who appeared and who dropped off the list \u2014 $99/mo",
       "price": "$99/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
       "built_from": "dist/ttb/north-carolina/index.html"
     },
     {
@@ -2316,8 +2568,8 @@
       "title": "Ohio alcohol permits: who appeared and who dropped off the list \u2014 $99/mo",
       "price": "$99/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
       "built_from": "dist/ttb/ohio/index.html"
     },
     {
@@ -2328,8 +2580,8 @@
       "title": "Oregon alcohol permits: who appeared and who dropped off the list \u2014 $99/mo",
       "price": "$99/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
       "built_from": "dist/ttb/oregon/index.html"
     },
     {
@@ -2340,8 +2592,8 @@
       "title": "Pennsylvania alcohol permits: who appeared and who dropped off the list \u2014 $99/mo",
       "price": "$99/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
       "built_from": "dist/ttb/pennsylvania/index.html"
     },
     {
@@ -2352,8 +2604,8 @@
       "title": "Texas alcohol permits: who appeared and who dropped off the list \u2014 $99/mo",
       "price": "$99/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
       "built_from": "dist/ttb/texas/index.html"
     },
     {
@@ -2364,9 +2616,21 @@
       "title": "Virginia alcohol permits: who appeared and who dropped off the list \u2014 $99/mo",
       "price": "$99/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
       "built_from": "dist/ttb/virginia/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/ttb/washington",
+      "path": "/feeds/ttb/washington",
+      "family": "ttb",
+      "kind": "slice",
+      "title": "This page is retired \u2014 US Tech Automations feeds",
+      "price": "n/a",
+      "sells": false,
+      "pay": "no cta found",
+      "pay_url": "",
+      "built_from": "dist/ttb/washington/index.html"
     },
     {
       "url": "https://ustechautomations.com/feeds/ttb/wholesaler",
@@ -2376,8 +2640,8 @@
       "title": "Alcohol wholesalers: who appeared and who dropped off the list \u2014 $99/mo",
       "price": "$99/mo",
       "sells": true,
-      "pay": "email only",
-      "pay_url": "",
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
       "built_from": "dist/ttb/wholesaler/index.html"
     },
     {
@@ -2388,9 +2652,33 @@
       "title": "Wine producers: who appeared and who dropped off the list \u2014 $99/mo",
       "price": "$99/mo",
       "sells": true,
+      "pay": "pay button",
+      "pay_url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
+      "built_from": "dist/ttb/wine-producer/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/vendor-prices/changed-every-read",
+      "path": "/feeds/vendor-prices/changed-every-read",
+      "family": "vendor-prices",
+      "kind": "slice",
+      "title": "The measurement that keeps this feed off sale \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
       "pay": "email only",
       "pay_url": "",
-      "built_from": "dist/ttb/wine-producer/index.html"
+      "built_from": "dist/vendor-prices/changed-every-read/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/vendor-prices/coverage",
+      "path": "/feeds/vendor-prices/coverage",
+      "family": "vendor-prices",
+      "kind": "slice",
+      "title": "Every company on this panel, and what we actually hold for each \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/vendor-prices/coverage/index.html"
     },
     {
       "url": "https://ustechautomations.com/feeds/vendor-prices",
@@ -2403,6 +2691,30 @@
       "pay": "email only",
       "pay_url": "",
       "built_from": "dist/vendor-prices/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/vendor-prices/never-answered",
+      "path": "/feeds/vendor-prices/never-answered",
+      "family": "vendor-prices",
+      "kind": "slice",
+      "title": "The companies whose price pages have never once answered us \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/vendor-prices/never-answered/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/vendor-prices/stopped-answering",
+      "path": "/feeds/vendor-prices/stopped-answering",
+      "family": "vendor-prices",
+      "kind": "slice",
+      "title": "Addresses that were giving us a page and are not any more \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/vendor-prices/stopped-answering/index.html"
     },
     {
       "url": "https://ustechautomations.com/feeds/what-we-dont-collect",

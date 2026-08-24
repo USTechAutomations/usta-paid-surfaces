@@ -3,9 +3,9 @@
 Derived from `dist/` by `scripts/url_manifest.py`. Not typed, not edited
 by hand. Re-run it after any build and this file is current again.
 
-- **201 pages**, every one of them an address under `/feeds`
-- **123** carry a price; **78** say they are not for sale yet, are free to read, or are the hub itself
-- **37** have a pay button; **163** are honest holding pages that ask you to email instead; **1** is the hub, which sells nothing and does not pretend to
+- **227 pages**, every one of them an address under `/feeds`
+- **123** carry a price; **104** say they are not for sale yet, are free to read, or are the hub itself
+- **112** have a pay button; **110** are honest holding pages that ask you to email instead; **5** is the hub, which sells nothing and does not pretend to
 
 The sitemap lists exactly these pages and no others.
 
@@ -29,47 +29,47 @@ The sitemap lists exactly these pages and no others.
 
 | Address | Price | Buy |
 |---|---|---|
-| `/feeds/agent-register` | $99 once | email only |
-| `/feeds/agent-register/coverage` | $99 once | email only |
-| `/feeds/agent-register/every-server` | $99 once | email only |
-| `/feeds/agent-register/new-versions` | $99 once | email only |
-| `/feeds/agent-register/newly-listed` | $99 once | email only |
+| `/feeds/agent-register` | $99 once | pay button |
+| `/feeds/agent-register/coverage` | $99 once | pay button |
+| `/feeds/agent-register/every-server` | $99 once | pay button |
+| `/feeds/agent-register/new-versions` | $99 once | pay button |
+| `/feeds/agent-register/newly-listed` | $99 once | pay button |
 
 ## agentic-commerce
 
 | Address | Price | Buy |
 |---|---|---|
-| `/feeds/agentic-commerce` | $59/mo | email only |
-| `/feeds/agentic-commerce/agent-instructions` | $59/mo | email only |
-| `/feeds/agentic-commerce/cannot-read` | $59/mo | email only |
-| `/feeds/agentic-commerce/checkout-manifest` | $59/mo | email only |
-| `/feeds/agentic-commerce/coverage` | $59/mo | email only |
-| `/feeds/agentic-commerce/doors-opened` | $59/mo | email only |
-| `/feeds/agentic-commerce/no-machine-door` | $59/mo | email only |
-| `/feeds/agentic-commerce/two-hundred-not-a-file` | $59/mo | email only |
+| `/feeds/agentic-commerce` | $59/mo | pay button |
+| `/feeds/agentic-commerce/agent-instructions` | $59/mo | pay button |
+| `/feeds/agentic-commerce/cannot-read` | $59/mo | pay button |
+| `/feeds/agentic-commerce/checkout-manifest` | $59/mo | pay button |
+| `/feeds/agentic-commerce/coverage` | $59/mo | pay button |
+| `/feeds/agentic-commerce/doors-opened` | $59/mo | pay button |
+| `/feeds/agentic-commerce/no-machine-door` | $59/mo | pay button |
+| `/feeds/agentic-commerce/two-hundred-not-a-file` | $59/mo | pay button |
 
 ## ai-prices
 
 | Address | Price | Buy |
 |---|---|---|
-| `/feeds/ai-prices` | $175/mo | email only |
-| `/feeds/ai-prices/anthropic` | $175/mo | email only |
-| `/feeds/ai-prices/cheapest` | $175/mo | email only |
-| `/feeds/ai-prices/coverage` | $175/mo | email only |
-| `/feeds/ai-prices/cuts` | $175/mo | email only |
-| `/feeds/ai-prices/deepseek` | $175/mo | email only |
-| `/feeds/ai-prices/google` | $175/mo | email only |
-| `/feeds/ai-prices/meta-llama` | $175/mo | email only |
-| `/feeds/ai-prices/minimax` | $175/mo | email only |
-| `/feeds/ai-prices/mistralai` | $175/mo | email only |
-| `/feeds/ai-prices/moonshotai` | $175/mo | email only |
-| `/feeds/ai-prices/movers` | $175/mo | email only |
-| `/feeds/ai-prices/nvidia` | $175/mo | email only |
-| `/feeds/ai-prices/openai` | $175/mo | email only |
-| `/feeds/ai-prices/qwen` | $175/mo | email only |
-| `/feeds/ai-prices/restless` | $175/mo | email only |
-| `/feeds/ai-prices/rises` | $175/mo | email only |
-| `/feeds/ai-prices/z-ai` | $175/mo | email only |
+| `/feeds/ai-prices` | $175/mo | pay button |
+| `/feeds/ai-prices/anthropic` | $175/mo | pay button |
+| `/feeds/ai-prices/cheapest` | $175/mo | pay button |
+| `/feeds/ai-prices/coverage` | $175/mo | pay button |
+| `/feeds/ai-prices/cuts` | $175/mo | pay button |
+| `/feeds/ai-prices/deepseek` | $175/mo | pay button |
+| `/feeds/ai-prices/google` | $175/mo | pay button |
+| `/feeds/ai-prices/meta-llama` | $175/mo | pay button |
+| `/feeds/ai-prices/minimax` | $175/mo | pay button |
+| `/feeds/ai-prices/mistralai` | $175/mo | pay button |
+| `/feeds/ai-prices/moonshotai` | $175/mo | pay button |
+| `/feeds/ai-prices/movers` | $175/mo | pay button |
+| `/feeds/ai-prices/nvidia` | $175/mo | pay button |
+| `/feeds/ai-prices/openai` | $175/mo | pay button |
+| `/feeds/ai-prices/qwen` | $175/mo | pay button |
+| `/feeds/ai-prices/restless` | $175/mo | pay button |
+| `/feeds/ai-prices/rises` | $175/mo | pay button |
+| `/feeds/ai-prices/z-ai` | $175/mo | pay button |
 
 ## ai-terms
 
@@ -88,12 +88,12 @@ The sitemap lists exactly these pages and no others.
 
 | Address | Price | Buy |
 |---|---|---|
-| `/feeds/air-permits` | $175/mo | email only |
-| `/feeds/air-permits/arizona-air` | $175/mo | email only |
-| `/feeds/air-permits/coverage` | $175/mo | email only |
-| `/feeds/air-permits/data-centers` | $175/mo | email only |
-| `/feeds/air-permits/texas-moved` | $175/mo | email only |
-| `/feeds/air-permits/texas-new` | $175/mo | email only |
+| `/feeds/air-permits` | $175/mo | pay button |
+| `/feeds/air-permits/arizona-air` | $175/mo | pay button |
+| `/feeds/air-permits/coverage` | $175/mo | pay button |
+| `/feeds/air-permits/data-centers` | $175/mo | pay button |
+| `/feeds/air-permits/texas-moved` | $175/mo | pay button |
+| `/feeds/air-permits/texas-new` | $175/mo | pay button |
 
 ## az-contractors
 
@@ -105,16 +105,16 @@ The sitemap lists exactly these pages and no others.
 
 | Address | Price | Buy |
 |---|---|---|
-| `/feeds/civic-agenda` | $175/mo | email only |
-| `/feeds/civic-agenda/austin` | $175/mo | email only |
-| `/feeds/civic-agenda/chicago` | $175/mo | email only |
-| `/feeds/civic-agenda/columbus` | $175/mo | email only |
-| `/feeds/civic-agenda/coverage` | $175/mo | email only |
-| `/feeds/civic-agenda/king-county` | $175/mo | email only |
-| `/feeds/civic-agenda/la-county` | $175/mo | email only |
-| `/feeds/civic-agenda/mesa` | $175/mo | email only |
-| `/feeds/civic-agenda/phoenix` | $175/mo | email only |
-| `/feeds/civic-agenda/seattle` | $175/mo | email only |
+| `/feeds/civic-agenda` | $175/mo | pay button |
+| `/feeds/civic-agenda/austin` | $175/mo | pay button |
+| `/feeds/civic-agenda/chicago` | $175/mo | pay button |
+| `/feeds/civic-agenda/columbus` | $175/mo | pay button |
+| `/feeds/civic-agenda/coverage` | $175/mo | pay button |
+| `/feeds/civic-agenda/king-county` | $175/mo | pay button |
+| `/feeds/civic-agenda/la-county` | $175/mo | pay button |
+| `/feeds/civic-agenda/mesa` | $175/mo | pay button |
+| `/feeds/civic-agenda/phoenix` | $175/mo | pay button |
+| `/feeds/civic-agenda/seattle` | $175/mo | pay button |
 
 ## coverage
 
@@ -163,6 +163,15 @@ The sitemap lists exactly these pages and no others.
 | `/feeds/dc-siting/coverage` | Not for sale yet | email only |
 | `/feeds/dc-siting/faa-notices` | Not for sale yet | email only |
 | `/feeds/dc-siting/texas` | Not for sale yet | email only |
+
+## fed-obligations
+
+| Address | Price | Buy |
+|---|---|---|
+| `/feeds/fed-obligations` | Not for sale yet | email only |
+| `/feeds/fed-obligations/coverage` | Not for sale yet | email only |
+| `/feeds/fed-obligations/mix-shift` | Not for sale yet | email only |
+| `/feeds/fed-obligations/restatements` | Not for sale yet | email only |
 
 ## grid
 
@@ -228,6 +237,20 @@ The sitemap lists exactly these pages and no others.
 | Address | Price | Buy |
 |---|---|---|
 | `/feeds/mesa-code` | Not for sale yet | email only |
+| `/feeds/mesa-code/85201` | Not for sale yet | email only |
+| `/feeds/mesa-code/85202` | Not for sale yet | email only |
+| `/feeds/mesa-code/85203` | Not for sale yet | email only |
+| `/feeds/mesa-code/85204` | Not for sale yet | email only |
+| `/feeds/mesa-code/85205` | Not for sale yet | email only |
+| `/feeds/mesa-code/85206` | Not for sale yet | email only |
+| `/feeds/mesa-code/85207` | Not for sale yet | email only |
+| `/feeds/mesa-code/85208` | Not for sale yet | email only |
+| `/feeds/mesa-code/85209` | Not for sale yet | email only |
+| `/feeds/mesa-code/85210` | Not for sale yet | email only |
+| `/feeds/mesa-code/85212` | Not for sale yet | email only |
+| `/feeds/mesa-code/85213` | Not for sale yet | email only |
+| `/feeds/mesa-code/85215` | Not for sale yet | email only |
+| `/feeds/mesa-code/coverage` | Not for sale yet | email only |
 
 ## new-entities
 
@@ -236,26 +259,28 @@ The sitemap lists exactly these pages and no others.
 | `/feeds/new-entities` | Not for sale yet | email only |
 | `/feeds/new-entities/chicago` | Not for sale yet | email only |
 | `/feeds/new-entities/coverage` | Not for sale yet | email only |
+| `/feeds/new-entities/los-angeles` | n/a | no cta found |
+| `/feeds/new-entities/nyc` | n/a | no cta found |
 | `/feeds/new-entities/san-francisco` | Not for sale yet | email only |
 
 ## offers
 
 | Address | Price | Buy |
 |---|---|---|
-| `/feeds/offers` | $200 – $450 one time | email only |
+| `/feeds/offers` | $200 – $450 | email only |
 
 ## permit-metros
 
 | Address | Price | Buy |
 |---|---|---|
-| `/feeds/permit-metros` | $79/mo | email only |
-| `/feeds/permit-metros/austin` | $79/mo | email only |
-| `/feeds/permit-metros/chicago` | $79/mo | email only |
-| `/feeds/permit-metros/coverage` | $79/mo | email only |
-| `/feeds/permit-metros/new-york` | $79/mo | email only |
-| `/feeds/permit-metros/san-francisco` | $79/mo | email only |
-| `/feeds/permit-metros/scottsdale` | $79/mo | email only |
-| `/feeds/permit-metros/seattle` | $79/mo | email only |
+| `/feeds/permit-metros` | $79/mo | pay button |
+| `/feeds/permit-metros/austin` | $79/mo | pay button |
+| `/feeds/permit-metros/chicago` | $79/mo | pay button |
+| `/feeds/permit-metros/coverage` | $79/mo | pay button |
+| `/feeds/permit-metros/new-york` | $79/mo | pay button |
+| `/feeds/permit-metros/san-francisco` | $79/mo | pay button |
+| `/feeds/permit-metros/scottsdale` | $79/mo | pay button |
+| `/feeds/permit-metros/seattle` | $79/mo | pay button |
 
 ## permits
 
@@ -317,32 +342,38 @@ The sitemap lists exactly these pages and no others.
 
 | Address | Price | Buy |
 |---|---|---|
-| `/feeds/ttb` | $99/mo | email only |
-| `/feeds/ttb/california` | $99/mo | email only |
-| `/feeds/ttb/colorado` | $99/mo | email only |
-| `/feeds/ttb/coverage` | $99/mo | email only |
-| `/feeds/ttb/distilled-spirits-plant` | $99/mo | email only |
-| `/feeds/ttb/georgia` | $99/mo | email only |
-| `/feeds/ttb/illinois` | $99/mo | email only |
-| `/feeds/ttb/importer` | $99/mo | email only |
-| `/feeds/ttb/massachusetts` | $99/mo | email only |
-| `/feeds/ttb/michigan` | $99/mo | email only |
-| `/feeds/ttb/new-jersey` | $99/mo | email only |
-| `/feeds/ttb/new-york` | $99/mo | email only |
-| `/feeds/ttb/north-carolina` | $99/mo | email only |
-| `/feeds/ttb/ohio` | $99/mo | email only |
-| `/feeds/ttb/oregon` | $99/mo | email only |
-| `/feeds/ttb/pennsylvania` | $99/mo | email only |
-| `/feeds/ttb/texas` | $99/mo | email only |
-| `/feeds/ttb/virginia` | $99/mo | email only |
-| `/feeds/ttb/wholesaler` | $99/mo | email only |
-| `/feeds/ttb/wine-producer` | $99/mo | email only |
+| `/feeds/ttb` | $99/mo | pay button |
+| `/feeds/ttb/california` | $99/mo | pay button |
+| `/feeds/ttb/colorado` | $99/mo | pay button |
+| `/feeds/ttb/coverage` | $99/mo | pay button |
+| `/feeds/ttb/distilled-spirits-plant` | $99/mo | pay button |
+| `/feeds/ttb/florida` | n/a | no cta found |
+| `/feeds/ttb/georgia` | $99/mo | pay button |
+| `/feeds/ttb/illinois` | $99/mo | pay button |
+| `/feeds/ttb/importer` | $99/mo | pay button |
+| `/feeds/ttb/massachusetts` | $99/mo | pay button |
+| `/feeds/ttb/michigan` | $99/mo | pay button |
+| `/feeds/ttb/new-jersey` | $99/mo | pay button |
+| `/feeds/ttb/new-york` | $99/mo | pay button |
+| `/feeds/ttb/north-carolina` | $99/mo | pay button |
+| `/feeds/ttb/ohio` | $99/mo | pay button |
+| `/feeds/ttb/oregon` | $99/mo | pay button |
+| `/feeds/ttb/pennsylvania` | $99/mo | pay button |
+| `/feeds/ttb/texas` | $99/mo | pay button |
+| `/feeds/ttb/virginia` | $99/mo | pay button |
+| `/feeds/ttb/washington` | n/a | no cta found |
+| `/feeds/ttb/wholesaler` | $99/mo | pay button |
+| `/feeds/ttb/wine-producer` | $99/mo | pay button |
 
 ## vendor-prices
 
 | Address | Price | Buy |
 |---|---|---|
 | `/feeds/vendor-prices` | Not for sale yet | email only |
+| `/feeds/vendor-prices/changed-every-read` | Not for sale yet | email only |
+| `/feeds/vendor-prices/coverage` | Not for sale yet | email only |
+| `/feeds/vendor-prices/never-answered` | Not for sale yet | email only |
+| `/feeds/vendor-prices/stopped-answering` | Not for sale yet | email only |
 
 ## what-we-dont-collect
 

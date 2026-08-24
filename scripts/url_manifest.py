@@ -43,6 +43,7 @@ BASE_PATH = "/feeds"
 PRICE_RAIL = re.compile(r'<dd class="price">(.*?)</dd>', re.S)
 TITLE = re.compile(r"<title>(.*?)</title>", re.S)
 LOC = re.compile(r"<loc>(.*?)</loc>")
+NOINDEX = re.compile(r'<meta[^>]+name="robots"[^>]+content="[^"]*noindex', re.I)
 TAG = re.compile(r"<[^>]+>")
 
 
@@ -160,17 +161,35 @@ def cross_check(manifest: list[dict]) -> list[str]:
     build_site.py writes both the pages and the sitemap in one run, so they
     should never differ. If they do, something published a page nobody can find
     or advertised one that was never built, and that is worth stopping for.
+
+    With ONE exception, and it is not a loophole: a retired address. An address
+    we published before and no longer build still has to answer, so build_site.py
+    writes it a page saying plainly it has nothing to show, and deliberately
+    leaves it out of the sitemap -- the promise is that the address answers, not
+    that a search engine should index an empty page. Those pages carry
+    noindex, and that is how they are told apart here. Without this, every
+    retired address reads as a page nobody can find, and four of them did on
+    2026-08-24: a real fix looked like four new faults.
+
+    The exception runs one way only. A retired page that IS in the sitemap is
+    still reported, because then we have asked a search engine to index a page
+    whose whole content is that there is nothing here.
     """
     sm = DIST / "sitemap.xml"
     if not sm.is_file():
         return ["dist/sitemap.xml is missing"]
     listed = {u.rstrip("/") for u in LOC.findall(sm.read_text(encoding="utf-8"))}
     built = {r["url"].rstrip("/") for r in manifest}
+    retired = {r["url"].rstrip("/") for r in manifest
+               if NOINDEX.search((ROOT / r["built_from"]).read_text(encoding="utf-8"))}
     notes = []
-    for u in sorted(built - listed):
+    for u in sorted(built - listed - retired):
         notes.append(f"built but not in the sitemap: {u}")
     for u in sorted(listed - built):
         notes.append(f"in the sitemap but not built: {u}")
+    for u in sorted(retired & listed):
+        notes.append(f"retired and still in the sitemap, so we are asking for it to be "
+                     f"indexed: {u}")
     return notes
 
 
