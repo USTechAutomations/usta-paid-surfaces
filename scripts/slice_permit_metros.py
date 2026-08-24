@@ -90,6 +90,36 @@ MONTGOMERY_DISCLAIMER = (
     "contained in the web feed is being used at one&#39;s own risk."
 )
 
+# Two more of the twelve boards asked for something in writing, and the two asks are
+# NOT the same shape. Austin ASKS: their portal puts the data in the public domain and
+# says "We ask that proper credit be given", which is a request, so we honour it because
+# they asked and not because we must. Marin REQUIRES: their Building Permit dataset
+# (mkbn-caye) declares the Open Database Licence, and section 4.3 of that licence wants a
+# notice wherever their material is shown. The example wording below is the licence's own.
+# A credit belongs next to the data, never in the sales copy: sales copy gets rewritten
+# and the obligation does not.
+AUSTIN_CREDIT = (
+    "Some of the permits here were published by the City of Austin, Texas. Austin puts "
+    "this data in the public domain and asks \u2014 asks, not requires \u2014 that proper "
+    "credit be given. So, plainly: this page uses material published by "
+    "<a href=\"https://data.austintexas.gov/d/3syk-w9eu\">City of Austin, Texas - "
+    "data.austintexas.gov</a>."
+)
+
+MARIN_LEAD = (
+    "Some of the rows counted on this page were supplied by Marin County, California. "
+    "Their permit data carries a share-alike licence, which asks for a set notice "
+    "wherever their material is shown. This is that notice, in the wording the licence "
+    "itself gives:"
+)
+
+MARIN_NOTICE = (
+    "Contains information from <a href=\"https://data.marincounty.gov/County-Government/"
+    "Building-Permit/mkbn-caye\">Building Permit</a>, which is made available here under "
+    "the <a href=\"https://opendatacommons.org/licenses/odbl/1-0/\">Open Database License "
+    "(ODbL)</a>."
+)
+
 MONTGOMERY_LEAD = (
     "Some of the rows counted on this page were supplied by Montgomery County, Maryland. "
     "Their terms of use do not ask to be credited; they require anyone using their data to "
@@ -645,6 +675,9 @@ def coverage(c: sqlite3.Connection, built: list[tuple[str, str, dict]]) -> dict:
             "board, not by us. The twelve boards are named in the first table above. We "
             "keep dated copies of what each one put out; the permits, the addresses and "
             "the wording inside those rows are theirs.",
+            AUSTIN_CREDIT,
+            MARIN_LEAD,
+            MARIN_NOTICE,
             MONTGOMERY_LEAD,
             "&quot;" + MONTGOMERY_DISCLAIMER + "&quot;",
         ],
@@ -769,6 +802,18 @@ def slices() -> list[dict]:
                 "tables": tables,
                 "facts": city_facts(w, city),
                 "limits": city_limits(w, city, show_contractor),
+                # Next to the rows, on every city page, not only on coverage. A
+                # board that asked for a credit is owed it on the page that shows
+                # its permits, which is this one.
+                "credit": (
+                    [
+                        f"Every permit on this page was published by the {city} permit "
+                        f"board, not by us. We keep dated copies of what they put out; "
+                        f"the permits, the addresses and the wording inside those rows "
+                        f"are theirs."
+                    ]
+                    + ([AUSTIN_CREDIT] if juris == "austin" else [])
+                ),
             })
         if not built:
             print("permit-metros: no city cleared the floor; nothing published",

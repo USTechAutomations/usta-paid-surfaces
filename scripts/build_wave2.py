@@ -238,6 +238,24 @@ def mesa_code() -> dict:
             "above: a case entering our watchlist is not the same event as a case being opened.</p>",
         ),
         section(
+            # Mesa asked in writing to be listed as the source. It goes next to the
+            # data, never in the sales copy: sales copy gets rewritten and the ask
+            # does not. Same words as the built ZIP pages carry, from
+            # slice_mesa_code.MESA_CREDIT. This says nothing about what we may DO
+            # with the data -- a credit is not a permission note.
+            "Who published the data in this feed",
+            None,
+            '      <ul class="spec">\n'
+            "        <li>Every code-compliance case in this feed was opened and published by "
+            "the City of Mesa, Arizona, not by us. We keep dated copies of the file the City "
+            "puts out; the case numbers, the status words and the addresses inside those rows "
+            "are theirs.</li>\n"
+            "        <li>The City asks anyone using this data to list the City as its source. "
+            "So, plainly: this feed uses material published by the City of Mesa, "
+            "Arizona.</li>\n"
+            "      </ul>",
+        ),
+        section(
             "What is deliberately not here",
             None,
             '      <div class="honest">\n'

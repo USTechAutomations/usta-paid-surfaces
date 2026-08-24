@@ -466,6 +466,7 @@ def coverage(c: sqlite3.Connection, st: dict, ch: dict, built: list[dict]) -> di
 
     return {
         "slug": "coverage",
+        "credit": MESA_CREDIT,
         "name": "What is in this feed and what is not",
         "h1": "Mesa code compliance: the ZIPs we hold and the ones without a page",
         "lede": (
@@ -547,6 +548,25 @@ def coverage(c: sqlite3.Connection, st: dict, ch: dict, built: list[dict]) -> di
 
 # --------------------------------------------------------------------------
 
+# Mesa asked to be named, in writing, on the portal that carries this data: "The
+# Licensed User agrees to list the City as the source for the Data or Derivative Work
+# on all products." We were naming "Mesa" as a place on every page and the City as the
+# source on none of them. Naming a city is not crediting a publisher.
+#
+# What this credit does NOT say: anything about what we are allowed to do with the
+# data. Mesa has published two instruments that point in opposite directions on
+# commercial use, and that question is open and recorded elsewhere. A credit is not a
+# permission note and must never be read as one -- it names who published the rows,
+# which is true either way and owed either way.
+MESA_CREDIT = [
+    "Every code-compliance case on this page was opened and published by the City of "
+    "Mesa, Arizona, not by us. We keep dated copies of the file the City puts out; the "
+    "case numbers, the status words and the addresses inside those rows are theirs.",
+    "The City asks anyone using this data to list the City as its source. So, plainly: "
+    "this page uses material published by the City of Mesa, Arizona.",
+]
+
+
 def slices() -> list[dict]:
     c = conn()
     try:
@@ -596,6 +616,7 @@ def slices() -> list[dict]:
                 "tables": tables,
                 "facts": zip_facts(w),
                 "limits": zip_limits(w, st),
+                "credit": MESA_CREDIT,
             })
         if not built:
             print("mesa-code: no ZIP cleared the floor; nothing published", file=sys.stderr)
