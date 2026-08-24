@@ -157,6 +157,16 @@ SOURCES: dict[str, tuple] = {
     # page is built to say so. Do not soften the cadence to make the alarm stop:
     # the alarm is correct and the page agrees with it.
     "fed-obligations": ("usaspending_obligations", "obligation", "snapshot_date", 1),
+    # Cadence 1 because the collector's timer fires once a day and that is the
+    # promise the page is held to. It is NOT the rhythm this reader has actually
+    # managed: it ran on 52 days and brought back nothing on 14 of them, with a
+    # twelve-day empty stretch to 23 Aug 2026. Do not soften the cadence to make
+    # that alarm quieter -- the alarm is right, and the page already says so in
+    # words. Freshness comes from MAX(snapshot_date) in nts, which is the table
+    # the property rows land in; collection_runs has rows for days that captured
+    # nothing at all, so dating the page from the run log would read as fresh on
+    # a day the reader came back empty. That is the dangerous way round.
+    "trustee-sales": ("distress_signals", "nts", "snapshot_date", 1),
 }
 
 # Families that read more than one list. The verdict is the WORST lane, so a
@@ -169,6 +179,33 @@ LANES: dict[str, tuple[Lane, ...]] = {
              "source_id = 'tceq_nsr_pending'", 1),
         Lane("the Arizona permits-in-progress list", "application", "snapshot_date",
              "source_id = 'adeq_pip_all'", 1),
+    ),
+    # Six interconnection queues in one table, and two of them are finished. The
+    # family page was the last thing in the estate that could not see it: with no
+    # lanes here, the whole family was measured as ONE list, `max(snapshot_date)`
+    # came back as today because four queues are still read every day, and the
+    # two dead ones sat behind them. That is the failure this file's docstring
+    # describes, on the page carrying the $99/mo button. Every child page already
+    # named ERCOT and MISO with their last dates; the parent said nothing and
+    # stamped today's date in its freshness tag.
+    #
+    # ERCOT and MISO are not late, they are STOPPED, and stopped on purpose:
+    # ERCOT's robots file disallows the paths its queue sits under, and MISO
+    # serves a browser only. Both decisions are written on the family page. The
+    # cadences below are the ones measured while each was still being read.
+    "grid": (
+        Lane("the CAISO queue", "project_snapshots", "snapshot_date",
+             "iso = 'caiso'", 1),
+        Lane("the ERCOT queue", "project_snapshots", "snapshot_date",
+             "iso = 'ercot'", 7),
+        Lane("the ISO-NE queue", "project_snapshots", "snapshot_date",
+             "iso = 'isone'", 1),
+        Lane("the MISO queue", "project_snapshots", "snapshot_date",
+             "iso = 'miso'", 7),
+        Lane("the NYISO queue", "project_snapshots", "snapshot_date",
+             "iso = 'nyiso'", 1),
+        Lane("the SPP queue", "project_snapshots", "snapshot_date",
+             "iso = 'spp'", 1),
     ),
     # Same store, plus two more lists on their own rhythms.
     "dc-siting": (
@@ -190,6 +227,7 @@ LANES: dict[str, tuple[Lane, ...]] = {
 # Which store each lane family reads. Kept apart from SOURCES so no stale table
 # name can sit unused in a row nobody reads.
 LANE_STORES: dict[str, str] = {
+    "grid": "grid_queue",
     "air-permits": "dc_materialization",
     "dc-siting": "dc_materialization",
     "civic-agenda": "civic_agenda",
