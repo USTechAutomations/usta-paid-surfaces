@@ -28,6 +28,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import family_status  # noqa: E402
 from freshness import NEWEST_META, check_freshness  # noqa: E402
+from pipeline import build_veto  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
@@ -540,6 +541,28 @@ def check_one_home() -> None:
 
 def main() -> None:
     check_one_home()
+    # What we may not PUBLISH today, asked once, before anything is written.
+    #
+    # scripts/build_slices.py already asks this. It is not the same job. That
+    # file decides what is written to families/ on DISK; this file decides what
+    # goes on the SITE. A refused family keeps the pages it already had -- that
+    # is deliberate, deleting them is a decision about the estate and the writer
+    # is a writer -- and this loop then copied those very pages into dist/ and
+    # shipped them, price, pay button and all. That is how air-permits went out:
+    # the veto said "priced passes while lawful fails", the writer obeyed it to
+    # the letter, and a stranger could still buy the page it had refused to
+    # write. The refusal reached the folder and never reached the address.
+    #
+    # Same function the writer calls, so there is one answer and not two.
+    vetoed, estate_down = build_veto()
+    if estate_down:
+        fail(
+            f"{estate_down}\n"
+            "Nothing was written. The estate honesty gate has to pass before any page is "
+            "published, because publishing on top of a page that is already lying just "
+            "puts more of them on the site."
+        )
+    refused: list[str] = []
     if DIST.exists():
         shutil.rmtree(DIST)
     DIST.mkdir(parents=True)
@@ -573,6 +596,21 @@ def main() -> None:
         # a live $200-$450 page back beyond the reach of the price check and throws
         # away its terms, and dropping the extras line deletes the page itself.
         if fam.get("kind") == "build":
+            continue
+        # Refused, and refused all the way to the address. The family is left
+        # out of `built`, so write_retired() below gives every address it used
+        # to have a page that says plainly it has nothing to show and sells
+        # nothing, keeps answering, and stays out of the sitemap. That is the
+        # whole point of not stopping here: an exit code would abort the deploy,
+        # the deploy that aborts leaves the LAST image serving, and that image
+        # is the one with the pay button on it. Refusing loudly and shipping the
+        # rest is what actually takes the button off the internet.
+        if fid in vetoed:
+            for r in vetoed[fid]:
+                print(f"REFUSED  {fid}: {r['higher']} passes while {r['lower']} fails "
+                      f"-- {r['why']}", file=sys.stderr)
+                print(f"         {r['detail']}", file=sys.stderr)
+            refused.append(fid)
             continue
         src = ROOT / "families" / fid / "index.html"
         if not src.is_file():
@@ -664,6 +702,12 @@ def main() -> None:
         if not fam_dir.is_dir():
             continue
         fid = fam_dir.name
+        # A refused family's children are refused with it. This has to come
+        # before the parents check below, or the refusal would come back as
+        # "has child pages but no page of its own on the site", which names the
+        # wrong fault and stops the build.
+        if fid in vetoed:
+            continue
         slice_dirs = [d for d in sorted(fam_dir.iterdir()) if d.is_dir() and (d / "index.html").is_file()]
         if not slice_dirs:
             continue
@@ -739,6 +783,12 @@ def main() -> None:
               + ", ".join(retired))
     print(f"sitemap: {len(built)} addresses, {dated} carrying a real lastmod, "
           f"{len(built) - dated} deliberately without one")
+    if refused:
+        # Loud, and last, so it cannot be scrolled past. These families are not
+        # on the site tonight and their old addresses are answering as retired.
+        print(f"REFUSED and NOT published: {', '.join(refused)}. "
+              f"Run scripts/pipeline.py --veto <family> to read why. The fix is the "
+              f"page or the catalog row, never this check.", file=sys.stderr)
     if stopped:
         # Loud on purpose. Four feeds we take money for had a switched-off
         # reader on 2026-08-22 and nothing on the site said so.
