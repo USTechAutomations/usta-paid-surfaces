@@ -136,8 +136,8 @@ def permits() -> dict:
             '        <li><strong><a href="https://ustechautomations.com/permits/crawler-policy">Who is allowed '
             "to crawl the web</a></strong>"
             '<span class="sub">The free, public side of '
-            '<a href="../crawler/">AI-crawler policy changes</a>. It is refreshed less often than the '
-            "paid feed.</span></li>\n"
+            '<a href="../crawler/">AI-crawler policy changes</a>. The paid feed stopped '
+            "collecting on 24 Aug 2026; its archive to that day is still there.</span></li>\n"
             '        <li><strong><a href="https://ustechautomations.com/permits/datacenter">Datacenter buildout '
             "watch</a></strong>"
             '<span class="sub">The free side of <a href="../dc-siting/">Datacenter siting watch</a>.</span></li>\n'

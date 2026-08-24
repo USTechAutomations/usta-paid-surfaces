@@ -2,9 +2,14 @@
 """Slice pages for AI-crawler policy changes (/feeds/crawler/...).
 
 A site rewrites robots.txt whenever it likes and keeps no history of it. The
-file you fetch today is the only one there is. We save a dated copy of that file
-from a fixed panel of sites every day, so we hold what it said before and what it
-says now. The size of the panel is read from the data, never typed in here.
+file you fetch today is the only one there is. We saved a dated copy of that file
+from a fixed panel of sites every day up to COLLECTION_PAUSED_ON, so we hold what
+it said before and what it said then. The size of the panel is read from the
+data, never typed in here.
+
+Collection is PAUSED, not late: the panel itself was withdrawn (see the constant
+below). Nothing in this module may print a forward-looking promise about a daily
+read, and nothing here may invent a date for it starting again.
 
 Every row this module returns is read out of the saved copies themselves at call
 time. The rules are parsed out of the stored file bodies, not out of any verdict
@@ -40,6 +45,21 @@ FAMILY = "crawler"
 
 DB = "/home/gmullins/Claude CLI/clocks/closing_web/data/closing_web.db"
 CADENCE_DAYS = 1
+
+# The day collection stopped, and the only place that date is written. The panel
+# this feed reads is a list of domains that came from a source whose terms we
+# could not keep, the operator ordered it stripped, and no smaller cut of the
+# list existed -- so the whole panel went with it.
+#
+# This is a DELIBERATE pause and _late() below CANNOT SEE IT. _late() asks
+# whether our newest copy has gone stale, and on the day collection stops the
+# newest copy is today's, so every late-driven sentence on this page would still
+# have read "daily seals" while nothing was being collected. That is why the
+# pause is a constant and not a computed state.
+#
+# There is no restart date. Nothing in this file may invent one, and the words
+# below must never say or imply that the reading catches up.
+COLLECTION_PAUSED_ON = "2026-08-24"
 
 # The five-real-rows floor. A slice under this is dropped, never padded.
 MIN_ROWS = 5
@@ -233,6 +253,13 @@ def _read() -> dict:
         "select distinct snapshot_date from policy_snapshots order by snapshot_date")]
     runs = conn.execute("select count(*) from collection_runs").fetchone()[0]
     total_rows = conn.execute("select count(*) from policy_snapshots").fetchone()[0]
+    # Distinct sites over the WHOLE archive, not just the newest read. The pause
+    # paragraph says what the finished archive covers, and a buyer reading
+    # "100,000 sites" is owed the count across every day we hold, counted here
+    # rather than carried from the panel file -- the panel file is the input we
+    # no longer read, and a number taken from an input is not a number from data.
+    domains_ever = conn.execute(
+        "select count(distinct domain) from policy_snapshots").fetchone()[0]
     newest, oldest = run_dates[-1], run_dates[0]
 
     # What each site did on our newest read, counted in SQL.
@@ -428,6 +455,7 @@ def _read() -> dict:
         "run_dates": run_dates,
         "runs": runs,
         "total_rows": total_rows,
+        "domains_ever": domains_ever,
         "newest": newest,
         "oldest": oldest,
         "sites_read": sites_read,
@@ -498,6 +526,12 @@ def _base(name: str, slug: str, h1: str, lede: str, desc: str, row_count: int) -
         "tables": [],
         "facts": [],
         "limits": [],
+        # The three overrides that stop a child page promising a daily read.
+        # Set here rather than in each slice so a new slice cannot be added
+        # without them: every child of this family is a finished archive now.
+        "read_label": f"Every day, up to {_paused_day()}",
+        "read_phrase": _read_phrase(),
+        "paused_note": _pause_note(),
     }
 
 
@@ -509,6 +543,9 @@ def _window_words() -> str:
 def _limits(extra: list[str] | None = None) -> list[str]:
     d = _read()
     out = [
+        # First, because it is the thing that changes what every other line
+        # below is worth: this archive has an end date.
+        _pause_limit(),
         "We can only show a change between two of our own reads. A site that "
         "changed its file and changed it back between two of our reads did "
         "something we never saw, and it is not on this page.",
@@ -522,8 +559,6 @@ def _limits(extra: list[str] | None = None) -> list[str]:
         f"On our newest read, {d['status'].get(403, 0):,} sites refused us and "
         f"{d['status'].get(-1, 0):,} never answered. We do not know what their file "
         "said that day, and we do not guess.",
-        f"We read the {d['sites_read']:,} sites on one public list of the most-visited "
-        f"sites. A site that is not on that list cannot appear here.",
         f"Two kinds of change are left out rather than sold to you. "
         f"{d['cut_flapping']:,} came from sites whose file swings between an old and a "
         f"new version day to day, which is two of the site's servers disagreeing, not a "
@@ -708,13 +743,13 @@ def _coverage() -> dict:
         name="What is and is not in the crawler feed",
         slug="coverage",
         h1="What is and is not in the crawler feed",
-        lede=(f"Every day we ask {d['sites_read']:,} sites for four files and save what "
-              f"comes back. This page says how many answered, how many said there is no "
-              f"file, how many refused us, and what we leave out before anything is "
-              f"counted."),
-        desc=(f"How many of the {d['sites_read']:,} sites we read every day answer, "
-              f"refuse, or have no robots.txt at all, and what we leave out of the "
-              f"change file."),
+        lede=(f"Every day up to {_paused_day()} we asked {d['sites_read']:,} sites "
+              f"for four files and saved what came back. This page says how many "
+              f"answered, how many said there is no file, how many refused us, and what "
+              f"we leave out before anything is counted."),
+        desc=(f"How many of the {d['sites_read']:,} sites we read answered, refused "
+              f"or had no robots.txt, and what we leave out. Collection paused "
+              f"{_paused_day()}."),
         row_count=d["sites_read"],
     )
 
@@ -792,7 +827,8 @@ def _coverage() -> dict:
     sl["facts"] = [
         f"We hold {d['total_rows']:,} dated rows in all, from {d['runs']} sealed runs "
         f"between {_day(d['oldest'])} and {_day(d['newest'])}.",
-        f"We ask every site for four files each day. On {_day(d['newest'])} the number "
+        f"We asked every site for four files each day. On {_day(d['newest'])}, our "
+        f"last read, the number "
         f"that had one: " + ", ".join(
             f"{res_words.get(k, k)} {v:,}" for k, v in sorted(
                 d["per_resource"].items(), key=lambda kv: -(kv[1] or 0))) + ".",
@@ -893,6 +929,76 @@ def _late() -> bool:
     return _days_behind() > late_after(CADENCE_DAYS)
 
 
+def _paused_day() -> str:
+    """The day collection stopped, written the way every other date here is."""
+    return _day(COLLECTION_PAUSED_ON)
+
+
+def _archive_words() -> str:
+    """What we still hold, counted out of the archive rather than described.
+
+    Every figure is read from the stored copies at build time. A paused feed is
+    the moment a page is most tempted to quote a number somebody remembered.
+    """
+    d = _read()
+    return (f"{_n(d['total_rows'])} dated rows covering {_n(d['domains_ever'])} sites "
+            f"over {_n(len(d['run_dates']))} days, from {_day(d['oldest'])} to "
+            f"{_day(d['newest'])}")
+
+
+def _pause_words() -> str:
+    """The dated pause sentence, carrying the one phrase every watcher greps for.
+
+    PAUSED is freshness.PAUSED_PHRASE, imported and never retyped: the build
+    gate, the live probe and the family status page all search for that exact
+    string, so a hand-typed variant would leave a stopped feed looking fed to
+    all three of them.
+    """
+    return (f"<strong>{PAUSED}.</strong> The list of sites this feed reads was "
+            f"withdrawn on {_paused_day()} and is being replaced, so nothing new has "
+            f"been collected since that day. This is not a feed running late and it "
+            f"is not catching up. We have set no date for it starting again, and we "
+            f"are not going to guess at one.")
+
+
+def _pause_note() -> str:
+    """The pause as it reads once the archive itself has gone stale.
+
+    Passed to render_slice as paused_note. The default late paragraph ends
+    "until collection starts again", which is a promise we cannot keep here.
+    """
+    return (f"{_pause_words()} What we already hold is untouched and still available: "
+            f"{_archive_words()}.")
+
+
+def _pause_limit() -> str:
+    """The pause as one line in 'What this page cannot tell you'.
+
+    This absorbed the old "we read one public list of the most-visited sites"
+    limit rather than sitting above it. They are one fact now: the list that
+    decides which sites can appear here is the list that was withdrawn, and two
+    bullets saying that separately reads as a wall of caveats.
+    """
+    d = _read()
+    return (f"<strong>Nothing on this page is newer than {_day(d['newest'])}.</strong> "
+            f"We read the {d['sites_read']:,} sites on one public list of the "
+            f"most-visited sites, and a site that was never on that list cannot appear "
+            f"here. That list was withdrawn on {_paused_day()} and {PAUSED_PHRASE} "
+            f"while it is replaced, so what you are reading is a dated archive with an "
+            f"end, not a running feed.")
+
+
+def _read_phrase() -> str:
+    """Replaces 'We read this source every day.' in the freshness paragraph.
+
+    That sentence is written in the present tense and was false the moment
+    collection stopped. It is the one line every child page carries.
+    """
+    return (f"We read this source every day up to {_paused_day()}, and "
+            f"<strong>{PAUSED_PHRASE}</strong> since then with no date set for it "
+            f"to start again.")
+
+
 def _n(x: int) -> str:
     return f"{x:,}"
 
@@ -985,7 +1091,20 @@ def family_spec() -> dict:
             "saw, and while we are behind it is not a feed.</p>",
         )]
 
-    secs = stale_head + [
+    # ALWAYS FIRST, and always rendered. stale_head below only appears once
+    # the archive itself has gone stale, which is days away; this section is
+    # true from the day collection stopped, which is the day it matters.
+    pause_head = [section(
+        "Collection has paused",
+        f"Last sealed copy {_day(d['newest'])}",
+        f"      <p>{_pause_words()}</p>\n"
+        f"      <p><strong>What we already hold is untouched and still "
+        f"available:</strong> {_archive_words()}. Every row and every number on this "
+        f"page and its child pages is read out of that archive, so nothing below has "
+        f"changed and nothing below is going to move.</p>",
+    )]
+
+    secs = pause_head + stale_head + [
         section(
             "Public sample",
             f"{len(table_rows)} named sites \u00b7 {sites:,} sites changed their answer "
@@ -993,7 +1112,8 @@ def family_spec() -> dict:
             "      <p>A site rewrites <code>robots.txt</code> whenever it likes and keeps "
             "no history of it. The file you fetch today is the only one there is, so the "
             "rule that applied to your crawler last week is not recoverable from the "
-            "site. <strong>We save a copy of each file every day.</strong></p>\n"
+            f"site. <strong>We saved a copy of each file every day up to "
+            f"{_paused_day()}.</strong></p>\n"
             + table(
                 ["Site", "Crawler", "What the file said before", "What it says now",
                  "Between"],
@@ -1122,9 +1242,13 @@ def family_spec() -> dict:
         "pill_label": "Named sites on this page" if not late else _day(d["newest"]),
         "sample_dt": "Public sample" if not late else "Last sealed copy",
         "group": fam.get("group") or "Software and AI pages",
-        "cadence": "Daily seals" if not late else "Reading behind",
-        "cadence_long": ("Daily copies, changes file when something moves"
-                         if not late else "Daily copies, reading behind"),
+        # Both were driven by _late(), which cannot see a deliberate pause: on
+        # the day collection stopped the newest copy was still today's, so this
+        # page would have gone on printing "Daily seals" over a feed nobody was
+        # feeding. The pause is stated outright instead.
+        "cadence": f"Daily seals, paused {_paused_day()}",
+        "cadence_long": (f"Daily copies up to {_paused_day()}, paused since; "
+                         f"the archive to that day is still available"),
         "crumb": "AI-crawler policy changes",
         "h1": "AI-crawler policy changes",
         # One row, one price, every page in the family. Withdrawing the price in
@@ -1134,9 +1258,11 @@ def family_spec() -> dict:
         or "Publishers and the SEO and AI teams who need to know who got blocked",
         "desc": desc,
         "lede": (
-            "Sites rewrite <code>robots.txt</code> with no notice and keep no history. "
-            "<strong>We save a copy of every file every day, so you get the day a site "
-            "let a crawler in or shut one out.</strong>"
+            f"Sites rewrite <code>robots.txt</code> with no notice and keep no history. "
+            f"<strong>We saved a copy of every file every day up to {_paused_day()}, so "
+            f"you get the day a site let a crawler in or shut one out.</strong> "
+            f"Collection has paused since then; what we hold is dated and complete to "
+            f"that day."
         ),
         "subj": "AI-crawler%20policy%20changes%20%24175/mo",
         "contact_h2": _words(fam, "contact_h2"),
