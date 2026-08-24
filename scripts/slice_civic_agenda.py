@@ -214,19 +214,33 @@ def _read_rail(days, today=None, window: int = 14) -> str:
     return "Every day" if not missing else f"{have} of the last {window} days"
 
 
-def _newest_meeting(conn, source_id) -> str | None:
-    """The date of the latest meeting on the list, not the date we copied it.
+def _newest_meeting(conn, source_id, snapshot: str | None = None) -> str | None:
+    """The date of the latest meeting, not the date we copied the list.
 
-    These are two different dates and the page had them as one. Los Angeles
-    County's meeting list last had anything on it in our copy sealed 18 Aug
-    2026, and the latest meeting ON that list was 11 Aug 2026. The page said
-    "the newest meeting we hold is from 18 Aug 2026", which is our filing date
-    wearing a meeting's clothes -- it told a buyer there was a meeting that week
-    and there was not. event_date is the meeting; snapshot_date is us.
+    These are two different dates and the page had them as one. It said "the
+    newest meeting we hold is from 18 Aug 2026" about Los Angeles County, which
+    is our filing date wearing a meeting's clothes -- it told a buyer there was
+    a meeting that week and there was not. `event_date` is the meeting;
+    `snapshot_date` is us.
+
+    THREE dates, not two, and the first correction here only separated two of
+    them. Pass a snapshot and you get the latest meeting ON THAT COPY; leave it
+    out and you get the latest meeting we hold on ANY copy. For LA County those
+    are 4 Aug 2026 and 11 Aug 2026 -- a week apart, because the 11 Aug meeting
+    was on copies we took on 6 and 7 Aug and had dropped off the list by the
+    time we sealed the 18 Aug one. A sentence that says "on that copy" has to
+    be given that copy, or it quietly answers the wider question and reads a
+    week fresher than the truth.
     """
-    row = conn.execute(
-        "SELECT MAX(event_date) FROM events WHERE source_id = ?", (source_id,)
-    ).fetchone()
+    if snapshot is None:
+        row = conn.execute(
+            "SELECT MAX(event_date) FROM events WHERE source_id = ?", (source_id,)
+        ).fetchone()
+    else:
+        row = conn.execute(
+            "SELECT MAX(event_date) FROM events WHERE source_id = ? AND "
+            "snapshot_date = ?", (source_id, snapshot)
+        ).fetchone()
     return row[0][:10] if row and row[0] else None
 
 
@@ -998,13 +1012,19 @@ def _gov_slice(conn, slug, source_id, name, longname, today) -> dict | None:
         # Two dates, said separately, because they are two facts. The last
         # copy that had any meeting on it is ours; the latest meeting on it is
         # theirs. Collapsing them printed our filing date as a meeting date.
-        meeting_newest = _newest_meeting(conn, source_id)
+        # Two separate questions, asked separately. "On that copy" is the copy
+        # named in the same sentence; "on any copy" is the whole archive.
+        meeting_on_copy = _newest_meeting(conn, source_id, ev_days[-1])
+        meeting_ever = _newest_meeting(conn, source_id)
         still = (
             f" Its meeting list has come back with nothing in that window on every read since "
             f"{_day(days[days.index(ev_days[-1]) + 1])}. The last copy of it that had anything on "
             f"it at all is ours from {_day(ev_days[-1])}"
-            + (f", and the latest meeting on that copy is {_day(meeting_newest)}"
-               if meeting_newest else "")
+            + (f", and the latest meeting on that copy is {_day(meeting_on_copy)}"
+               if meeting_on_copy else "")
+            + (f". The latest meeting we hold on any copy is "
+               f"{_day(meeting_ever)}"
+               if meeting_ever and meeting_ever != meeting_on_copy else "")
             + f". Its agenda items are current to {_day(newest)}."
             if ev_days[-1] != newest
             else " The newest read did have meetings in it."
@@ -1099,8 +1119,13 @@ def _gov_slice(conn, slug, source_id, name, longname, today) -> dict | None:
         "_split_file": split_file,
         "_items_held": mt_rows[1],
         "_event_newest": ev_days[-1] if ev_days else None,
-        # The meeting, as opposed to the day we filed a copy of the list.
+        # The meeting, as opposed to the day we filed a copy of the list. Two
+        # of them: the latest meeting on the last copy that had anything on it,
+        # and the latest meeting anywhere in the archive. They are not the same
+        # date and a sentence saying "on that copy" needs the first one.
         "_meeting_newest": _newest_meeting(conn, source_id),
+        "_meeting_on_copy": (
+            _newest_meeting(conn, source_id, ev_days[-1]) if ev_days else None),
         "_event_blank": len(days) - len(ev_days),
         "_blank_phrase": f"{name} on {len(days) - len(ev_days)} of {len(days)}",
         "_seal_days": len(days),
@@ -1187,6 +1212,27 @@ def _fam_cadence_long() -> str:
     return f"Sealed on {have} of the last 14 days, and every gap is named below"
 
 
+def _fam_cadence_short() -> str:
+    """The eyebrow at the very top of the family page, counted not promised.
+
+    It read "sealed most days", three words above a rail that already said
+    "Sealed on 7 of the last 14 days" and a body that names all twelve missed
+    dates. Seven of fourteen is not most of them. The body was right and the
+    strapline was loose, and a reader who only skims the top of a page carrying
+    a price would have taken away the wrong number, so the top now counts the
+    same days the middle counts, off the same sealed dates.
+    """
+    conn = _connect()
+    try:
+        health = _run_health(conn)
+    finally:
+        conn.close()
+    have, missing = _recent_reads(health["dates"])
+    if not missing:
+        return "sealed every one of the last 14 days"
+    return f"sealed {have} of the last 14 days"
+
+
 def _missed_sentence(health) -> str:
     """Name the days we did not read, in plain words, without a running total."""
     long = health["longest"]
@@ -1218,7 +1264,7 @@ def _coverage_slice(conn, govs, today) -> dict:
         oldest_all = min(oldest_all or g["oldest"], g["oldest"])
         note = "current" if (today - date.fromisoformat(g["newest"])).days <= 2 else "behind"
         if g["_event_newest"] and g["_event_newest"] != g["newest"]:
-            note = (f"latest meeting {_day(g['_meeting_newest'])}; list empty since "
+            note = (f"latest meeting on any copy {_day(g['_meeting_newest'])}; list empty since "
                     f"our {_day(g['_event_newest'])} copy"
                     if g["_meeting_newest"]
                     else f"list empty since our {_day(g['_event_newest'])} copy")
@@ -1723,7 +1769,11 @@ def family_spec() -> dict:
                 f"error and its agenda items are current to {_day(g['newest'])}, but its meeting "
                 f"list has come back empty on every read since {_day(g['_event_empty_from'])}. "
                 f"The last copy with anything on it is ours from {_day(g['_event_newest'])}, and "
-                f"the latest meeting on that copy is {_day(g['_meeting_newest'])}.</p>\n"
+                f"the latest meeting on that copy is {_day(g['_meeting_on_copy'])}"
+                + (f", while the latest meeting we hold on any copy is "
+                   f"{_day(g['_meeting_newest'])}"
+                   if g['_meeting_newest'] != g['_meeting_on_copy'] else "")
+                + ".</p>\n"
                 for g in empty
             )
             + f"        <p><strong>We do not read every single day, and here is where we did "
@@ -1809,7 +1859,7 @@ def family_spec() -> dict:
         "id": FAMILY,
         "ready": True,
         "group": "Local government records",
-        "cadence": "sealed most days",
+        "cadence": _fam_cadence_short(),
         "cadence_long": _fam_cadence_long(),
         "crumb": "City and county agendas",
         "h1": "City and county agenda changes",

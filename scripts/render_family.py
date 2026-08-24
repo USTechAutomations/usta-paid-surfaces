@@ -51,6 +51,30 @@ SAMPLE_WITHHELD = {
 # What a datacenter is called in a permit file, in the spellings we have seen.
 DC_WORDS = ("datacenter", "data center", "data centre", "hyperscale")
 
+# The withheld note above quotes the size of a file we have decided not to
+# publish. It used to get that size by reading families/<id>/sample.csv off the
+# disk, which meant the only way to keep the sentence true was to leave the file
+# sitting at a public address the same paragraph tells the reader is not there.
+# Both of those cannot be right at once, and the file is the half that was
+# wrong: it answered 200 to anyone who guessed the address.
+#
+# So the shape is handed over in memory instead, by the same run that decided
+# not to write the file, taken from the same rows it would have written. This is
+# not the page trusting an assertion -- nothing sets it except write_sample(),
+# from real rows, in this process. Nothing is carried over from an earlier run:
+# a run that never reaches this family registers no shape, and then the note is
+# not printed rather than printed with a number nobody counted.
+_WITHHELD_SHAPE: dict[str, tuple[int, int]] = {}
+
+
+def record_withheld_shape(fid: str, rows: int, cols: int) -> None:
+    """Record the shape of the sample we are deliberately not publishing."""
+    _WITHHELD_SHAPE[fid] = (rows, cols)
+
+
+def withheld_shape(fid: str) -> tuple[int, int] | None:
+    return _WITHHELD_SHAPE.get(fid)
+
 
 def check_withheld(fid: str, headers: list[str], rows: list[list[str]]) -> None:
     """Refuse to keep printing the withheld note once it stops being true.
@@ -348,10 +372,14 @@ def sample_door(spec: dict) -> str:
         return ""
     withheld = SAMPLE_WITHHELD.get(fid)
     if withheld:
-        got = sample_facts(fid)
+        # The registry first, because on a withheld family the file is not
+        # supposed to exist; the disk read is the fallback for a module run by
+        # hand outside the builder, and it will find nothing once the builder
+        # has swept the stale copy away.
+        got = withheld_shape(fid) or sample_facts(fid)
         if not got:
-            # No file to describe, so there is nothing to withhold and nothing
-            # honest to say about it.
+            # Nothing counted this run, so there is no shape to describe and
+            # nothing honest to say about it.
             return ""
         return (
             '    <section class="contact">\n'

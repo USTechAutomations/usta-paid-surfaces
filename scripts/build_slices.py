@@ -48,7 +48,9 @@ sys.path.insert(0, str(HERE))
 from freshness import late_after  # noqa: E402
 from merge_catalog_adds import family_rows  # noqa: E402
 from pipeline import build_veto  # noqa: E402
+from render_family import SAMPLE_WITHHELD  # noqa: E402
 from render_family import check_withheld  # noqa: E402
+from render_family import record_withheld_shape  # noqa: E402
 from render_family import write as write_family  # noqa: E402
 from render_slice import write as write_slice  # noqa: E402
 
@@ -256,13 +258,24 @@ def sweep(fid: str, keep: set[str]) -> list[str]:
 def write_sample(fid: str, sample: tuple) -> None:
     """The two permanent sample addresses: sample.csv and sample.json.
 
-    This is called BEFORE the pages of that family are rendered, and the order
-    is load-bearing. render_family.sample_door() counts the rows and columns of
+    This is called BEFORE any page of that family is rendered -- the family page
+    included, on the same footing as the children -- and the order is
+    load-bearing. render_family.sample_door() counts the rows and columns of
     sample.csv off the disk at render time so the page can never assert a shape
     the file does not have. Write the file second and every page in the run
     describes the PREVIOUS run's file: on 2026-08-22 the civic-agenda pages went
     out saying "all 6 of its columns" over a link to a nine-column file, and
-    they would have corrected themselves only on the next build.
+    they would have corrected themselves only on the next build. The family page
+    was worse than that, because it was rendered before the sample existed at
+    all: trustee-sales shipped its first build with no sample link, and grew one
+    on the next run without anybody changing a line.
+
+    A family the catalog has not cleared, or one whose page says in words why it
+    is holding the file back, gets NO file written and any file an earlier build
+    left behind is removed. The page's own words are the promise. A file sitting
+    at a public address that the page in front of it says is not there is a
+    broken promise in the other direction, and it is the worse direction,
+    because the reader who finds it was never told what is wrong with it.
     """
     fam_dir = FAMILIES / fid
     fam_dir.mkdir(parents=True, exist_ok=True)
@@ -276,6 +289,23 @@ def write_sample(fid: str, sample: tuple) -> None:
     # A family whose page says "we are not linking this file, and here is why"
     # has that reason checked against the file every single build.
     check_withheld(fid, headers, rows)
+    withheld = fid in SAMPLE_WITHHELD
+    cleared = family_rows().get(fid, {}).get("sample_status") == "pass"
+    if withheld or not cleared:
+        if withheld:
+            # The note on the page quotes this shape. It is counted here, off
+            # the rows we just built and then chose not to publish, and handed
+            # to the renderer in memory so the sentence stays true without a
+            # file behind it. See record_withheld_shape().
+            record_withheld_shape(fid, len(rows), len(headers))
+        left_behind = [n for n in ("sample.json", "sample.csv")
+                       if (fam_dir / n).is_file()]
+        for name in left_behind:
+            (fam_dir / name).unlink()
+        why = "its page says why it is held back" if withheld else "the catalog has not cleared it"
+        note = f"; removed {len(left_behind)} stale file(s)" if left_behind else ""
+        print(f"{fid:16} {'sample':22} WITHHELD {why}{note}")
+        return
     (fam_dir / "sample.json").write_text(
         json.dumps(
             {
@@ -385,28 +415,6 @@ def main() -> None:
             print(f"{fid:16} {'*':22} SKIPPED  family is parked; we cannot collect it at all")
             skipped_n += 1
             continue
-        # Five families draw their own parent page from the same live read as
-        # their children, through family_spec(). Nothing in the build chain used
-        # to run that -- only the module by hand -- so those five parents held
-        # whatever numbers were true the last time someone remembered, and a
-        # hand correction to one of them was silently thrown away the next time
-        # its module was run. Both failures are the same bug: the page and the
-        # module were allowed to disagree. Rebuilding them here means the parent
-        # is as fresh as the children under it, every run.
-        if hasattr(mod, "family_spec"):
-            try:
-                write_family(mod.family_spec())
-            except Exception as e:
-                print(
-                    f"SLICE BUILD FAIL: {mod.__name__}.family_spec() raised: {e!r}",
-                    file=sys.stderr,
-                )
-                raise
-        if not (FAMILIES / fid / "index.html").is_file():
-            fail(
-                f"{fid} has slices but no family page at families/{fid}/index.html. "
-                "A child page with no parent is unreachable; build the family page first."
-            )
         try:
             got = mod.slices()
         except Exception as e:
@@ -433,9 +441,10 @@ def main() -> None:
             seen.add(slug)
             accepted.append((spec, shown))
 
-        # The sample file goes to disk BEFORE any page that links to it, because
-        # the page counts that file's rows and columns as it renders. See the
-        # note on write_sample().
+        # The sample file is settled BEFORE any page of this family is
+        # rendered -- the parent page as well as the children -- because every
+        # one of them counts that file's rows and columns off the disk as it
+        # renders, and the parent used to render first. See write_sample().
         if hasattr(mod, "sample") and fid not in samples:
             s = mod.sample()
             if s:
@@ -448,6 +457,31 @@ def main() -> None:
         if fid in samples:
             write_sample(fid, samples[fid])
 
+        # Five families draw their own parent page from the same live read as
+        # their children, through family_spec(). Nothing in the build chain used
+        # to run that -- only the module by hand -- so those five parents held
+        # whatever numbers were true the last time someone remembered, and a
+        # hand correction to one of them was silently thrown away the next time
+        # its module was run. Both failures are the same bug: the page and the
+        # module were allowed to disagree. Rebuilding them here means the parent
+        # is as fresh as the children under it, every run. It renders after
+        # the sample is settled, for the reason on write_sample(): rendering it
+        # first made the sample link on a brand new family a coin flip, decided
+        # by whether an earlier run happened to have left the file there.
+        if hasattr(mod, "family_spec"):
+            try:
+                write_family(mod.family_spec())
+            except Exception as e:
+                print(
+                    f"SLICE BUILD FAIL: {mod.__name__}.family_spec() raised: {e!r}",
+                    file=sys.stderr,
+                )
+                raise
+        if not (FAMILIES / fid / "index.html").is_file():
+            fail(
+                f"{fid} has slices but no family page at families/{fid}/index.html. "
+                "A child page with no parent is unreachable; build the family page first."
+            )
         for spec, shown in accepted:
             write_slice(fam, spec, today)
             by_family.setdefault(fid, []).append(spec)

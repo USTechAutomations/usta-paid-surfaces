@@ -24,6 +24,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import gap_days  # noqa: E402
 from freshness import PAUSED_PHRASE, late_after  # noqa: E402
 from merge_catalog_adds import family_rows  # noqa: E402
 from render_family import section, table  # noqa: E402
@@ -117,21 +118,19 @@ def _missing_days(dates: list[str]) -> list[str]:
     of it. Six days in the middle have no row in the data table and no row in the
     run log either. A date range cannot see a hole in itself, so the hole is
     counted here and named on the page.
+
+    The counting lives in gap_days.py, shared with new-entities. It used to be
+    written out twice, and the two copies had quietly grown apart: one of them
+    said a run of consecutive missing days as a stretch and the other listed
+    every date flat, so the same shape of hole read as two different things
+    depending on which page you were on.
     """
-    first = dt.date.fromisoformat(dates[0])
-    last = dt.date.fromisoformat(dates[-1])
-    have = {dt.date.fromisoformat(d) for d in dates}
-    return [(first + dt.timedelta(days=i)).isoformat()
-            for i in range((last - first).days + 1)
-            if first + dt.timedelta(days=i) not in have]
+    return gap_days.missing_days(dates)
 
 
 def _day_list(days: list[str]) -> str:
-    """Name the days in a short list, with the year said once at the end."""
-    named = [_short_day(d) for d in days[:-1]] + [_day(days[-1])]
-    if len(named) == 1:
-        return named[0]
-    return ", ".join(named[:-1]) + " and " + named[-1]
+    """Name the days, with a run of two or more said as a stretch and the year last."""
+    return gap_days.name_gaps(days, _day, _short_day)
 
 
 def _parse_robots(body: str) -> dict[str, list] | None:
@@ -901,9 +900,7 @@ def _n(x: int) -> str:
 def _span_days() -> int:
     """Calendar days from our oldest copy to our newest, both ends counted."""
     d = _read()
-    first = dt.date.fromisoformat(d["oldest"])
-    last = dt.date.fromisoformat(d["newest"])
-    return (last - first).days + 1
+    return gap_days.span_days([d["oldest"], d["newest"]])
 
 
 def _gap_words() -> str:

@@ -643,6 +643,66 @@ def _slice_cadence(isos: list[str], state: str | None = None) -> int:
     return max(_iso_cadence(i) for i in holding)
 
 
+def _slice_cadence_long(isos: list[str], state: str | None = None) -> str:
+    """The pay-box line for ONE page, measured off that page's own operators.
+
+    The pay box sits directly above the Subscribe button and used to carry a
+    single family-wide sentence -- "near-daily seals on the four queues we still
+    read" -- printed identically on all 27 child pages. On the 14 pages built on
+    MISO and ERCOT that contradicted the three other places on the same page: the
+    sidebar said "About every week", the terms under the button said "about every
+    7 days", and the machine-readable stamp said 7. Three said weekly and the pay
+    box said near-daily, and the pay box is the line a buyer reads with their
+    card out.
+
+    The cause was one string doing duty for pages built on different operators
+    read at different rates. So the sentence is built here from the same two
+    things the sidebar and the stamp are built from -- this page's own operator
+    list and its own measured cadence -- which is what stops the four of them
+    disagreeing again. Nothing here is typed in: the rate comes from
+    _slice_cadence() and which operators have stopped comes from _has_stopped().
+    """
+    live = [i for i in isos if not _has_stopped(i)]
+    dead = [i for i in isos if _has_stopped(i)]
+    days = _slice_cadence(isos, state)
+    if not live:
+        newest = max(_load()["dates"][i][-1] for i in isos)
+        return (f"a closed set of dated copies to {_day(newest)}, "
+                f"not being added to")
+    if days <= 1:
+        line = "a new sealed copy every day"
+    elif days <= 2:
+        line = "a new sealed copy most days"
+    else:
+        line = f"a new sealed copy about every {days} days"
+    # Deliberately NOT "every day, on SPP". _slice_cadence() measures how often
+    # the date at the top of THIS page can move, which is set by the slowest
+    # operator big enough to set it -- on the Texas page that is MISO, which has
+    # stopped, while SPP underneath it is still read daily. Hanging the rate on
+    # the operators that are still live would say SPP is weekly, which it is
+    # not. The rate is the page's; the names below are only the ones that
+    # stopped, which is a fact about those operators and safe to attribute.
+    if dead:
+        # Each stopped operator gets its own date. Taking the newest of them and
+        # writing "ERCOT and MISO stopped and our last copy is 6 Aug 2026" says
+        # ERCOT ran to 6 Aug; it ran to 30 Jul, and the paragraph under the
+        # button on the same page says so. One date over two operators is the
+        # same shape of fault as one cadence over 27 pages.
+        dates = _load()["dates"]
+        parts = [f"{OPERATORS[i][0]} to {_day(dates[i][-1])}" for i in sorted(
+            dead, key=lambda i: dates[i][-1])]
+        line += f"; stopped and not being added to: {_names_raw(parts)}"
+    return line
+
+
+def _names_raw(items: list[str]) -> str:
+    """A, B and C, for strings that are already written out."""
+    if len(items) == 1:
+        return items[0]
+    return ", ".join(items[:-1]) + " and " + items[-1]
+
+
+
 def _stopped_days(iso: str) -> int:
     """How far this operator's last copy sits behind the rest of the feed.
 
@@ -1384,6 +1444,7 @@ def _operator_slice(iso: str) -> dict | None:
         "oldest": oldest,
         "runs": copies,
         "cadence_days": _iso_cadence(iso),
+        "cadence_long": _slice_cadence_long([iso]),
         "row_count": rows,
         "tables": tables,
         "facts": facts,
@@ -1513,6 +1574,7 @@ def _state_slice(code: str) -> dict | None:
         "oldest": oldest,
         "runs": copies,
         "cadence_days": _slice_cadence(isos, code),
+        "cadence_long": _slice_cadence_long(isos, code),
         "paused_note": _mixed_paused_note(isos, code, reported),
         "row_count": rows,
         "tables": tables,
@@ -1688,6 +1750,7 @@ def _coverage_slice() -> dict | None:
         "oldest": oldest,
         "runs": copies,
         "cadence_days": _slice_cadence(isos),
+        "cadence_long": _slice_cadence_long(isos),
         "paused_note": _mixed_paused_note(isos, None, reported),
         "row_count": rows,
         "tables": tables,

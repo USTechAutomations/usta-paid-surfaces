@@ -121,23 +121,14 @@
       "name": "AI list-price window",
       "buyer": "AI vendors and researchers",
       "cadence": "daily seals",
-      "price": "$175/mo",
+      "price": "Not for sale yet",
       "sample_status": "pass",
       "live": "",
-      "note": "Price held at $175/mo, 2026-08-22. 64 sealed dates from 2026-06-11 to 2026-08-22 in model_prices, median gap 1 day. Needs a worked example naming one model whose price moved, and wiring into scripts/family_status.py.",
+      "note": "OFF SALE 2026-08-24. This is a permission decision, not a data-quality one: the feed itself is healthy (64 sealed dates 2026-06-11 to 2026-08-22, median gap 1 day).\nWHY: every published price on this feed comes from ONE source, the openrouter model list. That publisher's written Terms of Service, at https://openrouter.ai/terms, Last Updated 2026-07-29, read live on 2026-08-24 by two readers independently, forbid the exact thing this collector does: \"develop, support or use software, devices, scripts, robots or any other means or processes (such as crawlers, browser plugins, add-ons or any other automated technology) to scrape or copy any information on the Site or the Services\". The same list also forbids access \"for purposes of reselling API access to Models or otherwise developing a competing service\". Their own opening paragraph puts the address we call inside \"the Service\". Verdict: REFUSAL. Three verdicts were available and this is not the unknown one.\nTHE ROBOTS FILE DOES NOT SAVE THIS AND THIS ROW MUST NEVER SAY IT DOES. Their machine rules file says Allow: / . A rules file is about traffic, not rights, and it never overrides written terms.\nWE HAD NEVER READ THOSE TERMS. Not once. The collector holds no terms file, no licence file and no permission note, and its own method write-up mentions permission, terms, licence, copyright and resale zero times. The refusal was found on 2026-08-24, not breached knowingly.\nNOTHING WAS DESTROYED IN STRIPE. The payment link, its price and its product are all still active. Find it by its stamp, never mint a second one:\n  link  https://buy.stripe.com/7sY9AM14O0a6afOdTA0sU0N\n  stamp feeds_family=ai-prices\nANYONE HOLDING THAT ADDRESS CAN STILL START A $175/MO SUBSCRIPTION. Switching it off is an operator decision and has not been taken.\nSEPARATE AND STILL OPEN, do not fold these into the above: (1) the collector still fetches the OpenAI, Anthropic and Mistral price pages that our own 2026-08-11 review PARKED, newest copy 2026-08-24, and we hold 66 saved full copies of each; (2) it sends a Chrome-on-Linux browser signature instead of our own bot name on every fetch, which is the same fault we stopped a different source for on 2026-08-07; (3) the Groq address now forwards to a home page and may be being sealed as a price page.\nTO SELL THIS AGAIN: obtain written permission from the publisher, or rebuild the feed on a source that grants reuse. Fixing the wording does not fix this one.",
       "group": "Software and AI pages",
       "short": "AI list-price window",
       "who": "AI vendors and researchers.",
-      "checkout": {
-        "terms": "$175 a month, billed monthly. Cancel any month by email, with no account to close and no notice period.",
-        "after": "After you pay, a person emails you every sealed day in the window as a CSV within one working day. How often a new one follows is agreed in that same thread.",
-        "status": "live",
-        "url": "https://buy.stripe.com/7sY9AM14O0a6afOdTA0sU0N",
-        "lands_on": "buy.stripe.com",
-        "label": "Subscribe — $175 a month",
-        "checked": "2026-08-23",
-        "verified": "2026-08-23"
-      }
+      "checkout": {}
     },
     {
       "id": "permit-metros",

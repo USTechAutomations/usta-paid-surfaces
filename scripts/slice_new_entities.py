@@ -26,6 +26,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import gap_days  # noqa: E402
 import privacy  # noqa: E402
 
 FAMILY = "new-entities"
@@ -260,16 +261,13 @@ def _and(words: list[str]) -> str:
 
 
 def _runs_of(days: list[str]) -> list[list[str]]:
-    """Consecutive days grouped, so a week-long hole reads as a week, not seven dates."""
-    import datetime as _dt
-    out: list[list[str]] = []
-    for d in days:
-        if out and (_dt.date.fromisoformat(d)
-                    - _dt.date.fromisoformat(out[-1][-1])).days == 1:
-            out[-1].append(d)
-        else:
-            out.append([d])
-    return out
+    """Consecutive days grouped, so a week-long hole reads as a week, not seven dates.
+
+    The grouping moved to gap_days.py so crawler counts its holes the same way
+    this page does. It had its own copy, written separately, and the two had
+    grown apart without either being wrong.
+    """
+    return gap_days.runs_of(days)
 
 
 def _gap_limit(c: sqlite3.Connection, juris: str | None = None) -> str:
@@ -280,7 +278,6 @@ def _gap_limit(c: sqlite3.Connection, juris: str | None = None) -> str:
     to tell nobody registered from we were not looking. Every one of those days
     is named here.
     """
-    import datetime as _dt
     where = "WHERE jurisdiction=?" if juris else ""
     args = (juris,) if juris else ()
     got = sorted(x[0] for x in _q(
@@ -289,11 +286,8 @@ def _gap_limit(c: sqlite3.Connection, juris: str | None = None) -> str:
     if not got:
         return ("No file has come back with rows in it yet, so there is nothing on this page "
                 "we can date.")
-    start, end = _dt.date.fromisoformat(got[0]), _dt.date.fromisoformat(got[-1])
-    span = (end - start).days + 1
-    have = set(got)
-    missing = [(start + _dt.timedelta(days=i)).isoformat() for i in range(span)
-               if (start + _dt.timedelta(days=i)).isoformat() not in have]
+    span = gap_days.span_days(got)
+    missing = gap_days.missing_days(got)
     if not missing:
         return (f"A file came back on every one of the {span} days between {_d(got[0])} and "
                 f"{_d(got[-1])}. There is no gap in this window to warn you about.")

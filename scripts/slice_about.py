@@ -179,6 +179,39 @@ STOP_REASONS = (
      "no reason to keep re-reading them now."),
 )
 
+# Six readers whose recorded stop reason turned out to be false.
+#
+# On 21 Aug 2026 nineteen readers were switched off, and one line -- "publisher
+# already keeps a free archive" -- was written into every one of the decisions.
+# Nobody checked it in either direction before it was written. It was checked on
+# 24 Aug 2026 by fetching all nineteen publishers: nine keep a free archive and
+# the sentence is true of them, one has no publisher at all, and for these six it
+# is false. We are telling strangers that six organisations publish free archives
+# they do not publish, which is a claim about somebody else, on a public page,
+# with a date on it.
+#
+# So these six say what we know and stop there. Not deleted -- a page whose whole
+# job is to name what we do not collect must not quietly lose six rows. Not given
+# a replacement reason either: we know the old one was wrong and we do not know
+# what the right one is, and the operator has not decided whether any of them go
+# back on. Writing a fresh confident sentence over a disproved one is how the
+# first sentence got there.
+#
+# NOT a decision record. Nothing here changes a collector's state, and no new
+# stop decision is written from this file -- the dated decisions under
+# clocks/monitor/stop_decisions belong to the operator and this only changes what
+# the page says about them.
+REASON_DISPROVED_ON = "2026-08-24"
+DISPROVED_MARKER = "publisher already keeps a free archive"
+REASON_DISPROVED = frozenset({
+    "epa_envirofacts",
+    "fda_enforcement",
+    "nvd_kev",
+    "usaspending_agencies",
+    "usaspending_obligations",
+    "spend_restate",
+})
+
 # The Arizona checks, said plainly. The exact note we wrote on the day sits
 # underneath each one, so a lawyer reads our working and not our summary of it.
 AZ_PLAIN = {
@@ -380,6 +413,45 @@ def stop_reason(rec: dict) -> str:
             return words
     first = basis.split(". ")[0].strip()
     return (first + ".") if first and not first.endswith(".") else (first or "No reason recorded.")
+
+
+def reason_disproved(rec: dict) -> bool:
+    """Is this one of the six whose recorded reason failed checking?
+
+    Keyed on BOTH the reader and the exact wording that was disproved, so the
+    override cannot outlive the thing it is correcting. If the operator records
+    a new decision for one of these -- relighting it, or writing a reason that
+    holds -- the recorded basis stops carrying that phrase and this returns
+    False from that build onward, without anyone having to remember to come back
+    and delete a name from a list.
+    """
+    return (rec.get("clock_id") in REASON_DISPROVED
+            and DISPROVED_MARKER in rec.get("basis", ""))
+
+
+def stop_reason_cell(rec: dict) -> str:
+    """The reason column for one stopped reader, as HTML.
+
+    Almost every row is one escaped sentence. The six whose reason did not
+    survive checking get two lines instead: what we can say, and then the part
+    we do not know. There was no shape on this page for "we are not sure" and
+    these six are the case that earns one -- the alternative is either deleting
+    the rows, which hides six readers a stranger has no other way to hear about,
+    or writing a new confident sentence to replace a disproved one, which is the
+    original mistake again at speed.
+    """
+    if not reason_disproved(rec):
+        return esc(stop_reason(rec))
+    return (
+        f'<strong>The reason we wrote down did not hold up.</strong>'
+        f'<span class="sub">We stopped taking copies of this on '
+        f'{esc(day(rec["decided_on"]))} and the reason we recorded was that the '
+        f'publisher already keeps a free archive of it. We checked that on '
+        f'{esc(day(REASON_DISPROVED_ON))} by going to the publisher, and it is '
+        f'not true of this source. We have not put another reason in its place, '
+        f'because we do not have one we have checked. Collection is still off '
+        f'and whether it starts again has not been decided.</span>'
+    )
 
 
 def families() -> dict[str, dict]:
@@ -673,7 +745,7 @@ def refusals(today: dt.date) -> dict:
             f'<span class="sub">{esc(blurbs.get(clock, "A reader we run."))}</span>',
             esc(day(rec["decided_on"])),
             last,
-            esc(stop_reason(rec)),
+            stop_reason_cell(rec),
         ))
 
     review = read_json(REFUSAL_REVIEW)

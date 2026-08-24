@@ -197,7 +197,12 @@ def offer_spec(fam: dict, spec: dict) -> dict:
         "id": fam["id"],
         "price": price,
         "checkout": checkout,
-        "cadence_long": fam.get("cadence_long") or fam["cadence"],
+        # A slice may override this. The family line is one sentence for every
+        # child page, and a family whose children are built on sources read at
+        # different rates cannot be described by one. Where a slice measures its
+        # own, that is the truer answer and it wins.
+        "cadence_long": (spec.get("cadence_long")
+                         or fam.get("cadence_long") or fam["cadence"]),
         "subj": urllib.parse.quote(subject),
         "contact_h2": fam.get("contact_h2") or (
             "Subscribe to this feed" if checkout else "Start the thread"
