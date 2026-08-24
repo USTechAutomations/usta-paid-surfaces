@@ -467,6 +467,24 @@
         "status": "none",
         "note": "No Stripe link. This record is the written terms of a product sold through an email thread, and the page prints them. verify_checkouts.py skips a record with no url; check_site.py still refuses any pay link on a page whose record has none. The terms deliberately state no refund and no money-back remedy, because this estate has never published one and inventing a money promise is the operator's call, not a writer's. DECIDED 2026-08-24: stays on email, and this is a settled answer rather than an unfinished one. $200 to $450 is a range across 11 different builds: 8 are paid once and 3 are monthly, and each states its own scope and its own delivery window. One payment link cannot carry that. Averaging it, rounding it or minting one end of it would put a number on the page that no buyer is actually agreeing to."
       }
+    },
+    {
+      "id": "fed-obligations",
+      "name": "Federal agency obligation changes",
+      "short": "Federal agency obligation changes",
+      "buyer": "Federal contractor capture teams, grant offices, and budget reporters",
+      "who": "Federal contractor capture teams, grant offices, and budget reporters who need what an agency's figure said on a date, not only what it says today.",
+      "group": "Other dated records",
+      "cadence": "daily seals, now stopped",
+      "cadence_long": "Dated copies of a list we are not reading at the moment.",
+      "price": "Not for sale yet",
+      "sample_status": "pass",
+      "note": "NOT SELLABLE, decided 2026-08-24, and the reason is the calendar rather than the data. We hold 3 sealed days, 2026-08-19 to 2026-08-21, of the 18 largest federal agencies' obligations split six ways for the current and prior budget year: 648 rows. Inside those 3 days, 15 figures for the CLOSED budget year FY2025 moved, across 8 agencies, the largest being Agriculture's grants total at +$307,331,095.48 and the smallest two dollars. That is the product premise and it is counted, not asserted. What blocks a price is that the collector was switched off on 2026-08-21 by a dated decision (~/Claude CLI/clocks/monitor/stop_decisions, KEEP_STOPPED) whose written review condition is 'a named paying product with a frozen offer consumes this clock'. A monthly price is a promise that a new file turns up next month and we cannot make it from a stopped reader. Two records on disk disagree about whether USAspending itself keeps the old value: the collector's own README says a restated figure vanishes from the source, the stop decision says 'publisher already keeps a free archive'. NOBODY HAS CHECKED. Until somebody does, this page must not claim we hold anything a buyer cannot get free, and it does not claim it.",
+      "contact_h2": "Start the thread",
+      "contact_p": "We are not charging for this feed. A monthly price is a promise that a new file turns up next month, and we stopped reading this source on 21 August 2026, so our newest copy is from that day. The dated copies below are real and they are free to read. Name the agencies or the budget years you follow. We reply with what our copies hold for them, and we name our last copy date, before you spend anything.",
+      "contact_cta": "Email us the agencies you are following",
+      "contact_note": "We hold 3 dated copies, 19 to 21 August 2026, covering 18 agencies. We have not checked whether USAspending serves the older figure itself, and we will tell you that too. There is nothing to buy yet.",
+      "foot": "Every figure, agency and date on this page was read out of our own sealed copies at build time. Where we do not know something, the page says so rather than filling it in."
     }
   ],
   "map": "MAP.md"

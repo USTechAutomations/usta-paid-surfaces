@@ -125,7 +125,19 @@ SOURCES: dict[str, tuple] = {
     "ai-prices": ("ai_econ", "model_prices", "snapshot_date", 1),
     "agent-register": ("agent_records", "agent_observation", "snapshot_date", 1),
     "agentic-commerce": ("agentic_commerce", "page_snapshots", "snapshot_date", 1),
-    "agent-incidents": ("agent_incidents", "candidate", "snapshot_date", 1),
+    # Court rows only. One reader fills this table from seven saved searches:
+    # four on a court records site, two news searches and one forum search. The
+    # feed is the court cases and nothing else -- so the forum search, which is
+    # the only one still returning anything, must not be allowed to date this
+    # page. On 2026-08-23 it was: the four court searches had brought nothing
+    # back since 13 Aug, the page said so in words, and its freshness tag said
+    # 24 Aug because the forum search had saved 50 links that morning. That is
+    # the dangerous way round -- a ten-day-old page reading as fresh to the
+    # freshness gate and to the live probe, with the alarm silenced.
+    "agent-incidents": (
+        "agent_incidents", "candidate", "snapshot_date", 1,
+        "source_kind = 'court_docket'",
+    ),
     "dc-buildout": ("dc_buildout", "scene_observations", "snapshot_date", 7),
     # Same panel as vendor-prices, different pages out of it.
     "hiring-watch": (
@@ -138,6 +150,13 @@ SOURCES: dict[str, tuple] = {
         "/home/gmullins/Claude CLI/permits-engine/data/seller_signals.db",
         "permit_prediction_snapshots", "snapshot_date", 1,
     ),
+    # ---- wired 2026-08-24 ----
+    # The cadence is 1 because that is what the collector promised when it ran,
+    # not what it is doing now. It was switched off on 2026-08-21 by a written
+    # decision, so this row is expected to report the page as paused, and the
+    # page is built to say so. Do not soften the cadence to make the alarm stop:
+    # the alarm is correct and the page agrees with it.
+    "fed-obligations": ("usaspending_obligations", "obligation", "snapshot_date", 1),
 }
 
 # Families that read more than one list. The verdict is the WORST lane, so a

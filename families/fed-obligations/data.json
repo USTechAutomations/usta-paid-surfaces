@@ -1,0 +1,30 @@
+{
+  "family": "fed-obligations",
+  "generated": "2026-08-24",
+  "slices": [
+    {
+      "slug": "restatements",
+      "newest": "2026-08-21",
+      "oldest": "2026-08-19",
+      "runs": 3,
+      "row_count": 15,
+      "cadence_days": 1
+    },
+    {
+      "slug": "mix-shift",
+      "newest": "2026-08-21",
+      "oldest": "2026-08-19",
+      "runs": 3,
+      "row_count": 68,
+      "cadence_days": 1
+    },
+    {
+      "slug": "coverage",
+      "newest": "2026-08-21",
+      "oldest": "2026-08-19",
+      "runs": 3,
+      "row_count": 648,
+      "cadence_days": 1
+    }
+  ]
+}
