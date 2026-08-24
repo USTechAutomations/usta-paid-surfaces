@@ -41,8 +41,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PY = sys.executable
-ESTATE = ("families", "catalog.json", "extras.json", "index.html")
-MODULES = ("check_site.py", "privacy.py", "merge_catalog_adds.py")
+ESTATE = ("families", "catalog.json", "extras.json", "index.html", "DELIVERY.md")
+MODULES = ("check_site.py", "privacy.py", "merge_catalog_adds.py", "outbound_guard.py")
 
 MAILTO = "mailto:operations@ustechautomations.com"
 ADDR_PAGE = "families/new-entities/chicago/index.html"      # prints addresses, withholds 2
@@ -337,7 +337,7 @@ def cases() -> list[tuple]:
         e.extras_add("zz-orphan")
         e.before_body_end(HUB, "<!-- zz-orphan -->")
 
-    add(699, "a folder full of child pages that no catalog entry describes",
+    add(700, "a folder full of child pages that no catalog entry describes",
         orphan_with_children, "in neither catalog.json nor a catalog-add fragment")
 
     def children_with_no_parent(e: Estate) -> None:
@@ -347,20 +347,20 @@ def cases() -> list[tuple]:
             "price": "Not for sale", "sample_status": "pass", "group": "Test",
             "short": "Zed", "who": "nobody"}, indent=2))
 
-    add(701, "child pages with no family page above them, so nothing links to them",
+    add(702, "child pages with no family page above them, so nothing links to them",
         children_with_no_parent, "children are unreachable")
-    add(705, "a family we cannot collect still has child pages selling it",
+    add(706, "a family we cannot collect still has child pages selling it",
         lambda e: e.write("families/az-contractors/kid/index.html",
                           MIN_PAGE.format(t="Zed kid", body="A test page.")),
         "parked but has child pages")
-    add(711, "a child page loses the address a buyer writes to",
+    add(712, "a child page loses the address a buyer writes to",
         lambda e: e.sub(KID, MAILTO, "mailto:nobody@example.com"), "missing mailto")
-    add(713, "a child page grows a claim we cannot stand behind",
+    add(714, "a child page grows a claim we cannot stand behind",
         lambda e: e.before_body_end(KID, "<p>Trusted by Fortune 500 teams.</p>"),
         "contains forbidden")
-    add(715, "a child page shows a different price from the family above it",
+    add(716, "a child page shows a different price from the family above it",
         lambda e: e.sub(KID, "$99/mo", "$0/mo"), "does not show its parent's price")
-    add(717, "a child page carries no read date, so nothing can prove it is current",
+    add(718, "a child page carries no read date, so nothing can prove it is current",
         lambda e: e.sub(KID, 'name="data-newest"', 'name="data-newest-was-here"'),
         "nothing can prove it is current")
     # -- the button itself ----------------------------------------------------
@@ -387,19 +387,19 @@ def cases() -> list[tuple]:
         e.sub(FAM, f'href="{url}"', 'href="https://ustechautomations.com/feeds/ttb"',
               count=1)
 
-    add(816, "a page shows a pay button and clicking it does nothing",
+    add(817, "a page shows a pay button and clicking it does nothing",
         button_to_nowhere, "goes nowhere")
-    add(816, "a pay button dressed as a checkout that quietly goes to the inbox",
+    add(817, "a pay button dressed as a checkout that quietly goes to the inbox",
         button_to_the_inbox, "goes nowhere")
-    add(820, "a button sends the buyer to an address the catalog never declared",
+    add(821, "a button sends the buyer to an address the catalog never declared",
         button_somewhere_else, "not the checkout this page's catalog row declares")
     # count=1 so only the button's own wording moves. The price rail, the tab
     # title and the search line all still say $99, which is what every price
     # check in this gate reads -- none of them has ever looked at a button.
-    add(828, "a button offers to charge an amount we do not sell at",
+    add(829, "a button offers to charge an amount we do not sell at",
         lambda e: e.sub(FAM, "$99 a month", "$149 a month", count=1),
         "offering to charge $149"),
-    add(832, "a monthly subscription with a button that says it is paid once",
+    add(833, "a monthly subscription with a button that says it is paid once",
         lambda e: e.sub(FAM, "Subscribe — $99 a month", "Buy once — $99", count=1),
         "one of them is a subscription and the other is paid once")
     # The quiet one, and the one that actually happened: the children under five
@@ -410,24 +410,24 @@ def cases() -> list[tuple]:
     # worst of the three: "$9" is a SUBSTRING of "$99/mo", so a substring test
     # waved through a button understating the price ten times over. Every price
     # we sell was open to it -- $249 -> $24, $175 -> $17, $59 -> $5.
-    add(828, "a button understates the price by a factor of ten",
+    add(829, "a button understates the price by a factor of ten",
         lambda e: e.sub(FAM, "$99 a month", "$9 a month", count=1),
         "offering to charge $9"),
     # Single quotes are what anyone hand-writing one line of HTML reaches for,
     # and the pay-link check above still cannot see them: its pattern requires a
     # double quote. So this address is invisible to everything except the button
     # check, which is the point of the case.
-    add(820, "a checkout address written in single quotes, invisible to the pay-link check",
+    add(821, "a checkout address written in single quotes, invisible to the pay-link check",
         lambda e: e.before_body_end(
             FAM, "<p><a class='btn btn-buy' href='https://buy.stripe.com/nOtReAl'>"
                  "Subscribe &mdash; $99 a month</a></p>"),
         "not the checkout this page's catalog row declares"),
     # A <button> is a pay button to every reader and was not an <a>, so reading
     # only anchors let one straight through.
-    add(816, "a hand-written button element that offers to subscribe and does nothing",
+    add(817, "a hand-written button element that offers to subscribe and does nothing",
         lambda e: e.before_body_end(FAM, "<p><button>Subscribe now</button></p>"),
         "goes nowhere"),
-    add(875, "a checkout we proved working, and the page still shows no button",
+    add(876, "a checkout we proved working, and the page still shows no button",
         lambda e: e.re_sub(PAID, r"(?s)<a class=\"btn btn-buy.*?</a>", ""),
         "shows no pay button at all")
     # The same refusal reached from the other side, and the reason the condition
@@ -444,7 +444,7 @@ def cases() -> list[tuple]:
             "after": "You get the feed from the next run.",
             "status": "unverified"}))
 
-    add(875, "a link is minted and declared, and no page anywhere points at it",
+    add(876, "a link is minted and declared, and no page anywhere points at it",
         minted_and_unreachable, "nothing anywhere points a buyer at it")
 
     # The overlap, proved rather than asserted. The same defect on a CHILD page
@@ -475,17 +475,30 @@ def cases() -> list[tuple]:
     # bare buy.stripe.com shape proved. Do not re-point it at whichever family
     # is held this month: pick one from catalog.json whose checkout has no url,
     # or the case dies again the day that hold lifts.
-    add(905, "a product not for sale keeps a Stripe address written out in a note",
+    add(906, "a product not for sale keeps a Stripe address written out in a note",
         lambda e: e.family("crawler", lambda f: f["checkout"].__setitem__(
             "note", "Not for sale yet. The link is "
                     "https://buy.stripe.com/28E9AM4h0bSOcnW6r80sU0D "
                     "and it does not need minting again.")),
         "spells out a checkout address"),
-    add(905, "a product sold by email keeps a two-hop /buy address in a note",
+    add(906, "a product sold by email keeps a two-hop /buy address in a note",
         lambda e: e.family("crawler", lambda f: f["checkout"].__setitem__(
             "note", "Sold by email for now. The address, when we want it, is "
                     "https://ustechautomations.com/permits/offers/crawler-policy-sentinel/buy")),
         "spells out a checkout address"),
+
+    # -- the rule that keeps a blocked source out of a paid file --------------
+    add(945, "the instructions the file-packer reads are deleted",
+        lambda e: e.drop("DELIVERY.md"),
+        "is missing"),
+    add(953, "a blocked source is quietly dropped from those instructions",
+        lambda e: e.write("DELIVERY.md",
+                          e.read("DELIVERY.md").replace("Marin", "the county")),
+        "no longer names them"),
+    add(940, "the guard that refuses a blocked file is emptied out",
+        lambda e: e.sub("scripts/outbound_guard.py", "BLOCKED_SOURCES = {",
+                        "BLOCKED_SOURCES = {}\n_WAS = {", count=1),
+        "would not load"),
     return C
 
 

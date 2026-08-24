@@ -673,6 +673,7 @@ def main() -> None:
     check_slices()
     check_buy_buttons()
     check_held_records()
+    check_blocked_sources()
     print("ok")
 
 
@@ -908,6 +909,51 @@ def check_held_records() -> None:
                      f"product we are not selling. Take the address out and say how to find "
                      f"the link instead: name the stamp it was minted with, so nothing gets "
                      f"minted twice without an address sitting here looking chargeable.")
+
+
+def check_blocked_sources() -> None:
+    """A source written out of paid files must stay named where the packer reads.
+
+    Marin County was written out of the paid file on 2026-08-24: their permit data
+    carries a share-alike licence, so a buyer we hand it to inherits the right to
+    give it away, and we are not selling redistribution rights. Collection did not
+    stop and the credit on the public pages did not come off -- the only thing that
+    changed is what leaves in a file somebody paid for.
+
+    That rule lives in two places and both have to hold. scripts/outbound_guard.py
+    is what actually refuses a file, and DELIVERY.md is what the person assembling
+    the file reads. They can drift apart in the direction that matters: somebody
+    tidies the document, the words go, and the only record of WHY the check refuses
+    is a script nobody opens until it fires. So the build refuses if a source the
+    guard blocks is no longer named in the instructions.
+
+    This is deliberately not a check on the guard's own list -- that list guards
+    itself, by refusing to load empty -- and it is deliberately not a check on the
+    wording of the reason, which is prose and will be rewritten. It is the one
+    thing that must survive any rewrite: the name of the source.
+    """
+    doc = ROOT / "DELIVERY.md"
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    try:
+        import outbound_guard
+    except Exception as exc:  # an empty blocked list refuses to load, by design
+        fail(f"scripts/outbound_guard.py would not load ({exc}). That file is what "
+             f"stops a blocked source going out in a file somebody paid for, and a "
+             f"build that cannot load it cannot claim the rule is in force.")
+        return
+    if not doc.is_file():
+        fail(f"{doc.name} is missing. It is what the person assembling a paid file "
+             f"reads before they send it, and scripts/outbound_guard.py names "
+             f"{len(outbound_guard.BLOCKED_SOURCES)} source(s) that must never go in "
+             f"one. Without the document the rule exists only inside a script.")
+        return
+    words = doc.read_text(encoding="utf-8").lower()
+    for juris, spec in sorted(outbound_guard.BLOCKED_SOURCES.items()):
+        if spec["name"].split(",")[0].lower() not in words:
+            fail(f"scripts/outbound_guard.py blocks {spec['name']} from every paid "
+                 f"file, and {doc.name} no longer names them. The person building "
+                 f"the file reads the document, not the script, so a rule missing "
+                 f"from it is a rule they will not know about.")
 
 
 if __name__ == "__main__":

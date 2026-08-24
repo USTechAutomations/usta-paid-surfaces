@@ -15,4 +15,7 @@ python3 scripts/pipeline.py            # where every surface is up to -> PIPELIN
 python3 scripts/pipeline.py --check    # exit 1 if a surface got ahead of itself
 ```
 
+Before assembling any file a buyer paid for, read `DELIVERY.md` and run
+`python3 scripts/outbound_guard.py <file>`. Marin County rows never go in a paid file.
+
 Do not add Stripe buttons. Do not edit `~/code/USTA`.
