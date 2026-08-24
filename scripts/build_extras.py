@@ -283,7 +283,13 @@ EXTRA_CARDS = [
         "id": "offers",
         "short": "Offers and evidence",
         "who": "Small businesses that want one piece of automation built.",
-        "amount": "$200 – $450",
+        # Built from the constants, not typed. This line used to read
+        # "$200 - $450" as a literal while the page's own price rail eleven
+        # lines up built the same words out of OFFERS_LOW and OFFERS_HIGH. They
+        # agreed, which is exactly how a second copy survives: the day somebody
+        # changes the cheapest offer, the page moves and the card on the hub
+        # does not, and nothing in this repo compares the two.
+        "amount": f"{OFFERS_LOW} – {OFFERS_HIGH}",
         "cadence": "fixed price, fixed window",
         "pill": "Live",
         "pill_class": "pill-ready",
