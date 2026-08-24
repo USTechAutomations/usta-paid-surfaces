@@ -556,7 +556,8 @@ def _tx_new(c: sqlite3.Connection, days: list[str]) -> dict | None:
                  f"{_n(len(appeared))} named applications can be shown as being on the "
                  f"{_d(new_day)} list and not on the {_d(old_day)} one."),
         "desc": (f"{_n(len(appeared))} named air permit applications on the Texas pending list on "
-                 f"{_d(new_day)} that were not on our {_d(old_day)} copy. $175/mo."),
+                 f"{_d(new_day)} that were not on our {_d(old_day)} copy."
+                 + _price_tail()),
         "newest": days[-1],
         "oldest": days[0],
         "runs": len(days),
@@ -671,8 +672,9 @@ def _tx_moved(c: sqlite3.Connection, days: list[str]) -> dict | None:
                     else f"{_n(len(caught))} of them are pinned to the day our copy caught it.")),
         "desc": (f"{_n(len(moved))} named Texas air permit applications whose stage text changed "
                  f"between {_d(old_day)} and {_d(new_day)}, "
-                 + ("each pinned to the day. $175/mo." if len(caught) == len(moved)
-                    else "most pinned to the day. $175/mo.")),
+                 + ("each pinned to the day." if len(caught) == len(moved)
+                    else "most pinned to the day.")
+                 + _price_tail()),
         "newest": days[-1],
         "oldest": days[0],
         "runs": len(days),
@@ -856,7 +858,8 @@ def _az_air(c: sqlite3.Connection, days: list[str]) -> dict | None:
                  f"{_n(len(all_now))} on our {_d(new_day)} copy — and show what moved against "
                  f"the copy we sealed on {_d(old_day)}."),
         "desc": (f"{_n(len(air_now))} pending Arizona air permits out of {_n(len(all_now))} rows "
-                 f"in the state file. {_n(len(events))} named changes by {_d(new_day)}. $175/mo."),
+                 f"in the state file. {_n(len(events))} named changes by {_d(new_day)}."
+                 + _price_tail()),
         "newest": days[-1],
         "oldest": days[0],
         "runs": len(days),
@@ -981,7 +984,8 @@ def _data_centers(c: sqlite3.Connection, days: list[str]) -> dict | None:
                  f"list</strong>, so each one comes with the stage it started on, the stage it is "
                  f"on now, and the day our copy caught the move."),
         "desc": (f"{len(keys)} pending Texas air permit applications whose own name says data "
-                 f"centre, with the day our sealed copy caught each stage move. $175/mo."),
+                 f"centre, with the day our sealed copy caught each stage move."
+                 + _price_tail()),
         "newest": days[-1],
         "oldest": days[0],
         "runs": len(days),
@@ -1248,6 +1252,20 @@ def _fam_row() -> dict:
     raise SystemExit(f"{FAMILY}: no catalog row anywhere. Refusing to render a page with no price.")
 
 
+
+def _price_tail() -> str:
+    """The price for the search line, read from the catalog and never typed.
+
+    Every child page above used to end its search line with the amount typed in
+    by hand. The day this family came off sale, the catalog said one thing and
+    four search results went on offering $175 a month, which is the exact fault
+    scripts/check_site.py refuses to build. Read it here instead, and say
+    nothing at all when there is no price: "Not for sale yet" is a state, not an
+    offer, and a search line is no place to advertise one.
+    """
+    price = _fam_row()["price"]
+    return f" {price}." if "$" in price else ""
+
 def family_spec() -> dict:
     """The dict render_family turns into families/air-permits/index.html."""
     import urllib.parse
@@ -1428,7 +1446,7 @@ def family_spec() -> dict:
                  f"answer takes months. <strong>Both states publish today&rsquo;s waiting list "
                  f"and overwrite yesterday&rsquo;s. We keep the dated copies, so we can say what "
                  f"changed.</strong>"),
-        "subj": urllib.parse.quote(f"Pending air permits {price}"),
+        "subj": urllib.parse.quote(f"Pending air permits \u2014 {price}"),
         "contact_h2": fam.get("contact_h2", "Start the thread"),
         "contact_p": fam["contact_p"],
         "contact_cta": fam.get("contact_cta", f"Email us for the {price} checkout link"),
