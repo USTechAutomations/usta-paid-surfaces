@@ -38,9 +38,12 @@ PAGE = """<!doctype html><html><head>
 </body></html>"""
 
 
-def estate(tmp: Path, pages: dict[str, dict], extras: list[str]) -> None:
+def estate(tmp: Path, pages: dict[str, dict], extras: list[str],
+           adds: tuple[str, ...] = ()) -> None:
     # Wipe first. A case that inherits the previous case's pages is testing
-    # something nobody wrote down.
+    # something nobody wrote down. The catalog-add-*.json fragments are wiped on
+    # the same principle: one left behind would keep the NEXT case's orphan
+    # accounted for, and that case would pass without the check doing anything.
     shutil.rmtree(tmp / "families", ignore_errors=True)
     (tmp / "families").mkdir(parents=True, exist_ok=True)
     for fid, kw in pages.items():
@@ -53,6 +56,17 @@ def estate(tmp: Path, pages: dict[str, dict], extras: list[str]) -> None:
     import json
     (tmp / "extras.json").write_text(
         json.dumps([{"id": e} for e in extras]), encoding="utf-8")
+    for stale in tmp.glob("catalog-add-*.json"):
+        stale.unlink()
+    for fid in adds:
+        # The shape merge_catalog_adds.py demands, so the fragment a case writes
+        # is one the merge would actually accept -- a case built on a fragment
+        # that could never be merged proves nothing.
+        (tmp / f"catalog-add-{fid}.json").write_text(json.dumps({
+            "id": fid, "name": fid, "buyer": "someone", "cadence": "daily",
+            "price": "Not for sale yet", "sample_status": "pass",
+            "group": "Other dated records", "short": fid, "who": "someone"}),
+            encoding="utf-8")
 
 
 def catalog(*fams) -> dict:
@@ -128,13 +142,25 @@ def main() -> None:
         case("399 prices INSIDE the product do not trip it", C.check_prices_on_disk,
              tmp, cat2, False)
 
-        # ---- a folder in neither list ----
+        # ---- a folder in no list at all ----
+        # Three lists can account for a folder, so all three are proved. The
+        # fragment is the one that matters most and was the one nobody tested:
+        # a new family arrives as catalog-add-<id>.json because a single agent
+        # owns catalog.json, and for a day this check read only the catalog and
+        # would have refused every new family on the morning it landed.
         estate(tmp, {"orphan": {"rail": "Free to read"}}, extras=[])
-        case("a built folder in neither list is refused", C.check_family_dirs_accounted,
-             tmp, cat, True, "neither catalog.json nor extras.json")
+        case("a built folder in no list at all is refused", C.check_family_dirs_accounted,
+             tmp, cat, True, "appears in none of catalog.json")
         estate(tmp, {"orphan": {"rail": "Free to read"}}, extras=["orphan"])
-        case("the same folder, once listed, is allowed", C.check_family_dirs_accounted,
-             tmp, cat, False)
+        case("the same folder, once listed in extras, is allowed",
+             C.check_family_dirs_accounted, tmp, cat, False)
+        estate(tmp, {"orphan": {"rail": "Free to read"}}, extras=[], adds=("orphan",))
+        case("the same folder, described only by an unmerged fragment, is allowed",
+             C.check_family_dirs_accounted, tmp, cat, False)
+        estate(tmp, {"orphan": {"rail": "Free to read"}}, extras=[], adds=("somebody-else",))
+        case("a fragment for a DIFFERENT family does not account for it",
+             C.check_family_dirs_accounted, tmp, cat, True,
+             "appears in none of catalog.json")
 
         # ---- the price list that reprints everybody else's price ----
         def coverage(rows: str) -> None:

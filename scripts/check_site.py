@@ -450,15 +450,36 @@ def check_family_dirs_accounted() -> None:
     child pages, so a family with no children could sit in the folder, be
     published, be linked, and appear in no list anywhere.
     """
+    # Fragments count, and the difference is the whole point of this check. A new
+    # family arrives as a catalog-add-<id>.json fragment, because one agent owns
+    # catalog.json and nobody else may write to it. Read only CATALOG here and
+    # the day a fragment lands this gate reports the new family as unaccounted --
+    # which is false, and worse than false, because it is the honesty gate for
+    # the entire estate saying no. check_slices() below has always accepted a
+    # fragment ("in neither catalog.json nor a catalog-add fragment"); this line
+    # was simply left behind. The rule it enforces is unchanged: a folder must be
+    # described somewhere that checks its price and its sample.
+    #
+    # Read off CATALOG and ROOT rather than merge_catalog_adds.family_rows(),
+    # which is the same answer by a route this file's tests can steer.
+    # family_rows() opens the real catalog.json at the real repo root, so a check
+    # calling it ignores the pretend estate check_prices_selftest.py builds and
+    # silently grades itself against the live site instead -- it would go green
+    # whatever the case put in front of it. The fragment's id is its filename,
+    # which merge_catalog_adds.py enforces on the way in, so reading the name is
+    # reading the id.
     known = {fam["id"] for fam in CATALOG["families"]}
+    known |= {p.name[len("catalog-add-"):-len(".json")]
+              for p in ROOT.glob("catalog-add-*.json")}
     extras = ROOT / "extras.json"
     if extras.is_file():
         known |= {e["id"] for e in json.loads(extras.read_text(encoding="utf-8"))}
     for d in _family_dirs():
         if d.name not in known:
-            fail(f"families/{d.name}/ is built and published but appears in neither "
-                 f"catalog.json nor extras.json, so nothing checks its price, its "
-                 f"sample or its status. Add it to one of them, or stop building it.")
+            fail(f"families/{d.name}/ is built and published but appears in none of "
+                 f"catalog.json, a catalog-add-{d.name}.json fragment or extras.json, "
+                 f"so nothing checks its price, its sample or its status. Add it to "
+                 f"one of them, or stop building it.")
 
 
 def check_one_home() -> None:
