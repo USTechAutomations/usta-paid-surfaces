@@ -107,6 +107,96 @@ AZ = {
 }
 
 
+# The dated review that stopped the Arizona list, read rather than retyped.
+#
+# The two states behind this feed are not in the same position and the page must
+# not imply they are. Texas is read every day. Arizona was stopped by us, on
+# purpose, on a dated review: we could not evidence permission to keep reading
+# it, so we stopped. That is a different fact from "late", and the page said the
+# wrong one of the two for two days.
+#
+# What it printed was the default paused sentence -- "no number on this page
+# moves until collection starts again". Both halves were false at once. Texas
+# moved 471 rows into the store the same afternoon, so numbers on this page did
+# move; and "until collection starts again" tells a buyer to wait for something
+# that only restarts if the agency itself publishes a licence. Somebody paying
+# $175 a month for the Arizona half would have been waiting for a file that
+# cannot arrive.
+#
+# So the sentence is built from the review record. If the record is ever
+# withdrawn or superseded, this stops overriding and the ordinary paused
+# sentence comes back on the next build, with nobody having to remember.
+REVIEWS = DB.parent.parent
+
+
+def _refusal(source_id: str) -> dict | None:
+    """The newest dated source review that refused this source, if one did.
+
+    Returns the record's own words -- the reason and what would reopen it --
+    never a sentence typed here. A missing or unreadable review returns None,
+    which leaves the ordinary paused wording in place: that is the safe way
+    round, because the ordinary wording under-promises rather than over-promises.
+    """
+    try:
+        files = sorted(REVIEWS.glob("SOURCE_GATE_REVIEW_*.json"))
+    except OSError:
+        return None
+    found = None
+    for path in files:                      # sorted by date in the name
+        try:
+            rec = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        for block in rec.values():
+            if not isinstance(block, dict) or block.get("source_id") != source_id:
+                continue
+            outcome = str(block.get("outcome", ""))
+            if not outcome.upper().startswith("REFUSE"):
+                found = None               # a later review that did not refuse reopens it
+                continue
+            found = {
+                "on": rec.get("review_date", ""),
+                "reopen": [str(x) for x in block.get("reopen_when", []) if x],
+                "again_on": block.get("re_review_on", ""),
+            }
+    return found
+
+
+def _refused_note(source_id: str) -> str | None:
+    """The paused paragraph for a source we stopped reading on purpose.
+
+    It keeps PAUSED_PHRASE, because that string is what the build gate, the live
+    probe and the family status page all search for, and an override that
+    dropped it would switch the alarm off. It adds the two things the default
+    sentence gets wrong for a refused source: who stopped it, and what would
+    have to happen before it moves again.
+    """
+    from freshness import PAUSED_PHRASE  # noqa: PLC0415
+
+    ref = _refusal(source_id)
+    if not ref or not ref.get("on"):
+        return None
+    # The record writes its reopen conditions as an "a, or b" list, so the first
+    # one still carries its joining comma. Cut that exact suffix rather than
+    # stripping characters: rstrip(", or") would eat a real trailing "r".
+    reopen = ref["reopen"][0].strip() if ref["reopen"] else ""
+    for suffix in (", or", ",", "."):
+        if reopen.endswith(suffix):
+            reopen = reopen[: -len(suffix)].strip()
+            break
+    # Left as written. Lower-casing the first letter to fit the sentence turned
+    # ADEQ into aDEQ; an agency's name is not ours to restyle.
+    tail = f" It starts again if {reopen}, and not before." if reopen else ""
+    again = f" We look at that again on {_d(ref['again_on'])}." if ref.get("again_on") else ""
+    return (
+        f"<strong>{PAUSED_PHRASE.capitalize()} on this list, and we are the ones who "
+        f"stopped it.</strong> On {_d(ref['on'])} we reviewed whether we could evidence "
+        f"permission to keep reading it, could not, and stopped. This is not a list that "
+        f"is running late and will catch up.{tail}{again} The Texas list on this page is "
+        f"still read every day and its numbers do move."
+    )
+
+
 # ---------------------------------------------------------------- plumbing
 
 
@@ -771,6 +861,17 @@ def _az_air(c: sqlite3.Connection, days: list[str]) -> dict | None:
         "oldest": days[0],
         "runs": len(days),
         "cadence_days": cadence,
+        # This page is the Arizona list on its own, and that list was stopped by
+        # a dated review of ours rather than being late. Without this the page
+        # printed "until collection starts again", which points a buyer at a
+        # restart only the agency can trigger.
+        "read_phrase": ("We read this source every day until we stopped."
+                        if _refused_note(AZ["source_id"]) else None),
+        # The rail at the top said "Every day", which is what the cadence number
+        # produces and is not what we do any more.
+        "read_label": (f"Every day until {_d(days[-1])}. Stopped."
+                       if _refused_note(AZ["source_id"]) else None),
+        "paused_note": _refused_note(AZ["source_id"]),
         "row_count": held,
         "tables": tables,
         "facts": facts,
@@ -1013,6 +1114,15 @@ def _coverage(c: sqlite3.Connection, tx_days: list[str], az_days: list[str]) -> 
         "oldest": min(tx_days[0], az_days[0]),
         "runs": len(tx_days) + len(az_days),
         "cadence_days": cadence,
+        # Dated by Arizona, so the paused paragraph on this page is about
+        # Arizona and has to say what actually happened to it. The default one
+        # also claims no number on the page moves, and half this page is Texas,
+        # which moved today.
+        "read_phrase": ("We read Texas every day. We read Arizona every day until we stopped."
+                        if _refused_note(AZ["source_id"]) else None),
+        "read_label": (f"Texas every day. Arizona stopped {_d(az_days[-1])}."
+                       if _refused_note(AZ["source_id"]) else None),
+        "paused_note": _refused_note(AZ["source_id"]),
         "row_count": total,
         "tables": tables,
         "facts": facts,
@@ -1166,7 +1276,15 @@ def family_spec() -> dict:
 
     changes = len(tx_app) + len(tx_mov) + len(az_app) + len(az_mov)
     tx_fresh = freshness_line(tx_days[-1], tx_days[0], len(tx_days), _cadence(tx_days))
-    az_fresh = freshness_line(az_days[-1], az_days[0], len(az_days), _cadence(az_days))
+    # Arizona gets the refused wording when a dated review refused its source,
+    # and the ordinary paused wording when none did. See _refused_note().
+    az_note = _refused_note(AZ["source_id"])
+    az_fresh = freshness_line(
+        az_days[-1], az_days[0], len(az_days), _cadence(az_days),
+        read_phrase=("We read this source every day until we stopped."
+                     if az_note else None),
+        paused_note=az_note,
+    )
     behind = _days_between(az_days[-1], tx_days[-1])
 
     # Every child page's own numbers, read back off the slice it just built, so

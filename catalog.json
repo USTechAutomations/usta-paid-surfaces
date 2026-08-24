@@ -387,8 +387,8 @@
       "id": "air-permits",
       "name": "Air permit applications while they are still pending",
       "buyer": "People siting heavy industry and data centres, and the lawyers and consultants who file for them",
-      "cadence": "daily seals",
-      "cadence_long": "Sealed nearly every day, every gap named on the page",
+      "cadence": "Texas daily, Arizona stopped",
+      "cadence_long": "Texas sealed nearly every day. Arizona was stopped on 21 Aug 2026 and is not being added to. Every gap named on the page",
       "price": "$175/mo",
       "sample_status": "pass",
       "group": "Energy and siting",
@@ -398,10 +398,10 @@
       "contact_h2": "Start the thread",
       "contact_p": "Name the counties, the applicants or the kind of plant you follow. We reply with which weeks we hold for them, and which days have no sealed copy at all, before you spend anything.",
       "contact_cta": "Email us for the $175/mo checkout link",
-      "contact_note": "Tell us whether you need Texas, Arizona air, or both in the first email. Arizona is read less recently than Texas and we will tell you the exact date rather than sell it as current.",
+      "contact_note": "Tell us whether you need Texas, Arizona air, or both in the first email. Texas is read every day. We stopped reading Arizona on 21 Aug 2026, so what we hold for it does not grow, and we will say the exact date of our last Arizona copy before you pay rather than after.",
       "foot": "Every applicant, permit number, stage and date on this page was read out of our own dated copies at the moment the page was built. We publish no megawatt figure anywhere in this feed, because an air permit application does not hold one, and we never call a row leaving a pending list an approval.",
       "checkout": {
-        "terms": "$175 a month, billed monthly, for Texas, Arizona or both. Cancel any month by email, with no account to close and no notice period. Arizona is read less recently than Texas: we give you the exact date of the newest sealed copy for each state before you pay, rather than selling a stale copy as current.",
+        "terms": "$175 a month, billed monthly, for Texas, Arizona or both. Cancel any month by email, with no account to close and no notice period. Texas is read every day. Arizona is not: we stopped reading it on 21 Aug 2026 because we could not evidence permission to keep reading it, so the Arizona half is a fixed set of dated copies that does not grow. If Arizona is the half you need, say so before you pay and we will tell you our last Arizona date first.",
         "after": "After you pay, a person emails you the pending-application file as a CSV within one working day. How often a new one follows is agreed in that same thread.",
         "status": "live",
         "url": "https://buy.stripe.com/8x28wI14Of50ds05n40sU0S",
@@ -410,7 +410,7 @@
         "checked": "2026-08-23",
         "verified": "2026-08-23"
       },
-      "sells": "The $175 buys one slice of this reader: the Texas pending new-source air review list and the Arizona in-progress air permit file, cut to the rows Arizona itself files under AIR PROGRAMS. It does not buy the aviation filings or the utility filings this same reader holds, and Arizona is read less recently than Texas — the product page prints the exact newest sealed date for each state."
+      "sells": "The $175 buys one slice of this reader: the Texas pending new-source air review list and the Arizona in-progress air permit file, cut to the rows Arizona itself files under AIR PROGRAMS. It does not buy the aviation filings or the utility filings this same reader holds, and Arizona is no longer read at all — we stopped it on 21 Aug 2026, so that half is a closed set of dated copies. The product page prints the exact newest sealed date for each state."
     },
     {
       "id": "dc-buildout",
