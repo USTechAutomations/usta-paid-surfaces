@@ -20,7 +20,7 @@ A surface sits at the last stage it earned. A stage that cannot apply to it is s
 
 ## Where the surfaces are
 
-**27 surfaces. 27 answer on the public address. 7 are all the way through.** 11 are held at a gate nobody could decide, which is not the same as failing it.
+**27 surfaces. 27 answer on the public address. 6 are all the way through.** 11 are held at a gate nobody could decide, which is not the same as failing it.
 
 Read the stage as a floor, never as a verdict on the whole page. A page can be published, honest and selling and still sit low on this list, because the stage is the last rung with nothing unanswered beneath it. The table after this one shows every rung for every surface, including the ones above where it is stuck.
 
@@ -28,8 +28,8 @@ Read the stage as a floor, never as a verdict on the whole page. A page can be p
 |---|---|---|
 | `named` | 14 | `agentic-commerce`, `ai-prices`, `ai-terms`, `air-permits`, `az-contractors`, `civic-agenda`, `crawler`, `dc-buildout`, `dc-siting`, `grid`, `hiring-watch`, `new-entities`, `permit-metros`, `vendor-prices` |
 | `live` | 9 | `agent-incidents`, `coverage`, `how-we-seal`, `markets-resolved`, `mesa-code`, `permits`, `recalls`, `sec-8k`, `what-we-dont-collect` |
-| `priced` | 1 | `offers` |
-| `payable` | 3 | `agent-register`, `quakes`, `ttb` |
+| `priced` | 2 | `offers`, `quakes` |
+| `payable` | 2 | `agent-register`, `ttb` |
 
 ## Every surface, every gate
 
@@ -58,7 +58,7 @@ Read the stage as a floor, never as a verdict on the whole page. A page can be p
 | `offers` | build | yes | - | - | yes | - | yes | yes | yes | NO | `priced` | payable |
 | `permit-metros` | feed | yes | ? | yes | yes | yes | yes | yes | yes | yes | `named` | lawful |
 | `permits` | bridge | yes | - | - | yes | - | yes | yes | - | - | `live` | — |
-| `quakes` | feed | yes | yes | yes | yes | yes | yes | yes | yes | yes | `payable` | — |
+| `quakes` | feed | yes | yes | yes | yes | yes | yes | yes | yes | NO | `priced` | payable |
 | `recalls` | feed | yes | yes | yes | yes | yes | yes | yes | NO | NO | `live` | priced |
 | `sec-8k` | feed | yes | yes | yes | yes | yes | yes | yes | NO | NO | `live` | priced |
 | `ttb` | feed | yes | yes | yes | yes | yes | yes | yes | yes | yes | `payable` | — |
@@ -90,7 +90,7 @@ Read the stage as a floor, never as a verdict on the whole page. A page can be p
 | `offers` | mint the pay link and prove it with scripts/verify_checkouts.py. |
 | `permit-metros` | find out: its rows come from /home/gmullins/Claude CLI/permits-engine/data/seller_signals.db, which files no permission notes we can read, so we cannot say whether a person cleared this source |
 | `permits` | nothing; it is all the way through |
-| `quakes` | nothing; it is all the way through |
+| `quakes` | mint the pay link and prove it with scripts/verify_checkouts.py. |
 | `recalls` | decide an amount and write the terms, or leave it free and say so. |
 | `sec-8k` | decide an amount and write the terms, or leave it free and say so. |
 | `ttb` | nothing; it is all the way through |
@@ -131,5 +131,13 @@ python3 scripts/pipeline_selftest.py           # prove every gate can reach both
 ```
 
 `--gate` exits 0 for yes, 1 for "it has not earned this", and 2 for "something could not be checked" — two different answers that must not be treated as one.
+
+### `--check` is deliberately not wired into the build
+
+`.github/workflows/check.yml` does not run `--check`, and that is on purpose rather than an oversight.
+
+`--check` exits non-zero today, on a real refusal that is nobody's build error to fix: a page is priced while the permission for one of its sources is a written refusal. That is a decision for a person, not a defect in the branch someone is about to merge. Wiring it in now would turn one open question into a red build for every other person working in this repo, and the fastest way out of a red build is to weaken the check that raised it. So the refusal is reported here, in a file a person reads, and the honesty gate in `scripts/check_site.py` stays the only thing that can stop a build.
+
+Wire it in when the Refused list above is empty and the estate can hold it there — not before.
 
 This file is the record a person reads. The full working behind every cell above, and the note of where each surface was on the last run, are written to `/home/gmullins/.hermes/state/feeds-pipeline` so they do not churn the repo.

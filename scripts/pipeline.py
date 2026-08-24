@@ -1228,6 +1228,20 @@ def write_report(a: dict) -> None:
           f"`--gate` exits 0 for yes, 1 for \"it has not earned this\", and 2 for "
           f"\"something could not be checked\" — two different answers that must not be "
           f"treated as one.", "",
+          "### `--check` is deliberately not wired into the build", "",
+          "`.github/workflows/check.yml` does not run `--check`, and that is on "
+          "purpose rather than an oversight.", "",
+          "`--check` exits non-zero today, on a real refusal that is nobody's build "
+          "error to fix: a page is priced while the permission for one of its "
+          "sources is a written refusal. That is a decision for a person, not a "
+          "defect in the branch someone is about to merge. Wiring it in now would "
+          "turn one open question into a red build for every other person working "
+          "in this repo, and the fastest way out of a red build is to weaken the "
+          "check that raised it. So the refusal is reported here, in a file a "
+          "person reads, and the honesty gate in `scripts/check_site.py` stays the "
+          "only thing that can stop a build.", "",
+          "Wire it in when the Refused list above is empty and the estate can hold "
+          "it there — not before.", "",
           f"This file is the record a person reads. The full working behind every cell "
           f"above, and the note of where each surface was on the last run, are written to "
           f"`{MACHINE.parent}` so they do not churn the repo.", ""]
