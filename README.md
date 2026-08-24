@@ -11,6 +11,8 @@ Fable polishes look (`FABLE.md`). Structure, prices, samples, and mailto stay in
 ```bash
 python3 scripts/check_site.py
 python3 scripts/new_family.py slug --name "Name" --price '$175/mo' --buyer "who"
+python3 scripts/pipeline.py            # where every surface is up to -> PIPELINE.md
+python3 scripts/pipeline.py --check    # exit 1 if a surface got ahead of itself
 ```
 
 Do not add Stripe buttons. Do not edit `~/code/USTA`.
