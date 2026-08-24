@@ -389,8 +389,14 @@ def ttb() -> dict:
             "How it works",
             None,
             '      <ol class="steps">\n'
-            "        <li>You email us and name the state or territory you follow.</li>\n"
-            "        <li>We send a checkout link in that thread.</li>\n"
+            # A live card button sits on this page, so email is not the only way to
+            # buy and the steps must not say it is. The flag these lines used to hang
+            # off was "is there a price", which is a different question from "is there
+            # a pay button". Both routes get named.
+            "        <li>You buy below, or you email us first and name the state or "
+            "territory you follow.</li>\n"
+            "        <li>If you emailed, we send the same checkout link in that "
+            "thread.</li>\n"
             "        <li>Each week a person emails you the appear / disappear file, and names anything we "
             "could not collect.</li>\n"
             "      </ol>\n"
