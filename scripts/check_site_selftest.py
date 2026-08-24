@@ -159,126 +159,167 @@ def cases() -> list[tuple]:
         C.append((line, name, fn, expect))
 
     # -- the classifier, tested before any page it produced -------------------
-    add(133, "the address rule starts seeing a flat number in every address",
+    add(239, "the address rule starts seeing a flat number in every address",
         lambda e: e.bend_privacy(BEND_UNIT), "now reads")
-    add(138, "the address rule keeps the wrong part of the street",
+    add(244, "the address rule keeps the wrong part of the street",
         lambda e: e.bend_privacy(BEND_KEPT), "and the page must show")
-    add(143, "the name rule starts reading a company as a person",
+    add(249, "the name rule starts reading a company as a person",
         lambda e: e.bend_privacy(BEND_PERSON), "as a person's own name")
-    add(148, "the whole rule starts withholding rows that are not homes",
+    add(254, "the whole rule starts withholding rows that are not homes",
         lambda e: e.bend_privacy(BEND_SUPPRESS), "deletes a real registration")
 
     # -- what reaches a published page ---------------------------------------
-    add(187, "a flat number survives into a published address cell",
+    add(293, "a flat number survives into a published address cell",
         lambda e: e.sub(ADDR_PAGE, ADDR_CELL, ADDR_CELL + " APT 3", count=1),
         "prints a flat or unit number")
-    add(199, "addresses are shortened and the page never admits it",
+    add(305, "addresses are shortened and the page never admits it",
         lambda e: e.sub(ADDR_PAGE, "cut back to the street", "tidied up"),
         "never says so")
-    add(203, "a page prints addresses and declares no withheld count",
+    add(309, "a page prints addresses and declares no withheld count",
         lambda e: e.re_sub(ADDR_PAGE, r'<meta name="data-withheld" content="\d+">', ""),
         "declares no data-withheld count")
-    add(208, "rows are withheld and the page never mentions it",
+    add(314, "rows are withheld and the page never mentions it",
         lambda e: e.sub(ADDR_PAGE, "2 rows withheld", "2 rows set aside"),
         "the page never says so")
-    add(212, "the page's withheld count and the generator's disagree",
+    add(318, "the page's withheld count and the generator's disagree",
         lambda e: e.sub(ADDR_PAGE, 'content="2"', 'content="5"', count=1),
         "row(s) withheld but its generator declared")
 
     # -- pay links ------------------------------------------------------------
-    add(229, "a page carries a pay link and the catalog declares no checkout",
+    add(335, "a page carries a pay link and the catalog declares no checkout",
         lambda e: e.family("grid", lambda f: f.pop("checkout", None)),
         "declares no checkout")
-    add(234, "the checkout record has written terms but no address to pay at",
+    add(340, "the checkout record has written terms but no address to pay at",
         lambda e: e.family("grid", lambda f: f["checkout"].pop("url", None)),
         "checkout record declares no url")
-    add(238, "the page's pay link is not the one the catalog declared",
+    add(344, "the page's pay link is not the one the catalog declared",
         lambda e: e.family("grid", lambda f: f["checkout"].__setitem__(
             "url", "https://ustechautomations.com/permits/offers/somewhere-else/buy")),
         "pay links the catalog never declared")
-    add(241, "a pay link that has never been fetched and found working",
+    add(347, "a pay link that has never been fetched and found working",
         lambda e: e.family("grid", lambda f: f["checkout"].pop("verified", None)),
         "never verified")
-    add(244, "a pay link last proved working too long ago",
+    add(350, "a pay link last proved working too long ago",
         lambda e: e.family("grid", lambda f: f["checkout"].__setitem__(
             "verified", "2020-01-01")),
         "days ago")
     # Pins today's date as well, so the age check above cannot fire first.
-    add(246, "a pay link whose last check did not say it was live",
+    add(352, "a pay link whose last check did not say it was live",
         lambda e: e.family("grid", lambda f: f["checkout"].update(
             {"status": "unknown", "verified": str(__import__("datetime").date.today())})),
         "its last check said")
 
     # -- the search line ------------------------------------------------------
-    add(263, "a page ships with no search line at all",
+    add(369, "a page ships with no search line at all",
         lambda e: e.re_sub(
             FAM, r'<meta (?:name|property)="(?:og:|twitter:)?description" content=".*?">', ""),
         "no meta description")
-    add(266, "a search line long enough to be cut off mid-word",
+    add(372, "a search line long enough to be cut off mid-word",
         lambda e: e.re_sub(FAM, r'<meta name="description" content=".*?">',
                            f'<meta name="description" content="{LONG_DESC}">'),
         "characters, over")
-    add(268, "a page ships three different answers to the same question",
+    add(374, "a page ships three different answers to the same question",
         lambda e: e.re_sub(FAM, r'<meta property="og:description" content=".*?">',
                            '<meta property="og:description" content="A different line.">'),
         "different descriptions")
     # Only reachable on a child page: on a family page the newer rail check at
-    # line 386 catches a stray amount in the search line first. Reported, not
+    # line 533 catches a stray amount in the search line first. Reported, not
     # worked around.
-    add(286, "a child page offers a price in search results that we do not sell",
+    add(392, "a child page offers a price in search results that we do not sell",
         lambda e: e.re_sub(
             KID, r'(<meta (?:name|property)="(?:og:|twitter:)?description" content=")',
             r'\g<1>$4321. '),
         "search line offers")
 
+    # -- one page, one list ----------------------------------------------------
+    # The mirror of the folder-in-neither-list case above. A folder in both lists
+    # gets built twice and the build dies on "file already exists", naming
+    # neither of the two files you have to open. Both cases use the SAME
+    # mutation as the honest case further down -- put a family in extras.json
+    # too -- and the only difference is the kind="build" marker. That is
+    # deliberate: if the check could not tell those two apart it would not be a
+    # check, it would be a coin toss.
+    add(494, "a family is named in both product lists",
+        lambda e: e.extras_add("ttb"),
+        "named in both catalog.json and extras.json")
+    add(494, "the one legal overlap loses the marker that makes it legal",
+        lambda e: e.family("offers", lambda f: f.pop("kind")),
+        "named in both catalog.json and extras.json")
+
     # -- the hub ---------------------------------------------------------------
-    add(435, "the hub loses the address a buyer writes to",
+    add(583, "the hub loses the address a buyer writes to",
         lambda e: e.sub(HUB, MAILTO, "mailto:nobody@example.com"),
         "hub missing operations@ mailto")
-    add(442, "the hub grows a claim we cannot stand behind",
+    add(589, "the hub grows a claim we cannot stand behind",
         lambda e: e.before_body_end(HUB, "<p>SOC 2 certified.</p>"),
         "hub contains forbidden")
 
     # -- every family in the catalog -------------------------------------------
-    add(446, "a family is in the catalog and its page was never built",
+    add(593, "a family is in the catalog and its page was never built",
         lambda e: e.drop(FAM), "missing ")
-    add(450, "a family page loses the address a buyer writes to",
+    add(597, "a family page loses the address a buyer writes to",
         lambda e: e.sub(FAM, MAILTO, "mailto:nobody@example.com"),
         "missing mailto")
-    add(455, "a family we cannot collect still shows a price",
+    add(616, "a family we cannot collect still shows a price",
         lambda e: e.before_body_end(PARKED, "<p>Yours for $99.</p>"),
         "parked but still shows a dollar price")
     # The page says it four times, three of them capitalised, and the check reads
     # the page in lower case. Removing one of the four leaves the check green and
     # makes a perfectly live check look dead -- so the mutation has to take out
     # every spelling of it.
-    add(457, "a family we cannot collect never says it is unavailable",
+    add(618, "a family we cannot collect never says it is unavailable",
         lambda e: e.re_sub(PARKED, r"(?i)not available", "coming along nicely"),
         "never says it is not available")
     # The price is taken off the page entirely rather than changed, because
-    # changing it trips the newer price-rail check at line 382 first.
-    add(459, "a family page stops showing the price the catalog sells it at",
+    # changing it trips the newer price-rail check at line 689 first.
+    add(620, "a family page stops showing the price the catalog sells it at",
         lambda e: e.sub(QUAKES, "$249", ""), "missing price")
-    add(462, "a family page grows a claim we cannot stand behind",
+    add(622, "a family page grows a claim we cannot stand behind",
         lambda e: e.before_body_end(FAM, "<p>Trusted by Fortune 500 teams.</p>"),
         "contains forbidden")
-    add(469, "the catalog says the sample works and the page says it does not",
+    add(629, "the catalog says the sample works and the page says it does not",
         lambda e: e.before_body_end(FAM, "<p>Sample not ready yet.</p>"),
         "page says sample not ready")
-    add(472, "the sample is not proved and the page does not warn anyone",
+    add(632, "the sample is not proved and the page does not warn anyone",
         lambda e: e.family("ttb", lambda f: f.__setitem__("sample_status", "fail")),
         "must say sample not ready")
 
     # -- the bridge pages ------------------------------------------------------
-    add(481, "a bridge page is listed and was never built",
+    add(641, "a bridge page is listed and was never built",
         lambda e: e.drop(BRIDGE), "missing ")
-    add(484, "a bridge page loses the address a buyer writes to",
+    add(644, "a bridge page loses the address a buyer writes to",
         lambda e: e.sub(BRIDGE, MAILTO, "mailto:nobody@example.com"),
         "missing mailto")
-    add(487, "a bridge page grows a claim we cannot stand behind",
+    add(646, "a bridge page grows a claim we cannot stand behind",
         lambda e: e.before_body_end(BRIDGE, "<p>We are HIPAA aligned.</p>"),
         "contains forbidden")
-    add(491, "a bridge page is built and nothing on the hub links to it",
+    # The banned-phrase check was taught to tell a denial from a boast, so the
+    # expensive half of that change is proving it did not become a way through.
+    # Every one of these is a claim wearing a denial's clothes, and every one of
+    # them must still be refused. If any of these ever goes green, the fix has
+    # turned into a hole and the hole is worse than the false alarm it replaced.
+    add(646, "a boast that opens with a denial and then makes the claim anyway",
+        lambda e: e.before_body_end(
+            BRIDGE, "<p>We do not just meet SOC 2 requirements, we exceed them.</p>"),
+        "contains forbidden")
+    add(646, "a denial about one thing with the claim bolted on after an 'and'",
+        lambda e: e.before_body_end(
+            BRIDGE, "<p>We do not cut corners and we are SOC 2 certified.</p>"),
+        "contains forbidden")
+    add(646, "a claim made by negating the doubt instead of the claim",
+        lambda e: e.before_body_end(
+            BRIDGE, "<p>Our HIPAA compliance is not in question.</p>"),
+        "contains forbidden")
+    add(646, "an honest denial in one sentence and the claim in the next",
+        lambda e: e.before_body_end(
+            BRIDGE, "<p>We are not slow. We are SOC 2 certified.</p>"),
+        "contains forbidden")
+    add(646, "the banned phrase hidden in a link, where no reader can see it",
+        lambda e: e.before_body_end(
+            BRIDGE, '<p>We do not use a partner scheme. '
+                    '<a href="/partner?ref=2">join</a></p>'),
+        "contains forbidden")
+    add(650, "a bridge page is built and nothing on the hub links to it",
         lambda e: e.sub(HUB, "how-we-seal", "how-we-hid-it"),
         "not linked from the hub")
 
@@ -293,7 +334,7 @@ def cases() -> list[tuple]:
         e.extras_add("zz-orphan")
         e.before_body_end(HUB, "<!-- zz-orphan -->")
 
-    add(517, "a folder full of child pages that no catalog entry describes",
+    add(676, "a folder full of child pages that no catalog entry describes",
         orphan_with_children, "in neither catalog.json nor a catalog-add fragment")
 
     def children_with_no_parent(e: Estate) -> None:
@@ -303,27 +344,27 @@ def cases() -> list[tuple]:
             "price": "Not for sale", "sample_status": "pass", "group": "Test",
             "short": "Zed", "who": "nobody"}, indent=2))
 
-    add(519, "child pages with no family page above them, so nothing links to them",
+    add(678, "child pages with no family page above them, so nothing links to them",
         children_with_no_parent, "children are unreachable")
-    add(523, "a family we cannot collect still has child pages selling it",
+    add(682, "a family we cannot collect still has child pages selling it",
         lambda e: e.write("families/az-contractors/kid/index.html",
                           MIN_PAGE.format(t="Zed kid", body="A test page.")),
         "parked but has child pages")
-    add(529, "a child page loses the address a buyer writes to",
+    add(688, "a child page loses the address a buyer writes to",
         lambda e: e.sub(KID, MAILTO, "mailto:nobody@example.com"), "missing mailto")
-    add(532, "a child page grows a claim we cannot stand behind",
+    add(690, "a child page grows a claim we cannot stand behind",
         lambda e: e.before_body_end(KID, "<p>Trusted by Fortune 500 teams.</p>"),
         "contains forbidden")
-    add(534, "a child page shows a different price from the family above it",
+    add(692, "a child page shows a different price from the family above it",
         lambda e: e.sub(KID, "$99/mo", "$0/mo"), "does not show its parent's price")
-    add(536, "a child page carries no read date, so nothing can prove it is current",
+    add(694, "a child page carries no read date, so nothing can prove it is current",
         lambda e: e.sub(KID, 'name="data-newest"', 'name="data-newest-was-here"'),
         "nothing can prove it is current")
     # The overlap, proved rather than asserted. Put the same defect on a FAMILY
-    # page and the newer check at line 386 catches it first, which is why the
+    # page and the newer check at line 693 catches it first, which is why the
     # case at 286 had to use a child page. 286 still earns its place: it is the
     # only thing guarding the child pages, and 386 does not walk them.
-    add(386, "the same defect on a family page is caught by the newer check first",
+    add(533, "the same defect on a family page is caught by the newer check first",
         lambda e: e.re_sub(
             FAM, r'(<meta (?:name|property)="(?:og:|twitter:)?description" content=")',
             r'\g<1>$4321. '),
@@ -334,13 +375,13 @@ def cases() -> list[tuple]:
 # The seven refusal points proved in the other file rather than this one, so
 # that the coverage count below is the whole gate and not just this file's half.
 ELSEWHERE = {
-    353: "check_prices_selftest.py -- a built folder in neither list",
-    377: "check_prices_selftest.py -- a priced page in no catalog",
-    382: "check_prices_selftest.py -- a page that disagrees with the catalog",
-    386: "check_prices_selftest.py -- a dead price in the tab title or search line",
-    409: "check_prices_selftest.py -- the price list names a product we do not sell",
-    414: "check_prices_selftest.py -- the price list quotes last week's price",
-    420: "check_prices_selftest.py -- a product missing from the price list",
+    459: "check_prices_selftest.py -- a built folder in neither list",
+    524: "check_prices_selftest.py -- a priced page in no catalog",
+    529: "check_prices_selftest.py -- a page that disagrees with the catalog",
+    533: "check_prices_selftest.py -- a dead price in the tab title or search line",
+    556: "check_prices_selftest.py -- the price list names a product we do not sell",
+    561: "check_prices_selftest.py -- the price list quotes last week's price",
+    567: "check_prices_selftest.py -- a product missing from the price list",
 }
 
 
@@ -364,6 +405,62 @@ def refusal_points() -> dict[int, str]:
     return out
 
 
+def refusal_patterns() -> dict[int, "re.Pattern"]:
+    """What each refusal point's message looks like, as something to match against.
+
+    Pinning a case to a line number is what makes the coverage claim auditable,
+    and it is also the thing that rots: insert a function above and every pin
+    below it slides. A pin that lands on nothing is caught before the run. A pin
+    that slides onto ANOTHER refusal point is the dangerous one -- the case still
+    goes red, still reports PASS, and quietly credits the wrong check while the
+    real one is reported as never proven, which is an invitation to delete a
+    check that works.
+
+    So do not trust the number. Every refusal message is built from an f-string
+    whose fixed words are known here; the parts that are filled in at run time
+    become wildcards. After a case goes red, the message it produced is matched
+    against the pattern for the line it claims to have hit. Credit is given for
+    the line that actually refused, not the line somebody typed.
+    """
+    import ast
+    src = (ROOT / "scripts" / "check_site.py").read_text(encoding="utf-8")
+    out = {}
+    for node in ast.walk(ast.parse(src)):
+        if not (isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
+                and node.func.id == "fail" and node.args):
+            continue
+        arg = node.args[0]
+        parts = arg.values if isinstance(arg, ast.JoinedStr) else [arg]
+        pat = ""
+        for v in parts:
+            if isinstance(v, ast.Constant) and isinstance(v.value, str):
+                # Whitespace is folded because a message wrapped across source
+                # lines arrives as one line, and because f-strings are joined
+                # without a space between them.
+                pat += r"\s*".join(re.escape(w) for w in v.value.split())
+                if v.value[-1:].isspace() or v.value[:1].isspace():
+                    pat += r"\s*"
+            else:
+                pat += ".*?"
+        out[node.lineno] = re.compile(pat, re.S)
+    return out
+
+
+# Honest content the gate refuses on purpose, ruled on rather than fixed.
+# These still run, still print, and still show as blocked. What they do not do
+# is sit in the same bucket as a surprise, because somebody has already looked
+# at this one and decided the strict reading is the one we want.
+PARKED_FALSE_ALARMS = {
+    "a page we cannot collect quoting someone else's fee as a fact":
+        "PARKED 2026-08-23. The parked-family money check reads every dollar "
+        "amount on the page, so it also bites a parked page that honestly "
+        "quotes someone else's fee. No parked page carries a third-party fee "
+        "today, so nothing is blocked right now -- the fault is latent. Left "
+        "strict deliberately: loosening it in a hurry risks letting a real "
+        "price ship on a page we cannot deliver, which is the worse trade.",
+}
+
+
 def honest_cases() -> list[tuple]:
     """Honest content that the gate must NOT refuse.
 
@@ -377,6 +474,24 @@ def honest_cases() -> list[tuple]:
         ("a page honestly denying a claim we do not make",
          lambda e: e.before_body_end(
              BRIDGE, "<p>We do not hold HIPAA-covered records, and we never will.</p>")),
+        ("a flat denial with nothing else in the sentence",
+         lambda e: e.before_body_end(BRIDGE, "<p>We are not SOC 2 certified.</p>")),
+        ("a denial of who we sell to",
+         lambda e: e.before_body_end(BRIDGE, "<p>We do not sell to the Fortune 500.</p>")),
+        ("a denial written with 'never' instead of 'not'",
+         lambda e: e.before_body_end(BRIDGE, "<p>We never claim HIPAA compliance.</p>")),
+        # The reason the whole rule exists. families/offers/ is in both lists on
+        # purpose: catalog.json holds its price and its written terms so they are
+        # checked like every other product's, and extras.json is what actually
+        # builds its page. It is allowed by its kind="build" marker and not by
+        # its name, so a second product tomorrow is allowed on the same terms --
+        # which is what this case adds, using the very mutation the refusal case
+        # above uses. Same edit, opposite verdict, and the marker is the only
+        # thing between them.
+        ("a second product deliberately in both lists, marked as built elsewhere",
+         lambda e: (e.extras_add("ttb"),
+                    e.family("ttb", lambda f: f.__setitem__("kind", "build")))),
+        # Still refused, on purpose. See PARKED_FALSE_ALARMS above.
         ("a page we cannot collect quoting someone else's fee as a fact",
          lambda e: e.before_body_end(
              PARKED, "<p>The state charges $9 for a copy of the roster.</p>")),
@@ -420,6 +535,24 @@ def main() -> None:
 
     box = Path("/tmp/claude-1000/-home-gmullins/b2c537f1-91c1-43e9-91e0-7aa1f7fde2c6"
                "/scratchpad/gate-selftest")
+    # Every case is pinned to a line of check_site.py, which is what makes the
+    # coverage claim auditable -- and also what rots the moment somebody inserts
+    # a function above it. Drifted numbers do not announce themselves: the case
+    # quietly credits whatever check now sits on that line, and a live check gets
+    # reported as never proven, which is an invitation to delete it. So check the
+    # pins before running anything, and refuse to report a score off stale ones.
+    pinned = {c[0] for c in cases()} | set(ELSEWHERE)
+    points = refusal_points()
+    patterns = refusal_patterns()
+    drifted = sorted(pinned - set(points))
+    if drifted:
+        raise SystemExit(
+            "STOP. These line numbers no longer point at a place the gate can "
+            "refuse a build, so every number this test prints would be wrong:\n  "
+            + "\n  ".join(str(d) for d in drifted)
+            + "\ncheck_site.py has moved under this test. Re-pin the cases "
+              "before trusting a single result.")
+
     todo = [c for c in cases() if args.only is None or c[0] == args.only]
     if not todo:
         raise SystemExit(f"no case for line {args.only}")
@@ -453,11 +586,22 @@ def main() -> None:
             first = out.splitlines()[-1] if out else "(nothing)"
             bad.append((line, name, first))
             print(f"  WRONG {line:>4}  {name}\n        refused, but for another reason: {first[:140]}")
+        elif not patterns[line].search(out):
+            # Red for the right words, from the wrong line. This is what a
+            # drifted pin looks like once the numbers still land on a refusal
+            # point, and it is the reason the message is matched and not just
+            # the exit code.
+            first = out.splitlines()[-1] if out else "(nothing)"
+            bad.append((line, name,
+                        f"refused, but not from the line this case is pinned to: {first}"))
+            print(f"  PIN?  {line:>4}  {name}\n        the refusal did not come from "
+                  f"check_site.py:{line}: {first[:120]}")
         else:
             print(f"  PASS  {line:>4}  {name}")
 
     # The other half: honest pages the gate must let through.
     wrongly_refused = []
+    parked_refused = []
     if args.only is None:
         print("\n  and now content the gate must NOT refuse:")
         for name, mutate in honest_cases():
@@ -470,6 +614,10 @@ def main() -> None:
             code, out = gate(box)
             if code == 0:
                 print(f"  PASS  {name}")
+            elif name in PARKED_FALSE_ALARMS:
+                why = out.splitlines()[-1]
+                parked_refused.append((name, why))
+                print(f"  PARK  {name}\n        {why[:150]}")
             else:
                 why = out.splitlines()[-1]
                 wrongly_refused.append((name, why))
@@ -481,7 +629,6 @@ def main() -> None:
     total = len(todo)
     proved_here = {line for line, _, _, _ in todo} - {l for l, _, _ in bad} \
         - {l for l, _, _ in unreachable}
-    points = refusal_points()
     covered = proved_here | set(ELSEWHERE)
     unproven = {l: t for l, t in points.items() if l not in covered}
 
@@ -498,6 +645,7 @@ def main() -> None:
     print(f"  proved to go red                 : {len(covered & set(points))}")
     print(f"  NEVER SHOWN TO GO RED            : {len(unproven)}")
     print(f"  refuse honest content            : {len(wrongly_refused)}")
+    print(f"  refuse honest content, ruled on  : {len(parked_refused)}")
     print(f"  ({here} proved here, {there} in check_prices_selftest.py"
           f"{f', {both} in both' if both else ''})")
     print("=" * 70)
@@ -505,6 +653,9 @@ def main() -> None:
         print(f"  check_site.py:{line} has never been shown to refuse anything\n      {src}")
     for name, why in wrongly_refused:
         print(f"  REFUSES HONEST CONTENT: {name}\n      {why}")
+    for name, why in parked_refused:
+        print(f"  PARKED, STILL REFUSES HONEST CONTENT: {name}\n      {why}"
+              f"\n      {PARKED_FALSE_ALARMS[name]}")
     for line, name, why in unreachable:
         print(f"  line {line}: {name}\n      {why}")
     for line, name, why in bad:

@@ -31,6 +31,112 @@ FORBIDDEN = (
     "one-hospital",
     "/partner?",
 )
+# --- telling a denial from a boast -------------------------------------------
+# The list above is a plain substring match, so it could not tell "we are SOC 2
+# certified" from "we are not SOC 2 certified". It blocked the second one, which
+# is exactly the sentence this estate exists to be able to write: saying plainly
+# what we do NOT do. A gate that blocks honest writing gets switched off.
+#
+# The separation is deliberately narrow, and it fails closed. A sentence is
+# allowed to carry a forbidden phrase only when ALL of these hold:
+#
+#   * a negator governs the phrase -- "do not", "never", "is not"
+#   * nothing separates that negator from the phrase except a few plain words:
+#     no comma, no "and", no "but", no second clause sneaking a claim back in
+#   * every other word in the sentence comes from the small list below
+#
+# The last one is the load-bearing one, and it is a whitelist on purpose. Any
+# embellishment at all -- "we do not JUST meet SOC 2" -- introduces a word that
+# is not on the list, and the sentence is refused again. Widening this list is
+# how someone would reopen the hole, so the tests hold specific claim-shaped
+# sentences that must keep failing.
+NEGATOR = re.compile(
+    r"\b(?:do not|does not|did not|is not|are not|was not|were not|has not|have not|"
+    r"cannot|can not|will not|would not|never|no)\b")
+# Words that may sit between the negator and the phrase. Anything else, and we
+# cannot tell what the negator is actually attached to.
+GAP_WORDS = {"we", "us", "our", "it", "its", "they", "them", "their", "this", "that",
+             "the", "a", "an", "any", "all", "be", "been", "being", "hold", "holds",
+             "collect", "collects", "store", "stores", "keep", "keeps", "claim",
+             "claims", "say", "says", "have", "has", "use", "uses", "run", "runs",
+             "seek", "seeks", "want", "wants", "need", "needs", "offer", "offers",
+             "sell", "sells", "to"}
+BREAKS = re.compile(r"[,;:]|\b(?:and|or|but|so|then|because|however|yet|still|"
+                    r"although|though|while|plus|also)\b")
+# Everything a plain denial is allowed to be made of, besides the phrase itself.
+DENIAL_WORDS = GAP_WORDS | {
+    "do", "does", "did", "is", "are", "was", "were", "will", "would", "can", "could",
+    "not", "no", "never", "none", "nothing", "nor", "neither",
+    "of", "for", "to", "on", "in", "at", "by", "with", "from", "about", "there",
+    "page", "pages", "feed", "feeds", "file", "files", "product", "products",
+    "site", "estate", "data", "record", "records", "information",
+    "covered", "certified", "certification", "compliant", "compliance",
+    "accredited", "audited", "aligned", "ready", "customers", "customer",
+    "clients", "client", "and",
+}
+MAX_DENIAL_WORDS = 20
+
+
+def _plain_denial(sentence: str, phrase: str) -> bool:
+    """Is this sentence a flat denial of the phrase, and nothing else besides?"""
+    s = sentence.lower().replace("can't", "can not").replace("won't", "will not")
+    s = re.sub(r"n't\b", " not", s)
+    i = s.find(phrase)
+    if i < 0:
+        return False
+    negs = [m for m in NEGATOR.finditer(s[:i])]
+    if not negs:
+        return False
+    gap = s[negs[-1].end():i]                      # the nearest negator governs
+    if BREAKS.search(gap):
+        return False
+    if any(w not in GAP_WORDS for w in re.findall(r"[a-z]+", gap)):
+        return False
+    rest = s[:i] + " " + s[i + len(phrase):]
+    words = re.findall(r"[a-z]+", rest)
+    return len(words) <= MAX_DENIAL_WORDS and all(w in DENIAL_WORDS for w in words)
+
+
+def _sentences(raw: str) -> list[str]:
+    """The visible words, cut into sentences, with every tag counting as a break.
+
+    A full stop is not the only thing that ends a sentence on a web page. A
+    heading sitting above a paragraph runs straight into it once the tags are
+    stripped, and then an honest denial arrives carrying the heading's words and
+    looks like something else. Anything a tag separates is separated here too.
+    A sentence that is itself broken up by tags -- bold in the middle of it --
+    comes apart, loses its negator, and is refused. That is the safe direction.
+    """
+    h = re.sub(r"(?is)<(script|style)[^>]*>.*?</\1>", " ", raw)
+    h = re.sub(r"(?is)<[^>]+>", " \x01 ", h)
+    h = html.unescape(h)
+    h = re.sub(r"[^\S\x01]+", " ", h)
+    parts = re.split(r"\x01|(?<=[.!?])\s+", h)
+    return [p.strip() for p in parts if p.strip()]
+
+
+def forbidden_hits(raw: str) -> list[str]:
+    """Which banned phrases this page carries as a claim rather than as a denial.
+
+    Counted against the raw HTML, not the visible words, so a phrase hiding in a
+    link or an attribute still counts -- "/partner?" only ever appears in an
+    href. Every occurrence has to be accounted for by a plain denial the reader
+    can actually see, or the phrase is reported.
+    """
+    sentences = _sentences(raw)
+    out = []
+    for bad in FORBIDDEN:
+        low = bad.lower()
+        n = raw.lower().count(low)
+        if not n:
+            continue
+        denials = sum(1 for s in sentences
+                      if low in s.lower() and _plain_denial(s, low))
+        if denials < n:
+            out.append(bad)
+    return out
+
+
 MAILTO = "mailto:operations@ustechautomations.com"
 PAY_HOSTS = ("stripe.com", "paypal.", "checkout.", "pay.")
 # Our own two-hop button is a pay link too. It looks like an ordinary link to
@@ -355,6 +461,47 @@ def check_family_dirs_accounted() -> None:
                  f"sample or its status. Add it to one of them, or stop building it.")
 
 
+def check_one_home() -> None:
+    """The other half of the folder rule: a page named in BOTH lists.
+
+    check_family_dirs_accounted() above catches the quiet fault -- a folder in
+    neither list, so nothing checks its price. This is the loud one. Two lists
+    build folders: catalog.json describes a product and its price, extras.json
+    builds the page. An id in both gets its folder made twice, and the build dies
+    on "File exists: dist/<id>", which names the symptom and neither of the two
+    files you have to open to fix it. That message cost an hour tonight.
+
+    build_site.py already refuses this, and its wording is the model for the one
+    below. This is the same refusal moved earlier, into the gate that runs before
+    the builder, so the answer arrives before anything is written to dist/. It is
+    an early warning, not a replacement: do not remove either one.
+
+    kind="build" is the one legal overlap and it is what tells a real duplicate
+    from families/offers/. That entry is in catalog.json so its price and its
+    written terms are checked like every other product's, and in extras.json
+    because that is what actually builds its page; the family loop in the builder
+    skips it. The rule is the marker, not the name -- no id is exempted here, so
+    a second kind="build" product tomorrow passes on the same terms, and dropping
+    the marker from offers makes this refuse it like anything else.
+    """
+    extras = ROOT / "extras.json"
+    if not extras.is_file():
+        return
+    ext = {e["id"] for e in json.loads(extras.read_text(encoding="utf-8"))}
+    clash = sorted(f["id"] for f in CATALOG["families"]
+                   if f["id"] in ext and f.get("kind") != "build")
+    if clash:
+        fail(f"{', '.join(clash)} is named in both catalog.json and extras.json, so the "
+             f"build would try to create dist/{clash[0]} twice and would stop on a "
+             f"'file already exists' message that names neither file. The two lists do "
+             f"different jobs: catalog.json describes the page and holds its price and "
+             f"terms, extras.json builds the page. Decide which one owns it and delete "
+             f"the other entry -- catalog.json if it is a dated feed we sell, "
+             f"extras.json if it is a bridge or trust page. If it really is priced in "
+             f"the catalog and built by extras.json, the way families/offers/ is, mark "
+             f'the catalog entry kind: "build" and the builder will skip it.')
+
+
 def check_prices_on_disk() -> None:
     """Walk the pages and come back to the catalog, not the other way round.
 
@@ -428,18 +575,18 @@ def main() -> None:
     # Then the pages-to-catalog direction, before the catalog-to-pages loop
     # below, because a page in no catalog is invisible to everything after this.
     check_family_dirs_accounted()
+    check_one_home()
     check_prices_on_disk()
     check_price_list_page()
     hub = (ROOT / "index.html").read_text(encoding="utf-8")
     if MAILTO not in hub:
         fail("hub missing operations@ mailto")
-    for bad in FORBIDDEN:
+    for bad in forbidden_hits(hub):
         # The hub used to skip "one live job" while every family page was checked
         # for it. The phrase is on no page today, so the exemption was protecting
         # nothing and would have let the hub ship the one claim we most want to
         # keep off it. Every page is now held to the same list.
-        if bad.lower() in hub.lower():
-            fail(f"hub contains forbidden {bad!r}")
+        fail(f"hub contains forbidden {bad!r}")
     for fam in CATALOG["families"]:
         path = ROOT / "families" / fam["id"] / "index.html"
         if not path.is_file():
@@ -451,15 +598,28 @@ def main() -> None:
         if fam["sample_status"] == "parked":
             # A parked family is one we cannot collect. It must carry no price at
             # all -- a price on a page we cannot deliver is an offer we cannot keep.
+            #
+            # KNOWN FALSE ALARM, LEFT STRICT ON PURPOSE (2026-08-23).
+            # This reads every dollar amount on the visible page, so it also bites
+            # a parked page that honestly quotes SOMEONE ELSE'S fee -- "the state
+            # charges $9 for a copy of the roster" is a fact about the state, not
+            # an offer from us. No parked page carries a third-party fee today, so
+            # nothing is blocked right now; the fault is latent, not live.
+            # It is deliberately NOT loosened. Telling our price from a third
+            # party's needs the sentence around the number, and getting that wrong
+            # in the loose direction would let a real price ship on a page we
+            # cannot deliver -- a far worse trade than a false alarm somebody can
+            # read and bring back here. If a parked page ever does need to quote an
+            # outside fee, that is the moment to do the work properly, with the
+            # both-directions tests that go with it.
             if re.search(r"\$\d", vis):
                 fail(f"{fam['id']} is parked but still shows a dollar price")
             if "not available" not in vis.lower():
                 fail(f"{fam['id']} is parked but never says it is not available")
         elif fam["price"] not in vis:
             fail(f"{fam['id']} missing price {fam['price']}")
-        for bad in FORBIDDEN:
-            if bad.lower() in raw.lower():
-                fail(f"{fam['id']} contains forbidden {bad!r}")
+        for bad in forbidden_hits(raw):
+            fail(f"{fam['id']} contains forbidden {bad!r}")
         check_pay_links(fam["id"], raw, fam.get("checkout"))
         check_privacy(fam["id"], raw, vis, is_slice=False)
         check_description(fam["id"], raw)
@@ -482,9 +642,8 @@ def main() -> None:
             raw = path.read_text(encoding="utf-8")
             if MAILTO not in raw:
                 fail(f"{e['id']} missing mailto")
-            for bad in FORBIDDEN:
-                if bad.lower() in raw.lower():
-                    fail(f"{e['id']} contains forbidden {bad!r}")
+            for bad in forbidden_hits(raw):
+                fail(f"{e['id']} contains forbidden {bad!r}")
             check_privacy(e["id"], raw, text(raw), is_slice=False)
             check_description(e["id"], raw)
             if e["id"] not in (ROOT / "index.html").read_text(encoding="utf-8"):
@@ -527,9 +686,8 @@ def check_slices() -> None:
             vis = text(raw)
             if MAILTO not in raw:
                 fail(f"{who} missing mailto")
-            for bad in FORBIDDEN:
-                if bad.lower() in raw.lower():
-                    fail(f"{who} contains forbidden {bad!r}")
+            for bad in forbidden_hits(raw):
+                fail(f"{who} contains forbidden {bad!r}")
             if fam["price"] not in vis:
                 fail(f"{who} does not show its parent's price {fam['price']}")
             if 'name="data-newest"' not in raw or 'name="data-cadence-days"' not in raw:
