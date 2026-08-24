@@ -387,10 +387,10 @@ def check_description_price(page_id: str, raw: str, price: str) -> None:
     seen = re.findall(
         r'<meta (?:name|property)="(?:og:|twitter:)?description" content="(.*?)">', raw)
     for d in seen:
-        for money in set(re.findall(r"\$\d[\d,]*", d)):
-            if money not in price:
-                fail(f"{page_id} search line offers {money} but the catalog price is "
-                     f"{price!r}: {d[:70]}...")
+        # Whole amounts, never substrings: "$9" sits inside "$99/mo".
+        for money in sorted(_amounts(d) - _amounts(price)):
+            fail(f"{page_id} search line offers {money} but the catalog price is "
+                 f"{price!r}: {d[:70]}...")
 
 
 # ---------------------------------------------------------------------------
@@ -724,12 +724,13 @@ def check_slices() -> None:
 # is none of its business: fourteen of our families are not for sale and must be
 # able to carry no button at all without a word from here.
 BTN_BUY = re.compile(r"\bbtn-buy\b")
-# A buy-shaped word at the START of the label. "Email us for the $99 checkout
+# A buy-shaped word at the START of the wording. "Email us for the $99 checkout
 # link" is not a button, and neither is a sentence that happens to contain "pay".
-BUY_WORDS = re.compile(r"^(?:buy|subscribe|pay|checkout)\b", re.I)
-ANCHOR = re.compile(r"<a\b([^>]*)>((?:(?!</a>).)*)</a>", re.S | re.I)
-HREF_ATTR = re.compile(r'href="([^"]*)"', re.I)
-CLASS_ATTR = re.compile(r'class="([^"]*)"', re.I)
+BUY_WORDS = re.compile(r"^(?:buy|subscribe|pay|checkout|order|get instant access)\b", re.I)
+# <a> and <button> both. A hand-written <button> that navigates is a pay button
+# to every reader, and reading only anchors would let one straight through.
+CLICKABLE = re.compile(r"<(a|button)\b([^>]*)>((?:(?!</\1>).)*)</\1>", re.S | re.I)
+TAGS = re.compile(r"<[^>]+>")
 # Words that say the money comes back every month, in a label or in a price.
 RECURS = re.compile(r"/mo\b|\bper month\b|\ba month\b|\bmonthly\b|\bsubscribe\b", re.I)
 GOES_NOWHERE = {"", "#", "javascript:void(0)", "javascript:;"}
@@ -739,16 +740,24 @@ BUTTON_FIXIT = ("Arm it with scripts/mint_feed_links.py, prove it with "
                 "address or an amount onto a page by hand.")
 
 
+def _attr(attrs: str, name: str) -> str:
+    """One attribute off a tag, whichever way it was quoted.
+
+    Single quotes are not a rarity, they are what anyone hand-writing a line of
+    HTML reaches for, and a double-quote-only pattern simply does not see them.
+    A checkout address in single quotes was invisible to this gate.
+    """
+    m = re.search(rf"""\b{name}\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))""", attrs, re.I)
+    return (m.group(1) or m.group(2) or m.group(3) or "").strip() if m else ""
+
+
 def buy_buttons(raw: str) -> list[tuple[str, str]]:
     """Every element on this page that offers to take money: (address, wording).
 
     Two independent signals, because either alone has a hole. The class is what
     our own generators emit, so it catches every button we build. The wording
     catches one somebody wrote by hand without the class, which is exactly the
-    button that would otherwise sail straight past. Both were checked against the
-    estate as it stands: no anchor anywhere starts with a buying word without
-    also carrying the class, so the wider signal costs nothing today and is there
-    for the day somebody hand-writes one.
+    button that would otherwise sail straight past.
 
     One thing is deliberately NOT a button: an ordinary text link to our own
     inbox, whatever its wording. "Buy a copy by email" over a mailto is the
@@ -758,12 +767,11 @@ def buy_buttons(raw: str) -> list[tuple[str, str]]:
     quietly going to email, so that one is still caught.
     """
     out = []
-    for attrs, inner in ANCHOR.findall(raw):
-        cls = CLASS_ATTR.search(attrs)
-        href_at = HREF_ATTR.search(attrs)
-        href = href_at.group(1).strip() if href_at else ""
-        label = " ".join(html.unescape(re.sub(r"<[^>]+>", " ", inner)).split())
-        if not (cls and BTN_BUY.search(cls.group(1))):
+    for _tag, attrs, inner in CLICKABLE.findall(raw):
+        cls = _attr(attrs, "class")
+        href = _attr(attrs, "href") or _attr(attrs, "formaction")
+        label = " ".join(html.unescape(TAGS.sub(" ", inner)).split())
+        if not BTN_BUY.search(cls):
             if not BUY_WORDS.match(label) or href.lower().startswith("mailto:"):
                 continue
         out.append((href, label))
@@ -787,11 +795,14 @@ def check_buttons_on(who: str, raw: str, fam: dict | None) -> None:
             fail(f"{who} shows a button reading {label!r} pointing at {href}, and that is not "
                  f"the checkout this page's catalog row declares ({declared!r}). A button may "
                  f"only send a buyer to an address we declared and fetched. {BUTTON_FIXIT}")
-        for money in sorted(set(re.findall(r"\$\d[\d,]*", label))):
-            if money not in price:
-                fail(f"{who} has a button offering to charge {money} and the catalog sells this "
-                     f"at {price!r}. The page is what the buyer agreed to, so the button must "
-                     f"carry the catalog's amount. {PRICE_FIXIT}")
+        # Whole amounts, never substrings. "$9" IS inside "$99/mo", so a
+        # substring test let a button read "Subscribe -- $9 a month" over a
+        # $99/mo product: ten times out, on the one number a stranger reads
+        # before they agree to pay. Every price we sell was open to it.
+        for money in sorted(_amounts(label) - _amounts(price)):
+            fail(f"{who} has a button offering to charge {money} and the catalog sells this "
+                 f"at {price!r}. The page is what the buyer agreed to, so the button must "
+                 f"carry the catalog's amount. {PRICE_FIXIT}")
         if bool(RECURS.search(label)) != bool(RECURS.search(price)):
             fail(f"{who} has a button reading {label!r} and a catalog price of {price!r}: one of "
                  f"them is a subscription and the other is paid once. Getting this backwards "

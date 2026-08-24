@@ -387,26 +387,47 @@ def cases() -> list[tuple]:
         e.sub(FAM, f'href="{url}"', 'href="https://ustechautomations.com/feeds/ttb"',
               count=1)
 
-    add(783, "a page shows a pay button and clicking it does nothing",
+    add(791, "a page shows a pay button and clicking it does nothing",
         button_to_nowhere, "goes nowhere")
-    add(783, "a pay button dressed as a checkout that quietly goes to the inbox",
+    add(791, "a pay button dressed as a checkout that quietly goes to the inbox",
         button_to_the_inbox, "goes nowhere")
-    add(787, "a button sends the buyer to an address the catalog never declared",
+    add(795, "a button sends the buyer to an address the catalog never declared",
         button_somewhere_else, "not the checkout this page's catalog row declares")
     # count=1 so only the button's own wording moves. The price rail, the tab
     # title and the search line all still say $99, which is what every price
     # check in this gate reads -- none of them has ever looked at a button.
-    add(792, "a button offers to charge an amount we do not sell at",
+    add(803, "a button offers to charge an amount we do not sell at",
         lambda e: e.sub(FAM, "$99 a month", "$149 a month", count=1),
         "offering to charge $149"),
-    add(796, "a monthly subscription with a button that says it is paid once",
+    add(807, "a monthly subscription with a button that says it is paid once",
         lambda e: e.sub(FAM, "Subscribe — $99 a month", "Buy once — $99", count=1),
         "one of them is a subscription and the other is paid once")
     # The quiet one, and the one that actually happened: the children under five
     # families grew buttons and the hand-written parents above them did not, so
     # every buyer landing on the family page was still sent to an email thread
     # while the catalog said the product took a card.
-    add(832, "a checkout we proved working, and the page still shows no button",
+    # Found by an audit of this very check, hours after it was written, and the
+    # worst of the three: "$9" is a SUBSTRING of "$99/mo", so a substring test
+    # waved through a button understating the price ten times over. Every price
+    # we sell was open to it -- $249 -> $24, $175 -> $17, $59 -> $5.
+    add(803, "a button understates the price by a factor of ten",
+        lambda e: e.sub(FAM, "$99 a month", "$9 a month", count=1),
+        "offering to charge $9"),
+    # Single quotes are what anyone hand-writing one line of HTML reaches for,
+    # and the pay-link check above still cannot see them: its pattern requires a
+    # double quote. So this address is invisible to everything except the button
+    # check, which is the point of the case.
+    add(795, "a checkout address written in single quotes, invisible to the pay-link check",
+        lambda e: e.before_body_end(
+            FAM, "<p><a class='btn btn-buy' href='https://buy.stripe.com/nOtReAl'>"
+                 "Subscribe &mdash; $99 a month</a></p>"),
+        "not the checkout this page's catalog row declares"),
+    # A <button> is a pay button to every reader and was not an <a>, so reading
+    # only anchors let one straight through.
+    add(791, "a hand-written button element that offers to subscribe and does nothing",
+        lambda e: e.before_body_end(FAM, "<p><button>Subscribe now</button></p>"),
+        "goes nowhere"),
+    add(843, "a checkout we proved working, and the page still shows no button",
         lambda e: e.re_sub(PAID, r"(?s)<a class=\"btn btn-buy.*?</a>", ""),
         "shows no pay button at all")
 
@@ -564,6 +585,12 @@ def honest_cases() -> list[tuple]:
         # without any generator involved -- has to be waved straight through.
         ("one more working pay button, hand-written on a page that sells",
          extra_working_button),
+        # Widening the detector to <button> must not make every button on the
+        # site a pay button. An ordinary control that does not offer to take
+        # money is not this check's business.
+        ("an ordinary button on a page that sells, doing something other than selling",
+         lambda e: e.before_body_end(
+             FAM, '<p><button class="copy">Copy this link</button></p>')),
         # And the twelve families that are not for sale must be able to point at
         # the inbox in plain words without that counting as a broken button.
         ("a page we do not sell yet, offering the email route in so many words",
