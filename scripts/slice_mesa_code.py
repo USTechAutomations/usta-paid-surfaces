@@ -231,9 +231,13 @@ def changes(st: dict) -> dict:
 def zip_window(c: sqlite3.Connection, st: dict, ch: dict, z: str) -> dict:
     """Everything one ZIP's page needs, counted rather than assumed."""
     meta = st["meta"]
-    moved = sorted(ch["moved"].get(z, []), key=lambda r: r[3], reverse=True)
-    came = sorted(ch["came"].get(z, []), key=lambda r: r[2], reverse=True)
-    left = sorted(ch["left"].get(z, []), key=lambda r: r[2], reverse=True)
+    # Newest version first, then by case number. The case number is in the key
+    # because without it the order inside one version is whatever SQLite handed
+    # the rows over in, which is not stable between runs: the same rows came out
+    # shuffled on every build and every rebuild showed as a change in git.
+    moved = sorted(ch["moved"].get(z, []), key=lambda r: (r[3], r[0]), reverse=True)
+    came = sorted(ch["came"].get(z, []), key=lambda r: (r[2], r[0]), reverse=True)
+    left = sorted(ch["left"].get(z, []), key=lambda r: (r[2], r[0]), reverse=True)
 
     # "In our copy" against "opened by Mesa". The gap between these two numbers
     # is the whole reason the second one is printed.
@@ -414,9 +418,11 @@ def zip_desc(w: dict) -> str:
 def coverage(c: sqlite3.Connection, st: dict, ch: dict, built: list[dict]) -> dict:
     meta = st["meta"]
     shipped = {w["zip"] for w in built}
+    # The ZIP itself is the tiebreaker. Sorting only on the count leaves ZIPs
+    # with equal counts in set order, which Python varies between runs.
     all_zips = sorted(
         {z for z in set(ch["moved"]) | set(ch["came"]) | set(ch["left"]) if z},
-        key=lambda z: -(len(ch["moved"].get(z, [])) + len(ch["came"].get(z, []))))
+        key=lambda z: (-(len(ch["moved"].get(z, [])) + len(ch["came"].get(z, []))), z))
 
     rows = []
     for z in all_zips:
@@ -549,7 +555,7 @@ def slices() -> list[dict]:
         meta = st["meta"]
         candidates = sorted(
             {z for z in set(ch["moved"]) | set(ch["came"]) if z},
-            key=lambda z: -(len(ch["moved"].get(z, [])) + len(ch["came"].get(z, []))))
+            key=lambda z: (-(len(ch["moved"].get(z, [])) + len(ch["came"].get(z, []))), z))
 
         built: list[dict] = []
         out: list[dict] = []

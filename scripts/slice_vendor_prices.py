@@ -251,7 +251,9 @@ def went_quiet(st: dict) -> list[dict]:
         out.append({"domain": dom, "resource": res, "copies": len(got),
                     "first": got[0][0], "last": last, "silent": len(after),
                     "now": now})
-    out.sort(key=lambda r: (r["last"], r["domain"]))
+    # Resource is in the key because a site can lose both addresses on the same
+    # day; box.com did, and without it those two rows swap places every build.
+    out.sort(key=lambda r: (r["last"], r["domain"], r["resource"]))
     return out
 
 
