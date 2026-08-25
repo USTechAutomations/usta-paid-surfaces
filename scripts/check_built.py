@@ -70,6 +70,13 @@ NEWEST = re.compile(r'<meta\s+name="data-newest"\s+content="([^"]+)"', re.I)
 CADENCE = re.compile(r'<meta\s+name="data-cadence-days"\s+content="([^"]+)"', re.I)
 NOINDEX = re.compile(r'<meta\s+name="robots"[^>]*content="[^"]*noindex', re.I)
 MONEY = re.compile(r"\$\s?\d")
+# The one thing only scripts/build_site.py:write_retired() writes. Deliberately
+# NOT a folder-name pattern and NOT "has no source page": a folder nobody ever
+# registered also has no source page, and letting absence identify a retirement
+# page is the exact mistake the comment in run() was written about. A marker is
+# a positive claim by the builder, and a page that only CLAIMS to be retired
+# still has to survive check_retired() below.
+RETIRED_MARK = re.compile(r'<meta\s+name="page-state"\s+content="retired"', re.I)
 
 
 class Report:
@@ -265,6 +272,22 @@ def run(today: dt.date | None = None, dist: Path | None = None) -> Report:
             # lists are asked first -- they say whether anyone ever priced this
             # thing -- and only then does a missing source page get to mean
             # retirement.
+            #
+            # ADDED 2026-08-24. Retiring a whole feed takes its row OUT of the
+            # catalog, so its tombstones land here and were reported as faults --
+            # 18 of the 19 reds on this board were honest retirement pages doing
+            # exactly what they are supposed to do. The fix is a routing fix, not
+            # a waiver: a page carrying the builder's own retirement marker is
+            # still handed to check_retired(), which demands it SAYS it is
+            # retired, shows no dollar amount and asks not to be indexed. It is
+            # skipped from the CATALOG rules only, and the skip is printed with
+            # its own reason so nothing leaves the board quietly.
+            if RETIRED_MARK.search(raw) and not source_for(path).is_file():
+                check_retired(rep, who, raw, vis)
+                rep.skip(who, "its whole feed was retired, so its row is gone from "
+                              "catalog.json on purpose -- held to the retirement rules "
+                              "instead of the price and sample ones")
+                continue
             rep.bad(who, "ships from a folder that is in neither catalog.json nor "
                          "extras.json, so no price, sample or terms rule has ever been "
                          "applied to it")
@@ -480,6 +503,66 @@ def selftest() -> int:
         shutil.copy2(lab / "grid" / "index.html", lab / "brand-new" / "index.html")
         r = _ask(lab, today)
         case("a page from a folder in neither list goes red",
+             hits(r, "in neither catalog.json nor extras.json"),
+             "; ".join(r.faults) or "no fault at all")
+    finally:
+        shutil.rmtree(lab, ignore_errors=True)
+
+    # 11a-11d. THE RETIREMENT-MARKER ROUTE, proved in both directions.
+    #
+    # A whole feed retired takes its catalog row with it, so its tombstones have
+    # no row and no source page. Skipping them is right; skipping them for the
+    # WRONG reason is how a real fault would get waived, so the marker has to be
+    # what does the work -- not the folder name, and not the absence of a source
+    # page. Each case below changes exactly one of those and checks the verdict
+    # flips the way the rule claims.
+    tomb = "ai-prices/index.html"
+
+    # 11a. GREEN. A genuine tombstone is skipped, and named in the skip list.
+    lab = _lab(good + [tomb])
+    try:
+        r = _ask(lab, today)
+        case("a genuine tombstone is skipped, not reported",
+             not r.faults and any(w == "ai-prices" for w, _ in r.skipped),
+             f"faults {r.faults}; skipped {r.skipped}")
+    finally:
+        shutil.rmtree(lab, ignore_errors=True)
+
+    # 11b. RED, and this is the case that proves it is not a folder-name rule.
+    #      A real live page copied into a folder called ai-prices carries no
+    #      marker, so it must still be reported.
+    lab = _lab(good)
+    try:
+        (lab / "ai-prices").mkdir()
+        shutil.copy2(lab / "grid" / "index.html", lab / "ai-prices" / "index.html")
+        r = _ask(lab, today)
+        case("a live page wearing the retired folder's name is still reported",
+             hits(r, "in neither catalog.json nor extras.json"),
+             "; ".join(r.faults) or "no fault at all")
+    finally:
+        shutil.rmtree(lab, ignore_errors=True)
+
+    # 11c. RED. Claiming to be retired is not enough. A tombstone that prints a
+    #      dollar amount is still a page offering something, and check_retired()
+    #      has to catch it through the new route as well as the old one.
+    lab = _lab(good + [tomb])
+    try:
+        _edit(lab, tomb, "<h1>This page is retired</h1>",
+              "<h1>This page is retired</h1>\n      <p>$175/mo</p>")
+        r = _ask(lab, today)
+        case("a tombstone that shows a price is still reported",
+             hits(r, "retired page showing a dollar amount"),
+             "; ".join(r.faults) or "no fault at all")
+    finally:
+        shutil.rmtree(lab, ignore_errors=True)
+
+    # 11d. RED. Take the marker away and the skip must go away with it, or the
+    #      marker is decoration and something else is really doing the deciding.
+    lab = _lab(good + [tomb])
+    try:
+        _edit(lab, tomb, '<meta name="page-state" content="retired">', "")
+        r = _ask(lab, today)
+        case("with the marker gone the same page is reported again",
              hits(r, "in neither catalog.json nor extras.json"),
              "; ".join(r.faults) or "no fault at all")
     finally:

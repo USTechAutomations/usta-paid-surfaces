@@ -427,6 +427,7 @@ RETIRED_HTML = """<!doctype html>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,follow">
+  <meta name="page-state" content="retired">
   <title>This page is retired &mdash; US Tech Automations feeds</title>
   <meta name="description" content="This address used to hold a page in the {crumb} feed. It has nothing to show now, and nothing is for sale on it.">
   <link rel="canonical" href="{base}/{addr}">
