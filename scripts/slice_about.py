@@ -583,7 +583,7 @@ def part_of_reader(here: list[dict]) -> str:
             "row count and its own newest sealed date.")
 
 
-def sold_cell(here: list[dict]) -> str:
+def sold_cell(here: list[dict], stopped: dict | None = None) -> str:
     if not here:
         return ("Held, not sold"
                 '<span class="sub">Ask and we will tell you what we hold before you spend '
@@ -595,6 +595,34 @@ def sold_cell(here: list[dict]) -> str:
         names = ", ".join((f.get("short") or f.get("name", "")) for f in here)
         return ("Not for sale"
                 f'<span class="sub">{esc(names)} — no price on this one yet.{part}</span>')
+    # A reader that has been switched off must not print a price on this row.
+    #
+    # A price in this column is an offer to keep sending something, and the thing
+    # that would do the sending has stopped. For one day this page carried
+    # "Switched off 24 Aug 2026 / Nothing new is being read" and "$175/mo / Sold
+    # as AI-crawler policy changes" in the same row, four columns apart: off and
+    # priced in the same breath, on the one page a buyer reads to compare what we
+    # hold before they spend anything. A monthly figure is the worst version of
+    # it -- per month is a promise about future months.
+    #
+    # Derived from the stop record, never typed: the row goes quiet on the build
+    # after a KEEP_STOPPED record is written, and prints its price again on the
+    # build after that record is withdrawn. Nothing here reads a date or a family
+    # id, so a second reader stopping needs no edit.
+    #
+    # What this does NOT do, deliberately: it does not take the feed off sale.
+    # The catalog still carries a price and the feed page still shows it, because
+    # withdrawing a product is not a page builder's decision. The gap between the
+    # two is the honest one to leave visible -- and the limits list under this
+    # table already counts the sold feeds whose readers have stopped and tells a
+    # buyer to ask before paying.
+    if stopped:
+        return ("Not sold as a live feed"
+                f'<span class="sub">This reader was switched off on '
+                f'{esc(day(stopped["decided_on"]))}, so there is no price on this row. What '
+                "we hold is the sealed history above and it is not growing. If that history "
+                "is what you want, ask us what it covers before you pay rather than after."
+                f"{part}</span>")
     sold_as = ", ".join((f.get("short") or f["name"]) for f in priced)
     prices = []
     for f in priced:
@@ -654,6 +682,7 @@ def coverage(today: dt.date) -> dict:
     rows = []
     measured = []
     frozen: list[str] = []
+    stopped_sold: list[tuple[str, str, str]] = []
     sold = held = 0
     for clock, name, blurb, tables, family in INVENTORY:
         got = measure(clock, tables)
@@ -666,15 +695,42 @@ def coverage(today: dt.date) -> dict:
         is_sold = bool(sold_here)
         sold += is_sold
         held += not is_sold
-        if is_sold and decisions.get(clock, {}).get("decision") == "KEEP_STOPPED":
+        decision = decisions.get(clock)
+        off_here = decision if (decision or {}).get("decision") == "KEEP_STOPPED" else None
+        if is_sold and off_here:
             frozen.extend(f.get("short") or f["name"] for f in sold_here)
+            # The price still has to be printed SOMEWHERE on this page. Taking it
+            # out of the reader row above is right -- a per-month figure beside
+            # "Switched off" reads as an offer to keep sending -- but a price that
+            # simply vanishes from the one page that puts our prices side by side
+            # is how a buyer meets it for the first time at the checkout. So it
+            # moves down into the second table, where the row can say in the same
+            # breath what the money buys now: the sealed history, and nothing
+            # after it. check_site.py::check_price_list_page() enforces the
+            # never-vanish half and refuses this page if a priced family is not
+            # listed on it, which is how the first attempt at this was caught.
+            for f in sold_here:
+                short = f.get("short") or f["name"]
+                stopped_sold.append((
+                    f'<strong>{esc(short)}</strong>'
+                    f'<span class="sub">{esc(f.get("who", ""))}</span>',
+                    "Nothing new arrives"
+                    f'<span class="sub">We stopped reading this on '
+                    f'{esc(day(off_here["decided_on"]))}. What we hold is '
+                    f'{got["rows"]:,} dated rows across {got["runs"]:,} sealed reads, '
+                    f'newest {esc(day(got["newest"]))}, and it is not growing.</span>',
+                    f'{esc(f["price"])}<span class="sub">Sold as {esc(short)}. '
+                    "That price is still on its own page, and this is what it buys today: "
+                    "the sealed history counted in this row, not a feed that is still being "
+                    "added to. Ask what it covers before you pay rather than after.</span>",
+                ))
         rows.append((
             f'<strong>{esc(name)}</strong><span class="sub">{esc(blurb)}</span>',
             f'{got["rows"]:,}',
             f'{got["runs"]:,}',
             newest_read_cell(got),
-            still_reading(got, decisions.get(clock), today),
-            sold_cell(here),
+            still_reading(got, decision, today),
+            sold_cell(here, off_here),
         ))
 
     total_rows = sum(m["rows"] for m in measured)
@@ -710,6 +766,10 @@ def coverage(today: dt.date) -> dict:
         f'{esc(f["price"])}<span class="sub">Sold as {esc(f.get("short") or f["name"])}. '
         "Each offer states its own price and its own window; ask before you pay.</span>",
     ) for f in builds]
+    # One table, two reasons to be in it: a build was never a dated feed, and a
+    # stopped reader has ceased to be one. Both are things we sell that no longer
+    # promise anything dated, which is exactly what this table is for.
+    not_a_feed = stopped_sold + build_rows
 
     facts = [
         f"<strong>{len(measured)} readers, {total_rows:,} dated rows, {total_runs:,} sealed "
@@ -789,9 +849,9 @@ def coverage(today: dt.date) -> dict:
             "caption": "Sold, but not a dated feed",
             "stamp": f"Counted {day(today.isoformat())}",
             "headers": ["What it is", "What arrives", "Sold today"],
-            "rows": build_rows,
+            "rows": not_a_feed,
             "moved_col": None,
-        }] if build_rows else []),
+        }] if not_a_feed else []),
         "facts": facts,
         "limits": limits,
     }
