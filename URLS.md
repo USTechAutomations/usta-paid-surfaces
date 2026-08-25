@@ -3,9 +3,9 @@
 Derived from `dist/` by `scripts/url_manifest.py`. Not typed, not edited
 by hand. Re-run it after any build and this file is current again.
 
-- **227 pages**, every one of them an address under `/feeds`
-- **123** carry a price; **104** say they are not for sale yet, are free to read, or are the hub itself
-- **112** have a pay button; **110** are honest holding pages that ask you to email instead; **5** is the hub, which sells nothing and does not pretend to
+- **232 pages**, every one of them an address under `/feeds`
+- **51** carry a price; **181** say they are not for sale yet, are free to read, or are the hub itself
+- **50** have a pay button; **156** are honest holding pages that ask you to email instead; **26** is the hub, which sells nothing and does not pretend to
 
 The sitemap lists exactly these pages and no others.
 
@@ -52,24 +52,24 @@ The sitemap lists exactly these pages and no others.
 
 | Address | Price | Buy |
 |---|---|---|
-| `/feeds/ai-prices` | $175/mo | pay button |
-| `/feeds/ai-prices/anthropic` | $175/mo | pay button |
-| `/feeds/ai-prices/cheapest` | $175/mo | pay button |
-| `/feeds/ai-prices/coverage` | $175/mo | pay button |
-| `/feeds/ai-prices/cuts` | $175/mo | pay button |
-| `/feeds/ai-prices/deepseek` | $175/mo | pay button |
-| `/feeds/ai-prices/google` | $175/mo | pay button |
-| `/feeds/ai-prices/meta-llama` | $175/mo | pay button |
-| `/feeds/ai-prices/minimax` | $175/mo | pay button |
-| `/feeds/ai-prices/mistralai` | $175/mo | pay button |
-| `/feeds/ai-prices/moonshotai` | $175/mo | pay button |
-| `/feeds/ai-prices/movers` | $175/mo | pay button |
-| `/feeds/ai-prices/nvidia` | $175/mo | pay button |
-| `/feeds/ai-prices/openai` | $175/mo | pay button |
-| `/feeds/ai-prices/qwen` | $175/mo | pay button |
-| `/feeds/ai-prices/restless` | $175/mo | pay button |
-| `/feeds/ai-prices/rises` | $175/mo | pay button |
-| `/feeds/ai-prices/z-ai` | $175/mo | pay button |
+| `/feeds/ai-prices` | n/a | no cta found |
+| `/feeds/ai-prices/anthropic` | n/a | no cta found |
+| `/feeds/ai-prices/cheapest` | n/a | no cta found |
+| `/feeds/ai-prices/coverage` | n/a | no cta found |
+| `/feeds/ai-prices/cuts` | n/a | no cta found |
+| `/feeds/ai-prices/deepseek` | n/a | no cta found |
+| `/feeds/ai-prices/google` | n/a | no cta found |
+| `/feeds/ai-prices/meta-llama` | n/a | no cta found |
+| `/feeds/ai-prices/minimax` | n/a | no cta found |
+| `/feeds/ai-prices/mistralai` | n/a | no cta found |
+| `/feeds/ai-prices/moonshotai` | n/a | no cta found |
+| `/feeds/ai-prices/movers` | n/a | no cta found |
+| `/feeds/ai-prices/nvidia` | n/a | no cta found |
+| `/feeds/ai-prices/openai` | n/a | no cta found |
+| `/feeds/ai-prices/qwen` | n/a | no cta found |
+| `/feeds/ai-prices/restless` | n/a | no cta found |
+| `/feeds/ai-prices/rises` | n/a | no cta found |
+| `/feeds/ai-prices/z-ai` | n/a | no cta found |
 
 ## ai-terms
 
@@ -88,12 +88,12 @@ The sitemap lists exactly these pages and no others.
 
 | Address | Price | Buy |
 |---|---|---|
-| `/feeds/air-permits` | $175/mo | pay button |
-| `/feeds/air-permits/arizona-air` | $175/mo | pay button |
-| `/feeds/air-permits/coverage` | $175/mo | pay button |
-| `/feeds/air-permits/data-centers` | $175/mo | pay button |
-| `/feeds/air-permits/texas-moved` | $175/mo | pay button |
-| `/feeds/air-permits/texas-new` | $175/mo | pay button |
+| `/feeds/air-permits` | Not for sale yet | email only |
+| `/feeds/air-permits/arizona-air` | Not for sale yet | email only |
+| `/feeds/air-permits/coverage` | Not for sale yet | email only |
+| `/feeds/air-permits/data-centers` | Not for sale yet | email only |
+| `/feeds/air-permits/texas-moved` | Not for sale yet | email only |
+| `/feeds/air-permits/texas-new` | Not for sale yet | email only |
 
 ## az-contractors
 
@@ -105,16 +105,16 @@ The sitemap lists exactly these pages and no others.
 
 | Address | Price | Buy |
 |---|---|---|
-| `/feeds/civic-agenda` | $175/mo | pay button |
-| `/feeds/civic-agenda/austin` | $175/mo | pay button |
-| `/feeds/civic-agenda/chicago` | $175/mo | pay button |
-| `/feeds/civic-agenda/columbus` | $175/mo | pay button |
-| `/feeds/civic-agenda/coverage` | $175/mo | pay button |
-| `/feeds/civic-agenda/king-county` | $175/mo | pay button |
-| `/feeds/civic-agenda/la-county` | $175/mo | pay button |
-| `/feeds/civic-agenda/mesa` | $175/mo | pay button |
-| `/feeds/civic-agenda/phoenix` | $175/mo | pay button |
-| `/feeds/civic-agenda/seattle` | $175/mo | pay button |
+| `/feeds/civic-agenda` | Not for sale yet | email only |
+| `/feeds/civic-agenda/austin` | Not for sale yet | email only |
+| `/feeds/civic-agenda/chicago` | Not for sale yet | email only |
+| `/feeds/civic-agenda/columbus` | Not for sale yet | email only |
+| `/feeds/civic-agenda/coverage` | Not for sale yet | email only |
+| `/feeds/civic-agenda/king-county` | n/a | no cta found |
+| `/feeds/civic-agenda/la-county` | Not for sale yet | email only |
+| `/feeds/civic-agenda/mesa` | n/a | no cta found |
+| `/feeds/civic-agenda/phoenix` | Not for sale yet | email only |
+| `/feeds/civic-agenda/seattle` | Not for sale yet | email only |
 
 ## coverage
 
@@ -126,16 +126,16 @@ The sitemap lists exactly these pages and no others.
 
 | Address | Price | Buy |
 |---|---|---|
-| `/feeds/crawler` | $175/mo | email only |
-| `/feeds/crawler/ccbot` | $175/mo | email only |
-| `/feeds/crawler/claudebot` | $175/mo | email only |
-| `/feeds/crawler/coverage` | $175/mo | email only |
-| `/feeds/crawler/google-extended` | $175/mo | email only |
-| `/feeds/crawler/gptbot` | $175/mo | email only |
-| `/feeds/crawler/perplexitybot` | $175/mo | email only |
-| `/feeds/crawler/started-blocking` | $175/mo | email only |
-| `/feeds/crawler/stopped-blocking` | $175/mo | email only |
-| `/feeds/crawler/stopped-naming` | $175/mo | email only |
+| `/feeds/crawler` | Not for sale | email only |
+| `/feeds/crawler/ccbot` | Not for sale | email only |
+| `/feeds/crawler/claudebot` | Not for sale | email only |
+| `/feeds/crawler/coverage` | Not for sale | email only |
+| `/feeds/crawler/google-extended` | Not for sale | email only |
+| `/feeds/crawler/gptbot` | Not for sale | email only |
+| `/feeds/crawler/perplexitybot` | Not for sale | email only |
+| `/feeds/crawler/started-blocking` | Not for sale | email only |
+| `/feeds/crawler/stopped-blocking` | Not for sale | email only |
+| `/feeds/crawler/stopped-naming` | Not for sale | email only |
 
 ## dc-buildout
 
@@ -173,38 +173,44 @@ The sitemap lists exactly these pages and no others.
 | `/feeds/fed-obligations/mix-shift` | Not for sale yet | email only |
 | `/feeds/fed-obligations/restatements` | Not for sale yet | email only |
 
+## free-time
+
+| Address | Price | Buy |
+|---|---|---|
+| `/feeds/free-time` | Not for sale yet | email only |
+
 ## grid
 
 | Address | Price | Buy |
 |---|---|---|
-| `/feeds/grid` | $99/mo | pay button |
-| `/feeds/grid/arkansas` | $99/mo | pay button |
-| `/feeds/grid/caiso` | $99/mo | pay button |
-| `/feeds/grid/california` | $99/mo | pay button |
-| `/feeds/grid/connecticut` | $99/mo | pay button |
-| `/feeds/grid/coverage` | $99/mo | pay button |
-| `/feeds/grid/ercot` | $99/mo | pay button |
-| `/feeds/grid/illinois` | $99/mo | pay button |
-| `/feeds/grid/indiana` | $99/mo | pay button |
-| `/feeds/grid/iowa` | $99/mo | pay button |
-| `/feeds/grid/isone` | $99/mo | pay button |
-| `/feeds/grid/kansas` | $99/mo | pay button |
-| `/feeds/grid/louisiana` | $99/mo | pay button |
-| `/feeds/grid/maine` | $99/mo | pay button |
-| `/feeds/grid/massachusetts` | $99/mo | pay button |
-| `/feeds/grid/michigan` | $99/mo | pay button |
-| `/feeds/grid/minnesota` | $99/mo | pay button |
-| `/feeds/grid/miso` | $99/mo | pay button |
-| `/feeds/grid/mississippi` | $99/mo | pay button |
-| `/feeds/grid/missouri` | $99/mo | pay button |
-| `/feeds/grid/nebraska` | $99/mo | pay button |
-| `/feeds/grid/new-hampshire` | $99/mo | pay button |
-| `/feeds/grid/new-york` | $99/mo | pay button |
-| `/feeds/grid/nyiso` | $99/mo | pay button |
-| `/feeds/grid/oklahoma` | $99/mo | pay button |
-| `/feeds/grid/spp` | $99/mo | pay button |
-| `/feeds/grid/texas` | $99/mo | pay button |
-| `/feeds/grid/wisconsin` | $99/mo | pay button |
+| `/feeds/grid` | Not for sale yet | no cta found |
+| `/feeds/grid/arkansas` | Not for sale yet | email only |
+| `/feeds/grid/caiso` | Not for sale yet | email only |
+| `/feeds/grid/california` | Not for sale yet | email only |
+| `/feeds/grid/connecticut` | Not for sale yet | email only |
+| `/feeds/grid/coverage` | Not for sale yet | email only |
+| `/feeds/grid/ercot` | Not for sale yet | email only |
+| `/feeds/grid/illinois` | Not for sale yet | email only |
+| `/feeds/grid/indiana` | Not for sale yet | email only |
+| `/feeds/grid/iowa` | Not for sale yet | email only |
+| `/feeds/grid/isone` | Not for sale yet | email only |
+| `/feeds/grid/kansas` | Not for sale yet | email only |
+| `/feeds/grid/louisiana` | Not for sale yet | email only |
+| `/feeds/grid/maine` | Not for sale yet | email only |
+| `/feeds/grid/massachusetts` | Not for sale yet | email only |
+| `/feeds/grid/michigan` | Not for sale yet | email only |
+| `/feeds/grid/minnesota` | Not for sale yet | email only |
+| `/feeds/grid/miso` | Not for sale yet | email only |
+| `/feeds/grid/mississippi` | Not for sale yet | email only |
+| `/feeds/grid/missouri` | Not for sale yet | email only |
+| `/feeds/grid/nebraska` | Not for sale yet | email only |
+| `/feeds/grid/new-hampshire` | Not for sale yet | email only |
+| `/feeds/grid/new-york` | Not for sale yet | email only |
+| `/feeds/grid/nyiso` | Not for sale yet | email only |
+| `/feeds/grid/oklahoma` | Not for sale yet | email only |
+| `/feeds/grid/spp` | Not for sale yet | email only |
+| `/feeds/grid/texas` | Not for sale yet | email only |
+| `/feeds/grid/wisconsin` | Not for sale yet | email only |
 
 ## hiring-watch
 
@@ -337,6 +343,15 @@ The sitemap lists exactly these pages and no others.
 | `/feeds/sec-8k/coverage` | Not for sale yet | email only |
 | `/feeds/sec-8k/listing-warnings` | Not for sale yet | email only |
 | `/feeds/sec-8k/officer-changes` | Not for sale yet | email only |
+
+## trustee-sales
+
+| Address | Price | Buy |
+|---|---|---|
+| `/feeds/trustee-sales` | Not for sale yet | email only |
+| `/feeds/trustee-sales/coverage` | Not for sale yet | email only |
+| `/feeds/trustee-sales/postponed` | Not for sale yet | email only |
+| `/feeds/trustee-sales/second-date` | Not for sale yet | email only |
 
 ## ttb
 

@@ -23,6 +23,7 @@ import html
 import re
 import sqlite3
 import sys
+import urllib.parse
 import time
 import zlib
 from collections import Counter, defaultdict
@@ -663,7 +664,7 @@ def _bot_slice(token: str, slug: str, label: str, blurb: str) -> dict | None:
               f"{sites:,} named sites rewrote what their robots.txt says about it. "
               f"Here is what the file said before and what it says now."),
         desc=(f"{sites:,} named sites that changed their robots.txt answer to {label} "
-              f"between {_window_words()}. Both readings and both dates. $175/mo."),
+              f"between {_window_words()}. Both readings and both dates. {_price()}."),
         row_count=len(rows),
     )
     table_rows = _change_rows(rows, with_bot=False)
@@ -708,7 +709,8 @@ def _direction_slice(direction: str, slug: str, name: str, h1: str, lede: str,
                lede=lede.format(sites=f"{sites:,}", rows=f"{len(rows):,}",
                                 window=_window_words(),
                                 days=len(d["window"]) - 1),
-               desc=desc.format(sites=f"{sites:,}", window=_window_words()),
+               desc=desc.format(sites=f"{sites:,}", window=_window_words(),
+                                price=_price()),
                row_count=len(rows))
     table_rows = _change_rows(rows, with_bot=True)
     sl["tables"].append({
@@ -872,8 +874,13 @@ def _coverage() -> dict:
 
 FALLBACK_WORDS = {
     "contact_h2": "Start the thread",
-    "contact_p": "Send the list of sites you follow. We send a checkout link in that "
-                 "thread. A person still emails the file.",
+    # Both of these used to be typed, and both said something only a priced
+    # feed can say -- "we send a checkout link in that thread" and "before you
+    # pay". They sat under a price rail that IS derived, so on the day this
+    # family came off sale the rail would have read "Not for sale" while the
+    # two sentences beside it still described a purchase. Built from the row
+    # instead, like the CTA below.
+    "contact_p": None,
     # No price typed in here. _words() fills this one from the catalog row
     # instead, because nothing in check_site.py reads a mailto CTA: its button
     # check skips any wording that does not START with a buy word, and "Email us
@@ -881,8 +888,7 @@ FALLBACK_WORDS = {
     # stale amount in this sentence would sit under a correct price rail on a
     # live page and no gate would say a word.
     "contact_cta": None,
-    "contact_note": "We will tell you which of your sites we already hold, and since "
-                    "when, before you pay.",
+    "contact_note": None,
 }
 
 # What each kind of move is called in a sentence, so the page counts the rows it
@@ -902,7 +908,25 @@ def _fam_row() -> dict:
 
 
 def _words(fam: dict, key: str) -> str:
-    return fam.get(key) or FALLBACK_WORDS[key] or _ask_cta(fam)
+    return fam.get(key) or FALLBACK_WORDS[key] or _ASK[key](fam)
+
+
+def _price() -> str:
+    """The one price string, read from the catalog row and never typed.
+
+    No fallback default on purpose. A default here would be a typed guess that
+    outlives a withdrawal: on 2026-08-24 four search-result lines and one email
+    subject in this file were still offering $175/mo, and the price rail beside
+    them was already correct, because only the rail was derived. If the row is
+    missing, refuse to build rather than publish a number nothing checked.
+    """
+    price = _fam_row().get("price")
+    if not price:
+        raise SystemExit(
+            f"{FAMILY}: no price on the catalog row, and this file will not type "
+            f"one. Restore the row in catalog.json before building the pages."
+        )
+    return price
 
 
 def _ask_cta(fam: dict) -> str:
@@ -911,6 +935,27 @@ def _ask_cta(fam: dict) -> str:
     if "$" not in price:
         return "Email us about the copies we hold"
     return f"Email us for the {price} checkout link"
+
+
+def _ask_p(fam: dict) -> str:
+    """The paragraph over the email link, built from the same row."""
+    if "$" not in (fam.get("price") or ""):
+        return ("Send the list of sites you follow. We reply with which of them we hold "
+                "and for which days. Nothing on this page is for sale.")
+    return ("Send the list of sites you follow. We send a checkout link in that thread. "
+            "A person still emails the file.")
+
+
+def _ask_note(fam: dict) -> str:
+    """The line under the email link, built from the same row."""
+    if "$" not in (fam.get("price") or ""):
+        return ("We will tell you which of your sites we already hold, and since when. "
+                "There is nothing to pay for: this feed is not for sale.")
+    return ("We will tell you which of your sites we already hold, and since "
+            "when, before you pay.")
+
+
+_ASK = {"contact_cta": _ask_cta, "contact_p": _ask_p, "contact_note": _ask_note}
 
 
 def _days_behind() -> int:
@@ -1040,7 +1085,7 @@ def family_spec() -> dict:
     """
     d = _read()
     fam = _fam_row()
-    price = fam.get("price") or "not for sale today"
+    price = _price()
     changes = d["changes"]
     sites = len({c["domain"] for c in changes})
     reads = len(d["window"])
@@ -1264,7 +1309,10 @@ def family_spec() -> dict:
             f"Collection has paused since then; what we hold is dated and complete to "
             f"that day."
         ),
-        "subj": "AI-crawler%20policy%20changes%20%24175/mo",
+        # Typed until 2026-08-24, when it went on offering $175/mo from the
+        # one place no gate in check_site.py reads: the subject line of the
+        # email a buyer sends us.
+        "subj": urllib.parse.quote(f"AI-crawler policy changes {price}"),
         "contact_h2": _words(fam, "contact_h2"),
         "contact_p": _words(fam, "contact_p"),
         "contact_cta": _words(fam, "contact_cta"),
@@ -1294,7 +1342,7 @@ def slices() -> list[dict]:
          "crawler separately, in the {days} days from {window}. Every row shows what "
          "the file said on each of the two days.",
          "{sites} named sites that added a whole-site block for an AI crawler between "
-         "{window}. Both readings and both dates. $175/mo."),
+         "{window}. Both readings and both dates. {price}."),
         ("opened", "stopped-blocking",
          "Sites that let an AI crawler back in",
          "Sites that took a whole-site block off an AI crawler",
@@ -1304,7 +1352,7 @@ def slices() -> list[dict]:
          "hold: the crawler is named on both days and the rule under it changes, so "
          "there is nothing to interpret.",
          "{sites} named sites that removed a whole-site block on an AI crawler between "
-         "{window}. Both readings and both dates. $175/mo."),
+         "{window}. Both readings and both dates. {price}."),
         ("unnamed", "stopped-naming",
          "Sites that stopped naming an AI crawler",
          "Sites that stopped naming an AI crawler in robots.txt",
@@ -1314,7 +1362,7 @@ def slices() -> list[dict]:
          "disappearing is not the same as a block coming off, because whatever the "
          "file says for every crawler at once then applies instead.",
          "{sites} named sites that dropped an AI crawler's name out of robots.txt "
-         "between {window}. Both readings and both dates. $175/mo."),
+         "between {window}. Both readings and both dates. {price}."),
     ]:
         sl = _direction_slice(direction, slug, name, h1, lede, desc)
         if sl:

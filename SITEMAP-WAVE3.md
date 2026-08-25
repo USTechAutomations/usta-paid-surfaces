@@ -107,3 +107,20 @@ Held: 5,783 dated recall rows, newest 2026-08-21.
 A timer runs it daily, then the fact gate, then the freshness gate, and only
 deploys if both pass. A page whose source has gone quiet says so instead of
 going stale in silence.
+
+## Correction, 2026-08-24 — crawler is off sale
+
+The heading above still reads "crawler — who blocks AI crawlers, $175/mo", and that
+line is left exactly as it was written on 2026-08-22 because this file is a dated
+record of what was decided then.
+
+What is true now: **the crawler family came off sale on 2026-08-24.** Its catalog price
+is `Not for sale`, its checkout record is empty, and all 10 of its pages print no dollar
+amount. Collection stopped on 24 Aug 2026 when the panel of sites it reads was stripped,
+so a per-month price was a promise about months that will not arrive. Nobody ever paid
+it: no page in the family ever carried a pay button.
+
+Reading order for anyone using this file as a build contract: the shapes and the row
+floors below still stand. The price on that heading does not. `catalog.json` is the one
+place a price is decided, and it is the only thing to read for one.
+

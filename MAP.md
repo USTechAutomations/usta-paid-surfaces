@@ -39,7 +39,7 @@ These are the high-probability **repeatable** products. Many buyers, one page. B
 | grid | Queue changes | Energy / interconnection software | $175/mo | queue sentinel + `/permits/grid` | PASS (named movers) | Stub exists |
 | quakes | Earthquake archive | Researchers / reporters | $249 | quake attestation | PASS (hv75020387 2.33→1.75) | Stub exists |
 | ttb | TTB appear/disappear | Beverage compliance | $349/mo | TTB ledger | FAIL | Stub exists |
-| crawler | AI-crawler policy | Publishers / SEO | $175/mo | crawler sentinel | UNKNOWN | Stub exists |
+| crawler | AI-crawler policy | Publishers / SEO | Not for sale (24 Aug 2026) | crawler sentinel | UNKNOWN | Built, 10 pages. Off sale: collection stopped 24 Aug, so a monthly price promised months that will not arrive. The `/permits/offers/crawler-policy-sentinel` row above is a DIFFERENT estate and still prints $175/month. |
 | dc-siting | Datacenter siting watch | Grid / siting analysts | $175/mo | `/permits/datacenter` + phantom-load file | PASS (15-campus table on disk) | **New stub** |
 | ai-prices | AI list-price window | AI vendors / researchers | $175/mo | none | PASS (Gemma 4 31B 0.36→0.35) | **New stub** |
 | permit-metros | Metro issued-permit changes | Contractor software / proptech | $175/mo | rankings + pulse (free current) | FAIL (we have counts, not week diffs) | **New stub** |
