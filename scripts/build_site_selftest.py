@@ -42,21 +42,67 @@ import build_site  # noqa: E402
 ROOT = Path(__file__).resolve().parents[1]
 
 # An ordinary priced family with child pages, and a second one that must go on
-# being published while the first is refused. Both are read from catalog.json
-# rather than typed, so this file does not quietly start testing nothing the day
-# one of them is renamed.
-REFUSE_ME = "ttb"
-HEALTHY = "grid"
-
-REFUSAL = {
-    "id": REFUSE_ME,
-    "higher": "priced",
-    "lower": "lawful",
-    "why": "a made-up refusal, so that this test can see what one does",
-    "detail": "invented by scripts/build_site_selftest.py; no real source is implicated",
-}
-
+# being published while the first is refused.
+#
+# BOTH ARE PICKED AT RUN TIME AND NEITHER IS NAMED HERE. They used to be typed in
+# as `ttb` and `grid`, under a comment claiming they were read from the catalog --
+# which they were not. The day grid came off sale this file went red and stayed
+# red on "grid still sells", and the red said nothing about the publisher: the
+# subject had simply stopped being the kind of page the case describes. A test
+# that names its subject eventually reports on itself instead of on the rule.
 FAILURES: list[str] = []
+
+
+def subjects() -> tuple[str, str]:
+    """The two families this run will use: one to refuse, one that must survive it.
+
+    Both must be selling today by `sold()`'s own definition -- the same function
+    the cases below assert with -- or the cases are about nothing. The one to be
+    refused must also HAVE child pages, because "its child pages are published"
+    over an empty list is a pass that proves nothing at all.
+    """
+    fams = json.loads((ROOT / "catalog.json").read_text(encoding="utf-8"))["families"]
+    able = []
+    for f in sorted(fams, key=lambda x: x["id"]):
+        page = ROOT / "families" / f["id"] / "index.html"
+        # A price is a price only when it names an amount -- the rule build_hub.py
+        # and render_slice.py both state in these words. "Not for sale yet" is a
+        # sentence, and it is TRUTHY, so a plain `if not f.get("price")` counts a
+        # withdrawn family as one on sale. That is how this very fix first went
+        # green against a catalog with everything taken off sale.
+        if "$" not in f.get("price", "") or not page.is_file() or not sold(page):
+            continue
+        kids = [d.name for d in sorted((ROOT / "families" / f["id"]).iterdir())
+                if d.is_dir() and (d / "index.html").is_file()]
+        able.append((f["id"], len(kids)))
+    if len(able) < 2:
+        raise SystemExit(
+            f"CANNOT RUN: this test needs two families on sale today and it found "
+            f"{len(able)}.\nIt refuses one and proves the other still ships, so with "
+            "fewer than two there is\nno case here. Do not delete the cases: put a "
+            "family back on sale, or record in the\ncatalog that the estate sells "
+            "nothing.")
+    # Refuse the one with the most children, so the child-page case has real work
+    # to do; ties break on the id so two runs pick the same pages.
+    refuse = max(able, key=lambda x: (x[1], x[0]))[0]
+    if not [k for _id, k in able if _id == refuse][0]:
+        raise SystemExit(
+            "CANNOT RUN: no family on sale today has a child page, so the case that "
+            "proves a\nrefused family's children stop selling would pass over an empty "
+            "list. Do not keep\nthat pass: it is the shape of a check that has gone "
+            "quiet.")
+    healthy = next(i for i, _ in able if i != refuse)
+    return refuse, healthy
+
+
+def refusal_for(fid: str) -> dict:
+    return {
+        "id": fid,
+        "higher": "priced",
+        "lower": "lawful",
+        "why": "a made-up refusal, so that this test can see what one does",
+        "detail": "invented by scripts/build_site_selftest.py; no real source is implicated",
+    }
 
 
 def check(name: str, ok: bool, detail: str = "") -> None:
@@ -95,13 +141,12 @@ def sold(page: Path) -> bool:
 
 
 def main() -> None:
-    fam = {f["id"]: f for f in json.loads(
-        (ROOT / "catalog.json").read_text(encoding="utf-8"))["families"]}
-    for fid in (REFUSE_ME, HEALTHY):
-        if fid not in fam:
-            print(f"CANNOT RUN: {fid} is no longer in catalog.json. Point this file at a "
-                  f"family that is still there rather than deleting the case.", file=sys.stderr)
-            raise SystemExit(2)
+    REFUSE_ME, HEALTHY = subjects()
+    REFUSAL = refusal_for(REFUSE_ME)
+    # Say which pages this run actually covered. A derived subject that stays
+    # silent is a test nobody can check, and "ok" would not say on what.
+    print(f"picked from catalog.json at run time: refusing {REFUSE_ME}, "
+          f"{HEALTHY} must survive it\n")
 
     # ---- 1. nobody is refused: the ordinary build, and the half that is easy
     # to forget. A gate that refuses everything is not a gate.
