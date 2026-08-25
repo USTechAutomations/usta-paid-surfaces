@@ -1,0 +1,137 @@
+{
+  "what_this_is": "The permission record for paid files. One entry per source jurisdiction, using the same id the permit store uses. scripts/outbound_guard.py reads this file and refuses any file carrying rows from a source that is not marked ALLOW_PAID here.",
+  "the_rule": "A licence that clears a source for a free public page does NOT clear it for a file a buyer pays for. Only ALLOW_PAID lets rows leave in a paid file. REFUSE and UNKNOWN both refuse, and they refuse for different reasons: REFUSE means somebody read the terms and the answer was no; UNKNOWN means nobody has read them yet. An unknown that nothing acts on becomes a yes, so here it acts: it blocks.",
+  "verdicts": {
+    "ALLOW_PAID": "Somebody read this publisher's written terms, on the date in decided_on, at the address in evidence_url, and those terms allow the rows to go out in a file a buyer pays for. quote must carry their words. reviewed_by must name who read them.",
+    "REFUSE": "Somebody read the terms and they do not allow it. Rows never leave in a paid file. Collection, storage and the credit on the free public pages are untouched by this.",
+    "UNKNOWN": "Nobody has read this publisher's terms yet, or the read did not settle the question. The guard blocks the source. This is the honest default and it is where a new source starts."
+  },
+  "how_to_change_it": "Changing a verdict is an operator decision, never a tidy-up. To move a source to ALLOW_PAID you must fill in decided_on (the date on the evidence, not today's date off the clock), evidence_url (the page whose terms you read), quote (their words, verbatim, copied not summarised) and reviewed_by. The guard treats an ALLOW_PAID with any of those four empty as a broken record and refuses everything until it is fixed, because an allow with no evidence behind it is not an allow.",
+  "required_text": "If the publisher's terms say a file carrying their data must carry a set form of words -- a credit line, a disclaimer -- put those words in required_text, character for character, in the form they must appear in the delivered file. Curly quotes are not straight quotes and their typos are theirs to keep. The guard then refuses any paid file that carries that source and does not carry that exact text. Two known cases are waiting on their licence reads: Montgomery County, Maryland requires a disclaimer (quoted word for word in scripts/slice_permit_metros.py, in its html-escaped form -- unescape it before pasting it here) and the City of Austin, Texas asks for a credit line. Both stay empty until the read that clears the source fills them in, because a form of words nobody has checked against the publisher's own page is not a requirement, it is a guess.",
+  "labels": "The words that name a source when it appears in a file: the id, the place name, the publisher's domain, the dataset id. The guard also always matches the id and the first part of the name, so an entry with an empty label list still has a floor. Nine of these twelve sources have no publisher domain or dataset id recorded here yet -- the licence read that fills in the verdict should add them.",
+  "sources": {
+    "austin": {
+      "name": "Austin, Texas",
+      "verdict": "UNKNOWN",
+      "decided_on": null,
+      "evidence_url": "",
+      "quote": "",
+      "required_text": "",
+      "reviewed_by": "",
+      "labels": ["austin", "austin, texas", "data.austintexas.gov", "3syk-w9eu"]
+    },
+    "baton-rouge": {
+      "name": "Baton Rouge, Louisiana",
+      "verdict": "UNKNOWN",
+      "decided_on": null,
+      "evidence_url": "",
+      "quote": "",
+      "required_text": "",
+      "reviewed_by": "",
+      "labels": ["baton-rouge", "baton rouge"]
+    },
+    "cambridge-ma": {
+      "name": "Cambridge, Massachusetts",
+      "verdict": "UNKNOWN",
+      "decided_on": null,
+      "evidence_url": "",
+      "quote": "",
+      "required_text": "",
+      "reviewed_by": "",
+      "labels": ["cambridge-ma", "cambridge, massachusetts"]
+    },
+    "chicago": {
+      "name": "Chicago, Illinois",
+      "verdict": "UNKNOWN",
+      "decided_on": null,
+      "evidence_url": "",
+      "quote": "",
+      "required_text": "",
+      "reviewed_by": "",
+      "labels": ["chicago", "chicago, illinois"]
+    },
+    "cincinnati": {
+      "name": "Cincinnati, Ohio",
+      "verdict": "UNKNOWN",
+      "decided_on": null,
+      "evidence_url": "",
+      "quote": "",
+      "required_text": "",
+      "reviewed_by": "",
+      "labels": ["cincinnati", "cincinnati, ohio"]
+    },
+    "los-angeles": {
+      "name": "Los Angeles, California",
+      "verdict": "UNKNOWN",
+      "decided_on": null,
+      "evidence_url": "",
+      "quote": "",
+      "required_text": "",
+      "reviewed_by": "",
+      "labels": ["los-angeles", "los angeles"]
+    },
+    "marin-county": {
+      "name": "Marin County, California",
+      "verdict": "REFUSE",
+      "decided_on": "2026-08-24",
+      "evidence_url": "https://data.marincounty.gov/County-Government/Building-Permit/mkbn-caye",
+      "quote": "Marin County publishes its building-permit data under a **share-alike** licence. So Marin rows do not leave in a paid file. Not one row.",
+      "quote_from": "DELIVERY.md, RULE 1, two sentences copied as they stand. The licence itself is the Open Database Licence declared on the dataset page in evidence_url.",
+      "required_text": "",
+      "reviewed_by": "operator",
+      "note": "Unchanged by this refusal: we keep collecting Marin, the 2,192 stored rows stay stored, and the ODbL notice stays on the free public pages because their material is still shown there. If a buyer names Marin, stop and tell the team lead -- do not send a file with it and do not send one without it either.",
+      "labels": ["marin-county", "marin county", "marincounty.gov", "mkbn-caye"]
+    },
+    "montgomery-md": {
+      "name": "Montgomery County, Maryland",
+      "verdict": "UNKNOWN",
+      "decided_on": null,
+      "evidence_url": "",
+      "quote": "",
+      "required_text": "",
+      "reviewed_by": "",
+      "note": "Their portal requires a set disclaimer on applications using their data. The wording is quoted word for word in scripts/slice_permit_metros.py. It goes in required_text as part of the read that decides this verdict, not before.",
+      "labels": ["montgomery-md", "montgomery county", "data.montgomerycountymd.gov"]
+    },
+    "new-york": {
+      "name": "New York City",
+      "verdict": "UNKNOWN",
+      "decided_on": null,
+      "evidence_url": "",
+      "quote": "",
+      "required_text": "",
+      "reviewed_by": "",
+      "labels": ["new-york", "new york city", "new york"]
+    },
+    "san-francisco": {
+      "name": "San Francisco, California",
+      "verdict": "UNKNOWN",
+      "decided_on": null,
+      "evidence_url": "",
+      "quote": "",
+      "required_text": "",
+      "reviewed_by": "",
+      "labels": ["san-francisco", "san francisco"]
+    },
+    "scottsdale": {
+      "name": "Scottsdale, Arizona",
+      "verdict": "UNKNOWN",
+      "decided_on": null,
+      "evidence_url": "",
+      "quote": "",
+      "required_text": "",
+      "reviewed_by": "",
+      "labels": ["scottsdale", "scottsdale, arizona"]
+    },
+    "seattle": {
+      "name": "Seattle, Washington",
+      "verdict": "UNKNOWN",
+      "decided_on": null,
+      "evidence_url": "",
+      "quote": "",
+      "required_text": "",
+      "reviewed_by": "",
+      "labels": ["seattle", "seattle, washington"]
+    }
+  }
+}
