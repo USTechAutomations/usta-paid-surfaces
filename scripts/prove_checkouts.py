@@ -7,6 +7,17 @@ product at THIS price. And the amount cannot be read off the checkout page --
 buy.stripe.com serves a JavaScript shell and fetches the money at runtime, so
 scraping the HTML would prove nothing at all.
 
+It is weaker even than that, and the negative control is worth writing down.
+Drilled 2026-08-25: an address invented on the spot,
+buy.stripe.com/00000000000000000000000000, answers 200 with a body BYTE-IDENTICAL
+to a real live link -- same 549,679 bytes, no redirect, no error text. Stripe
+renders "this link is deactivated" from script after the page loads, so a
+deactivated link and a link that never existed are both indistinguishable from a
+working one to anything that fetches. So a 200 does not prove the checkout
+exists, and matching byte counts are not a coincidence to shrug at. Only the step
+below -- looking the landed-on link up in Stripe and reading the money back --
+can tell a live checkout from a dead one.
+
 So this walks the whole chain the buyer walks and then reads the money back from
 the record that page renders:
 
