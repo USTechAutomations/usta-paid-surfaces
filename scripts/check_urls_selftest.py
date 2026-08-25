@@ -92,6 +92,24 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
 
+def ensure_dist() -> None:
+    """dist/ is gitignored, so a worktree does not have it.
+
+    This rehearsal serves the published tree, including retired addresses
+    that still have to answer. If nobody has published yet, do that here
+    rather than 404 every path and call it a harness failure.
+    """
+    if (DIST / "index.html").is_file():
+        return
+    print("dist/ is not present (gitignored). Running scripts/build_site.py "
+          "so this rehearsal serves the built pages, never the live site.")
+    done = subprocess.run([PY, str(ROOT / "scripts" / "build_site.py")], cwd=ROOT)
+    if done.returncode != 0 or not (DIST / "index.html").is_file():
+        print("CANNOT RUN: dist/ is not built and scripts/build_site.py did "
+              "not produce it. This rehearsal needs the published tree.")
+        raise SystemExit(2)
+
+
 def run(args: list[str]) -> tuple[int, str]:
     p = subprocess.run([PY, str(ROOT / "scripts" / "check_urls.py"), *args],
                        capture_output=True, text=True)
@@ -103,6 +121,7 @@ def summary(out: str, out_file: Path) -> dict:
 
 
 def main() -> None:
+    ensure_dist()
     if not (ROOT / "urls.json").is_file():
         raise SystemExit("urls.json is missing. Run: python3 scripts/url_manifest.py")
     rows = json.loads((ROOT / "urls.json").read_text(encoding="utf-8"))["rows"]
