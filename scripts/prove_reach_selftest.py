@@ -86,12 +86,54 @@ def selling_today() -> list[tuple[str, str]]:
     return out
 
 
-def subjects() -> tuple[tuple[str, str], tuple[str, str]]:
-    """Pick one family of each shape, or refuse."""
+# The address a stand-in borrowed button points at when no live family has one.
+# It is the exact shape the earthquake product used until it was withdrawn:
+# the permits estate's two-hop address, which is NOT buy.stripe.com and is
+# therefore invisible to any rule that greps for that host. Nothing fetches it.
+STAND_IN_BORROWED = "https://ustechautomations.com/permits/offers/quake-record-attestation/buy"
+
+
+def borrowed_declaration() -> dict:
+    """What the catalog says out loud about the borrowed-address shape."""
+    cat = json.loads((ROOT / "catalog.json").read_text(encoding="utf-8"))
+    return cat.get("borrowed_shape") or {}
+
+
+def subjects():
+    """Pick one family of each shape.
+
+    Returns (borrowed_or_None, ours). A None borrowed slot is allowed ONLY when
+    the catalog says in so many words that no family sells through a borrowed
+    address today -- and it is refused the moment that statement stops being true.
+    """
     on_sale = selling_today()
     borrowed = [x for x in on_sale if "buy.stripe.com" not in x[1]]
     ours = [x for x in on_sale if "buy.stripe.com" in x[1]]
-    if not borrowed or not ours:
+    decl = borrowed_declaration()
+    declared_gone = decl.get("in_use") is False
+
+    if not ours:
+        raise SystemExit(
+            "STOP: this test needs at least one family on sale whose button points\n"
+            "straight at Stripe, and the catalog offers none. Do not weaken the test:\n"
+            "put a family back on sale, or delete this test and say why.")
+
+    if borrowed:
+        if declared_gone:
+            # The catalog's word and the catalog's own rows disagree. That is the
+            # failure this declaration exists to make loud: a stale "false" here
+            # would let the borrowed half be skipped while a real borrowed button
+            # was live on the site -- exactly the coverage-that-covers-nothing this
+            # whole test was written about.
+            raise SystemExit(
+                "STOP: catalog.json says borrowed_shape.in_use is false, and "
+                f"{len(borrowed)} family(ies) on sale point at a borrowed address: "
+                f"{', '.join(f for f, _ in borrowed)}.\n"
+                "One of the two is wrong. If a borrowed button is genuinely live, set\n"
+                "in_use to true in the same commit that priced it. Do not edit this test.")
+        return borrowed[0], ours[0]
+
+    if not declared_gone:
         raise SystemExit(
             "STOP: this test needs one family on sale whose pay button points at a\n"
             "borrowed (non-Stripe) address, and one whose button points straight at\n"
@@ -101,7 +143,14 @@ def subjects() -> tuple[tuple[str, str], tuple[str, str]]:
             "one of them is not this test. Do not delete the case that has no subject:\n"
             "either put a family of that shape back on sale, or say out loud in the\n"
             "catalog that the shape no longer exists.")
-    return borrowed[0], ours[0]
+
+    # Declared gone. Run the borrowed half anyway, against a stand-in built from a
+    # real page, and say so loudly. What a stand-in still proves is the half that
+    # did the hiding: an address that is not buy.stripe.com is seen at all, is
+    # followed, and is classed as not-ours. What it cannot prove is that a page of
+    # this shape exists on the live site -- which is precisely what the catalog
+    # has just declared it does not.
+    return None, ours[0]
 
 
 def check(name: str, got, want) -> bool:
@@ -112,11 +161,35 @@ def check(name: str, got, want) -> bool:
     return ok
 
 
-def fixture(fam: str, buy: str, strip: bool) -> Path:
-    """A tiny built site: the real page of `fam`, plus a not-for-sale page."""
+def fixture(fam: str, buy: str, strip: bool, swap_from: str | None = None) -> Path:
+    """A tiny built site: the real page of `fam`, plus a not-for-sale page.
+
+    `swap_from` builds the stand-in borrowed page: the real page off disk with its
+    real Stripe button address replaced by `buy`. Only the address changes -- the
+    markup, the labels and everything else stay exactly as the generator wrote
+    them, so the harvest is still reading a real page and not a mock of one.
+    """
     box = Path(tempfile.mkdtemp(prefix="reach-"))
     (box / fam).mkdir(parents=True)
     raw = (ROOT / "families" / fam / "index.html").read_text(encoding="utf-8")
+    if swap_from:
+        # Belt and braces, and it is worth saying which. main() takes swap_from
+        # off the same page this reads, so on the path the test actually walks
+        # this refusal CANNOT fire -- drilled 2026-08-25 by mutating the page and
+        # getting a green run, which is the honest answer and not a caught bug.
+        # It fires when called directly with an address the page does not carry,
+        # also drilled, and it is what would catch a future change that derived
+        # swap_from from the catalog instead. A guard that cannot fire today is
+        # left in only because it is written down here that it cannot.
+        raw, n = re.subn(re.escape(swap_from), buy, raw)
+        if not n:
+            raise SystemExit(
+                f"STOP: could not build the stand-in borrowed page -- {swap_from} is not\n"
+                f"on families/{fam}/index.html, so nothing was swapped and the borrowed\n"
+                "case would run against a Stripe address while calling it borrowed.")
+        if swap_from in raw:
+            raise SystemExit(
+                f"STOP: {swap_from} is still on the stand-in page after the swap.")
     if strip:
         # Exactly what taking the button off looks like: the anchor becomes an
         # email link. Nothing else about the page changes.
@@ -145,11 +218,27 @@ def fixture(fam: str, buy: str, strip: bool) -> Path:
 
 
 def main() -> int:
-    (bfam, bbuy), (ofam, obuy) = subjects()
+    picked, (ofam, obuy) = subjects()
     # Print the subjects. A derived fixture that does not say what it chose is a
     # test nobody can check, and "it passed" would not say on what.
     print(f"subjects picked from catalog.json at run time:")
-    print(f"  borrowed shape: {bfam:<18} -> {bbuy}")
+    if picked is None:
+        decl = borrowed_declaration()
+        bfam, bbuy, swap_from = ofam, STAND_IN_BORROWED, obuy
+        print(f"  borrowed shape: NO LIVE SUBJECT -- running against a STAND-IN")
+        print(f"      catalog.json says borrowed_shape.in_use is false, "
+              f"declared {decl.get('declared_on', '(no date)')}")
+        print(f"      why none today: {decl.get('why_none_today', '(not stated)')}")
+        print(f"      stand-in: the {ofam} page off disk with its button address")
+        print(f"                swapped to {STAND_IN_BORROWED}")
+        print(f"      COVERED by the stand-in: a non-Stripe address is seen at all,")
+        print(f"                followed, and classed as not-ours -- the half that hid.")
+        print(f"      NOT COVERED: that a page of this shape exists on the live site.")
+        print(f"                That is exactly what the catalog has declared it does not.")
+    else:
+        bfam, bbuy = picked
+        swap_from = None
+        print(f"  borrowed shape: {bfam:<18} -> {bbuy}")
     print(f"  ours (Stripe):  {ofam:<18} -> {obuy}\n")
 
     ours = {obuy: ofam}
@@ -165,8 +254,8 @@ def main() -> int:
             DEAD: (DEAD, "404"),
         }.get(url, (None, "no such address"))
 
-    good = fixture(bfam, bbuy, strip=False)
-    gone = fixture(bfam, bbuy, strip=True)
+    good = fixture(bfam, bbuy, strip=False, swap_from=swap_from)
+    gone = fixture(bfam, bbuy, strip=True, swap_from=swap_from)
     ok = True
     try:
         # --- ARMED: the real page, exactly as it ships -----------------------
