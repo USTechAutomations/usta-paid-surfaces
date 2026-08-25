@@ -235,6 +235,32 @@ REASON_DISPROVED = frozenset({
 NO_PUBLISHER = frozenset({"trading_forecasts"})
 NO_PUBLISHER_MARKER = "no publisher"
 
+# One reader that has stopped and has no dated decision file yet.
+#
+# NOT a decision record, on exactly the boundary set out above: nothing here
+# changes a collector's state, no stop decision is written from this file, and
+# the dated decisions under clocks/monitor/stop_decisions stay the operator's.
+# This changes only what the page says.
+#
+# markets_resolved sealed its last real row on 2026-08-24. The run at 01:22 UTC
+# on 2026-08-25 read nothing at all -- 0 of 4 sources answered, and the service
+# exited 3. Manifold's own terms now refuse us; their permission record was
+# reviewed on 2026-08-24 and moved from allow to refuse. Kalshi, Polymarket and
+# Metaculus are all recorded UNKNOWN -- we have not read the publisher's answer
+# on whether we may take and keep this -- and an unknown is not a yes, so
+# nothing is fetched from them either.
+#
+# Without this the cell reads "Yes, every day", in the same row as a cell that
+# already says we woke this reader up and it brought back nothing we could
+# seal. No lateness test can catch that: on the day a reader stops, its newest
+# sealed row is still that day's, so its age is 0 and the row looks healthy.
+#
+# Keyed on the last sealed date as well as on the reader, so the day a real row
+# is sealed after it this override retires itself and the cell goes back to
+# being computed. It relights nothing and switches nothing on.
+STOPPED_NO_DECISION = {"markets_resolved": "2026-08-24"}
+STOPPED_NO_DECISION_ON = "2026-08-25"
+
 
 def no_publisher(rec: dict) -> bool:
     """Is this the reader that has no publisher to have an archive?"""
@@ -647,6 +673,16 @@ def still_reading(row: dict, decision: dict | None, today: dt.date) -> str:
     if decision and decision.get("decision") == "KEEP_STOPPED":
         return (f'Switched off {esc(day(decision["decided_on"]))}'
                 '<span class="sub">Nothing new is being read. The dates above stop here.</span>')
+    # After the operator's own decision, which always wins, and before every
+    # branch below -- each of those says "we read it every day" in the present
+    # tense, including the one for a lane that has gone quiet.
+    stopped_after = STOPPED_NO_DECISION.get(row["clock"])
+    if stopped_after and row["newest"] == stopped_after:
+        return (f'Stopped {esc(day(STOPPED_NO_DECISION_ON))}'
+                '<span class="sub">Nothing new is being read. One publisher&rsquo;s own '
+                'terms now refuse us, and for the others we have not read their answer on '
+                'whether we may take and keep this. The dates above stop here, and every '
+                'copy we already sealed is unchanged.</span>')
     every = "every day" if row["cadence"] == 1 else f"about every {row['cadence']} days"
     note = ""
     if decision and decision.get("decision") != "KEEP_STOPPED":
