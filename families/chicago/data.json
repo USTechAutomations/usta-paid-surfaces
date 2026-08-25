@@ -1,0 +1,54 @@
+{
+  "family": "chicago",
+  "generated": "2026-08-25",
+  "slices": [
+    {
+      "slug": "easy-permit-process",
+      "newest": "2026-08-25",
+      "oldest": "2006-01-03",
+      "runs": 1,
+      "row_count": 304,
+      "cadence_days": 365
+    },
+    {
+      "slug": "express-permit-program",
+      "newest": "2026-08-25",
+      "oldest": "2014-04-28",
+      "runs": 1,
+      "row_count": 228,
+      "cadence_days": 365
+    },
+    {
+      "slug": "signs",
+      "newest": "2026-08-25",
+      "oldest": "2006-01-03",
+      "runs": 1,
+      "row_count": 193,
+      "cadence_days": 365
+    },
+    {
+      "slug": "renovation-alteration",
+      "newest": "2026-08-25",
+      "oldest": "2006-01-17",
+      "runs": 1,
+      "row_count": 127,
+      "cadence_days": 365
+    },
+    {
+      "slug": "new-construction",
+      "newest": "2026-08-25",
+      "oldest": "2014-08-05",
+      "runs": 1,
+      "row_count": 24,
+      "cadence_days": 365
+    },
+    {
+      "slug": "coverage",
+      "newest": "2026-08-25",
+      "oldest": "2006-01-03",
+      "runs": 1,
+      "row_count": 1000,
+      "cadence_days": 365
+    }
+  ]
+}

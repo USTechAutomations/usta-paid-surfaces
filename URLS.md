@@ -3,9 +3,9 @@
 Derived from `dist/` by `scripts/url_manifest.py`. Not typed, not edited
 by hand. Re-run it after any build and this file is current again.
 
-- **245 pages**, every one of them an address under `/feeds`
-- **37** carry a price; **208** say they are not for sale yet, are free to read, or are the hub itself
-- **28** have a pay button; **188** are honest holding pages that ask you to email instead; **29** is the hub, which sells nothing and does not pretend to
+- **266 pages**, every one of them an address under `/feeds`
+- **58** carry a price; **208** say they are not for sale yet, are free to read, or are the hub itself
+- **28** have a pay button; **209** are honest holding pages that ask you to email instead; **29** is the hub, which sells nothing and does not pretend to
 
 The sitemap lists exactly these pages and no others.
 
@@ -100,6 +100,30 @@ The sitemap lists exactly these pages and no others.
 | Address | Price | Buy |
 |---|---|---|
 | `/feeds/az-contractors` | Not for sale | email only |
+
+## baton-rouge
+
+| Address | Price | Buy |
+|---|---|---|
+| `/feeds/baton-rouge` | $349 | email only |
+| `/feeds/baton-rouge/accessory-structure` | $349 | email only |
+| `/feeds/baton-rouge/addition` | $349 | email only |
+| `/feeds/baton-rouge/coverage` | $349 | email only |
+| `/feeds/baton-rouge/demolition` | $349 | email only |
+| `/feeds/baton-rouge/new-building` | $349 | email only |
+| `/feeds/baton-rouge/remodel` | $349 | email only |
+
+## chicago
+
+| Address | Price | Buy |
+|---|---|---|
+| `/feeds/chicago` | $349 | email only |
+| `/feeds/chicago/coverage` | $349 | email only |
+| `/feeds/chicago/easy-permit-process` | $349 | email only |
+| `/feeds/chicago/express-permit-program` | $349 | email only |
+| `/feeds/chicago/new-construction` | $349 | email only |
+| `/feeds/chicago/renovation-alteration` | $349 | email only |
+| `/feeds/chicago/signs` | $349 | email only |
 
 ## civic-agenda
 
@@ -231,6 +255,18 @@ The sitemap lists exactly these pages and no others.
 | Address | Price | Buy |
 |---|---|---|
 | `/feeds/import-checks` | Not for sale yet | email only |
+
+## los-angeles
+
+| Address | Price | Buy |
+|---|---|---|
+| `/feeds/los-angeles` | $349 | email only |
+| `/feeds/los-angeles/bldg-addition` | $349 | email only |
+| `/feeds/los-angeles/bldg-alter-repair` | $349 | email only |
+| `/feeds/los-angeles/bldg-new` | $349 | email only |
+| `/feeds/los-angeles/coverage` | $349 | email only |
+| `/feeds/los-angeles/grading` | $349 | email only |
+| `/feeds/los-angeles/swimming-pool-spa` | $349 | email only |
 
 ## manual-ready
 

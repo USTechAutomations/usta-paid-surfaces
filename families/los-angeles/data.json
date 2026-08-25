@@ -1,0 +1,54 @@
+{
+  "family": "los-angeles",
+  "generated": "2026-08-25",
+  "slices": [
+    {
+      "slug": "bldg-alter-repair",
+      "newest": "2026-08-25",
+      "oldest": "2020-01-06",
+      "runs": 1,
+      "row_count": 682,
+      "cadence_days": 365
+    },
+    {
+      "slug": "bldg-addition",
+      "newest": "2026-08-25",
+      "oldest": "2020-01-27",
+      "runs": 1,
+      "row_count": 68,
+      "cadence_days": 365
+    },
+    {
+      "slug": "bldg-new",
+      "newest": "2026-08-25",
+      "oldest": "2020-03-11",
+      "runs": 1,
+      "row_count": 66,
+      "cadence_days": 365
+    },
+    {
+      "slug": "grading",
+      "newest": "2026-08-25",
+      "oldest": "2020-01-13",
+      "runs": 1,
+      "row_count": 52,
+      "cadence_days": 365
+    },
+    {
+      "slug": "swimming-pool-spa",
+      "newest": "2026-08-25",
+      "oldest": "2020-02-25",
+      "runs": 1,
+      "row_count": 38,
+      "cadence_days": 365
+    },
+    {
+      "slug": "coverage",
+      "newest": "2026-08-25",
+      "oldest": "2020-01-06",
+      "runs": 1,
+      "row_count": 1000,
+      "cadence_days": 365
+    }
+  ]
+}

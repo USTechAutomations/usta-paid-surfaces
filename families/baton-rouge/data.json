@@ -1,0 +1,54 @@
+{
+  "family": "baton-rouge",
+  "generated": "2026-08-25",
+  "slices": [
+    {
+      "slug": "new-building",
+      "newest": "2026-08-25",
+      "oldest": "2026-02-24",
+      "runs": 1,
+      "row_count": 273,
+      "cadence_days": 365
+    },
+    {
+      "slug": "remodel",
+      "newest": "2026-08-25",
+      "oldest": "2026-02-25",
+      "runs": 1,
+      "row_count": 164,
+      "cadence_days": 365
+    },
+    {
+      "slug": "demolition",
+      "newest": "2026-08-25",
+      "oldest": "2026-02-24",
+      "runs": 1,
+      "row_count": 71,
+      "cadence_days": 365
+    },
+    {
+      "slug": "addition",
+      "newest": "2026-08-25",
+      "oldest": "2026-02-26",
+      "runs": 1,
+      "row_count": 40,
+      "cadence_days": 365
+    },
+    {
+      "slug": "accessory-structure",
+      "newest": "2026-08-25",
+      "oldest": "2026-02-26",
+      "runs": 1,
+      "row_count": 39,
+      "cadence_days": 365
+    },
+    {
+      "slug": "coverage",
+      "newest": "2026-08-25",
+      "oldest": "2026-02-24",
+      "runs": 1,
+      "row_count": 629,
+      "cadence_days": 365
+    }
+  ]
+}
