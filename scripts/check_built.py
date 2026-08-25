@@ -303,6 +303,24 @@ def run(today: dt.date | None = None, dist: Path | None = None) -> Report:
             # demand because there is no reading to stamp.
             rep.skip(who, "its family is parked, so it has no reading to carry a date for")
             continue
+        if fam.get("sample_status") == "on-page":
+            # Its OWN reason, deliberately not borrowed from parked above. The two
+            # end in the same place -- no freshness stamp to demand -- and that is
+            # the only thing they share. Parked means we cannot read the source at
+            # all. This means we read it once, on a stated day, and printed the
+            # whole of it, so there is no store with a newer row for the stamp to
+            # point at. Putting parked's words on this row would tell the board we
+            # cannot collect a page that is complete.
+            #
+            # This is not a waiver of the date question, because the date is not
+            # missing from the page: it is in the meta line as the cadence and
+            # beside every table as the day the rule was read. What is missing is
+            # the machine tag scripts/build_site.py writes out of a store, and
+            # this family has no store to write it from.
+            rep.skip(who, "it is one dated reading printed in full, not a feed, so there is "
+                          "no store holding a newer row for a freshness tag to name -- the "
+                          "day it was read is on the page in words instead")
+            continue
         check_feed_page(rep, who, raw, vis, fam, today)
         rep.checked.append(who)
     return rep

@@ -69,6 +69,14 @@ def card(f):
     elif f["sample_status"] == "pass":
         pill = '<span class="pill pill-ready">Sample ready</span>'
         price = f'<span class="amount">{esc(f["price"])}</span> '
+    elif f["sample_status"] == "on-page":
+        # "Not ready" tells a stranger a sample is coming. For this family none
+        # is coming and none ever will: there is no file behind the page, so the
+        # page IS the file. Saying "not ready" here is the card promising
+        # something that does not exist, which is the one thing this directory is
+        # for not doing.
+        pill = '<span class="pill pill-ready">All of it, free</span>'
+        price = f'<span class="amount">{esc(f["price"])}</span> '
     else:
         pill = '<span class="pill pill-hold">Sample not ready</span>'
         price = f'<span class="amount">{esc(f["price"])}</span> '
@@ -92,7 +100,12 @@ def main():
     # feeds, because both halves had been typed once and never recounted.
     ready = sum(1 for f in fams if f["sample_status"] == "pass")
     parked = sum(1 for f in fams if f["sample_status"] == "parked")
-    no_sample = len(fams) - ready - parked
+    # Counted apart from no_sample on purpose. A feed with no sample YET and a
+    # page that is itself the whole of what we hold are two different answers,
+    # and folding the second into the first is how the hub came to tell a
+    # stranger that a file was on its way when nothing was ever coming.
+    on_page = sum(1 for f in fams if f["sample_status"] == "on-page")
+    no_sample = len(fams) - ready - parked - on_page
     # A price is a price only when it names an amount. "Not for sale yet" is a
     # sentence, not a price, and a feed carrying one must never be counted as
     # something a buyer can buy.
@@ -231,7 +244,10 @@ def main():
 
     lead = (
         f"<p>{ready} of {len(fams)} feeds show a named, dated sample on their page today"
-        + (f"; {one(no_sample, 'does not and says', 'do not and say')} so. " if no_sample else ". ")
+        + (f"; {one(no_sample, 'does not and says', 'do not and say')} so" if no_sample else "")
+        + (f"; {one(on_page, 'has', 'have')} no sample file because the whole of what we hold "
+           "is printed on the page itself" if on_page else "")
+        + ". "
         + f"{one(len(priced), 'carries', 'carry')} a price. "
         + f"{one(holding, 'is a holding page', 'are holding pages')}: we are not charging for those, "
         + "and each one says what would have to change before we would. "
@@ -293,6 +309,7 @@ def main():
     print(f"hub rebuilt: {len(fams)} feeds, {len(priced)} for sale, "
           f"{len(takes_card)} taking a card, {len(by_mail)} priced by email, "
           f"{holding} holding, {parked} parked, {ready} with a sample, {no_sample} without, "
+          f"{on_page} whole on the page, "
           f"{len(EXTRA)} extra, {len(live_trust)} trust pages")
 
 

@@ -64,6 +64,14 @@ from render_family import price_of, section, table  # noqa: E402
 
 FAMILY = "free-time"
 
+# The one sentence a reader can check this page against: it says the page holds
+# nothing back. scripts/check_site.py IMPORTS this name rather than retyping the
+# words, because a sentence typed in two places drifts in one of them, and the
+# copy that drifts is always the one nobody re-reads. The gate then demands it on
+# any family the catalog marks "on-page", so the status and the page cannot part
+# company without the build saying so.
+ON_PAGE_PHRASE = "the whole of what we hold is printed on this page"
+
 # The lane that did the reading. Its rules file and its checker are the source
 # of every counted thing on this page.
 LANE = Path("/home/gmullins/revenue-2026")
@@ -399,8 +407,8 @@ def family_spec() -> dict:
             "        <p><strong>The pill at the top of this page says &ldquo;sample not "
             "ready&rdquo;, and that is right.</strong> Every other feed here keeps dated copies "
             "of something that moves, and hands you a slice of the file to look at first. This "
-            "one is not that. It is one dated reading of one rule that has not moved, and the "
-            "whole of what we hold is printed on this page. There is no file behind it and "
+            "one is not that. It is one dated reading of one rule that has not moved, and "
+            f"{ON_PAGE_PHRASE}. There is no file behind it and "
             "nothing is being kept back.</p>\n"
             "        <p><strong>We are on the importer&rsquo;s side of this and we say so.</strong> "
             "Nothing here is written for the shipping line, and we do not go looking for anyone "
@@ -585,8 +593,7 @@ def family_spec() -> dict:
         "ready": False,
         "hero_note": (
             f"<strong>{esc(p)}.</strong> This is a list, not a feed. Nothing here is for sale, "
-            "there is nothing to subscribe to, and the whole of what we hold is printed on this "
-            "page for free."
+            f"there is nothing to subscribe to, and {ON_PAGE_PHRASE} for free."
         ),
         "group": "Public records",
         "cadence": "read once, 24 Aug 2026",

@@ -12,6 +12,11 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import privacy  # noqa: E402
 from merge_catalog_adds import family_rows  # noqa: E402
+# Read from the builder that writes it, never retyped here. The gate below
+# demands this exact sentence on an "on-page" family, so if the two copies
+# ever drifted the gate would be checking for words no page prints -- and it
+# would go red on the honest page while a silent one sailed through.
+from slice_free_time import ON_PAGE_PHRASE  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = json.loads((ROOT / "catalog.json").read_text(encoding="utf-8"))
@@ -609,6 +614,15 @@ def main() -> None:
         # keep off it. Every page is now held to the same list.
         fail(f"hub contains forbidden {bad!r}")
     for fam in CATALOG["families"]:
+        # Every branch below asks whether the status is one particular value, so a
+        # typo in this field matches no branch, drops every demand that value
+        # carries, and the whole estate still reports ok. That is not a guess: a
+        # brand-new value was tried on a throwaway copy on 2026-08-24 and the run
+        # exited 0 with the family checked by nothing. A value no gate in this
+        # file knows about is refused here, before any of them are asked.
+        if fam["sample_status"] not in {"pass", "fail", "unknown", "parked", "on-page"}:
+            fail(f"{fam['id']} has a sample status no gate in this file knows: "
+                 f"{fam['sample_status']!r}")
         path = ROOT / "families" / fam["id"] / "index.html"
         if not path.is_file():
             fail(f"missing {path}")
@@ -651,6 +665,15 @@ def main() -> None:
         if fam["sample_status"] in {"fail", "unknown"}:
             if "sample not ready" not in vis.lower():
                 fail(f"{fam['id']} must say sample not ready until catalog status is pass")
+        if fam["sample_status"] == "on-page":
+            # "on-page" is the catalog saying there is no file behind this page
+            # because the page is the whole of it. That is a claim to a buyer, so
+            # the page has to make it in its own words -- otherwise the status
+            # quietly drops the "sample not ready" demand above and puts nothing
+            # in its place, and the family ships checked by no rule at all.
+            if ON_PAGE_PHRASE not in vis.lower():
+                fail(f"{fam['id']} says its whole file is printed on its page, and the page "
+                     f"never says so: {ON_PAGE_PHRASE!r} is not on it")
 
     # The bridge pages are not families and carry no sample, but they are published
     # in the same folder, so the same forbidden list has to hold on them.
@@ -704,6 +727,15 @@ def check_slices() -> None:
             # Parked means we cannot collect the source at all. There is no
             # honest row to put on a child page, so there must be no child page.
             fail(f"{fid} is parked but has child pages: {[d.name for d in kids]}")
+        if fam["sample_status"] == "on-page":
+            # "on-page" means the family page IS the whole of what we hold. A
+            # child page under it would be a slice of a file that does not
+            # exist, and the parent's own promise -- that nothing is kept back
+            # -- would stop being true the moment one appeared. slices() in
+            # scripts/slice_free_time.py returns an empty list today, so this
+            # catches drift rather than a live fault.
+            fail(f"{fid} says its whole file is printed on its own page but has child "
+                 f"pages: {[d.name for d in kids]}")
         for d in kids:
             who = f"{fid}/{d.name}"
             raw = (d / "index.html").read_text(encoding="utf-8")
