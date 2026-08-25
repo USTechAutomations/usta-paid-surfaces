@@ -16,6 +16,7 @@ agent-incidents/by-claim
 agent-incidents/by-court
 agent-incidents/coverage
 agent-incidents/new-cases
+agent-ready
 agent-register
 agent-register/coverage
 agent-register/every-server
@@ -138,6 +139,7 @@ hiring-watch/coverage
 hiring-watch/roles-that-moved
 how-we-seal
 import-checks
+manual-ready
 markets-resolved
 markets-resolved/against-the-price
 markets-resolved/coverage
@@ -177,6 +179,7 @@ permit-metros/san-francisco
 permit-metros/scottsdale
 permit-metros/seattle
 permits
+provider-table
 quakes
 quakes/alaska
 quakes/california
@@ -206,6 +209,7 @@ recalls/pennsylvania
 recalls/status-changes
 recalls/texas
 recalls/wisconsin
+scope-line
 scope-sheet
 sec-8k
 sec-8k/accounts-withdrawn
@@ -213,6 +217,7 @@ sec-8k/auditor-changes
 sec-8k/coverage
 sec-8k/listing-warnings
 sec-8k/officer-changes
+sworn-page
 trustee-sales
 trustee-sales/coverage
 trustee-sales/postponed
