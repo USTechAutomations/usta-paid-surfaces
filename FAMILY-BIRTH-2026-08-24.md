@@ -45,3 +45,59 @@ does not say so.
 - Never fix a price mismatch by editing a shared price constant. One constant is read by up
   to 37 products, so moving it to fix one page silently moves the other 36. Give the SKU its
   own value.
+
+## Correction, 2026-08-24 evening — the rule above is incomplete in three ways
+
+Written after actually birthing `yard-season`. Nothing above is changed; these are the
+three things the note did not know when it was written.
+
+### 1. The builder cannot bootstrap a new family at all
+
+`build_slices.py` asks the estate honesty gate before it writes anything, and that gate
+runs `check_site.py`, which refuses on the very page the new family does not have yet:
+
+```
+BUILD STOPPED: scripts/check_site.py is failing: FAIL: missing families/yard-season/index.html
+Nothing was written. The estate honesty gate has to pass before any page is rebuilt,
+because a build on top of a page that is already lying just makes more of them.
+```
+
+So the normal builder cannot create the first copy of a page, and — proved by moving a
+finished page out of the way and running the builder — **it cannot repair a deleted one
+either**. The escape is to call `render_family.write(spec)` once by hand, then prove the
+normal builder reproduces it. Do not take a passing `cmp` as that proof: if the builder
+never touches the file, `cmp` compares the hand-written copy to itself and passes for the
+wrong reason. Move the page away, run the builder, and see whether it comes back.
+
+### 2. A birth needs a THIRD thing in the same change: a hub group that exists
+
+The rule above says a priced family lands its catalog row and its page together. That is
+still true and still not enough. `build_hub.py` keeps its own hand-written list of section
+names, and a catalog row naming a group that is not on that list stops the hub build:
+
+```
+build_hub: 1 group name(s) in catalog.json have no section on the hub: How we work.
+These feeds would not be drawn at all, while the count above the directory would still
+include them.
+```
+
+The guard is right and says so plainly: *"Do not remove the family from the count to make
+the numbers agree."* This is the same shape as a withdrawal having more surfaces than
+anyone remembers — count the surfaces before landing, do not discover the third one from
+the build refusing.
+
+### 3. The module must not type anything the catalog row already carries
+
+`slice_yard_season.py` was written with its own `"group"`, `"cadence"`, `"cadence_long"`
+and `"buyer"` strings, copied from the catalog row. **The group had drifted within the
+hour**: the catalog said one thing, the page's top line kept printing the name it was born
+with, and the two are read by the same person on the same visit — the card on the directory
+and the line at the top of the page. Nothing failed; both surfaces built green while
+disagreeing.
+
+Follow `slice_air_permits.py`, which reads `fam["group"]` with no fallback default. A
+fallback is worse than nothing here: it publishes a typed guess instead of refusing. Five
+modules in the estate still type their group; four read it.
+
+**A value printed in two places is one value with two copies, and the copy nobody
+recomputes is the one that goes wrong quietly.**
