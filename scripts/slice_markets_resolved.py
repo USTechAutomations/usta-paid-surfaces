@@ -26,6 +26,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from merge_catalog_adds import family_rows  # noqa: E402
+from freshness import PAUSED_PHRASE  # noqa: E402
 from render_family import section, table, write  # noqa: E402
 
 FAMILY = "markets-resolved"
@@ -35,6 +36,37 @@ DB = Path("/home/gmullins/Claude CLI/clocks/markets_resolved/data/markets_resolv
 PRICE = family_rows().get(FAMILY, {}).get("price") or "Not for sale yet"
 FOR_SALE = "$" in PRICE
 CADENCE_DAYS = 1
+
+# Collection STOPPED. These two dates are the only stored values in this file,
+# and they are stored on purpose.
+#
+# Everything else here is counted out of the clock at build time, which is the
+# right rule for counts and the wrong one for a stop. On the day a reader stops,
+# its newest sealed row is still that day's, so every computed freshness test
+# says "fresh" and the page goes on promising a daily feed to someone who is
+# reading it because of that promise. A stop is a fact about a decision, not
+# about the newest row, so it is written down with its date and read back.
+#
+# What happened, out of the collector's own run log and the unit's own exit:
+#   run 2026-08-25:2026-08-25T01:22:09+00:00 sealed 0 rows from 0 of 4 sources.
+#   manifold    blocked:source_declared_refuse   its own terms, reviewed 2026-08-24
+#   polymarket  blocked:source_decision_unknown  we have not read their answer
+#   kalshi      blocked:source_decision_unknown  we have not read their answer
+#   metaculus   blocked:source_decision_unknown  we have not read their answer
+#   the service exited 3 and the unit is failed. Nothing sealed since.
+#
+# Both dates are on the collector's clock, which is the clock every date on
+# these pages is measured on. Putting them back on requires a new decision, a
+# relit collector and a new dated line here -- not an edit to this one.
+LAST_SEALED_ON = "2026-08-24"        # last day a real row was sealed
+COLLECTION_STOPPED_ON = "2026-08-25"  # first day a run read nothing at all
+
+# Why we stopped, in the page's own words. Dated with the constants above so the
+# reason can never drift away from the date it belongs to.
+STOP_REASON = (
+    "Manifold&rsquo;s own terms now refuse us, and for Kalshi and Polymarket we "
+    "have not read the publisher&rsquo;s answer on whether we may take and keep this"
+)
 MAX_TABLE_ROWS = 12
 QUESTION_CHARS = 92
 
@@ -62,6 +94,57 @@ MONTHS = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split()
 # Counted while these pages were built. Rows dropped for content reasons are
 # reported to stderr on every run, so this stays honest as the data grows.
 _dropped: dict[str, int] = {"personal": 0, "abusive": 0}
+
+
+def _stop_day() -> str:
+    """The day the first run read nothing."""
+    return d(COLLECTION_STOPPED_ON)
+
+
+def _last_day() -> str:
+    """The last day we sealed a real row."""
+    return d(LAST_SEALED_ON)
+
+
+def _check_stop_still_true(newest: str) -> None:
+    """Refuse to print a stop the data has already overtaken.
+
+    If a row is ever sealed after LAST_SEALED_ON then collection restarted and
+    the constants above are a lie in the direction that matters least but is
+    still a lie. Better to stop the build than to print an archive notice over
+    a feed that is running again.
+    """
+    if newest > LAST_SEALED_ON:
+        raise SystemExit(
+            f"{FAMILY}: the newest sealed row is {newest}, later than the recorded "
+            f"last reading {LAST_SEALED_ON}. Collection has started again, so the "
+            f"stop notice on these pages is out of date. Update LAST_SEALED_ON and "
+            f"COLLECTION_STOPPED_ON, or clear them, before building."
+        )
+
+
+def _read_phrase() -> str:
+    """Replaces "We read this source every day." on every child page.
+
+    That sentence is present tense and was false the moment collection stopped.
+    It is the one line every child page carries, and it prints whether or not
+    the page is old enough to count as late -- which is the whole reason it,
+    and not the late paragraph, is where the stop has to be said.
+    """
+    return (f"We read this source every day up to {_last_day()}, and "
+            f"<strong>{PAUSED_PHRASE}</strong> since {_stop_day()} with no date set "
+            f"for it to start again.")
+
+
+def _pause_note() -> str:
+    """Replaces the late half of the freshness paragraph.
+
+    The default ends "until collection starts again", which is right for a feed
+    that slipped and wrong for one that was stopped on purpose.
+    """
+    return (f"<strong>{PAUSED_PHRASE.capitalize()}.</strong> {STOP_REASON}. "
+            f"Every copy we already sealed is unchanged and still here; nothing "
+            f"new is being added to it.")
 
 
 def conn() -> sqlite3.Connection:
@@ -319,9 +402,9 @@ def _limits(h: dict, missing: list[str]) -> list[str]:
         "two of our reads, we would never see it.",
         "We collect three venues and only three: Kalshi, Polymarket and Manifold. "
         "Nothing here covers any other prediction market.",
-        f"We read every day, but not every day worked. Between {d(h['oldest'])} and "
-        f"{d(h['newest'])} there are {len(missing)} days with nothing sealed at all, and "
-        f"{gap_words(missing)}.",
+        f"We read every day up to {_last_day()}, but not every day worked. Between "
+        f"{d(h['oldest'])} and {d(h['newest'])} there are {len(missing)} days with nothing "
+        f"sealed at all, and {gap_words(missing)}.",
         "Each read takes the newest resolved markets a venue is showing, not every "
         "market that venue has ever resolved. A market that resolved and dropped off "
         "the list before our next read is not in here.",
@@ -335,6 +418,7 @@ def slices() -> list[dict]:
     c = conn()
     try:
         h = held(c)
+        _check_stop_still_true(h["newest"])
         missing = missing_days(c)
         limits = _limits(h, missing)
         out: list[dict] = []
@@ -367,7 +451,8 @@ def slices() -> list[dict]:
                 "slug": "coverage",
                 "name": "What is in this feed and what is not",
                 "h1": "Resolved prediction markets: what we hold",
-                "lede": "Three venues, every day we could read them, and the days we could not.",
+                "lede": f"Three venues, every day we could read them up to {_last_day()}, "
+                f"the days we could not, and the day we stopped.",
                 "desc": (
                     f"What the resolved-markets feed holds: {h['rows']:,} sealed rows from "
                     f"{len(h['venues'])} venues across {h['dates']} days, {d(h['oldest'])} to "
@@ -671,6 +756,13 @@ def slices() -> list[dict]:
                 file=sys.stderr,
             )
 
+        # Every child page carries the freshness paragraph, so every child page
+        # carries the stop. Set here rather than on each spec above: a stop that
+        # is added page by page is a stop that gets left off one page.
+        for spec in out:
+            spec["read_phrase"] = _read_phrase()
+            spec["paused_note"] = _pause_note()
+
         return out
     finally:
         c.close()
@@ -717,6 +809,7 @@ def family_spec() -> dict:
     c = conn()
     try:
         h = held(c)
+        _check_stop_still_true(h["newest"])
         missing = missing_days(c)
         moved = movers(c)
         printable = [m for m in moved if showable(m["question"])]
@@ -759,8 +852,9 @@ def family_spec() -> dict:
                 f'{len(moved)} markets moved after they had already resolved',
                 "      <p>A venue can go back and change a market after it has closed. When it "
                 "does, the first answer is simply gone from the venue&rsquo;s own page. "
-                "<strong>We read the venues every day and keep each day&rsquo;s copy, so we still "
-                "have what the venue said the first time.</strong></p>\n"
+                f"<strong>We read the venues every day up to {_last_day()} and kept each "
+                f"day&rsquo;s copy, so we still have what the venue said the first "
+                f"time.</strong></p>\n"
                 + table(
                     ["Question", "What moved", "Between our two reads"],
                     moved_rows,
@@ -833,7 +927,8 @@ def family_spec() -> dict:
                 f"The run log records {h['runs']} finished collection runs over those "
                 f"{h['dates']} days, because some days were read more than once.</p>\n"
                 '      <div class="honest">\n'
-                f"        <p><strong>We read every day, and {len(missing)} days did not work.</strong> "
+                f"        <p><strong>We read every day up to {_last_day()}, and "
+                f"{len(missing)} days did not work.</strong> "
                 f"Between {d(h['oldest'])} and {d(h['newest'])} there are {len(missing)} days with "
                 f"nothing sealed at all, and {gap_words(missing)}. A market that resolved and "
                 "dropped off a venue&rsquo;s list inside one of those gaps is not in here, and we "
@@ -896,8 +991,15 @@ def family_spec() -> dict:
             "id": FAMILY,
             "ready": True,
             "group": "Other dated records",
-            "cadence": "Daily seals",
-            "cadence_long": "Daily copies, one file when something moves",
+            # Both of these used to be written in the present tense and both were
+            # false from 2026-08-25. They are set from the dated constants, not from
+            # a freshness test, because no freshness test can see a deliberate stop.
+            "cadence": f"Daily seals, stopped {_stop_day()}",
+            "cadence_long": (
+                f"Daily copies up to {_last_day()}, stopped since; everything we "
+                f"sealed to that day is still here"
+            ),
+            "pill_text": f"{PAUSED_PHRASE.capitalize()} {_stop_day()}",
             "crumb": "Resolved prediction markets",
             "h1": "Resolved prediction markets",
             "price": PRICE,
@@ -913,8 +1015,10 @@ def family_spec() -> dict:
                 f"later by the venue. {PRICE}."
             ),
             "lede": "Prediction-market venues delete questions, edit them, and sometimes resolve "
-            "the same market twice. <strong>We read three venues every day and keep each "
-            "day&rsquo;s copy, so you have what the venue said on the day it resolved.</strong>",
+            f"the same market twice. We read three venues every day up to {_last_day()} and "
+            f"kept each day&rsquo;s copy, so you have what the venue said on the day it "
+            f"resolved. <strong>{PAUSED_PHRASE.capitalize()} since {_stop_day()}</strong> "
+            f"&mdash; {STOP_REASON}. Every copy we sealed is unchanged and still here.",
             "pill_label": "Named markets on this page",
             "subj": (
                 "Resolved%20prediction%20markets%20%E2%80%94%20what%20do%20you%20hold"
