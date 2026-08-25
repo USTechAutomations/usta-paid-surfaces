@@ -424,6 +424,19 @@ def sample_door(spec: dict) -> str:
         if for_sale
         else "the file goes back further than these rows do"
     )
+    # The written terms, printed at the door as well as beside the button. A
+    # buyer reads the sample, then what the money buys, then the price -- and
+    # the terms they read here are the same catalog record the button carries,
+    # so neither copy can drift without the other.
+    ck = spec.get("checkout") or fam_row(str(fid)).get("checkout") or {}
+    written = ""
+    if for_sale and ck.get("terms"):
+        written = (
+            '      <p class="mail-note"><strong>What you would be paying for:</strong> '
+            + html.escape(ck["terms"])
+            + ((" " + html.escape(ck["after"])) if ck.get("after") else "")
+            + "</p>\n"
+        )
     return (
         '    <section class="contact">\n'
         f"      <h2>{heading}</h2>\n"
@@ -440,6 +453,7 @@ def sample_door(spec: dict) -> str:
         '<span class="sub">The same rows again, laid out for reading with code.</span></li>\n'
         "      </ul>\n"
         f'      <p class="mail-note">{delivery_sentence(spec)}</p>\n'
+        + written +
         f'      <p class="mail-note">These {n_rows} rows are a slice of the file, not the '
         f"whole of it. What we cannot show you here is how far back it goes: {rest}.</p>\n"
         "    </section>\n"

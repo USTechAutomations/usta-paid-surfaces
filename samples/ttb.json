@@ -1,172 +1,200 @@
 {
   "id": "ttb",
-  "from": "2026-08-11",
-  "to": "2026-08-19",
-  "appeared_count": 78,
-  "gone_count": 11,
+  "from": "2026-08-19",
+  "to": "2026-08-25",
+  "appeared_count": 105,
+  "gone_count": 15,
   "appeared": [
     {
-      "permit": "CA-I-24408",
-      "name": "Kachina Cellars",
-      "city": "NAPA",
+      "permit": "AK-I-21014",
+      "name": "Columbia Distributing",
+      "city": "FAIRBANKS",
+      "state": "AK",
+      "industry": "Importer (Alcohol)"
+    },
+    {
+      "permit": "AK-I-21015",
+      "name": "Columbia Distributing",
+      "city": "JUNEAU",
+      "state": "AK",
+      "industry": "Importer (Alcohol)"
+    },
+    {
+      "permit": "AK-P-21042",
+      "name": "Columbia Distributing",
+      "city": "FAIRBANKS",
+      "state": "AK",
+      "industry": "Wholesaler (Alcohol)"
+    },
+    {
+      "permit": "AK-P-21043",
+      "name": "Columbia Distributing",
+      "city": "JUNEAU",
+      "state": "AK",
+      "industry": "Wholesaler (Alcohol)"
+    },
+    {
+      "permit": "AL-P-21102",
+      "name": "",
+      "city": "HUNTSVILLE",
+      "state": "AL",
+      "industry": "Wholesaler (Alcohol)"
+    },
+    {
+      "permit": "AZ-I-21231",
+      "name": "",
+      "city": "MESA",
+      "state": "AZ",
+      "industry": "Importer (Alcohol)"
+    },
+    {
+      "permit": "AZ-P-21326",
+      "name": "",
+      "city": "SCOTTSDALE",
+      "state": "AZ",
+      "industry": "Wholesaler (Alcohol)"
+    },
+    {
+      "permit": "AZ-S-20081",
+      "name": "Oro De Sonora",
+      "city": "PHOENIX",
+      "state": "AZ",
+      "industry": "Distilled Spirits Plant"
+    },
+    {
+      "permit": "CA-I-24409",
+      "name": "",
+      "city": "SAN DIEGO",
       "state": "CA",
       "industry": "Importer (Alcohol)"
     },
     {
-      "permit": "CA-P-27533",
-      "name": "PURE SWISS VODKA",
-      "city": "SARATOGA",
+      "permit": "CA-I-24410",
+      "name": "",
+      "city": "WESTMINSTER",
+      "state": "CA",
+      "industry": "Importer (Alcohol)"
+    },
+    {
+      "permit": "CA-I-24411",
+      "name": "Amigos Agaveros",
+      "city": "RIVERSIDE",
+      "state": "CA",
+      "industry": "Importer (Alcohol)"
+    },
+    {
+      "permit": "CA-I-24412",
+      "name": "",
+      "city": "DENAIR",
+      "state": "CA",
+      "industry": "Importer (Alcohol)"
+    }
+  ],
+  "gone": [
+    {
+      "permit": "CA-P-25960",
+      "name": "Best Coast Beverages",
+      "city": "LOS ANGELES",
       "state": "CA",
       "industry": "Wholesaler (Alcohol)"
     },
     {
-      "permit": "CA-P-27534",
-      "name": "Between 2 Worlds Selections",
-      "city": "SACRAMENTO",
+      "permit": "CA-W-21687",
+      "name": "Roy Piper Wines",
+      "city": "CALISTOGA",
       "state": "CA",
-      "industry": "Wholesaler (Alcohol)"
+      "industry": "Wine Producer"
     },
     {
-      "permit": "CA-P-27535",
-      "name": "Tule Wines",
-      "city": "SONOMA",
+      "permit": "CA-W-22424",
+      "name": "T-VINE WINERY",
+      "city": "NAPA",
       "state": "CA",
-      "industry": "Wholesaler (Alcohol)"
+      "industry": "Wine Producer"
     },
     {
-      "permit": "CA-P-27536",
-      "name": "Escape Velocity Wines",
-      "city": "OXNARD",
-      "state": "CA",
-      "industry": "Wholesaler (Alcohol)"
-    },
-    {
-      "permit": "CA-W-25835",
-      "name": "Coalescence Wines",
+      "permit": "CA-W-23289",
+      "name": "Downstream",
       "city": "PASO ROBLES",
       "state": "CA",
       "industry": "Wine Producer"
     },
     {
-      "permit": "CT-W-21078",
-      "name": "Andros Family Vineyards",
-      "city": "LEBANON",
-      "state": "CT",
+      "permit": "CA-W-25070",
+      "name": "Casa Dominguez Wines",
+      "city": "CALISTOGA",
+      "state": "CA",
       "industry": "Wine Producer"
     },
     {
-      "permit": "DC-I-21139",
-      "name": "Full Glass Enterprises",
-      "city": "WASHINGTON",
-      "state": "DC",
-      "industry": "Importer (Alcohol)"
-    },
-    {
-      "permit": "DC-I-21140",
-      "name": "Provenance Wine Company",
-      "city": "WASHINGTON",
-      "state": "DC",
-      "industry": "Importer (Alcohol)"
-    },
-    {
-      "permit": "DC-P-21139",
-      "name": "Provenance Wine Company",
-      "city": "WASHINGTON",
-      "state": "DC",
-      "industry": "Wholesaler (Alcohol)"
-    },
-    {
-      "permit": "IL-P-21823",
-      "name": "Hellbent Cocktails",
-      "city": "CHICAGO",
-      "state": "IL",
-      "industry": "Wholesaler (Alcohol)"
-    },
-    {
-      "permit": "KS-P-21475",
-      "name": "Firehouse Liquor",
-      "city": "OGDEN",
-      "state": "KS",
-      "industry": "Wholesaler (Alcohol)"
-    }
-  ],
-  "gone": [
-    {
-      "permit": "CT-W-21037",
-      "name": "A Taste of Independence",
-      "city": "LEBANON",
-      "state": "CT",
-      "industry": "Wine Producer"
-    },
-    {
-      "permit": "FL-S-20186",
-      "name": "Beauty Booze",
-      "city": "SARASOTA",
-      "state": "FL",
+      "permit": "CO-S-20154",
+      "name": "",
+      "city": "DELTA",
+      "state": "CO",
       "industry": "Distilled Spirits Plant"
     },
     {
-      "permit": "NE-P-21046",
-      "name": "Johnson Brothers of Nebraska",
-      "city": "OMAHA",
-      "state": "NE",
-      "industry": "Wholesaler (Alcohol)"
-    },
-    {
-      "permit": "OR-W-15340",
-      "name": "Saginaw Vineyard",
-      "city": "COTTAGE GROVE",
-      "state": "OR",
-      "industry": "Wine Producer"
-    },
-    {
-      "permit": "PA-W-21463",
-      "name": "Hunters Valley Winery",
-      "city": "LIVERPOOL",
-      "state": "PA",
-      "industry": "Wine Producer"
-    },
-    {
-      "permit": "CA-I-15021",
-      "name": null,
-      "city": "IRVINE",
-      "state": "CA",
+      "permit": "FL-I-22203",
+      "name": "Sociedad Mezcalera INC",
+      "city": "MIAMI BEACH",
+      "state": "FL",
       "industry": "Importer (Alcohol)"
     },
     {
-      "permit": "MN-W-21026",
-      "name": null,
-      "city": "HASTINGS",
-      "state": "MN",
-      "industry": "Wine Producer"
-    },
-    {
-      "permit": "NY-I-21938",
-      "name": null,
-      "city": "BUFFALO",
-      "state": "NY",
-      "industry": "Importer (Alcohol)"
-    },
-    {
-      "permit": "NY-P-22395",
-      "name": null,
-      "city": "BUFFALO",
-      "state": "NY",
+      "permit": "FL-P-21663",
+      "name": "",
+      "city": "NICEVILLE",
+      "state": "FL",
       "industry": "Wholesaler (Alcohol)"
     },
     {
-      "permit": "OK-W-21053",
-      "name": null,
-      "city": "DUNCAN",
-      "state": "OK",
+      "permit": "HI-P-21070",
+      "name": "Johnson Brothers of Hawaii",
+      "city": "KAILUA-KONA",
+      "state": "HI",
+      "industry": "Wholesaler (Alcohol)"
+    },
+    {
+      "permit": "IL-W-21073",
+      "name": "PeachBarn Winery & Cafe",
+      "city": "ALTO PASS",
+      "state": "IL",
       "industry": "Wine Producer"
     },
     {
-      "permit": "OR-W-21748",
-      "name": null,
-      "city": "COTTAGE GROVE",
-      "state": "OR",
+      "permit": "ME-W-21022",
+      "name": "Cellardoor",
+      "city": "LINCOLNVILLE",
+      "state": "ME",
       "industry": "Wine Producer"
+    },
+    {
+      "permit": "MI-S-15031",
+      "name": "RED CEDAR SPIRITS",
+      "city": "EAST LANSING",
+      "state": "MI",
+      "industry": "Distilled Spirits Plant"
+    },
+    {
+      "permit": "OH-S-20177",
+      "name": "Preston & Russel",
+      "city": "TOLEDO",
+      "state": "OH",
+      "industry": "Distilled Spirits Plant"
+    },
+    {
+      "permit": "OR-S-20150",
+      "name": "Eastside Distilling Company",
+      "city": "PORTLAND",
+      "state": "OR",
+      "industry": "Distilled Spirits Plant"
+    },
+    {
+      "permit": "WA-S-20161",
+      "name": "Heritage Distilling Company",
+      "city": "TUMWATER",
+      "state": "WA",
+      "industry": "Distilled Spirits Plant"
     }
   ]
 }

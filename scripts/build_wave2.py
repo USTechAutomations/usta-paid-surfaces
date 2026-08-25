@@ -336,6 +336,17 @@ def ttb() -> dict:
     p = price("ttb")
     sale = "$" in p
     j = S("ttb")
+    # The rail used to promise "A person emails it weekly" -- a rhythm this very
+    # page says we cannot claim from the gaps we have measured. Count the reads
+    # instead, live from the store, the same way _ttb_rhythm() does.
+    seals = _ttb_seals()
+    if len(seals) >= 2:
+        _gaps = [(date.fromisoformat(b) - date.fromisoformat(a)).days
+                 for a, b in zip(seals, seals[1:])]
+        cadence_rail = (f"{len(seals)} reads so far, "
+                        f"{_plain_list([str(g) for g in _gaps])} days apart")
+    else:
+        cadence_rail = "Weekly file promised, rhythm not yet measured"
     frm, to = d(j["from"]), d(j["to"])
     NOTNAME = '<span class="sub">name not in our copy</span>'
 
@@ -430,7 +441,7 @@ def ttb() -> dict:
         "hero_note": None if sale else NOT_FOR_SALE_NOTE.format(price=p),
         "group": "Other dated records",
         "cadence": "Weekly by email",
-        "cadence_long": "A person emails it weekly",
+        "cadence_long": cadence_rail,
         "crumb": "TTB appear / disappear",
         "h1": "TTB appear / disappear list",
         "buyer": "Beverage compliance and wholesaler operations",
@@ -443,7 +454,7 @@ def ttb() -> dict:
         "being listed</strong>, for one state or territory you name.",
         "pill_label": "Named permits on this page",
         "subj": mail_subject("TTB list", p),
-        "contact_h2": "Start the thread",
+        "contact_h2": "Subscribe to this feed" if sale else "Start the thread",
         "contact_p": "Say which state or territory you follow. We send a checkout link in that thread. "
         "A person still emails the file.",
         "contact_cta": f"Email us for the {p} checkout link",
