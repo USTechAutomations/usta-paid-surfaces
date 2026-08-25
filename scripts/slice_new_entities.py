@@ -254,6 +254,49 @@ def _reads(c: sqlite3.Connection, juris: str | None = None):
     return int(r[0]), r[1], r[2], parsed
 
 
+def _held_sentence(c: sqlite3.Connection) -> str:
+    """The "how much do you hold" line, COUNTED, never typed.
+
+    Typed into catalog.json it said 47 dated copies to 22 August 2026 while the
+    store held 49 to 24 August. The headline is counted from _reads(), which is
+    what every other read count on these pages uses: days a file really came
+    back, never a bare run-log line and never a file date. It reproduces
+    identically against the DATA table -- 49 distinct snapshot_date in
+    business_filings, same first day, same last day -- so the headline does not
+    depend on which of the two you take.
+
+    THE SECOND SENTENCE DOES NOT USE _reads(), AND THAT IS DELIBERATE. Per city
+    the two definitions come apart badly. On 2026-08-25 a file came back with
+    rows for Chicago on 49 days up to 24 August, while business_filings holds
+    Chicago rows on 32 days ending 22 August: the file arrives daily and most
+    days it adds nothing inside the window. A buyer receives ROWS, so the
+    thinnest city is chosen and dated off the data table, and the wording says
+    "carrying any ... row" rather than "read", so it cannot be mistaken for the
+    read stamp at the top of the page.
+
+    HELD_BACK is honoured here for the same reason _metro_slice honours it: a
+    city we do not publish must never be named in a sentence about what a buyer
+    can have. New York is the thinnest metro in the store by a long way and is
+    one of the two held back, so it is not eligible to be named.
+    """
+    days, first, last, _rows = _reads(c)
+    shown = [s for s in METROS if s not in HELD_BACK]
+    per = {}
+    for slug in shown:
+        r = _q(c, "SELECT COUNT(DISTINCT snapshot_date), MAX(snapshot_date) "
+                  "FROM business_filings WHERE jurisdiction=?", METROS[slug]["juris"])[0]
+        per[slug] = (int(r[0]), r[1])
+    thin = min(per, key=lambda s: (per[s][0], s))
+    thin_days, thin_last = per[thin]
+    return (
+        f"We hold {days:,} dated copies, from {_d(first)} to {_d(last)}, and every "
+        f"filing carries its own filing date, which the source gives away for free. "
+        f"They are not evenly spread: the last dated copy carrying any "
+        f"{METROS[thin]['name']} row is {_d(thin_last)}, and there are {thin_days:,} "
+        f"of those. There is nothing to buy yet."
+    )
+
+
 def _and(words: list[str]) -> str:
     if len(words) == 1:
         return words[0]
@@ -789,6 +832,10 @@ def slices() -> list[dict]:
         cov = _coverage_slice(c)
         if cov:
             out.append(cov)
+        # Stamped once, on the way out, so no slice-building site can be missed.
+        note = _held_sentence(c)
+        for sl in out:
+            sl["contact_note_counted"] = note
     return out
 
 

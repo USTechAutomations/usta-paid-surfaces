@@ -2,6 +2,7 @@
 """Fail closed if a family grows a fake checkout, a one-off SKU, or drops its sample rules."""
 from __future__ import annotations
 
+import csv
 import datetime as dt
 import html
 import json
@@ -379,6 +380,33 @@ def check_description(page_id: str, raw: str) -> None:
         fail(f"{page_id} ships {len(set(seen))} different descriptions; they must agree")
 
 
+def check_call_to_action_price(page_id: str, raw: str, price: str) -> None:
+    """No BUTTON OR LINK may name a price the catalog does not sell.
+
+    check_description_price below reads the search line. It is not enough. On
+    2026-08-25 the agent-register family was taken off sale, every pay button
+    was removed and its search lines were cleaned -- and eight of its child
+    pages still shipped a link reading "Email us for the $99 checkout link".
+    That sentence was not in any slice module and not in the search line: it
+    came from a separate catalog field, contact_cta, which no check read. A
+    count of pay buttons said zero. The ninth money route was a mailto.
+
+    So this reads the thing a buyer actually clicks. Anchor text is a call to
+    action by definition, which is why it can be checked strictly: a family the
+    catalog does not sell may not have a link offering an amount, wherever in
+    the codebase that sentence was written.
+
+    Prose is deliberately NOT checked. A withdrawal note saying "this page used
+    to charge $99, and that was wrong" is honest history and must survive; a
+    button saying $99 is an offer.
+    """
+    for text in re.findall(r'<a\b[^>]*>(.*?)</a>', raw, flags=re.S):
+        plain = re.sub(r'<[^>]+>', '', text)
+        for money in sorted(_amounts(plain) - _amounts(price)):
+            fail(f"{page_id} has a link offering {money} but the catalog price "
+                 f"is {price!r}: {plain.strip()[:70]}")
+
+
 def check_description_price(page_id: str, raw: str, price: str) -> None:
     """No page may name a price in its search line that the catalog does not sell.
 
@@ -665,6 +693,7 @@ def main() -> None:
         check_privacy(fam["id"], raw, vis, is_slice=False)
         check_description(fam["id"], raw)
         check_description_price(fam["id"], raw, fam["price"])
+        check_call_to_action_price(fam["id"], raw, fam["price"])
         if fam["sample_status"] == "pass":
             if "sample not ready" in vis.lower():
                 fail(f"{fam['id']} marked pass in catalog but page says sample not ready")
@@ -720,6 +749,7 @@ def main() -> None:
     check_buy_buttons()
     check_held_records()
     check_blocked_sources()
+    check_sample_rows()
     print("ok")
 
 
@@ -774,6 +804,7 @@ def check_slices() -> None:
             check_pay_links(who, raw, fam.get("checkout"))
             check_privacy(who, raw, vis, is_slice=True)
             check_description_price(who, raw, fam["price"])
+            check_call_to_action_price(who, raw, fam["price"])
             n += 1
     if n:
         print(f"{n} slice pages checked")
@@ -1009,6 +1040,135 @@ def check_blocked_sources() -> None:
                  f"file, and {doc.name} no longer names them. The person building "
                  f"the file reads the document, not the script, so a rule missing "
                  f"from it is a rule they will not know about.")
+
+
+# --------------------------------------------------------------------------
+# The sample file itself, opened and counted
+# --------------------------------------------------------------------------
+# Every other sample rule in this file reads WORDS. It checks that the catalog
+# declares a status, that the page says the matching sentence, that the link is
+# there. Not one of them opens the file.
+#
+# COUNTED 2026-08-25 on a throwaway copy of this repo, before this gate existed:
+# families/ttb/sample.csv was cut back to its header line and sample.json to an
+# empty list of rows. This gate printed "ok" and exited 0. scripts/build_site.py
+# then exited 0 as well and copied the empty file into dist/ttb/sample.csv, and
+# the built page above the link still read "Here are 25 rows of the real thing,
+# carrying all 8 of its columns". ttb takes $99 a month with a live pay button.
+# So the whole chain would have published a page that sells a file, points at
+# that file, states its size, and hands over a header row.
+#
+# Nothing below reads a number anybody wrote down. The count in every refusal is
+# the number this function counted off the disk a moment before it refused.
+SAMPLE_FILES = ("sample.csv", "sample.json")
+
+
+def sample_row_count(path: Path) -> tuple[int | None, str]:
+    """How many DATA rows this sample file holds, or None and the reason why not.
+
+    A header row is not a data row and a line of empty cells is not a data row,
+    so a file holding nothing but its column names counts 0 and not 1. That is
+    the whole point: a header-only file is the shape an empty sample takes on
+    disk, and it is not an empty file, so nothing that looks at file size or at
+    whether the path exists would ever see it.
+
+    None means the file could not be read or made sense of. That is deliberately
+    NOT folded into "0 rows" -- a file we failed to open is a thing nobody has
+    counted, and reporting an uncounted file as empty would be a confident wrong
+    number about somebody's money.
+    """
+    if path.suffix == ".json":
+        try:
+            blob = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError) as exc:
+            return None, f"it will not open and parse as JSON ({exc})"
+        rows = blob.get("rows") if isinstance(blob, dict) else blob
+        if not isinstance(rows, list):
+            return None, ("there is no list of rows inside it, so there is nothing "
+                          "in it to count")
+        return sum(1 for r in rows if r not in ({}, [], "", None)), ""
+    try:
+        with path.open(encoding="utf-8", newline="") as fh:
+            table = list(csv.reader(fh))
+    except (OSError, ValueError, csv.Error) as exc:
+        return None, f"it will not open and parse as CSV ({exc})"
+    # table[0] is the column names. Everything after it is what a buyer got.
+    return sum(1 for r in table[1:] if any(str(c).strip() for c in r)), ""
+
+
+def check_sample_rows() -> None:
+    """A family that takes money must hand a stranger a sample with rows in it.
+
+    WHO GETS CHECKED IS DERIVED FROM THE CATALOG AND NEVER LISTED HERE. A guard
+    holding a typed list of family ids goes silently dead the day a family is
+    renamed or a new priced one is added -- it finds nothing to check, checks
+    nothing, and reports success. So the subject is worked out from the row:
+
+      * it takes money            -- there is a dollar amount in its price
+      * it sells a file           -- kind is not "build". A kind="build" family
+                                     sells an agreed piece of work through an
+                                     email thread; there is no dated file behind
+                                     it and none is owed. This is the same line
+                                     scripts/build_hub.py draws when it keeps
+                                     builds out of the feed counts, and the same
+                                     one scripts/pipeline.py draws when it scores
+                                     only feeds on their rows.
+      * it is not parked          -- a parked family is one we cannot collect at
+                                     all, and the loop in main() already refuses
+                                     to let one carry a price. Demanding a file
+                                     of rows from a source we have said we cannot
+                                     read would be asking for data that does not
+                                     exist.
+
+    "on-page" is the one status that changes what is demanded rather than who is
+    checked. It is the catalog saying there is no file behind this page because
+    the page IS the whole of it, and main() already forces that page to say so in
+    its own words. Such a family owes no sample file -- but if one is sitting at
+    a public address anyway it still has to hold rows, because an empty file at a
+    public address is a broken promise whichever way the page is worded.
+    """
+    paid, counted = 0, 0
+    for fid, fam in sorted(family_rows().items()):
+        price = str(fam.get("price", ""))
+        if "$" not in price:
+            continue                                    # takes no money
+        if fam.get("kind") == "build":
+            continue                                    # sells work, not a file
+        status = fam.get("sample_status")
+        if status == "parked":
+            continue                                    # cannot be collected at all
+        paid += 1
+        owed = status != "on-page"
+        for name in SAMPLE_FILES:
+            path = ROOT / "families" / fid / name
+            rel = f"families/{fid}/{name}"
+            if not path.is_file():
+                if owed:
+                    fail(f"{fid} sells at {price} and there is no {rel} on disk to "
+                         f"open, so the number of rows a paying stranger downloads "
+                         f"is 0. Its catalog row records the sample as {status!r}. "
+                         f"Either the sample writer in scripts/build_slices.py did "
+                         f"not run for this family, or it ran and had nothing to "
+                         f"write. Do not take the price off to clear this; find out "
+                         f"which of the two happened.")
+                continue
+            rows, why = sample_row_count(path)
+            if rows is None:
+                fail(f"{fid} sells at {price} and {rel} is there but cannot be read, "
+                     f"so nobody knows how many rows a buyer would get out of it: "
+                     f"{why}. An uncounted file is not an empty one and it is not a "
+                     f"full one either, and this build will not guess which.")
+                continue
+            if rows == 0:
+                fail(f"{fid} sells at {price} and {rel} holds {rows} data rows. That "
+                     f"is the file a paying stranger downloads from the sample link "
+                     f"on families/{fid}/, and there is nothing in it for a buyer to "
+                     f"read. Rebuild the sample with scripts/build_slices.py; if it "
+                     f"comes back empty again the feed itself collected nothing and "
+                     f"that is the thing to fix, not this gate.")
+                continue
+            counted += 1
+    print(f"{counted} sample file(s) counted behind {paid} paid family page(s)")
 
 
 if __name__ == "__main__":

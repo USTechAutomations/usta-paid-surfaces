@@ -3,9 +3,9 @@
 Derived from `dist/` by `scripts/url_manifest.py`. Not typed, not edited
 by hand. Re-run it after any build and this file is current again.
 
-- **232 pages**, every one of them an address under `/feeds`
-- **42** carry a price; **190** say they are not for sale yet, are free to read, or are the hub itself
-- **41** have a pay button; **164** are honest holding pages that ask you to email instead; **27** is the hub, which sells nothing and does not pretend to
+- **236 pages**, every one of them an address under `/feeds`
+- **29** carry a price; **207** say they are not for sale yet, are free to read, or are the hub itself
+- **28** have a pay button; **179** are honest holding pages that ask you to email instead; **29** is the hub, which sells nothing and does not pretend to
 
 The sitemap lists exactly these pages and no others.
 
@@ -29,11 +29,11 @@ The sitemap lists exactly these pages and no others.
 
 | Address | Price | Buy |
 |---|---|---|
-| `/feeds/agent-register` | $99 once | pay button |
-| `/feeds/agent-register/coverage` | $99 once | pay button |
-| `/feeds/agent-register/every-server` | $99 once | pay button |
-| `/feeds/agent-register/new-versions` | $99 once | pay button |
-| `/feeds/agent-register/newly-listed` | $99 once | pay button |
+| `/feeds/agent-register` | Not for sale | no cta found |
+| `/feeds/agent-register/coverage` | Not for sale | email only |
+| `/feeds/agent-register/every-server` | Not for sale | email only |
+| `/feeds/agent-register/new-versions` | Not for sale | email only |
+| `/feeds/agent-register/newly-listed` | Not for sale | email only |
 
 ## agentic-commerce
 
@@ -226,6 +226,12 @@ The sitemap lists exactly these pages and no others.
 |---|---|---|
 | `/feeds/how-we-seal` | Free to read | email only |
 
+## import-checks
+
+| Address | Price | Buy |
+|---|---|---|
+| `/feeds/import-checks` | Not for sale yet | email only |
+
 ## markets-resolved
 
 | Address | Price | Buy |
@@ -275,18 +281,24 @@ The sitemap lists exactly these pages and no others.
 |---|---|---|
 | `/feeds/offers` | $200 – $450 | email only |
 
+## peak-call
+
+| Address | Price | Buy |
+|---|---|---|
+| `/feeds/peak-call` | Not for sale yet | email only |
+
 ## permit-metros
 
 | Address | Price | Buy |
 |---|---|---|
-| `/feeds/permit-metros` | $79/mo | pay button |
-| `/feeds/permit-metros/austin` | $79/mo | pay button |
-| `/feeds/permit-metros/chicago` | $79/mo | pay button |
-| `/feeds/permit-metros/coverage` | $79/mo | pay button |
-| `/feeds/permit-metros/new-york` | $79/mo | pay button |
-| `/feeds/permit-metros/san-francisco` | $79/mo | pay button |
-| `/feeds/permit-metros/scottsdale` | $79/mo | pay button |
-| `/feeds/permit-metros/seattle` | $79/mo | pay button |
+| `/feeds/permit-metros` | Not for sale | no cta found |
+| `/feeds/permit-metros/austin` | Not for sale | email only |
+| `/feeds/permit-metros/chicago` | Not for sale | email only |
+| `/feeds/permit-metros/coverage` | Not for sale | email only |
+| `/feeds/permit-metros/new-york` | Not for sale | email only |
+| `/feeds/permit-metros/san-francisco` | Not for sale | email only |
+| `/feeds/permit-metros/scottsdale` | Not for sale | email only |
+| `/feeds/permit-metros/seattle` | Not for sale | email only |
 
 ## permits
 
@@ -332,6 +344,12 @@ The sitemap lists exactly these pages and no others.
 | `/feeds/recalls/status-changes` | Not for sale yet | email only |
 | `/feeds/recalls/texas` | Not for sale yet | email only |
 | `/feeds/recalls/wisconsin` | Not for sale yet | email only |
+
+## scope-sheet
+
+| Address | Price | Buy |
+|---|---|---|
+| `/feeds/scope-sheet` | Not for sale yet | email only |
 
 ## sec-8k
 
@@ -389,6 +407,12 @@ The sitemap lists exactly these pages and no others.
 | `/feeds/vendor-prices/coverage` | Not for sale yet | email only |
 | `/feeds/vendor-prices/never-answered` | Not for sale yet | email only |
 | `/feeds/vendor-prices/stopped-answering` | Not for sale yet | email only |
+
+## verified-record
+
+| Address | Price | Buy |
+|---|---|---|
+| `/feeds/verified-record` | Not for sale yet | email only |
 
 ## what-we-dont-collect
 

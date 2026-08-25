@@ -322,6 +322,31 @@ def write_sample(fid: str, sample: tuple) -> None:
                 "family": fid,
                 "generated": dt.date.today().isoformat(),
                 "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
+                # SOME OF THESE ROWS WERE PUBLISHED BY SOMEBODY ELSE, and some
+                # of those publishers ask to be credited when their data is
+                # passed on. Their names, and the exact words any of them
+                # require, live on the page this file came from -- they are NOT
+                # repeated here, because a credit typed in a second place is a
+                # credit that can go stale while the page moves on. The pointer
+                # is derived from the family id, so it cannot name the wrong page.
+                #
+                # The wording is deliberately conditional. A first draft said
+                # "We did not publish this data", which is FALSE for the two
+                # families whose rows are our own crawl -- agentic-commerce and
+                # crawler -- and one of those two takes money. A sentence that
+                # ships in all 21 sample files has to be true in all 21.
+                #
+                # Added 2026-08-25 after an audit counted four families whose
+                # sample files carry rows from sources with a written credit
+                # condition -- and carry no credit, no licence notice and no
+                # disclaimer. The file goes out to strangers; it now at least
+                # says where the answer is.
+                "where_these_rows_came_from": (
+                    "Where these rows came from, and anything their publisher "
+                    "requires to be printed alongside them, is set out on the page "
+                    "this file came from: "
+                    f"https://ustechautomations.com/feeds/{fid}"
+                ),
                 "rows_published": len(rows),
                 "columns": len(headers),
                 "headers": headers,

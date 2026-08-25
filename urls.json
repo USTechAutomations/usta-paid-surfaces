@@ -1,7 +1,7 @@
 {
   "site": "https://ustechautomations.com",
   "base_path": "/feeds",
-  "pages": 232,
+  "pages": 236,
   "notes": [],
   "rows": [
     {
@@ -69,11 +69,11 @@
       "path": "/feeds/agent-register/coverage",
       "family": "agent-register",
       "kind": "slice",
-      "title": "What is and is not in the agent register feed \u2014 $99 once",
-      "price": "$99 once",
-      "sells": true,
-      "pay": "pay button",
-      "pay_url": "https://buy.stripe.com/5kQ14g9Bk2ie0FedTA0sU0Q",
+      "title": "What is and is not in the agent register feed \u2014 Not for sale",
+      "price": "Not for sale",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
       "built_from": "dist/agent-register/coverage/index.html"
     },
     {
@@ -81,11 +81,11 @@
       "path": "/feeds/agent-register/every-server",
       "family": "agent-register",
       "kind": "slice",
-      "title": "Every agent server the register listed on our newest copy \u2014 $99 once",
-      "price": "$99 once",
-      "sells": true,
-      "pay": "pay button",
-      "pay_url": "https://buy.stripe.com/5kQ14g9Bk2ie0FedTA0sU0Q",
+      "title": "Every agent server the register listed on our newest copy \u2014 Not for sale",
+      "price": "Not for sale",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
       "built_from": "dist/agent-register/every-server/index.html"
     },
     {
@@ -93,11 +93,11 @@
       "path": "/feeds/agent-register",
       "family": "agent-register",
       "kind": "family",
-      "title": "Agent server register archive \u2014 $99 once",
-      "price": "$99 once",
-      "sells": true,
-      "pay": "pay button",
-      "pay_url": "https://buy.stripe.com/5kQ14g9Bk2ie0FedTA0sU0Q",
+      "title": "Agent server register archive",
+      "price": "Not for sale",
+      "sells": false,
+      "pay": "no cta found",
+      "pay_url": "",
       "built_from": "dist/agent-register/index.html"
     },
     {
@@ -105,11 +105,11 @@
       "path": "/feeds/agent-register/new-versions",
       "family": "agent-register",
       "kind": "slice",
-      "title": "Agent servers that shipped a new version while we were watching \u2014 $99 once",
-      "price": "$99 once",
-      "sells": true,
-      "pay": "pay button",
-      "pay_url": "https://buy.stripe.com/5kQ14g9Bk2ie0FedTA0sU0Q",
+      "title": "Agent servers that shipped a new version while we were watching \u2014 Not for sale",
+      "price": "Not for sale",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
       "built_from": "dist/agent-register/new-versions/index.html"
     },
     {
@@ -117,11 +117,11 @@
       "path": "/feeds/agent-register/newly-listed",
       "family": "agent-register",
       "kind": "slice",
-      "title": "Agent servers that joined the register while we were watching \u2014 $99 once",
-      "price": "$99 once",
-      "sells": true,
-      "pay": "pay button",
-      "pay_url": "https://buy.stripe.com/5kQ14g9Bk2ie0FedTA0sU0Q",
+      "title": "Agent servers that joined the register while we were watching \u2014 Not for sale",
+      "price": "Not for sale",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
       "built_from": "dist/agent-register/newly-listed/index.html"
     },
     {
@@ -1517,6 +1517,18 @@
       "built_from": "dist/how-we-seal/index.html"
     },
     {
+      "url": "https://ustechautomations.com/feeds/import-checks",
+      "path": "/feeds/import-checks",
+      "family": "import-checks",
+      "kind": "family",
+      "title": "Where your own import records disagree with each other \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/import-checks/index.html"
+    },
+    {
       "url": "https://ustechautomations.com/feeds",
       "path": "/feeds",
       "family": "",
@@ -1877,15 +1889,27 @@
       "built_from": "dist/offers/index.html"
     },
     {
+      "url": "https://ustechautomations.com/feeds/peak-call",
+      "path": "/feeds/peak-call",
+      "family": "peak-call",
+      "kind": "family",
+      "title": "Every grid peak call we have made, and how it turned out \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/peak-call/index.html"
+    },
+    {
       "url": "https://ustechautomations.com/feeds/permit-metros/austin",
       "path": "/feeds/permit-metros/austin",
       "family": "permit-metros",
       "kind": "slice",
-      "title": "What entered the Austin permit list this week \u2014 $79/mo",
-      "price": "$79/mo",
-      "sells": true,
-      "pay": "pay button",
-      "pay_url": "https://buy.stripe.com/8x2bIU5l4aOKafO8zg0sU0O",
+      "title": "What entered the Austin permit list this week \u2014 Not for sale",
+      "price": "Not for sale",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
       "built_from": "dist/permit-metros/austin/index.html"
     },
     {
@@ -1893,11 +1917,11 @@
       "path": "/feeds/permit-metros/chicago",
       "family": "permit-metros",
       "kind": "slice",
-      "title": "What entered the Chicago permit list this week \u2014 $79/mo",
-      "price": "$79/mo",
-      "sells": true,
-      "pay": "pay button",
-      "pay_url": "https://buy.stripe.com/8x2bIU5l4aOKafO8zg0sU0O",
+      "title": "What entered the Chicago permit list this week \u2014 Not for sale",
+      "price": "Not for sale",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
       "built_from": "dist/permit-metros/chicago/index.html"
     },
     {
@@ -1905,11 +1929,11 @@
       "path": "/feeds/permit-metros/coverage",
       "family": "permit-metros",
       "kind": "slice",
-      "title": "Metro permits: the places we hold and the places we do not \u2014 $79/mo",
-      "price": "$79/mo",
-      "sells": true,
-      "pay": "pay button",
-      "pay_url": "https://buy.stripe.com/8x2bIU5l4aOKafO8zg0sU0O",
+      "title": "Metro permits: the places we hold and the places we do not \u2014 Not for sale",
+      "price": "Not for sale",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
       "built_from": "dist/permit-metros/coverage/index.html"
     },
     {
@@ -1917,11 +1941,11 @@
       "path": "/feeds/permit-metros",
       "family": "permit-metros",
       "kind": "family",
-      "title": "Metro issued-permit changes \u2014 $79/mo",
-      "price": "$79/mo",
-      "sells": true,
-      "pay": "pay button",
-      "pay_url": "https://buy.stripe.com/8x2bIU5l4aOKafO8zg0sU0O",
+      "title": "Metro issued-permit changes",
+      "price": "Not for sale",
+      "sells": false,
+      "pay": "no cta found",
+      "pay_url": "",
       "built_from": "dist/permit-metros/index.html"
     },
     {
@@ -1929,11 +1953,11 @@
       "path": "/feeds/permit-metros/new-york",
       "family": "permit-metros",
       "kind": "slice",
-      "title": "What entered the New York City permit list this week \u2014 $79/mo",
-      "price": "$79/mo",
-      "sells": true,
-      "pay": "pay button",
-      "pay_url": "https://buy.stripe.com/8x2bIU5l4aOKafO8zg0sU0O",
+      "title": "What entered the New York City permit list this week \u2014 Not for sale",
+      "price": "Not for sale",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
       "built_from": "dist/permit-metros/new-york/index.html"
     },
     {
@@ -1941,11 +1965,11 @@
       "path": "/feeds/permit-metros/san-francisco",
       "family": "permit-metros",
       "kind": "slice",
-      "title": "What entered the San Francisco permit list this week \u2014 $79/mo",
-      "price": "$79/mo",
-      "sells": true,
-      "pay": "pay button",
-      "pay_url": "https://buy.stripe.com/8x2bIU5l4aOKafO8zg0sU0O",
+      "title": "What entered the San Francisco permit list this week \u2014 Not for sale",
+      "price": "Not for sale",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
       "built_from": "dist/permit-metros/san-francisco/index.html"
     },
     {
@@ -1953,11 +1977,11 @@
       "path": "/feeds/permit-metros/scottsdale",
       "family": "permit-metros",
       "kind": "slice",
-      "title": "What entered the Scottsdale permit list this week \u2014 $79/mo",
-      "price": "$79/mo",
-      "sells": true,
-      "pay": "pay button",
-      "pay_url": "https://buy.stripe.com/8x2bIU5l4aOKafO8zg0sU0O",
+      "title": "What entered the Scottsdale permit list this week \u2014 Not for sale",
+      "price": "Not for sale",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
       "built_from": "dist/permit-metros/scottsdale/index.html"
     },
     {
@@ -1965,11 +1989,11 @@
       "path": "/feeds/permit-metros/seattle",
       "family": "permit-metros",
       "kind": "slice",
-      "title": "What entered the Seattle permit list this week \u2014 $79/mo",
-      "price": "$79/mo",
-      "sells": true,
-      "pay": "pay button",
-      "pay_url": "https://buy.stripe.com/8x2bIU5l4aOKafO8zg0sU0O",
+      "title": "What entered the Seattle permit list this week \u2014 Not for sale",
+      "price": "Not for sale",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
       "built_from": "dist/permit-metros/seattle/index.html"
     },
     {
@@ -2331,6 +2355,18 @@
       "pay": "email only",
       "pay_url": "",
       "built_from": "dist/recalls/wisconsin/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/scope-sheet",
+      "path": "/feeds/scope-sheet",
+      "family": "scope-sheet",
+      "kind": "family",
+      "title": "What a bid package says about your trade \u2014 and what it does not \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/scope-sheet/index.html"
     },
     {
       "url": "https://ustechautomations.com/feeds/sec-8k/accounts-withdrawn",
@@ -2775,6 +2811,18 @@
       "pay": "email only",
       "pay_url": "",
       "built_from": "dist/vendor-prices/stopped-answering/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/verified-record",
+      "path": "/feeds/verified-record",
+      "family": "verified-record",
+      "kind": "family",
+      "title": "What we may publish about a person, and what we never will \u2014 Not for sale yet",
+      "price": "Not for sale yet",
+      "sells": false,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/verified-record/index.html"
     },
     {
       "url": "https://ustechautomations.com/feeds/what-we-dont-collect",

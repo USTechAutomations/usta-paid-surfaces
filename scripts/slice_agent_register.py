@@ -27,6 +27,18 @@ from __future__ import annotations
 import datetime as dt
 import html
 import json
+# NO PRICE LITERAL LIVES IN THIS FILE.
+#
+# Three of the search descriptions below used to end with the price, typed here
+# by hand. On 2026-08-25 this family was taken off sale because the register it
+# copies publishes its own dated version history free -- and the honesty gate
+# then refused the whole estate, correctly, because these three lines still said
+# $99 while catalog.json said "Not for sale". The builder was holding a private
+# copy of a fact that lives somewhere else, so it would have re-priced the pages
+# on the very next run even after the withdrawal landed.
+#
+# A description with no price in it cannot be wrong about the price. If a price
+# ever belongs in one again, read it from catalog.json -- never type it here.
 import sqlite3
 import sys
 import zlib
@@ -426,7 +438,7 @@ def _newly_listed() -> dict | None:
         desc=(
             f"{len(d['appeared'])} agent servers that joined the public register "
             f"between {_day(d['oldest'])} and {_day(d['newest'])}, with two dates on "
-            f"every row. $99 once."
+            f"every row."
         ),
         row_count=len(d["appeared"]),
     )
@@ -542,7 +554,7 @@ def _new_versions() -> dict | None:
         ),
         desc=(
             f"{len(d['versions'])} version changes on {sellers} named agent servers, "
-            f"caught between two dated copies of the public register. $99 once."
+            f"caught between two dated copies of the public register."
         ),
         row_count=len(d["versions"]),
     )
@@ -662,8 +674,7 @@ def _every_server() -> dict | None:
         ),
         desc=(
             f"All {len(newest)} agent servers listed in the public register on our copy "
-            f"of {_day(d['newest'])}, each with the first copy of ours it is in. "
-            f"$99 once."
+            f"of {_day(d['newest'])}, each with the first copy of ours it is in."
         ),
         row_count=len(newest),
     )

@@ -1,0 +1,120 @@
+INVITATION TO SUBCONTRACT BIDDERS
+
+Project: Harbour Lane Mixed-Use Building, Shell and Core
+Package reference: HL-SC-0042
+Issued for subcontract pricing. Private development. Not a public work.
+
+Page 1
+
+DIVISION 00 PROCUREMENT AND CONTRACTING REQUIREMENTS
+
+00 21 13 Instructions to Bidders
+Bids are due at 4:00 PM on 12 September 2026. Bids received after that time
+will not be opened. Each bidder shall submit a bid bond in the amount of five
+percent of the base bid with its proposal. The bid bond shall be issued by a
+surety acceptable to the Construction Manager.
+
+00 52 00 Agreement Form
+The subcontract issued from this package incorporates by reference all of the
+terms and conditions of the prime contract between the Owner and the
+Construction Manager, and the Subcontractor assumes toward the Construction
+Manager all obligations that the Construction Manager assumes toward the Owner.
+
+00 72 00 General Conditions
+Payment to the Subcontractor is expressly conditioned upon receipt of payment
+by the Construction Manager from the Owner, and such receipt of payment shall
+be a condition precedent to any payment becoming due to the Subcontractor.
+
+Ten percent retainage shall be withheld from each progress payment until final
+completion and acceptance of the entire Work.
+
+Page 2
+
+The Subcontractor shall not be entitled to any increase in the subcontract sum
+for any delay, hindrance, interference, or acceleration of the Work, whatever
+the cause, and an extension of time shall be the Subcontractor's sole and
+exclusive remedy for delay.
+
+The Subcontractor shall indemnify, defend and hold harmless the Construction
+Manager, the Owner, and their agents from and against any and all claims,
+damages, losses and expenses arising out of or resulting from performance of
+the Work.
+
+Neither party shall be liable to the other for any consequential damages,
+including but not limited to loss of use, loss of profit, and loss of business
+opportunity, arising out of or relating to this Subcontract.
+
+The Construction Manager may terminate this Subcontract for its convenience,
+in whole or in part, upon seven days written notice to the Subcontractor.
+
+Should the Subcontractor fail to achieve Substantial Completion of its Work by
+the date set out in the Project Schedule, the Subcontractor shall pay to the
+Construction Manager liquidated damages in the sum of two thousand five
+hundred dollars for each calendar day of delay.
+
+The Subcontractor shall be solely responsible for and have control over
+construction means, methods, techniques, sequences and procedures for its own
+Work.
+
+Page 3
+
+DIVISION 01 GENERAL REQUIREMENTS
+
+01 33 00 Submittal Procedures
+Shop drawings for all electrical distribution equipment shall be submitted for
+review no later than 30 October 2026. Long lead equipment releases shall follow
+within ten working days of submittal approval.
+
+01 45 00 Quality Control
+The Subcontractor shall warrant its Work against defects in materials and
+workmanship for a period of two years from the date of Substantial Completion.
+
+Page 4
+
+DIVISION 03 CONCRETE
+
+03 30 00 Cast-in-Place Concrete
+Provide all formwork, reinforcement, placement and finishing for slabs on grade
+and elevated decks. Sleeves and embedded conduit sleeves through structural
+slabs are furnished and set under this Section, coordinated with the electrical
+trade. Housekeeping pads for electrical switchgear and panelboard locations are
+provided under this Section.
+
+Page 5
+
+DIVISION 26 ELECTRICAL
+
+26 05 00 Common Work Results for Electrical
+Provide complete raceway, conduit, wiring and grounding systems throughout the
+building shell and core, including feeders from the main switchgear to each
+floor panelboard.
+
+26 24 13 Switchboards and Panelboards
+Furnish and install main switchgear, distribution panelboards and all
+associated grounding. Concrete housekeeping pads are by others.
+
+26 51 00 Interior Lighting
+Provide lighting fixtures, controls and wiring for all core areas, stairs and
+back of house. Fixtures for tenant areas are furnished by others and installed
+under this Section.
+
+Page 6
+
+DIVISION 27 COMMUNICATIONS
+
+27 10 00 Structured Cabling
+Provide backbone pathway, sleeves and conduit for the structured cabling
+system. All conduit and raceway serving communications rooms is installed
+under this Section and terminated at the electrical panelboard for power.
+Grounding and bonding of the telecommunications rooms is included.
+
+Page 7
+
+DIVISION 28 ELECTRONIC SAFETY AND SECURITY
+
+28 31 00 Fire Detection and Alarm
+Provide the fire alarm control panel and all field devices. Line voltage
+wiring, conduit and raceway for the fire alarm system is included in this
+Section and shall be coordinated with the lighting circuits.
+
+END OF PACKAGE

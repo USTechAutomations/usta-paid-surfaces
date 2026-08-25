@@ -11,11 +11,14 @@ for local government, and they want their own ZIP rather than the whole city.
 So there is one page per ZIP, and four things every page here has to be straight
 about, because each one is a place where a true count could carry a false word:
 
-  * MESA REPUBLISHES ABOUT ONCE A WEEK. We read daily and hold 25 dated copies,
-    but the file behind them only moved six times: on 14, 21 and 28 July and on
-    4, 11 and 18 August. Most of our daily copies are byte-identical to the day
-    before. So "first seen in our copy on the 6th" is accurate to about a week,
-    not to a day, and every page says so.
+  * MESA REPUBLISHES ABOUT ONCE A WEEK. We read daily, so we hold many more
+    dated copies than the city has published versions, and most of our daily
+    copies are byte-identical to the day before. So "first seen in our copy on
+    the 6th" is accurate to about a week, not to a day, and every page says so.
+    No count is written here on purpose: this docstring carried "25 dated
+    copies" and six named version dates, and by 2026-08-25 the copy count was
+    26 and not one of the six dates was right. versions() and sealed_days()
+    recompute both on every build; read them instead of retyping them.
 
   * IN OUR COPY IS NOT OPENED THIS WEEK. A case in the newer copy and not in the
     older one is new TO US. Across all five pairs of versions, 492 of the 809
@@ -149,9 +152,12 @@ def versions(c: sqlite3.Connection, days: list[str]) -> list[str]:
     reads. So every comparison on these pages is between copies that carry
     different source stamps.
 
-    This is the reason the pages can say "six versions in 25 dated copies"
-    without anyone having to remember it: it is recomputed on every build, and
-    the day Mesa switches to publishing daily, the pages start saying so.
+    This is the reason the pages can say how many versions sit inside how many
+    dated copies without anyone having to remember it: both are recomputed on
+    every build, and the day Mesa switches to publishing daily, the pages start
+    saying so. No worked example is given here, because the last one ("six
+    versions in 25 dated copies") went stale exactly the way the page it
+    describes was going to.
     """
     out: list[str] = []
     seen = None
@@ -163,6 +169,30 @@ def versions(c: sqlite3.Connection, days: list[str]) -> list[str]:
             out.append(day)
             seen = mark
     return out
+
+
+def held_sentence(st: dict) -> str:
+    """The "how much do you hold" line, COUNTED, never typed.
+
+    Typed into catalog.json it said 24 dated copies to 22 August 2026 while the
+    store held 26 to 24 August. The number and both dates now come out of
+    sealed_days(), which is the list every other date on these pages is read
+    from, and the second clause comes out of versions(), which is already
+    recomputed on every build.
+
+    The version count is not padding. Mesa republishes about once a week, so a
+    reader told only that we hold 26 daily copies would reasonably expect 26
+    different files; most of them are byte-identical to the day before. The
+    number a buyer actually needs is how many of the copies the city's own file
+    had moved on, and that is counted here beside the other one.
+    """
+    days = st["days"]
+    return (
+        f"We hold {len(days):,} dated copies, from {d(days[0])} to {d(days[-1])}, "
+        f"and Mesa's own file was actually different on {len(st['versions'])} of "
+        f"them. Mesa's own download is free and carries most of this. There is "
+        f"nothing to buy yet."
+    )
 
 
 def load(c: sqlite3.Connection) -> dict:
@@ -621,7 +651,14 @@ def slices() -> list[dict]:
         if not built:
             print("mesa-code: no ZIP cleared the floor; nothing published", file=sys.stderr)
             return []
-        return [coverage(c, st, ch, built)] + out
+        out = [coverage(c, st, ch, built)] + out
+        # Stamped once, here, because the coverage dict and the ZIP dicts are
+        # built in two different functions and stamping each of them is how a
+        # key gets wired into one caller out of two.
+        note = held_sentence(st)
+        for sl in out:
+            sl["contact_note_counted"] = note
+        return out
     finally:
         c.close()
 

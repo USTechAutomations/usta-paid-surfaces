@@ -48,7 +48,7 @@
       "id": "ttb",
       "name": "TTB permit appear / disappear list",
       "buyer": "Beverage compliance and wholesaler ops",
-      "cadence": "3 reads so far, 3 and 8 days apart",
+      "cadence": "4 reads so far, 3, 8 and 6 days apart",
       "price": "$99/mo",
       "sample_status": "pass",
       "live": "https://ustechautomations.com/permits/offers/ttb-permit-ledger",
@@ -57,8 +57,8 @@
       "short": "TTB appear / disappear list",
       "who": "Beverage compliance and wholesaler ops.",
       "checkout": {
-        "terms": "$99 a month, billed monthly, for one state or territory you name — not the national file. You get every permit that appeared and every permit that stopped being listed between the copies we hold, with the permit number, the city, the state, the industry, and the business name where our copy holds one. Often it does not: of the 269 appear and disappear rows across the three copies we hold today, 145 carry no business name. We print the gap rather than filling it in, because a permit number you can look up is worth more than a name we guessed. Cancel any month by email, with no account to close and no notice period.",
-        "after": "After you pay, a person emails you the whole appear / disappear file as a CSV within one working day, and a new one every week for as long as the subscription runs. That weekly email is what we undertake to send you. It is not a claim about how often the TTB changes its file, and nothing here says the source updates weekly. We have read the source 3 times — 8, 11 and 19 August 2026 — and the gaps were 3 days and 8 days, not one of them 7. Two gaps are not enough to know a rhythm, so we do not claim one. Where a week brings no new copy of the source, or we could not collect it, that week's file says so rather than repeating itself, and if we stop being able to read the source at all the file says that too. The TTB publishes the permit list as it stands today and overwrites the last one, so once that happens the earlier copy exists nowhere you can reach. Keeping those earlier copies is what you are paying for. We hold three dated copies today, and we tell you which weeks we hold for your state or territory before you pay anything.",
+        "terms": "$99 a month, billed monthly, for one state or territory you name — not the national file. You get every permit that appeared and every permit that stopped being listed between the copies we hold, with the permit number, the city, the state, the industry, and the business name where our copy holds one. Often it does not: across the dated copies we hold today, about half the appear and disappear rows carry no business name. We print the gap rather than filling it in, because a permit number you can look up is worth more than a name we guessed. Cancel any month by email, with no account to close and no notice period.",
+        "after": "After you pay, a person emails you the whole appear / disappear file as a CSV within one working day, and a new one every week for as long as the subscription runs. That weekly email is what we undertake to send you. The TTB says on its own page that it posts updates weekly. We have read the source 4 times — 8, 11, 19 and 25 August 2026 — and the gaps were 3, 8 and 6 days, not one of them 7. What we have measured ourselves does not match that weekly rhythm, so the weekly email is what we undertake to send you, not a rhythm we claim to have seen. Where a week brings no new copy of the source, or we could not collect it, that week's file says so rather than repeating itself, and if we stop being able to read the source at all the file says that too. The TTB publishes the permit list as it stands today and overwrites the last one. It publishes the new permits free each week in its own short file, so most of the appearances in your file can also be had free from the TTB: in the most recent week we sealed, 96 of the 105 appearances were in that free file. What is published nowhere free is the permits that stopped being listed and the quiet changes to permits already on the list, and that is what you are paying us to keep. We tell you exactly which dated copies we hold for your state or territory before you pay anything.",
         "status": "live",
         "url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
         "lands_on": "buy.stripe.com",
@@ -96,14 +96,14 @@
       "contact_h2": "Start the thread",
       "contact_p": "We are not charging for this feed. A monthly price is a promise that a new file turns up next month, and we are not making that promise yet. What we will do now is show you the file. The sample below is 25 real rows off dated copies we sealed ourselves, and every one of them names a datacenter in the agency's own words -- 4 Texas air permits waiting on a decision, and 21 FAA notices for the buildings and cranes going up at named datacenter sites. Name the campuses or the counties you follow. We reply with which of our dated copies mention them at all, before you spend anything.",
       "contact_cta": "Email us the campuses you follow",
-      "contact_note": "We hold 37 dated copies, from 10 July to 21 August 2026. The sample file on this page is real and free to read. There is nothing to buy yet."
+      "contact_note": "Email us the campuses you follow and we will tell you which of our dated copies carry them, and how old the newest copy of each list is. The sample file on this page is real and free to read. There is nothing to buy yet."
     },
     {
       "id": "permit-metros",
       "name": "Metro issued-permit changes",
       "buyer": "Contractor software, proptech, suppliers and lenders",
       "cadence": "daily seals",
-      "price": "$79/mo",
+      "price": "Not for sale",
       "sample_status": "pass",
       "live": "https://ustechautomations.com/permits/rankings",
       "note": "Price cut $175/mo to $79/mo on 2026-08-22. Cadence corrected weekly to daily: 71 sealed dates from 2026-06-07 to 2026-08-22 in permit_prediction_snapshots, median gap 1 day. Appearances only -- nothing ever leaves these boards, so there is no gone column. Los Angeles, San Francisco and Chicago carry no contractor names. Marin County written OUT of the paid file 2026-08-24 (operator decision, option a of three). Their Building Permit dataset (mkbn-caye) is published under the Open Database Licence, which is share-alike: anyone we hand a copy to inherits the right to redistribute it. That is acceptable on a free public page and not in a file a buyer pays for -- the buyer would be paying for something they may then give away, and we would be selling redistribution rights we never priced. The alternative, redesigning the product so buyers knowingly get those rights over part of it, was rejected as a real product change this family's numbers do not justify; carrying on regardless was rejected outright. UNCHANGED: collection continues, the 2,192 stored Marin rows stay, and the ODbL notice stays on the public pages because their material is still shown there. If a buyer NAMES Marin, stop and escalate -- that request is the trigger to revisit the redesign, and it is the operator's call. Enforced by DELIVERY.md (what the packer reads) and scripts/outbound_guard.py (what refuses the file); check_site.py fails the build if the document stops naming a blocked source.",
@@ -111,14 +111,13 @@
       "short": "Metro issued-permit changes",
       "who": "Contractor software, proptech, suppliers and lenders.",
       "checkout": {
-        "terms": "$79 a month, billed monthly, for the cities you name. Cancel any month by email, with no account to close and no notice period.",
-        "after": "After you pay, a person emails you the first what-entered file as a CSV within one working day, then a new one every week for the cities you named.",
-        "status": "live",
-        "url": "https://buy.stripe.com/8x2bIU5l4aOKafO8zg0sU0O",
-        "lands_on": "buy.stripe.com",
-        "label": "Subscribe — $79 a month",
+        "terms": "Not for sale. Five of the six cities on this page serve their own issued-permit history free, with the issue date on every row, so there is nothing here to charge for. Email us and we tell you which dated copies we hold, at no charge.",
+        "after": "A person emails you which dated copies we sealed for the cities you name, and names any day we did not seal. No payment is involved.",
+        "status": "off-sale",
         "checked": "2026-08-23",
-        "verified": "2026-08-23"
+        "verified": "2026-08-23",
+        "note": "CORRECTION 2026-08-25: taken OFF SALE. The reason is not the checkout, which worked. This product charged $79 a month on the claim that the city boards keep no public archive. Counted off the cities' own free boards on 2026-08-25 by this session: Austin 2,372,018 rows back to 1921-09-20, and Austin's free board even carries a built-in 'issued_in_last_30_days' marker (4,900 Yes / 2,367,118 No) which is close to the product itself; New York City 3,990,092 rows back to 2007-01-01; San Francisco 1,294,263 rows back to 1906-11-08; Chicago 845,148 rows back to 2006-01-03; Seattle 192,525 rows back to 1986-07-03. That is 8,694,046 free rows across five of the six. Scottsdale was NOT checked -- its ArcGIS endpoint was not located in the time available and its answer is UNKNOWN, not assumed. The family page stated, word for word, 'Every one of these boards shows what is current and overwrites the rest', 'There is nowhere to fetch Austin last Friday' and 'Miss a day and that day is gone. The city does not republish it and there is no public archive to go back to.' All three are false and all three were justifying the charge. Same ground as operator decision #4 of 2026-08-25 on the quakes product, applied to identical facts. What changed: checkout url, lands_on and label are removed from this record, price reads 'Not for sale', and the family page's THREE money routes were removed by hand -- the hero button, the buy section button, and an 'Email us for the $79/mo checkout link' mail link that a grep for the payment host would have missed. 8 pages carried a button; counted, not assumed. THE STRIPE PAYMENT LINK ITSELF IS UNTOUCHED AND STILL EXISTS -- switching it off is the operator's to do, because this money rail is create-only for us. WITHDRAWN TERMS, kept verbatim: \"$79 a month, billed monthly, for the cities you name. Cancel any month by email, with no account to close and no notice period.\" WITHDRAWN AFTER-TEXT: \"After you pay, a person emails you the first what-entered file as a CSV within one working day, then a new one every week for the cities you named.\" WITHDRAWN LABEL: \"Subscribe - $79 a month\".",
+        "offsale": "2026-08-25"
       }
     },
     {
@@ -153,7 +152,7 @@
       "contact_h2": "Start the thread",
       "contact_p": "We are not charging for this feed. A monthly price is a promise that a new file turns up next month, and we will not make that promise until we can show you the old sentence beside the new one &mdash; our own collection rules stop us storing the wording of a vendor's terms, so we can tell you a policy page moved and not what it now says. The dated copies below are real and they are free to read. Name the vendors whose terms you follow. We reply with which of them we can read at all and which we cannot, before you spend anything.",
       "contact_cta": "Email us the vendors whose terms you follow",
-      "contact_note": "We hold 44 dated seal days, from 10 July to 22 August 2026. We will tell you which of your vendors are inside them. There is nothing to buy yet."
+      "contact_note": "We will tell you which of your vendors are inside our sealed days, and since when. There is nothing to buy yet."
     },
     {
       "id": "sec-8k",
@@ -171,7 +170,7 @@
       "contact_h2": "Start the thread",
       "contact_p": "We stopped this collector on 21 August 2026, so our newest copy is from that day and no newer one is coming. Why there is no price is said in full further up this page. Name the companies or the filing dates you need. We reply with what our dated copies hold for them, and we name our last copy date, before you spend anything.",
       "contact_cta": "Email us the companies you are checking",
-      "contact_note": "We hold 52 dated copies, from 23 June to 21 August 2026, and every row carries its own SEC accession number so you can check it against the SEC for free. There is nothing to buy yet."
+      "contact_note": "We will tell you which dated copies we hold and since when, and how to check what we hold against the SEC for free. There is nothing to buy yet."
     },
     {
       "id": "az-contractors",
@@ -200,7 +199,7 @@
       "contact_h2": "Start the thread",
       "contact_p": "We are not charging for this feed. A monthly price is a promise that a new file turns up next month, and we will not make that promise until we can show you something Mesa's own free download does not already carry &mdash; it publishes the same cases, with the date each one opened and the date it closed. The dated copies below are real and they are free to read. Name the addresses or case numbers you follow. We reply with what our dated copies hold for them, and we will point you at Mesa's free file first if that is all you need.",
       "contact_cta": "Email us the cases you are following",
-      "contact_note": "We hold 24 dated copies, from 22 July to 22 August 2026. Mesa's own download is free and carries most of this. There is nothing to buy yet."
+      "contact_note": "We will tell you which dated copies we hold and which of them Mesa's file had actually moved on. Mesa's own download is free and carries most of this. There is nothing to buy yet."
     },
     {
       "id": "new-entities",
@@ -216,7 +215,7 @@
       "contact_h2": "Start the thread",
       "contact_p": "We are not charging for this feed. A monthly price is a promise that a new file turns up next month, and we will not make that promise until our store can keep more than one dated copy of a filing &mdash; it records each filing once, at first sight, so it can show you that a row appeared and never that anything about it changed. The dated copies below are real and they are free to read. Name the cities you follow. We reply with how far back our copies go for each, and how many days behind that city we currently are, before you spend anything.",
       "contact_cta": "Email us the cities you follow",
-      "contact_note": "We hold 47 dated copies, from 26 June to 22 August 2026, and every filing carries its own filing date, which the source gives away for free. There is nothing to buy yet."
+      "contact_note": "We will tell you what we hold for your metro and since when, and how thin the thinnest one is. Every filing carries its own filing date, which the source gives away for free. There is nothing to buy yet."
     },
     {
       "id": "civic-agenda",
@@ -246,7 +245,7 @@
       "contact_h2": "Start the thread",
       "contact_p": "We are not charging for this feed. A monthly price is a promise that a new file turns up next month, and we will not make that promise until a market moves after it has already resolved far more often than this one does &mdash; in the whole record there are ten days on which that happened at all, and the newest of them is 1 August 2026. The dated copies below are real and they are free to read. Name the markets or the platforms you follow. We reply with which of our dated copies hold them, before you spend anything.",
       "contact_cta": "Email us the markets you follow",
-      "contact_note": "We hold 52 dated copies, from 23 June to 22 August 2026. Kalshi and Polymarket rows appear on one copy each, so for those two we can never show a before and after. There is nothing to buy yet."
+      "contact_note": "We will tell you what we hold, which days we missed, and which venues we can never show a before and after for. There is nothing to buy yet."
     },
     {
       "id": "recalls",
@@ -263,7 +262,7 @@
       "contact_h2": "Start the thread",
       "contact_p": "We are not charging for this feed. A monthly price is a promise that a new file turns up next month, and we will not make that promise until we are reading the recall list again &mdash; we stopped this collector on 21 August 2026, so our newest copy is from that day and no newer one is coming. The dated copies below are real and they are free to read. Name the firms or the products you follow. We reply with what our dated copies hold for them, and we name our last copy date, before you spend anything.",
       "contact_cta": "Email us the recalls you are checking",
-      "contact_note": "We hold 58 dated copies, from 23 June to 21 August 2026. There is nothing to buy yet."
+      "contact_note": "We will tell you which dated copies we hold and since when. There is nothing to buy yet."
     },
     {
       "id": "agent-incidents",
@@ -289,23 +288,22 @@
       "name": "Agent server register archive",
       "buyer": "AI vendors watching who else has shipped an agent server",
       "cadence": "per archive copy",
-      "price": "$99 once",
+      "price": "Not for sale",
       "sample_status": "pass",
       "live": "",
       "note": "Sold once, not monthly: $99 for one archive copy, cut from $175/mo on 2026-08-22. Cadence word is the sale unit, not a read gap. 29 sealed dates from 2026-07-22 to 2026-08-22 in agent_observation, median gap 1 day. The one-time SKU agent-register-archive EXISTS and is live: plink_1U7o2Z1W0OJClv3VReXNrvsL, stamped permits_sku=agent-register-archive, read read-only from the Stripe API on 2026-08-24, active=true; the page carries the card button. This line used to say the SKU was still needed. Still binding: do NOT reuse erc8004-liveness-report, which is $249 monthly. The page's \"How it works\" steps described email as the only way to buy and were corrected on 2026-08-24 to name both routes. The page must say the register publishes its own dates free, and print which 17 of 29 copies are capped at 100 names.",
       "group": "Software and AI pages",
       "short": "Agent server register archive",
       "who": "AI vendors watching who else has shipped an agent server.",
-      "contact_cta": "Email us for the $99 checkout link",
+      "contact_cta": "Email us and we will tell you what we hold",
       "checkout": {
-        "terms": "$99 once, for one dated archive copy you name. Nothing recurring, nothing to cancel and no subscription behind it.",
-        "after": "After you pay, a person emails you the archive copy you named as a CSV within one working day, with the date we sealed it.",
-        "status": "live",
-        "url": "https://buy.stripe.com/5kQ14g9Bk2ie0FedTA0sU0Q",
-        "lands_on": "buy.stripe.com",
-        "label": "Buy one archive copy — $99",
+        "terms": "Not for sale. The register publishes its own dated version history free -- old versions, take-down marks and publish dates -- so there is nothing here to charge for. Email us and we tell you which dated copies we hold, at no charge.",
+        "after": "A person emails you which dated copies we sealed and names any day we did not seal one. No payment is involved.",
+        "status": "off-sale",
         "checked": "2026-08-23",
-        "verified": "2026-08-23"
+        "verified": "2026-08-23",
+        "note": "CORRECTION 2026-08-25: taken OFF SALE. The reason is not the checkout, which worked. This product charged $99 for a dated archive copy of a register that publishes its own dated history free. Counted off the live register on 2026-08-25 by this session, not taken on another agent's word: 600 entries read across 6 pages; 447 of the 600 were NOT the latest version of their server; 5 carried status 'deprecated' and were served anyway; every entry carried a publishedAt date; 44 of 154 distinct names carried more than one version and one name ('ai.bowmark/bowmark') carried 319; publish dates ran 2025-09-10 to 2026-08-25. The family page stated, word for word, 'It shows you what is on it right now and nothing else' and 'A name taken down leaves no trace'. Both are false and both were justifying the charge. Same ground as operator decision #4 of 2026-08-25 on the quakes product (approvals/operator_decisions_2026-08-25.md), applied to identical facts. What changed: checkout url, lands_on and label are removed from this record, price reads 'Not for sale', and the family page's inline button, buy section and price were removed by hand, so no pay button is drawn on the family page or any of its 4 child pages (5 pages carried the button; counted, not assumed). THE STRIPE PAYMENT LINK ITSELF IS UNTOUCHED AND STILL EXISTS -- switching it off is the operator's to do, because this money rail is create-only for us. WITHDRAWN TERMS, kept verbatim: \"$99 once, for one dated archive copy you name. Nothing recurring, nothing to cancel and no subscription behind it.\" WITHDRAWN AFTER-TEXT: \"After you pay, a person emails you the archive copy you named as a CSV within one working day, with the date we sealed it.\" WITHDRAWN LABEL: \"Buy one archive copy - $99\".",
+        "offsale": "2026-08-25"
       }
     },
     {
@@ -427,7 +425,7 @@
       "contact_h2": "Start the thread",
       "contact_p": "We are not charging for this feed. A monthly price is a promise that a new file turns up next month, and we stopped reading this source on 21 August 2026, so our newest copy is from that day. The dated copies below are real and they are free to read. Name the agencies or the budget years you follow. We reply with what our copies hold for them, and we name our last copy date, before you spend anything.",
       "contact_cta": "Email us the agencies you are following",
-      "contact_note": "We hold 3 dated copies, 19 to 21 August 2026, covering 18 agencies. We have not checked whether USAspending serves the older figure itself, and we will tell you that too. There is nothing to buy yet.",
+      "contact_note": "We will tell you which dated copies we hold, since when, and which agencies are inside them. We have not checked whether USAspending serves the older figure itself, and we will tell you that too. There is nothing to buy yet.",
       "foot": "Every figure, agency and date on this page was read out of our own sealed copies at build time. Where we do not know something, the page says so rather than filling it in."
     },
     {
@@ -445,7 +443,7 @@
       "contact_h2": "Start the thread",
       "contact_p": "We are not charging for this feed yet. Tell us which Arizona counties you follow and we will tell you what our dated copies hold for them, and how old the newest one is, before you spend anything.",
       "contact_cta": "Email us the counties you are following",
-      "contact_note": "We hold 454 dated rows on 38 days, 24 June to 24 August 2026, covering 167 properties in 10 counties. It is the front of one trustee's list, not the whole state, and we will say so again when we reply.",
+      "contact_note": "Tell us the Arizona counties you follow and we will tell you what our dated copies hold for them, how old the newest one is, and which days brought nothing back. It is the front of one trustee's list, not the whole state, and we will say so again when we reply.",
       "foot": "Every count, date and county on this page was read out of our own dated copies at the moment the page was built. Where we do not know something, the page says so rather than filling it in."
     },
     {
@@ -485,6 +483,32 @@
       "short": "What we may say about a person",
       "who": "Expert witnesses and fractional executives who want their own claims checked, and anybody wondering what we would ever publish about them.",
       "note": "BORN NOT FOR SALE 2026-08-24. Verified Record is an OPT-IN listing. A person asks to have the things they say about their own work checked against the places those things are written down, each claim is read twice by two methods that never see each other's answer, and a claim only appears as checked when both readings find it. NOBODY IS LISTED WHO DID NOT ASK. There is no state anywhere in the lane meaning a person's claim is false: the only three words are verified, not checked and withdrawn, and the shared scan engine/scoreboard/verdicts.assert_no_false_state is run on this lane and on the shared package at build time to prove no fourth one was ever added. NOTHING HAS BEEN SOLD, no price is printed anywhere on the page, and the catalog price stays 'Not for sale yet' until that changes. Intake is an EMAIL THREAD with a person: there is no form on the page and no service to send a file to, because a web service that takes files is platform code this lane may not write and reading them by hand is operator labour it may not create. SAMPLE STATUS IS on-page AND IT IS ENFORCED, NOT ASSERTED: the lane's store at revenue-2026/var/verified_record_data.db holds no people, no claims and no listings, so there is no file to sample, and what the page prints is the whole rulebook. scripts/slice_verified_record.py reads that store read-only on every build and REFUSES TO BUILD if a row appears in any of its tables, because the sentence 'the whole of what we hold is printed on this page' stops being true the moment somebody is listed. Every rule sentence on the page is the lane's own words, pulled out of its code at build time rather than retyped, and the five sentences of 15 U.S.C. 1681a and 1681e are re-checked word for word against the saved copies in revenue-2026/research/sources on every build -- one mismatch refuses the build. The wording guard that would stop a page passing judgement on a person is run in BOTH directions on every build: a judging line built out of the guard's own first banned phrase must be refused, and a plain 'we could not confirm' line must clear. Removal is unconditional and immediate and the page says so in the code's own words; the money is recorded as owed back in the same call, and paying it out is an operator action because nothing in this build moves money outward."
+    },
+    {
+      "id": "import-checks",
+      "name": "Where an import list disagrees with itself",
+      "short": "Import list self-checks",
+      "who": "Importers and their in-house compliance people, before they take anything to a broker",
+      "buyer": "Importers holding their own customs entry records",
+      "cadence": "read once, 24 Aug 2026",
+      "cadence_long": "One dated reading of one published table and one statute",
+      "price": "Not for sale yet",
+      "sample_status": "unknown",
+      "group": "Public records",
+      "note": "BORN NOT FOR SALE 2026-08-25, under operator decision 3 of 2026-08-25. This is the public page for the lane recorded elsewhere as Duty Recode. It is not a feed and there is no collector behind it: it is one dated copy of the published table of customs codes (2026 HTS Revision 17, fetched 2026-08-24) and one dated reading of 19 U.S.C. 1641 and 19 C.F.R. 111.1 (United States Code 2024 edition; regulation as issued 2026-08-20; both read 2026-08-24). Every number on the page is counted at build time out of revenue-2026 -- the size and shape of the tariff table off var/duty_recode_tariff.db, the law quotes off the two saved source texts, the findings off the real checker run on an invented list at the moment of the build. THE FAMILY IS NOT CALLED duty-recode ON PURPOSE: the lane's own last gate before delivery searches a finished document for twenty phrases that only appear when somebody is picking a customs code for somebody else, and 'recode' is one of them, so rules.proposing_problems('duty-recode') returns ['recode']. A slug reaches the canonical link, the og:url and the body's data-family attribute, so the codename would have been on the page; the gate is run over the whole raw page on every build rather than exempted. THE PAGE PRINTS NO TARIFF DESCRIPTION. The licence pre-flight of 2026-08-24 graded the USITC UNKNOWN in both directions -- 403 to our crawler on every address including an invented control, and a three-word browser-only shell on the table's own site -- and unknown is never permission. So the page carries code numbers, the invented importer's own words, and counts we computed off our own copy, and a guard holds every distinct published description in the table against the finished page before it is written: whole description present, or any run of eight words shared, and the build stops. The finder's fifth kind of finding, words_disagree, exists to print the tariff's words beside the customer's and is dropped in full; the page says how many were dropped. SAMPLE STATUS IS unknown AND THE PAGE SAYS SO: there is no sample file behind this page today. One is possible later -- a finished findings sheet built from an invented list -- and it is not cleared, so nothing is linked. It is NOT on-page: we hold a 12.6 MB copy of the published table and the page prints none of its words, so 'the whole of what we hold is printed on this page' would be false. THERE IS NO SERVICE. There is no address to send an import list to and the page promises none; the lane still needs one and building it is not this page's job. Kill number for the lane, unchanged: 15 import lists sent by strangers AND 2 paid audits, by 2026-12-31."
+    },
+    {
+      "id": "scope-sheet",
+      "name": "What a bid package says about your trade",
+      "short": "Bid package scope check",
+      "who": "Subcontractors pricing a bid package over a weekend, before they commit a number",
+      "buyer": "Subcontractors and estimators reading somebody else's bid package",
+      "cadence": "read once, 24 Aug 2026",
+      "cadence_long": "One dated reading of one published statute, run over a package you send",
+      "price": "Not for sale yet",
+      "sample_status": "unknown",
+      "group": "Construction records",
+      "note": "BORN NOT FOR SALE 2026-08-25, under operator decision 3 of 2026-08-25. This is the public page for the lane recorded elsewhere as Scope Sheet. It is not a feed and there is no collector behind it: it is one dated reading of 40 U.S.C. 3131 and 3133 (United States Code 2023 edition, read 2026-08-24) plus a reader that runs over a bid package. Every number on the page is produced at build time by the real reader running over an invented bid package we wrote ourselves; nothing is quoted from a note or a plan. THE PAGE IS BUILT AROUND A REFUSAL. The lane carries two rulesets and treats them differently on purpose: the federal payment-bond statute is verified, quoted word for word, re-checked against our saved copy on every build, and allowed to state a consequence; the thirteen kinds of subcontract clause are our own writing from general trade knowledge, verified by nobody, and forbidden forever from saying what a clause DOES. The page prints both answers side by side and refuses to build if either has changed sides -- specifically it refuses if the clause ruleset ever becomes sellable, because that switch being off is what stops any code path here giving a legal opinion. THE WORKED EXAMPLE IS PRIVATE WORK ON PURPOSE. The federal bond rights only go on a sheet when the package itself says the work is federal AND names a value over $100,000. The invented package says it is private, so the example shows the product LEAVING THE STATUTE OFF, which is the more useful half to show: attaching a federal statute to a private job sends somebody looking for a bond that does not exist. THE 31 TRADE DIVISIONS ARE COUNTED, NOT LISTED. The division list in the lane carries STATUS 'reference' and says in its own note that it was written from general trade knowledge and never checked against the published standard. The licence pre-flight of 2026-08-24 graded this lane for one publisher only, the U.S. Government Publishing Office, for the statute. Nobody read who publishes the division standard, so no permission was read and no list is printed -- only the count and the reason. Reversing that needs a licence read, not a decision. NO MONEY FIGURE THAT IS NOT OURS. The lane's own sheet.py carries the string $199 in the branch it takes when there is nothing worth charging for; a guard matches every money figure on the finished page against the amounts in our own invented package plus the $100,000 the statute itself turns on, and stops the build on anything else. SAMPLE STATUS IS unknown AND THE PAGE SAYS SO: there is no sample file behind this page today. One is possible later -- a finished scope sheet built from the invented package -- and it is not cleared, so nothing is linked. THERE IS NO SERVICE. There is no address to send a bid package to and the page promises none. Kill number for the lane, unchanged: 25 packages forwarded by strangers AND 3 paid sheets, by 2026-12-31."
     }
   ],
   "map": "MAP.md",

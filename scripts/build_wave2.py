@@ -356,9 +356,11 @@ def ttb() -> dict:
             "Public sample",
             f'{frm} vs {to} · {j["appeared_count"]} permits appeared, {j["gone_count"]} disappeared',
             "      <p>The TTB publishes the permit list as it stands today and overwrites the last one. "
-            "Once that happens, the live file cannot tell you which permits are new or which stopped being "
-            "listed, because the earlier copy no longer exists anywhere you can reach. "
-            "<strong>We keep the earlier copies.</strong></p>\n"
+            "It also publishes, free and every week, a short file of just the permits issued since its "
+            "last publication, so if all you want is which permits are new, take it from the TTB and not "
+            "from us. What that free file does not carry is the permits that stopped being listed, or the "
+            "quiet changes to permits already on the list. Once the national file is overwritten, those "
+            "are gone. <strong>We keep the earlier copies.</strong></p>\n"
             + table(
                 ["Permit", "Business", "Where", "Industry"],
                 app,
@@ -389,7 +391,7 @@ def ttb() -> dict:
         section(
             "Doing this yourself",
             None,
-            "      <p>The TTB publishes the permit list as it stands today and replaces it. To get appears and disappears you would have to download the national file over and over, keep every old copy, and cut it down to your state yourself.</p>\n      <p>Miss one download and the permits that came and went between it and the next one never show up in any later file.</p>",
+            "      <p>The TTB publishes the permit list as it stands today and replaces it. The appearances it hands you free every week in its own short file. To get the disappearances and the quiet changes to permits already on the list, you would have to download the national file over and over, keep every old copy, and cut it down to your state yourself.</p>\n      <p>Miss one download and the permits that came and went between it and the next one never show up in any later file.</p>",
         ),
         section(
             "What you get in each file",

@@ -395,6 +395,53 @@ def kalshi_readable(c: sqlite3.Connection) -> tuple[int, int, int]:
     return with_q, total, days
 
 
+def _one_copy_venues(c: sqlite3.Connection) -> list[str]:
+    """Venues where NO market of ours is held on two different sealed days.
+
+    The typed sentence named Kalshi and Polymarket by hand. That was true when
+    it was typed and it is still true -- on 2026-08-25, 0 of 59,379 Kalshi
+    markets and 0 of 5,900 Polymarket markets appear on two different sealed
+    days, against 2,945 of 3,013 for Manifold. It stops being true the first
+    night one of them survives two reads, and nothing would have retyped it. So
+    it is counted out of the store instead of remembered.
+    """
+    out = []
+    for (plat,) in c.execute("select distinct platform from market order by 1"):
+        twice = c.execute(
+            "select count(*) from (select market_id from market where platform = ?"
+            " group by 1 having count(distinct snapshot_date) > 1)", (plat,)
+        ).fetchone()[0]
+        if not twice:
+            out.append(VENUES.get(plat, plat))
+    return out
+
+
+def _held_sentence(c: sqlite3.Connection, h: dict) -> str:
+    """The "how much do you hold" line, COUNTED, never typed.
+
+    Typed into catalog.json it said 52 dated copies to 22 August 2026 while the
+    store held 54 to 24 August. Both halves are counted now: the copies out of
+    held(), which is the same read every date on these pages comes from, and
+    which venues can never show a before-and-after out of the store rather than
+    out of somebody's memory.
+    """
+    alone = _one_copy_venues(c)
+    if not alone:
+        tail = ("Every venue here has at least one market we hold on two "
+                "different days, so a before and after is possible for all of them.")
+    else:
+        named = alone[0] if len(alone) == 1 else (
+            ", ".join(alone[:-1]) + " and " + alone[-1])
+        verb = "appears" if len(alone) == 1 else "appear"
+        tail = (f"{named} rows {verb} on one copy each, so for "
+                f"{'that one' if len(alone) == 1 else 'those'} we can never show a "
+                f"before and after.")
+    return (
+        f"We hold {h['dates']:,} dated copies, from {d(h['oldest'])} to "
+        f"{d(h['newest'])}. {tail} There is nothing to buy yet."
+    )
+
+
 def _limits(h: dict, missing: list[str]) -> list[str]:
     return [
         "We can only show a market that changed if we happen to hold it on two "
@@ -759,7 +806,11 @@ def slices() -> list[dict]:
         # Every child page carries the freshness paragraph, so every child page
         # carries the stop. Set here rather than on each spec above: a stop that
         # is added page by page is a stop that gets left off one page.
+        # Counted once, outside the loop, and stamped on every child page from
+        # the one place they all pass through.
+        counted_note = _held_sentence(c, h)
         for spec in out:
+            spec["contact_note_counted"] = counted_note
             spec["read_phrase"] = _read_phrase()
             spec["paused_note"] = _pause_note()
             # The fact strip at the top of every child page. Its default is

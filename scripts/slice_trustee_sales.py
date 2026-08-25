@@ -291,6 +291,33 @@ def held(c: sqlite3.Connection) -> dict:
     }
 
 
+def held_sentence(h: dict) -> str:
+    """The "how much do you hold" line for the CHILD pages, COUNTED, never typed.
+
+    The parent page has counted this since family_spec() was written. The child
+    pages did not: they read the typed copy out of catalog.json, which said 454
+    rows on 38 days to 24 August 2026 while the store held 473 on 39 days to
+    25 August. It was exactly right on 24 August and went stale overnight. Same
+    store, same held(), so the parent and the children can no longer say
+    different things about the same rows.
+
+    The dark stretch is named in the same sentence because held() already knows
+    it and nothing else on a child page says it. "39 dated copies, 24 Jun to
+    25 Aug" is counted, true, and still hides twelve days in the middle where
+    nothing came back at all.
+    """
+    dark = ""
+    if h["dark_days"] > 1:
+        dark = (f" Nothing came back for {h['dark_days']} days between "
+                f"{d(h['dark_from'])} and {d(h['dark_to'])}, and we will say which.")
+    return (
+        f"We hold {h['row_count']:,} dated rows on {len(h['days'])} days, "
+        f"{d(h['oldest'])} to {d(h['newest'])}, covering {h['files']:,} properties "
+        f"in {len(h['counties'])} counties.{dark} It is the front of one trustee's "
+        f"list, not the whole state, and we will say so again when we reply."
+    )
+
+
 def moves(h: dict) -> list[dict]:
     """Every time a file's stated sale date differed from the last time we read it.
 
@@ -611,6 +638,11 @@ def slices() -> list[dict]:
                 "limits": limits,
             })
 
+        # Stamped once, on the way out, so every child page carries the same
+        # counted sentence the parent already prints.
+        note = held_sentence(h)
+        for sl in out:
+            sl["contact_note_counted"] = note
         return out
     finally:
         c.close()
@@ -819,12 +851,12 @@ def family_spec() -> dict:
                 "and how old the newest one is, before you spend anything."
             ),
             "contact_cta": "Email us the counties you are following",
-            "contact_note": (
-                f"We hold {h['row_count']:,} dated rows on {len(h['days'])} days, "
-                f"{d(h['oldest'])} to {d(h['newest'])}, covering {h['files']} properties "
-                f"in {len(h['counties'])} counties. It is the front of one trustee's "
-                "list, not the whole state, and we will say so again when we reply."
-            ),
+            # One sentence for the parent and the three child pages, so they
+            # cannot drift apart. The parent counted its own copy of this
+            # already; the children were reading a typed one out of the catalog,
+            # and the shared version also names the dark stretch, which held()
+            # has always known and no page was saying.
+            "contact_note": held_sentence(h),
             "foot": (
                 "Every count, date and county on this page was read out of our own dated "
                 "copies at the moment the page was built. Where we do not know "

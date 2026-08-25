@@ -364,6 +364,30 @@ def held(c: sqlite3.Connection) -> dict:
     }
 
 
+def held_sentence(h: dict) -> str:
+    """The "how much do you hold" line, COUNTED, never typed.
+
+    THIS ONE WAS TRUE, AND THAT IS WHY IT IS BEING CHANGED. Counted on
+    2026-08-25 the typed sentence reproduced exactly -- 58 dated copies,
+    23 June to 21 August 2026 -- for one reason only: the collector behind this
+    store is stopped, so the store is frozen and the sentence is frozen with it.
+    That is the sentence being lucky, not the sentence being right. The night
+    this reader is switched back on, a typed number is wrong by morning on all
+    twenty pages that carry it, silently, and nothing recounts it.
+
+    Both numbers now come out of held(), which is where every other date on
+    these pages comes from, blank-numbered rows excluded the same way held()
+    excludes them everywhere else. Counting the store both ways gives the same
+    58 days and the same two end dates, so the sentence does not turn on that
+    filter. While the collector stays stopped this renders exactly what the
+    typed sentence said and the pages do not move.
+    """
+    return (
+        f"We hold {h['days']:,} dated copies, from {d(h['oldest'])} to "
+        f"{d(h['newest'])}. There is nothing to buy yet."
+    )
+
+
 def missing_days(c: sqlite3.Connection) -> list[str]:
     """Days between our first and newest read where we sealed nothing."""
     days = [
@@ -832,6 +856,11 @@ def slices() -> list[dict]:
                 }
             )
 
+        # Stamped once, here, so the coverage page and every class and state
+        # page carry the same counted sentence.
+        note = held_sentence(h)
+        for sl in out:
+            sl["contact_note_counted"] = note
         return out
     finally:
         c.close()
@@ -1165,7 +1194,11 @@ def family_spec() -> dict:
             "contact_h2": words(fam, "contact_h2"),
             "contact_p": words(fam, "contact_p"),
             "contact_cta": words(fam, "contact_cta"),
-            "contact_note": words(fam, "contact_note"),
+            # NOT words(fam, ...). This one sentence carries counts, and a count
+        # typed into the catalog goes stale on its own; the other three carry no
+        # number and still come from the row. Parent and children read the same
+        # held_sentence(), so they cannot say different things.
+        "contact_note": held_sentence(h),
             "foot": (
                 "Every recall number, company, product and date on this page was read out of "
                 "our own dated copies of one public agency list. Rows that came back with no "

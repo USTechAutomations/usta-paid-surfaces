@@ -219,6 +219,70 @@ def _from_days(days: list[str]):
     return len(days), days[0], days[-1], cadence
 
 
+def _held_sentence(c: sqlite3.Connection) -> str:
+    """The "how much do you hold" line, COUNTED, never typed.
+
+    Typed into catalog.json it said 37 dated copies to 21 August 2026. That was
+    exactly right on 21 August -- the application table held 37 sealed dates
+    that day -- and it has been wrong every day since.
+
+    THE HEADLINE COUNTS ALL THREE LISTS TOGETHER, which is a decision and not
+    only a count, so it is written down here. On 21 August the application table
+    and the three-table union were both 37, because the FAA's four sealed days
+    all fell on days the permit list also sealed. They have since come apart: on
+    2026-08-25 the application table holds 39 and the three unioned hold 40,
+    because the Georgia docket sealed on 22 August and the permit lists did not.
+    The union is chosen because it is already what the coverage page on this
+    same family means by everything we hold, and a headline that disagreed with
+    the coverage page would be a second answer to the same question.
+
+    THE SECOND CLAUSE EXISTS BECAUSE ONE NUMBER CANNOT DESCRIBE THREE LISTS with
+    three different newest days. Arizona stopped on 13 August 2026. The FAA list
+    has four copies in total, ever. A sentence saying only "40 copies to
+    24 August" would be counted, true, and would still leave somebody following
+    Arizona believing we read it yesterday. So every list names its own last
+    day, and none of them can hide behind the headline.
+
+    Every date here is read from a DATA table and never from raw_fetches. A
+    fetch that answers 200 with an empty body writes a run line and no rows, and
+    a date taken from the log would be newer than anything a buyer could open.
+    """
+    days, first, last, _cadence = _from_days(_sealed_days(c, """
+        SELECT DISTINCT snapshot_date FROM (
+            SELECT snapshot_date FROM application
+            UNION SELECT snapshot_date FROM faa_case
+            UNION SELECT snapshot_date FROM psc_filing)
+        ORDER BY snapshot_date"""))
+    if not days:
+        return ("We cannot count what we hold for this family from its own store "
+                "today, so this page is not going to guess at it. Ask us and we "
+                "will tell you. There is nothing to buy yet.")
+
+    parts = []
+    for label, sql, args in (
+        ("the Texas permit list",
+         "SELECT DISTINCT snapshot_date FROM application WHERE source_id=? "
+         "ORDER BY snapshot_date", ("tceq_nsr_pending",)),
+        ("the Arizona permit list",
+         "SELECT DISTINCT snapshot_date FROM application WHERE source_id=? "
+         "ORDER BY snapshot_date", ("adeq_pip_all",)),
+        ("the FAA notices",
+         "SELECT DISTINCT snapshot_date FROM faa_case ORDER BY snapshot_date", ()),
+        ("the Georgia docket",
+         "SELECT DISTINCT snapshot_date FROM psc_filing ORDER BY snapshot_date", ()),
+    ):
+        n, _f, l, _c = _from_days(_sealed_days(c, sql, *args))
+        if n:
+            parts.append(f"{label} {_n(n)} to {_d(l)}")
+
+    spread = "; ".join(parts)
+    return (
+        f"We hold {_n(days)} dated copies, from {_d(first)} to {_d(last)}, and they "
+        f"are not one list: {spread}. The sample file on this page is real and free "
+        f"to read. There is nothing to buy yet."
+    )
+
+
 def _spread(seq, rank_of, cap):
     """Take rows in passes so every kind of change speaks before any kind repeats.
 
@@ -910,6 +974,12 @@ def slices() -> list[dict]:
         cov = _coverage_slice(c)
         if cov:
             out.append(cov)
+        # Stamped once, here, because the slice dicts above are assembled in
+        # three separate functions and stamping each of them is how a key gets
+        # wired into one caller out of three.
+        note = _held_sentence(c)
+        for sl in out:
+            sl["contact_note_counted"] = note
     return out
 
 

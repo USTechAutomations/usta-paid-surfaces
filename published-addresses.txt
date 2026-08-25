@@ -137,6 +137,7 @@ hiring-watch
 hiring-watch/coverage
 hiring-watch/roles-that-moved
 how-we-seal
+import-checks
 markets-resolved
 markets-resolved/against-the-price
 markets-resolved/coverage
@@ -205,6 +206,7 @@ recalls/pennsylvania
 recalls/status-changes
 recalls/texas
 recalls/wisconsin
+scope-sheet
 sec-8k
 sec-8k/accounts-withdrawn
 sec-8k/auditor-changes

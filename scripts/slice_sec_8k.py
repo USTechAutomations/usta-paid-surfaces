@@ -327,6 +327,14 @@ def _load() -> dict:
             r[0] for r in c.execute("select distinct snapshot_date from filing order by 1")
         ]
         store_rows = c.execute("select count(*) from filing").fetchone()[0]
+        # The page claims every row carries its own accession number. That is a
+        # claim about the store, so it is counted rather than remembered: if the
+        # SEC ever hands us a row without one, the sentence changes on the next
+        # build instead of quietly becoming false.
+        acc_missing = c.execute(
+            "select count(*) from filing where accession_no is null"
+            " or trim(accession_no) = ''"
+        ).fetchone()[0]
         runs = c.execute("select count(*) from collection_runs").fetchone()[0]
         index_8k = c.execute(
             "select count(distinct accession_no) from filing"
@@ -377,6 +385,7 @@ def _load() -> dict:
         "sealed_days": sealed_days,
         "store_days": store_days,
         "store_rows": store_rows,
+        "acc_missing": acc_missing,
         "runs": runs,
         "index_8k": index_8k,
         "index_rows": index_rows,
@@ -739,6 +748,40 @@ def event_slice(h: dict, ev: dict) -> dict | None:
     }
 
 
+def held_sentence(h: dict) -> str:
+    """The "how much do you hold" line, COUNTED, never typed.
+
+    THIS ONE WAS TRUE, AND THAT IS WHY IT IS BEING CHANGED. Counted on
+    2026-08-25 the typed sentence reproduced exactly -- 52 dated copies,
+    23 June to 21 August 2026 -- for one reason only: the collector behind this
+    store is stopped, so the store is frozen and the sentence is frozen with it.
+    That is not the sentence being right, it is the sentence being lucky. The
+    night this reader is switched back on, a typed number is wrong by morning on
+    every page that carries it, silently, and nothing recounts it.
+
+    So both numbers now come out of _load(), which is the same read every date
+    on these pages already comes from: store_days is distinct snapshot_date
+    across the whole filing table, both lists unioned, which is what "dated
+    copies" has always meant here. While the collector stays stopped this
+    renders exactly what the typed sentence said and the pages do not move.
+
+    The accession clause is counted too, because it is also a claim about the
+    store rather than a fact about us.
+    """
+    if h["acc_missing"]:
+        have = h["store_rows"] - h["acc_missing"]
+        claim = (f"and {have:,} of our {h['store_rows']:,} rows carry an SEC accession "
+                 f"number you can check against the SEC for free, while "
+                 f"{h['acc_missing']:,} do not")
+    else:
+        claim = ("and every row carries its own SEC accession number so you can check "
+                 "it against the SEC for free")
+    return (
+        f"We hold {len(h['store_days']):,} dated copies, from {d(h['store_oldest'])} to "
+        f"{d(h['store_newest'])}, {claim}. There is nothing to buy yet."
+    )
+
+
 def slices() -> list[dict]:
     h = _load()
     out = [coverage_slice(h)]
@@ -746,6 +789,11 @@ def slices() -> list[dict]:
         s = event_slice(h, ev)
         if s:
             out.append(s)
+    # Stamped once, here, so the coverage page and every event page carry the
+    # same counted sentence and no slice-building site can be missed.
+    note = held_sentence(h)
+    for sl in out:
+        sl["contact_note_counted"] = note
     return out
 
 
@@ -991,7 +1039,11 @@ def family_spec() -> dict:
         "contact_h2": words(fam, "contact_h2"),
         "contact_p": words(fam, "contact_p"),
         "contact_cta": words(fam, "contact_cta"),
-        "contact_note": words(fam, "contact_note"),
+        # NOT words(fam, ...). This one sentence carries counts, and a count
+        # typed into the catalog goes stale on its own; the other three carry no
+        # number and still come from the row. Parent and children read the same
+        # held_sentence(), so they cannot say different things.
+        "contact_note": held_sentence(h),
         "foot": (
             "Every company name, ticker, CIK number, item number and date on this page was "
             "read out of our own dated copies of one public SEC list. The days we sealed "

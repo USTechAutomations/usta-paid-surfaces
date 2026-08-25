@@ -752,6 +752,27 @@ def _shared_facts(d: dict) -> str:
             f"watched page once a day.")
 
 
+def _held_sentence() -> str:
+    """The "how much do you hold" line, COUNTED, never typed.
+
+    This sentence was typed into catalog.json. It said 44 sealed days to
+    22 August 2026 while the archive held 46 to 24 August, and it was going to
+    be wrong by one more day every morning, because the reader seals a new day
+    each night and nothing was going to retype the number.
+
+    Both numbers now come out of _read(), which is the same set of sealed day
+    records the page stamp already uses: the day list is read from INSIDE each
+    seal file, never from a file name and never from a modification time. If the
+    reader stops, the end date stops with it and the page says so on its own.
+    """
+    d = _read()
+    return (
+        f"We hold {d['runs']:,} dated seal days, from {_day(d['oldest'])} to "
+        f"{_day(d['newest'])}. We will tell you which of your vendors are inside "
+        f"them. There is nothing to buy yet."
+    )
+
+
 # -------------------------------------------------------------------- slices
 
 SURFACE_PAGES = (
@@ -1143,6 +1164,12 @@ def slices() -> list[dict]:
         if sl:
             out.append(sl)
     out.append(_coverage())
+    # Stamped here and nowhere else. The slice dicts above are assembled in
+    # three separate places, and stamping each of them separately is how a key
+    # ends up wired into one caller out of three.
+    note = _held_sentence()
+    for sl in out:
+        sl["contact_note_counted"] = note
     return out
 
 

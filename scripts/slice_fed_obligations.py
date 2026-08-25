@@ -222,6 +222,35 @@ def _limits(h: dict) -> list[str]:
     ]
 
 
+def held_sentence(h: dict) -> str:
+    """The "how much do you hold" line, COUNTED, never typed.
+
+    THIS ONE WAS TRUE, AND THAT IS WHY IT IS BEING CHANGED. Counted on
+    2026-08-25 the typed catalog sentence reproduced exactly -- 3 dated copies,
+    19 to 21 August 2026, 18 agencies -- for one reason only: the reader behind
+    this store is stopped, so the store is frozen and the sentence is frozen
+    with it. That is the sentence being lucky, not the sentence being right.
+
+    The parent page has counted this since family_spec() was written. The three
+    child pages did not: they read the typed copy out of catalog.json. Now both
+    read the same held(), so the parent and the children cannot say different
+    things about the same rows, and switching the reader back on moves all four
+    pages together.
+
+    "Dated copies" is the distinct-date count and "agencies" is the distinct
+    toptier_code count, both out of the obligation table, which is the data. The
+    run log is not used: it holds four rows across those three days because one
+    run produced no data day at all, and freshness is the newest row we hold and
+    never the last time something ran.
+    """
+    return (
+        f"We hold {h['days']:,} dated copies, {d(h['oldest'])} to {d(h['newest'])}, "
+        f"covering {h['agencies']:,} agencies. We have not checked whether "
+        f"USAspending serves the older figure itself, and we will tell you that "
+        f"too. There is nothing to buy yet."
+    )
+
+
 def slices() -> list[dict]:
     c = conn()
     try:
@@ -447,6 +476,11 @@ def slices() -> list[dict]:
             ],
             "limits": limits,
         })
+        # Stamped once, here, so all three child pages carry the same counted
+        # sentence the parent already prints.
+        note = held_sentence(h)
+        for sl in out:
+            sl["contact_note_counted"] = note
         return out
     finally:
         c.close()
@@ -655,12 +689,10 @@ def family_spec() -> dict:
                 "for them, and how old they are, for nothing."
             ),
             "contact_cta": "Email us the agencies you are following",
-            "contact_note": (
-                f"We hold {h['days']} dated copies, {d(h['oldest'])} to {d(h['newest'])}, "
-                f"covering {h['agencies']} agencies. We have not checked whether the "
-                "source keeps its own archive of the older figures, and we will tell you "
-                "that too."
-            ),
+            # One sentence for the parent and the three child pages, so they
+            # cannot drift apart. The parent counted its own copy of this
+            # already; the children were reading a typed one out of the catalog.
+            "contact_note": held_sentence(h),
             "foot": (
                 "Every figure, agency, count and date on this page was read out of our own "
                 "sealed copies at the moment the page was built. Where we do not know "
