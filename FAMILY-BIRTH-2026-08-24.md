@@ -101,3 +101,16 @@ modules in the estate still type their group; four read it.
 
 **A value printed in two places is one value with two copies, and the copy nobody
 recomputes is the one that goes wrong quietly.**
+
+## Correction, 2026-08-24 — yard-season is HELD, and the birth above was reverted
+
+**yard-season: HELD 2026-08-24, 0 rows in 11 tables; build on first real row.**
+
+The family was built and committed (`cddccfd`) before the hold reached me, and then
+reverted in full — catalog row, page, module and hub section. The three corrections above
+stay: they were learned by doing it, they are true of the next family, and a dated note
+must keep saying what it said. Nothing is deleted; the reversal is a commit of its own so
+the record shows the family was born and then held, rather than never existing.
+
+Reason for the hold, from the lead: a page whose every number is zero has nothing to say
+to a buyer, and its lane is sold to boatyards by a deposit ask, not by a feeds page.
