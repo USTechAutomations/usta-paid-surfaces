@@ -148,13 +148,26 @@ def main() -> int:
              og.scan(stripped)[0], og.BLOCKED)
 
         # A row from a metro nobody has read the terms for -- the whole point of
-        # turning the list inside out. Austin is not refused; it is simply unread.
-        unread_metro = tmp / "austin-row.csv"
-        unread_metro.write_text("jurisdiction,permit\naustin,2026-1 BP\n", encoding="utf-8")
-        got, why = og.scan(unread_metro)
-        case("a row from a metro nobody has cleared is refused", got, og.BLOCKED)
-        case("and the reason says nobody read their terms",
-             "nobody has read their terms" in why, True)
+        # turning the list inside out. The subject is DERIVED from the record,
+        # never pinned to a name: this case used to say "austin", and on
+        # 2026-08-25 the operator cleared six boards (decision row 15), so the
+        # pinned case started demanding a refusal the guard rightly no longer
+        # gives. If no UNKNOWN source is left the first case here goes red on
+        # purpose -- a case that cannot run any more must say so, not pass.
+        record = json.loads(Path(og.RECORD_FILE).read_text(encoding="utf-8"))
+        unread = sorted(k for k, v in record["sources"].items()
+                        if v["verdict"] == "UNKNOWN")
+        case("the record still holds an UNKNOWN source for this case to run on",
+             len(unread) > 0, True)
+        if unread:
+            label = record["sources"][unread[0]]["labels"][0]
+            unread_metro = tmp / "unread-metro-row.csv"
+            unread_metro.write_text(
+                f"jurisdiction,permit\n{label},2026-1 BP\n", encoding="utf-8")
+            got, why = og.scan(unread_metro)
+            case("a row from a metro nobody has cleared is refused", got, og.BLOCKED)
+            case("and the reason says nobody read their terms",
+                 "nobody has read their terms" in why, True)
 
         # A near-miss must NOT fire, or the guard cries wolf and gets switched off.
         nearmiss = tmp / "nearmiss.csv"

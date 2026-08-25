@@ -12,12 +12,12 @@
   "sources": {
     "austin": {
       "name": "Austin, Texas",
-      "verdict": "UNKNOWN",
-      "decided_on": null,
-      "evidence_url": "",
-      "quote": "",
+      "verdict": "ALLOW_PAID",
+      "decided_on": "2026-08-25",
+      "evidence_url": "https://data.austintexas.gov/stories/s/ranj-cccq",
+      "quote": "Data available through the City of Austin Open Data Portal are offered free and without restriction. [...] Unless otherwise noted in metadata, datasets available on the City of Austin Open Data Portal are in the public domain",
       "required_text": "",
-      "reviewed_by": "",
+      "reviewed_by": "terms read by terms-dossier agent (claude-opus-5) 2026-08-25; operator decision 'yes clear' 2026-08-25 (approvals/operator_decisions_2026-08-25.md row 15); evidence dossier research/paid-source-terms-2026-08-25/austin.md",
       "labels": ["austin", "austin, texas", "data.austintexas.gov", "3syk-w9eu"]
     },
     "baton-rouge": {
@@ -32,12 +32,12 @@
     },
     "cambridge-ma": {
       "name": "Cambridge, Massachusetts",
-      "verdict": "UNKNOWN",
-      "decided_on": null,
-      "evidence_url": "",
-      "quote": "",
+      "verdict": "ALLOW_PAID",
+      "decided_on": "2026-08-25",
+      "evidence_url": "https://data.cambridgema.gov/download/tif9-pmiw/application/pdf",
+      "quote": "Any user of Data distributed by the City may modify, use and publish such Data without charge.",
       "required_text": "",
-      "reviewed_by": "",
+      "reviewed_by": "terms read by terms-dossier agent (claude-opus-5) 2026-08-25; operator decision 'yes clear' 2026-08-25 (approvals/operator_decisions_2026-08-25.md row 15); evidence dossier research/paid-source-terms-2026-08-25/cambridge-ma.md",
       "labels": ["cambridge-ma", "cambridge, massachusetts"]
     },
     "chicago": {
@@ -52,12 +52,12 @@
     },
     "cincinnati": {
       "name": "Cincinnati, Ohio",
-      "verdict": "UNKNOWN",
-      "decided_on": null,
-      "evidence_url": "",
-      "quote": "",
+      "verdict": "ALLOW_PAID",
+      "decided_on": "2026-08-25",
+      "evidence_url": "https://data.cincinnati-oh.gov/api/views/uhjb-xac9.json",
+      "quote": "Public Domain",
       "required_text": "",
-      "reviewed_by": "",
+      "reviewed_by": "terms read by terms-dossier agent (claude-opus-5) 2026-08-25; operator decision 'yes clear' 2026-08-25 (approvals/operator_decisions_2026-08-25.md row 15); evidence dossier research/paid-source-terms-2026-08-25/cincinnati.md; NOTE: label-only evidence (license.name in dataset metadata; no terms page exists) — operator cleared knowing it is the thinnest of the six",
       "labels": ["cincinnati", "cincinnati, ohio"]
     },
     "los-angeles": {
@@ -84,33 +84,33 @@
     },
     "montgomery-md": {
       "name": "Montgomery County, Maryland",
-      "verdict": "UNKNOWN",
-      "decided_on": null,
-      "evidence_url": "",
-      "quote": "",
-      "required_text": "",
-      "reviewed_by": "",
+      "verdict": "ALLOW_PAID",
+      "decided_on": "2026-08-25",
+      "evidence_url": "https://data.montgomerycountymd.gov/terms-of-use",
+      "quote": "Public Domain",
+      "required_text": "The data made available here has been modified for use from its original source, which is Montgomery County, Maryland (\"the County\"). THE COUNTY MAKES NO REPRESENTATIONS OR WARRANTIES AS TO THE COMPLETENESS, ACCURACY, OR TIMELINESS OF ANY DATA. THE COUNTY EXPRESSLY DISCLAIMS ALL WARRANTIES, WHETHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. THE COUNTY MAKES NO REPRESENTATION OR WARRANTY AS TO THE WEBISTE OR APPLICATION USING DATA DRAWN FROM DATA.MONTGOMERYCOUNTYMD.GOV OR FOR THE USEFULNESS OR INTEGRITY OF THE WEB SITE OR APPLICATION. The data is subject to change and possible deletion, temporarily or permanently. It is understood that the information contained in the web feed is being used at one's own risk.",
+      "reviewed_by": "terms read by terms-dossier agent (claude-opus-5) 2026-08-25; operator decision 'yes clear' 2026-08-25 (approvals/operator_decisions_2026-08-25.md row 15); evidence dossier research/paid-source-terms-2026-08-25/montgomery-md.md; required_text is the County's prescribed disclaimer, byte-for-byte (783 chars, sha256 839f41460a3ebe7f...), and must ship in every paid file carrying montgomery-md rows",
       "note": "Their portal requires a set disclaimer on applications using their data. The wording is quoted word for word in scripts/slice_permit_metros.py. It goes in required_text as part of the read that decides this verdict, not before.",
       "labels": ["montgomery-md", "montgomery county", "data.montgomerycountymd.gov"]
     },
     "new-york": {
       "name": "New York City",
-      "verdict": "UNKNOWN",
-      "decided_on": null,
-      "evidence_url": "",
-      "quote": "",
+      "verdict": "ALLOW_PAID",
+      "decided_on": "2026-08-25",
+      "evidence_url": "https://opendata.cityofnewyork.us/faq/",
+      "quote": "Open Data belongs to all New Yorkers. There are no restrictions on the use of Open Data.",
       "required_text": "",
-      "reviewed_by": "",
+      "reviewed_by": "terms read by terms-dossier agent (claude-opus-5) 2026-08-25; operator decision 'yes clear' 2026-08-25 (approvals/operator_decisions_2026-08-25.md row 15); evidence dossier research/paid-source-terms-2026-08-25/new-york.md",
       "labels": ["new-york", "new york city", "new york"]
     },
     "san-francisco": {
       "name": "San Francisco, California",
-      "verdict": "UNKNOWN",
-      "decided_on": null,
-      "evidence_url": "",
-      "quote": "",
+      "verdict": "ALLOW_PAID",
+      "decided_on": "2026-08-25",
+      "evidence_url": "https://www.sf.gov/reports/april-2017/datasf-terms-use",
+      "quote": "Except where otherwise stated in the file containing such Data or on the page from which such Data is accessed, including its metadata, Data is made available under the Public Domain Dedication and License v1.0",
       "required_text": "",
-      "reviewed_by": "",
+      "reviewed_by": "terms read by terms-dossier agent (claude-opus-5) 2026-08-25; operator decision 'yes clear' 2026-08-25 (approvals/operator_decisions_2026-08-25.md row 15); evidence dossier research/paid-source-terms-2026-08-25/san-francisco.md",
       "labels": ["san-francisco", "san francisco"]
     },
     "scottsdale": {
