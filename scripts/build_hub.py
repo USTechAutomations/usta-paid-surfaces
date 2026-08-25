@@ -18,6 +18,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 # the hub and the gate come to disagree about which feeds take a card, and the
 # one that is wrong is always the one nobody re-ran.
 from check_site import buy_buttons  # noqa: E402
+# The words an "on-page" family puts on its own eyebrow. Imported, not
+# retyped: the card and the page it links to are two surfaces of one fact,
+# and this repo has already shipped a day where only one of them moved.
+from render_family import ON_PAGE_PILL  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 CAT = json.loads((ROOT / "catalog.json").read_text(encoding="utf-8"))
@@ -75,7 +79,7 @@ def card(f):
         # page IS the file. Saying "not ready" here is the card promising
         # something that does not exist, which is the one thing this directory is
         # for not doing.
-        pill = '<span class="pill pill-ready">All of it, free</span>'
+        pill = f'<span class="pill pill-ready">{esc(ON_PAGE_PILL)}</span>'
         price = f'<span class="amount">{esc(f["price"])}</span> '
     else:
         pill = '<span class="pill pill-hold">Sample not ready</span>'

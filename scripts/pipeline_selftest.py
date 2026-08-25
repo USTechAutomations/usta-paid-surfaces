@@ -339,6 +339,41 @@ def t_sampled(tmp: Path) -> None:
         bridge = P.Surface("b", "bridge", None, {"id": "b"}, tmp / "x")
         expect("sampled", P.NA, P.g_sampled(bridge), "a bridge page owes no sample")
 
+        # A SAMPLE STATUS NO GATE KNOWS. The three cases below are the whole
+        # reason the allowed-value list exists in this file at all.
+        #
+        # Counted on 2026-08-25, before the list was added: `on_page` typed for
+        # `on-page` matched no branch in this gate, fell through to the
+        # printed-rows count at the bottom and came back PASS on the page words
+        # alone -- with every demand the real value carries silently dropped.
+        # scripts/check_site.py refused the same value. One gate held the estate,
+        # and only because it happens to be the one that gates the deploy.
+        typo = surface(tmp, "s0a", fam={"id": "s0a", "sample_status": "on_page"},
+                       body=page(rows=8))
+        got = P.g_sampled(typo)
+        expect("sampled", P.UNKNOWN, got, "a status no gate knows is not scored on page words")
+        expect_because("sampled", "no gate in this file knows", got,
+                       "and it says that is what went wrong")
+        expect_not_because("sampled", "named rows printed", got,
+                           "rather than crediting the page for rows nobody asked it about")
+
+        # The same hole wearing a different hat: no sample status at all.
+        nostatus = surface(tmp, "s0b", fam={"id": "s0b"}, body=page(rows=8))
+        expect("sampled", P.UNKNOWN, P.g_sampled(nostatus),
+               "a row with no sample status at all is not scored either")
+
+        # THE NEGATIVE CONTROL, and it is the half that matters most. A list of
+        # allowed values that refused everything would pass both cases above and
+        # be worthless. The real spelling has to go straight through to the
+        # counted answer -- otherwise this is a false red on a family that shows
+        # a stranger every row it holds.
+        spelled = surface(tmp, "s0c", fam={"id": "s0c", "sample_status": "on-page"},
+                          body=page(rows=8))
+        got = P.g_sampled(spelled)
+        expect("sampled", P.PASS, got, "the real spelling still reaches the counted answer")
+        expect_because("sampled", "8 named rows printed on the page itself", got,
+                       "and is scored on rows counted off the page")
+
         says_no = surface(tmp, "s1", fam={"id": "s1", "sample_status": "pass"},
                           body=page(rail="Sample not ready"))
         expect("sampled", P.FAIL, P.g_sampled(says_no), "the page says so itself")

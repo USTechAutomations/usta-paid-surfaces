@@ -11,7 +11,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import privacy  # noqa: E402
-from merge_catalog_adds import family_rows  # noqa: E402
+from merge_catalog_adds import SAMPLE_STATUSES, family_rows  # noqa: E402
 # Read from the builder that writes it, never retyped here. The gate below
 # demands this exact sentence on an "on-page" family, so if the two copies
 # ever drifted the gate would be checking for words no page prints -- and it
@@ -620,7 +620,13 @@ def main() -> None:
         # brand-new value was tried on a throwaway copy on 2026-08-24 and the run
         # exited 0 with the family checked by nothing. A value no gate in this
         # file knows about is refused here, before any of them are asked.
-        if fam["sample_status"] not in {"pass", "fail", "unknown", "parked", "on-page"}:
+        #
+        # The list itself moved to merge_catalog_adds.py on 2026-08-25 and is now
+        # imported rather than typed. It used to be written out here and nowhere
+        # else, so this file was the only one in the repo that knew which values
+        # were real -- scripts/pipeline.py scored the same field having never
+        # heard of any of them.
+        if fam["sample_status"] not in SAMPLE_STATUSES:
             fail(f"{fam['id']} has a sample status no gate in this file knows: "
                  f"{fam['sample_status']!r}")
         path = ROOT / "families" / fam["id"] / "index.html"
@@ -674,6 +680,23 @@ def main() -> None:
             if ON_PAGE_PHRASE not in vis.lower():
                 fail(f"{fam['id']} says its whole file is printed on its page, and the page "
                      f"never says so: {ON_PAGE_PHRASE!r} is not on it")
+            # AND THE OTHER HALF, which was missing and let the contradiction ship.
+            #
+            # Demanding the sentence above says nothing about what else the page
+            # may say, so a page could carry BOTH -- "the whole of what we hold is
+            # printed on this page" and "sample not ready" -- and pass. That is
+            # not a hypothetical: COUNTED off the built bytes on 2026-08-25, this
+            # page said "Sample not ready" twice under a directory card that said
+            # "All of it, free", and this gate had nothing to say about it. Only
+            # the "pass" branch above forbade the phrase, so moving a family to
+            # on-page silently dropped the one rule that would have caught it.
+            #
+            # The two claims cannot both be true, and the one that misleads a
+            # buyer is the promise of a sample that is never coming.
+            if "sample not ready" in vis.lower():
+                fail(f"{fam['id']} says the whole of what we hold is printed on its page and "
+                     f"the same page says the sample is not ready. There is no file behind "
+                     f"this page, so no sample is coming and the page must stop saying one is")
 
     # The bridge pages are not families and carry no sample, but they are published
     # in the same folder, so the same forbidden list has to hold on them.

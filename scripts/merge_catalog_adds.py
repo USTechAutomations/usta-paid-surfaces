@@ -32,6 +32,21 @@ CATALOG = ROOT / "catalog.json"
 # A page cannot be honest about a price or a buyer it was never given.
 REQUIRED = ("id", "name", "buyer", "cadence", "price", "sample_status", "group", "short", "who")
 
+# Every value sample_status is allowed to hold.
+#
+# It lives here, beside family_rows(), for the reason family_rows() lives here:
+# one idea of what a family is, shared, instead of a private copy per script.
+# Three files branch on this field and every branch asks "is it this one value",
+# so a value none of them knows matches no branch, silently drops every demand
+# that value carries, and the run still ends at 0.
+#
+# COUNTED 2026-08-25, which is why it is shared and not just checked in one
+# place: scripts/check_site.py refused an unknown value and scripts/pipeline.py
+# had never heard of the field's values at all, so `on_page` typed for `on-page`
+# fell straight through pipeline's branches and got judged on page words alone.
+# One gate holding the estate is luck. Both gates now read this line.
+SAMPLE_STATUSES = frozenset({"pass", "fail", "unknown", "parked", "on-page"})
+
 
 def fail(msg: str) -> None:
     print(f"CATALOG FAIL: {msg}", file=sys.stderr)
@@ -51,6 +66,13 @@ def fragments() -> list[tuple[Path, dict]]:
         missing = [k for k in REQUIRED if k not in row]
         if missing:
             fail(f"{p.name} is missing {missing}")
+        # The earliest door a bad value can come through. Refusing here means the
+        # value never reaches catalog.json, so the two gates downstream never get
+        # the chance to disagree about what to do with it.
+        if row["sample_status"] not in SAMPLE_STATUSES:
+            fail(f"{p.name} has a sample status nothing in this repo knows: "
+                 f"{row['sample_status']!r}. Allowed: "
+                 f"{', '.join(sorted(SAMPLE_STATUSES))}")
         expect = f"catalog-add-{row['id']}.json"
         if p.name != expect:
             fail(f"{p.name} declares id {row['id']!r}, so it should be named {expect}")

@@ -404,8 +404,19 @@ def family_spec() -> dict:
             "words beside each line, so you can hold it up against a bill and see for yourself "
             "what is missing.</p>\n"
             '      <div class="honest">\n'
-            "        <p><strong>The pill at the top of this page says &ldquo;sample not "
-            "ready&rdquo;, and that is right.</strong> Every other feed here keeps dated copies "
+            # WHAT THIS PARAGRAPH USED TO SAY, and why it could not stay.
+            # It opened "the pill at the top of this page says 'sample not
+            # ready', and that is right". It stopped being right on 2026-08-24,
+            # when the catalog moved this family to "on-page" -- but the eyebrow
+            # is drawn from the module's ready flag, not the catalog, so the
+            # page went on saying "Sample not ready" twice while the directory
+            # card that links to it said "All of it, free". Both of those cannot
+            # be true, and a reader looking at the money line got the wrong one.
+            # The eyebrow now reads the catalog (scripts/render_family.py), and
+            # this paragraph no longer quotes it: quoting a thing you do not
+            # draw is a second copy of a fact, and second copies drift.
+            "        <p><strong>There is no sample of this one to hand you, because there is "
+            "nothing it could be a sample of.</strong> Every other feed here keeps dated copies "
             "of something that moves, and hands you a slice of the file to look at first. This "
             "one is not that. It is one dated reading of one rule that has not moved, and "
             f"{ON_PAGE_PHRASE}. There is no file behind it and "
@@ -588,8 +599,15 @@ def family_spec() -> dict:
         "sections": secs,
         "id": FAMILY,
         # No sample file, because there is no dated feed behind this page to
-        # sample. Said in words in the first section rather than left as a pill
-        # nobody can explain.
+        # sample. Said in words in the first section as well, so a reader does
+        # not have to work it out from a pill.
+        #
+        # This flag no longer decides the eyebrow. It used to, and it printed
+        # "Sample not ready" -- a promise that a sample was on its way, on a
+        # family where none is coming and none ever will. scripts/render_family.py
+        # asks catalog.json instead, and an "on-page" family gets the same words
+        # the hub prints on its card. What this flag still does is keep a sample
+        # link off the page, which is the true half of what it was saying.
         "ready": False,
         "hero_note": (
             f"<strong>{esc(p)}.</strong> This is a list, not a feed. Nothing here is for sale, "

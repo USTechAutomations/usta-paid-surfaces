@@ -283,6 +283,22 @@ def price_of(spec: dict) -> str:
     )
 
 
+# What the eyebrow and the hero pill say on a family the catalog marks "on-page".
+#
+# "Sample not ready" tells a stranger a sample is on its way. On an on-page
+# family none is on its way and none ever will be: there is no file behind the
+# page, so the page IS the file. Saying "not ready" there is the page promising
+# something that does not exist.
+#
+# The wording is defined once and read by scripts/build_hub.py for the directory
+# card as well, because this exact fact printed in two places and moved in only
+# one is what put the contradiction on the page in the first place. COUNTED
+# 2026-08-25 off the built bytes: the card said "All of it, free" while the page
+# it linked to said "Sample not ready" twice. A fact has as many surfaces as it
+# has surfaces, and moving some of them is not moving it.
+ON_PAGE_PILL = "All of it, free"
+
+
 def sample_status(fid: str) -> str:
     """What catalog.json says about this family's sample, read fresh off disk.
 
@@ -517,6 +533,12 @@ def offer_block(spec: dict) -> tuple[str, str]:
 
 def render(spec: dict) -> str:
     ready = spec["ready"]
+    # An on-page family has no sample file and never will, so "ready" is the
+    # wrong question to ask about it and both halves of the answer are wrong.
+    # The catalog is asked instead of the module, because the catalog row is what
+    # every gate reads and what the hub draws its card from -- deciding this off
+    # a module flag is how the page and the card came to say different things.
+    on_page = sample_status(spec.get("id") or "") == "on-page"
     price = price_of(spec)
     hero_cta, offer = offer_block(spec)
     # A page with nothing to buy says so under the rail, before the reader goes
@@ -536,9 +558,15 @@ def render(spec: dict) -> str:
         cadence=spec["cadence"],
         cadence_long=spec["cadence_long"],
         # A bridge page has no sample to be ready or not, so it names its own words.
-        pill_text=spec.get("pill_text") or ("Sample ready" if ready else "Sample not ready"),
+        pill_text=(spec.get("pill_text")
+                   or (ON_PAGE_PILL if on_page
+                       else ("Sample ready" if ready else "Sample not ready"))),
         sample_dt=spec.get("sample_dt", "Public sample"),
-        pill_class="pill-ready" if ready else "pill-hold",
+        # Amber is the estate's colour for "wait, this is not here yet". An
+        # on-page family is not waiting for anything, and the hub already draws
+        # its card green, so leaving this amber would say in colour the thing the
+        # words above stopped saying.
+        pill_class="pill-ready" if (ready or on_page) else "pill-hold",
         pill_label=spec["pill_label"],
         h1=spec["h1"],
         lede=spec["lede"],

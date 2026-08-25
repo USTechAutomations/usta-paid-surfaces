@@ -108,7 +108,7 @@ from pathlib import Path
 from typing import Any, Callable, NamedTuple
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from merge_catalog_adds import family_rows  # noqa: E402
+from merge_catalog_adds import SAMPLE_STATUSES, family_rows  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
@@ -1874,7 +1874,41 @@ def g_sampled(s: Surface) -> Result:
                           "sample_files_beside_page": beside,
                           "sample_files_linked": linked}
 
-    # THE REVERSE DIRECTION, and it runs FIRST on purpose.
+    # A VALUE THIS GATE DOES NOT KNOW, asked before any branch that reads it.
+    #
+    # Every branch below asks "is the status this one value". A typo therefore
+    # matches none of them and falls through to the printed-rows count at the
+    # bottom, where the family is scored on its page words alone with every
+    # demand the real value carries silently dropped. scripts/check_site.py
+    # refused such a value; this file had no such list, so the estate was held by
+    # one gate and only because that gate happens to be the one that gates the
+    # deploy. That is luck, not design.
+    #
+    # The verdict is `unknown`, never `fail`. This gate cannot read the catalog
+    # row, so it does not know whether the sample is there -- and a stage that
+    # cannot be decided is exactly what unknown is for. It still blocks: a
+    # surface sits at the last stage where every stage below it PASSED, so an
+    # unknown here stops the ladder without inventing a red on a family that may
+    # be showing a stranger every row it holds.
+    #
+    # Nothing counted is lost by refusing this early: `beside` and `linked` are
+    # already in the evidence above, so the disk facts are still reported.
+    #
+    # A MISSING field lands here too, as None. That is the same hole wearing a
+    # different hat -- no branch below matches None either -- and this gate only
+    # ever runs on a surface that HAS a catalog row, because a page with no row
+    # is a bridge and left at n/a several lines up.
+    if status not in SAMPLE_STATUSES:
+        named = repr(status) if status is not None else "no sample status at all"
+        return Result(UNKNOWN,
+                      f"the catalog gives this family a sample status no gate in this file "
+                      f"knows: {named}. Nothing here can say what it was meant to mean, "
+                      f"so nothing here scores it. Allowed: "
+                      f"{', '.join(sorted(SAMPLE_STATUSES))}", ev)
+
+    # THE REVERSE DIRECTION, and it runs FIRST of the faults on purpose. (Only
+    # the unreadable-status refusal above comes before it, and that one scores
+    # nothing at all -- it says this gate cannot read the row.)
     #
     # The temptation is to put it at the bottom, after the branches that already
     # work. That would leave the two families that say "sample not ready" being
