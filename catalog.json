@@ -469,6 +469,19 @@
       "group": "Public records",
       "short": "What a US container storage bill has to carry",
       "who": "Importers and customs brokers holding a demurrage or detention bill."
+    },
+    {
+      "id": "yard-season",
+      "name": "Boatyard haul-out season rules",
+      "buyer": "Boatyard managers booking a winter haul-out or a spring launch season",
+      "cadence": "written once, 24 Aug 2026",
+      "cadence_long": "One dated reading of our own scheduler",
+      "price": "Not for sale yet",
+      "sample_status": "unknown",
+      "note": "BORN NOT FOR SALE 2026-08-24. This is not a feed and there is no collector behind it. It is one dated reading of our own haul-out scheduler at revenue-2026/projects/yard_season/season.py, printed free: the reasons a boat cannot be placed, and everything the scheduler needs to know about a yard and about a boat. SAMPLE STATUS IS unknown ON PURPOSE, NOT BY OVERSIGHT: the estate's sample block ends every not-for-sale sample with 'these rows are a slice of the file, and the file goes back further than these rows do'. There is no file here at all, so that sentence would be false and no sample file is written; the page says in its own words why the pill is right. EVERY COUNT ON THE PAGE IS READ AT BUILD TIME out of season.py and out of revenue-2026/var/yard_season_data.db, opened read-only. At the time of writing that store held 0 rows across 11 tables -- no yard has signed up -- and the page says so in counted words that change themselves the day one does. The refusal list is SOURCE-SCANNED for the lines that actually record a refusal, not read off the constants block: the block declares five codes and the scheduler emits four (after_season_end is accepted by the second reading and produced by nothing), and publishing the fifth would put a reason on a customer page that can never happen. The scan refuses below three matches. THE BOATS TABLE HOLDS OWNER NAMES AND EMAIL ADDRESSES and is never read except count(*). NOTHING ABOUT THE BOATYARD TRADE IS VERIFIED from a primary source and the page asserts nothing about anybody else's yard. THERE IS NO SERVICE and the page promises none.",
+      "group": "What a job has to get right",
+      "short": "What a boatyard haul-out plan has to get right",
+      "who": "Boatyard managers booking a winter haul-out or a spring launch season."
     }
   ],
   "map": "MAP.md"

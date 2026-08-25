@@ -39,6 +39,7 @@ ORDER = [
     "Public records",
     "Construction records",
     "Other dated records",
+    "What a job has to get right",
 ]
 
 # Sections of our public-records work that are not change feeds. Counts are
