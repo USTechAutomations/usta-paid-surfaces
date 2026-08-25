@@ -1,7 +1,10 @@
 /* ==========================================================================
    Dated change feeds — aligned to the ustechautomations.com design system.
-   Tokens, type scale, radius and accent are lifted from the live main site
-   (assets/root-*.css) so a visitor cannot tell they left it.
+   Tokens, type scale, radius and accent are lifted from the live main site.
+   Take them from assets/WebsiteStyleProvider-*.css, NOT assets/root-*.css: the
+   root sheet is the app's palette and the website overrides it. Reading the
+   wrong one is how these pages ended up with a near-black button where the
+   marketing site has a blue one.
 
    Look only. Prices, sample rows, event ids and honesty lines live in the
    HTML and are frozen: never restyle a fact out of existence.
@@ -21,23 +24,23 @@
 
 :root {
   /* type — same stack the main site resolves --font-sans to */
-  --sans: "Satoshi", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, ui-sans-serif, system-ui, sans-serif;
+  --sans: "Satoshi", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   --serif: "PT Serif", ui-serif, Georgia, "Times New Roman", serif;
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 
   /* main-site tokens, light */
-  --background: 220 14% 98%;
-  --foreground: 220 14% 10%;
+  --background: 220 10% 99%;
+  --foreground: 220 20% 10%;
   --card: 0 0% 100%;
-  --card-foreground: 220 14% 10%;
-  --secondary: 220 10% 96%;
-  --muted: 220 10% 92%;
-  --muted-foreground: 220 10% 46%;
-  --border: 220 8% 86%;
-  --primary: 220 15% 10%;
+  --card-foreground: 220 20% 10%;
+  --secondary: 220 12% 97%;
+  --muted: 220 12% 97%;
+  --muted-foreground: 220 10% 42%;
+  --border: 220 13% 94%;
+  --primary: 207 100% 50%;
   --primary-foreground: 0 0% 100%;
-  --primary-hover: 220 15% 18%;
-  --accent-blue: 211 100% 50%;
+  --primary-hover: 207 100% 44%;
+  --accent-blue: 207 100% 50%;
   --accent-emerald: 149 80% 90%;
   --accent-emerald-fg: 161 94% 30%;
   --accent-amber: 48 96% 89%;
@@ -61,18 +64,18 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --background: 220 16% 6%;
-    --foreground: 220 12% 96%;
-    --card: 220 14% 10%;
-    --card-foreground: 220 12% 96%;
-    --secondary: 220 12% 16%;
-    --muted: 220 12% 16%;
-    --muted-foreground: 220 10% 62%;
-    --border: 220 12% 20%;
-    --primary: 220 12% 96%;
-    --primary-foreground: 220 16% 6%;
-    --primary-hover: 220 12% 85%;
-    --accent-blue: 211 100% 60%;
+    --background: 220 15% 8%;
+    --foreground: 220 15% 96%;
+    --card: 220 12% 10%;
+    --card-foreground: 220 15% 96%;
+    --secondary: 220 10% 16%;
+    --muted: 220 10% 16%;
+    --muted-foreground: 220 8% 62%;
+    --border: 220 10% 18%;
+    --primary: 207 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 207 100% 44%;
+    --accent-blue: 207 100% 60%;
     --accent-emerald: 164 86% 16%;
     --accent-emerald-fg: 158 64% 52%;
     --accent-amber: 22 78% 26%;
@@ -81,18 +84,18 @@
   }
 }
 :root[data-theme="dark"] {
-  --background: 220 16% 6%;
-  --foreground: 220 12% 96%;
-  --card: 220 14% 10%;
-  --card-foreground: 220 12% 96%;
-  --secondary: 220 12% 16%;
-  --muted: 220 12% 16%;
-  --muted-foreground: 220 10% 62%;
-  --border: 220 12% 20%;
-  --primary: 220 12% 96%;
-  --primary-foreground: 220 16% 6%;
-  --primary-hover: 220 12% 85%;
-  --accent-blue: 211 100% 60%;
+  --background: 220 15% 8%;
+  --foreground: 220 15% 96%;
+  --card: 220 12% 10%;
+  --card-foreground: 220 15% 96%;
+  --secondary: 220 10% 16%;
+  --muted: 220 10% 16%;
+  --muted-foreground: 220 8% 62%;
+  --border: 220 10% 18%;
+  --primary: 207 100% 50%;
+  --primary-foreground: 0 0% 100%;
+  --primary-hover: 207 100% 44%;
+  --accent-blue: 207 100% 60%;
   --accent-emerald: 164 86% 16%;
   --accent-emerald-fg: 158 64% 52%;
   --accent-amber: 22 78% 26%;
@@ -102,7 +105,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; background: hsl(var(--background)); }
 
 body {
   margin: 0;
@@ -110,12 +113,13 @@ body {
   color: var(--fg);
   font-family: var(--sans);
   font-size: 16px;
+  font-weight: 500;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-.wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+.wrap { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
 @media (min-width: 768px) { .wrap { padding: 0 2rem; } }
 
 a { color: var(--accent); text-decoration: none; }
@@ -142,20 +146,26 @@ a:hover { text-decoration: underline; }
   display: flex; align-items: center; gap: 1.25rem;
   min-height: 64px; flex-wrap: wrap;
 }
-@media (min-width: 900px) { .masthead .wrap { flex-wrap: nowrap; } }
+@media (min-width: 1024px) { .masthead .wrap { flex-wrap: nowrap; } }
 .wordmark {
-  font-weight: 700; font-size: 1rem; letter-spacing: -.015em;
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-weight: 900; font-size: 1rem; letter-spacing: normal;
+  text-transform: uppercase;
   color: var(--fg); text-decoration: none; white-space: nowrap;
 }
+@media (min-width: 640px) { .wordmark { font-size: 1.25rem; letter-spacing: .025em; } }
+.usta-logo { width: 24px; height: 24px; display: block; flex: none; }
 .wordmark:hover { text-decoration: none; opacity: .8; }
 .wordmark span { font-weight: 500; color: var(--muted-fg); }
 
-.mast-nav { display: none; gap: 1.5rem; margin-left: auto; align-items: center; flex: none; }
-@media (min-width: 900px) { .mast-nav { display: flex; } }
+.mast-nav { display: none; gap: 2rem; margin-left: 2rem; align-items: center; flex: 1; }
+/* main site keeps the links beside the wordmark and the CTA hard right */
+.mast-cta { margin-left: auto; }
+@media (min-width: 1024px) { .mast-nav { display: flex; } }
 .mast-nav a {
-  font-size: .875rem; font-weight: 500; color: var(--muted-fg); text-decoration: none;
+  font-size: .875rem; font-weight: 500; color: var(--fg); text-decoration: none;
 }
-.mast-nav a:hover { color: var(--fg); text-decoration: none; }
+.mast-nav a:hover { color: hsl(var(--primary)); text-decoration: none; }
 .mast-cta {
   display: inline-flex; align-items: center;
   background: hsl(var(--primary)); color: hsl(var(--primary-foreground));
@@ -168,12 +178,10 @@ a:hover { text-decoration: underline; }
 .crumbs {
   width: 100%; margin: 0 0 .75rem; font-size: .8125rem; color: var(--muted-fg);
 }
-.masthead .crumbs { margin: 0; padding-bottom: .75rem; }
-@media (min-width: 900px) {
-  .masthead .crumbs {
-    width: auto; padding-bottom: 0; margin-left: .5rem;
-    min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-  }
+.crumbbar { border-bottom: 1px solid var(--line); background: hsl(var(--background)); }
+.crumbbar .crumbs {
+  width: auto; margin: 0; padding: .625rem 0;
+  white-space: nowrap; overflow-x: auto;
 }
 .crumbs a { color: var(--muted-fg); }
 .crumbs .sep { padding: 0 .5rem; opacity: .5; }
@@ -181,10 +189,12 @@ a:hover { text-decoration: underline; }
 /* ---------- hero ---------- */
 .hero { padding: 3.5rem 0 2rem; }
 .hero h1 {
-  font-size: clamp(1.875rem, 1.2rem + 2.4vw, 3rem);
-  line-height: 1.1; letter-spacing: -.03em; font-weight: 700;
+  font-size: 3rem;
+  line-height: 1.15; letter-spacing: -.025em; font-weight: 500;
   margin: 0 0 1rem; max-width: 20ch;
 }
+@media (min-width: 768px) { .hero h1 { font-size: 3.75rem; } }
+@media (min-width: 1024px) { .hero h1 { font-size: 4.5rem; letter-spacing: -.03em; } }
 .eyebrow {
   display: flex; align-items: center; flex-wrap: wrap; gap: .5rem;
   margin: 0 0 1rem;
@@ -221,12 +231,28 @@ a:hover { text-decoration: underline; }
 /* ---------- main ---------- */
 main { padding: 1rem 0 4rem; }
 main section { margin: 0 0 2.75rem; max-width: 76ch; }
+/* Evidence tables use the full 1280px container the main site's sections use,
+   while the prose around them keeps its reading measure. */
+main section:has(.evidence) { max-width: none; }
+main section:has(.evidence) > p,
+main section:has(.evidence) > h2,
+main section:has(.evidence) > h3 { max-width: 76ch; }
+/* Main-site heading character (weight/tracking/leading are its h1-h6 rule).
+   Sizes step one rung down its ladder: a feed page's h2 is a subsection of a
+   record, not a marketing section header, so it takes the site's h3 numbers. */
 h2 {
-  font-size: 1.375rem; font-weight: 700; letter-spacing: -.02em;
+  font-size: 1.875rem; font-weight: 500; letter-spacing: -.025em; line-height: 1.15;
   margin: 0 0 .875rem;
 }
-h3 { font-size: 1.0625rem; font-weight: 650; margin: 0 0 .5rem; }
-p { margin: 0 0 1rem; }
+h3 {
+  font-size: 1.5rem; font-weight: 500; letter-spacing: -.025em; line-height: 1.15;
+  margin: 0 0 .5rem;
+}
+@media (min-width: 768px) {
+  h2 { font-size: 2.25rem; }
+  h3 { font-size: 1.875rem; }
+}
+p { margin: 0 0 1rem; line-height: 1.625; }
 main p { color: hsl(var(--foreground) / .86); }
 strong { font-weight: 650; color: var(--fg); }
 
@@ -369,24 +395,28 @@ h1 > .seal, h1 > .stamp, h2 > .seal, h2 > .stamp, h3 > .seal, h3 > .stamp {
 footer.site {
   border-top: 1px solid var(--line);
   background: var(--bg);
-  padding: 3rem 0 2rem;
+  padding: 4rem 0 2rem;
   font-size: .875rem;
 }
+@media (min-width: 768px) { footer.site { padding: 5rem 0 2rem; } }
 .foot-grid {
-  display: grid; gap: 2rem; margin-bottom: 2.5rem;
+  display: grid; gap: 3rem; margin-bottom: 3rem;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
 }
 .foot-brand { grid-column: 1 / -1; }
-@media (min-width: 900px) { .foot-brand { grid-column: span 2; max-width: 320px; } }
-.foot-brand .wordmark { font-size: 1.0625rem; }
+@media (min-width: 1024px) { .foot-brand { grid-column: span 2; max-width: 320px; } }
+.foot-brand .wordmark {
+  font-size: 1.125rem; font-weight: 600; letter-spacing: -.025em; text-transform: none;
+}
 .foot-brand p { color: var(--muted-fg); margin: .75rem 0 1rem; }
 .foot-col h4 {
-  font-size: .75rem; font-weight: 650; letter-spacing: .06em; text-transform: uppercase;
-  color: var(--fg); margin: 0 0 .875rem;
+  font-size: 1.875rem; font-weight: 500; letter-spacing: -.025em; line-height: 1.15;
+  color: var(--fg); margin: 0 0 1rem;
 }
-.foot-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
+@media (min-width: 768px) { .foot-col h4 { font-size: 2.25rem; } }
+.foot-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; }
 .foot-col a { color: var(--muted-fg); }
-.foot-col a:hover { color: var(--fg); }
+.foot-col a:hover { color: hsl(var(--primary)); }
 .foot-bottom {
   border-top: 1px solid var(--line); padding-top: 1.5rem;
   display: grid; gap: .75rem; color: var(--muted-fg);

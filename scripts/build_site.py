@@ -53,26 +53,56 @@ GTM = (
     "f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','%s');</script>"
 )
 
+# The wordmark lockup the main site uses in its own header and footer: the
+# blue USTA mark followed by the name. Copied from the live site's rendered
+# markup so the two sites open with the same object in the same place. The
+# mask id has to be unique per use or two copies on one page collide, so the
+# caller names it.
+def logo(uid: str) -> str:
+    return (
+        '<svg class="usta-logo" viewBox="110 140 292 292" xmlns="http://www.w3.org/2000/svg"'
+        ' role="img" aria-label="US Tech Automations logo" focusable="false">'
+        f'<defs><mask id="{uid}">'
+        '<rect x="110" y="140" width="292" height="270" fill="white"></rect>'
+        '<ellipse cx="250" cy="240" rx="16" ry="24" fill="black"></ellipse>'
+        '<ellipse cx="330" cy="240" rx="16" ry="24" fill="black"></ellipse>'
+        '</mask></defs>'
+        '<path d="M 200 160 C 160 160, 130 190, 130 230 L 130 260 C 110 260, 110 290, 130 290'
+        ' L 130 320 C 130 360, 160 390, 200 390 L 210 390 C 210 410, 240 410, 240 390 L 272 390'
+        ' C 272 410, 302 410, 302 390 L 312 390 C 352 390, 382 360, 382 320 L 382 290'
+        ' C 402 290, 402 260, 382 260 L 382 230 C 382 190, 352 160, 312 160 L 270 160'
+        ' C 270 140, 240 140, 240 160 L 200 160 Z"'
+        f' fill="#0391FE" mask="url(#{uid})"></path>'
+        '</svg>'
+    )
+
+
 MASTHEAD = """<header class="masthead">
   <div class="wrap">
-    <a class="wordmark" href="https://ustechautomations.com/">US Tech Automations</a>
-    <p class="crumbs"><a href="{base}">Dated change feeds</a>{crumb}</p>
+    <a class="wordmark" href="https://ustechautomations.com/">{logo_mast}US Tech Automations</a>
     <nav class="mast-nav" aria-label="Main">
       <a href="https://ustechautomations.com/ai-agents/data-extraction">AI Agents</a>
       <a href="https://ustechautomations.com/solutions/enterprise">Solutions</a>
       <a href="https://ustechautomations.com/platform/integrations-info">Platform</a>
       <a href="https://ustechautomations.com/resources/research">Resources</a>
+      <a href="https://ustechautomations.com/about">Company</a>
       <a href="https://ustechautomations.com/pricing">Pricing</a>
+      <a href="https://app.ustechautomations.com/login">Login</a>
       <a class="mast-cta" href="https://ustechautomations.com/partner">Talk to Our Team</a>
     </nav>
   </div>
-</header>"""
+</header>
+<nav class="crumbbar" aria-label="Breadcrumb">
+  <div class="wrap">
+    <p class="crumbs"><a href="{base}">Dated change feeds</a>{crumb}</p>
+  </div>
+</nav>"""
 
 FOOTER = """<footer class="site">
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <a class="wordmark" href="https://ustechautomations.com/">US Tech Automations</a>
+        <a class="wordmark" href="https://ustechautomations.com/">{logo_foot}US Tech Automations</a>
         <p>We build, run, and support custom AI automation workflows for businesses that need results. Not another tool to manage.</p>
         <p><a href="mailto:operations@ustechautomations.com">operations@ustechautomations.com</a><br>
            <a href="tel:+15186847631">(518) 684-7631</a></p>
@@ -93,7 +123,15 @@ FOOTER = """<footer class="site">
           <li><a href="https://ustechautomations.com/solutions/startup">Startup</a></li>
           <li><a href="https://ustechautomations.com/solutions/midsized">Midsized</a></li>
           <li><a href="https://ustechautomations.com/solutions/enterprise">Enterprise</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="https://ustechautomations.com/platform/integrations-info">Integrations</a></li>
           <li><a href="https://ustechautomations.com/templates">Templates</a></li>
+          <li><a href="https://ustechautomations.com/resources/research">Research</a></li>
+          <li><a href="https://ustechautomations.com/resources/changelogs">Updates</a></li>
           <li><a href="https://ustechautomations.com/partner">Contact</a></li>
         </ul>
       </div>
@@ -102,9 +140,11 @@ FOOTER = """<footer class="site">
         <ul>
           <li><a href="{base}">Dated change feeds</a></li>
           <li><a href="https://ustechautomations.com/permits/grid">Interconnection Queue</a></li>
+          <li><a href="https://ustechautomations.com/permits/terminal-change-ledger">Terminal SAR Signals</a></li>
           <li><a href="https://ustechautomations.com/permits/cost">Permit Costs</a></li>
           <li><a href="https://ustechautomations.com/permits/rankings">Contractor Rankings</a></li>
           <li><a href="https://ustechautomations.com/offers">Offers &amp; Evidence</a></li>
+          <li><a href="https://ustechautomations.com/offers/catalog/">Signed Offer Catalog</a></li>
         </ul>
       </div>
     </div>
@@ -325,7 +365,8 @@ def build_page(src: Path, family: str, crumb_label: str | None, path: str | None
     # --- masthead ---
     crumb = "" if crumb_label is None else f'<span class="sep">/</span>{crumb_label}'
     out = re.sub(r"(?s)<header class=\"masthead\">.*?</header>",
-                 lambda _m: MASTHEAD.format(base=BASE, crumb=crumb), out, count=1)
+                 lambda _m: MASTHEAD.format(base=BASE, crumb=crumb,
+                                           logo_mast=logo("ustaMarkMast")), out, count=1)
 
     # --- footer: keep the page's own honesty paragraphs, wrap the site footer around them ---
     m = re.search(r"(?s)<footer class=\"site\">.*?<div class=\"wrap\">(.*?)</div>\s*</footer>", out)
@@ -340,7 +381,8 @@ def build_page(src: Path, family: str, crumb_label: str | None, path: str | None
     )
     honest_block = honest_block.replace('<p>', '<p class="foot-honest">', 1)
     out = re.sub(r"(?s)<footer class=\"site\">.*?</footer>",
-                 lambda _m: FOOTER.format(base=BASE, honest=honest_block), out, count=1)
+                 lambda _m: FOOTER.format(base=BASE, honest=honest_block,
+                                         logo_foot=logo("ustaMarkFoot")), out, count=1)
 
     # --- internal links: relative hub links become absolute /feeds/ links ---
     if "/" in rel:
