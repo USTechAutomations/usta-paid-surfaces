@@ -166,6 +166,7 @@ new-entities/los-angeles
 new-entities/nyc
 new-entities/san-francisco
 offers
+peak-call
 permit-metros
 permit-metros/austin
 permit-metros/chicago
@@ -241,4 +242,5 @@ vendor-prices/changed-every-read
 vendor-prices/coverage
 vendor-prices/never-answered
 vendor-prices/stopped-answering
+verified-record
 what-we-dont-collect

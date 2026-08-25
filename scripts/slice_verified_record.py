@@ -419,10 +419,10 @@ def family_spec() -> dict:
             f"page.</strong> The rail at the top says &ldquo;{esc(p)}&rdquo; and that is "
             "the whole truth of it: no amount has been set, nobody has been charged, and "
             "there is nothing to buy on this page today.</p>\n"
-            "        <p><strong>The pill at the top says &ldquo;sample not ready&rdquo;, and "
-            "that is right.</strong> Every other feed here keeps dated copies of something "
-            "that moves and hands you a slice of the file first. This one is not that. "
-            "Nobody is listed, so there is no file to show you, and "
+            "        <p><strong>There is no sample file to download, and there is not "
+            "going to be one.</strong> Every other feed here keeps dated copies of "
+            "something that moves and hands you a slice of the file first. This one is "
+            "not that. Nobody is listed, so there is no file to show you, and "
             f"{ON_PAGE_PHRASE}: the rules below are the whole of it. If that ever stops "
             "being true this page stops being built &mdash; the check is in the code, not "
             "in somebody&rsquo;s memory.</p>\n"
@@ -626,6 +626,13 @@ def family_spec() -> dict:
         # No sample file: there is nobody listed, so there is nothing to sample.
         # Said in words in the first section rather than left as a pill nobody
         # can explain.
+        #
+        # This flag no longer draws the eyebrow. render_family.py reads the
+        # catalog first, and an on-page family gets ON_PAGE_PILL whatever this
+        # says -- so the paragraph above must never quote the pill, because it
+        # cannot see which one is drawn. That is the exact bug free-time shipped
+        # with, and this page was written from the same shape before the fix
+        # landed; check_site.py refused the build until the words came out.
         "ready": False,
         "hero_note": (
             f"<strong>{esc(p)}.</strong> Nobody is listed yet, there is nothing to "

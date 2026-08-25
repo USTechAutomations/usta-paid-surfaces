@@ -61,6 +61,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from merge_catalog_adds import family_rows  # noqa: E402
 from render_family import price_of, section, table  # noqa: E402
+# The exact sentence check_site.py demands of an "on-page" family, defined once
+# in slice_free_time.py and imported rather than retyped. Two copies of one
+# fact printed in two places is what put a contradiction on free-time's page.
+from slice_free_time import ON_PAGE_PHRASE  # noqa: E402
 
 FAMILY = "peak-call"
 
@@ -471,10 +475,10 @@ def family_spec() -> dict:
             "that when we do have a hit rate, it will cover a stretch that started before "
             "we ever tried to sell anything.</p>\n"
             '      <div class="honest">\n'
-            "        <p><strong>The line at the top of this page says &ldquo;sample not "
-            "ready&rdquo;, and that is right.</strong> Other feeds here hand you a slice "
-            "of a file to look at before you buy it. There is no file here and nothing to "
-            "buy: the record below is the product, and all of it is on the page.</p>\n"
+            "        <p><strong>There is no sample file to download, and there is not "
+            "going to be one.</strong> Other feeds here hand you a slice of a file to "
+            "look at before you buy it. There is no file here and nothing to buy: the "
+            f"record below is the product, and {ON_PAGE_PHRASE}.</p>\n"
             f"        <p><strong>{esc(price)}.</strong> Nothing on this page has ever been "
             "sold, there is nothing to subscribe to, and there is no form here that takes "
             "anything from you. If you want to talk about it, that is an email thread with "
@@ -705,6 +709,10 @@ def family_spec() -> dict:
         # No sample file: there is no file behind this page. The pill says so and
         # the page explains it in words rather than leaving a label nobody can
         # account for.
+        # Left False deliberately, and it no longer draws the eyebrow:
+        # render_family.py reads the catalog first, and an on-page family gets
+        # ON_PAGE_PILL whatever this says. Nothing on the page may quote the
+        # pill, because this module cannot see which one is drawn.
         "ready": False,
         "hero_note": (
             f"<strong>{esc(price)}.</strong> This is the free scoreboard. Every call is on "
