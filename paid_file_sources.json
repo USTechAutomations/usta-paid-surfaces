@@ -15,7 +15,7 @@
       "verdict": "ALLOW_PAID",
       "decided_on": "2026-08-25",
       "evidence_url": "https://data.austintexas.gov/stories/s/ranj-cccq",
-      "quote": "Data available through the City of Austin Open Data Portal are offered free and without restriction. [...] Unless otherwise noted in metadata, datasets available on the City of Austin Open Data Portal are in the public domain",
+      "quote": "Data available through the  City of Austin Open Data Portal  are offered free and without restriction. [...] Unless otherwise noted in metadata, datasets available on the  City of Austin Open Data Portal  are in the public domain",
       "required_text": "",
       "reviewed_by": "terms read by terms-dossier agent (claude-opus-5) 2026-08-25; operator decision 'yes clear' 2026-08-25 (approvals/operator_decisions_2026-08-25.md row 15); evidence dossier research/paid-source-terms-2026-08-25/austin.md",
       "labels": ["austin", "austin, texas", "data.austintexas.gov", "3syk-w9eu"]
@@ -35,7 +35,7 @@
       "verdict": "ALLOW_PAID",
       "decided_on": "2026-08-25",
       "evidence_url": "https://data.cambridgema.gov/download/tif9-pmiw/application/pdf",
-      "quote": "Any user of Data distributed by the City may modify, use and publish such Data without charge.",
+      "quote": "Any user of Data distributed by the City may modify, use and publish such Data\nwithout charge.",
       "required_text": "",
       "reviewed_by": "terms read by terms-dossier agent (claude-opus-5) 2026-08-25; operator decision 'yes clear' 2026-08-25 (approvals/operator_decisions_2026-08-25.md row 15); evidence dossier research/paid-source-terms-2026-08-25/cambridge-ma.md",
       "labels": ["cambridge-ma", "cambridge, massachusetts"]
@@ -115,12 +115,14 @@
     },
     "scottsdale": {
       "name": "Scottsdale, Arizona",
-      "verdict": "UNKNOWN",
-      "decided_on": null,
-      "evidence_url": "",
-      "quote": "",
+      "verdict": "REFUSE",
+      "decided_on": "2026-08-25",
+      "evidence_url": "https://cos-gis.maps.arcgis.com/sharing/rest/content/items/b056ccb8140b404a95fa7eb71d064151/data",
+      "quote": "Subject to the terms and conditions of this License, the Licensor grants to You a worldwide, royalty-free, non-exclusive, terminable license to Use the Database. These rights explicitly exclude commercial use.",
+      "quote_from": "Section 3.1 of the City of Scottsdale 'Open Database License Agreement' PDF, saved at ~/grok-playground/output/task-w7-scottsdale-history/raw/COS_Open_Database_License_Agreement.pdf; wording verified against the PDF text by gmullins-1e, whitespace normalized across the PDF's line wraps.",
       "required_text": "",
-      "reviewed_by": "",
+      "reviewed_by": "claude gmullins-1e 2026-08-25 - refusal is the fail-closed direction; recorded without an operator ask under the standing delegation (asks are for sends and money out only)",
+      "note": "Second, independent reason not to sell: the city's own portal serves the full permit history free (288,121 rows counted by the wave-7 research run, count PROPOSED not yet recounted on our side). Either fact alone is enough to refuse.",
       "labels": ["scottsdale", "scottsdale, arizona"]
     },
     "seattle": {
