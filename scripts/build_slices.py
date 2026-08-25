@@ -47,7 +47,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from freshness import late_after  # noqa: E402
 from merge_catalog_adds import family_rows  # noqa: E402
-from pipeline import build_veto  # noqa: E402
+from pipeline import assess, build_veto  # noqa: E402
 from render_family import SAMPLE_WITHHELD  # noqa: E402
 from render_family import check_withheld  # noqa: E402
 from render_family import record_withheld_shape  # noqa: E402
@@ -197,6 +197,31 @@ def check_spec(mod_name: str, spec: object) -> list[str]:
 
 def shown_rows(spec: dict) -> int:
     return sum(len(t["rows"]) for t in spec["tables"])
+
+
+def _bootstrap_fault(estate_down: str) -> tuple[str, str | None] | None:
+    """The one estate stop this builder may walk through, named exactly.
+
+    DATED 2026-08-25, the day the six permit-file boards and three metro
+    families were armed. Arming a checkout in catalog.json turns the estate
+    gate red on the spot -- the page a buyer lands on shows no button yet --
+    and the gate's own fix-it line says to let THIS script write the button.
+    Stopping here would deadlock: the gate waits for the build, the build
+    waits for the gate. scripts/arm_family_pages.py is the same carve-out
+    for the five hand-written parents; this is the generated-page half.
+
+    It matches the two armed-but-dark shapes check_site prints and nothing
+    else. Any other failure text returns None and the build stops exactly
+    as before. Returns (family id, board slug or None).
+    """
+    m = re.match(
+        r"scripts/check_site\.py is failing: FAIL: "
+        r"([a-z0-9-]+)(?:/([a-z0-9-]+) has an armed board checkout at"
+        r"| declares a checkout at) https://",
+        estate_down)
+    if not m:
+        return None
+    return (m.group(1), m.group(2))
 
 
 def load_modules(only: str | None = None) -> list:
@@ -419,11 +444,34 @@ def main() -> None:
     # exits on, read through the one function all three call.
     vetoed, estate_down = build_veto(today)
     if estate_down:
-        print(f"BUILD STOPPED: {estate_down}", file=sys.stderr)
-        print("Nothing was written. The estate honesty gate has to pass before any page "
-              "is rebuilt, because a build on top of a page that is already lying just "
-              "makes more of them.", file=sys.stderr)
-        raise SystemExit(1)
+        fault = _bootstrap_fault(estate_down)
+        if fault and fault[0] in {m.FAMILY for m in mods}:
+            fam_id, slug = fault
+            who = f"{fam_id}/{slug}" if slug else fam_id
+            print(f"BOOTSTRAP: the gate's one named fault is the missing pay button on "
+                  f"{who}, and this run was asked to rebuild {fam_id}. Building the page "
+                  f"IS the fix the gate asks for, so this build proceeds. Per-family "
+                  f"refusals below still stand in full.", file=sys.stderr)
+            # The gate being red made build_veto return early with no per-family
+            # refusals. Read them anyway -- the bootstrap opens the estate stop
+            # only, never a family's own refusal.
+            a = assess(probe=False, today=today)
+            vetoed = {}
+            for r in a["refusals"]:
+                # With the gate red, every priced family grows a "priced passes
+                # while honest fails" refusal whose detail is this same fault --
+                # the cascade the build_veto docstring names. Dropping THAT one
+                # refusal, on THIS family, for THIS exact fault, is the whole of
+                # the carve-out. A refusal with any other detail stands.
+                if r["id"] == fam_id and _bootstrap_fault(r.get("detail") or "") == fault:
+                    continue
+                vetoed.setdefault(r["id"], []).append(r)
+        else:
+            print(f"BUILD STOPPED: {estate_down}", file=sys.stderr)
+            print("Nothing was written. The estate honesty gate has to pass before any page "
+                  "is rebuilt, because a build on top of a page that is already lying just "
+                  "makes more of them.", file=sys.stderr)
+            raise SystemExit(1)
     refused_n = 0
 
     for mod in mods:

@@ -68,8 +68,8 @@
         "url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
         "lands_on": "buy.stripe.com",
         "label": "Subscribe — $99 a month",
-        "checked": "2026-08-23",
-        "verified": "2026-08-23"
+        "checked": "2026-08-25",
+        "verified": "2026-08-25"
       }
     },
     {
@@ -137,15 +137,71 @@
       "short": "City permit board files",
       "who": "Contractors, expediters, lenders and data teams who want one city's published permit table as a single CSV.",
       "note": "Six boards cleared ALLOW_PAID 2026-08-25 (austin, cambridge-ma, cincinnati, montgomery-md, new-york, san-francisco). $349 once per board, never below $175. No Stripe URL on this row: Claude mints the six pay links. Delivery copies the priced-family wording already on ttb and agentic-commerce: a person emails the CSV within one working day. Person-name columns never leave. Montgomery required_text (783 chars) ships inside that board's file. This is not /feeds/permit-metros (the week-over-week change feed, still off sale).",
-      "contact_h2": "Start the thread",
+      "contact_h2": "Ask before you buy",
       "contact_p": "Name the city. We reply with the as-of date, the row count we counted off the city's metadata, and the checkout link for that board, before you pay anything.",
-      "contact_cta": "Email us for the $349 checkout link",
-      "contact_note": "Tell us which city you want. After you pay, a person emails you the board file as a CSV within one working day.",
+      "contact_cta": "Email us before you pay",
+      "contact_note": "Say which city you want. We will tell you the as-of date and the row count we counted before you pay.",
       "foot": "Every row count, column count, date range and as-of stamp on these pages was read from one metadata fetch of that city's own portal. Sample rows show the shape of the assembled file, not a dump of the city's full board.",
       "checkout": {
         "terms": "$349 once, for the city named on the page. Nothing recurring, nothing to cancel and no subscription behind it. You are buying this file once.",
         "after": "After you pay, a person emails you the board file as a CSV within one working day.",
         "status": "none"
+      },
+      "board_checkouts": {
+        "austin": {
+          "url": "https://buy.stripe.com/aFafZa3cWg94gEcdTA0sU0T",
+          "lands_on": "buy.stripe.com",
+          "label": "Buy the Austin file — $349 once",
+          "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
+          "checked": "2026-08-25",
+          "status": "live",
+          "verified": "2026-08-25"
+        },
+        "cambridge-ma": {
+          "url": "https://buy.stripe.com/aFadR2aFo7Cy4VueXE0sU0U",
+          "lands_on": "buy.stripe.com",
+          "label": "Buy the Cambridge file — $349 once",
+          "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
+          "checked": "2026-08-25",
+          "status": "live",
+          "verified": "2026-08-25"
+        },
+        "cincinnati": {
+          "url": "https://buy.stripe.com/00w28kaFo4qmafOdTA0sU0V",
+          "lands_on": "buy.stripe.com",
+          "label": "Buy the Cincinnati file — $349 once",
+          "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
+          "checked": "2026-08-25",
+          "status": "live",
+          "verified": "2026-08-25"
+        },
+        "montgomery-md": {
+          "url": "https://buy.stripe.com/dRmaEQeVE2ie87G8zg0sU0W",
+          "lands_on": "buy.stripe.com",
+          "label": "Buy the Montgomery County file — $349 once",
+          "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
+          "checked": "2026-08-25",
+          "status": "live",
+          "verified": "2026-08-25"
+        },
+        "new-york": {
+          "url": "https://buy.stripe.com/aFadR2bJs6yugEc7vc0sU0X",
+          "lands_on": "buy.stripe.com",
+          "label": "Buy the New York City file — $349 once",
+          "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
+          "checked": "2026-08-25",
+          "status": "live",
+          "verified": "2026-08-25"
+        },
+        "san-francisco": {
+          "url": "https://buy.stripe.com/6oUdR2eVE8GC9bK6r80sU0Y",
+          "lands_on": "buy.stripe.com",
+          "label": "Buy the San Francisco file — $349 once",
+          "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
+          "checked": "2026-08-25",
+          "status": "live",
+          "verified": "2026-08-25"
+        }
       }
     },
     {
@@ -358,8 +414,8 @@
         "url": "https://buy.stripe.com/3cI3co28S8GCbjS16O0sU0R",
         "lands_on": "buy.stripe.com",
         "label": "Subscribe — $59 a month",
-        "checked": "2026-08-23",
-        "verified": "2026-08-23"
+        "checked": "2026-08-25",
+        "verified": "2026-08-25"
       }
     },
     {
@@ -568,15 +624,20 @@
       "sample_status": "pass",
       "group": "Construction records",
       "note": "BORN 2026-08-25 in a copy of this repo. One-time assembled building-permit file. Price $349 once per slice, five slices. Person columns stripped. Checkout URL left empty for Claude to mint. Never mint from this note.",
-      "contact_h2": "Start the thread",
+      "contact_h2": "Ask before you buy",
       "contact_p": "Name the slice. We reply with how many rows we hold for it, and the date we pulled them, before you spend anything.",
-      "contact_cta": "Email us for the $349 checkout link",
-      "contact_note": "Say which slice you want. We will tell you the row count and the pull date before you pay. There is no pay button on this page until a payment link is minted.",
+      "contact_cta": "Email us before you pay",
+      "contact_note": "Say which slice you want. We will tell you the row count and the pull date before you pay.",
       "foot": "Every count and date on this page was read out of the extract we pulled on the day named above. Where a column names a person, it is not in the file you buy.",
       "checkout": {
         "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. After you pay, a person emails you the whole file as a CSV within one working day of your payment. The City of Chicago's required notice travels with the file, character for character, and is printed on the page at the point of sale.",
         "after": "After you pay, a person emails you the whole file as a CSV within one working day of your payment.",
-        "status": "none"
+        "status": "live",
+        "url": "https://buy.stripe.com/5kQbIU5l41eaafO5n40sU0Z",
+        "lands_on": "buy.stripe.com",
+        "label": "Buy the file — $349 once",
+        "checked": "2026-08-25",
+        "verified": "2026-08-25"
       }
     },
     {
@@ -591,15 +652,20 @@
       "sample_status": "pass",
       "group": "Construction records",
       "note": "BORN 2026-08-25 in a copy of this repo. One-time assembled building-permit file. Price $349 once per slice, five slices. Person columns stripped. Checkout URL left empty for Claude to mint. Never mint from this note.",
-      "contact_h2": "Start the thread",
+      "contact_h2": "Ask before you buy",
       "contact_p": "Name the slice. We reply with how many rows we hold for it, and the date we pulled them, before you spend anything.",
-      "contact_cta": "Email us for the $349 checkout link",
-      "contact_note": "Say which slice you want. We will tell you the row count and the pull date before you pay. There is no pay button on this page until a payment link is minted.",
+      "contact_cta": "Email us before you pay",
+      "contact_note": "Say which slice you want. We will tell you the row count and the pull date before you pay.",
       "foot": "Every count and date on this page was read out of the extract we pulled on the day named above. Where a column names a person, it is not in the file you buy.",
       "checkout": {
         "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. After you pay, a person emails you the whole file as a CSV within one working day of your payment.",
         "after": "After you pay, a person emails you the whole file as a CSV within one working day of your payment.",
-        "status": "none"
+        "status": "live",
+        "url": "https://buy.stripe.com/4gM3coeVEf505Zyg1I0sU10",
+        "lands_on": "buy.stripe.com",
+        "label": "Buy the file — $349 once",
+        "checked": "2026-08-25",
+        "verified": "2026-08-25"
       }
     },
     {
@@ -614,15 +680,20 @@
       "sample_status": "pass",
       "group": "Construction records",
       "note": "BORN 2026-08-25 in a copy of this repo. One-time assembled building-permit file. Price $349 once per slice, five slices. Person columns stripped. Checkout URL left empty for Claude to mint. Never mint from this note.",
-      "contact_h2": "Start the thread",
+      "contact_h2": "Ask before you buy",
       "contact_p": "Name the slice. We reply with how many rows we hold for it, and the date we pulled them, before you spend anything.",
-      "contact_cta": "Email us for the $349 checkout link",
-      "contact_note": "Say which slice you want. We will tell you the row count and the pull date before you pay. There is no pay button on this page until a payment link is minted.",
+      "contact_cta": "Email us before you pay",
+      "contact_note": "Say which slice you want. We will tell you the row count and the pull date before you pay.",
       "foot": "Every count and date on this page was read out of the extract we pulled on the day named above. Where a column names a person, it is not in the file you buy.",
       "checkout": {
         "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. After you pay, a person emails you the whole file as a CSV within one working day of your payment.",
         "after": "After you pay, a person emails you the whole file as a CSV within one working day of your payment.",
-        "status": "none"
+        "status": "live",
+        "url": "https://buy.stripe.com/8x2aEQeVE3mibjS4j00sU11",
+        "lands_on": "buy.stripe.com",
+        "label": "Buy the file — $349 once",
+        "checked": "2026-08-25",
+        "verified": "2026-08-25"
       }
     }
   ],

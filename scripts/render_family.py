@@ -517,9 +517,29 @@ def offer_block(spec: dict) -> tuple[str, str]:
                 + (" " + html.escape(after) if after else "")
                 + "</p>\n"
             )
+        # A family that sells per board carries no url of its own, and until
+        # 2026-08-25 this branch then told the buyer "No pay button on this one
+        # yet" -- which went false the day the six permit-file boards were
+        # armed, because six buttons sat one click below the sentence. Say
+        # which of the three states the family is actually in.
+        boards = fam_row(str(spec.get("id") or "")).get("board_checkouts") or {}
+        armed_n = sum(1 for r in boards.values()
+                      if str((r or {}).get("url") or "").startswith("https://"))
+        if boards and armed_n == len(boards):
+            lead = (f'<strong>Each city sold here has its own pay button, on its own '
+                    f'page.</strong> Buy from the city\'s page, so the button you press '
+                    f'names the city you get. Rather ask first? Email <a href="{mail}">'
+                    f'operations@ustechautomations.com</a>. {spec["contact_p"]}')
+        elif armed_n:
+            lead = (f'<strong>Some city pages here carry their own pay button; the rest '
+                    f'are sold by email.</strong> Email <a href="{mail}">'
+                    f'operations@ustechautomations.com</a>. {spec["contact_p"]}')
+        else:
+            lead = (f'<strong>No pay button on this one yet.</strong> Email <a href="{mail}">'
+                    f'operations@ustechautomations.com</a>. {spec["contact_p"]}')
         sec = f"""    <section class="contact">
       <h2>{html.escape(spec["contact_h2"])}</h2>
-      <p><strong>No pay button on this one yet.</strong> Email <a href="{mail}">operations@ustechautomations.com</a>. {spec["contact_p"]}</p>
+      <p>{lead}</p>
 {written}      <a class="mail" href="{mail}">{html.escape(spec["contact_cta"])}</a>
       <p class="mail-note">{spec["contact_note"]}</p>
     </section>

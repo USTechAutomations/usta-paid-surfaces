@@ -196,7 +196,13 @@ def offer_spec(fam: dict, spec: dict) -> dict:
     """
     price = fam["price"]
     subject = f'{fam.get("short") or fam["name"]} — {spec["name"]} — {price}'
-    checkout = fam.get("checkout")
+    # DATED NOTE, 2026-08-25: a spec-level checkout wins over the family's.
+    # permit-files sells six different city files at one price, one payment
+    # link each -- a single family record cannot point six buy buttons at six
+    # different addresses, and pointing them all at one address would charge a
+    # buyer for a city they did not pick. Every other family has no spec-level
+    # record and behaves exactly as before.
+    checkout = spec.get("checkout") or fam.get("checkout")
     return {
         "id": fam["id"],
         "price": price,

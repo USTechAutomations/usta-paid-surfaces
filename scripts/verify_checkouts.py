@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import datetime as dt
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -113,6 +114,29 @@ def unanswered_by_ladder(fid: str, blind: dict) -> str | None:
                      f"({h['detail']})" for h in hits)
 
 
+def _bootstrap_fault(estate_down: str) -> str | None:
+    """The one estate stop this verifier may walk through, named exactly.
+
+    DATED 2026-08-25. A freshly armed checkout turns the gate red with
+    "never verified -- run scripts/verify_checkouts.py", and this script
+    then refuses to run because the gate is red: the gate waits for the
+    stamp, the stamp waits for the gate. The gate's own fail line names
+    THIS script as the fix, so for that one fault -- and for its twin, a
+    stamp that has aged out -- the run proceeds and stamps.
+
+    It is not a flag (see the block above: no --force, no --anyway) and it
+    opens for nothing else. A missing pay button stays the builder's fault;
+    a lawfulness refusal stays a refusal; any other text returns None and
+    the run withholds exactly as before. Returns the family id it matched.
+    """
+    m = re.match(
+        r"scripts/check_site\.py is failing: FAIL: ([a-z0-9-]+) checkout "
+        r"(?:was never verified -- run scripts/verify_checkouts\.py"
+        r"|was last proved working \d+ days ago; re-verify before shipping)",
+        estate_down)
+    return m.group(1) if m else None
+
+
 def main() -> int:
     dry = "--dry" in sys.argv
 
@@ -133,6 +157,26 @@ def main() -> int:
     # --dry is not a way round it either. --dry stamps nothing at all, so it can
     # only ever be more cautious than a refusal, never less.
     vetoed, estate_down = build_veto()
+    boot_blind = None
+    if estate_down and _bootstrap_fault(estate_down):
+        print(f"BOOTSTRAP: the gate's one named fault is a checkout stamp only this "
+              f"script can write ({_bootstrap_fault(estate_down)}). Stamping IS the fix "
+              f"the gate asks for, so this run proceeds. Every per-surface refusal "
+              f"below still stands in full.")
+        # The red gate made build_veto return early with no per-surface refusals.
+        # Read them anyway, dropping only the cascade rows that quote this same
+        # gate text back -- every other refusal withholds its stamp as always.
+        a = P.assess(probe=False)
+        vetoed = {}
+        for r in a["refusals"]:
+            if r.get("detail") == estate_down:
+                continue
+            vetoed.setdefault(r["id"], []).append(r)
+        # build_blindspots() would hand the same red gate back. The blind spots
+        # themselves come off this same assess, so read them here -- nothing an
+        # UNKNOWN ladder wanted said out loud goes unsaid in bootstrap mode.
+        boot_blind = P.money_blind_spots(a["worth_knowing"])
+        estate_down = None
 
     # THE SECOND QUESTION, and it deliberately gets a different answer from the
     # first. These are surfaces where a money gate passes over a gate that came
@@ -156,7 +200,10 @@ def main() -> int:
     # halves of the sentence had gone false while reading as fact. The run
     # prints the real list below every time it goes; a number typed into a
     # comment is a number nobody recounts.
-    blind, blind_down = ({}, None) if estate_down else build_blindspots()
+    if boot_blind is not None:
+        blind, blind_down = boot_blind, None
+    else:
+        blind, blind_down = ({}, None) if estate_down else build_blindspots()
     estate_down = estate_down or blind_down
     if estate_down:
         # The ladder itself could not be read. That is UNKNOWN, and unknown never
@@ -181,44 +228,56 @@ def main() -> int:
     withheld: list[str] = []
     dark: list[str] = []
     for fam in cat["families"]:
+        # DATED NOTE, 2026-08-25: a family may hold per-board records in
+        # board_checkouts (permit-files, six city files, one link each). Every
+        # record -- the family's and each board's -- is probed and stamped on
+        # its own, and the ladder question is the FAMILY's either way, because
+        # the ladder assesses surfaces, not payment links.
+        records = []
         c = fam.get("checkout")
-        if not c:
+        if c:
+            records.append((fam["id"], c))
+        for slug, rec in sorted((fam.get("board_checkouts") or {}).items()):
+            if rec:
+                records.append((f"{fam['id']}/{slug}", rec))
+        if not records:
             continue
-        url = c.get("url") or ""
-        if not url or url == "TO-MINT" or not str(url).startswith("https://"):
-            # Written terms for a product sold through an email thread, or a
-            # mint placeholder that is not yet a chargeable address.
-            print(f"{fam['id']:16} no-link  terms are written down; sold by email, nothing to fetch")
-            continue
-        checked += 1
-        status, detail = probe(c["url"], c.get("lands_on"))
-        print(f"{fam['id']:16} {status:8} {detail}")
-        if status != "live":
-            print(f"  ^ {fam['id']} will NOT ship a pay button until this is fixed")
-        unanswered = unanswered_by_ladder(fam["id"], blind)
-        if unanswered:
-            dark.append(f"{fam['id']}: {unanswered}")
-            print(f"  ^ {fam['id']} is selling with an UNANSWERED question under it, and "
-                  f"this stamp does not answer it: {unanswered}")
-        refusal = refused_by_ladder(fam["id"], vetoed)
-        if refusal:
-            withheld.append(f"{fam['id']}: {refusal}")
-            print(f"  ^ {fam['id']} REFUSED BY THE LADDER, so no live stamp is written "
-                  f"even though the address answered: {refusal}")
-        if not dry:
-            c["checked"] = today
-            # The only line the refusal changes. `checked` above is a record of
-            # having looked and is true either way; `status` and `verified` are
-            # the certificate check_site.py reads before it ships a pay button,
-            # and a refused surface does not get one written today. Whatever the
-            # record already holds is left exactly as it is -- not cleared, not
-            # set to dead, not touched. This withholds a stamp; it never removes
-            # one.
-            if not refusal:
-                c["status"] = status
-                if status == "live":
-                    c["verified"] = today
-            changed += 1
+        for label, c in records:
+            url = c.get("url") or ""
+            if not url or url == "TO-MINT" or not str(url).startswith("https://"):
+                # Written terms for a product sold through an email thread, or a
+                # mint placeholder that is not yet a chargeable address.
+                print(f"{label:16} no-link  terms are written down; sold by email, nothing to fetch")
+                continue
+            checked += 1
+            status, detail = probe(c["url"], c.get("lands_on"))
+            print(f"{label:16} {status:8} {detail}")
+            if status != "live":
+                print(f"  ^ {label} will NOT ship a pay button until this is fixed")
+            unanswered = unanswered_by_ladder(fam["id"], blind)
+            if unanswered:
+                dark.append(f"{label}: {unanswered}")
+                print(f"  ^ {label} is selling with an UNANSWERED question under it, and "
+                      f"this stamp does not answer it: {unanswered}")
+            refusal = refused_by_ladder(fam["id"], vetoed)
+            if refusal:
+                withheld.append(f"{label}: {refusal}")
+                print(f"  ^ {label} REFUSED BY THE LADDER, so no live stamp is written "
+                      f"even though the address answered: {refusal}")
+            if not dry:
+                c["checked"] = today
+                # The only line the refusal changes. `checked` above is a record
+                # of having looked and is true either way; `status` and
+                # `verified` are the certificate check_site.py reads before it
+                # ships a pay button, and a refused surface does not get one
+                # written today. Whatever the record already holds is left
+                # exactly as it is -- not cleared, not set to dead, not touched.
+                # This withholds a stamp; it never removes one.
+                if not refusal:
+                    c["status"] = status
+                    if status == "live":
+                        c["verified"] = today
+                changed += 1
     if not dry and changed:
         CAT.write_text(json.dumps(cat, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         print(f"\nstamped {changed} checkout records in catalog.json")

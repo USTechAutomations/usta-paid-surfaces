@@ -410,6 +410,12 @@ def _slice(board: dict, facts: dict) -> dict:
             f"This is a one-time snapshot of {board['long']}'s published board, "
             "not a feed we re-read for you after you pay."
         ),
+        # DATED NOTE, 2026-08-25: each board sells through its own payment
+        # link, held in the catalog row's board_checkouts and minted by the
+        # lead session, never typed here. A board with no record yet keeps the
+        # email thread -- the renderer treats a missing checkout as exactly
+        # that, so nothing has to be guessed on this side.
+        "checkout": (fam.get("board_checkouts") or {}).get(board["id"]),
     }
 
 
@@ -588,11 +594,26 @@ def family_spec() -> dict:
         section(
             "How it works",
             None,
-            "      <ol class=\"steps\">\n"
-            "        <li>Email us and name the city. There is no card button on these pages yet.</li>\n"
-            "        <li>We reply with the as-of date, the row count we counted, and the checkout link for that board.</li>\n"
-            "        <li>After you pay, a person emails you the board file as a CSV within one working day.</li>\n"
-            "      </ol>",
+            # Two truthful states, picked by what the catalog really holds:
+            # every board armed with its own payment link, or not yet.
+            (
+                "      <ol class=\"steps\">\n"
+                "        <li>Open the city page and read what the file holds -- the as-of "
+                "date and the row count are printed on it.</li>\n"
+                "        <li>Pay on that page. Each city has its own card button at $349 "
+                "once.</li>\n"
+                "        <li>After you pay, a person emails you the board file as a CSV "
+                "within one working day.</li>\n"
+                "      </ol>"
+                if all((fam.get("board_checkouts") or {}).get(b["id"], {}).get("url")
+                       for b in BOARDS)
+                else
+                "      <ol class=\"steps\">\n"
+                "        <li>Email us and name the city. There is no card button on these pages yet.</li>\n"
+                "        <li>We reply with the as-of date, the row count we counted, and the checkout link for that board.</li>\n"
+                "        <li>After you pay, a person emails you the board file as a CSV within one working day.</li>\n"
+                "      </ol>"
+            ),
         ),
     ]
     desc = (

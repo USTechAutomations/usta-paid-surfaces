@@ -244,8 +244,12 @@ def check_price(rep: Report, who: str, vis: str, fam: dict | None) -> None:
     if fam and fam.get("price") and fam["price"] not in vis:
         # Same 2026-08-25 rule as check_site.py: until a chargeable https
         # address exists, a priced catalog row with a silent page offers a
-        # stranger nothing to be misled by; strict once the link is real.
-        if str((fam.get("checkout") or {}).get("url") or "").startswith("https://"):
+        # stranger nothing to be misled by; strict once ANY link in the family
+        # is real -- the family's own, or any board's in board_checkouts.
+        armed = str((fam.get("checkout") or {}).get("url") or "").startswith("https://") or any(
+            str((b or {}).get("url") or "").startswith("https://")
+            for b in (fam.get("board_checkouts") or {}).values())
+        if armed:
             rep.bad(who, f"does not show the price its catalog row carries, {fam['price']!r}")
 
 

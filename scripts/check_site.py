@@ -326,6 +326,33 @@ def check_privacy(page_id: str, raw: str, vis: str, is_slice: bool) -> None:
              f"{FIXIT}")
 
 
+def checkout_for(fam: dict | None, who: str):
+    """The checkout record that governs one page: a board's own, else the family's.
+
+    DATED NOTE, 2026-08-25: permit-files sells six city files through six
+    payment links, held per board in the catalog row's board_checkouts. The
+    record for families/<fam>/<child>/ is that child's own where one exists;
+    every other page keeps the family record, and a family with no
+    board_checkouts is untouched by this.
+    """
+    fam = fam or {}
+    boards = fam.get("board_checkouts") or {}
+    if "/" in who:
+        child = who.split("/", 1)[1]
+        if child in boards:
+            return boards[child]
+    return fam.get("checkout")
+
+
+def chargeable(fam: dict | None) -> bool:
+    """Does any address exist that a stranger could pay at, anywhere in this family?"""
+    fam = fam or {}
+    if str((fam.get("checkout") or {}).get("url") or "").startswith("https://"):
+        return True
+    return any(str((b or {}).get("url") or "").startswith("https://")
+               for b in (fam.get("board_checkouts") or {}).values())
+
+
 def check_pay_links(fid: str, raw: str, checkout) -> None:
     """No page may carry a pay link the catalog did not declare and we did not fetch."""
     links = re.findall(r'href="(https?://[^"]+)"', raw)
@@ -695,12 +722,11 @@ def main() -> None:
             # exists. A page SHOWING a wrong price, and every other check here,
             # stays as strict as it was. Proved both ways on 2026-08-25:
             # TO-MINT passed, a live https URL with the same stale page failed.
-            checkout_url = str((fam.get("checkout") or {}).get("url") or "")
-            if checkout_url.startswith("https://"):
+            if chargeable(fam):
                 fail(f"{fam['id']} missing price {fam['price']}")
         for bad in forbidden_hits(raw):
             fail(f"{fam['id']} contains forbidden {bad!r}")
-        check_pay_links(fam["id"], raw, fam.get("checkout"))
+        check_pay_links(fam["id"], raw, checkout_for(fam, fam["id"]))
         check_privacy(fam["id"], raw, vis, is_slice=False)
         check_description(fam["id"], raw)
         check_description_price(fam["id"], raw, fam["price"])
@@ -812,11 +838,11 @@ def check_slices() -> None:
                 # Same 2026-08-25 rule as the parent page above: with no
                 # chargeable address yet there is no offer a child page could
                 # be lying about; strict again the moment the link is real.
-                if str((fam.get("checkout") or {}).get("url") or "").startswith("https://"):
+                if chargeable(fam):
                     fail(f"{who} does not show its parent's price {fam['price']}")
             if 'name="data-newest"' not in raw or 'name="data-cadence-days"' not in raw:
                 fail(f"{who} carries no read date and no cadence, so nothing can prove it is current")
-            check_pay_links(who, raw, fam.get("checkout"))
+            check_pay_links(who, raw, checkout_for(fam, who))
             check_privacy(who, raw, vis, is_slice=True)
             check_description_price(who, raw, fam["price"])
             check_call_to_action_price(who, raw, fam["price"])
@@ -910,7 +936,7 @@ def check_buttons_on(who: str, raw: str, fam: dict | None) -> None:
     buttons = buy_buttons(raw)
     if not buttons:
         return
-    c = (fam or {}).get("checkout") or {}
+    c = checkout_for(fam, who) or {}
     price = (fam or {}).get("price") or ""
     declared = c.get("url")
     for href, label in buttons:
@@ -980,6 +1006,20 @@ def check_buy_buttons() -> None:
                  f"at it. Either put the button on the page or take the address out of "
                  f"catalog.json. {BUTTON_FIXIT}")
 
+    # The same quiet fault, per board: an armed board record whose own child
+    # page still says email us is money sitting in Stripe that no buyer can
+    # reach. DATED 2026-08-25, with the six permit-file boards.
+    for fam in CATALOG["families"]:
+        for slug, rec in sorted((fam.get("board_checkouts") or {}).items()):
+            url = str((rec or {}).get("url") or "")
+            if not url.startswith("https://"):
+                continue
+            page = ROOT / "families" / fam["id"] / slug / "index.html"
+            if page.is_file() and not buy_buttons(page.read_text(encoding="utf-8")):
+                fail(f"{fam['id']}/{slug} has an armed board checkout at {url} and its own "
+                     f"page shows no pay button at all. Either put the button on the page or "
+                     f"take the address out of catalog.json. {BUTTON_FIXIT}")
+
 
 
 def check_held_records() -> None:
@@ -999,6 +1039,16 @@ def check_held_records() -> None:
     catalog is read by both.
     """
     for fam in CATALOG["families"]:
+        # A board record with no url is held to the same rule as a family
+        # record with none: no checkout-shaped address may sit in it.
+        for slug, rec in sorted((fam.get("board_checkouts") or {}).items()):
+            if (rec or {}).get("url"):
+                continue
+            for field, value in sorted((rec or {}).items()):
+                m = CHECKOUT_SHAPED.search(str(value))
+                if m:
+                    fail(f"{fam['id']} board {slug!r} is not selling -- no checkout url -- and "
+                         f"yet its {field!r} spells out a checkout address, {m.group(0)!r}.")
         c = fam.get("checkout") or {}
         if c.get("url"):
             continue
