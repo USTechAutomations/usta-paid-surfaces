@@ -6,7 +6,7 @@
       "slug": "california",
       "newest": "2026-08-25",
       "oldest": "2026-06-23",
-      "runs": 73,
+      "runs": 75,
       "row_count": 44,
       "cadence_days": 1
     },
@@ -14,7 +14,7 @@
       "slug": "alaska",
       "newest": "2026-08-25",
       "oldest": "2026-06-23",
-      "runs": 73,
+      "runs": 75,
       "row_count": 9,
       "cadence_days": 1
     },
@@ -22,7 +22,7 @@
       "slug": "texas",
       "newest": "2026-08-25",
       "oldest": "2026-06-23",
-      "runs": 73,
+      "runs": 75,
       "row_count": 7,
       "cadence_days": 1
     },
@@ -30,7 +30,7 @@
       "slug": "magnitude-revised",
       "newest": "2026-08-25",
       "oldest": "2026-06-23",
-      "runs": 73,
+      "runs": 75,
       "row_count": 23,
       "cadence_days": 1
     },
@@ -38,7 +38,7 @@
       "slug": "depth-revised",
       "newest": "2026-08-25",
       "oldest": "2026-06-23",
-      "runs": 73,
+      "runs": 75,
       "row_count": 34,
       "cadence_days": 1
     },
@@ -46,7 +46,7 @@
       "slug": "place-revised",
       "newest": "2026-08-25",
       "oldest": "2026-06-23",
-      "runs": 73,
+      "runs": 75,
       "row_count": 19,
       "cadence_days": 1
     },
@@ -54,7 +54,7 @@
       "slug": "most-revised",
       "newest": "2026-08-25",
       "oldest": "2026-06-23",
-      "runs": 73,
+      "runs": 75,
       "row_count": 13,
       "cadence_days": 1
     },
@@ -62,7 +62,7 @@
       "slug": "coverage",
       "newest": "2026-08-25",
       "oldest": "2026-06-23",
-      "runs": 73,
+      "runs": 75,
       "row_count": 60,
       "cadence_days": 1
     }
