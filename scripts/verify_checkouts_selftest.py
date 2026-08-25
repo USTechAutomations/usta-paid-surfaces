@@ -78,7 +78,32 @@ REFUSED = "air-permits"
 # button, so "sells regardless" would not be true of it -- and a small false
 # sentence in a file about false sentences is the wrong place to be relaxed.
 BLIND = "agentic-commerce"
-HEALTHY = "agent-register"
+
+# HEALTHY was typed in as "agent-register" until 2026-08-25, when that product
+# came off sale. It stopped declaring a checkout address, so the case that
+# proves an unrefused family is still certified could not be reached and this
+# whole file went to exit 2. The subject of a healthy-path case must not be a
+# name that a withdrawal can quietly take away.
+#
+# It is derived now: the first family that actually declares a checkout URL
+# and is not already spoken for by one of the other fixtures. If no family
+# sells, the file says so and stops rather than reporting green over a case it
+# never ran.
+def _first_selling(*spoken_for: str) -> str:
+    families = json.loads((ROOT / "catalog.json").read_text())["families"]
+    for fam in families:
+        fid = fam.get("id")
+        if fid in spoken_for:
+            continue
+        if (fam.get("checkout") or {}).get("url"):
+            return fid
+    print("CANNOT RUN: no family in catalog.json declares a checkout URL, so "
+          "the case that proves an unrefused family is still certified cannot be "
+          "reached. Point this file at a family that really does sell.")
+    raise SystemExit(2)
+
+
+HEALTHY = _first_selling(BLIND, REFUSED)
 
 # What the air-permits record looked like at 02:55 UTC on 2026-08-24: a live
 # address, and a stamp from an earlier run still standing. The old stamp is the

@@ -62,10 +62,37 @@ import pipeline as P  # noqa: E402
 ROOT = Path(__file__).resolve().parents[1]
 
 # The family the ladder refuses, and the family that passes the whole ladder.
-# Both are read out of catalog.json rather than typed, so this file does not
-# quietly start testing nothing the day either one is renamed.
+#
+# HEALTHY used to be typed in as "agent-register" under a comment claiming it
+# was read out of catalog.json. It was not, and on 2026-08-25 that product came
+# off sale: its price became "Not for sale", the ladder correctly refused to
+# mint a link for it, and all four of this file's healthy-path cases failed --
+# not because minting broke, but because the file was pointed at something that
+# no longer sells. A withdrawal should never be able to disarm a test that is
+# not about that product.
+#
+# So it is derived now, using the minting tool's OWN price parser rather than a
+# second opinion about what a price looks like. If nothing in the catalog sells,
+# this file says so and stops, because a healthy-path test with no healthy
+# family silently proves nothing.
 REFUSED = "air-permits"
-HEALTHY = "agent-register"
+
+
+def _first_sellable(refused: str) -> str:
+    families = json.loads((ROOT / "catalog.json").read_text())["families"]
+    for fam in families:
+        fid = fam.get("id")
+        if fid == refused:
+            continue
+        if M.parse_price(fam.get("price") or "") is not None:
+            return fid
+    print("CANNOT RUN: nothing in catalog.json carries a price the minting tool "
+          "can read, so the case that proves a healthy family IS minted cannot "
+          "be reached. Point this file at a family that really does sell.")
+    raise SystemExit(2)
+
+
+HEALTHY = _first_sellable(REFUSED)
 
 # What air-permits cost at 02:55 UTC on 2026-08-24, read off the payment link
 # that was minted that minute: $175.00 USD, every 1 month. It is restored here
