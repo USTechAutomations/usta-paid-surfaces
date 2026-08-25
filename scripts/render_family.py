@@ -37,16 +37,16 @@ FEEDS_BASE = "https://ustechautomations.com/feeds"
 # true, which is the exact thing we refuse to ship. So the two claims that
 # survived are the two a machine can check on every build, and check_withheld()
 # below fails the build if either stops holding.
-SAMPLE_WITHHELD = {
-    "dc-siting": (
-        "We are not putting a sample file on this page, and we would rather say why than "
-        "leave a quiet gap. The file we would hand over today is the raw permit list with "
-        "the campus join stripped out of it: {rows} rows of air permit applications, not "
-        "one of which names a datacenter, and no megawatt column anywhere in it. That is a "
-        "different product from the one this page describes. The sample goes up when the "
-        "file carries the join."
-    ),
-}
+# Empty on 2026-08-24, and the machinery is what emptied it. dc-siting was the
+# only entry: the note above said the file named no datacenter, and the day the
+# sample rule was fixed every row in it named one. check_withheld() below is
+# written to stop the build in exactly that case, and it did. The note came off
+# because it had stopped being true, not to get past the stop.
+#
+# The dict stays, and so does the check. A page that says why it is holding
+# something back is the right thing to have; what must never happen again is one
+# saying it while the file underneath has moved on.
+SAMPLE_WITHHELD = {}
 
 # What a datacenter is called in a permit file, in the spellings we have seen.
 DC_WORDS = ("datacenter", "data center", "data centre", "hyperscale")

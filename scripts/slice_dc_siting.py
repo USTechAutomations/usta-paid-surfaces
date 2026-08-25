@@ -21,8 +21,12 @@ import datetime as dt
 import html
 import sqlite3
 import statistics
+import re
 import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import privacy  # noqa: E402
 
 FAMILY = "dc-siting"
 MAX_ROWS = 12
@@ -62,6 +66,69 @@ APPS = {
 # Words that mean somebody is describing a datacenter to the FAA. Kept narrow on
 # purpose: a wider net would pull in every warehouse and we would be guessing.
 DC_WORDS = ("%data cent%", "%datacent%")
+
+# ------------------------------------------------- is this row a datacenter?
+#
+# The sample used to have no test at all. It took the newest rows off each
+# permit list and printed them, so the file we would have handed a buyer held
+# 25 concrete batch plants, a cotton gin, a hospital, sewage works and mines,
+# under a page that promises datacenters. The rule below is what decides now,
+# and it is deliberately two rules rather than one.
+#
+#   RULE 1, must match: the filing's own words name a datacenter.
+#   RULE 2, must not match: the thing being permitted is a plant that supplies
+#   a build. A concrete batch plant erected to pour a datacenter's slab carries
+#   that datacenter's name in the facility field -- "DPR DATA CENTER TEMPORARY
+#   BATCH PLANT" -- and is still a permit for a concrete plant. Rule 1 on its
+#   own puts the batch plants straight back into the sample.
+#
+# Nothing here guesses. Every row is judged on words the agency published.
+
+DC_NAME_WORDS = ("data center", "datacenter", "data centre")
+
+SUPPLY_PLANT_WORDS = (
+    "batch plant", "batchplant", "batch plants",
+    "crushing plant", "crusher", "crushed concrete",
+    "ready mix", "ready-mix", "readymix",
+    "cement plant", "concrete plant", "asphalt plant",
+)
+# The Texas agency's own short form for a concrete batch plant. Matched as a
+# whole word only, so it cannot fire inside some longer word.
+SUPPLY_PLANT_TOKENS = ("cbp",)
+
+_WORD = re.compile(r"[a-z]+")
+
+
+def _hay(fields) -> str:
+    return " ".join(str(f or "") for f in fields).lower()
+
+
+def names_datacenter(*fields) -> bool:
+    """RULE 1. True when the filing's own words name a datacenter."""
+    hay = _hay(fields)
+    return any(w in hay for w in DC_NAME_WORDS)
+
+
+def is_supply_plant(*fields) -> bool:
+    """RULE 2. True when the permitted thing is a plant that supplies a build."""
+    hay = _hay(fields)
+    if any(w in hay for w in SUPPLY_PLANT_WORDS):
+        return True
+    return any(t in SUPPLY_PLANT_TOKENS for t in _WORD.findall(hay))
+
+
+def is_datacenter_siting(*fields) -> bool:
+    """The whole rule, both halves, in one call."""
+    return names_datacenter(*fields) and not is_supply_plant(*fields)
+
+
+def why_not(*fields) -> str:
+    """Plain reason a row was kept out. An empty string means it was kept."""
+    if not names_datacenter(*fields):
+        return "nothing in the filing names a datacenter"
+    if is_supply_plant(*fields):
+        return "the permit is for a supply plant, not for the datacenter"
+    return ""
 
 
 # ---------------------------------------------------------------- plumbing
@@ -846,31 +913,173 @@ def slices() -> list[dict]:
     return out
 
 
-def sample() -> tuple[list[str], list[list[str]]]:
-    """25 real rows off the newest sealed copy of each permit list.
+# The permit lists this sample may draw from, and the one it may not.
+# `adeq_pip_all` (Arizona) carries a written REFUSE in
+# `dc_materialization/universe/state_expansion_v1.json` -- reviewed 2026-08-21,
+# no licence text anywhere and an undecidable robots answer. Arizona rows stay
+# in our own sealed history and never leave in a file a buyer opens. This is a
+# tuple and not a comment because a comment cannot stop a query.
+SAMPLE_SOURCES_ALLOWED = ("tceq_nsr_pending",)
+SAMPLE_SOURCES_REFUSED = ("adeq_pip_all",)
 
-    Plain text, because this feeds the permanent sample.json and sample.csv
-    addresses. A value the agency never published comes back empty here; the
-    web pages mark it instead.
+SAMPLE_ROWS = 25
+
+
+def _plain(v) -> str:
+    """Sample files are plain text. No markup, no blank-cell markers."""
+    return "" if v is None else str(v).strip()
+
+
+def _kind_plain(v) -> str:
+    """CRANE$MOBILE -> Crane (mobile), with no markup around it."""
+    parts = [q.replace("_", " ").strip().lower() for q in str(v or "").split("$") if q.strip()]
+    if not parts:
+        return ""
+    head = parts[0][:1].upper() + parts[0][1:]
+    return head if len(parts) == 1 else f"{head} ({', '.join(parts[1:])})"
+
+
+def _company(name) -> str:
+    """The organisation on the filing, or blank where the field holds a person.
+
+    The FAA sponsor field is documented as the proponent organisation, and it is
+    not always one: the 2026-ANM-1747-OE notice carries an individual's name. A
+    buyer's file is the wrong place to find that out, so every value goes past
+    the same person test the rest of this site uses, and a value that reads as a
+    person becomes an empty cell. The test errs towards blanking, which costs a
+    cell and never a row.
     """
-    headers = ["State", "Agency list", "Applicant", "Site", "Permit number",
-               "Date received", "Stage", "Sealed copy"]
+    s = _plain(name)
+    return "" if not s or privacy.looks_personal(s) else s
+
+
+def sample() -> tuple[list[str], list[list[str]]]:
+    """Real rows off the newest sealed copy, every one of them a datacenter.
+
+    What this used to do: take the newest rows off each permit list and print
+    them. There was no datacenter test anywhere in it, so it shipped concrete
+    batch plants, a cotton gin, a hospital, sewage works and mines under a page
+    that promises datacenters -- and it took half its rows from Arizona, whose
+    source we are refused.
+
+    What it does now: two lists we are allowed to publish from, one stated rule
+    deciding every row, and four guards that raise rather than hand over a file
+    that does not match the page.
+
+    The `What the agency's filing says` column is not decoration. It carries the
+    agency's own sentence, so a buyer opening a row named `Substation-1-A` can
+    read for themselves why it is in a datacenter file -- and so the guards have
+    agency bytes to test instead of a label this script typed.
+    """
+    headers = ["Datacenter named in the filing", "Company on the filing", "City", "State",
+               "Agency list", "Case or permit number", "What this filing is for",
+               "Where it has got to", "Date received", "Sealed copy",
+               "What the agency's filing says", "Agency document"]
     rows: list[list[str]] = []
+
     with _conn() as c:
-        # 25 across the lists, and the odd row goes to the first one rather than
-        # being dropped, so the sample is 25 rows and not 24.
-        per = -(-25 // max(1, len(APPS)))
-        for slug, cfg in APPS.items():
-            day = _q(c, "SELECT MAX(snapshot_date) FROM application WHERE source_id=?",
-                     cfg["source_id"])[0][0]
-            raw = _q(c, f"SELECT applicant, facility, permit_number, received_date, stage "
-                        f"FROM application WHERE source_id=? AND snapshot_date=? "
-                        f"ORDER BY (received_date IS NULL OR TRIM(received_date)=''), "
-                        f"{cfg['order_sql']} DESC LIMIT ?", cfg["source_id"], day, per)
-            for r in raw:
-                rows.append([cfg["state"], cfg["the_list"], str(r[0] or ""), str(r[1] or ""),
-                             str(r[2] or ""), _d(r[3]), str(r[4] or ""), _d(day)])
-    return headers, rows[:25]
+        # -------- Texas air permits waiting on a decision (source: ALLOW)
+        tx_day = _q(c, "SELECT MAX(snapshot_date) FROM application WHERE source_id=?",
+                    SAMPLE_SOURCES_ALLOWED[0])[0][0]
+        for applicant, facility, permit_no, received, stage, doc_url in _q(
+                c, "SELECT applicant, facility, permit_number, received_date, stage, doc_url "
+                   "FROM application WHERE source_id=? AND snapshot_date=? "
+                   "ORDER BY facility", SAMPLE_SOURCES_ALLOWED[0], tx_day):
+            if not is_datacenter_siting(applicant, facility):
+                continue
+            # The Texas list publishes no description. Its own evidence is the
+            # facility name, which is already the first column.
+            rows.append([_plain(facility), _plain(applicant), "", "TX",
+                         "Texas air permit applications waiting on a decision",
+                         _plain(permit_no), "Air permit for the site",
+                         _plain(stage), _d(received), _d(tx_day), "", _plain(doc_url)])
+
+        # -------- FAA obstruction notices still open (sources: ALLOW, public domain)
+        faa_day = _q(c, "SELECT MAX(snapshot_date) FROM faa_case")[0][0]
+        for (asn, structure_name, desc, city, state, structure_type, status,
+             entered, sponsor) in _q(
+                c, "SELECT asn, structure_name, proposal_description, city, state, "
+                   "structure_type, status, entered_date, sponsor_name FROM faa_case "
+                   "WHERE snapshot_date=? ORDER BY entered_date DESC, asn", faa_day):
+            if not is_datacenter_siting(structure_name, desc):
+                continue
+            rows.append([_plain(structure_name), _company(sponsor), _plain(city), _plain(state),
+                         "FAA obstruction notices still open",
+                         _plain(asn).split(":")[-1], _kind_plain(structure_type),
+                         _plain(status), _d(entered), _d(faa_day), _plain(desc), ""])
+
+    # Every Texas row first, then FAA newest-first, then cut to the sample size.
+    rows = rows[:SAMPLE_ROWS]
+
+    for row in rows:
+        if len(row) != len(headers):
+            raise RuntimeError(f"dc-siting sample: ragged row {row[0]!r}")
+    _guard(rows)
+    return headers, rows
+
+
+# Which columns of a finished row hold words an agency wrote, as opposed to
+# words this script typed. The guards read only these. A label like "Air permit
+# for the site" must never be able to satisfy the datacenter test on its own --
+# that is how a gutted filter passes its own check.
+AGENCY_TEXT_COLS = (0, 1, 10)
+
+
+def _guard(rows: list[list[str]]) -> None:
+    """Four refusals. None of them is a sentence in a note; each one raises."""
+    if not rows:
+        raise RuntimeError(
+            "dc-siting sample: the newest sealed copies hold no datacenter rows. "
+            "A sample cannot be built. Do not pad it and do not relabel a row.")
+
+    bad = [r for r in rows if not names_datacenter(*(r[i] for i in AGENCY_TEXT_COLS))]
+    if bad:
+        raise RuntimeError(
+            f"dc-siting sample: {len(bad)} rows carry no agency words naming a datacenter, "
+            f"first is {bad[0][0]!r}. That is the defect that failed this sample before.")
+
+    plants = [r for r in rows if is_supply_plant(*(r[i] for i in AGENCY_TEXT_COLS))]
+    if plants:
+        raise RuntimeError(
+            f"dc-siting sample: {len(plants)} rows are supply plants, first is "
+            f"{plants[0][0]!r}. Concrete batch plants are what this sample failed on.")
+
+    leaked = [r for r in rows if r[3] in {"AZ", "Arizona"}]
+    if leaked:
+        raise RuntimeError(
+            f"dc-siting sample: {len(leaked)} rows come from Arizona, whose source is a "
+            f"written REFUSE. Nothing from it may leave in a file a buyer opens.")
+
+    if len(rows) < MIN_ROWS:
+        raise RuntimeError(
+            f"dc-siting sample: only {len(rows)} datacenter rows, floor is {MIN_ROWS}.")
+
+
+def sample_proof() -> dict:
+    """Counted, never typed. What a reader has to be able to check themselves."""
+    headers, rows = sample()
+    agency = lambda r: tuple(r[i] for i in AGENCY_TEXT_COLS)  # noqa: E731
+    with _conn() as c:
+        tx_day = _q(c, "SELECT MAX(snapshot_date) FROM application WHERE source_id=?",
+                    SAMPLE_SOURCES_ALLOWED[0])[0][0]
+        faa_day = _q(c, "SELECT MAX(snapshot_date) FROM faa_case")[0][0]
+        tx_all = _q(c, "SELECT applicant, facility FROM application WHERE source_id=?",
+                    SAMPLE_SOURCES_ALLOWED[0])
+        faa_all = _q(c, "SELECT structure_name, proposal_description FROM faa_case")
+        az_rows = _q(c, "SELECT COUNT(*) FROM application WHERE source_id=?",
+                     SAMPLE_SOURCES_REFUSED[0])[0][0]
+    return {
+        "sample_rows": len(rows),
+        "rows_that_are_datacenters": sum(1 for r in rows if names_datacenter(*agency(r))),
+        "rows_that_are_not": sum(1 for r in rows if not names_datacenter(*agency(r))),
+        "rows_that_are_supply_plants": sum(1 for r in rows if is_supply_plant(*agency(r))),
+        "rows_from_refused_source": sum(1 for r in rows if r[3] in {"AZ", "Arizona"}),
+        "store_datacenter_rows_texas": sum(1 for a, f in tx_all if is_datacenter_siting(a, f)),
+        "store_datacenter_rows_faa": sum(1 for n, d in faa_all if is_datacenter_siting(n, d)),
+        "arizona_rows_held_and_never_published": az_rows,
+        "texas_sealed_copy": tx_day,
+        "faa_sealed_copy": faa_day,
+    }
 
 
 if __name__ == "__main__":
@@ -894,4 +1103,10 @@ if __name__ == "__main__":
                 assert len(row) == len(t["headers"]), f"{s['slug']} ragged row"
     h, rws = sample()
     print(f"  sample: {len(rws)} rows, {len(h)} columns")
-    print("  first sample row:", rws[0] if rws else "none")
+    proof = sample_proof()
+    for k, v in proof.items():
+        print(f"    {k}: {v}")
+    assert proof["rows_that_are_not"] == 0, "a row in the sample is not a datacenter"
+    assert proof["rows_that_are_supply_plants"] == 0, "a supply plant is in the sample"
+    assert proof["rows_from_refused_source"] == 0, "a refused source reached the sample"
+    assert proof["rows_that_are_datacenters"] == proof["sample_rows"]

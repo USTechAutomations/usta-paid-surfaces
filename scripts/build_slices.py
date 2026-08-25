@@ -209,6 +209,16 @@ def load_modules(only: str | None = None) -> list:
     mods = []
     for path in sorted(HERE.glob("slice_*.py")):
         name = path.stem
+        if name.endswith("_selftest"):
+            # A test that sits beside the builder it tests is a good habit, and
+            # this glob turned it into a build-stopper: the first one written,
+            # scripts/slice_dc_siting_selftest.py, matched slice_*.py, defined
+            # no FAMILY, and killed the whole run with "must define FAMILY and
+            # slices()" -- a message about the test file, on a build that had
+            # nothing wrong with it. Named here so the next one costs nobody
+            # the same half hour. A selftest is not a family and never builds
+            # a page.
+            continue
         if only and only.replace("-", "_") not in name:
             continue
         if name in TOP_LEVEL_MODULES:
