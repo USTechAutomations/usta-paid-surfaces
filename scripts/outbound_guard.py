@@ -312,13 +312,29 @@ def distinctive_identifiers(juris: str, store: str = STORE) -> tuple[set[str], s
         return set(), f"the permit store holds no rows for {juris}"
     out: set[str] = set()
     for permit_id, number, apn in rows:
-        if permit_id:
+        if permit_id and _distinctive(permit_id):
             out.add(str(permit_id))
-        if number and HAS_LETTER.search(str(number)):
+        if number and HAS_LETTER.search(str(number)) and _distinctive(number):
             out.add(str(number))
-        if apn:
+        if apn and _distinctive(apn):
             out.add(str(apn))
     return out, None
+
+
+def _distinctive(value) -> bool:
+    """'0', '000' and '12' cannot pick out one row; 'scottsdale:323612' can.
+
+    DATED NOTE, 2026-08-25: the live store holds 15 Scottsdale rows whose apn
+    column is '0' or '000'. Those strings match ordinary numeric cells in
+    anybody's file, so counting such a match as "their row" is this checker's
+    error, not the file's. An identifier counts only if it is not all zeroes
+    and either carries a letter or is at least 4 characters long. Real
+    Scottsdale ids ('scottsdale:323612', '217-35-975') all still count.
+    """
+    s = str(value).strip()
+    if not s or not s.strip("0"):
+        return False
+    return bool(HAS_LETTER.search(s)) or len(s) >= 4
 
 
 def _token_hits(haystack: str, needles: set[str]) -> list[str]:

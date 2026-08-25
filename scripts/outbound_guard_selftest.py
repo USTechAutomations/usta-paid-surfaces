@@ -337,6 +337,36 @@ def main() -> int:
         case("a file naming a source the record never heard of is unknown, not clean",
              og.scan(names_stranger, store=store, record=rec)[0], og.UNKNOWN)
 
+        # ========= the checker's own error, found and fixed 2026-08-25 =========
+        # The live store held 15 Scottsdale rows whose apn column was '0' or
+        # '000'; the guard read those as identifiers and blocked any file
+        # carrying an ordinary zero cell. Pinned in both directions: an
+        # all-zero id never convicts, a real id from the same refused board
+        # still does.
+        zero_refused = entry("Zeroville, Nowhere", og.REFUSE, labels=["zeroville"],
+                             decided_on="2026-08-25",
+                             evidence_url="https://example.gov/terms",
+                             quote="no commercial use", reviewed_by="operator")
+        zero_store = fake_store(tmp / "zeroes.db", STORE_ROWS + [
+            ("zeroville:9001", "zeroville", "ZV-9001", "000"),
+            ("zeroville:9002", "zeroville", "ZV-9002", "0"),
+        ])
+        rec_zero = record_file(tmp / "zeroes.json",
+                               {"testville": ALLOWED, "otherville": UNREAD,
+                                "marin-county": MARIN, "zeroville": zero_refused})
+        zeros_ok = tmp / "zeros-ok.csv"
+        zeros_ok.write_text(
+            "jurisdiction,permit_number,valuation\ntestville,TV-100,0\n"
+            "testville,TV-101,000\n", encoding="utf-8")
+        case("a refused board's all-zero apn never convicts a stranger's zero cell",
+             og.scan(zeros_ok, store=zero_store, record=rec_zero)[0], og.CLEAN)
+        zeros_bad = tmp / "zeros-bad.csv"
+        zeros_bad.write_text(
+            "jurisdiction,permit_number,valuation\ntestville,zeroville:9001,0\n",
+            encoding="utf-8")
+        case("the same refused board's real id still convicts",
+             og.scan(zeros_bad, store=zero_store, record=rec_zero)[0], og.BLOCKED)
+
         # =============== part five: gutting, and the damage showing =============
         # Each of these proves one half is load-bearing. If a case here stops
         # failing the way it is told to, somebody has emptied that half.
