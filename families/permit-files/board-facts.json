@@ -1,0 +1,2743 @@
+{
+  "austin": {
+    "id": "3syk-w9eu",
+    "dataset_name": "Issued Construction Permits",
+    "attribution": "City of Austin, Texas - data.austintexas.gov",
+    "license_name": "Public Domain U.S. Government",
+    "license_link": "https://www.usa.gov/government-works",
+    "rowsUpdatedAt_utc": "2026-08-24",
+    "custom_fields": {
+      "Ownership": {
+        "Department name": "Austin Development Services"
+      },
+      "Publishing Information": {
+        "Update Frequency": "Daily",
+        "Time range of data": "1980-Present"
+      },
+      "Citywide Strategic Plan": {
+        "Strategic Priority": "High-performing Government"
+      }
+    },
+    "n_columns_all": 78,
+    "n_columns_data": 68,
+    "row_count": "2372018",
+    "columns": [
+      {
+        "field": "permittype",
+        "name": "Permit Type",
+        "type": "text"
+      },
+      {
+        "field": "permit_type_desc",
+        "name": "Permit Type Desc",
+        "type": "text"
+      },
+      {
+        "field": "permit_number",
+        "name": "Permit Num",
+        "type": "text"
+      },
+      {
+        "field": "permit_class_mapped",
+        "name": "Permit Class Mapped",
+        "type": "text"
+      },
+      {
+        "field": "permit_class",
+        "name": "Permit Class",
+        "type": "text"
+      },
+      {
+        "field": "work_class",
+        "name": "Work Class",
+        "type": "text"
+      },
+      {
+        "field": "condominium",
+        "name": "Condominium",
+        "type": "text"
+      },
+      {
+        "field": "permit_location",
+        "name": "Project Name",
+        "type": "text"
+      },
+      {
+        "field": "description",
+        "name": "Description",
+        "type": "text"
+      },
+      {
+        "field": "tcad_id",
+        "name": "TCAD ID",
+        "type": "text"
+      },
+      {
+        "field": "legal_description",
+        "name": "Property Legal Description",
+        "type": "text"
+      },
+      {
+        "field": "applieddate",
+        "name": "Applied Date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "issue_date",
+        "name": "Issued Date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "day_issued",
+        "name": "Day Issued",
+        "type": "text"
+      },
+      {
+        "field": "calendar_year_issued",
+        "name": "Calendar Year Issued",
+        "type": "number"
+      },
+      {
+        "field": "fiscal_year_issued",
+        "name": "Fiscal Year Issued",
+        "type": "number"
+      },
+      {
+        "field": "issued_in_last_30_days",
+        "name": "Issued In Last 30 Days",
+        "type": "text"
+      },
+      {
+        "field": "issue_method",
+        "name": "Issuance Method",
+        "type": "text"
+      },
+      {
+        "field": "status_current",
+        "name": "Status Current",
+        "type": "text"
+      },
+      {
+        "field": "statusdate",
+        "name": "Status Date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "expiresdate",
+        "name": "Expires Date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "completed_date",
+        "name": "Completed Date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "total_existing_bldg_sqft",
+        "name": "Total Existing Bldg SQFT",
+        "type": "number"
+      },
+      {
+        "field": "remodel_repair_sqft",
+        "name": "Remodel Repair SQFT",
+        "type": "number"
+      },
+      {
+        "field": "total_new_add_sqft",
+        "name": "Total New Add SQFT",
+        "type": "number"
+      },
+      {
+        "field": "total_valuation_remodel",
+        "name": "Total Valuation Remodel",
+        "type": "number"
+      },
+      {
+        "field": "total_job_valuation",
+        "name": "Total Job Valuation",
+        "type": "number"
+      },
+      {
+        "field": "number_of_floors",
+        "name": "Number Of Floors",
+        "type": "number"
+      },
+      {
+        "field": "housing_units",
+        "name": "Housing Units",
+        "type": "number"
+      },
+      {
+        "field": "building_valuation",
+        "name": "Building Valuation",
+        "type": "number"
+      },
+      {
+        "field": "building_valuation_remodel",
+        "name": "Building Valuation Remodel",
+        "type": "number"
+      },
+      {
+        "field": "electrical_valuation",
+        "name": "Electrical Valuation",
+        "type": "number"
+      },
+      {
+        "field": "electrical_valuation_remodel",
+        "name": "Electrical Valuation Remodel",
+        "type": "number"
+      },
+      {
+        "field": "mechanical_valuation",
+        "name": "Mechanical Valuation",
+        "type": "number"
+      },
+      {
+        "field": "mechanical_valuation_remodel",
+        "name": "Mechanical Valuation Remodel",
+        "type": "number"
+      },
+      {
+        "field": "plumbing_valuation",
+        "name": "Plumbing Valuation",
+        "type": "number"
+      },
+      {
+        "field": "plumbing_valuation_remodel",
+        "name": "Plumbing Valuation Remodel",
+        "type": "number"
+      },
+      {
+        "field": "medgas_valuation",
+        "name": "MedGas Valuation",
+        "type": "number"
+      },
+      {
+        "field": "medgas_valuation_remodel",
+        "name": "MedGas Valuation Remodel",
+        "type": "number"
+      },
+      {
+        "field": "original_address1",
+        "name": "Original Address 1",
+        "type": "text"
+      },
+      {
+        "field": "original_city",
+        "name": "Original City",
+        "type": "text"
+      },
+      {
+        "field": "original_state",
+        "name": "Original State",
+        "type": "text"
+      },
+      {
+        "field": "original_zip",
+        "name": "Original Zip",
+        "type": "number"
+      },
+      {
+        "field": "council_district",
+        "name": "Council District",
+        "type": "number"
+      },
+      {
+        "field": "jurisdiction",
+        "name": "Jurisdiction",
+        "type": "text"
+      },
+      {
+        "field": "link",
+        "name": "Link",
+        "type": "url"
+      },
+      {
+        "field": "project_id",
+        "name": "Project ID",
+        "type": "number"
+      },
+      {
+        "field": "masterpermitnum",
+        "name": "Master Permit Num",
+        "type": "number"
+      },
+      {
+        "field": "latitude",
+        "name": "Latitude",
+        "type": "number"
+      },
+      {
+        "field": "longitude",
+        "name": "Longitude",
+        "type": "number"
+      },
+      {
+        "field": "location",
+        "name": "Location",
+        "type": "location"
+      },
+      {
+        "field": "contractor_trade",
+        "name": "Contractor Trade",
+        "type": "text"
+      },
+      {
+        "field": "contractor_company_name",
+        "name": "Contractor Company Name",
+        "type": "text"
+      },
+      {
+        "field": "contractor_full_name",
+        "name": "Contractor Full Name",
+        "type": "text"
+      },
+      {
+        "field": "contractor_phone",
+        "name": "Contractor Phone",
+        "type": "text"
+      },
+      {
+        "field": "contractor_address1",
+        "name": "Contractor Address 1",
+        "type": "text"
+      },
+      {
+        "field": "contractor_address2",
+        "name": "Contractor Address 2",
+        "type": "text"
+      },
+      {
+        "field": "contractor_city",
+        "name": "Contractor City",
+        "type": "text"
+      },
+      {
+        "field": "contractor_zip",
+        "name": "Contractor Zip",
+        "type": "text"
+      },
+      {
+        "field": "applicant_full_name",
+        "name": "Applicant Full Name",
+        "type": "text"
+      },
+      {
+        "field": "applicant_org",
+        "name": "Applicant Organization",
+        "type": "text"
+      },
+      {
+        "field": "applicant_phone",
+        "name": "Applicant Phone",
+        "type": "text"
+      },
+      {
+        "field": "applicant_address1",
+        "name": "Applicant Address 1",
+        "type": "text"
+      },
+      {
+        "field": "applicant_address2",
+        "name": "Applicant Address 2",
+        "type": "text"
+      },
+      {
+        "field": "applicant_city",
+        "name": "Applicant City",
+        "type": "text"
+      },
+      {
+        "field": "applicantzip",
+        "name": "Applicant Zip",
+        "type": "text"
+      },
+      {
+        "field": "certificate_of_occupancy",
+        "name": "Certificate Of Occupancy",
+        "type": "text"
+      },
+      {
+        "field": "total_lot_sq_ft",
+        "name": "Total Lot SQFT",
+        "type": "number"
+      }
+    ],
+    "date_ranges": {
+      "applieddate": {
+        "min": "1921-09-20T00:00:00.000",
+        "max": "2026-08-21T00:00:00.000",
+        "name": "Applied Date"
+      },
+      "issue_date": {
+        "min": "1921-09-20T00:00:00.000",
+        "max": "2026-08-23T00:00:00.000",
+        "name": "Issued Date"
+      },
+      "statusdate": {
+        "min": "2007-03-02T00:00:00.000",
+        "max": "2026-08-24T00:00:00.000",
+        "name": "Status Date"
+      },
+      "expiresdate": {
+        "min": "1901-04-05T00:00:00.000",
+        "max": "2031-12-21T00:00:00.000",
+        "name": "Expires Date"
+      },
+      "completed_date": {
+        "min": "1900-05-03T00:00:00.000",
+        "max": "2026-08-23T00:00:00.000",
+        "name": "Completed Date"
+      }
+    },
+    "type_tops": {
+      "permittype": [
+        {
+          "item": "EP",
+          "count": "686382"
+        },
+        {
+          "item": "PP",
+          "count": "544885"
+        },
+        {
+          "item": "BP",
+          "count": "519576"
+        },
+        {
+          "item": "MP",
+          "count": "504740"
+        },
+        {
+          "item": "DS",
+          "count": "116435"
+        }
+      ],
+      "permit_type_desc": [
+        {
+          "item": "Electrical Permit",
+          "count": "686382"
+        },
+        {
+          "item": "Plumbing Permit",
+          "count": "544885"
+        },
+        {
+          "item": "Building Permit",
+          "count": "519576"
+        },
+        {
+          "item": "Mechanical Permit",
+          "count": "504740"
+        },
+        {
+          "item": "Driveway / Sidewalks",
+          "count": "116435"
+        }
+      ],
+      "permit_class_mapped": [
+        {
+          "item": "Residential",
+          "count": "1619325"
+        },
+        {
+          "item": "Commercial",
+          "count": "752693"
+        }
+      ],
+      "permit_class": [
+        {
+          "item": "Residential",
+          "count": "649787"
+        },
+        {
+          "item": "R- 101 Single Family Houses",
+          "count": "450989"
+        },
+        {
+          "item": "C-1000 Commercial Remodel",
+          "count": "286322"
+        },
+        {
+          "item": "Commercial",
+          "count": "177515"
+        },
+        {
+          "item": "R- 435 Renovations/Remodel",
+          "count": "162761"
+        },
+        {
+          "item": "R- 434 Addition & Alterations",
+          "count": "135512"
+        },
+        {
+          "item": "Res. Driveway & Sidewalk",
+          "count": "88003"
+        },
+        {
+          "item": "Sign Permit",
+          "count": "42047"
+        },
+        {
+          "item": "C- 329 Com Structures Other Than Bldg",
+          "count": "32669"
+        },
+        {
+          "item": "R- 329 Res Structures Other Than Bldg",
+          "count": "32094"
+        },
+        {
+          "item": "C-1001 Commercial Finish Out",
+          "count": "31156"
+        },
+        {
+          "item": "C- 105 Five or More Family Bldgs",
+          "count": "30637"
+        },
+        {
+          "item": "R- 103 Two Family Bldgs",
+          "count": "26168"
+        },
+        {
+          "item": "C- 324 Office, Bank & Professional Bldgs",
+          "count": "16005"
+        },
+        {
+          "item": "R- 645 Demolition One Family Homes",
+          "count": "13469"
+        },
+        {
+          "item": "R- 438 Residential Garage/Carport Addn",
+          "count": "13422"
+        },
+        {
+          "item": "C- 437 Addn, Alter, Convn-NonRes",
+          "count": "13368"
+        },
+        {
+          "item": "R- 102 Secondary Apartment",
+          "count": "12521"
+        },
+        {
+          "item": "C- 328 Commercial Other Nonresident Bldg",
+          "count": "12166"
+        },
+        {
+          "item": "C- 327 Stores & Customer Services",
+          "count": "11371"
+        }
+      ],
+      "work_class": [
+        {
+          "item": "Remodel",
+          "count": "873305"
+        },
+        {
+          "item": "New",
+          "count": "832602"
+        },
+        {
+          "item": "Repair",
+          "count": "178476"
+        },
+        {
+          "item": "Change Out",
+          "count": "116864"
+        },
+        {
+          "item": "Addition",
+          "count": "81722"
+        },
+        {
+          "item": "Addition and Remodel",
+          "count": "69141"
+        },
+        {
+          "item": "Irrigation",
+          "count": "47717"
+        },
+        {
+          "item": "Demolition",
+          "count": "21827"
+        },
+        {
+          "item": "Upgrade",
+          "count": "21279"
+        },
+        {
+          "item": "Auxiliary Power",
+          "count": "19699"
+        },
+        {
+          "item": "Wall",
+          "count": "17216"
+        },
+        {
+          "item": "Homebuilder Loop",
+          "count": "13941"
+        },
+        {
+          "item": "Special Inspections Program",
+          "count": "5367"
+        },
+        {
+          "item": "Interior Demo Non-Structural",
+          "count": "5271"
+        },
+        {
+          "item": "Freestanding",
+          "count": "4454"
+        },
+        {
+          "item": "Shell",
+          "count": "4354"
+        },
+        {
+          "item": "Modification",
+          "count": "3872"
+        },
+        {
+          "item": "Relocation",
+          "count": "3212"
+        },
+        {
+          "item": "Fireline",
+          "count": "3120"
+        },
+        {
+          "item": "Life Safety",
+          "count": "2499"
+        }
+      ]
+    },
+    "person_columns": [
+      {
+        "field": "contractor_trade",
+        "name": "Contractor Trade"
+      },
+      {
+        "field": "contractor_company_name",
+        "name": "Contractor Company Name"
+      },
+      {
+        "field": "contractor_full_name",
+        "name": "Contractor Full Name"
+      },
+      {
+        "field": "contractor_phone",
+        "name": "Contractor Phone"
+      },
+      {
+        "field": "contractor_address1",
+        "name": "Contractor Address 1"
+      },
+      {
+        "field": "contractor_address2",
+        "name": "Contractor Address 2"
+      },
+      {
+        "field": "contractor_city",
+        "name": "Contractor City"
+      },
+      {
+        "field": "contractor_zip",
+        "name": "Contractor Zip"
+      },
+      {
+        "field": "applicant_full_name",
+        "name": "Applicant Full Name"
+      },
+      {
+        "field": "applicant_org",
+        "name": "Applicant Organization"
+      },
+      {
+        "field": "applicant_phone",
+        "name": "Applicant Phone"
+      },
+      {
+        "field": "applicant_address1",
+        "name": "Applicant Address 1"
+      },
+      {
+        "field": "applicant_address2",
+        "name": "Applicant Address 2"
+      },
+      {
+        "field": "applicant_city",
+        "name": "Applicant City"
+      },
+      {
+        "field": "applicantzip",
+        "name": "Applicant Zip"
+      }
+    ],
+    "description_note": "<a href=\"https://data.austintexas.gov/stories/s/ranj-cccq\" target=\"_blank\">View the City of Austin Open Data Terms of Use</a>\n\nBuilding, Electrical, Mechanical, and Plumbing Permits and Driveway/Sidewalk Permits issued by the City of Austin.  Includes relevant details such as issue date, location, council district, expiration date, description of work, square footage, valuation, and units.\n\nThis d",
+    "category": "Building and Development"
+  },
+  "cambridge-ma": {
+    "id": "9qm7-wbdc",
+    "dataset_name": "Building Permits: New Construction",
+    "attribution": null,
+    "license_name": "Open Data Commons Public Domain Dedication and License",
+    "license_link": "http://opendatacommons.org/licenses/pddl/1.0/",
+    "rowsUpdatedAt_utc": "2026-08-25",
+    "custom_fields": {
+      "Specific Limitations": {
+        "Limitations": "Only completed applications are listed in this dataset. "
+      },
+      "Maintenance Plan": {
+        "Estimated Update Frequency": "Daily"
+      },
+      "Civic Innovation": {
+        "Problem Statements Related to this Data": "Where is most of the new building constructed concentrated within Cambridge?"
+      }
+    },
+    "n_columns_all": 108,
+    "n_columns_data": 108,
+    "row_count": "362",
+    "columns": [
+      {
+        "field": "id",
+        "name": "ID",
+        "type": "text"
+      },
+      {
+        "field": "full_address",
+        "name": "Address",
+        "type": "text"
+      },
+      {
+        "field": "latitude",
+        "name": "Latitude",
+        "type": "number"
+      },
+      {
+        "field": "longitude",
+        "name": "Longitude",
+        "type": "number"
+      },
+      {
+        "field": "status",
+        "name": "Status",
+        "type": "text"
+      },
+      {
+        "field": "applicant_submit_date",
+        "name": "Applicant Submit Date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "issue_date",
+        "name": "Issue Date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "special_permit_number",
+        "name": "Special Permit Number",
+        "type": "text"
+      },
+      {
+        "field": "bza_number",
+        "name": "BZA Number",
+        "type": "text"
+      },
+      {
+        "field": "board_special_permit",
+        "name": "Board Special Permit",
+        "type": "checkbox"
+      },
+      {
+        "field": "appeal_bza_case",
+        "name": "Appeal (BZA) Case",
+        "type": "checkbox"
+      },
+      {
+        "field": "current_property_use",
+        "name": "Current Property Use",
+        "type": "text"
+      },
+      {
+        "field": "proposed_building_use",
+        "name": "Proposed Building Use",
+        "type": "text"
+      },
+      {
+        "field": "construction_type",
+        "name": "Construction Type",
+        "type": "text"
+      },
+      {
+        "field": "stories_above_grade",
+        "name": "Stories (Above Grade)",
+        "type": "text"
+      },
+      {
+        "field": "proposed_count_of_dwelling",
+        "name": "Proposed Number of Dwelling Units",
+        "type": "number"
+      },
+      {
+        "field": "building_height",
+        "name": "Proposed Building Height",
+        "type": "text"
+      },
+      {
+        "field": "gross_square_footage",
+        "name": "Gross Square Footage",
+        "type": "text"
+      },
+      {
+        "field": "licensed_class",
+        "name": "Licensed: Class",
+        "type": "text"
+      },
+      {
+        "field": "temporary_dumpster_permit",
+        "name": "Temporary Dumpster Permit",
+        "type": "text"
+      },
+      {
+        "field": "dumpster_no",
+        "name": "Dumpster Number",
+        "type": "text"
+      },
+      {
+        "field": "debris_removal_date",
+        "name": "Debris Removal Date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "debris_removal_location",
+        "name": "Debris Removal Location",
+        "type": "text"
+      },
+      {
+        "field": "new_food_establishment",
+        "name": "New Food Establishment",
+        "type": "text"
+      },
+      {
+        "field": "cooking_type",
+        "name": "Cooking Type",
+        "type": "text"
+      },
+      {
+        "field": "other_cooking_equipment",
+        "name": "Other Cooking Equipment",
+        "type": "text"
+      },
+      {
+        "field": "property_use_other",
+        "name": "Property Use (Other)",
+        "type": "text"
+      },
+      {
+        "field": "finish_materials",
+        "name": "Finish Materials",
+        "type": "text"
+      },
+      {
+        "field": "description_of_work",
+        "name": "Description Of Work",
+        "type": "text"
+      },
+      {
+        "field": "architect_firm",
+        "name": "Architect: Firm",
+        "type": "text"
+      },
+      {
+        "field": "method_of_removal",
+        "name": "Method Of Removal",
+        "type": "text"
+      },
+      {
+        "field": "proposed_loading_bays",
+        "name": "Proposed Loading Bays",
+        "type": "text"
+      },
+      {
+        "field": "proposed_loading_facilities",
+        "name": "Proposed Loading Facilities",
+        "type": "text"
+      },
+      {
+        "field": "long_term_bike_parking",
+        "name": "Long-Term Bike Parking",
+        "type": "text"
+      },
+      {
+        "field": "short_term_bike_parking",
+        "name": "Short-Term Bike Parking",
+        "type": "text"
+      },
+      {
+        "field": "vehicle_parking_spaces",
+        "name": "Vehicle Parking Spaces",
+        "type": "number"
+      },
+      {
+        "field": "proposed_property_use",
+        "name": "Proposed Property Use",
+        "type": "text"
+      },
+      {
+        "field": "employment_arrangement",
+        "name": "Employment Arrangement",
+        "type": "text"
+      },
+      {
+        "field": "building_removal",
+        "name": "Building Removal",
+        "type": "checkbox"
+      },
+      {
+        "field": "air_cafe_windows",
+        "name": "Air Cafe Windows",
+        "type": "text"
+      },
+      {
+        "field": "construction_dewatering",
+        "name": "Construction Dewatering",
+        "type": "checkbox"
+      },
+      {
+        "field": "right_of_way",
+        "name": "Right-Of-Way",
+        "type": "checkbox"
+      },
+      {
+        "field": "license_expiration_date",
+        "name": "License Expiration Date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "license_number",
+        "name": "License Number",
+        "type": "text"
+      },
+      {
+        "field": "storm_sewer_connections",
+        "name": "Storm Sewer Connections",
+        "type": "checkbox"
+      },
+      {
+        "field": "roof_foundation_drain",
+        "name": "Roof/Foundation Drain",
+        "type": "checkbox"
+      },
+      {
+        "field": "basement_plumbing_fixture",
+        "name": "Basement Plumbing Fixture",
+        "type": "checkbox"
+      },
+      {
+        "field": "building_cost",
+        "name": "Building Cost",
+        "type": "number"
+      },
+      {
+        "field": "licensed_name",
+        "name": "Licensed Construction Supervisor",
+        "type": "text"
+      },
+      {
+        "field": "electrical_cost",
+        "name": "Electrical Cost",
+        "type": "number"
+      },
+      {
+        "field": "engineer_name",
+        "name": "Engineer: Name",
+        "type": "text"
+      },
+      {
+        "field": "architect_name",
+        "name": "Architect: Name",
+        "type": "text"
+      },
+      {
+        "field": "hvac_cost",
+        "name": "HVAC Cost",
+        "type": "number"
+      },
+      {
+        "field": "gas_cost",
+        "name": "Gas Cost",
+        "type": "number"
+      },
+      {
+        "field": "plumbing_cost",
+        "name": "Plumbing Cost",
+        "type": "number"
+      },
+      {
+        "field": "total_cost_of_construction",
+        "name": "Total Cost Of Construction",
+        "type": "number"
+      },
+      {
+        "field": "final_cost",
+        "name": "Final Cost",
+        "type": "text"
+      },
+      {
+        "field": "mbl",
+        "name": "mbl",
+        "type": "text"
+      },
+      {
+        "field": "viewpoint_id",
+        "name": "Viewpoint ID",
+        "type": "number"
+      },
+      {
+        "field": "isd_approved_description",
+        "name": "ISD Approved Description",
+        "type": "text"
+      },
+      {
+        "field": "commercial_sewer_connection",
+        "name": "commercial sewer connection",
+        "type": "text"
+      },
+      {
+        "field": "civil_site_plan",
+        "name": "civil site plan",
+        "type": "checkbox"
+      },
+      {
+        "field": "industrial_sewer_connection",
+        "name": "industrial sewer connection",
+        "type": "text"
+      },
+      {
+        "field": "residential_sewer_connection",
+        "name": "residential sewer connection",
+        "type": "text"
+      },
+      {
+        "field": "commercial_educational",
+        "name": "commercial educational",
+        "type": "text"
+      },
+      {
+        "field": "commercial_high_hazard",
+        "name": "commercial high hazard",
+        "type": "text"
+      },
+      {
+        "field": "credit_from_energov",
+        "name": "credit from energov",
+        "type": "text"
+      },
+      {
+        "field": "enter_number_credits",
+        "name": "Enter number credits",
+        "type": "number"
+      },
+      {
+        "field": "community_development_review",
+        "name": "community development review",
+        "type": "checkbox"
+      },
+      {
+        "field": "conservation_commission_review",
+        "name": "conservation commission review",
+        "type": "checkbox"
+      },
+      {
+        "field": "fire_department_review",
+        "name": "fire department review",
+        "type": "checkbox"
+      },
+      {
+        "field": "historical_commission_review",
+        "name": "historical commission review",
+        "type": "checkbox"
+      },
+      {
+        "field": "public_works_review",
+        "name": "public works review",
+        "type": "checkbox"
+      },
+      {
+        "field": "traffic_parking_review",
+        "name": "traffic parking review",
+        "type": "checkbox"
+      },
+      {
+        "field": "water_department_review",
+        "name": "water department review",
+        "type": "checkbox"
+      },
+      {
+        "field": "fire_dept_proj_type",
+        "name": "fire dept proj type",
+        "type": "text"
+      },
+      {
+        "field": "energy_stretch_code",
+        "name": "energy stretch code",
+        "type": "text"
+      },
+      {
+        "field": "energy_code",
+        "name": "energy code",
+        "type": "text"
+      },
+      {
+        "field": "accessibility_plan_review",
+        "name": "accessibility plan review",
+        "type": "checkbox"
+      },
+      {
+        "field": "electrical_plan_review",
+        "name": "electrical plan review",
+        "type": "checkbox"
+      },
+      {
+        "field": "plumbing_plan_review",
+        "name": "plumbing plan review",
+        "type": "checkbox"
+      },
+      {
+        "field": "sanitary_plan_review",
+        "name": "sanitary plan review",
+        "type": "checkbox"
+      },
+      {
+        "field": "zoning_plan_review",
+        "name": "zoning plan review",
+        "type": "checkbox"
+      },
+      {
+        "field": "zoning_inspection_required",
+        "name": "zoning inspection required",
+        "type": "checkbox"
+      },
+      {
+        "field": "unit_decrease",
+        "name": "unit decrease",
+        "type": "number"
+      },
+      {
+        "field": "unit_increase",
+        "name": "unit increase",
+        "type": "number"
+      },
+      {
+        "field": "centroid_latitude",
+        "name": "centroid latitude",
+        "type": "number"
+      },
+      {
+        "field": "centroid_longitude",
+        "name": "centroid longitude",
+        "type": "number"
+      },
+      {
+        "field": "mal_latitude",
+        "name": "mal latitude",
+        "type": "number"
+      },
+      {
+        "field": "mal_longitude",
+        "name": "mal longitude",
+        "type": "number"
+      },
+      {
+        "field": "housing_department_review",
+        "name": "housing department review",
+        "type": "text"
+      },
+      {
+        "field": "residential_energy_code",
+        "name": "residential energy code",
+        "type": "text"
+      },
+      {
+        "field": "fema_work_outside",
+        "name": "FEMA work outside",
+        "type": "text"
+      },
+      {
+        "field": "fema_work_outside_description",
+        "name": "FEMA work outside description",
+        "type": "text"
+      },
+      {
+        "field": "fema_earthwork_regrading",
+        "name": "FEMA earthwork regrading",
+        "type": "text"
+      },
+      {
+        "field": "fema_earthwork_regrading_description",
+        "name": "FEMA earthwork regrading description",
+        "type": "text"
+      },
+      {
+        "field": "fema_stormwater",
+        "name": "FEMA stormwater",
+        "type": "text"
+      },
+      {
+        "field": "fema_stormwater_description",
+        "name": "FEMA stormwater description",
+        "type": "text"
+      },
+      {
+        "field": "current_count_of_dwelling",
+        "name": "current count of dwelling",
+        "type": "number"
+      },
+      {
+        "field": "describe_mixed_uses",
+        "name": "describe mixed uses",
+        "type": "text"
+      },
+      {
+        "field": "num_units_to_be_removed",
+        "name": "num units to be removed",
+        "type": "number"
+      },
+      {
+        "field": "residential_units_change",
+        "name": "residential units change",
+        "type": "text"
+      },
+      {
+        "field": "property_use_change",
+        "name": "property use change",
+        "type": "text"
+      },
+      {
+        "field": "coordinates",
+        "name": "Coordinates",
+        "type": "point"
+      },
+      {
+        "field": "conditioned_floor_area",
+        "name": "conditioned floor area",
+        "type": "text"
+      },
+      {
+        "field": "permit_type",
+        "name": "permit type",
+        "type": "text"
+      },
+      {
+        "field": "applicant_name",
+        "name": "applicant name",
+        "type": "text"
+      },
+      {
+        "field": "location_flags",
+        "name": "location flags",
+        "type": "text"
+      }
+    ],
+    "date_ranges": {
+      "applicant_submit_date": {
+        "min": "2018-08-02T00:00:00.000",
+        "max": "2026-06-29T00:00:00.000",
+        "name": "Applicant Submit Date"
+      },
+      "issue_date": {
+        "min": "2018-09-28T00:00:00.000",
+        "max": "2026-08-14T00:00:00.000",
+        "name": "Issue Date"
+      },
+      "debris_removal_date": {
+        "min": "2018-08-29T00:00:00.000",
+        "max": "2028-04-01T00:00:00.000",
+        "name": "Debris Removal Date"
+      },
+      "license_expiration_date": {
+        "min": "2002-08-08T00:00:00.000",
+        "max": "2028-05-19T00:00:00.000",
+        "name": "License Expiration Date"
+      }
+    },
+    "type_tops": {
+      "proposed_building_use": [
+        {
+          "item": "One or Two Family Dwelling",
+          "count": "173"
+        },
+        {
+          "item": "Commercial / Mixed Use",
+          "count": "115"
+        },
+        {
+          "item": "Multi Family (3 or more dwelling units)",
+          "count": "68"
+        },
+        {
+          "item": "Townhouse",
+          "count": "6"
+        }
+      ],
+      "permit_type": [
+        {
+          "item": "Building: New Construction",
+          "count": "362"
+        }
+      ]
+    },
+    "person_columns": [
+      {
+        "field": "applicant_submit_date",
+        "name": "Applicant Submit Date"
+      },
+      {
+        "field": "applicant_name",
+        "name": "applicant name"
+      }
+    ],
+    "description_note": "List of permits for new building construction in Cambridge. This dataset derives from Cambridge's ViewPoint permitting system.",
+    "category": "Inspectional Services"
+  },
+  "cincinnati": {
+    "id": "uhjb-xac9",
+    "dataset_name": "Cincinnati Building Permits",
+    "attribution": "City of Cincinnati",
+    "license_name": "Public Domain",
+    "license_link": null,
+    "rowsUpdatedAt_utc": "2026-08-24",
+    "custom_fields": null,
+    "n_columns_all": 31,
+    "n_columns_data": 31,
+    "row_count": "127298",
+    "columns": [
+      {
+        "field": "permitnum",
+        "name": "PERMITNUM",
+        "type": "text"
+      },
+      {
+        "field": "description",
+        "name": "DESCRIPTION",
+        "type": "text"
+      },
+      {
+        "field": "applieddate",
+        "name": "APPLIEDDATE",
+        "type": "calendar_date"
+      },
+      {
+        "field": "issueddate",
+        "name": "ISSUEDDATE",
+        "type": "calendar_date"
+      },
+      {
+        "field": "completeddate",
+        "name": "COMPLETEDDATE",
+        "type": "calendar_date"
+      },
+      {
+        "field": "originaladdress1",
+        "name": "ORIGINALADDRESS1",
+        "type": "text"
+      },
+      {
+        "field": "originalcity",
+        "name": "ORIGINALCITY",
+        "type": "text"
+      },
+      {
+        "field": "originalstate",
+        "name": "ORIGINALSTATE",
+        "type": "text"
+      },
+      {
+        "field": "originalzip",
+        "name": "ORIGINALZIP",
+        "type": "text"
+      },
+      {
+        "field": "jurisdiction",
+        "name": "JURISDICTION",
+        "type": "text"
+      },
+      {
+        "field": "permitclass",
+        "name": "PERMITCLASS",
+        "type": "text"
+      },
+      {
+        "field": "statuscurrent",
+        "name": "STATUSCURRENT",
+        "type": "text"
+      },
+      {
+        "field": "statuscurrentmapped",
+        "name": "STATUSCURRENTMAPPED",
+        "type": "text"
+      },
+      {
+        "field": "workclass",
+        "name": "WORKCLASS",
+        "type": "text"
+      },
+      {
+        "field": "workclassmapped",
+        "name": "WORKCLASSMAPPED",
+        "type": "text"
+      },
+      {
+        "field": "permittype",
+        "name": "PERMITTYPE",
+        "type": "text"
+      },
+      {
+        "field": "permittypemapped",
+        "name": "PERMITTYPEMAPPED",
+        "type": "text"
+      },
+      {
+        "field": "companyname",
+        "name": "COMPANYNAME",
+        "type": "text"
+      },
+      {
+        "field": "totalsqft",
+        "name": "TOTALSQFT",
+        "type": "text"
+      },
+      {
+        "field": "estprojectcostdec",
+        "name": "ESTPROJECTCOSTDEC",
+        "type": "text"
+      },
+      {
+        "field": "units",
+        "name": "UNITS",
+        "type": "text"
+      },
+      {
+        "field": "pin",
+        "name": "PIN",
+        "type": "text"
+      },
+      {
+        "field": "proposeduse",
+        "name": "PROPOSEDUSE",
+        "type": "text"
+      },
+      {
+        "field": "expiresdate",
+        "name": "EXPIRESDATE",
+        "type": "calendar_date"
+      },
+      {
+        "field": "coissueddate",
+        "name": "COISSUEDDATE",
+        "type": "calendar_date"
+      },
+      {
+        "field": "fee",
+        "name": "FEE",
+        "type": "number"
+      },
+      {
+        "field": "link",
+        "name": "LINK",
+        "type": "text"
+      },
+      {
+        "field": "latitude",
+        "name": "LATITUDE",
+        "type": "number"
+      },
+      {
+        "field": "longitude",
+        "name": "LONGITUDE",
+        "type": "number"
+      },
+      {
+        "field": "neighborhood",
+        "name": "NEIGHBORHOOD",
+        "type": "text"
+      },
+      {
+        "field": "community_council_neighborhood",
+        "name": "COMMUNITY COUNCIL NEIGHBORHOOD",
+        "type": "text"
+      }
+    ],
+    "date_ranges": {
+      "applieddate": {
+        "min": "2010-01-04T00:00:00.000",
+        "max": "2021-12-17T00:00:00.000",
+        "name": "APPLIEDDATE"
+      },
+      "issueddate": {
+        "min": "2010-01-04T00:00:00.000",
+        "max": "2021-12-17T00:00:00.000",
+        "name": "ISSUEDDATE"
+      },
+      "completeddate": {
+        "min": "2010-01-05T00:00:00.000",
+        "max": "2021-12-17T00:00:00.000",
+        "name": "COMPLETEDDATE"
+      },
+      "expiresdate": {
+        "min": "2010-05-21T00:00:00.000",
+        "max": "2023-01-15T00:00:00.000",
+        "name": "EXPIRESDATE"
+      },
+      "coissueddate": {
+        "min": "2003-07-12T00:00:00.000",
+        "max": "2021-12-17T00:00:00.000",
+        "name": "COISSUEDDATE"
+      }
+    },
+    "type_tops": {
+      "permitclass": [
+        {
+          "item": "RCO",
+          "count": "68417"
+        },
+        {
+          "item": "OBC",
+          "count": "58875"
+        },
+        {
+          "item": "Non-Standard Code Book",
+          "count": "6"
+        }
+      ],
+      "workclass": [
+        {
+          "item": "CALT",
+          "count": "23969"
+        },
+        {
+          "item": "RR12",
+          "count": "17625"
+        },
+        {
+          "item": "RRPL",
+          "count": "15436"
+        },
+        {
+          "item": "RNEW",
+          "count": "14215"
+        },
+        {
+          "item": "RALT",
+          "count": "12086"
+        },
+        {
+          "item": "CNEW",
+          "count": "8229"
+        },
+        {
+          "item": "RDMO",
+          "count": "6418"
+        },
+        {
+          "item": "CRPL",
+          "count": "5421"
+        },
+        {
+          "item": "RRPR",
+          "count": "4227"
+        },
+        {
+          "item": "COMM",
+          "count": "4211"
+        },
+        {
+          "item": "CRPR",
+          "count": "2040"
+        },
+        {
+          "item": "RADD",
+          "count": "1720"
+        },
+        {
+          "item": "CALTH",
+          "count": "1643"
+        },
+        {
+          "item": "CTENT",
+          "count": "1325"
+        },
+        {
+          "item": "CDMO",
+          "count": "1311"
+        },
+        {
+          "item": "P",
+          "count": "1238"
+        },
+        {
+          "item": "RESS",
+          "count": "842"
+        },
+        {
+          "item": "CADD",
+          "count": "746"
+        },
+        {
+          "item": "CRPR-R",
+          "count": "730"
+        },
+        {
+          "item": "RACC",
+          "count": "630"
+        }
+      ],
+      "workclassmapped": [
+        {
+          "item": "Existing",
+          "count": "104854"
+        },
+        {
+          "item": "New",
+          "count": "22444"
+        }
+      ],
+      "permittype": [
+        {
+          "item": "CBPCBCP",
+          "count": "40434"
+        },
+        {
+          "item": "CBPCPLGW",
+          "count": "23670"
+        },
+        {
+          "item": "CBPCMCHR",
+          "count": "23147"
+        },
+        {
+          "item": "CBPCWRC",
+          "count": "7732"
+        },
+        {
+          "item": "CBPCPLG",
+          "count": "7248"
+        },
+        {
+          "item": "CBPCMCH",
+          "count": "4457"
+        },
+        {
+          "item": "CBPCFAP",
+          "count": "4135"
+        },
+        {
+          "item": "CBPCSUP",
+          "count": "4091"
+        },
+        {
+          "item": "CBPCSGN",
+          "count": "3311"
+        },
+        {
+          "item": "CBPCWALL",
+          "count": "2549"
+        },
+        {
+          "item": "CBPCTEMP",
+          "count": "2339"
+        },
+        {
+          "item": "CBPCEL",
+          "count": "1797"
+        },
+        {
+          "item": "CBPCPL",
+          "count": "642"
+        },
+        {
+          "item": "CBPCEF",
+          "count": "607"
+        },
+        {
+          "item": "CBPCREP",
+          "count": "507"
+        },
+        {
+          "item": "CBPCSWP",
+          "count": "368"
+        },
+        {
+          "item": "CBPCCCI",
+          "count": "252"
+        },
+        {
+          "item": "CBPCMCHW",
+          "count": "11"
+        },
+        {
+          "item": "CBPCCONF",
+          "count": "1"
+        }
+      ],
+      "permittypemapped": [
+        {
+          "item": "HVAC",
+          "count": "34590"
+        },
+        {
+          "item": "Building",
+          "count": "31121"
+        },
+        {
+          "item": "Plumbing Permits",
+          "count": "30918"
+        },
+        {
+          "item": "Fire Protection Systems",
+          "count": "8226"
+        },
+        {
+          "item": "Excavation/Fill",
+          "count": "6743"
+        },
+        {
+          "item": "Wrecking",
+          "count": "4929"
+        },
+        {
+          "item": "Misc. Structures",
+          "count": "4390"
+        },
+        {
+          "item": "Signs",
+          "count": "3350"
+        },
+        {
+          "item": "Elevator Permit",
+          "count": "1797"
+        },
+        {
+          "item": "Repair",
+          "count": "507"
+        },
+        {
+          "item": "Parking Lots",
+          "count": "442"
+        },
+        {
+          "item": "Non-Standard Permit Type",
+          "count": "252"
+        },
+        {
+          "item": "Fences",
+          "count": "32"
+        },
+        {
+          "item": "Certificates of Occupancy/Insp",
+          "count": "1"
+        }
+      ]
+    },
+    "person_columns": [],
+    "description_note": "Data Description: Cincinnati Building Permits that have been applied for since January 1, 2010.\n\nData Creation: Data is entered by the Buildings & Inspections department.  \n\nData Created By: City of Cincinnati\n\nRefresh Frequency: Daily\n\nCincyInsights: The City of Cincinnati maintains an interactive dashboard portal, CincyInsights in addition to our Open Data in an effort to increase access and usa",
+    "category": "thriving neighborhoods"
+  },
+  "montgomery-md": {
+    "id": "m88u-pqki",
+    "dataset_name": "Residential Permit",
+    "attribution": null,
+    "license_name": "Public Domain",
+    "license_link": null,
+    "rowsUpdatedAt_utc": "2026-08-25",
+    "custom_fields": {
+      "Dataset Information": {
+        "Departments": "Permitting Services, Department of",
+        "Update Frequency": "Daily"
+      }
+    },
+    "n_columns_all": 28,
+    "n_columns_data": 20,
+    "row_count": "186173",
+    "columns": [
+      {
+        "field": "permitno",
+        "name": "Permit Number",
+        "type": "text"
+      },
+      {
+        "field": "status",
+        "name": "Status",
+        "type": "text"
+      },
+      {
+        "field": "stno",
+        "name": "Street Number",
+        "type": "text"
+      },
+      {
+        "field": "stname",
+        "name": "Street Name",
+        "type": "text"
+      },
+      {
+        "field": "suffix",
+        "name": "Street Suffix",
+        "type": "text"
+      },
+      {
+        "field": "postdir",
+        "name": "Post-direction",
+        "type": "text"
+      },
+      {
+        "field": "city",
+        "name": "City",
+        "type": "text"
+      },
+      {
+        "field": "state",
+        "name": "State",
+        "type": "text"
+      },
+      {
+        "field": "zip",
+        "name": "ZIP code",
+        "type": "text"
+      },
+      {
+        "field": "addeddate",
+        "name": "Added Date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "issueddate",
+        "name": "Issue Date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "finaleddate",
+        "name": "Final Date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "buildingarea",
+        "name": "Building Area",
+        "type": "number"
+      },
+      {
+        "field": "declaredvaluation",
+        "name": "Declared Valuation",
+        "type": "number"
+      },
+      {
+        "field": "description",
+        "name": "Description",
+        "type": "text"
+      },
+      {
+        "field": "applicationtype",
+        "name": "Application Type",
+        "type": "text"
+      },
+      {
+        "field": "worktype",
+        "name": "Work Type",
+        "type": "text"
+      },
+      {
+        "field": "usecode",
+        "name": "Use Code",
+        "type": "text"
+      },
+      {
+        "field": "predir",
+        "name": "Pre-direction",
+        "type": "text"
+      },
+      {
+        "field": "location",
+        "name": "Location",
+        "type": "location"
+      }
+    ],
+    "date_ranges": {
+      "addeddate": {
+        "min": "2000-01-03T01:01:17.000",
+        "max": "2026-08-24T12:08:11.000",
+        "name": "Added Date"
+      },
+      "issueddate": {
+        "min": "2000-01-03T02:01:00.000",
+        "max": "2026-08-24T11:08:53.000",
+        "name": "Issue Date"
+      },
+      "finaleddate": {
+        "min": "2000-01-11T01:01:00.000",
+        "max": "2026-08-24T12:08:46.000",
+        "name": "Final Date"
+      }
+    },
+    "type_tops": {
+      "applicationtype": [
+        {
+          "item": "BUILDING RESIDENTIAL PERMIT",
+          "count": "186173"
+        }
+      ],
+      "worktype": [
+        {
+          "item": "CONSTRUCT",
+          "count": "84469"
+        },
+        {
+          "item": "ALTER",
+          "count": "52973"
+        },
+        {
+          "item": "ADD",
+          "count": "43719"
+        },
+        {
+          "item": "RESTORE AND / OR REPAIR",
+          "count": "4215"
+        },
+        {
+          "item": "FINAL ONLY AP",
+          "count": "622"
+        },
+        {
+          "item": "BUILD FOUNDATION",
+          "count": "88"
+        },
+        {
+          "item": "INSTALL",
+          "count": "58"
+        },
+        {
+          "item": "CONSTRUCT SHEETING/SHORING",
+          "count": "9"
+        },
+        {
+          "item": "REPLACE",
+          "count": "5"
+        },
+        {
+          "item": "PLACE",
+          "count": "3"
+        },
+        {
+          "item": "REMOVE AND REPLACE",
+          "count": "2"
+        },
+        {
+          "item": "INSPECT AND APPROVE",
+          "count": "1"
+        },
+        {
+          "item": "MOVE",
+          "count": "1"
+        },
+        {
+          "item": "DISTURB",
+          "count": "1"
+        }
+      ],
+      "usecode": [
+        {
+          "item": "SINGLE FAMILY DWELLING",
+          "count": "119440"
+        },
+        {
+          "item": "DECK",
+          "count": "34480"
+        },
+        {
+          "item": "TOWNHOUSE",
+          "count": "10945"
+        },
+        {
+          "item": "SHED",
+          "count": "9567"
+        },
+        {
+          "item": "RESIDENTIAL ACCESSORY STRUCTURE",
+          "count": "3082"
+        },
+        {
+          "item": "SWIMMING POOL - IN GROUND",
+          "count": "2983"
+        },
+        {
+          "item": "GARAGE",
+          "count": "1818"
+        },
+        {
+          "item": "SWIMMING POOL - ABOVE GROUND",
+          "count": "1308"
+        },
+        {
+          "item": "MISCELLANEOUS STRUCTURE",
+          "count": "1056"
+        },
+        {
+          "item": "HOT TUB",
+          "count": "306"
+        },
+        {
+          "item": "HOT TUB & DECK",
+          "count": "236"
+        },
+        {
+          "item": "MODULAR",
+          "count": "208"
+        },
+        {
+          "item": "SENIOR TOWNHOUSE",
+          "count": "157"
+        },
+        {
+          "item": "DUPLEX",
+          "count": "153"
+        },
+        {
+          "item": "RETAINING WALL",
+          "count": "110"
+        },
+        {
+          "item": "POOL - ABOVE GROUND",
+          "count": "93"
+        },
+        {
+          "item": "SENIOR VILLAS",
+          "count": "84"
+        },
+        {
+          "item": "POOL - ABOVE GROUND & FENCE",
+          "count": "37"
+        },
+        {
+          "item": "TRAILER",
+          "count": "37"
+        },
+        {
+          "item": "SENIOR SINGLE FAMILY DWELLING",
+          "count": "19"
+        }
+      ]
+    },
+    "person_columns": [],
+    "description_note": "Data for all Residential Building Permits issued since 2000, including status and work performed.\r\n\r\nUpdate Frequency:  Daily",
+    "category": "Licenses/Permits"
+  },
+  "new-york": {
+    "id": "rbx6-tga4",
+    "dataset_name": "DOB NOW: Build \u2013 Approved Permits",
+    "attribution": "Department of Buildings (DOB)",
+    "license_name": null,
+    "license_link": null,
+    "rowsUpdatedAt_utc": "2026-08-25",
+    "custom_fields": {
+      "Update": {
+        "Automation": "Yes",
+        "Date Made Public": "6/28/2016",
+        "Update Frequency": "Daily"
+      },
+      "Dataset Information": {
+        "Agency": "Department of Buildings (DOB)"
+      }
+    },
+    "n_columns_all": 46,
+    "n_columns_data": 46,
+    "row_count": "989378",
+    "columns": [
+      {
+        "field": "job_filing_number",
+        "name": "Job Filing Number",
+        "type": "text"
+      },
+      {
+        "field": "work_permit",
+        "name": "Work Permit",
+        "type": "text"
+      },
+      {
+        "field": "sequence_number",
+        "name": "Sequence Number",
+        "type": "text"
+      },
+      {
+        "field": "filing_reason",
+        "name": "Filing Reason",
+        "type": "text"
+      },
+      {
+        "field": "house_no",
+        "name": "House No",
+        "type": "text"
+      },
+      {
+        "field": "street_name",
+        "name": "Street Name",
+        "type": "text"
+      },
+      {
+        "field": "borough",
+        "name": "Borough",
+        "type": "text"
+      },
+      {
+        "field": "lot",
+        "name": "LOT",
+        "type": "text"
+      },
+      {
+        "field": "bin",
+        "name": "Bin",
+        "type": "text"
+      },
+      {
+        "field": "block",
+        "name": "Block",
+        "type": "text"
+      },
+      {
+        "field": "c_b_no",
+        "name": "C B NO",
+        "type": "text"
+      },
+      {
+        "field": "apt_condo_no_s",
+        "name": "Apt/Condo No(s)",
+        "type": "text"
+      },
+      {
+        "field": "work_on_floor",
+        "name": "Work on Floor",
+        "type": "text"
+      },
+      {
+        "field": "work_type",
+        "name": "Work Type",
+        "type": "text"
+      },
+      {
+        "field": "permittee_s_license_type",
+        "name": "Permittee's License Type",
+        "type": "text"
+      },
+      {
+        "field": "applicant_license",
+        "name": "Applicant License #",
+        "type": "text"
+      },
+      {
+        "field": "applicant_first_name",
+        "name": "Applicant First Name",
+        "type": "text"
+      },
+      {
+        "field": "applicant_middle_name",
+        "name": "Applicant Middle Name",
+        "type": "text"
+      },
+      {
+        "field": "applicant_last_name",
+        "name": "Applicant Last Name",
+        "type": "text"
+      },
+      {
+        "field": "applicant_business_name",
+        "name": "Applicant Business Name",
+        "type": "text"
+      },
+      {
+        "field": "applicant_business_address",
+        "name": "Applicant Business Address",
+        "type": "text"
+      },
+      {
+        "field": "filing_representative_first_name",
+        "name": "Filing Representative First Name",
+        "type": "text"
+      },
+      {
+        "field": "filing_representative_middle_initial",
+        "name": "Filing Representative Middle Initial",
+        "type": "text"
+      },
+      {
+        "field": "filing_representative_last_name",
+        "name": "Filing Representative Last Name",
+        "type": "text"
+      },
+      {
+        "field": "filing_representative_business_name",
+        "name": "Filing Representative Business Name",
+        "type": "text"
+      },
+      {
+        "field": "approved_date",
+        "name": "Approved Date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "issued_date",
+        "name": "Issued Date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "expired_date",
+        "name": "Expired Date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "job_description",
+        "name": "Job Description",
+        "type": "text"
+      },
+      {
+        "field": "estimated_job_costs",
+        "name": "Estimated Job Costs",
+        "type": "text"
+      },
+      {
+        "field": "owner_business_name",
+        "name": "Owner Business Name",
+        "type": "text"
+      },
+      {
+        "field": "owner_name",
+        "name": "Owner Name",
+        "type": "text"
+      },
+      {
+        "field": "owner_street_address",
+        "name": "Owner Street Address",
+        "type": "text"
+      },
+      {
+        "field": "owner_city",
+        "name": "Owner City",
+        "type": "text"
+      },
+      {
+        "field": "owner_state",
+        "name": "Owner State",
+        "type": "text"
+      },
+      {
+        "field": "owner_zip_code",
+        "name": "Owner Zip Code",
+        "type": "text"
+      },
+      {
+        "field": "permit_status",
+        "name": "Permit Status",
+        "type": "text"
+      },
+      {
+        "field": "tracking_number",
+        "name": "Tracking Number",
+        "type": "text"
+      },
+      {
+        "field": "zip_code",
+        "name": "Zip Code",
+        "type": "text"
+      },
+      {
+        "field": "latitude",
+        "name": "Latitude",
+        "type": "number"
+      },
+      {
+        "field": "longitude",
+        "name": "Longitude",
+        "type": "number"
+      },
+      {
+        "field": "community_board",
+        "name": "Community Board",
+        "type": "number"
+      },
+      {
+        "field": "council_district",
+        "name": "Council District",
+        "type": "number"
+      },
+      {
+        "field": "bbl",
+        "name": "BBL",
+        "type": "number"
+      },
+      {
+        "field": "census_tract",
+        "name": "Census Tract (2020)",
+        "type": "number"
+      },
+      {
+        "field": "nta",
+        "name": "Neighborhood Tabulation Area (NTA) (2020)",
+        "type": "text"
+      }
+    ],
+    "date_ranges": {
+      "approved_date": {
+        "min": "2016-06-14T00:00:00.000",
+        "max": "2026-08-24T00:00:00.000",
+        "name": "Approved Date"
+      },
+      "issued_date": {
+        "min": "2016-06-23T08:15:04.000",
+        "max": "2026-08-24T00:00:00.000",
+        "name": "Issued Date"
+      },
+      "expired_date": {
+        "min": "1899-12-30T00:00:00.000",
+        "max": "2027-08-24T04:00:00.000",
+        "name": "Expired Date"
+      }
+    },
+    "type_tops": {
+      "work_type": [
+        {
+          "item": "General Construction",
+          "count": "206888"
+        },
+        {
+          "item": "Plumbing",
+          "count": "152713"
+        },
+        {
+          "item": "Sidewalk Shed",
+          "count": "108875"
+        },
+        {
+          "item": "Mechanical Systems",
+          "count": "93895"
+        },
+        {
+          "item": "Construction Fence",
+          "count": "84043"
+        },
+        {
+          "item": "Structural",
+          "count": "60291"
+        },
+        {
+          "item": "Sprinklers",
+          "count": "57253"
+        },
+        {
+          "item": "Supported Scaffold",
+          "count": "54062"
+        },
+        {
+          "item": "Sign",
+          "count": "26389"
+        },
+        {
+          "item": "Foundation",
+          "count": "26264"
+        },
+        {
+          "item": "Solar",
+          "count": "20929"
+        },
+        {
+          "item": "Protection and Mechanical Methods",
+          "count": "16011"
+        },
+        {
+          "item": "Suspended Scaffold",
+          "count": "14740"
+        },
+        {
+          "item": "Earth Work",
+          "count": "14728"
+        },
+        {
+          "item": "Standpipe",
+          "count": "13332"
+        },
+        {
+          "item": "Boiler Equipment",
+          "count": "10997"
+        },
+        {
+          "item": "Curb Cut",
+          "count": "8639"
+        },
+        {
+          "item": "Antenna",
+          "count": "7918"
+        },
+        {
+          "item": "Support of Excavation",
+          "count": "7188"
+        },
+        {
+          "item": "Full Demolition",
+          "count": "4206"
+        }
+      ]
+    },
+    "person_columns": [
+      {
+        "field": "permittee_s_license_type",
+        "name": "Permittee's License Type"
+      },
+      {
+        "field": "applicant_license",
+        "name": "Applicant License #"
+      },
+      {
+        "field": "applicant_first_name",
+        "name": "Applicant First Name"
+      },
+      {
+        "field": "applicant_middle_name",
+        "name": "Applicant Middle Name"
+      },
+      {
+        "field": "applicant_last_name",
+        "name": "Applicant Last Name"
+      },
+      {
+        "field": "applicant_business_name",
+        "name": "Applicant Business Name"
+      },
+      {
+        "field": "applicant_business_address",
+        "name": "Applicant Business Address"
+      },
+      {
+        "field": "owner_business_name",
+        "name": "Owner Business Name"
+      },
+      {
+        "field": "owner_name",
+        "name": "Owner Name"
+      },
+      {
+        "field": "owner_street_address",
+        "name": "Owner Street Address"
+      },
+      {
+        "field": "owner_city",
+        "name": "Owner City"
+      },
+      {
+        "field": "owner_state",
+        "name": "Owner State"
+      },
+      {
+        "field": "owner_zip_code",
+        "name": "Owner Zip Code"
+      }
+    ],
+    "description_note": "List of all approved construction permits in DOB NOW except for <a href=\"https://data.cityofnewyork.us/City-Government/DOB-NOW-Electrical-Permit-Applications/dm9a-ab7w\">Electrical</a>, <a href=\"https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Elevator-Permit-Applications/kfp4-dz4h\">Elevator</a>, and <a href=\"https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Limited-Alt",
+    "category": "Housing & Development"
+  },
+  "san-francisco": {
+    "id": "i98e-djp9",
+    "dataset_name": "Building Permits",
+    "attribution": null,
+    "license_name": "Open Data Commons Public Domain Dedication and License",
+    "license_link": "http://opendatacommons.org/licenses/pddl/1.0/",
+    "rowsUpdatedAt_utc": "2026-08-25",
+    "custom_fields": {
+      "Department Metrics": {
+        "Publishing Department": "Building Inspection"
+      },
+      "Internal Management": {
+        "Inventory ID": "DBI-0002"
+      },
+      "Detailed Descriptive": {
+        "Geographic unit": "Street address"
+      },
+      "Publishing Details": {
+        "Data change frequency": "Multiple times per hour",
+        "Publishing frequency": "Daily"
+      }
+    },
+    "n_columns_all": 53,
+    "n_columns_data": 53,
+    "row_count": null,
+    "columns": [
+      {
+        "field": "permit_number",
+        "name": "Permit Number",
+        "type": "text"
+      },
+      {
+        "field": "permit_type",
+        "name": "Permit Type",
+        "type": "text"
+      },
+      {
+        "field": "permit_type_definition",
+        "name": "Permit Type Definition",
+        "type": "text"
+      },
+      {
+        "field": "permit_creation_date",
+        "name": "Permit Creation Date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "block",
+        "name": "Block",
+        "type": "text"
+      },
+      {
+        "field": "lot",
+        "name": "Lot",
+        "type": "text"
+      },
+      {
+        "field": "street_number",
+        "name": "Street Number",
+        "type": "text"
+      },
+      {
+        "field": "street_number_suffix",
+        "name": "Street Number Suffix",
+        "type": "text"
+      },
+      {
+        "field": "street_name",
+        "name": "Street Name",
+        "type": "text"
+      },
+      {
+        "field": "street_suffix",
+        "name": "Street Suffix",
+        "type": "text"
+      },
+      {
+        "field": "unit",
+        "name": "Unit",
+        "type": "text"
+      },
+      {
+        "field": "unit_suffix",
+        "name": "Unit Suffix",
+        "type": "text"
+      },
+      {
+        "field": "description",
+        "name": "Description",
+        "type": "text"
+      },
+      {
+        "field": "status",
+        "name": "Current Status",
+        "type": "text"
+      },
+      {
+        "field": "status_date",
+        "name": "Current Status Date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "filed_date",
+        "name": "Filed Date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "issued_date",
+        "name": "Issued Date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "completed_date",
+        "name": "Completed Date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "first_construction_document_date",
+        "name": "First Construction Document Date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "approved_date",
+        "name": "approved_date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "structural_notification",
+        "name": "Structural Notification",
+        "type": "text"
+      },
+      {
+        "field": "number_of_existing_stories",
+        "name": "Number of Existing Stories",
+        "type": "text"
+      },
+      {
+        "field": "number_of_proposed_stories",
+        "name": "Number of Proposed Stories",
+        "type": "text"
+      },
+      {
+        "field": "voluntary_soft_story_retrofit",
+        "name": "Voluntary Soft-Story Retrofit",
+        "type": "text"
+      },
+      {
+        "field": "fire_only_permit",
+        "name": "Fire Only Permit",
+        "type": "text"
+      },
+      {
+        "field": "estimated_cost",
+        "name": "Estimated Cost",
+        "type": "text"
+      },
+      {
+        "field": "revised_cost",
+        "name": "Revised Cost",
+        "type": "text"
+      },
+      {
+        "field": "existing_use",
+        "name": "Existing Use",
+        "type": "text"
+      },
+      {
+        "field": "existing_units",
+        "name": "Existing Units",
+        "type": "text"
+      },
+      {
+        "field": "proposed_use",
+        "name": "Proposed Use",
+        "type": "text"
+      },
+      {
+        "field": "proposed_units",
+        "name": "Proposed Units",
+        "type": "text"
+      },
+      {
+        "field": "plansets",
+        "name": "Plansets",
+        "type": "text"
+      },
+      {
+        "field": "tidf_compliance",
+        "name": "TIDF Compliance",
+        "type": "text"
+      },
+      {
+        "field": "existing_occupancy",
+        "name": "Existing Occupancy",
+        "type": "text"
+      },
+      {
+        "field": "proposed_occupancy",
+        "name": "Proposed Occupancy",
+        "type": "text"
+      },
+      {
+        "field": "existing_construction_type",
+        "name": "Existing Construction Type",
+        "type": "text"
+      },
+      {
+        "field": "existing_construction_type_description",
+        "name": "Existing Construction Type Description",
+        "type": "text"
+      },
+      {
+        "field": "proposed_construction_type",
+        "name": "Proposed Construction Type",
+        "type": "text"
+      },
+      {
+        "field": "proposed_construction_type_description",
+        "name": "Proposed Construction Type Description",
+        "type": "text"
+      },
+      {
+        "field": "site_permit",
+        "name": "Site Permit",
+        "type": "text"
+      },
+      {
+        "field": "last_permit_activity_date",
+        "name": "Last Permit Activity Date",
+        "type": "calendar_date"
+      },
+      {
+        "field": "application_submission_method",
+        "name": "Application Submission Method",
+        "type": "text"
+      },
+      {
+        "field": "adu",
+        "name": "ADU",
+        "type": "text"
+      },
+      {
+        "field": "primary_address_flag",
+        "name": "Primary Address Flag",
+        "type": "text"
+      },
+      {
+        "field": "supervisor_district",
+        "name": "supervisor_district",
+        "type": "text"
+      },
+      {
+        "field": "neighborhoods_analysis_boundaries",
+        "name": "neighborhoods_analysis_boundaries",
+        "type": "text"
+      },
+      {
+        "field": "zipcode",
+        "name": "Zipcode",
+        "type": "text"
+      },
+      {
+        "field": "location",
+        "name": "Location",
+        "type": "point"
+      },
+      {
+        "field": "point_source",
+        "name": "point_source",
+        "type": "text"
+      },
+      {
+        "field": "reroof",
+        "name": "reroof",
+        "type": "text"
+      },
+      {
+        "field": "record_id",
+        "name": "Record ID",
+        "type": "text"
+      },
+      {
+        "field": "data_as_of",
+        "name": "data_as_of",
+        "type": "calendar_date"
+      },
+      {
+        "field": "data_loaded_at",
+        "name": "data_loaded_at",
+        "type": "calendar_date"
+      }
+    ],
+    "date_ranges": {},
+    "type_tops": {
+      "permit_type": [],
+      "permit_type_definition": []
+    },
+    "person_columns": [],
+    "description_note": "<strong>Note: Starting on 12/10/2024 this dataset will only publish new records (rows) that are added and update any existing records that have updated information. New and updated records can be identified by using the data_as_of and data_loaded_at fields. To identify the most recent date when the dataset was last updated, use the maximum data_as_of or data_loaded_at value. </strong>\n\n<strong>A. ",
+    "category": "Housing and Buildings"
+  }
+}

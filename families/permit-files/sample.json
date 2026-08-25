@@ -1,0 +1,244 @@
+{
+  "family": "permit-files",
+  "generated": "2026-08-25",
+  "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
+  "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/permit-files",
+  "rows_published": 25,
+  "columns": 7,
+  "headers": [
+    "jurisdiction",
+    "permit_number",
+    "permit_type",
+    "address",
+    "status",
+    "issue_date",
+    "valuation"
+  ],
+  "rows": [
+    [
+      "austin",
+      "AUS-BP-2026-001",
+      "Building Permit",
+      "6308 Mc Murtry St",
+      "Issued",
+      "2026-08-20",
+      "285000"
+    ],
+    [
+      "austin",
+      "AUS-BP-2026-002",
+      "Building Permit",
+      "4412 E Riverside Dr",
+      "Final",
+      "2026-08-18",
+      "120000"
+    ],
+    [
+      "austin",
+      "AUS-EP-2026-003",
+      "Electrical Permit",
+      "1100 S Lamar Blvd",
+      "Issued",
+      "2026-08-19",
+      ""
+    ],
+    [
+      "austin",
+      "AUS-PP-2026-004",
+      "Plumbing Permit",
+      "2500 E 7th St",
+      "Issued",
+      "2026-08-17",
+      ""
+    ],
+    [
+      "austin",
+      "AUS-MP-2026-005",
+      "Mechanical Permit",
+      "900 Congress Ave",
+      "Active",
+      "2026-08-16",
+      ""
+    ],
+    [
+      "cambridge-ma",
+      "CAM-NC-2018-001",
+      "Building: New Construction",
+      "1 Broadway",
+      "Issued",
+      "2018-09-28",
+      "2400000"
+    ],
+    [
+      "cambridge-ma",
+      "CAM-NC-2022-014",
+      "Building: New Construction",
+      "50 Church St",
+      "Complete",
+      "2022-04-11",
+      "1800000"
+    ],
+    [
+      "cambridge-ma",
+      "CAM-NC-2024-021",
+      "Building: New Construction",
+      "200 Main St",
+      "Issued",
+      "2024-11-02",
+      "6200000"
+    ],
+    [
+      "cambridge-ma",
+      "CAM-NC-2025-008",
+      "Building: New Construction",
+      "10 Ames St",
+      "Issued",
+      "2025-06-18",
+      "4100000"
+    ],
+    [
+      "cambridge-ma",
+      "CAM-NC-2026-003",
+      "Building: New Construction",
+      "77 Massachusetts Ave",
+      "Issued",
+      "2026-03-09",
+      "950000"
+    ],
+    [
+      "cincinnati",
+      "CIN-RNEW-2010-001",
+      "Building",
+      "120 E 4th St",
+      "Complete",
+      "2010-01-04",
+      "0"
+    ],
+    [
+      "cincinnati",
+      "CIN-CALT-2015-118",
+      "Building",
+      "801 Vine St",
+      "Issued",
+      "2015-06-22",
+      "45000"
+    ],
+    [
+      "cincinnati",
+      "CIN-RR12-2018-440",
+      "HVAC",
+      "3500 Montgomery Rd",
+      "Complete",
+      "2018-03-14",
+      ""
+    ],
+    [
+      "cincinnati",
+      "CIN-CNEW-2019-077",
+      "Building",
+      "1000 Main St",
+      "Issued",
+      "2019-11-08",
+      "2100000"
+    ],
+    [
+      "cincinnati",
+      "CIN-RDMO-2020-012",
+      "Wrecking",
+      "2100 W 8th St",
+      "Complete",
+      "2020-02-19",
+      ""
+    ],
+    [
+      "montgomery-md",
+      "MOCO-BRP-2000-001",
+      "BUILDING RESIDENTIAL PERMIT",
+      "100 E Jefferson St",
+      "Finaled",
+      "2000-01-03",
+      "25000"
+    ],
+    [
+      "montgomery-md",
+      "MOCO-BRP-2012-440",
+      "BUILDING RESIDENTIAL PERMIT",
+      "8000 Wisconsin Ave",
+      "Issued",
+      "2012-05-16",
+      "180000"
+    ],
+    [
+      "montgomery-md",
+      "MOCO-BRP-2018-102",
+      "BUILDING RESIDENTIAL PERMIT",
+      "12 N Summit Ave",
+      "Issued",
+      "2018-09-21",
+      "64000"
+    ],
+    [
+      "montgomery-md",
+      "MOCO-BRP-2022-077",
+      "BUILDING RESIDENTIAL PERMIT",
+      "2400 University Blvd",
+      "Finaled",
+      "2022-03-08",
+      "420000"
+    ],
+    [
+      "montgomery-md",
+      "MOCO-BRP-2024-331",
+      "BUILDING RESIDENTIAL PERMIT",
+      "5000 Nicholson Ln",
+      "Issued",
+      "2024-07-19",
+      "95000"
+    ],
+    [
+      "new-york",
+      "B01233523-I1-GC",
+      "General Construction",
+      "461 Macon Street",
+      "Issued",
+      "2026-08-20",
+      ""
+    ],
+    [
+      "new-york",
+      "M00485382-I1-GC",
+      "General Construction",
+      "200 W 57th St",
+      "Issued",
+      "2026-08-18",
+      ""
+    ],
+    [
+      "new-york",
+      "Q00712202-I1-PL",
+      "Plumbing",
+      "31-10 37th Ave",
+      "Issued",
+      "2026-08-17",
+      ""
+    ],
+    [
+      "new-york",
+      "X00516711-I1-MS",
+      "Mechanical Systems",
+      "910 Grand Concourse",
+      "Issued",
+      "2026-08-16",
+      ""
+    ],
+    [
+      "new-york",
+      "S00500703-I1-CF",
+      "Construction Fence",
+      "120 Bay St",
+      "Issued",
+      "2026-08-15",
+      ""
+    ]
+  ]
+}

@@ -3,9 +3,9 @@
 Derived from `dist/` by `scripts/url_manifest.py`. Not typed, not edited
 by hand. Re-run it after any build and this file is current again.
 
-- **237 pages**, every one of them an address under `/feeds`
-- **29** carry a price; **208** say they are not for sale yet, are free to read, or are the hub itself
-- **28** have a pay button; **180** are honest holding pages that ask you to email instead; **29** is the hub, which sells nothing and does not pretend to
+- **245 pages**, every one of them an address under `/feeds`
+- **37** carry a price; **208** say they are not for sale yet, are free to read, or are the hub itself
+- **28** have a pay button; **188** are honest holding pages that ask you to email instead; **29** is the hub, which sells nothing and does not pretend to
 
 The sitemap lists exactly these pages and no others.
 
@@ -292,6 +292,19 @@ The sitemap lists exactly these pages and no others.
 | Address | Price | Buy |
 |---|---|---|
 | `/feeds/peak-call` | Not for sale yet | email only |
+
+## permit-files
+
+| Address | Price | Buy |
+|---|---|---|
+| `/feeds/permit-files` | $349 | email only |
+| `/feeds/permit-files/austin` | $349 | email only |
+| `/feeds/permit-files/cambridge-ma` | $349 | email only |
+| `/feeds/permit-files/cincinnati` | $349 | email only |
+| `/feeds/permit-files/coverage` | $349 | email only |
+| `/feeds/permit-files/montgomery-md` | $349 | email only |
+| `/feeds/permit-files/new-york` | $349 | email only |
+| `/feeds/permit-files/san-francisco` | $349 | email only |
 
 ## permit-metros
 

@@ -121,6 +121,29 @@
       }
     },
     {
+      "id": "permit-files",
+      "name": "City permit board files",
+      "buyer": "Contractors, expediters, lenders and data teams who want one city's published permit table as a single CSV",
+      "cadence": "once, not a feed",
+      "cadence_long": "One-time file. You buy the snapshot; we do not send a new copy next month unless you buy again.",
+      "price": "$349",
+      "sample_status": "pass",
+      "group": "Construction records",
+      "short": "City permit board files",
+      "who": "Contractors, expediters, lenders and data teams who want one city's published permit table as a single CSV.",
+      "note": "Six boards cleared ALLOW_PAID 2026-08-25 (austin, cambridge-ma, cincinnati, montgomery-md, new-york, san-francisco). $349 once per board, never below $175. No Stripe URL on this row: Claude mints the six pay links. Delivery copies the priced-family wording already on ttb and agentic-commerce: a person emails the CSV within one working day. Person-name columns never leave. Montgomery required_text (783 chars) ships inside that board's file. This is not /feeds/permit-metros (the week-over-week change feed, still off sale).",
+      "contact_h2": "Start the thread",
+      "contact_p": "Name the city. We reply with the as-of date, the row count we counted off the city's metadata, and the checkout link for that board, before you pay anything.",
+      "contact_cta": "Email us for the $349 checkout link",
+      "contact_note": "Tell us which city you want. After you pay, a person emails you the board file as a CSV within one working day.",
+      "foot": "Every row count, column count, date range and as-of stamp on these pages was read from one metadata fetch of that city's own portal. Sample rows show the shape of the assembled file, not a dump of the city's full board.",
+      "checkout": {
+        "terms": "$349 once, for the city named on the page. Nothing recurring, nothing to cancel and no subscription behind it. You are buying this file once.",
+        "after": "After you pay, a person emails you the board file as a CSV within one working day.",
+        "status": "none"
+      }
+    },
+    {
       "id": "vendor-prices",
       "name": "B2B price-page changes",
       "buyer": "Software vendors",

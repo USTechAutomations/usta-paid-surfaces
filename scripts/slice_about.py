@@ -802,10 +802,24 @@ def coverage(today: dt.date) -> dict:
         f'{esc(f["price"])}<span class="sub">Sold as {esc(f.get("short") or f["name"])}. '
         "Each offer states its own price and its own window; ask before you pay.</span>",
     ) for f in builds]
-    # One table, two reasons to be in it: a build was never a dated feed, and a
-    # stopped reader has ceased to be one. Both are things we sell that no longer
-    # promise anything dated, which is exactly what this table is for.
-    not_a_feed = stopped_sold + build_rows
+    # One-time files that are not a dated reader and not a custom build. They
+    # still have a price, and this is the page a buyer reads to compare.
+    one_shot = [f for f in fams.values()
+                if "$" in f.get("price", "")
+                and f.get("kind") != "build"
+                and f.get("sample_status") != "parked"
+                and f["id"] not in covered]
+    one_shot_rows = [(
+        f'<strong>{esc(f.get("short") or f["name"])}</strong>'
+        f'<span class="sub">{esc(f.get("who", ""))}</span>',
+        'A one-time file, not a feed<span class="sub">You buy the snapshot. We do not send '
+        "a new copy next month unless you buy again.</span>",
+        f'{esc(f["price"])}<span class="sub">Sold as {esc(f.get("short") or f["name"])}. '
+        "Ask which board and which as-of date before you pay.</span>",
+    ) for f in one_shot]
+    # One table, three reasons to be in it: a build was never a dated feed, a
+    # one-time file is not one either, and a stopped reader has ceased to be one.
+    not_a_feed = stopped_sold + build_rows + one_shot_rows
 
     facts = [
         f"<strong>{len(measured)} readers, {total_rows:,} dated rows, {total_runs:,} sealed "

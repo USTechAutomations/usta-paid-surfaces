@@ -169,6 +169,14 @@ new-entities/nyc
 new-entities/san-francisco
 offers
 peak-call
+permit-files
+permit-files/austin
+permit-files/cambridge-ma
+permit-files/cincinnati
+permit-files/coverage
+permit-files/montgomery-md
+permit-files/new-york
+permit-files/san-francisco
 permit-metros
 permit-metros/austin
 permit-metros/chicago

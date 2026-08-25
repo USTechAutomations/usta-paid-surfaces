@@ -1,7 +1,7 @@
 {
   "site": "https://ustechautomations.com",
   "base_path": "/feeds",
-  "pages": 237,
+  "pages": 245,
   "notes": [],
   "rows": [
     {
@@ -1911,6 +1911,102 @@
       "pay": "email only",
       "pay_url": "",
       "built_from": "dist/peak-call/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/permit-files/austin",
+      "path": "/feeds/permit-files/austin",
+      "family": "permit-files",
+      "kind": "slice",
+      "title": "Austin, Texas: one permit file, $349 once \u2014 $349",
+      "price": "$349",
+      "sells": true,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/permit-files/austin/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/permit-files/cambridge-ma",
+      "path": "/feeds/permit-files/cambridge-ma",
+      "family": "permit-files",
+      "kind": "slice",
+      "title": "Cambridge, Massachusetts: one permit file, $349 once \u2014 $349",
+      "price": "$349",
+      "sells": true,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/permit-files/cambridge-ma/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/permit-files/cincinnati",
+      "path": "/feeds/permit-files/cincinnati",
+      "family": "permit-files",
+      "kind": "slice",
+      "title": "Cincinnati, Ohio: one permit file, $349 once \u2014 $349",
+      "price": "$349",
+      "sells": true,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/permit-files/cincinnati/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/permit-files/coverage",
+      "path": "/feeds/permit-files/coverage",
+      "family": "permit-files",
+      "kind": "slice",
+      "title": "What is in the six city permit files, and what is not \u2014 $349",
+      "price": "$349",
+      "sells": true,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/permit-files/coverage/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/permit-files",
+      "path": "/feeds/permit-files",
+      "family": "permit-files",
+      "kind": "family",
+      "title": "City permit board files \u2014 $349",
+      "price": "$349",
+      "sells": true,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/permit-files/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/permit-files/montgomery-md",
+      "path": "/feeds/permit-files/montgomery-md",
+      "family": "permit-files",
+      "kind": "slice",
+      "title": "Montgomery County, Maryland: one permit file, $349 once \u2014 $349",
+      "price": "$349",
+      "sells": true,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/permit-files/montgomery-md/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/permit-files/new-york",
+      "path": "/feeds/permit-files/new-york",
+      "family": "permit-files",
+      "kind": "slice",
+      "title": "New York City: one permit file, $349 once \u2014 $349",
+      "price": "$349",
+      "sells": true,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/permit-files/new-york/index.html"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/permit-files/san-francisco",
+      "path": "/feeds/permit-files/san-francisco",
+      "family": "permit-files",
+      "kind": "slice",
+      "title": "San Francisco, California: one permit file, $349 once \u2014 $349",
+      "price": "$349",
+      "sells": true,
+      "pay": "email only",
+      "pay_url": "",
+      "built_from": "dist/permit-files/san-francisco/index.html"
     },
     {
       "url": "https://ustechautomations.com/feeds/permit-metros/austin",

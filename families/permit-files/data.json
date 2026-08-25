@@ -1,0 +1,62 @@
+{
+  "family": "permit-files",
+  "generated": "2026-08-25",
+  "slices": [
+    {
+      "slug": "austin",
+      "newest": "2026-08-24",
+      "oldest": "1921-09-20",
+      "runs": 1,
+      "row_count": 2372018,
+      "cadence_days": 1
+    },
+    {
+      "slug": "cambridge-ma",
+      "newest": "2026-08-25",
+      "oldest": "2018-09-28",
+      "runs": 1,
+      "row_count": 362,
+      "cadence_days": 1
+    },
+    {
+      "slug": "cincinnati",
+      "newest": "2026-08-24",
+      "oldest": "2010-01-04",
+      "runs": 1,
+      "row_count": 127298,
+      "cadence_days": 1
+    },
+    {
+      "slug": "montgomery-md",
+      "newest": "2026-08-25",
+      "oldest": "2000-01-03",
+      "runs": 1,
+      "row_count": 186173,
+      "cadence_days": 1
+    },
+    {
+      "slug": "new-york",
+      "newest": "2026-08-25",
+      "oldest": "2016-06-23",
+      "runs": 1,
+      "row_count": 989378,
+      "cadence_days": 1
+    },
+    {
+      "slug": "san-francisco",
+      "newest": "2026-08-25",
+      "oldest": "2026-08-25",
+      "runs": 1,
+      "row_count": 1000000,
+      "cadence_days": 1
+    },
+    {
+      "slug": "coverage",
+      "newest": "2026-08-25",
+      "oldest": "1921-09-20",
+      "runs": 1,
+      "row_count": 6,
+      "cadence_days": 1
+    }
+  ]
+}

@@ -563,14 +563,33 @@ def scan(path, store: str = STORE, record: str = RECORD_FILE) -> tuple[str, str]
 
 
 def main(argv: list[str]) -> int:
-    paths = [Path(a) for a in argv[1:]]
+    store = STORE
+    record = RECORD_FILE
+    paths: list[Path] = []
+    args = argv[1:]
+    i = 0
+    while i < len(args):
+        if args[i] == "--store" and i + 1 < len(args):
+            store = args[i + 1]
+            i += 2
+            continue
+        if args[i] == "--record" and i + 1 < len(args):
+            record = args[i + 1]
+            i += 2
+            continue
+        if args[i].startswith("-"):
+            print(f"UNKNOWN unknown flag {args[i]!r}: "
+                  "python3 scripts/outbound_guard.py [--store STORE] [--record RECORD] FILE ...")
+            return 2
+        paths.append(Path(args[i]))
+        i += 1
     if not paths:
         print("UNKNOWN no file was named, so nothing was checked: "
-              "python3 scripts/outbound_guard.py FILE [FILE ...]")
+              "python3 scripts/outbound_guard.py [--store STORE] [--record RECORD] FILE [FILE ...]")
         return 2
     verdicts = []
     for path in paths:
-        verdict, why = scan(path)
+        verdict, why = scan(path, store=store, record=record)
         verdicts.append(verdict)
         print(f"{verdict:<7} {why}")
     if BLOCKED in verdicts:
