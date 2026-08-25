@@ -4,58 +4,58 @@
   "slices": [
     {
       "slug": "coverage",
-      "newest": "2026-08-24",
+      "newest": "2026-08-25",
       "oldest": "2026-06-07",
-      "runs": 807,
-      "row_count": 1791126,
+      "runs": 819,
+      "row_count": 1827737,
       "cadence_days": 1
     },
     {
       "slug": "austin",
-      "newest": "2026-08-24",
+      "newest": "2026-08-25",
       "oldest": "2026-06-07",
-      "runs": 73,
-      "row_count": 107912,
+      "runs": 74,
+      "row_count": 110282,
       "cadence_days": 1
     },
     {
       "slug": "chicago",
-      "newest": "2026-08-24",
+      "newest": "2026-08-25",
       "oldest": "2026-06-09",
-      "runs": 71,
-      "row_count": 95497,
+      "runs": 72,
+      "row_count": 97695,
       "cadence_days": 1
     },
     {
       "slug": "new-york",
-      "newest": "2026-08-24",
+      "newest": "2026-08-25",
       "oldest": "2026-06-09",
-      "runs": 71,
-      "row_count": 72644,
+      "runs": 72,
+      "row_count": 74269,
       "cadence_days": 1
     },
     {
       "slug": "san-francisco",
-      "newest": "2026-08-24",
+      "newest": "2026-08-25",
       "oldest": "2026-06-07",
-      "runs": 73,
-      "row_count": 140120,
+      "runs": 74,
+      "row_count": 142998,
       "cadence_days": 1
     },
     {
       "slug": "scottsdale",
-      "newest": "2026-08-24",
+      "newest": "2026-08-25",
       "oldest": "2026-06-07",
-      "runs": 73,
-      "row_count": 41492,
+      "runs": 74,
+      "row_count": 42157,
       "cadence_days": 1
     },
     {
       "slug": "seattle",
-      "newest": "2026-08-24",
+      "newest": "2026-08-25",
       "oldest": "2026-06-09",
-      "runs": 71,
-      "row_count": 63110,
+      "runs": 72,
+      "row_count": 64460,
       "cadence_days": 1
     }
   ]
