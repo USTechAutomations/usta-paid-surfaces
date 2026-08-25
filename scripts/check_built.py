@@ -65,6 +65,9 @@ MAILTO = C.MAILTO
 # a thing no gate has ever checked on a page a stranger will actually load.
 TRACKING = "GTM-KTB2LC8C"
 ROBOTS = re.compile(r'<meta\s+name="robots"', re.I)
+# One of the five is enough to prove the block is there; the block is written
+# in one place per template, never per page, so a page carries all five or none.
+ICON = re.compile(r'<link[^>]+rel="icon"')
 MASTHEAD = re.compile(r'class="masthead"', re.I)
 NEWEST = re.compile(r'<meta\s+name="data-newest"\s+content="([^"]+)"', re.I)
 CADENCE = re.compile(r'<meta\s+name="data-cadence-days"\s+content="([^"]+)"', re.I)
@@ -166,6 +169,17 @@ def check_shared(rep: Report, who: str, raw: str, vis: str) -> None:
         rep.bad(who, "tells search engines nothing about whether to index it")
     if not MASTHEAD.search(raw):
         rep.bad(who, "has no masthead, so a visitor has no way back to the site")
+    if not ICON.search(raw):
+        # Counted, because nobody counted. The tab icon was put on every page
+        # "that has a head we write" and the retirement pages have a head this
+        # build writes from a template of their own, so 24 of 232 shipped
+        # bare -- a stranger following an old bookmark got the browser's blank
+        # sheet where every other page of ours shows the company mark. No gate
+        # anywhere in this repo asked for it, which is why the miss survived
+        # the commit that was supposed to fix it. Asked here, on every shipped
+        # page, before any page gets to be skipped for anything else.
+        rep.bad(who, "ships with no tab icon, so a browser shows it as a blank page "
+                     "while every other page of ours carries the company mark")
     del vis
 
 
@@ -479,6 +493,35 @@ def selftest() -> int:
         _edit(lab, "grid/index.html", 'class="masthead"', 'class="was-masthead"')
         r = _ask(lab, today)
         case("a page with no masthead goes red", hits(r, "no masthead"),
+             "; ".join(r.faults) or "no fault at all")
+    finally:
+        shutil.rmtree(lab, ignore_errors=True)
+
+    # 7b. The tab icon, proved on a TOMBSTONE and not on a family page.
+    #    A family page has carried the block since the day it was added, so
+    #    breaking one of those would prove the rule against the only page class
+    #    that never had the fault. The retirement pages are the 24 that shipped
+    #    bare, so ttb/florida is the honest subject: green because the template
+    #    now writes the block, red when it is taken away.
+    #
+    #    All three icon links go, not one. Taking out the first and leaving two
+    #    behind would leave the page still matching, the case still passing, and
+    #    a live rule reported as proved by a mutation that broke nothing -- the
+    #    exact shape _edit() above was written to refuse.
+    lab = _lab(good)
+    try:
+        r = _ask(lab, today)
+        tomb = (DIST / "ttb" / "florida" / "index.html").read_text(encoding="utf-8")
+        case("a shipped tombstone carries all five icon links",
+             tomb.count('rel="icon"') == 3 and 'rel="apple-touch-icon"' in tomb
+             and 'rel="manifest"' in tomb,
+             f"{tomb.count('rel=\"icon\"')} icon links on the page")
+        case("and it is still a tombstone, not turned into a live page",
+             'content="retired"' in tomb)
+        _edit(lab, "ttb/florida/index.html", '<link rel="icon"', '<link rel="was-icon"',
+              count=-1)
+        r = _ask(lab, today)
+        case("a page shipping with no tab icon goes red", hits(r, "no tab icon"),
              "; ".join(r.faults) or "no fault at all")
     finally:
         shutil.rmtree(lab, ignore_errors=True)
