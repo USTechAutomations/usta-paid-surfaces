@@ -92,6 +92,44 @@ def _a_paid_page() -> str:
 
 PAID = _a_paid_page()                                       # a family with a real pay link
 PAID_ID = PAID.split("/")[1]                                # ...and that family's id
+
+
+def _amounts_for_button_cases() -> tuple[str, str]:
+    """Two amounts that page does NOT sell at, worked out from what it does.
+
+    Both are taken from the real catalog price rather than typed in, for the
+    same reason the paid page itself is found rather than remembered: a typed
+    amount stops being wrong the day the price changes to match it, and a case
+    whose mutation is no longer a mutation reports that the gate still passed.
+
+    The second one is the price with its last digit removed -- $99 becomes $9 --
+    because that is the mistake that actually happened, and the one a substring
+    test cannot see: "$9" sits inside "$99". If the price is a single digit
+    there is no tenth to make, and that case cannot be built at all, which is
+    said out loud rather than skipped quietly.
+    """
+    row = next(f for f in json.loads(
+        (ROOT / "catalog.json").read_text(encoding="utf-8"))["families"]
+        if f["id"] == PAID_ID)
+    price = row.get("price") or ""
+    m = re.search(r"\$(\d[\d,]*)", price)
+    if not m:
+        print(f"CANNOT RUN: {PAID_ID} takes cards but its catalog price "
+              f"{price!r} has no amount anyone can read out of it, so the two "
+              f"cases that prove a button may not word the wrong amount have "
+              f"nothing to be wrong about.")
+        raise SystemExit(2)
+    digits = m.group(1).replace(",", "")
+    if len(digits) < 2:
+        print(f"CANNOT RUN: {PAID_ID} sells at ${digits}, and there is no "
+              f"understated version of a single-digit price, so the "
+              f"factor-of-ten case cannot be built. Point these cases at a "
+              f"family whose price has more than one digit.")
+        raise SystemExit(2)
+    return "$" + digits + "9", "$" + digits[:-1]
+
+
+NOT_OURS, A_TENTH = _amounts_for_button_cases()             # e.g. $999 and $9
 PARKED = "families/az-contractors/index.html"               # the one parked family
 NOSALE = "families/recalls/index.html"                       # one of the twelve not for sale
 BRIDGE = "families/how-we-seal/index.html"                  # a bridge page, not a family
@@ -609,12 +647,47 @@ def cases() -> list[tuple]:
         button_to_the_inbox, "goes nowhere")
     add(907, "a button sends the buyer to an address the catalog never declared",
         button_somewhere_else, "not the checkout this page's catalog row declares")
-    # count=1 so only the button's own wording moves. The price rail, the tab
-    # title and the search line all still say $99, which is what every price
-    # check in this gate reads -- none of them has ever looked at a button.
+    # These two cases are about the BUTTON check, and for a long time neither
+    # of them ever reached it.
+    #
+    # They used to rewrite the amount inside the pay button already on the page.
+    # That button is an <a>, and the anchor-reading check further up looks at
+    # every <a> there is. So the anchor check refused first, each case saw a
+    # refusal and called itself proved, and the button check they exist for had
+    # never once been shown to refuse anything. Everything was green: the gate,
+    # both cases, and a check that had never run.
+    #
+    # A <button> is a pay button to every reader and is not an <a>, so the
+    # anchor check cannot see it and the button check is the only thing left to
+    # catch it. That one difference is the fix, and it is why these two now add
+    # a button of their own instead of editing the one already there.
+    def _catalog_row(e: Estate, rel: str) -> dict:
+        fid = rel.split("/")[1]
+        return next(f for f in json.loads(e.read("catalog.json"))["families"]
+                    if f["id"] == fid)
+
+    def _wrong_amount_button(rel: str, amount: str):
+        """A pay button wording an amount the catalog does not sell.
+
+        Everything else about it is deliberately correct: it points at the
+        address the catalog declares, and it is monthly because the price is.
+        The amount is the only thing wrong with it, so when the gate refuses
+        there is exactly one thing it can be refusing. A fixture that breaks
+        two things at once cannot tell you which check caught it -- which is
+        the mistake these two cases were built on.
+        """
+        def mutate(e: Estate) -> None:
+            row = _catalog_row(e, rel)
+            e.before_body_end(
+                rel,
+                f'<p><button class="btn btn-buy" '
+                f'formaction="{row["checkout"]["url"]}">'
+                f'Subscribe &mdash; {amount} a month</button></p>')
+        return mutate
+
     add(915, "a button offers to charge an amount we do not sell at",
-        lambda e: e.sub(FAM, "$99 a month", "$149 a month", count=1),
-        "offering to charge $149"),
+        _wrong_amount_button(PAID, NOT_OURS),
+        f"offering to charge {NOT_OURS}"),
     add(919, "a monthly subscription with a button that says it is paid once",
         lambda e: e.sub(FAM, "Subscribe — $99 a month", "Buy once — $99", count=1),
         "one of them is a subscription and the other is paid once")
@@ -627,8 +700,19 @@ def cases() -> list[tuple]:
     # waved through a button understating the price ten times over. Every price
     # we sell was open to it -- $249 -> $24, $175 -> $17, $59 -> $5.
     add(915, "a button understates the price by a factor of ten",
-        lambda e: e.sub(FAM, "$99 a month", "$9 a month", count=1),
-        "offering to charge $9"),
+        _wrong_amount_button(PAID, A_TENTH),
+        f"offering to charge {A_TENTH}"),
+    # And the anchor check, which had also never been shown to refuse anything.
+    # It is the one that caught the real leak: after a product came off sale and
+    # every pay button was removed, eight of its pages still carried a line
+    # reading "Email us for the $99 checkout link". A plain text link to our own
+    # inbox is deliberately not a pay button, which is exactly why nothing else
+    # here looks at it, and exactly why this check has to.
+    add(406, "a plain link to our own inbox names an amount we do not sell",
+        lambda e: e.before_body_end(
+            PAID, f'<p><a href="{MAILTO}">Email us for the {NOT_OURS} '
+                  f'checkout link</a></p>'),
+        f"has a link offering {NOT_OURS}"),
     # Single quotes are what anyone hand-writing one line of HTML reaches for,
     # and the pay-link check above still cannot see them: its pattern requires a
     # double quote. So this address is invisible to everything except the button
