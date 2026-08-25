@@ -4,114 +4,114 @@
   "slices": [
     {
       "slug": "coverage",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-07-22",
-      "runs": 25,
-      "row_count": 1143522,
+      "runs": 26,
+      "row_count": 1189520,
       "cadence_days": 1
     },
     {
       "slug": "85204",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-07-22",
-      "runs": 25,
-      "row_count": 185882,
+      "runs": 26,
+      "row_count": 193373,
       "cadence_days": 1
     },
     {
       "slug": "85203",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-07-22",
-      "runs": 25,
-      "row_count": 108061,
+      "runs": 26,
+      "row_count": 112435,
       "cadence_days": 1
     },
     {
       "slug": "85201",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-07-22",
-      "runs": 25,
-      "row_count": 187112,
+      "runs": 26,
+      "row_count": 194623,
       "cadence_days": 1
     },
     {
       "slug": "85202",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-07-22",
-      "runs": 25,
-      "row_count": 83215,
+      "runs": 26,
+      "row_count": 86583,
       "cadence_days": 1
     },
     {
       "slug": "85210",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-07-22",
-      "runs": 25,
-      "row_count": 105654,
+      "runs": 26,
+      "row_count": 109898,
       "cadence_days": 1
     },
     {
       "slug": "85213",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-07-22",
-      "runs": 25,
-      "row_count": 79510,
+      "runs": 26,
+      "row_count": 82705,
       "cadence_days": 1
     },
     {
       "slug": "85205",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-07-22",
-      "runs": 25,
-      "row_count": 107878,
+      "runs": 26,
+      "row_count": 112203,
       "cadence_days": 1
     },
     {
       "slug": "85206",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-07-22",
-      "runs": 25,
-      "row_count": 74082,
+      "runs": 26,
+      "row_count": 77058,
       "cadence_days": 1
     },
     {
       "slug": "85209",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-07-22",
-      "runs": 25,
-      "row_count": 57441,
+      "runs": 26,
+      "row_count": 59746,
       "cadence_days": 1
     },
     {
       "slug": "85212",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-07-22",
-      "runs": 25,
-      "row_count": 15115,
+      "runs": 26,
+      "row_count": 15727,
       "cadence_days": 1
     },
     {
       "slug": "85207",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-07-22",
-      "runs": 25,
-      "row_count": 48044,
+      "runs": 26,
+      "row_count": 49969,
       "cadence_days": 1
     },
     {
       "slug": "85215",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-07-22",
-      "runs": 25,
-      "row_count": 30272,
+      "runs": 26,
+      "row_count": 31489,
       "cadence_days": 1
     },
     {
       "slug": "85208",
-      "newest": "2026-08-23",
+      "newest": "2026-08-24",
       "oldest": "2026-07-22",
-      "runs": 25,
-      "row_count": 41101,
+      "runs": 26,
+      "row_count": 42745,
       "cadence_days": 1
     }
   ]
