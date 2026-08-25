@@ -41,6 +41,8 @@ ORDER = [
     "Software and AI pages",
     "Local government records",
     "Public records",
+    "Checks we run for you",
+    "Comparison tables",
     "Construction records",
     "Other dated records",
 ]
