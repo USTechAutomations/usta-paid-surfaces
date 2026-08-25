@@ -75,28 +75,54 @@ ROOT = Path(__file__).resolve().parents[1]
 # second opinion about what a price looks like. If nothing in the catalog sells,
 # this file says so and stops, because a healthy-path test with no healthy
 # family silently proves nothing.
-REFUSED = "air-permits"
+# DATED NOTE, 2026-08-25: REFUSED was the literal "air-permits" -- the family
+# from the real 02:55 incident the docstring tells. The flips merge of this day
+# cleared air-permits' lawful gate (TCEQ ruling, HARVEST-RULINGS-2026-08-25.md)
+# and this file went to CANNOT RUN: a withdrawal of a REFUSAL had disarmed a
+# test that is about wiring, not about air-permits. Both subjects are derived
+# now, the same way and for the same reason HEALTHY already was. The incident
+# story above stays, because it is why the file exists; the subject moves.
 
 
-def _first_sellable(refused: str) -> str:
+def _first_refused(assessed: dict) -> str:
+    for fid, row in assessed.items():
+        if row["gates"]["lawful"]["verdict"] == P.FAIL:
+            return fid
+    print("CANNOT RUN: no family's lawful gate fails today, so the case that "
+          "proves a refused family is stopped cannot be reached. Construct is "
+          "not an option here -- the fixture must be real, per the docstring.",
+          file=sys.stderr)
+    raise SystemExit(2)
+
+
+def _first_mintable(refused: str, offers, held) -> str:
+    """A price that parses is not enough: on 2026-08-25 the first parsable
+    family was grid, whose sealed engine amount really does disagree with its
+    new page price until the engine moves -- a true refusal, not a healthy
+    subject. So the tool itself is asked, with an empty veto and no unknowns.
+    The burden of case 3 ("a gate that refuses everything is not a gate") is
+    carried here: if nothing passes, this says so out loud and stops."""
     families = json.loads((ROOT / "catalog.json").read_text())["families"]
     for fam in families:
         fid = fam.get("id")
         if fid == refused:
             continue
-        if M.parse_price(fam.get("price") or "") is not None:
+        if M.parse_price(fam.get("price") or "") is None:
+            continue
+        reason, _ = M.refuse(copy.deepcopy(fam), offers, held, {}, {})
+        if reason is None:
             return fid
-    print("CANNOT RUN: nothing in catalog.json carries a price the minting tool "
-          "can read, so the case that proves a healthy family IS minted cannot "
-          "be reached. Point this file at a family that really does sell.")
+    print("CANNOT RUN: no family in catalog.json passes the whole ladder today, "
+          "so the case that proves a healthy family IS minted cannot be "
+          "reached, and a healthy-path test with no healthy family silently "
+          "proves nothing.", file=sys.stderr)
     raise SystemExit(2)
 
 
-HEALTHY = _first_sellable(REFUSED)
-
 # What air-permits cost at 02:55 UTC on 2026-08-24, read off the payment link
-# that was minted that minute: $175.00 USD, every 1 month. It is restored here
-# and nowhere else, and never written back to any file.
+# that was minted that minute: $175.00 USD, every 1 month. Restored onto the
+# DERIVED refused family in memory only -- the very shape of the incident --
+# and never written back to any file.
 PRICE_AT_0255 = "$175/mo"
 
 FAILURES: list[str] = []
@@ -134,21 +160,21 @@ def expect_never_says(name: str, reason: str | None, needle: str) -> None:
 def main() -> None:
     cat = json.loads(M.CAT.read_text(encoding="utf-8"))
     rows = {f["id"]: f for f in cat["families"]}
-    for fid in (REFUSED, HEALTHY):
-        if fid not in rows:
-            print(f"CANNOT RUN: {fid} is no longer in catalog.json. Point this file at a "
-                  f"family that is still there rather than deleting the case.", file=sys.stderr)
-            raise SystemExit(2)
 
     # ---- 0. the fixture is live, proved before anything is measured against it.
+    # Both subjects are DERIVED off today's real ladder and catalog, never
+    # pinned, so neither a source being cleared nor a product being withdrawn
+    # can quietly disarm the file again.
     assessed = {r["id"]: r for r in P.assess(probe=False)["rows"]}
+    REFUSED = _first_refused(assessed)
+    offers_early, held_early = M.engine_catalog()
+    HEALTHY = _first_mintable(REFUSED, offers_early, held_early)
+    for fid in (REFUSED, HEALTHY):
+        if fid not in rows:
+            print(f"CANNOT RUN: {fid} is assessed but not in catalog.json, so the two "
+                  f"files this run reads disagree about what exists.", file=sys.stderr)
+            raise SystemExit(2)
     real = copy.deepcopy(assessed[REFUSED])
-    if real["gates"]["lawful"]["verdict"] != P.FAIL:
-        print(f"CANNOT RUN: {REFUSED}'s lawful gate is "
-              f"{real['gates']['lawful']['verdict']!r}, not a failure, so this file would be "
-              f"proving that a check nothing can trip returns nothing. Point it at a family "
-              f"the ladder really does refuse.", file=sys.stderr)
-        raise SystemExit(2)
     check(f"the fixture is live: {REFUSED}'s lawful gate really fails today", True)
 
     # The one edit, and the reason for it is in the docstring: priced passed at
