@@ -171,7 +171,40 @@ class Estate:
 # run the file, and anything not listed here has never been shown to fire.
 # ---------------------------------------------------------------------------
 ADDR_CELL = "3600-3614 S KEDZIE AVE"
-QUAKES = "families/quakes/index.html"
+
+
+def priced_subject() -> tuple[str, str]:
+    """A family the catalog prices in dollars, and that amount, read at run time.
+
+    This case used to be pinned to `families/quakes/index.html` and the amount
+    "$249". On 2026-08-25 that product was withdrawn -- it charged for dated
+    copies of records USGS serves free -- and its price became "Not for sale".
+    The mutation then removed a string that was no longer on the page, so the
+    gate had nothing to refuse and the case reported the gate as dead when what
+    had actually died was the subject. A pinned subject always ends this way:
+    the day the page it names stops being the page it describes, the test starts
+    complaining about itself and nobody can tell which of the two is broken.
+
+    So the subject is derived. The first family, in id order, that the catalog
+    prices with an amount AND whose built page carries that amount, is the one
+    whose price gets taken off. If no family is priced at all, this refuses
+    rather than reporting a check it could not fire.
+    """
+    cat = json.loads((ROOT / "catalog.json").read_text(encoding="utf-8"))
+    fams = cat["families"] if isinstance(cat, dict) else cat
+    for fam in sorted(fams, key=lambda f: f["id"]):
+        price = str(fam.get("price", ""))
+        page = ROOT / "families" / fam["id"] / "index.html"
+        if "$" in price and page.is_file() and price in page.read_text(encoding="utf-8"):
+            return f"families/{fam['id']}/index.html", price
+    raise SystemExit(
+        "STOP: no family on this site is priced in dollars with that price on its\n"
+        "page, so the check that a page must show the price the catalog sells it\n"
+        "at has no subject. Do not delete the case: price something, or say in the\n"
+        "catalog that nothing is priced any more and why.")
+
+
+PRICED_PAGE, PRICED_AMOUNT = priced_subject()
 LONG_DESC = ("A search line deliberately padded past the hundred and fifty-five character "
              "ceiling so that the length check has something to refuse, with no amount of "
              "money anywhere in it at all.")
@@ -376,9 +409,10 @@ def cases() -> list[tuple]:
         lambda e: e.re_sub(PARKED, r"(?i)not available", "coming along nicely"),
         "never says it is not available")
     # The price is taken off the page entirely rather than changed, because
-    # changing it trips the price-rail check (line 550) first.
+    # changing it trips the price-rail check (line 550) first. The page and the
+    # amount are derived, never named -- see priced_subject().
     add(661, "a family page stops showing the price the catalog sells it at",
-        lambda e: e.sub(QUAKES, "$249", ""), "missing price")
+        lambda e: e.sub(PRICED_PAGE, PRICED_AMOUNT, ""), "missing price")
     add(663, "a family page grows a claim we cannot stand behind",
         lambda e: e.before_body_end(FAM, "<p>Trusted by Fortune 500 teams.</p>"),
         "contains forbidden")
