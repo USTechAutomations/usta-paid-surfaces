@@ -112,6 +112,7 @@ SOURCES: dict[str, tuple] = {
     "crawler": ("closing_web", "policy_snapshots", "snapshot_date", 1),
     "mesa-code": ("mesa_code_compliance", "case_snapshot", "snapshot_date", 1),
     "quakes": ("usgs_quakes", "quake", "snapshot_date", 1),
+    "peak-call": ("/home/gmullins/revenue-2026/var/peak_call.db", "actual_peaks", "day", 1),
     "markets-resolved": ("markets_resolved", "market", "snapshot_date", 1),
     "recalls": ("fda_enforcement", "recall", "snapshot_date", 1),
     "sec-8k": ("sec_filings", "filing", "snapshot_date", 1),
