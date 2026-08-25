@@ -3,9 +3,9 @@
 Derived from `dist/` by `scripts/url_manifest.py`. Not typed, not edited
 by hand. Re-run it after any build and this file is current again.
 
-- **241 pages**, every one of them an address under `/feeds`
-- **29** carry a price; **212** say they are not for sale yet, are free to read, or are the hub itself
-- **28** have a pay button; **184** are honest holding pages that ask you to email instead; **29** is the hub, which sells nothing and does not pretend to
+- **237 pages**, every one of them an address under `/feeds`
+- **29** carry a price; **208** say they are not for sale yet, are free to read, or are the hub itself
+- **28** have a pay button; **180** are honest holding pages that ask you to email instead; **29** is the hub, which sells nothing and does not pretend to
 
 The sitemap lists exactly these pages and no others.
 
@@ -24,12 +24,6 @@ The sitemap lists exactly these pages and no others.
 | `/feeds/agent-incidents/by-court` | Not for sale yet | email only |
 | `/feeds/agent-incidents/coverage` | Not for sale yet | email only |
 | `/feeds/agent-incidents/new-cases` | Not for sale yet | email only |
-
-## agent-ready
-
-| Address | Price | Buy |
-|---|---|---|
-| `/feeds/agent-ready` | Not for sale yet | email only |
 
 ## agent-register
 
@@ -318,12 +312,6 @@ The sitemap lists exactly these pages and no others.
 |---|---|---|
 | `/feeds/permits` | Free | email only |
 
-## provider-table
-
-| Address | Price | Buy |
-|---|---|---|
-| `/feeds/provider-table` | Not for sale yet | email only |
-
 ## quakes
 
 | Address | Price | Buy |
@@ -363,12 +351,6 @@ The sitemap lists exactly these pages and no others.
 | `/feeds/recalls/texas` | Not for sale yet | email only |
 | `/feeds/recalls/wisconsin` | Not for sale yet | email only |
 
-## scope-line
-
-| Address | Price | Buy |
-|---|---|---|
-| `/feeds/scope-line` | Not for sale yet | email only |
-
 ## scope-sheet
 
 | Address | Price | Buy |
@@ -385,12 +367,6 @@ The sitemap lists exactly these pages and no others.
 | `/feeds/sec-8k/coverage` | Not for sale yet | email only |
 | `/feeds/sec-8k/listing-warnings` | Not for sale yet | email only |
 | `/feeds/sec-8k/officer-changes` | Not for sale yet | email only |
-
-## sworn-page
-
-| Address | Price | Buy |
-|---|---|---|
-| `/feeds/sworn-page` | Not for sale yet | email only |
 
 ## trustee-sales
 

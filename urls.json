@@ -1,7 +1,7 @@
 {
   "site": "https://ustechautomations.com",
   "base_path": "/feeds",
-  "pages": 241,
+  "pages": 237,
   "notes": [],
   "rows": [
     {
@@ -63,18 +63,6 @@
       "pay": "email only",
       "pay_url": "",
       "built_from": "dist/agent-incidents/new-cases/index.html"
-    },
-    {
-      "url": "https://ustechautomations.com/feeds/agent-ready",
-      "path": "/feeds/agent-ready",
-      "family": "agent-ready",
-      "kind": "family",
-      "title": "What an AI shopping assistant can do on a shop's own pages \u2014 Not for sale yet",
-      "price": "Not for sale yet",
-      "sells": false,
-      "pay": "email only",
-      "pay_url": "",
-      "built_from": "dist/agent-ready/index.html"
     },
     {
       "url": "https://ustechautomations.com/feeds/agent-register/coverage",
@@ -2033,18 +2021,6 @@
       "built_from": "dist/permits/index.html"
     },
     {
-      "url": "https://ustechautomations.com/feeds/provider-table",
-      "path": "/feeds/provider-table",
-      "family": "provider-table",
-      "kind": "family",
-      "title": "California agents for service of process, compared \u2014 Not for sale yet",
-      "price": "Not for sale yet",
-      "sells": false,
-      "pay": "email only",
-      "pay_url": "",
-      "built_from": "dist/provider-table/index.html"
-    },
-    {
       "url": "https://ustechautomations.com/feeds/quakes/alaska",
       "path": "/feeds/quakes/alaska",
       "family": "quakes",
@@ -2393,18 +2369,6 @@
       "built_from": "dist/recalls/wisconsin/index.html"
     },
     {
-      "url": "https://ustechautomations.com/feeds/scope-line",
-      "path": "/feeds/scope-line",
-      "family": "scope-line",
-      "kind": "family",
-      "title": "Which calibration labs are accredited for what, and in what range \u2014 Not for sale yet",
-      "price": "Not for sale yet",
-      "sells": false,
-      "pay": "email only",
-      "pay_url": "",
-      "built_from": "dist/scope-line/index.html"
-    },
-    {
       "url": "https://ustechautomations.com/feeds/scope-sheet",
       "path": "/feeds/scope-sheet",
       "family": "scope-sheet",
@@ -2487,18 +2451,6 @@
       "pay": "email only",
       "pay_url": "",
       "built_from": "dist/sec-8k/officer-changes/index.html"
-    },
-    {
-      "url": "https://ustechautomations.com/feeds/sworn-page",
-      "path": "/feeds/sworn-page",
-      "family": "sworn-page",
-      "kind": "family",
-      "title": "Certified translation for immigration filings, and whether the certificate says what the rule needs \u2014 Not for sale yet",
-      "price": "Not for sale yet",
-      "sells": false,
-      "pay": "email only",
-      "pay_url": "",
-      "built_from": "dist/sworn-page/index.html"
     },
     {
       "url": "https://ustechautomations.com/feeds/trustee-sales/coverage",
