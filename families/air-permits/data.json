@@ -4,26 +4,26 @@
   "slices": [
     {
       "slug": "texas-new",
-      "newest": "2026-08-24",
+      "newest": "2026-08-25",
       "oldest": "2026-07-10",
-      "runs": 39,
-      "row_count": 18975,
+      "runs": 40,
+      "row_count": 19442,
       "cadence_days": 1
     },
     {
       "slug": "texas-moved",
-      "newest": "2026-08-24",
+      "newest": "2026-08-25",
       "oldest": "2026-07-10",
-      "runs": 39,
-      "row_count": 18975,
+      "runs": 40,
+      "row_count": 19442,
       "cadence_days": 1
     },
     {
       "slug": "data-centers",
-      "newest": "2026-08-24",
+      "newest": "2026-08-25",
       "oldest": "2026-07-10",
-      "runs": 39,
-      "row_count": 233,
+      "runs": 40,
+      "row_count": 239,
       "cadence_days": 1
     },
     {
@@ -38,8 +38,8 @@
       "slug": "coverage",
       "newest": "2026-08-13",
       "oldest": "2026-07-10",
-      "runs": 72,
-      "row_count": 21698,
+      "runs": 73,
+      "row_count": 22165,
       "cadence_days": 1
     }
   ]

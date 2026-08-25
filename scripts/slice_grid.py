@@ -108,6 +108,15 @@ CREDIT_REQUIRED = {
             "for sale."),
 }
 
+# Extra California ISO terms that a short-form credit does not cover. The grant
+# also requires notices kept intact, and it begins with "Most of the materials"
+# rather than all. Both have to sit next to the name.
+CAISO_NOTICES = (
+    "Copyright \u00a9 2026 California Independent System Operator. All rights reserved.",
+    'Their terms say "Most of the materials", not all. This file does not claim '
+    "the Public Queue Report is inside that \"Most\".",
+)
+
 
 def _credit(isos: list[str]) -> list[str]:
     """The credit lines for a page, from the operators whose rows it carries.
@@ -130,6 +139,8 @@ def _credit(isos: list[str]) -> list[str]:
     for i in seen:
         if i in CREDIT_REQUIRED:
             out.append(CREDIT_REQUIRED[i].format(name=FULL_NAMES[i]))
+        if i == "caiso":
+            out.extend(CAISO_NOTICES)
     return out
 
 # Operators we still publish a page for but no longer sell.
@@ -154,7 +165,13 @@ def _credit(isos: list[str]) -> list[str]:
 # on the Texas page and on the coverage page. Dropping them from there would
 # take 90% of the Texas queue off a page about Texas and leave the remainder
 # claiming to be current. What is not sold is the page, not the rows.
-NOT_SOLD_OPERATORS = {"ercot"}
+#
+# 2026-08-25: the paid file is California ISO only. SPP forbids commercial
+# publication without written authorization we do not have. ISO-NE, NYISO,
+# MISO and ERCOT have no written commercial grant on the evidence we hold.
+# Their pages stay up and stay free. They are not in the weekly file.
+SOLD_OPERATORS = {"caiso"}
+NOT_SOLD_OPERATORS = set(OPERATORS) - SOLD_OPERATORS
 
 # The twenty states with the most projects in the copies we hold.
 STATE_SLICES = [
@@ -177,6 +194,13 @@ STATE_SLICES = [
 # stderr if one of them climbs back over the floor, so this list cannot outlive
 # the counts that justify it.
 NOT_SOLD_STATES = {"OK", "NE", "KS", "MA", "ME", "CT", "NH"}
+
+
+def _state_in_paid_file(code: str, isos: list[str]) -> bool:
+    """Whether this state's moves go in the weekly California ISO file."""
+    if code in NOT_SOLD_STATES:
+        return False
+    return bool(isos) and all(i in SOLD_OPERATORS for i in isos)
 
 # How many different named projects a page must have seen move before it is
 # allowed to say it names the ones that moved. Five is the site's row floor,
@@ -1425,9 +1449,10 @@ def _operator_slice(iso: str) -> dict | None:
     # Six facts is the ceiling. When there is more that is true than that, the
     # two opening counts fold into one sentence rather than a true one being cut.
     head = 1 if not_sold else 0
-    if len(facts) > 6:
+    while len(facts) > 6 and len(facts) > head + 2:
         facts = (facts[:head + 1] + [facts[head + 1] + " " + facts[head + 2]]
                  + facts[head + 3:])
+    facts = facts[:6]
 
     limits = _shared_limits(isos, tables)
 
@@ -1531,7 +1556,8 @@ def _state_slice(code: str) -> dict | None:
     held = _newest_rows(isos, code)
 
     tables = []
-    head = _moves_table(moves, isos, code, what, in_file=code not in NOT_SOLD_STATES)
+    in_paid = _state_in_paid_file(code, isos)
+    head = _moves_table(moves, isos, code, what, in_file=in_paid)
     if head:
         tables.append(head)
     prof = _profile_table(isos, code, what)
@@ -1561,14 +1587,15 @@ def _state_slice(code: str) -> dict | None:
     movers = len({m.pid for m in moves})
     named = _named_movers(moves)
     span = _gap(oldest, newest)
-    not_sold = _not_sold_line(named, span) if code in NOT_SOLD_STATES else ""
+    not_sold = _not_sold_line(named, span) if not in_paid else ""
 
     # Six facts is the ceiling. When a page has more to say than that, the two
     # opening counts fold into one sentence rather than a true one being cut.
     lead = [not_sold] if not_sold else []
     facts = lead + [head_fact, span_fact] + rest
-    if len(facts) > 6:
-        facts = lead + [head_fact + " " + span_fact] + rest
+    while len(facts) > 6 and len(facts) > len(lead) + 1:
+        facts = lead + [facts[len(lead)] + " " + facts[len(lead) + 1]] + facts[len(lead) + 2:]
+    facts = facts[:6]
 
     limits = _shared_limits(isos, tables, state=code)
     seen = _not_sold_seen(moves) if not not_sold else set()
@@ -1895,8 +1922,7 @@ def _not_sold_watch() -> None:
 def slices() -> list[dict]:
     """Every grid slice that has enough real rows to ship."""
     out = []
-    for iso in sorted(NOT_SOLD_OPERATORS):
-        _no_moves_check(iso)
+    _no_moves_check("ercot")
     _not_sold_watch()
     # Every operator gets a page, including the ones we no longer sell. A page
     # that stops selling becomes an honest page; it never becomes a dead link.
@@ -1933,7 +1959,8 @@ def sample() -> tuple[list[str], list[list[str]]]:
                "capacity_mw", "what_moved", "sealed_copy_before", "sealed_copy_after"]
     rows = []
     sellable = [m for m in _slice_moves(sorted(_load()["dates"]), None)
-                if _state_key(m.state) not in NOT_SOLD_STATES]
+                if m.iso in SOLD_OPERATORS
+                and _state_key(m.state) not in NOT_SOLD_STATES]
     for m in sellable[:25]:
         rows.append([
             OPERATORS[m.iso][0],

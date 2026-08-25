@@ -2130,7 +2130,7 @@ def g_payable(s: Surface, today: dt.date, stale_days: int = 30) -> Result:
         return Result(NA, "a bridge page takes no money")
     checkout = (s.fam or {}).get("checkout") or {}
     url = checkout.get("url")
-    if not url:
+    if not url or url == "TO-MINT" or not str(url).startswith("https://"):
         return Result(FAIL, "there is no pay link; this one is sold in an email thread",
                       {"route": "email thread"})
     status, verified = checkout.get("status"), checkout.get("verified")

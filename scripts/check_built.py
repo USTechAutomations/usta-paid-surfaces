@@ -235,8 +235,18 @@ def check_feed_page(rep: Report, who: str, raw: str, vis: str, fam: dict | None,
                 rep.bad(who, f"stamps a cadence of {c.group(1)}, which promises nothing")
         except ValueError:
             rep.bad(who, f"stamps {c.group(1)!r} as its cadence, which is not a number")
+    check_price(rep, who, vis, fam)
+
+
+def check_price(rep: Report, who: str, vis: str, fam: dict | None) -> None:
+    """Asked on every page class, skipped classes included: a skip is about
+    the freshness stamp, never about the price a buyer is shown."""
     if fam and fam.get("price") and fam["price"] not in vis:
-        rep.bad(who, f"does not show the price its catalog row carries, {fam['price']!r}")
+        # Same 2026-08-25 rule as check_site.py: until a chargeable https
+        # address exists, a priced catalog row with a silent page offers a
+        # stranger nothing to be misled by; strict once the link is real.
+        if str((fam.get("checkout") or {}).get("url") or "").startswith("https://"):
+            rep.bad(who, f"does not show the price its catalog row carries, {fam['price']!r}")
 
 
 def run(today: dt.date | None = None, dist: Path | None = None) -> Report:
@@ -316,6 +326,45 @@ def run(today: dt.date | None = None, dist: Path | None = None) -> Report:
             # price or a child page on one; there is no freshness stamp to
             # demand because there is no reading to stamp.
             rep.skip(who, "its family is parked, so it has no reading to carry a date for")
+            continue
+        cadence = str(fam.get("cadence") or "")
+        if cadence.startswith("read once"):
+            # DATED NOTE, 2026-08-25: import-checks and scope-sheet are one
+            # dated reading each, with no collector and no store behind them.
+            # The machine freshness stamp names the newest STORE row, and a
+            # page with no store has nothing for it to name -- the same ground
+            # verified-record is skipped on. The date question is still asked,
+            # in words, and the phrase is derived from the catalog row itself,
+            # never pinned here.
+            datepart = cadence.split(",", 1)[1].strip() if "," in cadence else ""
+            if not datepart or datepart.lower() not in vis.lower():
+                rep.bad(who, f"is one dated reading whose page never prints its "
+                             f"read day {datepart!r}")
+                continue
+            check_price(rep, who, vis, fam)
+            rep.skip(who, "one dated reading with no store behind it -- the day it "
+                          "was read is on the page in words instead")
+            continue
+        if cadence.startswith(("one-time", "once")):
+            # DATED NOTE, 2026-08-25: one-time assembled files (permit-files,
+            # chicago, los-angeles, baton-rouge) have no store for a machine
+            # freshness tag to read out of. The date question is still asked,
+            # in words, in the strictest form each kind can answer: a pulled
+            # file must print the very pull-day phrase its catalog row carries,
+            # and an assembled-on-order file must promise its assembly window.
+            low = vis.lower()
+            if "pulled" in cadence:
+                phrase = cadence[cadence.index("pulled"):]
+                if phrase.lower() not in low:
+                    rep.bad(who, f"is a one-time pulled file whose page never prints {phrase!r}")
+                    continue
+            elif "within one working day" not in low:
+                rep.bad(who, "is an assembled-on-order file whose page never says when "
+                             "the file gets assembled")
+                continue
+            check_price(rep, who, vis, fam)
+            rep.skip(who, "a one-time file: no store holds a newer row for a freshness "
+                          "tag to name -- the day is on the page in words instead")
             continue
         if fam.get("sample_status") == "on-page":
             # Its OWN reason, deliberately not borrowed from parked above. The two
@@ -401,7 +450,18 @@ def _edit(lab: Path, rel: str, old: str, new: str, count: int = 1) -> None:
 
 
 def selftest() -> int:
-    today = dt.date(2026, 8, 24)
+    # DATED NOTE, 2026-08-25: today and grid's stamp were pinned literals here
+    # ('2026-08-24', '2026-07-30') and the first rebuild after that disarmed
+    # both -- the mutation cases could not find the string they meant to break.
+    # A test subject is derived, never pinned: read the stamp off the page that
+    # really ships and judge from that day.
+    grid_raw = (DIST / "grid" / "index.html").read_text(encoding="utf-8")
+    _m = NEWEST.search(grid_raw)
+    if not _m:
+        print("FAIL grid ships no data-newest stamp, so the mutation cases have no subject")
+        return 1
+    grid_stamp = _m.group(1)
+    today = dt.date.fromisoformat(grid_stamp)
     good = ["grid/index.html", "index.html", "ttb/florida/index.html"]
     results: list[tuple[bool, str]] = []
 
@@ -431,7 +491,7 @@ def selftest() -> int:
          "families/ could ever have caught this", "data-newest" not in src)
     lab = _lab(good)
     try:
-        _edit(lab, "grid/index.html", 'name="data-newest" content="2026-07-30"',
+        _edit(lab, "grid/index.html", f'name="data-newest" content="{grid_stamp}"',
               'name="data-newest" content="2099-01-01"')
         r = _ask(lab, today)
         case("a read date in the future goes red", hits(r, "has not happened yet"),
@@ -464,7 +524,7 @@ def selftest() -> int:
     #    because the probe on the other end may read it as "no opinion".
     lab = _lab(good)
     try:
-        _edit(lab, "grid/index.html", 'name="data-newest" content="2026-07-30"',
+        _edit(lab, "grid/index.html", f'name="data-newest" content="{grid_stamp}"',
               'name="data-newest" content="recently"')
         r = _ask(lab, today)
         case("a read date that is not a date goes red", hits(r, "which is not a date"),
@@ -660,6 +720,173 @@ def selftest() -> int:
     finally:
         globals()["DIST"] = keep
         shutil.rmtree(lab, ignore_errors=True)
+
+    # 14. BOTH WAYS on the 2026-08-25 directional price rule. The subjects are
+    #     derived from the catalog that really ships, never pinned: a rebuild
+    #     that mints or withdraws a family must move the case, not strand it.
+    rows_now = family_rows()
+
+    def _fam_page(fid: str) -> str:
+        return (DIST / fid / "index.html").read_text(encoding="utf-8")
+
+    live_fam = next((f for f in rows_now.values()
+                     if f.get("price")
+                     and str((f.get("checkout") or {}).get("url") or "").startswith("https://")
+                     and (DIST / f["id"] / "index.html").is_file()
+                     and f["price"] in C.text(_fam_page(f["id"]))), None)
+    if live_fam is None:
+        case("strict direction of the price rule has a live-link subject", False,
+             "NEVER RAN: no shipped family carries both a price and a live "
+             "https checkout, so the strict direction cannot be proved")
+    else:
+        lab = _lab(good + [f"{live_fam['id']}/index.html"])
+        try:
+            _edit(lab, f"{live_fam['id']}/index.html", live_fam["price"], "a fair price",
+                  count=-1)
+            r = _ask(lab, today)
+            case(f"a live-link family hiding its price goes red (proved on {live_fam['id']})",
+                 hits(r, "does not show the price"),
+                 "; ".join(r.faults) or "no fault at all")
+        finally:
+            shutil.rmtree(lab, ignore_errors=True)
+
+    unminted = next((f for f in rows_now.values()
+                     if f.get("price")
+                     and not str((f.get("checkout") or {}).get("url") or "").startswith("https://")
+                     and (DIST / f["id"] / "index.html").is_file()
+                     and f["price"] not in C.text(_fam_page(f["id"]))), None)
+    if unminted is None:
+        # Every priced family is minted today: the tolerant direction has no
+        # honest subject. Said out loud as a pass, never hidden inside one.
+        case("tolerant direction of the price rule: NEVER RAN today -- every "
+             "priced family already carries a live link", True)
+    else:
+        lab = _lab(good + [f"{unminted['id']}/index.html"])
+        try:
+            r = _ask(lab, today)
+            case(f"an unminted priced family with a silent page stays green "
+                 f"(proved on {unminted['id']})",
+                 not hits(r, "does not show the price"),
+                 "; ".join(r.faults))
+        finally:
+            shutil.rmtree(lab, ignore_errors=True)
+
+    # 15. BOTH WAYS on the one-time-file skip class, for each of its two kinds.
+    pulled_fam = next((f for f in rows_now.values()
+                       if str(f.get("cadence") or "").startswith("one-time")
+                       and "pulled" in str(f.get("cadence") or "")
+                       and (DIST / f["id"] / "index.html").is_file()), None)
+    if pulled_fam is None:
+        case("one-time pulled-file rule has a subject", False,
+             "NEVER RAN: no shipped family carries a one-time pulled cadence")
+    else:
+        cad = str(pulled_fam["cadence"])
+        phrase = cad[cad.index("pulled"):]
+        rel = f"{pulled_fam['id']}/index.html"
+        lab = _lab(good + [rel])
+        try:
+            r = _ask(lab, today)
+            case(f"an untouched one-time pulled file is skipped by name "
+                 f"(proved on {pulled_fam['id']})",
+                 any(w == pulled_fam["id"] and "one-time file" in why
+                     for w, why in r.skipped),
+                 "; ".join(r.faults) or "not in the skipped list")
+            # The page prints the phrase in more than one casing ('pulled' in
+            # a sentence, 'Pulled' opening one). An exact replace left the
+            # capitalised copies standing, the page still told the truth, and
+            # this case "failed" against a check that was right -- so the
+            # mutation is case-blind and proves its own work before asking.
+            f = lab / rel
+            raw2 = f.read_text(encoding="utf-8")
+            raw2, n = re.subn(re.escape(phrase), "pulled from thin air", raw2,
+                              flags=re.IGNORECASE)
+            if not n or phrase.lower() in raw2.lower():
+                raise AssertionError(f"could not remove every copy of {phrase!r} "
+                                     f"from {rel}, so this case would prove nothing")
+            f.write_text(raw2, encoding="utf-8")
+            r = _ask(lab, today)
+            case("the same page with its pull-day sentence gone goes red",
+                 hits(r, "never prints"),
+                 "; ".join(r.faults) or "no fault at all")
+        finally:
+            shutil.rmtree(lab, ignore_errors=True)
+
+    order_fam = next((f for f in rows_now.values()
+                      if str(f.get("cadence") or "").startswith("once")
+                      and (DIST / f["id"] / "index.html").is_file()), None)
+    if order_fam is None:
+        case("assembled-on-order rule has a subject", False,
+             "NEVER RAN: no shipped family carries a once-not-a-feed cadence")
+    else:
+        rel = f"{order_fam['id']}/index.html"
+        lab = _lab(good + [rel])
+        try:
+            r = _ask(lab, today)
+            case(f"an untouched assembled-on-order page is skipped by name "
+                 f"(proved on {order_fam['id']})",
+                 any(w == order_fam["id"] and "one-time file" in why
+                     for w, why in r.skipped),
+                 "; ".join(r.faults) or "not in the skipped list")
+            _edit(lab, rel, "within one working day", "at some point", count=-1)
+            r = _ask(lab, today)
+            case("the same page with its assembly promise gone goes red",
+                 hits(r, "never says when"),
+                 "; ".join(r.faults) or "no fault at all")
+        finally:
+            shutil.rmtree(lab, ignore_errors=True)
+
+    # 16. BOTH WAYS on the read-once class (import-checks, scope-sheet).
+    ronce_fam = next((f for f in rows_now.values()
+                      if str(f.get("cadence") or "").startswith("read once")
+                      and (DIST / f["id"] / "index.html").is_file()), None)
+    if ronce_fam is None:
+        case("read-once rule has a subject", False,
+             "NEVER RAN: no shipped family carries a read-once cadence")
+    else:
+        cad2 = str(ronce_fam["cadence"])
+        datep = cad2.split(",", 1)[1].strip()
+        rel = f"{ronce_fam['id']}/index.html"
+        lab = _lab(good + [rel])
+        try:
+            r = _ask(lab, today)
+            case(f"an untouched read-once page is skipped by name "
+                 f"(proved on {ronce_fam['id']})",
+                 any(w == ronce_fam["id"] and "one dated reading" in why
+                     for w, why in r.skipped),
+                 "; ".join(r.faults) or "not in the skipped list")
+            f = lab / rel
+            raw3 = f.read_text(encoding="utf-8")
+            raw3, n = re.subn(re.escape(datep), "some day or other", raw3,
+                              flags=re.IGNORECASE)
+            if not n or datep.lower() in raw3.lower():
+                raise AssertionError(f"could not remove every copy of {datep!r} "
+                                     f"from {rel}, so this case would prove nothing")
+            f.write_text(raw3, encoding="utf-8")
+            r = _ask(lab, today)
+            case("the same page with its read day gone goes red",
+                 hits(r, "never prints its read day"),
+                 "; ".join(r.faults) or "no fault at all")
+        finally:
+            shutil.rmtree(lab, ignore_errors=True)
+
+    # 17. The price question must be asked on skipped classes too, and the
+    #     strict direction for a one-time family cannot run on today's estate
+    #     (none is minted yet), so the helper is proved as a unit both ways and
+    #     its adoption is COUNTED, not assumed -- a guard wired into one caller
+    #     of three has passed here before.
+    fake = {"id": "x", "price": "$349", "checkout": {"url": "https://buy.stripe.com/x"}}
+    r = Report()
+    check_price(r, "x", "a page with no number on it", fake)
+    case("the price helper goes red when a live link exists and the page is silent",
+         any("does not show the price" in f for f in r.faults))
+    r = Report()
+    check_price(r, "x", "a page with no number on it",
+                {"id": "x", "price": "$349", "checkout": {"url": "TO-MINT"}})
+    case("and stays green while the link is still to mint", not r.faults)
+    needle = "check_price(rep, " + "who, vis, fam)"  # split so it cannot count itself
+    n_sites = Path(__file__).read_text(encoding="utf-8").count(needle)
+    case("the price question is wired into every page class (3 run-path calls)",
+         n_sites == 3, f"counted {n_sites} call sites, expected 3")
 
     bad = [name for ok, name in results if not ok]
     for ok, name in results:

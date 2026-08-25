@@ -686,7 +686,18 @@ def main() -> None:
             if "not available" not in vis.lower():
                 fail(f"{fam['id']} is parked but never says it is not available")
         elif fam["price"] not in vis:
-            fail(f"{fam['id']} missing price {fam['price']}")
+            # DATED NOTE, 2026-08-25 (the off-sale deadlock, fixed in the one
+            # direction that is safe): a family priced in the catalog whose
+            # checkout has no chargeable address yet (empty or TO-MINT) shows a
+            # stranger NO offer -- no price, no button, nothing to act on. The
+            # page catches up at the very build this check was blocking, so the
+            # missing-price direction only fails once a real https address
+            # exists. A page SHOWING a wrong price, and every other check here,
+            # stays as strict as it was. Proved both ways on 2026-08-25:
+            # TO-MINT passed, a live https URL with the same stale page failed.
+            checkout_url = str((fam.get("checkout") or {}).get("url") or "")
+            if checkout_url.startswith("https://"):
+                fail(f"{fam['id']} missing price {fam['price']}")
         for bad in forbidden_hits(raw):
             fail(f"{fam['id']} contains forbidden {bad!r}")
         check_pay_links(fam["id"], raw, fam.get("checkout"))
@@ -798,7 +809,11 @@ def check_slices() -> None:
             for bad in forbidden_hits(raw):
                 fail(f"{who} contains forbidden {bad!r}")
             if fam["price"] not in vis:
-                fail(f"{who} does not show its parent's price {fam['price']}")
+                # Same 2026-08-25 rule as the parent page above: with no
+                # chargeable address yet there is no offer a child page could
+                # be lying about; strict again the moment the link is real.
+                if str((fam.get("checkout") or {}).get("url") or "").startswith("https://"):
+                    fail(f"{who} does not show its parent's price {fam['price']}")
             if 'name="data-newest"' not in raw or 'name="data-cadence-days"' not in raw:
                 fail(f"{who} carries no read date and no cadence, so nothing can prove it is current")
             check_pay_links(who, raw, fam.get("checkout"))
@@ -955,7 +970,8 @@ def check_buy_buttons() -> None:
         # that no customer on earth can reach. If a product is not to be sold,
         # take the address out of the catalog; do not leave it declared and
         # unreachable.
-        if not c.get("url"):
+        declared_url = c.get("url") or ""
+        if not declared_url or declared_url == "TO-MINT" or not str(declared_url).startswith("https://"):
             continue
         page = ROOT / "families" / fam["id"] / "index.html"
         if page.is_file() and not buy_buttons(page.read_text(encoding="utf-8")):

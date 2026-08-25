@@ -495,7 +495,10 @@ def offer_block(spec: dict) -> tuple[str, str]:
     door = sample_door(spec)
     subj = spec["subj"]
     mail = f"mailto:operations@ustechautomations.com?subject={subj}"
-    if not c.get("url"):
+    # TO-MINT is a catalog placeholder, not a chargeable address. Drawing it as
+    # a button would send a stranger nowhere.
+    checkout_href = str(c.get("url") or "").strip()
+    if not checkout_href or checkout_href == "TO-MINT" or not checkout_href.startswith("https://"):
         hero = (
             f'    <p class="hero-cta"><a class="btn btn-ghost" href="{mail}">'
             f'{html.escape(spec["contact_cta"])}</a>'
@@ -523,7 +526,7 @@ def offer_block(spec: dict) -> tuple[str, str]:
 """
         return hero, door + sec
 
-    url = c["url"]
+    url = checkout_href
     label = c.get("label") or f'Subscribe — {price_of(spec)}'
     terms = c.get("terms") or "Cancel any time by email."
     after = c.get("after") or (

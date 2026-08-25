@@ -110,7 +110,7 @@ PRICE = family_rows().get(FAMILY, {}).get("price") or "Not for sale yet"
 # the freshness gate should hold this page to -- NOT the rhythm it has actually
 # managed, which is worse and is written on the page as a limit instead.
 CADENCE_DAYS = 1
-MAX_TABLE_ROWS = 20
+MAX_TABLE_ROWS = 10
 
 MOVE_HEADERS = ["File number", "Where", "Sale was", "Sale became", "Between these two reads"]
 WARN_HEADERS = ["File number", "Where", "Listed sale date", "Second date shown", "What happened next"]

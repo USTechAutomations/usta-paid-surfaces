@@ -4,7 +4,7 @@ Derived from `dist/` by `scripts/url_manifest.py`. Not typed, not edited
 by hand. Re-run it after any build and this file is current again.
 
 - **266 pages**, every one of them an address under `/feeds`
-- **58** carry a price; **208** say they are not for sale yet, are free to read, or are the hub itself
+- **91** carry a price; **175** say they are not for sale yet, are free to read, or are the hub itself
 - **28** have a pay button; **209** are honest holding pages that ask you to email instead; **29** is the hub, which sells nothing and does not pretend to
 
 The sitemap lists exactly these pages and no others.
@@ -88,12 +88,12 @@ The sitemap lists exactly these pages and no others.
 
 | Address | Price | Buy |
 |---|---|---|
-| `/feeds/air-permits` | Not for sale yet | email only |
-| `/feeds/air-permits/arizona-air` | Not for sale yet | email only |
-| `/feeds/air-permits/coverage` | Not for sale yet | email only |
-| `/feeds/air-permits/data-centers` | Not for sale yet | email only |
-| `/feeds/air-permits/texas-moved` | Not for sale yet | email only |
-| `/feeds/air-permits/texas-new` | Not for sale yet | email only |
+| `/feeds/air-permits` | $79/mo | email only |
+| `/feeds/air-permits/arizona-air` | $79/mo | email only |
+| `/feeds/air-permits/coverage` | $79/mo | email only |
+| `/feeds/air-permits/data-centers` | $79/mo | email only |
+| `/feeds/air-permits/texas-moved` | $79/mo | email only |
+| `/feeds/air-permits/texas-new` | $79/mo | email only |
 
 ## az-contractors
 
@@ -208,33 +208,33 @@ The sitemap lists exactly these pages and no others.
 | Address | Price | Buy |
 |---|---|---|
 | `/feeds/grid` | Not for sale yet | no cta found |
-| `/feeds/grid/arkansas` | Not for sale yet | email only |
-| `/feeds/grid/caiso` | Not for sale yet | email only |
-| `/feeds/grid/california` | Not for sale yet | email only |
-| `/feeds/grid/connecticut` | Not for sale yet | email only |
-| `/feeds/grid/coverage` | Not for sale yet | email only |
-| `/feeds/grid/ercot` | Not for sale yet | email only |
-| `/feeds/grid/illinois` | Not for sale yet | email only |
-| `/feeds/grid/indiana` | Not for sale yet | email only |
-| `/feeds/grid/iowa` | Not for sale yet | email only |
-| `/feeds/grid/isone` | Not for sale yet | email only |
-| `/feeds/grid/kansas` | Not for sale yet | email only |
-| `/feeds/grid/louisiana` | Not for sale yet | email only |
-| `/feeds/grid/maine` | Not for sale yet | email only |
-| `/feeds/grid/massachusetts` | Not for sale yet | email only |
-| `/feeds/grid/michigan` | Not for sale yet | email only |
-| `/feeds/grid/minnesota` | Not for sale yet | email only |
-| `/feeds/grid/miso` | Not for sale yet | email only |
-| `/feeds/grid/mississippi` | Not for sale yet | email only |
-| `/feeds/grid/missouri` | Not for sale yet | email only |
-| `/feeds/grid/nebraska` | Not for sale yet | email only |
-| `/feeds/grid/new-hampshire` | Not for sale yet | email only |
-| `/feeds/grid/new-york` | Not for sale yet | email only |
-| `/feeds/grid/nyiso` | Not for sale yet | email only |
-| `/feeds/grid/oklahoma` | Not for sale yet | email only |
-| `/feeds/grid/spp` | Not for sale yet | email only |
-| `/feeds/grid/texas` | Not for sale yet | email only |
-| `/feeds/grid/wisconsin` | Not for sale yet | email only |
+| `/feeds/grid/arkansas` | $49/mo | email only |
+| `/feeds/grid/caiso` | $49/mo | email only |
+| `/feeds/grid/california` | $49/mo | email only |
+| `/feeds/grid/connecticut` | $49/mo | email only |
+| `/feeds/grid/coverage` | $49/mo | email only |
+| `/feeds/grid/ercot` | $49/mo | email only |
+| `/feeds/grid/illinois` | $49/mo | email only |
+| `/feeds/grid/indiana` | $49/mo | email only |
+| `/feeds/grid/iowa` | $49/mo | email only |
+| `/feeds/grid/isone` | $49/mo | email only |
+| `/feeds/grid/kansas` | $49/mo | email only |
+| `/feeds/grid/louisiana` | $49/mo | email only |
+| `/feeds/grid/maine` | $49/mo | email only |
+| `/feeds/grid/massachusetts` | $49/mo | email only |
+| `/feeds/grid/michigan` | $49/mo | email only |
+| `/feeds/grid/minnesota` | $49/mo | email only |
+| `/feeds/grid/miso` | $49/mo | email only |
+| `/feeds/grid/mississippi` | $49/mo | email only |
+| `/feeds/grid/missouri` | $49/mo | email only |
+| `/feeds/grid/nebraska` | $49/mo | email only |
+| `/feeds/grid/new-hampshire` | $49/mo | email only |
+| `/feeds/grid/new-york` | $49/mo | email only |
+| `/feeds/grid/nyiso` | $49/mo | email only |
+| `/feeds/grid/oklahoma` | $49/mo | email only |
+| `/feeds/grid/spp` | $49/mo | email only |
+| `/feeds/grid/texas` | $49/mo | email only |
+| `/feeds/grid/wisconsin` | $49/mo | email only |
 
 ## hiring-watch
 

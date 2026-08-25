@@ -979,6 +979,9 @@ def _az_air(c: sqlite3.Connection, days: list[str]) -> dict | None:
     dropped = len(all_now) - len(air_now)
 
     facts = [
+        "<strong>This page is not part of the subscription.</strong> The paid file is "
+        "Texas only. Arizona is a closed set of dated copies we still show, and it is "
+        "not in the file you would pay for.",
         f"Arizona publishes every environmental permit it is working on in one file. On "
         f"{_d(new_day)} that file held {_n(len(all_now))} rows and only {_n(len(air_now))} of "
         f"them are air permits. We drop the other {_n(dropped)} rather than count a sewage plant "
@@ -987,9 +990,6 @@ def _az_air(c: sqlite3.Connection, days: list[str]) -> dict | None:
         f"on the {_d(old_day)} one. Another {_n(len(moved))} read with a different stage.",
         f"We hold {_n(len(days))} sealed copies of the Arizona file, from {_d(days[0])} to "
         f"{_d(days[-1])}, and {_n(held)} dated air rows across them.",
-        f"The air rows we keep are the ones the state files under its own air heading. That "
-        f"label is read out of the sealed copy of the agency's record on every single row, not "
-        f"guessed from the wording of a permit name.",
     ]
 
     limits = [
@@ -1349,15 +1349,15 @@ def sample() -> tuple[list[str], list[list[str]]]:
                "Stage", "Link to the agency paper", "Sealed copy"]
     rows: list[list[str]] = []
     with _conn() as c:
-        for cfg, per in ((TX, 13), (AZ, 12)):
-            day = _q(c, "SELECT MAX(snapshot_date) FROM application WHERE source_id=?",
-                     cfg["source_id"])[0][0]
-            if not day:
-                continue
+        # Texas only. Arizona is refused and is not in the paid file, so it is
+        # not in the sample of that file either.
+        cfg, per = TX, 25
+        day = _q(c, "SELECT MAX(snapshot_date) FROM application WHERE source_id=?",
+                 cfg["source_id"])[0][0]
+        if day:
             got = sorted(
                 _rows(c, cfg, day),
-                key=lambda r: (str(r[3] or "")[6:10] + str(r[3] or "")[:2] + str(r[3] or "")[3:5]
-                               if cfg is TX else str(r[3] or "")),
+                key=lambda r: (str(r[3] or "")[6:10] + str(r[3] or "")[:2] + str(r[3] or "")[3:5]),
                 reverse=True)
             for r in [x for x in got if _named(x)][:per]:
                 rows.append([cfg["state"],
@@ -1378,31 +1378,28 @@ def sample() -> tuple[list[str], list[list[str]]]:
 # flattened into one comfortable one.
 # ---------------------------------------------------------------------------
 def _shop(c: sqlite3.Connection, tx_days: list[str], az_days: list[str]) -> dict:
-    """A few real named rows off both lists, for the shop window.
+    """A few real named Texas rows for the shop window.
 
-    Deliberately mixed: two states, and both kinds of change, so a reader sees
-    what the feed actually reports before they see a price.
+    Arizona is not in the paid file, so it is not in this window. The unused
+    az_days argument stays so existing callers do not have to change.
     """
+    del az_days
     rows: list[list[str]] = []
-    for cfg, days, per in ((TX, tx_days, 3), (AZ, az_days, 3)):
-        old_day, new_day = _window(days)
-        appeared, moved = _events(c, cfg, old_day, new_day)
-        for r in appeared[:per]:
-            rows.append([cfg["state"], _cell(r[1]), _cell(r[2]), _cell(r[0]),
-                         f"Not on our {html.escape(_d(old_day))} copy"])
-        for r, was in moved[:per]:
-            rows.append([cfg["state"], _cell(r[1]), _cell(r[2]), _cell(r[0]),
-                         html.escape(f"{' / '.join(w for w in was if w) or 'blank'} "
-                                     f"→ {r[4]}")])
-    tx_old, tx_new = _window(tx_days)
-    az_old, az_new = _window(az_days)
+    old_day, new_day = _window(tx_days)
+    appeared, moved = _events(c, TX, old_day, new_day)
+    for r in appeared[:3]:
+        rows.append([TX["state"], _cell(r[1]), _cell(r[2]), _cell(r[0]),
+                     f"Not on our {html.escape(_d(old_day))} copy"])
+    for r, was in moved[:3]:
+        rows.append([TX["state"], _cell(r[1]), _cell(r[2]), _cell(r[0]),
+                     html.escape(f"{' / '.join(w for w in was if w) or 'blank'} "
+                                 f"→ {r[4]}")])
     return {
         "headers": ["State", "Applicant", "Site", "Permit number", "What changed"],
         "rows": rows,
-        "caption": (f"Named applications that appeared or moved a stage — Texas between our "
-                    f"{_d(tx_old)} and {_d(tx_new)} copies, Arizona between {_d(az_old)} and "
-                    f"{_d(az_new)}"),
-        "stamp": f"Sealed {_d(min(tx_new, az_new))}",
+        "caption": (f"Named Texas applications that appeared or moved a stage between our "
+                    f"{_d(old_day)} and {_d(new_day)} copies. Arizona is not in this file."),
+        "stamp": f"Sealed {_d(new_day)}",
         "moved_col": 4,
     }
 
@@ -1505,9 +1502,9 @@ def family_spec() -> dict:
         + kid("data-centers", "Data centres waiting on a Texas air permit",
               f"Every pending application whose own applicant or site name says data centre. "
               f"No size, no megawatts — the filing does not carry one.")
-        + kid("arizona-air", "Arizona, air permits only",
-              f"{_n(az_pending)} pending air applications on our {html.escape(_d(az_new))} copy, "
-              f"cut out of a file that mixes air with water and waste.")
+        + kid("arizona-air", "Arizona, air permits only — not in the paid file",
+              f"{_n(az_pending)} pending air applications on our {html.escape(_d(az_new))} copy. "
+              f"Free to read. Not in the file you would pay for.")
         + kid("coverage", "What is and is not in this feed",
               f"Both freshness dates, every stretch with no sealed copy, and the air permits "
               f"issued by somebody we do not read.")
@@ -1519,33 +1516,37 @@ def family_spec() -> dict:
             f"Texas sealed {_d(tx_days[-1])} · Arizona sealed {_d(az_days[-1])}",
             f"      <p>Before anyone can put pollution into the air — a factory, a quarry, a "
             f"power plant, the generators behind a data centre — they have to ask the state "
-            f"for permission. This feed is those requests while they are still waiting on an "
-            f"answer.</p>\n"
+            f"for permission. <strong>The file you would pay for is Texas only:</strong> "
+            f"dated diffs of the Texas Commission on Environmental Quality pending New Source "
+            f"Review list.</p>\n"
             f"      <p>{tx_fresh}</p>\n"
-            f"      <p>{az_fresh}</p>\n"
+            f"      <p>{az_fresh} Those Arizona copies stay on a free page. They are not in "
+            f"the paid file.</p>\n"
             f'      <ul class="spec">\n'
-            f"        <li><strong>Two state lists, {_n(tx_held + az_held)} dated rows.</strong>"
-            f'<span class="sub">{_n(tx_held)} from Texas across {_n(len(tx_days))} sealed '
-            f"copies, {_n(az_held)} air rows from Arizona across {_n(len(az_days))}.</span></li>\n"
-            f"        <li><strong>{_n(changes)} named applications appeared or moved a stage"
-            f'</strong><span class="sub">Texas between our {html.escape(_d(tx_old))} and '
-            f"{html.escape(_d(tx_new))} copies, Arizona between {html.escape(_d(az_old))} and "
-            f"{html.escape(_d(az_new))}.</span></li>\n"
-            f"        <li><strong>Both agencies overwrite their own page.</strong>"
+            f"        <li><strong>Texas pending list, {_n(tx_held)} dated rows.</strong>"
+            f'<span class="sub">Across {_n(len(tx_days))} sealed copies. Arizona&rsquo;s '
+            f"{_n(az_held)} air rows stay on the free Arizona page and are not sold.</span></li>\n"
+            f"        <li><strong>{_n(len(tx_app) + len(tx_mov))} named Texas applications "
+            f"appeared or moved a stage</strong>"
+            f'<span class="sub">Between our {html.escape(_d(tx_old))} and '
+            f"{html.escape(_d(tx_new))} copies.</span></li>\n"
+            f"        <li><strong>TCEQ overwrites its own page.</strong>"
             f'<span class="sub">They publish today&rsquo;s list and yesterday&rsquo;s is gone. The dated '
-            f"copy is the whole product, and neither agency keeps one.</span></li>\n"
-            f"        <li><strong>Two freshness dates, not one.</strong>"
-            f'<span class="sub">Arizona is {_n(behind)} days behind Texas and every page says '
-            f"so where it matters instead of aging a stale copy into today.</span></li>\n"
+            f"copy is the product.</span></li>\n"
+            f"        <li><strong>Source is public domain unless otherwise noted.</strong>"
+            f'<span class="sub">Texas Commission on Environmental Quality pending New Source '
+            f"Review list. We do not charge anyone to open "
+            f'<a href="https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/nsr-pending-permits.html">TCEQ&rsquo;s own page</a>, '
+            f"and we do not use the TCEQ logo.</span></li>\n"
             f"      </ul>",
         ),
         section(
             "Public sample",
             f"Sealed {_d(min(tx_days[-1], az_days[-1]))}",
-            f"      <p>Real rows out of copies we sealed ourselves. {_n(tx_pending)} named "
-            f"applications were pending in Texas on our {html.escape(_d(tx_new))} copy and "
-            f"{_n(az_pending)} in Arizona on our {html.escape(_d(az_new))} one. "
-            f"{len(shop['rows'])} of the ones that changed are below.</p>\n"
+            f"      <p>Real Texas rows out of copies we sealed ourselves. {_n(tx_pending)} named "
+            f"applications were pending in Texas on our {html.escape(_d(tx_new))} copy. "
+            f"{len(shop['rows'])} of the ones that changed are below. Arizona is not in this "
+            f"sample.</p>\n"
             + table(shop["headers"], shop["rows"], shop["caption"], shop["stamp"],
                     shop["moved_col"])
             + '\n      <div class="note">\n'
@@ -1589,15 +1590,16 @@ def family_spec() -> dict:
             f"Every one of them is named on the coverage page rather than left for you to "
             f"find. Anything that moved and moved back inside a hole is a change we never "
             f"saw.</p>\n"
-            "        <p><strong>Two states. That is all.</strong> There is no national pending "
-            "air permit list in here and we are not going to imply there is one.</p>\n"
+            "        <p><strong>The paid file is Texas. That is all.</strong> There is no "
+            "national pending air permit list in here. Arizona copies stay on a free page "
+            "and are not in the file you would pay for.</p>\n"
             "      </div>",
         ),
         section(
             "How it works",
             None,
             '      <ol class="steps">\n'
-            "        <li>You email us and say which states, counties or applicants you "
+            "        <li>You email us and say which Texas counties or applicants you "
             "follow.</li>\n"
             "        <li>We reply with exactly which weeks we hold for them and which days "
             "have no sealed copy, then send a checkout link in that thread.</li>\n"
@@ -1625,18 +1627,17 @@ def family_spec() -> dict:
         # nobody recomputes is a number that goes wrong quietly, so the page
         # counts it every build and the catalog copy is only a snapshot.
         "cadence_long": (f"Texas: {_read_label(tx_days).lower()} at {_d(tx_days[-1])}, with "
-                         f"every missed day named on the page. Arizona: {_n(len(az_days))} "
-                         f"dated copies to {_d(az_days[-1])}, not being added to"),
+                         f"every missed day named on the page. Arizona is not in the paid file."),
         "crumb": "Pending air permits",
         "h1": "Air permit applications while they are still pending",
         "price": price,
         "buyer": fam["buyer"],
-        "desc": (f"{_n(tx_pending + az_pending)} pending state air permit applications in Texas "
-                 f"and Arizona, from dated copies we keep. {price}. Email operations@."),
+        "desc": (f"{_n(tx_pending)} pending Texas air permit applications, from dated copies "
+                 f"we keep. Arizona is not in this file. {price}."),
         "lede": (f"Permission to put pollution into the air is asked for in public and the "
-                 f"answer takes months. <strong>Both states publish today&rsquo;s waiting list "
-                 f"and overwrite yesterday&rsquo;s. We keep the dated copies, so we can say what "
-                 f"changed.</strong>"),
+                 f"answer takes months. <strong>Texas publishes today&rsquo;s waiting list "
+                 f"and overwrites yesterday&rsquo;s. We keep the dated copies, so we can say what "
+                 f"changed.</strong> Arizona copies stay free and are not in the paid file."),
         "subj": urllib.parse.quote(f"Pending air permits \u2014 {price}"),
         "contact_h2": fam.get("contact_h2", "Start the thread"),
         "contact_p": fam["contact_p"],

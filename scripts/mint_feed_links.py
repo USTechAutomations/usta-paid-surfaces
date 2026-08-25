@@ -136,17 +136,27 @@ LABEL_FOR_FEED = {
     "agent-register": "Buy one archive copy — $99",
     "agentic-commerce": "Subscribe — $59 a month",
     "ai-prices": "Subscribe — $175 a month",
-    # air-permits is deliberately NOT here. It came off sale on 2026-08-24
-    # because one of the two sources it sold is one we refused to collect, and
-    # the wording left behind here would have minted a $175-a-month button for
-    # a family the catalog prices at "Not for sale yet". Leaving the line out
-    # makes this tool refuse the family by name rather than mint the wrong
-    # thing. Put it back when the Texas-only product is built, with that
-    # product's own wording, never this one.
+    "air-permits": "Subscribe — $79 a month",
     "civic-agenda": "Subscribe — $175 a month",
+    "grid": "Subscribe — $99 a month",
     "permit-metros": "Subscribe — $79 a month",
     "ttb": "Subscribe — $99 a month",
 }
+
+# Catalog placeholder written before a Stripe address exists. It is not a
+# chargeable link. Claude replaces it at mint time. Treating it as armed would
+# skip minting; drawing it as a button would send a stranger nowhere.
+MINT_PLACEHOLDER = "TO-MINT"
+
+
+def is_armed_url(url: object) -> bool:
+    """True only for a real checkout address a stranger could pay through."""
+    if not isinstance(url, str):
+        return False
+    text = url.strip()
+    if not text or text == MINT_PLACEHOLDER:
+        return False
+    return text.startswith("https://")
 
 
 def parse_price(price: str) -> tuple[int, str] | None:
@@ -442,7 +452,7 @@ def main() -> int:
             continue
         if not re.search(r"\$\d", fam.get("price", "")):
             continue
-        if (fam.get("checkout") or {}).get("url"):
+        if is_armed_url((fam.get("checkout") or {}).get("url")):
             # Nothing is minted for this one, so the ladder cannot stop anything
             # here -- but if the ladder refuses it, the address that is already
             # out there is one this estate has decided not to sell. Saying so is

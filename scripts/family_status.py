@@ -175,38 +175,21 @@ SOURCES: dict[str, tuple] = {
 LANES: dict[str, tuple[Lane, ...]] = {
     # The reason this whole idea exists. Texas and Arizona sit in one table and
     # were nine days apart on the day this was wired.
+    # Texas only. Arizona (adeq_pip_all) is refused and is not in the paid file.
+    # A priced family whose newest-day sources still include a REFUSE note is
+    # vetoed (priced over lawful). The Arizona child page stays up as a free
+    # closed set; it is not a lane of this product.
     "air-permits": (
         Lane("the Texas pending air permit list", "application", "snapshot_date",
              "source_id = 'tceq_nsr_pending'", 1),
-        Lane("the Arizona permits-in-progress list", "application", "snapshot_date",
-             "source_id = 'adeq_pip_all'", 1),
     ),
-    # Six interconnection queues in one table, and two of them are finished. The
-    # family page was the last thing in the estate that could not see it: with no
-    # lanes here, the whole family was measured as ONE list, `max(snapshot_date)`
-    # came back as today because four queues are still read every day, and the
-    # two dead ones sat behind them. That is the failure this file's docstring
-    # describes, on the page carrying the $99/mo button. Every child page already
-    # named ERCOT and MISO with their last dates; the parent said nothing and
-    # stamped today's date in its freshness tag.
-    #
-    # ERCOT and MISO are not late, they are STOPPED, and stopped on purpose:
-    # ERCOT's robots file disallows the paths its queue sits under, and MISO
-    # serves a browser only. Both decisions are written on the family page. The
-    # cadences below are the ones measured while each was still being read.
+    # The paid file is the California ISO queue only. Other operators keep
+    # their child pages as free holding pages; they are not lanes of this
+    # product, so a stopped ERCOT copy cannot stamp the family page late
+    # while California ISO is still being read.
     "grid": (
         Lane("the CAISO queue", "project_snapshots", "snapshot_date",
              "iso = 'caiso'", 1),
-        Lane("the ERCOT queue", "project_snapshots", "snapshot_date",
-             "iso = 'ercot'", 7),
-        Lane("the ISO-NE queue", "project_snapshots", "snapshot_date",
-             "iso = 'isone'", 1),
-        Lane("the MISO queue", "project_snapshots", "snapshot_date",
-             "iso = 'miso'", 7),
-        Lane("the NYISO queue", "project_snapshots", "snapshot_date",
-             "iso = 'nyiso'", 1),
-        Lane("the SPP queue", "project_snapshots", "snapshot_date",
-             "iso = 'spp'", 1),
     ),
     # Same store, plus two more lists on their own rhythms.
     "dc-siting": (

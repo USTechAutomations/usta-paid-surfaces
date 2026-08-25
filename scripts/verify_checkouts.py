@@ -184,9 +184,10 @@ def main() -> int:
         c = fam.get("checkout")
         if not c:
             continue
-        if not c.get("url"):
-            # Written terms for a product sold through an email thread. There is
-            # no link to fetch, so there is nothing here to prove or to stamp.
+        url = c.get("url") or ""
+        if not url or url == "TO-MINT" or not str(url).startswith("https://"):
+            # Written terms for a product sold through an email thread, or a
+            # mint placeholder that is not yet a chargeable address.
             print(f"{fam['id']:16} no-link  terms are written down; sold by email, nothing to fetch")
             continue
         checked += 1
