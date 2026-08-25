@@ -165,9 +165,10 @@ def main() -> int:
             unread_metro.write_text(
                 f"jurisdiction,permit\n{label},2026-1 BP\n", encoding="utf-8")
             got, why = og.scan(unread_metro)
-            case("a row from a metro nobody has cleared is refused", got, og.BLOCKED)
-            case("and the reason says nobody read their terms",
-                 "nobody has read their terms" in why, True)
+            # Flipped 2026-08-25 by operator decision row 17: an unread source no
+            # longer blocks -- only a written REFUSE does.
+            case("a row from a metro nobody has cleared now passes (row 17)",
+                 got, og.CLEAN)
 
         # A near-miss must NOT fire, or the guard cries wolf and gets switched off.
         nearmiss = tmp / "nearmiss.csv"
@@ -218,13 +219,13 @@ def main() -> int:
 
         other = tmp / "otherville.csv"
         other.write_text("jurisdiction,permit_number\notherville,OV-900\n", encoding="utf-8")
-        case("a file from an unread source in the same record is refused",
-             og.scan(other, store=store, record=rec)[0], og.BLOCKED)
+        case("a file from an unread source now passes (row 17)",
+             og.scan(other, store=store, record=rec)[0], og.CLEAN)
 
         other_stripped = tmp / "otherville-stripped.csv"
         other_stripped.write_text("permit_number,place\nOV-900,elsewhere\n", encoding="utf-8")
-        case("an unread source's row with the source column dropped is refused",
-             og.scan(other_stripped, store=store, record=rec)[0], og.BLOCKED)
+        case("an unread source's row with the source column dropped also passes",
+             og.scan(other_stripped, store=store, record=rec)[0], og.CLEAN)
 
         # An ALLOW_PAID that owes a set form of words.
         owed = dict(ALLOWED)
@@ -339,12 +340,15 @@ def main() -> int:
         # =============== part five: gutting, and the damage showing =============
         # Each of these proves one half is load-bearing. If a case here stops
         # failing the way it is told to, somebody has emptied that half.
-        no_labels = entry("Otherville, Nowhere", og.UNSEEN, labels=[])
+        # Since row 17 (2026-08-25) an UNSEEN source passes, so the id half is
+        # proved on a REFUSE source instead: labels emptied, its rows must still
+        # be caught by their own permit numbers.
+        no_labels = entry("Otherville, Nowhere", og.REFUSE, labels=[])
         rec_nolabels = record_file(tmp / "nolabels.json",
                                    {"testville": ALLOWED, "otherville": no_labels,
                                     "marin-county": MARIN})
-        case("a source with its word list emptied is STILL caught by its own id",
-             og.scan(other, store=store, record=rec_nolabels)[0], og.BLOCKED)
+        case("a REFUSE source with its word list emptied is STILL caught by its own id",
+             og.scan(other_stripped, store=store, record=rec_nolabels)[0], og.BLOCKED)
 
         kept_all = dict(og.BLOCKED_SOURCES)
         try:

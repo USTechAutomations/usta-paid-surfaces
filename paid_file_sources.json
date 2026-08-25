@@ -44,10 +44,11 @@
       "name": "Chicago, Illinois",
       "verdict": "UNKNOWN",
       "decided_on": null,
-      "evidence_url": "",
+      "evidence_url": "https://www.chicago.gov/city/en/narr/foia/data_disclaimer.html",
       "quote": "",
-      "required_text": "",
+      "required_text": "This site provides applications using data that has been modified for use from its original source, www.cityofchicago.org, the official website of the City of Chicago.  The City of Chicago makes no claims as to the content, accuracy, timeliness, or completeness of any of the data provided at this site.  The data provided at this site is subject to change at any time.  It is understood that the data provided at this site is being used at one’s own risk.",
       "reviewed_by": "",
+      "note": "Terms read 2026-08-25 (Grok wave-7 dossier ~/grok-playground/output/task-w7-terms-chicago/dossier.md, disclaimer wording verified byte-for-byte against raw/02-data-terms-of-use.body by gmullins-1e, HTML entities decoded). No sentence in the Data Terms of Use uses commercial, sell, sale, resale, or paid. Sellable under operator decision row 17 (2026-08-25). The terms require the recorded disclaimer wherever an application or derivative using the data is offered; required_text enforces it in outgoing files. The City may require any user to terminate display or distribution for any reason.",
       "labels": ["chicago", "chicago, illinois"]
     },
     "cincinnati": {
@@ -64,10 +65,11 @@
       "name": "Los Angeles, California",
       "verdict": "UNKNOWN",
       "decided_on": null,
-      "evidence_url": "",
+      "evidence_url": "https://data.lacity.org/terms-of-use",
       "quote": "",
       "required_text": "",
       "reviewed_by": "",
+      "note": "Terms read 2026-08-25 (Grok wave-7 dossier ~/grok-playground/output/task-w7-terms-losangeles/dossier.md). The portal Terms of Use (May 2014) contain no sentence using commercial, sell, resell, redistribute, republication, attribution, or Creative Commons about City-published datasets. Sellable under operator decision row 17 (2026-08-25). Datasets are 'provided for informational purposes' as-is; the older permit dataset is login-walled and was not read.",
       "labels": ["los-angeles", "los angeles"]
     },
     "marin-county": {
@@ -127,12 +129,14 @@
     },
     "seattle": {
       "name": "Seattle, Washington",
-      "verdict": "UNKNOWN",
-      "decided_on": null,
-      "evidence_url": "",
-      "quote": "",
+      "verdict": "REFUSE",
+      "decided_on": "2026-08-25",
+      "evidence_url": "https://data.seattle.gov/stories/s/Data-Policy/6ukr-wvup/",
+      "quote": "To the extent the data consists of a list of individuals or can be readily sorted, filtered, or configured as a list of individuals, it is not to be used for a commercial purpose.",
+      "quote_from": "Seattle Open Data Terms of Use, second sentence, from the portal's Data Policy story text saved at ~/revenue-2026/research/paid-source-terms-2026-08-25/raw/data.seattle.gov_stories_s_Data-Policy_6ukr-wvup_.storytext.txt",
       "required_text": "",
-      "reviewed_by": "",
+      "reviewed_by": "claude gmullins-1e 2026-08-25 - the clause bites our own rows: 7% of the 1,350 stored Seattle rows carry contractor_name, so a delivered file can be readily sorted into a list of individuals; refusal stands even under the operator's 2026-08-25 default-open decision (row 17) because this prohibition is written",
+      "note": "Dossier: ~/revenue-2026/research/paid-source-terms-2026-08-25/seattle.md. Attribution not required ('Unless otherwise indicated, data on this site does not require specific attribution.').",
       "labels": ["seattle", "seattle, washington"]
     }
   }

@@ -26,12 +26,12 @@ at the repository root, one entry per source with a verdict:
     REFUSE      somebody read them and the answer was no (Marin County)
     UNKNOWN     nobody has read them yet
 
-Only ALLOW_PAID lets rows out. REFUSE blocks and UNKNOWN blocks, and the record
-file's UNKNOWN is a refusal here, not a shrug. As the record file stands today, no
-metro is cleared: eleven UNKNOWN, one REFUSE, zero ALLOW_PAID. Every permit file
-is BLOCKED until somebody reads a licence and writes down what it said. That
-is the correct state, not a bug -- a licence that clears a source for a page the
-whole world reads free does NOT clear it for a file a buyer pays for, and until
+REFUSE blocks. ALLOW_PAID and UNKNOWN both let rows out -- changed 2026-08-25 by
+operator decision (row 17, ~/revenue-2026/approvals/operator_decisions_2026-08-25.md):
+sell unless the publisher's written terms forbid it. A source whose entry carries a
+required_text still owes that wording in the file, whatever its verdict. Operational
+UNKNOWN -- a record that cannot be read, a store that cannot be opened, an empty
+file -- still refuses: a check that cannot run is not a pass. Note that until
 the read happens we do not know which of those two we have.
 
 THE SECOND QUESTION: IS A PERSON IN IT. A source can be perfectly licensed and the
@@ -502,7 +502,8 @@ def scan(path, store: str = STORE, record: str = RECORD_FILE) -> tuple[str, str]
     # -- one source at a time ----------------------------------------------
     for sid, entry in sorted(sources.items()):
         verdict = entry["verdict"]
-        allowed = verdict == ALLOW_PAID
+        # Operator decision 2026-08-25 (row 17): only a written refusal blocks.
+        allowed = verdict != REFUSE
         required = str(entry.get("required_text") or "")
         name = entry.get("name") or sid
 
