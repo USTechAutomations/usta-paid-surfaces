@@ -1,8 +1,10 @@
 event_id,place,what_changed,before,after,first_read,second_read
 ci41529648,"3 km ENE of Rancho San Diego, CA",magnitude,1.45,1.44,2026-08-18,2026-08-19
+nn00923787,"34 km NNE of Valmy, Nevada",magnitude,2.18,2.29,2026-08-24,2026-08-25
 hv75020387,"10 km S of Volcano, Hawaii",magnitude,2.33,1.75,2026-08-18,2026-08-19
 ci41529704,"1 km NE of Glendale, CA",magnitude,1.04,0.83,2026-08-18,2026-08-19
 aka2026ppwwng,"45 km ESE of Pedro Bay, Alaska",magnitude,3.2,3.7,2026-08-08,2026-08-09
+tx2026qpuqci,"48 km SSW of Whites City, New Mexico",magnitude,1.6,1.4,2026-08-24,2026-08-25
 hv75020397,"17 km E of Pāhala, Hawaii",magnitude,2.51,1.8,2026-08-18,2026-08-19
 ci41529664,"2 km NNE of Silver Lake, CA",magnitude,1.34,1.33,2026-08-18,2026-08-19
 ci41529576,"2 km ESE of Home Gardens, CA",depth in km,-0.53,2.9,2026-08-18,2026-08-19
@@ -10,6 +12,10 @@ aka2026qihbfn,"21 km W of Nanwalek, Alaska",magnitude,1.8,1.9,2026-08-18,2026-08
 aka2026qiaysl,"61 km SW of Sitka, Alaska",magnitude,2.1,1.9,2026-08-18,2026-08-19
 aka2026qhwbjb,"84 km WSW of Elfin Cove, Alaska",magnitude,2.7,2.5,2026-08-18,2026-08-19
 tx2026nczjul,"36 km SSW of Los Ybanez, Texas",magnitude,1.1,1.2,2026-07-05,2026-07-06
+tx2026qprzes,"35 km WSW of Mentone, Texas",depth in km,6.6176,7.9071,2026-08-24,2026-08-25
+ci41535032,"10 km ENE of Coso Junction, CA",magnitude,0.91,0.86,2026-08-24,2026-08-25
+ci41534880,"10 km ENE of Coso Junction, CA",magnitude,2.73,2.71,2026-08-24,2026-08-25
+ci41534728,"9 km NE of Pala, CA",depth in km,11.39,11.3,2026-08-24,2026-08-25
 us6000tlrj,"269 km SSE of Dunhuang, China",depth in km,10.0,6.0,2026-08-18,2026-08-19
 tx2026qfyjyd,"39 km NW of Toyah, Texas",magnitude,1.4,1.3,2026-08-18,2026-08-19
 tx2026qfxyvy,"10 km NNE of Odessa, Texas",magnitude,1.9,2.5,2026-08-18,2026-08-19
@@ -18,9 +24,3 @@ ci41529696,"10 km NW of San Jacinto, CA",depth in km,13.6,13.89,2026-08-18,2026-
 ci41529640,"6 km NNE of Lake Henshaw, CA",magnitude,0.57,0.49,2026-08-18,2026-08-19
 aka2026qifncw,"24 km WNW of Anderson, Alaska",depth in km,10.1,8.4,2026-08-18,2026-08-19
 aka2026qidjpa,"12 km W of Susitna North, Alaska",depth in km,10.3,8.7,2026-08-18,2026-08-19
-aka2026qhvgvk,"52 km NW of Aleneva, Alaska",magnitude,1.7,1.8,2026-08-18,2026-08-19
-ci40660106,"12 km N of Ocotillo Wells, CA",magnitude,1.65967180482867,1.59,2026-07-23,2026-07-24
-tx2026ndbxhg,"33 km WSW of Ackerly, Texas",magnitude,1.0,1.1,2026-07-05,2026-07-06
-us6000t7lb,"126 km S of Isangel, Vanuatu",depth in km,30.168,21.543,2026-06-23,2026-06-24
-ci41493296,"7 km N of Beaumont, CA",magnitude,0.65,0.54,2026-06-23,2026-06-24
-tx2026qfwbcd,"9 km SE of Midland, Texas",magnitude,1.1,1.0,2026-08-18,2026-08-19
