@@ -120,6 +120,30 @@ MARIN_NOTICE = (
     "(ODbL)</a>."
 )
 
+# Marin is collected, counted and credited, and it is left out of every file a
+# buyer pays for. The operator decided that on 2026-08-24: Marin's licence lets
+# anyone we hand a copy to pass that copy on, which is fine for a page anyone can
+# read and wrong for a file somebody bought. scripts/outbound_guard.py refuses a
+# delivery carrying a Marin row. Without the two sentences below, the only place
+# a buyer meets that rule is after paying -- the boards table names Marin, the
+# price is on the same page, and nothing says the rows cannot be sold. So it is
+# said on the row itself and again in the limits, and it comes from here rather
+# than from the html, because the html is rewritten on every build.
+MARIN_JURIS = "marin-county"
+
+MARIN_PAID_FILES = (
+    "<strong>Marin County is not in any file you buy.</strong> We collect it, we count "
+    "it on this page and we credit it here, and it stays out of every file we sell. "
+    "Marin publishes its permits under a licence that lets anyone we hand a copy to "
+    "pass that copy on, and we are not selling that right. If Marin is what you came "
+    "for, say so before you pay: today we cannot sell you those rows."
+)
+
+MARIN_ROW_NOTE = (
+    "<span class=\"sub\">Not in any file you buy. Marin's licence lets whoever gets a "
+    "copy pass it on, so we leave these rows out of what we sell.</span>"
+)
+
 MONTGOMERY_LEAD = (
     "Some of the rows counted on this page were supplied by Montgomery County, Maryland. "
     "Their terms of use do not ask to be credited; they require anyone using their data to "
@@ -619,6 +643,19 @@ def coverage(c: sqlite3.Connection, built: list[tuple[str, str, dict]]) -> dict:
         "select distinct jurisdiction from permit_prediction_snapshots order by 1")]
     shipped = {w["juris"]: (name, slug) for name, slug, w in built}
 
+    # The Marin sentences are keyed off one id. If that id ever stops matching a
+    # board in the store -- renamed upstream, dropped, re-imported under another
+    # spelling -- the note would vanish from the row without anything failing,
+    # and the page would go back to naming Marin beside a price with nothing
+    # saying the rows cannot be sold. Refuse instead. Marin leaving the store is
+    # a decision somebody has to make on purpose, not a quiet build result.
+    if MARIN_JURIS not in all_juris:
+        raise SystemExit(
+            f"{FAMILY}: no board called {MARIN_JURIS!r} is in the store any more, so the "
+            "sentence saying Marin is not in any file a buyer pays for would have been "
+            "dropped from this page without anyone noticing. Nothing was written. Decide "
+            "what happened to that board first.")
+
     rows = []
     total_days = total_pairs = 0
     newest_all = oldest_all = None
@@ -640,6 +677,8 @@ def coverage(c: sqlite3.Connection, built: list[tuple[str, str, dict]]) -> dict:
         held = held or 0
         name = shipped[j][0] if j in shipped else OTHER_NAMES.get(j, j)
         page = f'<a href="../{shipped[j][1]}/">Yes</a>' if j in shipped else "Not yet"
+        if j == MARIN_JURIS:
+            page += MARIN_ROW_NOTE
         rows.append([
             esc(name),
             f"{permits:,}",
@@ -736,6 +775,7 @@ def coverage(c: sqlite3.Connection, built: list[tuple[str, str, dict]]) -> dict:
             + "; ".join(OTHER_NAMES.get(j, j) for j in all_juris if j not in shipped)
             + ". We seal them the same way. We have not written pages for them, and we will "
             "say what we hold for one of them in an email rather than guess on a page.",
+            MARIN_PAID_FILES,
             "<strong>No property owner is named on any of these pages.</strong> They name the "
             "permit, the address and, where the city gives one, the contractor.",
             f"<strong>{len(no_builder)} of the {len(built)} cities give no contractor "
