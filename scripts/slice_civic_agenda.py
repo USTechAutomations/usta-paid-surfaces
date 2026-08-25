@@ -596,7 +596,7 @@ def _meeting_changes(conn, source_id) -> tuple[list[dict], Counter, list[tuple[s
                 }
             )
 
-    changes.sort(key=lambda c: (c["to"], c["from"]), reverse=True)
+    changes.sort(key=lambda c: ((c["to"], c["from"]), _every_field(c)), reverse=True)
     changes.sort(key=lambda c: _band(c["what"]))
     return changes, tally, skipped_pairs
 
@@ -655,7 +655,7 @@ def _item_changes(conn, source_id) -> tuple[list[dict], Counter]:
                 }
             )
         prev = r
-    changes.sort(key=lambda c: (c["to"], c["from"]), reverse=True)
+    changes.sort(key=lambda c: ((c["to"], c["from"]), _every_field(c)), reverse=True)
     return changes, tally
 
 
@@ -1560,6 +1560,62 @@ SAMPLE_ROWS = 25
 SAMPLE_FLOOR = 3
 
 
+def _every_field(r: dict) -> tuple:
+    """Everything the row carries, as text, in a fixed order.
+
+    Used as the last part of a sort key so that two rows can only tie when they
+    are the same row. Written as text because these rows hold a mix of dates,
+    names and empty cells, and text always compares the same way.
+
+    This is here because of a bug that reached the public pages. The sorts below
+    keyed on the two seal dates alone. A whole night's seal shares one date, so
+    almost every row was tied with almost every other, and Python left tied rows
+    in whatever order they arrived in -- an order that turned out to depend on a
+    random number Python picks fresh in every process.
+
+    Proved on 2026-08-25 by building the Austin page three times with that number
+    forced to three different values: three DIFFERENT pages, from one unchanged
+    database. The row a reader saw at the top of "meetings that moved" said 12
+    August, 14 August or 17 August depending on nothing but luck. Whichever build
+    happened to run last is what a stranger read.
+
+    So this is not tidiness. A page that says something different every time it
+    is built cannot be quoted, cannot be checked against, and quietly makes a
+    liar of anyone who cites it.
+    """
+    return tuple(f"{k}={r[k]!r}" for k in sorted(r))
+
+
+def _sample_order(r: dict) -> tuple:
+    """A sort key that can never end in a tie, so the same rows always come out
+    in the same order.
+
+    Why this exists. The two sorts below used to key on the sealed-after and
+    sealed-before dates alone. Those dates repeat constantly -- a whole night's
+    seal shares one -- so most rows were tied, and Python left tied rows in
+    whatever order they arrived in. That arrival order turned out to depend on
+    the random seed Python gives string hashing, which is different in every
+    process. Proved on 2026-08-25 by running sample() under three seeds: two
+    agreed and one produced a different file, with the SAME twenty-five rows in
+    a different order.
+
+    Two things were wrong with that, and the second is the worse one:
+
+      1. A stranger who downloads the free sample twice gets two files that do
+         not match byte for byte, with nothing changed behind them. They cannot
+         tell that from data that really moved.
+      2. The tie is broken BEFORE the cut, not after it -- the pools are sliced
+         to a fixed number of rows. So a different seed could have chosen a
+         different SET of rows, not merely a different order. It happened not to
+         tonight; that was luck, and luck is not a property worth shipping.
+
+    Every field the row carries is in the key, so a tie means the two rows are
+    the same row.
+    """
+    return (r["to"], r["from"], r["level"], r["gov"], r["body"],
+            r["file"], r["subject"], r["meeting"], r["what"])
+
+
 def sample() -> tuple[list[str], list[list[str]]]:
     """Twenty-five real agenda changes, newest first, across the whole feed.
 
@@ -1612,7 +1668,7 @@ def sample() -> tuple[list[str], list[list[str]]]:
                     }
                 )
         for pool in (meetings, items):
-            pool.sort(key=lambda r: (r["to"], r["from"]), reverse=True)
+            pool.sort(key=_sample_order, reverse=True)
 
         # Split the 25 the way the file is really split, then make sure neither
         # half falls below the floor. The share is computed from what we hold
@@ -1629,7 +1685,7 @@ def sample() -> tuple[list[str], list[list[str]]]:
             n_meet = min(SAMPLE_ROWS - n_items, len(meetings))
 
         rows = meetings[:n_meet] + items[:n_items]
-        rows.sort(key=lambda r: (r["to"], r["from"], r["level"]), reverse=True)
+        rows.sort(key=_sample_order, reverse=True)
         headers = [
             "Government",
             "Level",
