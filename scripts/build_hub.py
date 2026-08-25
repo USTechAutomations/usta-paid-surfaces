@@ -9,7 +9,15 @@ from __future__ import annotations
 import html
 import json
 import re
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+# The gate's own reader for "an element on this page that offers to take money".
+# Imported rather than re-written, because two definitions of a pay button is how
+# the hub and the gate come to disagree about which feeds take a card, and the
+# one that is wrong is always the one nobody re-ran.
+from check_site import buy_buttons  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 CAT = json.loads((ROOT / "catalog.json").read_text(encoding="utf-8"))
@@ -48,6 +56,13 @@ TRUST = [
 ]
 
 
+def commas(names: list[str]) -> str:
+    """Join names the way a person would say them out loud."""
+    if len(names) == 1:
+        return names[0]
+    return ", ".join(names[:-1]) + " and " + names[-1]
+
+
 def card(f):
     if f["sample_status"] == "parked":
         pill, price = '<span class="pill pill-hold">Not available</span>', ""
@@ -83,6 +98,34 @@ def main():
     # something a buyer can buy.
     priced = [f for f in fams if f["sample_status"] != "parked" and "$" in f.get("price", "")]
     holding = len(fams) - len(priced) - parked
+
+    # Which feeds a buyer can pay for with a card, counted by FOLLOWING the button
+    # on each family page. Not from the catalog -- a catalog row can declare a
+    # checkout the page never grew -- and never by searching the pages for a
+    # payment host, which finds an address in a sentence as readily as one on a
+    # button.
+    #
+    # This is here because the paragraph below used to be typed. It read "Two
+    # feeds take a card today. The queue file and the earthquake record both have
+    # a working checkout on their own page", and it sat outside the region this
+    # builder rewrites, so no rebuild ever looked at it. By 2026-08-24 every
+    # clause of it was false: five families carried a pay button, the queue file
+    # had come off sale and carried none, and buyers of the four other
+    # card-taking feeds were being sent to email for a link they did not need. A
+    # count typed onto the busiest page in the estate goes stale exactly like a
+    # typed price, and this one was on the money line.
+    takes_card = [
+        f for f in fams
+        if (ROOT / "families" / f["id"] / "index.html").is_file()
+        and buy_buttons((ROOT / "families" / f["id"] / "index.html").read_text(encoding="utf-8"))
+    ]
+    card_ids = {f["id"] for f in takes_card}
+    # Priced, and no button: the email thread is the real route for these, and
+    # saying so is the whole point. check_site.py separately refuses a button
+    # whose address the catalog never declared, so a page in this list is one we
+    # chose not to arm, not one that failed to arm.
+    by_mail = [f for f in priced if f["id"] not in card_ids]
+    not_for_sale = len(fams) - len(priced)
 
     # Only advertise a trust page that actually exists on disk. A hub link to a
     # page we never built is the same defect as a pay link to a dead checkout.
@@ -205,9 +248,51 @@ def main():
             "than letting the hub print a number nothing recounted."
         )
 
+    # The money line. Every clause of it is counted from the pages themselves on
+    # this run: which feeds carry a pay button, which are priced without one, and
+    # how many are not for sale at all. A buyer who reads "email us for a link"
+    # about a feed that already has a button wastes a day, and a buyer told to
+    # email about a feed we do not sell is being promised something that will not
+    # arrive. Both were live here until 2026-08-24.
+    mail = "mailto:operations@ustechautomations.com?subject=Change%20feed"
+    inbox = f'<a href="{mail}">operations@ustechautomations.com</a>'
+    if takes_card:
+        names = commas([esc(f["short"]) for f in takes_card])
+        note = (
+            f'<strong>{one(len(takes_card), "feed takes", "feeds take")} a card today.</strong> '
+            + (f"{names} has a pay button on its own page."
+               if len(takes_card) == 1 else
+               f"{names} each have a pay button on their own page.")
+        )
+    else:
+        note = ("<strong>No feed takes a card today.</strong> Every feed we sell is sold "
+                "through an email thread.")
+    if by_mail:
+        names = commas([esc(f["short"]) for f in by_mail])
+        note += (
+            f' {names} {"is" if len(by_mail) == 1 else "are"} priced and sold through an email '
+            f'thread instead: email {inbox} and we send a checkout link in that thread.'
+        )
+    if not_for_sale:
+        note += (
+            f' The other {one(not_for_sale, "feed is", "feeds are")} not for sale today. Ask '
+            'about one and we will tell you that, rather than send you a link.'
+        )
+    block = f'<div class="note">\n      <p>{note}</p>\n    </div>'
+    page, hit = re.subn(r'<div class="note">.*?</div>', lambda _m: block, page, count=1, flags=re.S)
+    if hit != 1:
+        raise SystemExit(
+            "build_hub: the note box under the directory is not in index.html, so the sentence "
+            "saying which feeds take a card was not rewritten. That sentence is the money line "
+            "on the busiest page here and it was wrong for days the last time it was typed by "
+            "hand rather than counted. Restore the <div class=\"note\"> ... </div> block; do not "
+            "let the hub keep a claim about checkouts that nothing recounted."
+        )
+
     (ROOT / "index.html").write_text(page, encoding="utf-8")
-    print(f"hub rebuilt: {len(fams)} feeds, {len(priced)} for sale, {holding} holding, "
-          f"{parked} parked, {ready} with a sample, {no_sample} without, "
+    print(f"hub rebuilt: {len(fams)} feeds, {len(priced)} for sale, "
+          f"{len(takes_card)} taking a card, {len(by_mail)} priced by email, "
+          f"{holding} holding, {parked} parked, {ready} with a sample, {no_sample} without, "
           f"{len(EXTRA)} extra, {len(live_trust)} trust pages")
 
 
