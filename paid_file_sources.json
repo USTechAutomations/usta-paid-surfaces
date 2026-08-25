@@ -28,7 +28,7 @@
       "quote": "",
       "required_text": "",
       "reviewed_by": "",
-      "note": "HELD 2026-08-25, do not queue a paid file: terms were read and forbid 'data mining, robots or similar' COLLECTION (operator decision row 16 kept the collector running; selling stayed UNCLEAR and was not cleared). Whether a collection-method prohibition counts as 'otherwise stated' under row 17 is with the operator (asked by gmullins-04, 2026-08-25, unanswered). Verdict stays a truthful UNKNOWN; this note is the hold. Flip only on the operator's answer, dated here.",
+      "note": "Hold LIFTED 2026-08-25 by operator decision row 18 (verbatim 'Sell it', ~/revenue-2026/approvals/operator_decisions_2026-08-25.md): the written collection-method prohibition ('data mining, robots or similar') does NOT keep rows off-sale under row 17. History: held earlier the same day pending that answer (terms forbid the collection method, not the sale; row 16 kept the collector running). Verdict stays a truthful UNKNOWN - terms were read, nothing forbids the sale itself.",
       "labels": ["baton-rouge", "baton rouge"]
     },
     "cambridge-ma": {
