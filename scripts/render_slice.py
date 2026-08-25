@@ -229,7 +229,12 @@ def offer_spec(fam: dict, spec: dict) -> dict:
             f"Email us for the {price} checkout link" if "$" in price
             else "Email us about the copies we hold"
         ),
-        "contact_note": fam.get("contact_note") or (
+        # A slice module may COUNT this sentence out of its own store instead of
+        # letting a person type it into the catalog. vendor-prices does: its
+        # hand-typed version went stale twice in two days because the collector
+        # seals a new read every night. The key is deliberately its own name, so
+        # turning it on for one family cannot move any other family's page.
+        "contact_note": spec.get("contact_note_counted") or fam.get("contact_note") or (
             f'Say that you want {spec["name"]} and we will tell you which weeks we hold for it '
             + ("before you pay." if "$" in price else "and since when.")
         ),

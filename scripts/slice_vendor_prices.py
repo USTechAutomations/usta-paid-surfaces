@@ -46,6 +46,7 @@ import datetime as dt
 import html
 import sqlite3
 import sys
+from pathlib import Path
 from collections import Counter, defaultdict
 
 FAMILY = "vendor-prices"
@@ -270,7 +271,28 @@ def base(st: dict, slug: str, name: str, h1: str, lede: str, desc: str,
         "runs": len(st["days"]), "cadence_days": CADENCE_DAYS,
         "row_count": row_count,
         "tables": tables, "facts": facts, "limits": limits,
+        "contact_note_counted": _held_sentence(st),
     }
+
+
+def _held_sentence(st: dict) -> str:
+    """The "how much do you hold" line, COUNTED, never typed.
+
+    This sentence used to be typed by hand into catalog.json. It was wrong on
+    2026-08-24 (said 70 reads to 22 August when the store held 71), corrected,
+    and wrong again within 24 hours (said 72 to 24 August when the store held
+    73). It was going to be wrong every single morning, because the collector
+    seals a new read each night and nothing was going to retype the number.
+
+    So the number and both dates now come out of the same store read the page
+    stamp already uses. If the collector stops, the end date stops with it and
+    the page says so on its own.
+    """
+    return (
+        f"We hold {len(st['days']):,} dated reads of these price pages, from "
+        f"{d(st['oldest'])} to {d(st['newest'])}. We will tell you what we hold "
+        f"for your vendors. There is nothing to buy yet."
+    )
 
 
 def page_never(st: dict) -> dict | None:
@@ -581,8 +603,47 @@ def slices() -> list[dict]:
     return out
 
 
-def sample() -> tuple[list[str], list[list[str]]]:
-    """Real fetch outcomes, never a price. See the module docstring for why."""
+# The detector that can tell a price apart from the page around it. Its home is
+# beside the store it reads, because the certificate command and any later
+# reader have to get the same answer out of the same rules. Until it is placed
+# there it also loads from this script's own directory, so the hand-off runs as
+# delivered. If neither copy is there this module says so and stops -- it never
+# silently falls back to calling a page edit a price change.
+_DETECTOR_HOMES = (
+    Path.home() / "Claude CLI" / "clocks" / "b2b_change" / "b2b_change",
+    Path(__file__).resolve().parent,
+)
+
+
+def _load_detector():
+    """Import price_change.py from wherever it has been put."""
+    import importlib.util
+    for home in _DETECTOR_HOMES:
+        path = home / "price_change.py"
+        if not path.is_file():
+            continue
+        name = "vendor_price_change"
+        spec = importlib.util.spec_from_file_location(name, path)
+        mod = importlib.util.module_from_spec(spec)
+        # Register before running it: the detector declares frozen dataclasses,
+        # and dataclasses looks its own module up by name while the class body
+        # is still being built. An unregistered module fails there, not here.
+        sys.modules[name] = mod
+        spec.loader.exec_module(mod)
+        return mod
+    raise ModuleNotFoundError(
+        "price_change.py not found in " + " or ".join(str(h) for h in _DETECTOR_HOMES))
+
+# The sentence every page in this family prints about its own detector. While
+# it is on the pages, a sample file full of price changes would make the page
+# and the file say opposite things on the same screen. So the door is bolted
+# from this side too, and it is bolted to the WORDS on the built page, not to a
+# flag somebody can flip.
+_PAGE_DENIES_PRICE_CHANGES = "cannot yet tell you that a price moved"
+
+
+def _fetch_outcome_sample() -> tuple[list[str], list[list[str]]]:
+    """Real fetch outcomes, never a price. What this family published before."""
     st = read()
     headers = ["vendor_site", "which_address", "dated_copies_with_a_page",
                "distinct_copies", "first_copy", "newest_copy", "newest_read_outcome"]
@@ -599,6 +660,93 @@ def sample() -> tuple[list[str], list[list[str]]]:
     return headers, rows
 
 
+# The four built pages that carry DETECTOR_NOTE. Checked by name, because a
+# page that has quietly stopped being built is not a page that agrees with us.
+_PAGES_WITH_THE_NOTE = ("coverage", "changed-every-read",
+                        "never-answered", "stopped-answering")
+
+
+def _page_still_denies_price_changes() -> bool:
+    """Do the built pages still tell a reader we cannot spot a price move?
+
+    Reads the words a stranger actually sees, on every page that prints them.
+    Anything other than four readable pages with the sentence gone is a no:
+    a page we cannot open, or one we no longer build, is not consent.
+    """
+    here = Path(__file__).resolve().parents[1] / "families" / FAMILY
+    for slug in _PAGES_WITH_THE_NOTE:
+        try:
+            text = (here / slug / "index.html").read_text(encoding="utf-8")
+        except OSError:
+            return True                     # cannot read it: treat as denying
+        if _PAGE_DENIES_PRICE_CHANGES in text:
+            return True
+    return False
+
+
+def price_change_sample() -> tuple[list[str], list[list[str]]]:
+    """Named plans whose printed price moved between two dated reads.
+
+    One row is one plan, one currency, one old amount, one new amount, and the
+    two dates that bracket the move. Nothing else gets in:
+
+      * a plan that appeared or disappeared is not a price change;
+      * a price that went away and came back is not a price change we can
+        prove, whatever it was;
+      * a number that changed unit with its amount -- per certificate per month
+        becoming per domain per active hour -- is not "X became Y";
+      * a page that only LOOKS different leaves every row here untouched, which
+        is the whole reason this file was rewritten.
+
+    Counted on 2026-08-24 over 72 sealed dates: the whole-page hash this family
+    was taken off sale for calls 12,186 day-to-day pairs a change. The price
+    text moves 18 times. Two of those eighteen survive the rules above.
+    """
+    det = _load_detector()
+    conn = det.connect_read_only(DB)
+    try:
+        readings = det.readings_from_store(conn, RESOURCES)
+    finally:
+        conn.close()
+    headers = ["vendor_site", "which_address", "plan_name", "currency",
+               "price_before", "price_after", "charged_per", "printed_as",
+               "last_read_at_old_price", "first_read_at_new_price",
+               "change_date", "reads_at_old_price", "reads_at_new_price",
+               "dated_copies_we_hold"]
+    rows = []
+    for (dom, res), items in sorted(readings.items()):
+        for m in det.price_moves(dom, res, items):
+            if m.verdict != "PRICE_CHANGED":
+                continue
+            rows.append([
+                m.domain, m.resource, m.plan_label, m.currency,
+                m.old_amount, m.new_amount, m.cadence, m.old_unit,
+                m.last_seen_old, m.first_seen_new, m.change_date or "",
+                str(m.reads_at_old_price), str(m.reads_at_new_price),
+                # How many dated copies of this address we hold in total. A
+                # buyer checking one row should be able to see how much history
+                # sits behind it, not just the two dates the move needed.
+                str(len(items)),
+            ])
+    rows.sort(key=lambda r: (r[9], r[0], r[2]))
+    return headers, rows
+
+
+def sample() -> tuple[list[str], list[list[str]]]:
+    """The file a buyer downloads.
+
+    Two locks, and both have to be off before a price row is handed to anyone.
+    The first is the catalog, which the writer in scripts/build_slices.py
+    already checks. The second is this family's own page: while it still tells
+    a reader we cannot tell a price change from a page edit, this function will
+    not hand back rows that say we can. Taking the sentence off the page and
+    clearing the sample are one change or they are neither.
+    """
+    if _page_still_denies_price_changes():
+        return _fetch_outcome_sample()
+    return price_change_sample()
+
+
 if __name__ == "__main__":
     st = read()
     print(f"family: {FAMILY}")
@@ -611,4 +759,7 @@ if __name__ == "__main__":
               f"{len(s['facts'])} facts · {len(s['limits'])} limits · "
               f"desc {len(s['desc'])} chars · {s['oldest']} to {s['newest']}")
     h, r = sample()
-    print(f"sample: {len(r)} rows, {len(h)} columns")
+    print(f"sample: {len(r)} rows, {len(h)} columns "
+          f"({'fetch outcomes' if _page_still_denies_price_changes() else 'price changes'})")
+    ph, pr = price_change_sample()
+    print(f"price changes available: {len(pr)} rows, {len(ph)} columns")
