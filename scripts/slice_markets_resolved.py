@@ -762,6 +762,12 @@ def slices() -> list[dict]:
         for spec in out:
             spec["read_phrase"] = _read_phrase()
             spec["paused_note"] = _pause_note()
+            # The fact strip at the top of every child page. Its default is
+            # read_every(cadence_days), which prints a bare "Every day" -- a
+            # promise in the present tense, above the fold, in the four facts a
+            # buyer reads before anything else. It was the one surface the
+            # prose sweep missed, and only a live fetch found it.
+            spec["read_label"] = f"Every day, up to {_last_day()}. Stopped {_stop_day()}."
 
         return out
     finally:
