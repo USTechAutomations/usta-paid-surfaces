@@ -399,14 +399,13 @@ def _copies_fact() -> str:
     return (
         f"We hold two or more dated copies for {d['seen_twice']:,} of "
         f"{d['total_events']:,} events, and a single copy for the other "
-        # Says "the price on this page", never "the button on this page". Whether
-        # a button is there is a decision that changes; the price is not, and a
-        # page pointing at a button that has been taken off is a page telling
-        # the reader something untrue.
-        f"{d['seen_once']:,}. The price on this page is for the first kind. Where we hold "
-        f"one copy there is nothing to compare it with, so that copy is "
-        f"{_single_copy_price()}, arranged by email -- "
-        f"send the event id and we say which of the two yours is before you pay anything."
+        # OFF SALE 2026-08-25, operator decision #4: this archive sold copies of
+        # records USGS itself serves free, superseded versions included. No price
+        # and no button belongs on this page. The coverage facts stay, because
+        # what we hold is still worth saying; what it costs is no longer a thing.
+        f"{d['seen_once']:,}. Where we hold two copies you can see what changed between "
+        f"them; where we hold one there is nothing to compare it with. USGS publishes "
+        f"this history itself, including superseded versions, so we do not charge for it."
     )
 
 
@@ -459,7 +458,7 @@ def _region_slice(region: str, revs: list[dict]) -> dict | None:
         # Kept under 155 characters so a search result shows the whole sentence
         # instead of cutting it mid-word.
         desc=(f"{len(revs)} named {region} earthquakes USGS changed after publishing: "
-              f"magnitude, depth, place or status. Sealed archive, both dates. $249."),
+              f"magnitude, depth, place or status. Sealed archive, both dates."),
         row_count=len(revs),
     )
 
@@ -541,7 +540,7 @@ def _field_slice(field: str, slug: str, name: str, h1: str, word: str,
               f"happened, with the day we read each value. "
               f"{archive_words(d['newest'])['state']} {archive_words(d['newest'])['tail']}"),
         desc=(f"{len(revs)} named USGS earthquakes where the {word} changed after "
-              f"publication. Both values, both dates. Sealed archive, $249 per named "
+              f"publication. Both values, both dates. Sealed archive, per named "
               f"event."),
         row_count=len(revs),
     )
@@ -602,8 +601,7 @@ def _most_revised() -> dict | None:
               f"measured, or whether a person had reviewed it yet. "
               f"{archive_words(d['newest'])['state']} {archive_words(d['newest'])['tail']}"),
         desc=(f"{len(revs)} named USGS earthquakes where four or more published values "
-              f"changed after the fact. Both readings, both dates. Sealed archive. "
-              f"$249."),
+              f"changed after the fact. Both readings, both dates. Sealed archive."),
         row_count=len(revs),
     )
     sl["tables"].append({

@@ -4,8 +4,8 @@ Derived from `dist/` by `scripts/url_manifest.py`. Not typed, not edited
 by hand. Re-run it after any build and this file is current again.
 
 - **232 pages**, every one of them an address under `/feeds`
-- **51** carry a price; **181** say they are not for sale yet, are free to read, or are the hub itself
-- **50** have a pay button; **156** are honest holding pages that ask you to email instead; **26** is the hub, which sells nothing and does not pretend to
+- **42** carry a price; **190** say they are not for sale yet, are free to read, or are the hub itself
+- **41** have a pay button; **164** are honest holding pages that ask you to email instead; **27** is the hub, which sells nothing and does not pretend to
 
 The sitemap lists exactly these pages and no others.
 
@@ -298,15 +298,15 @@ The sitemap lists exactly these pages and no others.
 
 | Address | Price | Buy |
 |---|---|---|
-| `/feeds/quakes` | $249 | pay button |
-| `/feeds/quakes/alaska` | $249 | pay button |
-| `/feeds/quakes/california` | $249 | pay button |
-| `/feeds/quakes/coverage` | $249 | pay button |
-| `/feeds/quakes/depth-revised` | $249 | pay button |
-| `/feeds/quakes/magnitude-revised` | $249 | pay button |
-| `/feeds/quakes/most-revised` | $249 | pay button |
-| `/feeds/quakes/place-revised` | $249 | pay button |
-| `/feeds/quakes/texas` | $249 | pay button |
+| `/feeds/quakes` | Not for sale | no cta found |
+| `/feeds/quakes/alaska` | Not for sale | email only |
+| `/feeds/quakes/california` | Not for sale | email only |
+| `/feeds/quakes/coverage` | Not for sale | email only |
+| `/feeds/quakes/depth-revised` | Not for sale | email only |
+| `/feeds/quakes/magnitude-revised` | Not for sale | email only |
+| `/feeds/quakes/most-revised` | Not for sale | email only |
+| `/feeds/quakes/place-revised` | Not for sale | email only |
+| `/feeds/quakes/texas` | Not for sale | email only |
 
 ## recalls
 

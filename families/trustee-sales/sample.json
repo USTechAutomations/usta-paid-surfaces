@@ -1,6 +1,6 @@
 {
   "family": "trustee-sales",
-  "generated": "2026-08-24",
+  "generated": "2026-08-25",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "rows_published": 20,
   "columns": 5,
@@ -12,6 +12,34 @@
     "Between these two reads"
   ],
   "rows": [
+    [
+      "26-08243-US-AZ",
+      "Prescott, Yavapai 86305",
+      "24 Aug 2026",
+      "5 Oct 2026 42 days later",
+      "24 Aug 2026 \u2192 25 Aug 2026"
+    ],
+    [
+      "26-06111-BB-AZ",
+      "Phoenix, Maricopa 85004",
+      "24 Aug 2026",
+      "25 Sep 2026 32 days later",
+      "24 Aug 2026 \u2192 25 Aug 2026"
+    ],
+    [
+      "26-05471-DF-AZ",
+      "Laveen, Maricopa 85339",
+      "24 Aug 2026",
+      "24 Sep 2026 31 days later",
+      "24 Aug 2026 \u2192 25 Aug 2026"
+    ],
+    [
+      "25-09152-GM-AZ",
+      "Prescott Valley, Yavapai 86314",
+      "24 Aug 2026",
+      "2 Nov 2026 70 days later",
+      "24 Aug 2026 \u2192 25 Aug 2026"
+    ],
     [
       "26-05471-DF-AZ",
       "Laveen, Maricopa 85339",
@@ -123,34 +151,6 @@
       "29 Jul 2026",
       "9 Sep 2026 42 days later",
       "28 Jul 2026 \u2192 29 Jul 2026"
-    ],
-    [
-      "26-06343-GM-AZ",
-      "Tucson, Pima 85705",
-      "29 Jul 2026",
-      "9 Sep 2026 42 days later",
-      "28 Jul 2026 \u2192 29 Jul 2026"
-    ],
-    [
-      "26-04751-SF-AZ",
-      "Tucson, Pima 85745",
-      "29 Jul 2026",
-      "9 Sep 2026 42 days later",
-      "28 Jul 2026 \u2192 29 Jul 2026"
-    ],
-    [
-      "25-40493-WF-AZ",
-      "Sierra Vista, Cochise 85635",
-      "29 Jul 2026",
-      "9 Sep 2026 42 days later",
-      "28 Jul 2026 \u2192 29 Jul 2026"
-    ],
-    [
-      "25-12331-SF-AZ",
-      "Gilbert, Maricopa 85234",
-      "16 Jul 2026",
-      "30 Jul 2026 14 days later",
-      "16 Jul 2026 \u2192 28 Jul 2026"
     ]
   ]
 }

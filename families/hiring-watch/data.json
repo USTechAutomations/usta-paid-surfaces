@@ -1,21 +1,21 @@
 {
   "family": "hiring-watch",
-  "generated": "2026-08-24",
+  "generated": "2026-08-25",
   "slices": [
     {
       "slug": "roles-that-moved",
-      "newest": "2026-08-24",
+      "newest": "2026-08-25",
       "oldest": "2026-06-10",
-      "runs": 73,
-      "row_count": 129,
+      "runs": 74,
+      "row_count": 143,
       "cadence_days": 1
     },
     {
       "slug": "coverage",
-      "newest": "2026-08-24",
+      "newest": "2026-08-25",
       "oldest": "2026-06-10",
-      "runs": 73,
-      "row_count": 33984,
+      "runs": 74,
+      "row_count": 34456,
       "cadence_days": 1
     }
   ]

@@ -1,6 +1,6 @@
 {
   "family": "hiring-watch",
-  "generated": "2026-08-24",
+  "generated": "2026-08-25",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "rows_published": 25,
   "columns": 8,
@@ -18,12 +18,42 @@
     [
       "front.com",
       "role appeared on the page",
+      "Software Engineer (Backend), Foundation",
+      "",
+      "San Francisco, CA",
+      "",
+      "2026-08-24",
+      "2026-08-25"
+    ],
+    [
+      "sproutsocial.com",
+      "role came down off the page",
+      "Website and Growth Strategy Manager",
+      "",
+      "Remote US",
+      "Marketing",
+      "2026-08-24",
+      "2026-08-25"
+    ],
+    [
+      "ahrefs.com",
+      "role appeared on the page",
+      "Product Designer - Letaido",
+      "",
+      "Cambridge, MA, United States; Palo Alto, CA, United States; Singapore; Tokyo, Japan",
+      "Product Design",
+      "2026-08-24",
+      "2026-08-25"
+    ],
+    [
+      "front.com",
+      "role came down off the page",
       "Senior Software Engineer, Mobile Platform (React Native)",
       "",
       "Remote, US",
       "",
-      "2026-08-19",
-      "2026-08-20"
+      "2026-08-24",
+      "2026-08-25"
     ],
     [
       "sproutsocial.com",
@@ -47,13 +77,13 @@
     ],
     [
       "front.com",
-      "role appeared on the page",
-      "Software Engineering Intern - Spring/Summer 2027",
+      "role came down off the page",
+      "Senior Software Engineer, Mobile Platform (React Native)",
       "",
-      "Paris, France",
+      "San Francisco, CA",
       "",
-      "2026-08-12",
-      "2026-08-13"
+      "2026-08-24",
+      "2026-08-25"
     ],
     [
       "sproutsocial.com",
@@ -78,12 +108,12 @@
     [
       "front.com",
       "role came down off the page",
-      "Security Operations Engineer (Contractor)",
+      "Senior Software Engineer - Front End Architecture / React Native",
       "",
-      "Santiago, Chile",
+      "Remote, Argentina",
       "",
-      "2026-08-12",
-      "2026-08-13"
+      "2026-08-24",
+      "2026-08-25"
     ],
     [
       "sproutsocial.com",
@@ -107,13 +137,13 @@
     ],
     [
       "front.com",
-      "role came down off the page",
-      "Security Operations Engineer (Contractor)",
+      "role appeared on the page",
+      "Senior Platform Security Engineer - Contract to Hire",
       "",
       "San Francisco, CA",
       "",
-      "2026-08-12",
-      "2026-08-13"
+      "2026-08-24",
+      "2026-08-25"
     ],
     [
       "sproutsocial.com",
@@ -137,13 +167,13 @@
     ],
     [
       "front.com",
-      "role came down off the page",
-      "Security Operations Engineer (Contractor)",
+      "role appeared on the page",
+      "Senior Applied AI Engineer",
       "",
-      "Remote, Argentina",
+      "San Francisco, CA",
       "",
-      "2026-08-12",
-      "2026-08-13"
+      "2026-08-24",
+      "2026-08-25"
     ],
     [
       "sproutsocial.com",
@@ -167,13 +197,13 @@
     ],
     [
       "front.com",
-      "same job id, new title",
-      "Director, Account Management",
-      "Senior Manager, Account Management",
-      "San Francisco, CA",
+      "role came down off the page",
+      "Sales Development Representative, EMEA",
       "",
-      "2026-08-12",
-      "2026-08-13"
+      "Dublin, Ireland",
+      "",
+      "2026-08-24",
+      "2026-08-25"
     ],
     [
       "sproutsocial.com",
@@ -197,13 +227,13 @@
     ],
     [
       "front.com",
-      "same job id, new title",
+      "role appeared on the page",
       "Director, Account Management",
-      "Senior Manager, Account Management",
+      "",
       "Chicago, IL",
       "",
-      "2026-08-12",
-      "2026-08-13"
+      "2026-08-24",
+      "2026-08-25"
     ],
     [
       "sproutsocial.com",
@@ -227,43 +257,13 @@
     ],
     [
       "front.com",
-      "role came down off the page",
-      "Account Manager",
+      "role appeared on the page",
+      "Director, Account Management",
       "",
       "San Francisco, CA",
       "",
-      "2026-08-12",
-      "2026-08-13"
-    ],
-    [
-      "sproutsocial.com",
-      "role appeared on the page",
-      "Senior Director, Decision Analytics",
-      "",
-      "Remote US",
-      "Engineering",
-      "2026-08-19",
-      "2026-08-20"
-    ],
-    [
-      "ahrefs.com",
-      "role came down off the page",
-      "Events Operations Executive",
-      "",
-      "Singapore",
-      "Marketing",
-      "2026-06-16",
-      "2026-06-17"
-    ],
-    [
-      "front.com",
-      "role came down off the page",
-      "Account Manager",
-      "",
-      "Chicago, IL",
-      "",
-      "2026-08-12",
-      "2026-08-13"
+      "2026-08-24",
+      "2026-08-25"
     ]
   ]
 }
