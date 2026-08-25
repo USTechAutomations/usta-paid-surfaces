@@ -1,6 +1,13 @@
 {
   "family": "crawler",
   "generated": "2026-08-25",
+  "universe": {
+    "name": "Majestic Million top 100000",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0/",
+    "source": "https://majestic.com/reports/majestic-million",
+    "credit": "Domain list from the Majestic Million (https://majestic.com/reports/majestic-million), licensed under a Creative Commons Attribution 3.0 Unported License. © Majestic-12 Ltd. The withdrawn Tranco panel is not in service."
+  },
   "slices": [
     {
       "slug": "gptbot",

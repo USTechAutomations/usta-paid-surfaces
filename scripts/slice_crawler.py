@@ -66,6 +66,33 @@ COLLECTION_PAUSED_ON = "2026-08-24"
 MIN_ROWS = 5
 TABLE_CAP = 12
 
+# Free-sample shop window: never show adult / torrent / gambling domains.
+# Applied when writing sample.json / sample.csv, not the paid slice tables.
+_SHOP_BLOCK_EXACT = {"3hentai.net"}
+_SHOP_BLOCK_TLDS = (".xxx", ".sex", ".porn", ".adult", ".gambling")
+_SHOP_BLOCK_LABELS = {
+    "hentai", "porn", "pornhub", "xvideos", "xnxx", "onlyfans",
+    "torrent", "thepiratebay", "rarbg", "1337x",
+    "casino", "gambling", "bet365", "pokerstars", "stake",
+    "xxx", "nsfw",
+}
+_SHOP_BLOCK_SUBSTR = (
+    "hentai", "pornhub", "xvideos", "xnxx", "onlyfans",
+    "torrent", "thepiratebay", "casino", "gambling",
+)
+
+
+def _shop_window_ok(domain: str) -> bool:
+    d = (domain or "").lower().rstrip(".")
+    if not d or d in _SHOP_BLOCK_EXACT:
+        return False
+    if any(d.endswith(tld) for tld in _SHOP_BLOCK_TLDS):
+        return False
+    labels = d.split(".")
+    if any(lab in _SHOP_BLOCK_LABELS for lab in labels):
+        return False
+    return not any(tok in d for tok in _SHOP_BLOCK_SUBSTR)
+
 # How many of our own reads a page compares. Eight reads is seven day-to-day
 # comparisons, which is the last week of the archive.
 WINDOW_READS = 8
@@ -1383,7 +1410,8 @@ def sample() -> tuple[list[str], list[list[str]]]:
              "named": "crawler named for the first time",
              "changed": "rules under the crawler rewritten"}
     rows = []
-    for c in _spread(d["changes"], 25):
+    clean = [c for c in d["changes"] if _shop_window_ok(c["domain"])]
+    for c in _spread(clean, 25):
         rows.append([c["domain"], _bot_label(c), c["before"], c["after"],
                      words[c["direction"]], c["before_date"], c["after_date"]])
     return headers, rows
