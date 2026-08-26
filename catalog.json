@@ -704,6 +704,29 @@
       }
     },
     {
+      "id": "washington-dc",
+      "name": "Washington DC building permits in one file",
+      "short": "Washington DC permit file",
+      "who": "DC general contractors, expediters, and lenders who need the District's published building permits on one sheet.",
+      "buyer": "DC general contractors, expediters, and lenders who need the District's published building permits on one sheet",
+      "cadence": "one-time file, pulled 26 Aug 2026",
+      "cadence_long": "One assembled file. Not a subscription.",
+      "price": "$349",
+      "sample_status": "pass",
+      "group": "Construction records",
+      "note": "BORN 2026-08-26 in a copy of this repo; REWORK 2026-08-26 (task-m5-dc-rework) to sell under CC BY 4.0 with full attribution. One-time assembled building-permit file from Open Data DC FeatureServer layers 15-18 (years 2023-2026). Price $349 once per slice, five slices (four years plus the concatenation). Person columns PERMIT_APPLICANT, OWNER_NAME, CREATED_USER, LAST_EDITED_USER stripped at query time; DESC_OF_WORK dropped after the pull. Checkout URL left empty (status none) for Claude to mint. Never mint from this note. RULING 2026-08-25 (Claude lead): CC BY 4.0 hold RESOLVED — SELL WITH ATTRIBUTION. Catalog DCAT names https://creativecommons.org/licenses/by/4.0 on each of the four year datasets, an 'otherwise noted' exception to the District Data Catalog CC0 sentence; commercial use is permitted on condition of attribution, which travels with every page, sample, and paid file. FeatureServer is in catalog scope (DCAT distribution ArcGIS GeoService). No District logos. Required credit line: Data retrieved from Open Data DC catalog (https://opendata.dc.gov).",
+      "contact_h2": "Ask before you buy",
+      "contact_p": "Name the slice. We reply with how many rows we hold for it and the date we pulled them, before you spend anything.",
+      "contact_cta": "Email us before you pay",
+      "contact_note": "Say which Washington DC slice you want. We will tell you the row count and the pull date before you pay. There is no pay button on this page until a payment link is minted.",
+      "foot": "Every count and date on this page was read out of the extract we pulled on the day named above. Where a column names a person, it is not in the file you buy. No District logos.",
+      "checkout": {
+        "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. After you pay, a person emails you the whole file as a CSV within one working day of your payment. The file is sold under CC BY 4.0 with attribution; the required credit is printed on this page and travels with the file. We charge for assembly and delivery, not for rights to the data. The District's free portal remains at opendata.dc.gov.",
+        "after": "After you pay, a person emails you the whole file as a CSV within one working day of your payment.",
+        "status": "none"
+      }
+    },
+    {
       "id": "mn-pfas",
       "name": "Minnesota PFAS filer check",
       "kind": "build",

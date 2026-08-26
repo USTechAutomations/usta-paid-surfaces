@@ -389,10 +389,19 @@ def write_sample(fid: str, sample: tuple) -> None:
         + "\n",
         encoding="utf-8",
     )
+    if fid == "washington-dc":
+        import board_file as bf  # noqa: E402
+        blob_path = fam_dir / "sample.json"
+        blob = json.loads(blob_path.read_text(encoding="utf-8"))
+        blob["attribution"] = bf.DC_ATTRIBUTION_TEXT
+        blob_path.write_text(json.dumps(blob, indent=2) + "\n", encoding="utf-8")
     with (fam_dir / "sample.csv").open("w", encoding="utf-8", newline="") as fh:
         w = csv.writer(fh)
         w.writerow(headers)
         w.writerows(rows)
+        if fid == "washington-dc":
+            import board_file as bf  # noqa: E402
+            fh.write("\n" + bf.DC_ATTRIBUTION_TEXT + "\n")
 
 
 def write_records(fid: str, shipped: list[dict], today: dt.date) -> None:

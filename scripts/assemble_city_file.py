@@ -5,6 +5,7 @@
     python3 scripts/assemble_city_file.py --city los-angeles --out FILE.csv
     python3 scripts/assemble_city_file.py --city baton-rouge --out FILE.csv
     python3 scripts/assemble_city_file.py --city boston --out FILE.csv
+    python3 scripts/assemble_city_file.py --city washington-dc --slice year-2026 --out FILE.csv
 
     --keep-person     leave a person column in (negative: must come back BLOCKED)
     --refused-source  stamp Marin County into the file (negative: must come back BLOCKED)
@@ -28,7 +29,10 @@ import outbound_guard as og  # noqa: E402
 
 def main() -> int:
     p = argparse.ArgumentParser()
-    p.add_argument("--city", required=True, choices=("chicago", "los-angeles", "baton-rouge", "boston"))
+    p.add_argument("--city", required=True, choices=("chicago", "los-angeles", "baton-rouge", "boston", "washington-dc"))
+    p.add_argument("--slice", default="all-years",
+                   choices=("year-2026", "year-2025", "year-2024", "year-2023", "all-years"),
+                   help="washington-dc only: which year file to assemble")
     p.add_argument("--out", required=True)
     p.add_argument("--keep-person", action="store_true")
     p.add_argument("--refused-source", action="store_true")
@@ -37,15 +41,42 @@ def main() -> int:
     args = p.parse_args()
 
     rows = bf.load_rows(args.city)
+    canon = None
+    if args.city == "washington-dc":
+        # Column order comes from the FULL pull, not the year subset: the 2024
+        # layer's raw rows carry their keys in a different order, and five
+        # files of one family must share one header.
+        canon_seen: set = set()
+        canon = []
+        for r in rows:
+            for k in r:
+                if k not in canon_seen:
+                    canon_seen.add(k)
+                    canon.append(k)
+        year = {"year-2026": 2026, "year-2025": 2025, "year-2024": 2024,
+                "year-2023": 2023, "all-years": None}[args.slice]
+        rows = bf.dc_year_rows(rows, year)
     headers, cells = bf.cleaned_rows(args.city, rows)
+    if canon is not None:
+        want = [k for k in canon if k in headers] + [h for h in headers if h not in canon]
+        if headers != want:
+            idx = [headers.index(k) for k in want]
+            cells = [[r[i] for i in idx] for r in cells]
+            headers = want
     if args.keep_person:
-        person_col = "applicant" if args.city == "boston" else "contractor_name"
+        person_col = {"boston": "applicant", "washington-dc": "PERMIT_APPLICANT"}.get(
+            args.city, "contractor_name")
         headers = list(headers) + [person_col]
         cells = [list(r) + ["Jane Example"] for r in cells]
     if args.refused_source:
         headers = list(headers) + ["jurisdiction"]
         cells = [list(r) + ["marin-county"] for r in cells]
-    disc = bf.chicago_disclaimer() if args.city == "chicago" and not args.refused_source else ""
+    disc = ""
+    if not args.refused_source:
+        if args.city == "chicago":
+            disc = bf.chicago_disclaimer()
+        elif args.city == "washington-dc":
+            disc = bf.DC_ATTRIBUTION_TEXT
     data = bf.render_csv(headers, cells, disclaimer=disc)
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)

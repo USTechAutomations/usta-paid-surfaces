@@ -1,9 +1,9 @@
-"""Shared guts for the four one-city permit-file families.
+"""Shared guts for the five one-city permit-file families.
 
-Chicago, Los Angeles, Baton Rouge and Boston each have their own slice module
-so the builder's one-module-per-family rule holds. The rows, the strip list,
-the disclaimer and the CSV renderer live here so the pages cannot drift apart
-on the thing a buyer actually pays for.
+Chicago, Los Angeles, Baton Rouge, Boston and Washington DC each have their
+own slice module so the builder's one-module-per-family rule holds. The rows,
+the strip list, the disclaimer and the CSV renderer live here so the pages
+cannot drift apart on the thing a buyer actually pays for.
 
 WHAT THIS IS. Each family sells one assembled CSV of published building-permit
 rows, cut into five slices by the city's own permit-type words, at $349 once.
@@ -105,9 +105,11 @@ BOSTON_FACTS = DATA / "boston-facts.json"
 
 
 def pull_day(city: str) -> str:
-    """The day we pulled this city's extract. Boston is a day later than the three."""
+    """The day we pulled this city's extract. Boston and DC are a day later."""
     if city == "boston":
         return "2026-08-26"
+    if city == "washington-dc":
+        return DC_FETCHED_ON
     return FETCHED_ON
 
 
@@ -138,12 +140,73 @@ def type_held(city: str, type_value: str, shop_rows: list[dict]) -> tuple[int, s
     )
 
 
+# Year slices. A DC general contractor names a calendar year. Five files:
+# 2026, 2025, 2024, 2023, and the four years concatenated. Coverage is extra.
+DC_SLICES = [
+    ("year-2026", 2026, "2026"),
+    ("year-2025", 2025, "2025"),
+    ("year-2024", 2024, "2024"),
+    ("year-2023", 2023, "2023"),
+    ("all-years", None, "all four years"),
+]
+DC_STRIP = (
+    "PERMIT_APPLICANT",
+    "OWNER_NAME",
+    "CREATED_USER",
+    "LAST_EDITED_USER",
+    # Not a person-named header, but the full pull put phones, emails and
+    # "CONTACT: {name}" lines in this cell. The first-200 sample was
+    # supplemental boilerplate and missed it. Dropped from every file we ship.
+    "DESC_OF_WORK",
+)
+DC_CREDIT = "Data retrieved from Open Data DC catalog (https://opendata.dc.gov)"
+DC_LICENSE_LINE = (
+    "Creative Commons Attribution 4.0 International (CC BY 4.0), "
+    "https://creativecommons.org/licenses/by/4.0"
+)
+DC_MODIFICATION = (
+    "Person columns stripped (PERMIT_APPLICANT, OWNER_NAME, CREATED_USER, "
+    "LAST_EDITED_USER). DESC_OF_WORK removed. Rows assembled into dated "
+    "slices by USTechAutomations."
+)
+DC_RIGHTS = (
+    "The underlying District data itself stays CC BY 4.0 in the buyer's hands. "
+    "We charge for assembly and delivery, not for rights to the data. The "
+    "District's free portal remains at opendata.dc.gov."
+)
+# Guard required_text is these two lines, character for character.
+DC_REQUIRED_TEXT = DC_CREDIT + "\n" + DC_LICENSE_LINE
+# Full block that travels with every paid file and the free sample.
+DC_ATTRIBUTION_TEXT = "\n".join(
+    (DC_CREDIT, DC_LICENSE_LINE, DC_MODIFICATION, DC_RIGHTS)
+)
+DC_FETCHED_ON = "2026-08-26"
+
+
+def dc_attribution_html() -> str:
+    """The one attribution block for a Washington DC HTML surface."""
+    license_html = (
+        '<a href="https://creativecommons.org/licenses/by/4.0">'
+        "Creative Commons Attribution 4.0 International (CC BY 4.0)</a>"
+    )
+    return (
+        f"        <p>{html.escape(DC_CREDIT)}</p>\n"
+        f"        <p>Licence: {license_html}.</p>\n"
+        f"        <p>{html.escape(DC_MODIFICATION)}</p>\n"
+        f"        <p>{html.escape(DC_RIGHTS)}</p>\n"
+    )
+
+
 def d(iso: str | None) -> str:
     if not iso:
         return "no date"
     day = str(iso)[:10]
     y, m, dd = day.split("-")
     return f"{int(dd)} {MONTHS[int(m) - 1]} {y}"
+
+
+def fetched_on(city: str) -> str:
+    return pull_day(city)
 
 
 def chicago_disclaimer() -> str:
@@ -173,6 +236,9 @@ def _drop_key(city: str, key: str) -> bool:
             return True
     if city == "boston":
         if k in BOSTON_STRIP:
+            return True
+    if city == "washington-dc":
+        if k.upper() in DC_STRIP:
             return True
     return False
 
@@ -219,7 +285,12 @@ def issue_date_of(city: str, row: dict) -> str:
 def permit_type_of(city: str, row: dict) -> str:
     if city == "boston":
         return str(row.get("permittypedescr") or "")
-    return str(row.get("permit_type") or row.get("PERMIT_TYPE") or "")
+    return str(
+        row.get("permit_type")
+        or row.get("PERMIT_TYPE")
+        or row.get("PERMIT_TYPE_NAME")
+        or ""
+    )
 
 
 def type_rows(city: str, type_value: str) -> list[dict]:
@@ -253,6 +324,18 @@ def held_window(city: str, rows: list[dict] | None = None) -> dict:
     }
 
 
+def dc_street_field(raw: str | None) -> str | None:
+    """FULL_ADDRESS on Open Data DC ends ', WASHINGTON, DC 20002'. That is city, not a unit."""
+    if raw is None:
+        return None
+    s = str(raw)
+    u = s.upper()
+    idx = u.rfind(", WASHINGTON, DC")
+    if idx > 0:
+        return s[:idx].rstrip()
+    return s
+
+
 def _addr_cell(raw: str | None) -> tuple[str, bool]:
     kept, dropped = privacy.street_only(raw)
     suppressed = privacy.suppress(None, raw)
@@ -267,7 +350,7 @@ def page_table(city: str, rows: list[dict], caption: str, stamp: str) -> tuple[d
         headers = ["Permit", "Type", "Issue date", "Street number", "Street"]
     elif city == "los-angeles":
         headers = ["Permit", "Type", "Issue date", "Address", "Status"]
-    elif city == "boston":
+    elif city in ("boston", "washington-dc"):
         headers = ["Permit", "Type", "Issue date", "Address", "Status"]
     else:
         headers = ["Permit", "Type", "Issue date", "Address", "Valuation"]
@@ -312,6 +395,19 @@ def page_table(city: str, rows: list[dict], caption: str, stamp: str) -> tuple[d
                 html.escape(d(issue_date_of(city, r))),
                 addr,
                 html.escape(str(r.get("status") or "not given")),
+            ])
+        elif city == "washington-dc":
+            street = dc_street_field(r.get("FULL_ADDRESS"))
+            if privacy.suppress(None, street):
+                withheld_n += 1
+                continue
+            addr, _dropped = _addr_cell(street)
+            shown.append([
+                html.escape(str(r.get("PERMIT_ID") or "")),
+                html.escape(permit_type_of(city, r) or "not given"),
+                html.escape(d(issue_date_of(city, r))),
+                addr,
+                html.escape(str(r.get("APPLICATION_STATUS_NAME") or "not given")),
             ])
         else:
             if privacy.suppress(r.get("contractor_name"), r.get("address")):
@@ -369,10 +465,16 @@ def limits_for(city: str, w: dict) -> list[str]:
             "free. We are selling one assembled CSV of a work-type slice, with "
             "person columns taken out, as of the pull date."
         )
-    if city in ("los-angeles", "baton-rouge"):
+    if city in ("los-angeles", "baton-rouge", "washington-dc"):
         common.append(privacy.street_note())
     if city == "boston":
         common.append(privacy.street_note("100 Hanover St"))
+    if city == "washington-dc":
+        common.append(
+            "Layer 14 (Building Permits - 2022) and earlier layers on the same "
+            "FeatureServer were not pulled. A year we did not pull is not in the "
+            "file you buy."
+        )
     return common
 
 
@@ -400,6 +502,17 @@ def credit_for(city: str) -> list[str]:
             "copy. The permits and the wording inside the rows are theirs. PDDL "
             "does not require attribution; the credit is still printed so a buyer "
             "can see where the rows came from."
+        ]
+    if city == "washington-dc":
+        license_html = (
+            '<a href="https://creativecommons.org/licenses/by/4.0">'
+            "Creative Commons Attribution 4.0 International (CC BY 4.0)</a>"
+        )
+        return [
+            html.escape(DC_CREDIT),
+            f"Licence: {license_html}.",
+            html.escape(DC_MODIFICATION),
+            html.escape(DC_RIGHTS),
         ]
     return [
         "These rows are the Baton Rouge building-permit records we already store. "
@@ -585,7 +698,12 @@ def render_csv(headers: list[str], rows: list[list[str]], *, disclaimer: str = "
 
 def assemble_bytes(city: str, rows: list[dict] | None = None) -> bytes:
     headers, cells = cleaned_rows(city, rows)
-    disc = chicago_disclaimer() if city == "chicago" else ""
+    if city == "chicago":
+        disc = chicago_disclaimer()
+    elif city == "washington-dc":
+        disc = DC_ATTRIBUTION_TEXT
+    else:
+        disc = ""
     return render_csv(headers, cells, disclaimer=disc)
 
 
@@ -624,6 +742,12 @@ def family_spec_for(city: str, fid: str, place: str, long_name: str,
             "CSV of a work-type slice, with the applicant and comments columns taken "
             "out, as of the pull date named on this page.</p>\n"
             "      </div>\n"
+        )
+    if city == "washington-dc":
+        disc_block = (
+            '      <div class="honest" id="point-of-sale-credit">\n'
+            + dc_attribution_html()
+            + "      </div>\n"
         )
     secs = [
         section(
@@ -678,6 +802,12 @@ def family_spec_for(city: str, fid: str, place: str, long_name: str,
                 '<span class="sub">Open Data Commons Public Domain Dedication and '
                 "License (PDDL) v1.0. Analyze Boston stays free.</span></li>\n"
                 if city == "boston" else ""
+            )
+            + (
+                "        <li><strong>CC BY 4.0 attribution, in the file</strong>"
+                '<span class="sub">The same block as on this page, once, at the '
+                "foot of the CSV.</span></li>\n"
+                if city == "washington-dc" else ""
             )
             + "      </ul>",
         ),
@@ -735,3 +865,162 @@ def family_spec_for(city: str, fid: str, place: str, long_name: str,
             "not in the file you buy."
         ),
     }
+
+
+def dc_year_rows(all_rows: list[dict], year: int | None) -> list[dict]:
+    if year is None:
+        return list(all_rows)
+    return [r for r in all_rows if r.get("LAYER_YEAR") == year]
+
+
+def slice_specs_dc() -> list[dict]:
+    """Year slices for washington-dc. Coverage still lists the city's type words."""
+    city = "washington-dc"
+    fid = "washington-dc"
+    place = "Washington DC"
+    all_rows = load_rows(city)
+    w = held_window(city, all_rows)
+    day = fetched_on(city)
+    stamp = f"Pulled {d(day)}"
+    read_phrase = (
+        f"This is a one-time assembled file. We pulled these rows on {d(day)}."
+    )
+    out: list[dict] = []
+    for slug, year, short in DC_SLICES:
+        rows = dc_year_rows(all_rows, year)
+        if len(rows) < MIN_ROWS:
+            print(f"{fid}/{slug}: {len(rows)} rows, floor {MIN_ROWS}; dropped", file=sys.stderr)
+            continue
+        dates = sorted(issue_date_of(city, r) for r in rows if issue_date_of(city, r))
+        cap = (
+            f"{min(TABLE_CAP, len(rows))} of the {len(rows):,} {short} permits "
+            f"in the {w['n']:,} rows we pulled"
+        )
+        table, withheld = page_table(city, rows, cap, stamp)
+        if year is None:
+            year_fact = (
+                f"{len(rows):,} of the {w['n']:,} rows we pulled on {d(day)} "
+                "are the four calendar years concatenated (2023, 2024, 2025, 2026)."
+            )
+        else:
+            year_fact = (
+                f"{len(rows):,} of the {w['n']:,} rows we pulled on {d(day)} "
+                f"come from FeatureServer layer year {year}."
+            )
+        facts = [
+            year_fact,
+            f"Issue dates on this slice run from {d(dates[0]) if dates else 'no date'} "
+            f"to {d(dates[-1]) if dates else 'no date'}.",
+            "The file you buy is this slice as one CSV, with person columns taken out.",
+            f"{w['n']:,} is what we hold, not what the District has ever published.",
+            "CC BY 4.0 attribution travels with the file. The District's portal stays free.",
+        ]
+        limits = limits_for(city, w)
+        if withheld:
+            limits.append(privacy.withheld_note(
+                withheld, f"the {len(rows):,} {short} rows in this extract"
+            ))
+        desc = (
+            f"{len(rows):,} Washington DC {short} building-permit rows from the "
+            f"{w['n']:,} we pulled on {d(day)}. Person columns stripped."
+        )
+        if len(desc) > 155:
+            desc = desc[:152] + "..."
+        out.append({
+            "slug": slug,
+            "name": short,
+            "h1": f"Washington DC {short} building permits in one file",
+            "lede": (
+                "The District publishes one building-permit layer per calendar year. "
+                f"<strong>We pulled {len(rows):,} rows of {html.escape(short)} "
+                f"on {d(day)} and assembled them as one CSV.</strong> "
+                f"{w['n']:,} rows in the extract; person columns stripped."
+            ),
+            "desc": desc,
+            "newest": w["newest"],
+            "oldest": dates[0] if dates else w["oldest"],
+            "runs": 1,
+            "cadence_days": CADENCE_DAYS,
+            "row_count": len(rows),
+            "withheld": withheld,
+            "tables": [table],
+            "facts": facts[:6],
+            "limits": limits,
+            "credit": credit_for(city),
+            "read_phrase": read_phrase,
+            "read_label": "One-time file",
+            "rows_intro": (
+                "These are rows we pulled from the published table on "
+                f"{d(day)}. The portal is still free. You are paying for "
+                "one assembled CSV of this slice, with person columns taken out."
+            ),
+            "cadence_long": _fam_row(fid)["cadence_long"],
+        })
+
+    type_rows_tbl = [
+        [html.escape(t or "(blank)"), f"{n:,}"]
+        for t, n in w["types"].most_common()
+    ]
+    year_tbl = [
+        [str(y), f"{sum(1 for r in all_rows if r.get('LAYER_YEAR') == y):,}"]
+        for y in (2026, 2025, 2024, 2023)
+    ]
+    facts = [
+        f"We hold {w['n']:,} published rows pulled on {d(day)}.",
+        f"Issue dates in this extract run from {d(w['oldest'])} to {d(w['newest_issue'])}.",
+        f"{len(w['types'])} distinct PERMIT_TYPE_NAME values are in this extract.",
+        "Years pulled: 2023, 2024, 2025, 2026. Years not pulled: 2022 (layer 14) and earlier.",
+        "Person-name columns are not in any file we sell from this extract.",
+    ]
+    desc = (
+        f"{w['n']:,} Washington DC building-permit rows we pulled on {d(day)}, "
+        "by year and by the District's type words. Person columns stripped."
+    )
+    if len(desc) > 155:
+        desc = desc[:152] + "..."
+    out.append({
+        "slug": "coverage",
+        "name": "Everything we hold",
+        "h1": "Every Washington DC permit row in this extract, by year and type",
+        "lede": (
+            f"<strong>{w['n']:,} published rows pulled on {d(day)}.</strong> "
+            "Five slices of this extract are for sale. This page is the roll-call "
+            "of what is in it, including types we did not give a page of their own, "
+            "and the years we did not pull."
+        ),
+        "desc": desc,
+        "newest": w["newest"],
+        "oldest": w["oldest"],
+        "runs": 1,
+        "cadence_days": CADENCE_DAYS,
+        "row_count": w["n"],
+        "withheld": 0,
+        "tables": [
+            {
+                "caption": f"Years in the {w['n']:,} rows we pulled",
+                "stamp": stamp,
+                "headers": ["Calendar year", "Rows in this extract"],
+                "rows": year_tbl,
+                "moved_col": None,
+            },
+            {
+                "caption": f"All {len(w['types'])} permit types in the {w['n']:,} rows we pulled",
+                "stamp": stamp,
+                "headers": ["District's permit type", "Rows in this extract"],
+                "rows": type_rows_tbl,
+                "moved_col": None,
+            },
+        ],
+        "facts": facts[:6],
+        "limits": limits_for(city, w),
+        "credit": credit_for(city),
+        "read_phrase": read_phrase,
+        "read_label": "One-time file",
+        "rows_intro": (
+            "This is the inventory of the extract, not a list of every permit "
+            "the District has ever issued. Layer 14 (Building Permits - 2022) "
+            "and earlier layers on the same FeatureServer were not pulled."
+        ),
+        "cadence_long": _fam_row(fid)["cadence_long"],
+    })
+    return out

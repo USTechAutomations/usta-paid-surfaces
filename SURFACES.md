@@ -51,6 +51,7 @@ Use this repo to **organize** the repeatable feeds (including the permits-owned 
 | `families/gathering-host/` | Gathering host run sheet (letter, not a feed) | `.../families/gathering-host/` |
 | `families/boston/` | Boston approved-building-permit file (one-time file, not a feed) | `.../families/boston/` |
 | `families/nyc-ll84/` | NYC LL84 energy-and-water disclosure (one-time file, not a feed) | `.../families/nyc-ll84/` |
+| `families/washington-dc/` | Washington DC building-permit file (one-time file, not a feed) | `.../families/washington-dc/` |
 
 Do not invent a fifth shop. Point the stub at the live permits URL until the stub is better, then the stub becomes the public product.
 

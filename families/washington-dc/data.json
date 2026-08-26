@@ -1,0 +1,54 @@
+{
+  "family": "washington-dc",
+  "generated": "2026-08-25",
+  "slices": [
+    {
+      "slug": "year-2026",
+      "newest": "2026-08-26",
+      "oldest": "2026-01-01",
+      "runs": 1,
+      "row_count": 30634,
+      "cadence_days": 365
+    },
+    {
+      "slug": "year-2025",
+      "newest": "2026-08-26",
+      "oldest": "2025-01-01",
+      "runs": 1,
+      "row_count": 50087,
+      "cadence_days": 365
+    },
+    {
+      "slug": "year-2024",
+      "newest": "2026-08-26",
+      "oldest": "2024-01-01",
+      "runs": 1,
+      "row_count": 47161,
+      "cadence_days": 365
+    },
+    {
+      "slug": "year-2023",
+      "newest": "2026-08-26",
+      "oldest": "2023-01-01",
+      "runs": 1,
+      "row_count": 45060,
+      "cadence_days": 365
+    },
+    {
+      "slug": "all-years",
+      "newest": "2026-08-26",
+      "oldest": "2023-01-01",
+      "runs": 1,
+      "row_count": 172942,
+      "cadence_days": 365
+    },
+    {
+      "slug": "coverage",
+      "newest": "2026-08-26",
+      "oldest": "2023-01-01",
+      "runs": 1,
+      "row_count": 172942,
+      "cadence_days": 365
+    }
+  ]
+}

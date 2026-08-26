@@ -181,7 +181,8 @@ def main() -> int:
         for header in ("owner_name", "owner", "Owner Name", "contractor_name",
                        "contractor_full_name", "Contractor on the permit",
                        "applicant", "phone", "Mobile", "e-mail", "email address",
-                       "contact", "full name", "name"):
+                       "contact", "full name", "name",
+                       "PERMIT_APPLICANT", "CREATED_USER", "LAST_EDITED_USER"):
             f = tmp / f"person-{abs(hash(header))}.csv"
             f.write_text(f"permit_number,{header}\nZZ-1,something\n", encoding="utf-8")
             case(f"a column called {header!r} is refused", og.scan(f)[0], og.BLOCKED)
@@ -258,6 +259,38 @@ def main() -> int:
                           "open data licence.\n", encoding="utf-8")
         case("the same wording with one word tidied is still refused",
              og.scan(tidied, store=store, record=rec_owed)[0], og.BLOCKED)
+
+        # --- HUNK: family-label leak checks, headers/metadata only (2026-08-26) ---
+        chi = entry(
+            "Chicago, Illinois", og.ALLOW_PAID,
+            labels=["chicago", "chicago, illinois"],
+            decided_on="2026-08-25",
+            evidence_url="https://www.chicago.gov/city/en/narr/foia/data_disclaimer.html",
+            quote="disclaimer required", reviewed_by="the selftest",
+            required_text="THE CITY OF CHICAGO REQUIRED NOTICE.",
+        )
+        rec_chi = record_file(tmp / "chi-labels.json",
+                              {"testville": ALLOWED, "chicago": chi,
+                               "otherville": UNREAD, "marin-county": MARIN})
+        chi_store = fake_store(tmp / "chi-labels.db", STORE_ROWS + [
+            ("CHI-STUB-X1", "chicago", "CHI-STUB-X1", None),
+        ])
+        chi_header = tmp / "chicago-in-header.csv"
+        chi_header.write_text("chicago,permit_number\nX,1\n", encoding="utf-8")
+        case("a chicago family label in the header is still refused without the notice",
+             og.scan(chi_header, store=chi_store, record=rec_chi)[0], og.BLOCKED)
+        chi_meta = tmp / "chicago-in-metadata.csv"
+        chi_meta.write_text(
+            "permit_number,address\n1,123 MAIN ST\n\nFamily: chicago\n",
+            encoding="utf-8")
+        case("a chicago family label in a metadata line is still refused without the notice",
+             og.scan(chi_meta, store=chi_store, record=rec_chi)[0], og.BLOCKED)
+        chi_cell = tmp / "chicago-in-cell.csv"
+        chi_cell.write_text(
+            "permit_number,address\n1,1109 CHICAGO ST SE\n", encoding="utf-8")
+        case("CHICAGO ST SE in a data cell is not a chicago family label",
+             og.scan(chi_cell, store=chi_store, record=rec_chi)[0], og.CLEAN)
+        # --- end hunk: family-label leak checks, headers/metadata only ---
 
         # =============== part four: unknown is never a pass =====================
         case("a missing file is unknown, not clean",

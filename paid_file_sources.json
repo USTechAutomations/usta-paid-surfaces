@@ -172,6 +172,17 @@
       "reviewed_by": "terms read by terms-dossier agent (claude-opus-5) 2026-08-25; operator decision 'yes clear' 2026-08-25 (approvals/operator_decisions_2026-08-25.md row 15); same FAQ grant as new-york; quote re-verified byte-for-byte by grok task-m5-nyc-ll84-build (body sha256 257773c7e31c7434dc4d65a5f50dba6d85c8e463159dd6b2b3b5853f1b8480bd) and recounted by the claude lead 2026-08-25 (count 1); the FAQ's Terms of Use link was fetched by the claude lead 2026-08-25: warranty disclaimers only, no commercial-use restriction, no required text",
       "note": "Same portal-wide NYC Open Data FAQ as the DOB NOW permit board. Different view (5zyy-y8am, not rbx6-tga4). No new required_text. Not the monthly kBtu view fvp3-gcb2.",
       "labels": ["nyc-ll84", "5zyy-y8am", "local law 84", "ll84"]
+    },
+    "washington-dc": {
+      "name": "Washington, District of Columbia",
+      "verdict": "ALLOW_PAID",
+      "decided_on": "2026-08-26",
+      "evidence_url": "https://dc.gov/page/terms-and-conditions-use-district-data",
+      "quote": "Unless otherwise noted, the data on the Sites is public domain and made available with a Creative Commons CC0 1.0 Universal dedication. In short, the District waives all rights to the data worldwide under copyright law, including all related and neighboring rights, to the extent allowed by law. You can copy, modify, distribute, and perform the data, even for commercial purposes, all without asking permission. DCAT-US 1.1 feed https://opendata.dc.gov/api/feed/dcat-us/1.1.json names license https://creativecommons.org/licenses/by/4.0 on Building Permits in 2023, 2024, 2025 and 2026 (landing pages opendata.dc.gov/datasets/DCGIS::building-permits-in-{year}). That is the 'unless otherwise noted' exception to the catalog CC0 sentence. CC BY 4.0 permits commercial use with attribution.",
+      "required_text": "Data retrieved from Open Data DC catalog (https://opendata.dc.gov)\nCreative Commons Attribution 4.0 International (CC BY 4.0), https://creativecommons.org/licenses/by/4.0",
+      "reviewed_by": "terms read by grok-task-m5-dc-rework 2026-08-26 against saved input/dc-build/raw/dc-data-terms (sha256 88d42f21eb1222d5103b3bdeca1159f88a5e487d0ba07ebca9f47238b384cc48) and input/dc-build/raw/dcat-year-excerpts; Claude lead ruling 2026-08-25: CC BY 4.0 hold RESOLVED — SELL WITH ATTRIBUTION",
+      "note": "Catalog CC0 is scoped to data available from the District Data Catalog. The FeatureServer is that catalog's service (DCAT distribution 'ArcGIS GeoService' points at maps2.dcgis.dc.gov FEEDS/DCRA/FeatureServer layers 15-18). HARD CHECK: each year's DCAT licence is CC BY 4.0, not CC0. Claude lead 2026-08-25 ruled sell with attribution. Logo carve-out stands: no District logos, including the stars and bars. Credit line is the catalog example citation and is required_text together with the CC BY 4.0 name/link line.",
+      "labels": ["washington-dc", "washington dc", "district of columbia", "opendata.dc.gov", "7296e6392349498bb6ba6ba3db836644"]
     }
   }
 }

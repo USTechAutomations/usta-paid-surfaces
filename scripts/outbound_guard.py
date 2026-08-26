@@ -173,6 +173,14 @@ NAME_QUALIFIERS = frozenset({
     "signatory", "representative", "rep", "principal", "officer", "manager",
 })
 
+# Open Data DC editor-account columns. PERMIT_APPLICANT and OWNER_NAME already
+# trip PERSON_WORDS. CREATED_USER and LAST_EDITED_USER do not, so they are
+# named here. Flattened, no punctuation: "CREATED_USER" -> createduser.
+DC_STRIPPED_HEADERS = frozenset({
+    "createduser",
+    "lastediteduser",
+})
+
 # Columns whose VALUES are meant to be source ids. Used to catch a file that
 # names a source the record file has never heard of.
 SOURCE_COLUMNS = frozenset({
@@ -400,12 +408,52 @@ def person_columns(body: str) -> list[str]:
         if set(words) & PERSON_WORDS or joined in PERSON_WORDS:
             hits.append(raw)
             continue
+        if joined in DC_STRIPPED_HEADERS:
+            hits.append(raw)
+            continue
         if "name" in words and (len(words) == 1 or set(words) & NAME_QUALIFIERS):
             hits.append(raw)
             continue
         if joined.endswith("name") and joined[:-4] in (PERSON_WORDS | NAME_QUALIFIERS):
             hits.append(raw)
     return hits
+
+
+# --- HUNK: family-label leak checks, headers/metadata only (2026-08-26) ---
+def label_haystack(body: str) -> str:
+    """Text the family-label matcher may see.
+
+    NARROW FIX, 2026-08-26. The matcher used to scan the whole file as one
+    lowercased string, so a DC street named CHICAGO ST SE inside a data cell
+    was treated as the Chicago family. Person-column checks are unchanged
+    and still read headers only. Identifier checks still read the whole
+    file. This function is only the haystack for source LABELS.
+
+    Kept: the header line, and any line that is not a data row of the table
+    (credit lines, required notices, blank separators). Dropped: cells.
+    """
+    headers = header_row(body)
+    width = len(headers)
+    parts: list[str] = []
+    seen_header = False
+    for line in body.splitlines():
+        if not line.strip():
+            parts.append(line)
+            continue
+        try:
+            fields = next(csv.reader(io.StringIO(line)))
+        except (csv.Error, StopIteration):
+            parts.append(line)
+            continue
+        if not seen_header:
+            parts.append(line)
+            seen_header = True
+            continue
+        if width and len(fields) == width:
+            continue  # a data cell row; do not match family labels here
+        parts.append(line)
+    return "\n".join(parts).lower()
+# --- end hunk: family-label leak checks, headers/metadata only ---
 
 
 def declared_sources(body: str) -> list[str]:
@@ -478,6 +526,12 @@ def scan(path, store: str = STORE, record: str = RECORD_FILE) -> tuple[str, str]
         return UNKNOWN, f"{path}: is empty, and an empty file proves nothing"
     body = raw.decode("utf-8", errors="replace")
     low = body.lower()
+    # 2026-08-25 scope: a REFUSED source named ANYWHERE in the file still
+    # blocks (whole-file haystack, the behaviour this guard always had). Only
+    # an ALLOWED source's label hit -- which can at most demand its required
+    # wording -- reads the narrower headers-and-metadata haystack, so a DC
+    # street cell named CHICAGO ST SE no longer demands Chicago's notice.
+    label_low = label_haystack(body)
 
     blocked: list[str] = []
     unknown: list[str] = []
@@ -523,7 +577,8 @@ def scan(path, store: str = STORE, record: str = RECORD_FILE) -> tuple[str, str]
         required = str(entry.get("required_text") or "")
         name = entry.get("name") or sid
 
-        label_hit = next((w for w in labels_for(sid, entry) if w in low), None)
+        hay = label_low if allowed else low
+        label_hit = next((w for w in labels_for(sid, entry) if w in hay), None)
         if label_hit and not allowed:
             blocked.append(
                 f"carries {label_hit!r}, which names {name}. That source is "
@@ -541,16 +596,32 @@ def scan(path, store: str = STORE, record: str = RECORD_FILE) -> tuple[str, str]
         if allowed and not required:
             continue
 
+        # A file that carries the required wording character for character
+        # cannot owe it, whether or not it carries the rows. Settled without
+        # the store (2026-08-25: a storeless one-time family has no rows in
+        # the permit store, so the identifier half can never run for it).
+        if allowed and required in body:
+            continue
+
         ids, why_ids = distinctive_identifiers(sid, store)
         if why_ids:
             if not allowed:
                 unknown.append(f"{name}: {why_ids}, so the row-by-row half never ran")
-            else:
-                unknown.append(f"{name}: {why_ids}, so whether the file carries their "
-                               f"rows -- and therefore whether it owes their required "
-                               f"wording -- could not be settled")
-            continue
-        hits = _token_hits(body, ids)
+                continue
+            if not label_hit:
+                # An allowed source, no identifiers to look for, and nothing
+                # on the file naming it: there is nothing left to settle for
+                # THIS file. (2026-08-25: a storeless one-time family has no
+                # rows in the permit store, so its identifier half can never
+                # run; without this scope every outbound file in the estate
+                # would sit at UNKNOWN forever on that one source.)
+                continue
+            # The file names the source and the wording check above did not
+            # clear it, so fall through with no identifier hits and let the
+            # missing-wording check block.
+            hits = set()
+        else:
+            hits = _token_hits(body, ids)
         if hits and not allowed:
             blocked.append(
                 f"carries {len(hits)} row identifier(s) belonging to {name} -- "

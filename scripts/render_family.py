@@ -351,7 +351,14 @@ def sample_facts(fid: str) -> tuple[int, int] | None:
         return None
     if len(rows) < 2:
         return None
-    return len(rows) - 1, len(rows[0])
+    width = len(rows[0])
+    # Trailing attribution / required-text lines are not data rows. Count only
+    # rows that match the header width so a credit block at the foot cannot
+    # inflate "25 rows of the real thing".
+    n = sum(1 for r in rows[1:] if len(r) == width and any(str(c).strip() for c in r))
+    if n < 1:
+        return None
+    return n, width
 
 
 def delivery_sentence(spec: dict) -> str:
