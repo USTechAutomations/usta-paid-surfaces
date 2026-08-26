@@ -1021,7 +1021,10 @@
       "checkout": {
         "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. The file is City of Boston approved-building-permit rows published on Analyze Boston under the Open Data Commons Public Domain Dedication and License (PDDL) v1.0, with the applicant and comments columns taken out.",
         "after": "After you pay, a person emails you the whole file as a CSV within one working day of your payment.",
-        "status": "none"
+        "status": "none",
+        "url": "https://buy.stripe.com/dRmaEQ7tc9KGgEceXE0sU17",
+        "label": "Buy the file — $349 once",
+        "lands_on": "buy.stripe.com"
       }
     },
     {
@@ -1044,7 +1047,10 @@
       "checkout": {
         "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. The City already publishes the unsliced table free. You are buying one dated year or borough cut, not a secret archive and not a subscription.",
         "after": "After you pay, a person emails you the whole file as a CSV within one working day of your payment.",
-        "status": "none"
+        "status": "none",
+        "url": "https://buy.stripe.com/7sYbIU3cW6yugEc02K0sU18",
+        "label": "Buy the file — $349 once",
+        "lands_on": "buy.stripe.com"
       }
     }
   ],
