@@ -444,7 +444,9 @@
         "after": "After you pay, a person emails you the Texas pending-list what-moved file as a CSV within one working day, then a new one most weeks for as long as the subscription runs. Where a stretch has no new sealed copy, that week's file says so.",
         "url": "https://buy.stripe.com/4gMaEQ14O1eafA816O0sU13",
         "label": "Subscribe — $79 a month",
-        "status": "unverified"
+        "status": "live",
+        "checked": "2026-08-25",
+        "verified": "2026-08-25"
       },
       "sells": "The Texas pending new-source air review list only. Arizona is not part of this feed."
     },
