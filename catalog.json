@@ -1084,6 +1084,29 @@
         "checked": "2026-08-25",
         "verified": "2026-08-25"
       }
+    },
+    {
+      "id": "metro-file",
+      "name": "Metro File",
+      "short": "Metro File",
+      "who": "Expediters, lenders and data teams who need every status change on a named metro's permits, not the full board dump and not a ranking.",
+      "buyer": "Expediters, lenders and data teams who need every status change on a named metro's permits, not the full board dump and not a ranking",
+      "cadence": "once, not a feed",
+      "cadence_long": "One-time file. You buy the snapshot of status changes across the sealed days we hold; we do not send a new copy next month unless you buy again.",
+      "price": "$349",
+      "sample_status": "pass",
+      "group": "Construction records",
+      "note": "BORN 2026-08-25 in a copy of this repo as a PATCH proposal. PROPOSED. One-time assembled status-change record per metro from permit_prediction_snapshots (extract of 2026-08-25, 533,569 rows, six cleared boards). Price $349 once per metro. Five priced metros (austin 233, cincinnati 29, montgomery-md 617, new-york 32, san-francisco 413 changed permits). cambridge-ma has 0 status changes and is not for sale. Checkout URL left empty (status none) for Claude to mint. Never mint from this note. This is not permit-files (the full board CSV) and not permit-metros (free rankings, Not for sale). Person-name columns were scanned; none shipped. Montgomery required_text (783 chars) ships in that metro's CSV header block and at point of sale.",
+      "contact_h2": "Ask before you buy",
+      "contact_p": "Name the metro. We reply with how many permits changed status, how many calendar holes sit in the sealed-day list, and the checkout link, before you pay anything.",
+      "contact_cta": "Email us before you pay",
+      "contact_note": "Say which metro you want. We will tell you the change count and the hole list before you pay. There is no pay button on this page until a payment link is minted.",
+      "foot": "Every change count and every hole on these pages was counted off the 2026-08-25 extract of permit_prediction_snapshots. The city portals stay free. This is not the full board CSV sold as City permit board files, and it is not the off-sale ranking page Metro issued-permit changes.",
+      "checkout": {
+        "terms": "$349 once, for the metro named on the page. Nothing recurring, nothing to cancel and no subscription behind it. You are buying this status-change file once.",
+        "after": "After you pay, a person emails you the CSV within one working day.",
+        "status": "none"
+      }
     }
   ],
   "map": "MAP.md",

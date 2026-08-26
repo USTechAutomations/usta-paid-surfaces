@@ -1,0 +1,54 @@
+{
+  "family": "metro-file",
+  "generated": "2026-08-25",
+  "slices": [
+    {
+      "slug": "austin",
+      "newest": "2026-08-25",
+      "oldest": "2026-06-07",
+      "runs": 74,
+      "row_count": 233,
+      "cadence_days": 1
+    },
+    {
+      "slug": "cincinnati",
+      "newest": "2026-08-25",
+      "oldest": "2026-06-09",
+      "runs": 72,
+      "row_count": 29,
+      "cadence_days": 1
+    },
+    {
+      "slug": "montgomery-md",
+      "newest": "2026-08-25",
+      "oldest": "2026-06-25",
+      "runs": 59,
+      "row_count": 617,
+      "cadence_days": 1
+    },
+    {
+      "slug": "new-york",
+      "newest": "2026-08-25",
+      "oldest": "2026-06-09",
+      "runs": 72,
+      "row_count": 32,
+      "cadence_days": 1
+    },
+    {
+      "slug": "san-francisco",
+      "newest": "2026-08-25",
+      "oldest": "2026-06-07",
+      "runs": 74,
+      "row_count": 413,
+      "cadence_days": 1
+    },
+    {
+      "slug": "coverage",
+      "newest": "2026-08-25",
+      "oldest": "2026-06-07",
+      "runs": 351,
+      "row_count": 6,
+      "cadence_days": 1
+    }
+  ]
+}
