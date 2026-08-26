@@ -1,4 +1,4 @@
-"""Proves _bootstrap_fault opens for the two armed-but-dark shapes and NOTHING else.
+"""Proves _bootstrap_fault opens for the three armed-but-dark shapes and NOTHING else.
 
 Subjects are the real fail lines check_site prints, not invented ones: the
 family shape and the board shape are copied from check_site.py's own fail()
@@ -25,7 +25,17 @@ line = (PREFIX + "FAIL: permit-files/austin has an armed board checkout at "
 assert _bootstrap_fault(line) == ("permit-files", "austin"), _bootstrap_fault(line)
 ok += 1
 
+# GREEN way 2b: the stale-child price shape opens, and names family AND slug.
+# Real line from the 2026-08-25 grid arming: the checkout was just written to
+# catalog.json, the generated state pages still carry no price, and only this
+# builder can rewrite them.
+line = (PREFIX + "FAIL: grid/arkansas does not show its parent's price $49/mo")
+assert _bootstrap_fault(line) == ("grid", "arkansas"), _bootstrap_fault(line)
+ok += 1
+
 # RED way 1: a price lie does NOT open. Real shape from the flips build log.
+# This is a DIFFERENT price fault than GREEN 2b -- the coverage comparison
+# page is wrong, and its fix is slice_about, not this builder. Must stay shut.
 line = (PREFIX + "FAIL: grid sells at $99/mo and is missing from the price list "
         "on families/coverage/, which is the page a buyer reads to compare.")
 assert _bootstrap_fault(line) is None
@@ -61,4 +71,4 @@ kept = [r for r in (cascade, genuine, other)
 assert kept == [genuine, other], kept
 ok += 1
 
-print(f"ok - {ok}/7 both ways")
+print(f"ok - {ok}/8 both ways")

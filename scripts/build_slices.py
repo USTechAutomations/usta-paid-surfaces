@@ -210,18 +210,25 @@ def _bootstrap_fault(estate_down: str) -> tuple[str, str | None] | None:
     waits for the gate. scripts/arm_family_pages.py is the same carve-out
     for the five hand-written parents; this is the generated-page half.
 
-    It matches the two armed-but-dark shapes check_site prints and nothing
-    else. Any other failure text returns None and the build stops exactly
-    as before. Returns (family id, board slug or None).
+    It matches the three armed-but-dark shapes check_site prints and nothing
+    else. The third (added 2026-08-25, the day grid was armed at $49/mo): the
+    moment a family's checkout is armed, its GENERATED child pages still show
+    the old price -- or none -- until this script rewrites them, so the gate
+    prints "does not show its parent's price" and the same deadlock forms.
+    The coverage-price-list shape ("sells at $X and is missing from the price
+    list") stays CLOSED: its fix is slice_about, not this builder. Any other
+    failure text returns None and the build stops exactly as before.
+    Returns (family id, board slug or None).
     """
     m = re.match(
         r"scripts/check_site\.py is failing: FAIL: "
-        r"([a-z0-9-]+)(?:/([a-z0-9-]+) has an armed board checkout at"
-        r"| declares a checkout at) https://",
+        r"([a-z0-9-]+)(?:/([a-z0-9-]+) has an armed board checkout at https://"
+        r"| declares a checkout at https://"
+        r"|/([a-z0-9-]+) does not show its parent's price \$)",
         estate_down)
     if not m:
         return None
-    return (m.group(1), m.group(2))
+    return (m.group(1), m.group(2) or m.group(3))
 
 
 def load_modules(only: str | None = None) -> list:

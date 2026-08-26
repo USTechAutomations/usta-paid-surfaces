@@ -128,9 +128,15 @@ def _bootstrap_fault(estate_down: str) -> str | None:
     opens for nothing else. A missing pay button stays the builder's fault;
     a lawfulness refusal stays a refusal; any other text returns None and
     the run withholds exactly as before. Returns the family id it matched.
+
+    ADDED 2026-08-25, the day grid was armed: check_site names the PAGE it
+    read the button on, and a child page that carries the family's button
+    (grid/caiso) produces "grid/caiso checkout was never verified". The
+    stamp it waits for is still the family record's -- the child shares
+    it -- so the optional /child is accepted and the family id returned.
     """
     m = re.match(
-        r"scripts/check_site\.py is failing: FAIL: ([a-z0-9-]+) checkout "
+        r"scripts/check_site\.py is failing: FAIL: ([a-z0-9-]+)(?:/[a-z0-9-]+)? checkout "
         r"(?:was never verified -- run scripts/verify_checkouts\.py"
         r"|was last proved working \d+ days ago; re-verify before shipping)",
         estate_down)

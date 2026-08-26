@@ -83,7 +83,9 @@ OPERATORS = {
 # published the rows, and the condition is not met by an abbreviation sitting
 # inside a table header.
 FULL_NAMES = {
-    "caiso": "California ISO",
+    # The California ISO's terms ask for this name, with the article. A table
+    # header that says CAISO is not this credit.
+    "caiso": "the California ISO",
     "isone": "ISO New England",
     "nyiso": "New York ISO",
     "spp": "Southwest Power Pool",
@@ -99,18 +101,18 @@ FULL_NAMES = {
 # halves: a credit on a page with a price on it does not meet their terms, and
 # saying only the first half would read as if it did.
 CREDIT_REQUIRED = {
-    "caiso": ("The {name} allows this use on the written condition that they are "
-              "credited by name. So, plainly: this page uses material published by "
-              "the {name}."),
     "spp": ("The {name} allows their material to be copied and passed on only with a "
             "proper credit, and only outside a commercial publication. So, plainly: "
             "this page uses material published by the {name}, and this page is not "
             "for sale."),
 }
 
-# Extra California ISO terms that a short-form credit does not cover. The grant
-# also requires notices kept intact, and it begins with "Most of the materials"
-# rather than all. Both have to sit next to the name.
+# Credit line + kept notices, copied verbatim from the CAISO terms read
+# (PROPOSED; see the grant that says "credit the California ISO" and "keep
+# intact all copyright, trademark and other proprietary notices"). The grant
+# begins with "Most of the materials", not all; that caveat sits next to the
+# name so it is not promoted to a yes.
+CAISO_FILE_CREDIT = "This file uses material published by the California ISO."
 CAISO_NOTICES = (
     "Copyright \u00a9 2026 California Independent System Operator. All rights reserved.",
     'Their terms say "Most of the materials", not all. This file does not claim '
@@ -118,29 +120,40 @@ CAISO_NOTICES = (
 )
 
 
-def _credit(isos: list[str]) -> list[str]:
-    """The credit lines for a page, from the operators whose rows it carries.
+def _caiso_credit_lines() -> list[str]:
+    """The three CAISO lines to print, in this order: credit, copyright, caveat."""
+    return [CAISO_FILE_CREDIT, *CAISO_NOTICES]
 
-    Built from the page's own ISO list, so a page about one state credits the
-    operators that actually published its rows and no others. Crediting an
-    operator whose rows are not on the page would be as wrong as omitting one
-    whose rows are.
+
+def _credit(isos: list[str]) -> list[str]:
+    """The credit lines for a page.
+
+    Two jobs, kept apart:
+
+    1. Name the operators whose rows this page actually carries. Crediting an
+       operator whose rows are not on the page would be as wrong as omitting
+       one whose rows are.
+    2. Credit the California ISO on every page of this family, because the
+       product sold from every page is the California ISO what-moved file.
+       Their terms attach to that use. A pay-box sentence is not this credit
+       (it is product copy and disappears if the page goes free).
+
+    The three CAISO lines are the proposed credit wording, character for character.
     """
     seen = [i for i in FULL_NAMES if i in isos]
-    if not seen:
-        return []
-    names = _names_raw([FULL_NAMES[i] for i in seen])
-    out = [
-        f"Every row on this page was published by a grid operator, not by us. "
-        f"Written out in full, they are {names}. We keep dated copies of their "
-        f"public queue files; the projects, the names and the wording inside "
-        f"those rows are theirs."
-    ]
-    for i in seen:
-        if i in CREDIT_REQUIRED:
-            out.append(CREDIT_REQUIRED[i].format(name=FULL_NAMES[i]))
-        if i == "caiso":
-            out.extend(CAISO_NOTICES)
+    out: list[str] = []
+    if seen:
+        names = _names_raw([FULL_NAMES[i] for i in seen])
+        out.append(
+            f"Every row on this page was published by a grid operator, not by us. "
+            f"Written out in full, they are {names}. We keep dated copies of their "
+            f"public queue files; the projects, the names and the wording inside "
+            f"those rows are theirs."
+        )
+        for i in seen:
+            if i in CREDIT_REQUIRED:
+                out.append(CREDIT_REQUIRED[i].format(name=FULL_NAMES[i]))
+    out.extend(_caiso_credit_lines())
     return out
 
 # Operators we still publish a page for but no longer sell.
@@ -172,6 +185,12 @@ def _credit(isos: list[str]) -> list[str]:
 # Their pages stay up and stay free. They are not in the weekly file.
 SOLD_OPERATORS = {"caiso"}
 NOT_SOLD_OPERATORS = set(OPERATORS) - SOLD_OPERATORS
+# SQL form of the paid-file operator gate. The exclusion is iso = 'caiso',
+# not iso != 'spp'. SPP is REFUSED_FOR_COMMERCIAL_USE__PERMITTED_NON_
+# COMMERCIALLY_WITH_CITATION; dropping SPP alone would still ship ISO-NE,
+# NYISO, MISO and ERCOT, which have no written commercial grant on the
+# evidence we hold. Free public pages keep reading every operator.
+PAID_FILE_ISO_SQL = "iso = 'caiso'"
 
 # The twenty states with the most projects in the copies we hold.
 STATE_SLICES = [
@@ -1536,6 +1555,7 @@ def _operator_slice(iso: str) -> dict | None:
         "cadence_days": _iso_cadence(iso),
         "cadence_long": _slice_cadence_long([iso]),
         "credit": _credit([iso]),
+        "no_offer": iso == "spp",
         "row_count": rows,
         "tables": tables,
         "facts": facts,
@@ -1669,6 +1689,10 @@ def _state_slice(code: str) -> dict | None:
         "cadence_days": _slice_cadence(isos, code),
         "cadence_long": _slice_cadence_long(isos, code),
         "credit": _credit(isos),
+        # The Southwest Power Pool's written terms allow their material only
+        # outside a commercial publication. A page that carries their rows
+        # therefore carries no offer, whatever the family sells elsewhere.
+        "no_offer": "spp" in isos,
         "paused_note": _mixed_paused_note(isos, code, reported),
         "row_count": rows,
         "tables": tables,
@@ -1846,6 +1870,7 @@ def _coverage_slice() -> dict | None:
         "cadence_days": _slice_cadence(isos),
         "cadence_long": _slice_cadence_long(isos),
         "credit": _credit(isos),
+        "no_offer": "spp" in isos,
         "paused_note": _mixed_paused_note(isos, None, reported),
         "row_count": rows,
         "tables": tables,
@@ -1944,6 +1969,25 @@ def slices() -> list[dict]:
     return out
 
 
+def _paid_moves() -> list[Move]:
+    """Moves that may leave in the weekly paid file and in its public sample.
+
+    Walks only SOLD_OPERATORS, so SPP (and every other unsold operator) is
+    never in the list to filter. A leftover SPP row is a defect: fail loud.
+    Equivalent SQL against project_snapshots: WHERE iso = 'caiso'.
+    """
+    out = [
+        m for m in _slice_moves(sorted(SOLD_OPERATORS), None)
+        if _state_key(m.state) not in NOT_SOLD_STATES
+    ]
+    leaked = [m for m in out if m.iso not in SOLD_OPERATORS or m.iso == "spp"]
+    if leaked:
+        raise RuntimeError(
+            f"paid extract contained {len(leaked)} row(s) outside {sorted(SOLD_OPERATORS)}"
+        )
+    return out
+
+
 def sample() -> tuple[list[str], list[list[str]]]:
     """A real extract of the product: the most recent moves a buyer would get.
 
@@ -1951,6 +1995,9 @@ def sample() -> tuple[list[str], list[list[str]]]:
     reason their own pages say so: this is an extract of the file, and the file
     does not carry them. Showing an Oklahoma row in the sample of a product that
     excludes Oklahoma is the promise this feed exists to avoid.
+
+    SPP rows are excluded here, not on the free pages. The paid file is
+    California ISO only.
     """
     # "name_in_the_file", not "project". For most operators that column holds a
     # plant name. For SPP it holds a second study number, because SPP publishes
@@ -1958,9 +2005,7 @@ def sample() -> tuple[list[str], list[list[str]]]:
     headers = ["operator", "name_in_the_file", "queue_number", "state", "county",
                "capacity_mw", "what_moved", "sealed_copy_before", "sealed_copy_after"]
     rows = []
-    sellable = [m for m in _slice_moves(sorted(_load()["dates"]), None)
-                if m.iso in SOLD_OPERATORS
-                and _state_key(m.state) not in NOT_SOLD_STATES]
+    sellable = _paid_moves()
     for m in sellable[:25]:
         rows.append([
             OPERATORS[m.iso][0],

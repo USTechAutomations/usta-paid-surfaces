@@ -22,8 +22,12 @@
       "checkout": {
         "terms": "$49 a month, billed monthly, for dated what-moved files of the California ISO interconnection queue only. Not the Southwest Power Pool, not ISO New England, not the New York ISO, and not a four-queue blend. One file a week, built from daily seals. A week with no tracked-field moves is still sent: added 0, removed 0, changed 0, plus the two content hashes of the workbooks compared. This file uses material published by the California ISO. Copyright © 2026 California Independent System Operator. All rights reserved. Their terms say \"Most of the materials\", not all. This file does not claim the Public Queue Report is inside that \"Most\". Cancel any month by email, with no account to close and no notice period.",
         "after": "After you pay, a person emails you the first California ISO what-moved file as a CSV within one working day, then a new one every week for as long as the subscription runs. Each file names the two sealed dates compared. If we could not collect that week, the file says so rather than repeating itself.",
-        "url": "TO-MINT",
-        "label": "Subscribe — $49 a month"
+        "url": "https://buy.stripe.com/8x214gdRAf5087G7vc0sU12",
+        "label": "Subscribe — $49 a month",
+        "lands_on": "buy.stripe.com",
+        "status": "live",
+        "checked": "2026-08-25",
+        "verified": "2026-08-25"
       }
     },
     {
@@ -694,6 +698,34 @@
         "label": "Buy the file — $349 once",
         "checked": "2026-08-25",
         "verified": "2026-08-25"
+      }
+    },
+    {
+      "id": "mn-pfas",
+      "name": "Minnesota PFAS filer check",
+      "kind": "build",
+      "short": "Minnesota PFAS filer check",
+      "who": "Compliance managers at companies that make a product, put a brand on a product, or bring a product into the United States, and that product may be sold or shipped into Minnesota.",
+      "buyer": "Compliance managers at companies that make, brand, or import a product that may be sold into Minnesota",
+      "cadence": "once, not a feed",
+      "cadence_long": "One dated letter for one named product line. Not a subscription.",
+      "price": "$450",
+      "sample_status": "pass",
+      "group": "Checks we run for you",
+      "note": "BORN 2026-08-25 in a copy of this repo as a PATCH proposal. One-time letter, not a feed: a written verdict (must file / need not file / cannot tell from what you sent) for one named product line against Minnesota's PFAS-in-products reporting rule. Price $450 once for the first named product line on a request; $175 once for each further named product line on the same request. The $175 amount is written only in checkout.terms and in body prose, never in catalog.price, the price rail, the search line, or a link, because those surfaces are gated to the catalog price string. No Stripe URL: Claude mints. kind=build because there is no clock and no sealed CSV; extras.json ships the page the way families/offers/ does. Sources fetched 2026-08-25 sit in families/mn-pfas/sources/ and every quote is re-checked on every build. PRICE CHALLENGE, logged in the accompanying RECONCILE.md: no willingness-to-pay evidence is in the input; nearest one-time SKUs on this estate are $349; the metro-02 draft priced first-line vs additional-line, not full vs single-company. Kept $450 as the catalog rail because the metro-02 brief listed it as an untagged fact.",
+      "coverage_what": "A letter, not a feed",
+      "coverage_how": "A person emails you the dated verdict for one named product line. Nothing dated arrives afterwards.",
+      "price_list_note": "Ask which product line before you pay.",
+      "delivery": "<strong>What arrives after you pay:</strong> a person emails you a dated letter for the named product line &mdash; not a CSV, not a login, not a filled state form &mdash; within one working day of your payment.",
+      "contact_h2": "Ask before you pay",
+      "contact_p": "Name the product line. We reply with the form fields we need and the checkout link, before you spend anything.",
+      "contact_cta": "Email us the product line",
+      "contact_note": "Say the named product line and your role (maker, brand owner, importer, or retailer). We will tell you what we need on the form before you pay. There is no pay button on this page yet.",
+      "foot": "Every quoted sentence on this page was searched for in copies of Minnesota pages we saved on 25 Aug 2026. The letter is a reading of the reporting rule against the facts you send. It is not legal advice and it is not a filing.",
+      "checkout": {
+        "terms": "$450 once, for the first named product line on one request. Each further named product line on the same request is $175 once. Nothing recurring, nothing to cancel and no subscription behind it. This is our fee for the letter. It is not the state's one-time $800 filing fee, which we do not collect and do not pay for you.",
+        "after": "After you pay, a person emails you the dated letter for that named product line within one working day of your payment. The letter is a reading of the reporting rule against the facts you sent. It is not legal advice, not a filing, and not a certificate that you are in the clear.",
+        "status": "none"
       }
     }
   ],

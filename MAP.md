@@ -47,6 +47,7 @@ These are the high-probability **repeatable** products. Many buyers, one page. B
 | ai-terms | AI policy/terms changes | AI vendors / counsel | $175/mo | `/permits/promise-archive` | FAIL | **New stub** |
 | sec-8k | 8-K auditor/officer changes | Audit / IR / software | $175/mo | `/permits/sec-8k` | FAIL | **New stub** |
 | az-contractors | AZ ROC roster changes | AZ GCs / insurers | $175/mo | roster receipt | FAIL | **New stub** |
+| mn-pfas | Minnesota PFAS filer check | Compliance managers at makers / brand owners / importers selling into Minnesota | $450 once (first named product line) | none; letter via email | worked example on the page | **Proposed 26 Aug 2026**. Not a feed. kind=build. No Stripe URL. |
 
 ## C. Parked — do not build
 

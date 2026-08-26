@@ -18,6 +18,15 @@
     "pill_class": "pill-ready"
   },
   {
+    "id": "mn-pfas",
+    "short": "Minnesota PFAS filer check",
+    "who": "Compliance managers at companies that make, brand, or import a product that may be sold into Minnesota.",
+    "amount": "$450",
+    "cadence": "one named product line, once",
+    "pill": "Letter, not a feed",
+    "pill_class": "pill-ready"
+  },
+  {
     "id": "coverage",
     "short": "Everything we hold",
     "who": "Anyone deciding whether we hold the record they need, before they ask about price",

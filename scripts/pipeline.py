@@ -577,7 +577,10 @@ def _sources_read_now(fid: str, today: dt.date) -> Result:
             return Result(UNKNOWN, f"could not open the store read-only: {exc}")
         try:
             cols = {r[1] for r in con.execute(f'pragma table_info("{lane.table}")')}
-            col = next((c for c in ("source_id", "source_tag", "resource") if c in cols), None)
+            # "iso" last: the grid store's rows name their source in that
+            # column (caiso/spp/...), and it may only speak when no dedicated
+            # source column exists.
+            col = next((c for c in ("source_id", "source_tag", "resource", "iso") if c in cols), None)
             if col is None:
                 unattributed.append(lane.label)
                 continue

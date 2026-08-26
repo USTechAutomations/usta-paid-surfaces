@@ -3,11 +3,11 @@
 
 Most feed pages are generated: build_slices.py rewrites every child page, and
 rewrites the parent too for the three families whose module carries a
-family_spec(). Five parents are hand-written HTML and no generator owns them, so
+family_spec(). Six parents are hand-written HTML and no generator owns them, so
 arming their checkout in catalog.json changed every child page underneath them
 and left the page a buyer actually lands on still saying "No pay button".
 
-This edits those five, and only those five, to the same shape render_family.py
+This edits those six, and only those six, to the same shape render_family.py
 emits, so a hand page and a generated page cannot say different things.
 
 It is safe to run twice: a page that already carries a button is left alone.
@@ -35,6 +35,7 @@ HEADING = {
     "agent-register": "Buy one archive copy",
     "agentic-commerce": "Subscribe to this feed",
     "ai-prices": "Subscribe to this feed",
+    "grid": "Subscribe to this feed",
     "permit-metros": "Subscribe to this feed",
     "ttb": "Subscribe to this feed",
 }

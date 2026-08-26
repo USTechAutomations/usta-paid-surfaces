@@ -794,14 +794,31 @@ def coverage(today: dt.date) -> dict:
     # puts our prices side by side.
     builds = [f for f in fams.values()
               if f.get("kind") == "build" and "$" in f.get("price", "")]
-    build_rows = [(
-        f'<strong>{esc(f.get("short") or f["name"])}</strong>'
-        f'<span class="sub">{esc(f.get("who", ""))}</span>',
-        'A build, not a feed<span class="sub">We deliver a working thing once, inside an '
-        "agreed window. Nothing dated arrives afterwards.</span>",
-        f'{esc(f["price"])}<span class="sub">Sold as {esc(f.get("short") or f["name"])}. '
-        "Each offer states its own price and its own window; ask before you pay.</span>",
-    ) for f in builds]
+    build_rows = []
+    for f in builds:
+        # Offers was the only kind=build family when the extra sentence was
+        # typed. A second build inheriting "each offer states its own window"
+        # would be a lie, so the extra words come off the catalog row when it
+        # has them, and the offers sentence stays the default only for offers.
+        what = f.get("coverage_what") or "A build, not a feed"
+        how = f.get("coverage_how") or (
+            "We deliver a working thing once, inside an agreed window. "
+            "Nothing dated arrives afterwards."
+        )
+        extra = f.get("price_list_note")
+        if not extra:
+            extra = (
+                "Each offer states its own price and its own window; ask before you pay."
+                if f["id"] == "offers"
+                else "Ask before you pay."
+            )
+        build_rows.append((
+            f'<strong>{esc(f.get("short") or f["name"])}</strong>'
+            f'<span class="sub">{esc(f.get("who", ""))}</span>',
+            f'{esc(what)}<span class="sub">{esc(how)}</span>',
+            f'{esc(f["price"])}<span class="sub">Sold as {esc(f.get("short") or f["name"])}. '
+            f"{esc(extra)}</span>",
+        ))
     # One-time files that are not a dated reader and not a custom build. They
     # still have a price, and this is the page a buyer reads to compare.
     one_shot = [f for f in fams.values()

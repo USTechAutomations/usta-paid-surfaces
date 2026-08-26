@@ -138,7 +138,7 @@ LABEL_FOR_FEED = {
     "ai-prices": "Subscribe — $175 a month",
     "air-permits": "Subscribe — $79 a month",
     "civic-agenda": "Subscribe — $175 a month",
-    "grid": "Subscribe — $99 a month",
+    "grid": "Subscribe — $49 a month",
     "permit-metros": "Subscribe — $79 a month",
     "ttb": "Subscribe — $99 a month",
 }

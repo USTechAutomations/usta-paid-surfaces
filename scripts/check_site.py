@@ -838,8 +838,20 @@ def check_slices() -> None:
                 # Same 2026-08-25 rule as the parent page above: with no
                 # chargeable address yet there is no offer a child page could
                 # be lying about; strict again the moment the link is real.
+                # DATED NOTE, 2026-08-25, the day grid went on sale: a child
+                # whose rows come from a publisher whose written terms refuse
+                # a commercial page (the Southwest Power Pool states) prints
+                # "Not sold from this page" in its price rail instead of the
+                # family price, and that is the truthful answer -- render_slice
+                # writes it only when the module declares no_offer. The page
+                # must then carry no pay link at all: not-sold next to a buy
+                # button is a lie in one direction or the other.
                 if chargeable(fam):
-                    fail(f"{who} does not show its parent's price {fam['price']}")
+                    if "Not sold from this page" not in vis:
+                        fail(f"{who} does not show its parent's price {fam['price']}")
+                    elif any(h in u.split("/")[2] for u in re.findall(
+                            r'href="(https?://[^"]+)"', raw) for h in PAY_HOSTS):
+                        fail(f"{who} says it is not sold from this page but carries a pay link")
             if 'name="data-newest"' not in raw or 'name="data-cadence-days"' not in raw:
                 fail(f"{who} carries no read date and no cadence, so nothing can prove it is current")
             check_pay_links(who, raw, checkout_for(fam, who))

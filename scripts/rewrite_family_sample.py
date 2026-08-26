@@ -58,7 +58,8 @@ if str(HERE) not in sys.path:
 # clock_id -> family dir on disk, slice module, db, and the table used to
 # count net-new ids vs the previous seal. Family dirs were checked under
 # families/ on 2026-08-25. dc_materialization feeds dc-siting (not
-# dc-buildout). b2b_change feeds hiring-watch.
+# dc-buildout). b2b_change feeds hiring-watch. distress_signals feeds
+# trustee-sales (page-1 AZ NTS list).
 CLOCKS: dict[str, dict[str, Any]] = {
     "usgs_quakes": {
         "family": "quakes",
@@ -71,6 +72,11 @@ CLOCKS: dict[str, dict[str, Any]] = {
         "module": "slice_grid",
         "db": CLOCKS_ROOT / "grid_queue" / "data" / "grid_queue.db",
         "seal": ("project_snapshots", "project_id", "snapshot_date"),
+        # Paid file / public sample of it: California ISO only. SPP is
+        # REFUSED_FOR_COMMERCIAL_USE__PERMITTED_NON_COMMERCIALLY_WITH_CITATION.
+        # Without this, seal_delta compared the last two GLOBAL snapshot_dates
+        # and mixed SPP (and ISO-NE / NYISO) ids into net_new_ids.
+        "seal_where": "iso = 'caiso'",
     },
     "ttb_permits": {
         "family": "ttb",
@@ -107,6 +113,12 @@ CLOCKS: dict[str, dict[str, Any]] = {
         "module": "slice_hiring_watch",
         "db": CLOCKS_ROOT / "b2b_change" / "data" / "b2b_change.db",
         "seal": ("page_snapshots", "domain", "snapshot_date"),
+    },
+    "distress_signals": {
+        "family": "trustee-sales",
+        "module": "slice_trustee_sales",
+        "db": CLOCKS_ROOT / "distress_signals" / "data" / "distress_signals.db",
+        "seal": ("nts", "file_no", "snapshot_date"),
     },
 }
 
@@ -154,8 +166,13 @@ def load_sample_fn(module_name: str) -> Callable[[], tuple[list[str], list[list[
     return fn
 
 
-def seal_delta(db: Path, table: str, id_col: str, date_col: str) -> dict[str, Any]:
+def seal_delta(db: Path, table: str, id_col: str, date_col: str,
+               where: str = "") -> dict[str, Any]:
     """Count ids that appeared or disappeared between the last two seals.
+
+    `where` is an extra SQL predicate, written by us in CLOCKS (never from
+    a caller we do not control). Grid uses it to keep SPP out of the paid
+    sample's net-new count: iso = 'caiso'.
 
     Returns net_new=None when the store cannot answer (missing table, one
     seal). That is unknown, not zero.
@@ -184,18 +201,19 @@ def seal_delta(db: Path, table: str, id_col: str, date_col: str) -> dict[str, An
         cols = {r[1] for r in con.execute(f'PRAGMA table_info("{table}")')}
         if date_col not in cols or id_col not in cols:
             return empty
+        extra = f" AND ({where})" if where else ""
         dates = [r[0] for r in con.execute(
             f'SELECT DISTINCT "{date_col}" FROM "{table}" '
-            f'WHERE "{date_col}" IS NOT NULL ORDER BY 1 DESC LIMIT 2'
+            f'WHERE "{date_col}" IS NOT NULL{extra} ORDER BY 1 DESC LIMIT 2'
         )]
         if len(dates) < 2:
             empty["newer_seal"] = dates[0] if dates else None
             return empty
         newer, older = dates[0], dates[1]
         new_ids = {r[0] for r in con.execute(
-            f'SELECT "{id_col}" FROM "{table}" WHERE "{date_col}"=?', (newer,))}
+            f'SELECT "{id_col}" FROM "{table}" WHERE "{date_col}"=?{extra}', (newer,))}
         old_ids = {r[0] for r in con.execute(
-            f'SELECT "{id_col}" FROM "{table}" WHERE "{date_col}"=?', (older,))}
+            f'SELECT "{id_col}" FROM "{table}" WHERE "{date_col}"=?{extra}', (older,))}
         appeared = len(new_ids - old_ids)
         disappeared = len(old_ids - new_ids)
         return {
@@ -372,7 +390,8 @@ def rewrite_clock(
     fam_dir.mkdir(parents=True, exist_ok=True)
 
     table_name, id_col, date_col = spec["seal"]
-    delta = seal_delta(db, table_name, id_col, date_col)
+    delta = seal_delta(db, table_name, id_col, date_col,
+                       where=str(spec.get("seal_where") or ""))
 
     fn = sample_fn if sample_fn is not None else load_sample_fn(spec["module"])
     headers, rows = fn()
@@ -557,6 +576,30 @@ def selftest() -> int:
     atomic_write_text(js_path, "{}\n")
     check("atomic overwrite readable", js_path.read_text(encoding="utf-8"), "{}\n")
     check("still no tmp leftovers", list((out / "fake-fam").glob("*.tmp")), [])
+
+    print("seal_where keeps a refused iso out of net_new:")
+    mixed = tmp / "mixed.db"
+    mcon = sqlite3.connect(mixed)
+    mcon.execute(
+        "CREATE TABLE project_snapshots (iso TEXT, project_id TEXT, snapshot_date TEXT)"
+    )
+    mcon.executemany(
+        "INSERT INTO project_snapshots VALUES (?, ?, ?)",
+        [
+            ("caiso", "CA-1", "2026-08-24"),
+            ("caiso", "CA-1", "2026-08-25"),
+            ("spp", "SP-1", "2026-08-24"),
+            ("spp", "SP-NEW", "2026-08-25"),
+        ],
+    )
+    mcon.commit()
+    mcon.close()
+    mixed_all = seal_delta(mixed, "project_snapshots", "project_id", "snapshot_date")
+    mixed_paid = seal_delta(mixed, "project_snapshots", "project_id", "snapshot_date",
+                            where="iso = 'caiso'")
+    check("unfiltered net_new includes the SPP arrival", mixed_all.get("net_new"), 2)
+    check("iso = 'caiso' net_new ignores the SPP arrival", mixed_paid.get("net_new"), 0)
+    check("iso = 'caiso' newer_n is CAISO only", mixed_paid.get("newer_n"), 1)
 
     print("existing quakes db dry (optional):")
     qdb = CLOCKS["usgs_quakes"]["db"]

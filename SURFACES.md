@@ -38,6 +38,7 @@ Use this repo to **organize** the repeatable feeds (including the permits-owned 
 | `families/quakes/` | Quake attestation | `.../families/quakes/` |
 | `families/ttb/` | TTB ledger | `.../families/ttb/` |
 | `families/crawler/` | Crawler sentinel | `.../families/crawler/` |
+| `families/mn-pfas/` | Minnesota PFAS filer check (letter, not a feed) | `.../families/mn-pfas/` |
 
 Do not invent a fifth shop. Point the stub at the live permits URL until the stub is better, then the stub becomes the public product.
 

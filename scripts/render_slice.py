@@ -195,6 +195,33 @@ def offer_spec(fam: dict, spec: dict) -> dict:
     around it is derived from the family row, or overridden by it.
     """
     price = fam["price"]
+    # A slice that says no_offer carries material whose publisher's written
+    # terms forbid a commercial page. It gets no price in its mail subject, no
+    # subscribe wording and no checkout record -- offer_block() sees the flag
+    # and never falls back to the family's record.
+    if spec.get("no_offer"):
+        subject = f'{fam.get("short") or fam["name"]} — {spec["name"]}'
+        return {
+            "id": fam["id"],
+            "price": price,
+            "checkout": None,
+            "no_offer": True,
+            "cadence_long": (spec.get("cadence_long")
+                             or fam.get("cadence_long") or fam["cadence"]),
+            "subj": urllib.parse.quote(subject),
+            "contact_h2": "This page is not for sale",
+            "contact_p": (
+                "The rows above include material whose publisher permits "
+                "copying only outside a commercial publication, so nothing is "
+                "sold from this page. We reply with what we hold for this one, "
+                "and with what we do not hold."
+            ),
+            "contact_cta": "Email us about the copies we hold",
+            "contact_note": (
+                f'Say that you want {spec["name"]} and we will tell you '
+                "which weeks we hold for it and since when."
+            ),
+        }
     subject = f'{fam.get("short") or fam["name"]} — {spec["name"]} — {price}'
     # DATED NOTE, 2026-08-25: a spec-level checkout wins over the family's.
     # permit-files sells six different city files at one price, one payment
@@ -347,6 +374,10 @@ def render(fam: dict, spec: dict, today: dt.date | None = None) -> str:
     off = offer_spec(fam, spec)
     hero_cta, offer = offer_block(off)
     paused = is_paused(spec["newest"], spec["cadence_days"], today)
+    # A no_offer page is unpriced whatever the family charges elsewhere: its
+    # tab title and price rail must not quote a price the page refuses to take.
+    page_price = "Not sold from this page" if spec.get("no_offer") else fam["price"]
+    title_tail = "not for sale" if spec.get("no_offer") else fam["price"]
     return PAGE.format(
         base=BASE,
         fid=fam["id"],
@@ -354,11 +385,11 @@ def render(fam: dict, spec: dict, today: dt.date | None = None) -> str:
         fam_name=html.escape(fam.get("short") or fam["name"]),
         slice_name=html.escape(spec["name"]),
         group=html.escape(fam.get("group", "Dated change feeds")),
-        title=html.escape(f'{spec["h1"]} — {fam["price"]}'),
+        title=html.escape(f'{spec["h1"]} — {title_tail}'),
         desc=html.escape(spec["desc"]),
         h1=spec["h1"],
         lede=spec["lede"],
-        price=html.escape(fam["price"]),
+        price=html.escape(page_price),
         buyer=html.escape(fam["buyer"]),
         # An archive that is finished says so on the rail rather than claiming a
         # reading it is not doing. A slice that sets no read_label gets exactly

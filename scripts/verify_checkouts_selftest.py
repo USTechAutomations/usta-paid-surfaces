@@ -27,6 +27,12 @@ If air-permits' `lawful` gate ever starts passing, this file says CANNOT RUN and
 exits 2 rather than going quietly green on a case that has stopped existing. A
 fixture that cannot trip the check certifies nothing.
 
+APPENDED 2026-08-25: that is exactly what happened. air-permits' source terms
+were read and ruled on in the flips merge and its lawful gate now passes, so
+the typed-in name died -- correctly, as CANNOT RUN, for the second time in two
+days. The subject is DERIVED now: whichever family the real ladder measurably
+refuses today. The story above stays as written because it is dated and true.
+
 WHAT IS UNDER TEST. That certifying asks the ladder; that it asks BEFORE it
 fetches anything; that a refused surface gets no live stamp; that what the record
 already held is left exactly as it was, because withholding a stamp is the safe
@@ -57,10 +63,7 @@ import pipeline as P  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 
-# The family the ladder refuses, and one it does not. Both are checked against
-# catalog.json before anything is measured, so this file does not quietly start
-# testing nothing the day either is renamed.
-REFUSED = "air-permits"
+# The family the ladder refuses is derived below, after BLIND.
 # A family the ladder cannot answer FOR rather than answers against: its store
 # names no written permission note for the sources it reads, and it sells at
 # $59 a month regardless. A refusal and an unanswered question are different
@@ -79,6 +82,27 @@ REFUSED = "air-permits"
 # sentence in a file about false sentences is the wrong place to be relaxed.
 BLIND = "agentic-commerce"
 
+
+# Derived, not typed, since 2026-08-25 (see the docstring): the subject of the
+# refusal case is whichever family the real ladder measurably refuses today,
+# asked of the ladder itself. main() re-checks the winner's lawful gate before
+# measuring anything, so a wrong answer here still cannot go quietly green.
+def _a_refused_family(*spoken_for: str) -> str:
+    for row in P.assess(probe=False)["rows"]:
+        if row["id"] in spoken_for:
+            continue
+        if row["gates"]["lawful"]["verdict"] == P.FAIL:
+            return row["id"]
+    print("CANNOT RUN: no family's lawful gate fails today, so there is no real "
+          "refusal to hand this tool and the refusal path stays unproven. If the "
+          "whole estate really is lawful to read, that is the finding -- say so "
+          "and stop rather than passing over a case that cannot fire.",
+          file=sys.stderr)
+    raise SystemExit(2)
+
+
+REFUSED = _a_refused_family(BLIND)
+
 # HEALTHY was typed in as "agent-register" until 2026-08-25, when that product
 # came off sale. It stopped declaring a checkout address, so the case that
 # proves an unrefused family is still certified could not be reached and this
@@ -95,7 +119,11 @@ def _first_selling(*spoken_for: str) -> str:
         fid = fam.get("id")
         if fid in spoken_for:
             continue
-        if (fam.get("checkout") or {}).get("url"):
+        # A live-shaped address only. Since the 8/25 flips merge a priced-but
+        # -unminted row holds the placeholder "TO-MINT", which is truthy, is
+        # not fetchable, and made this pick a family the verifier rightly
+        # never certifies. The gate's own standard is startswith https.
+        if str((fam.get("checkout") or {}).get("url") or "").startswith("https://"):
             return fid
     print("CANNOT RUN: no family in catalog.json declares a checkout URL, so "
           "the case that proves an unrefused family is still certified cannot be "

@@ -3,11 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Interconnection queue changes — not for sale</title>
-  <meta name="description" content="What moved in the ISO interconnection queues we still collect, out of our own dated copies. Not for sale. Free to read.">
+  <title>Interconnection queue changes — $49/mo</title>
+  <meta name="description" content="Named CAISO interconnection queue projects that changed status between dated copies we sealed. Weekly what-moved file. $49/mo.">
   <link rel="canonical" href="https://ustechautomations.com/feeds/grid">
   <link rel="stylesheet" href="../../styles.css">
   <meta name="theme-color" content="#1d4e6b">
+  <!-- The promise a buyer is held to: one what-moved file a week. Seals are
+       taken daily; the daily number is the collector's watch cadence, not
+       the product's. -->
+  <meta name="data-cadence-days" content="7">
   <link rel="icon" type="image/svg+xml" href="/logo.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -16,10 +20,10 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="US Tech Automations — dated change feeds">
   <meta property="og:url" content="https://ustechautomations.com/feeds/grid">
-  <meta property="og:title" content="Interconnection queue changes — not for sale">
-  <meta name="twitter:title" content="Interconnection queue changes — not for sale">
-  <meta property="og:description" content="What moved in the ISO interconnection queues we still collect, out of our own dated copies. Not for sale. Free to read.">
-  <meta name="twitter:description" content="What moved in the ISO interconnection queues we still collect, out of our own dated copies. Not for sale. Free to read.">
+  <meta property="og:title" content="Interconnection queue changes — $49/mo">
+  <meta name="twitter:title" content="Interconnection queue changes — $49/mo">
+  <meta property="og:description" content="Named CAISO interconnection queue projects that changed status between dated copies we sealed. Weekly what-moved file. $49/mo.">
+  <meta name="twitter:description" content="Named CAISO interconnection queue projects that changed status between dated copies we sealed. Weekly what-moved file. $49/mo.">
   <meta name="twitter:card" content="summary">
 </head>
 <body data-family="grid">
@@ -35,23 +39,24 @@
 <!-- FABLE: layout only. Do not drop, invent, or round the sample rows. -->
 <section class="hero">
   <div class="wrap">
-    <p class="eyebrow">Energy and siting <span class="dot"></span> Weekly <span class="dot"></span> Free to read</p>
+    <p class="eyebrow">Energy and siting <span class="dot"></span> Weekly CAISO file <span class="dot"></span> Sample ready</p>
     <h1>Interconnection queue changes</h1>
-    <p class="lede">Each ISO publishes today’s queue and overwrites last week. <strong>We keep the week. You get what moved.</strong></p>
+    <p class="lede">CAISO publishes today&rsquo;s queue and overwrites last week. <strong>We keep the week. You get what moved</strong> &mdash; California ISO only, $49 a month.</p>
     <dl class="rail">
       <!-- Every count and date on this page comes from DISTINCT snapshot_date in
-           project_snapshots, counted 2026-08-23 read-only, never a file time and never the
-           run log: 25 dated copies 2026-06-11 to 2026-08-23, weekly gaps until 2026-08-09
-           and one every day since. Per queue: CAISO 24 (22 Aug skipped), ISO-NE 25,
-           NYISO 22 from 26 Jun, SPP 24 (13 Aug skipped), MISO stops 2026-08-06, ERCOT
+           project_snapshots, counted 2026-08-25 read-only, never a file time and never the
+           run log: 27 dated copies 2026-06-11 to 2026-08-25, weekly gaps until 2026-08-09
+           and one every day since. Per queue: CAISO 26 (22 Aug skipped), ISO-NE 27,
+           NYISO 24 from 26 Jun, SPP 26 (13 Aug skipped), MISO stops 2026-08-06, ERCOT
            2026-07-30. This page is hand-written, so nothing regenerates these; the feed is
            still running, so recount them before the next publish. "Cadence: Weekly file"
            below is the PRODUCT, not the reading rate, and the two are not the same. -->
-      <div><dt>Price</dt><dd class="price">Not for sale yet</dd></div>
+      <div><dt>Price</dt><dd class="price">$49/mo</dd></div>
       <div><dt>Built for</dt><dd>Energy researchers, journalists, and interconnection-software vendors</dd></div>
       <div><dt>Cadence</dt><dd>Weekly file</dd></div>
       <div><dt>Public sample</dt><dd><span class="pill pill-ready">Named movers on this page</span></dd></div>
     </dl>
+    <p class="hero-cta"><a class="btn btn-buy" href="https://buy.stripe.com/8x214gdRAf5087G7vc0sU12" data-checkout="grid" rel="noopener">Subscribe — $49 a month</a><span class="btn-note">$49 a month, billed monthly, for dated what-moved files of the California ISO interconnection queue only. Not the Southwest Power Pool, not ISO New England, not the New York ISO, and not a four-queue blend. One file a week, built from daily seals. A week with no tracked-field moves is still sent: added 0, removed 0, changed 0, plus the two content hashes of the workbooks compared. This file uses material published by the California ISO. Copyright © 2026 California Independent System Operator. All rights reserved. Their terms say &quot;Most of the materials&quot;, not all. This file does not claim the Public Queue Report is inside that &quot;Most&quot;. Cancel any month by email, with no account to close and no notice period.</span></p>
   </div>
 </section>
 
@@ -59,67 +64,77 @@
   <div class="wrap">
 
     <section>
-      <h2>Public sample<span class="seal">13 Aug 2026 vs 20 Aug 2026 · 5,663 projects on both days, plus 1,028 SPP rows only the second copy has</span></h2>
-      <p>Named rows below are the product shape. The live ISO file cannot show last week. <strong>Both copies hold the same 5,663 projects from CAISO, ISO-NE and NYISO. The 1,028 more in the second copy are the whole of SPP, whose 13 Aug download came back an error page, so none of the 1,028 is a project that entered a queue that week.</strong></p>
+      <h2>Public sample<span class="seal">16 CAISO status moves · each row names its own two dates</span></h2>
+      <p>Named rows below are the product shape. The live CAISO file cannot show last week. <strong>All 16 rows are CAISO, and all 16 are status moves. There is no single pair of seals: each row names the two dated copies it sits between.</strong></p>
 
       <div class="evidence">
         <div class="evidence-head">
-          <span>What moved between the two seals</span>
-          <span class="stamp">13 Aug → 20 Aug 2026</span>
+          <span>All 16 rows in the public sample, newest first</span>
+          <span class="stamp">each row names its own two dates</span>
         </div>
         <div class="scroll">
           <table>
             <thead>
-              <tr><th>Project</th><th>ISO</th><th>What moved</th></tr>
+              <tr><th>Project</th><th>What moved</th><th>Sealed copies compared</th></tr>
             </thead>
             <tbody>
-              <tr><td>MENIFEE POWER BANK <span class="sub">CA, battery, 680 MW</span></td><td>CAISO</td><td class="moved">status ACTIVE → COMPLETED</td></tr>
-              <tr><td>Twin Energy Wind <span class="sub">ME, 18.3 MW</span></td><td>ISO-NE</td><td class="moved">in-service 11/6/2026 → 12/4/2026</td></tr>
-              <tr><td>Shaftsbury Solar <span class="sub">VT, 20 MW</span></td><td>ISO-NE</td><td class="moved">in-service 1/1/2028 → 1/1/2029</td></tr>
-              <tr><td>Fair Haven Solar <span class="sub">VT, 20 MW</span></td><td>ISO-NE</td><td class="moved">in-service 7/1/2027 → 7/1/2028</td></tr>
-              <tr><td>FPS Panton Solar <span class="sub">VT, 50 MW</span></td><td>ISO-NE</td><td class="moved">in-service 12/1/2027 → 12/1/2029</td></tr>
+              <tr><td>MENIFEE POWER BANK <span class="sub">RIVERSIDE, CA, 680 MW</span></td><td class="moved">status ACTIVE → COMPLETED</td><td>17 Aug 2026 → 18 Aug 2026</td></tr>
+              <tr><td>GREENWOOD ENERGY STORAGE <span class="sub">LOS ANGELES, CA, 250 MW</span></td><td class="moved">status ACTIVE → WITHDRAWN</td><td>12 Aug 2026 → 13 Aug 2026</td></tr>
+              <tr><td>AZALEA <span class="sub">KERN, CA, 60 MW</span></td><td class="moved">status ACTIVE → COMPLETED</td><td>6 Aug 2026 → 9 Aug 2026</td></tr>
+              <tr><td>CAPTIVA ENERGY STORAGE <span class="sub">ORANGE, CA, 250 MW</span></td><td class="moved">status ACTIVE → WITHDRAWN</td><td>23 Jul 2026 → 30 Jul 2026</td></tr>
+              <tr><td>JOVE SOLAR <span class="sub">LA PAZ, AZ, 2,000 MW</span></td><td class="moved">status ACTIVE → WITHDRAWN</td><td>16 Jul 2026 → 23 Jul 2026</td></tr>
+              <tr><td>CENTENNIAL FLATS <span class="sub">LA PAZ, AZ, 500 MW</span></td><td class="moved">status ACTIVE → COMPLETED</td><td>16 Jul 2026 → 23 Jul 2026</td></tr>
+              <tr><td>GNARLY OSAGE <span class="sub">SAN DIEGO, CA, 300 MW</span></td><td class="moved">status ACTIVE → WITHDRAWN</td><td>16 Jul 2026 → 23 Jul 2026</td></tr>
+              <tr><td>DRIFTWOOD STELLA <span class="sub">KERN, CA, 200 MW</span></td><td class="moved">status ACTIVE → WITHDRAWN</td><td>16 Jul 2026 → 23 Jul 2026</td></tr>
+              <tr><td>PASTORIA SOLAR <span class="sub">KERN, CA, 105.2 MW</span></td><td class="moved">status ACTIVE → COMPLETED</td><td>16 Jul 2026 → 23 Jul 2026</td></tr>
+              <tr><td>CONAWAY HYBRID POWER PLANT <span class="sub">YOLO, CA, 80 MW</span></td><td class="moved">status ACTIVE → WITHDRAWN</td><td>16 Jul 2026 → 23 Jul 2026</td></tr>
+              <tr><td>PALMETTO ENERGY STORAGE <span class="sub">ALAMEDA, CA, 75 MW</span></td><td class="moved">status ACTIVE → WITHDRAWN</td><td>16 Jul 2026 → 23 Jul 2026</td></tr>
+              <tr><td>VALETUDO ENERGY STORAGE <span class="sub">MADERA, CA, 75 MW</span></td><td class="moved">status ACTIVE → WITHDRAWN</td><td>26 Jun 2026 → 2 Jul 2026</td></tr>
+              <tr><td>SUNBEAM STORAGE <span class="sub">SAN MATEO, CA, 65 MW</span></td><td class="moved">status ACTIVE → WITHDRAWN</td><td>26 Jun 2026 → 2 Jul 2026</td></tr>
+              <tr><td>MOUNT LAGUNA WIND 2 <span class="sub">SAN DIEGO, CA, 400 MW</span></td><td class="moved">status ACTIVE → WITHDRAWN</td><td>18 Jun 2026 → 25 Jun 2026</td></tr>
+              <tr><td>CUYAMA SOLAR <span class="sub">SAN LUIS OBISPO, CA, 40 MW</span></td><td class="moved">status COMPLETED → ACTIVE</td><td>18 Jun 2026 → 25 Jun 2026</td></tr>
+              <tr><td>ALMANDE ENERGY STORAGE <span class="sub">MERCED, CA, 250 MW</span></td><td class="moved">status ACTIVE → WITHDRAWN</td><td>11 Jun 2026 → 18 Jun 2026</td></tr>
             </tbody>
           </table>
         </div>
       </div>
 
       <div class="note">
-        <p><strong>What we did not collect, said plainly.</strong> We read four queues now: CAISO, ISO-NE, NYISO and SPP, and all four are sealed through 23 Aug 2026. Two days inside that run are skipped rather than compared against: the SPP copy we asked for on 13 Aug 2026 came back a 4,880-byte error page with no projects in it, and the CAISO read on 22 Aug 2026 answered with a 503 error. MISO’s last copy is 6 Aug 2026 and ERCOT’s is 30 Jul 2026, for the reasons below. We say that instead of a quiet week.</p>
+        <p><strong>What we did not collect, said plainly.</strong> We still read four queues: CAISO, ISO-NE, NYISO and SPP, and all four are sealed through 25 Aug 2026. Two days inside that run are skipped rather than compared against: the SPP copy we asked for on 13 Aug 2026 came back a 4,880-byte error page with no projects in it, and the CAISO read on 22 Aug 2026 answered with a 503 error. MISO&rsquo;s last copy is 6 Aug 2026 &mdash; the source only serves a browser, and we will not impersonate one &mdash; and ERCOT&rsquo;s is 30 Jul 2026, because its robots.txt disallows the queue paths. ISO-NE and NYISO are collected and stay free: they publish no written grant, so they are in no paid file. SPP&rsquo;s written terms allow reuse only outside a commercial publication, so SPP rows are in no paid file and not on this page. We say that instead of a quiet week.</p>
       </div>
-
-      <p>A bigger same-week extract (12 projects whose in-service date moved between 2 Jul and 30 Jul 2026, including Mineral Basin Solar Power 12-2028 → 12-2029) sits in our sealed clock files if you want that window named in the email.</p>
     </section>
 
     <section>
       <h2>Who published the data on this page</h2>
       <ul class="spec">
-        <li>Every row and every count on this page came from a grid operator, not from us. Written out in full, they are the California ISO, ISO New England, the New York ISO, the Southwest Power Pool, the Midcontinent Independent System Operator and the Electric Reliability Council of Texas. We keep dated copies of their public queue files; the projects, the names and the wording inside those rows are theirs.</li>
-        <li>The California ISO allows this use on the written condition that they are credited by name. So, plainly: this page uses material published by the California ISO.</li>
-        <li>The Southwest Power Pool allows their material to be copied and passed on only with a proper credit, and only outside a commercial publication. So, plainly: this page uses material published by the Southwest Power Pool, and this page is not for sale.</li>
+        <li>Every row on this page was published by a grid operator, not by us. Written out in full, they are the California ISO. We keep dated copies of their public queue files; the projects, the names and the wording inside those rows are theirs.</li>
+        <li>This page uses material published by the California ISO.</li>
+        <li>Copyright © 2026 California Independent System Operator. All rights reserved.</li>
+        <li>Their terms say "Most of the materials", not all. This file does not claim the Public Queue Report is inside that "Most".</li>
       </ul>
     </section>
 
     <section>
       <h2>Doing this yourself</h2>
-      <p>Every ISO publishes today&rsquo;s queue and overwrites the last one. To get what moved you have to download each queue on the same day every week, keep the old copy somewhere you can still read it, and line up 6,691 projects across four different file layouts.</p>
-      <p>Miss one week and that week is gone. The ISO does not republish it, and there is no public archive to go back to. That is the whole reason this file exists.</p>
+      <p>CAISO publishes today&rsquo;s queue and overwrites the last one. To get what moved you have to download the file on a regular cadence, keep the old copy somewhere you can still read it, and line up 2,278 projects against the next copy.</p>
+      <p>Miss one week and that week is gone. CAISO does not republish it, and there is no public archive to go back to. That is the whole reason this file exists.</p>
     </section>
 
     <section>
       <h2>What this feed holds</h2>
       <ul class="spec">
-        <li><strong>A what-moved comparison, week by week</strong><span class="sub">For queues with a current seal.</span></li>
-        <li><strong>Status, capacity, and in-service-date moves, plus entries and exits</strong><span class="sub">Named projects, not totals.</span></li>
-        <li><strong>Free to read, and nothing to cancel</strong><span class="sub">No price, no card button, no account.</span></li>
+        <li><strong>$49 a month, billed monthly, for a weekly California ISO what-moved file</strong><span class="sub">Not SPP, not ISO-NE, not NYISO, and not a four-queue blend. Cancel any month by email.</span></li>
+        <li><strong>Named CAISO projects that moved</strong><span class="sub">Status changes, entries and exits, out of daily seals. A week with no tracked-field moves is still sent: added 0, removed 0, changed 0, plus the two content hashes of the workbooks compared.</span></li>
+        <li><strong>The 16 sample rows stay free</strong><span class="sub">The named rows on this page, and the sample CSV and JSON, are free to read.</span></li>
       </ul>
     </section>
 
     <section>
       <h2>How it works</h2>
       <ol class="steps">
-        <li>You email us and we send a checkout link in that thread.</li>
-        <li>You reply with the queues that matter to you, and we say what we can and cannot collect for them.</li>
-        <li>Each week a person emails you the what-moved file, and names anything we could not collect.</li>
+        <li>You subscribe, or you email us first. We tell you what we hold for CAISO, and what we do not hold, before you spend anything.</li>
+        <li>A person emails you the first California ISO what-moved file as a CSV within one working day.</li>
+        <li>Each week a person emails you a new file. Cancel any month by email, with no account to close and no notice period.</li>
       </ol>
     </section>
 
@@ -127,25 +142,34 @@
       <h2>What this page cannot tell you</h2>
       <div class="honest">
         <p><strong>A move is two copies disagreeing, and nothing more.</strong> A row here means the same public queue file said one thing on one dated copy and something else on the next. It is not an approval, a rejection, a decision or a filing. If you need to know why a project moved, the operator is the place to ask, and we will say so rather than guess for you.</p>
-        <p><strong>Two of the queues we read have stopped coming.</strong> Our last MISO file is 6 Aug 2026 and our last ERCOT file is 30 Jul 2026. Every page built on those two says &ldquo;last copy&rdquo; and promises you nothing further. The weekly comparison covers the four queues that are still arriving.</p>
-        <p><strong>The names and the fuels are the operators&rsquo; own words.</strong> Each operator writes the same fuel differently &mdash; Solar, SOL, SUN and S all turn up for the same thing &mdash; and SPP publishes no plant name at all, only its own queue number. We print what they printed and mark a label we are not sure of as not clear, rather than tidying it into a category we invented.</p>
+        <p><strong>The file you pay for is CAISO only.</strong> We read no in-service date out of the CAISO file: the column is empty on 2,278 of the 2,278 rows in our newest copy, so a CAISO move here is a status change or an entry or exit, never a date. Two of the queues we read have stopped coming. Our last MISO file is 6 Aug 2026 and our last ERCOT file is 30 Jul 2026. Every page built on those two says &ldquo;last copy&rdquo; and promises you nothing further.</p>
+        <p><strong>The names and the fuels are the operators&rsquo; own words.</strong> Each operator writes the same fuel differently &mdash; Solar, SOL, SUN and S all turn up for the same thing. We print what they printed and mark a label we are not sure of as not clear, rather than tidying it into a category we invented.</p>
       </div>
     </section>
 
     <section class="contact">
-      <h2>See the file</h2>
-      <p>You do not have to take our word for what is in the file. Here are <strong>25 rows of the real thing</strong>, carrying all 9 of its columns, cut out of the dated copies we sealed ourselves. Nothing in it is made up and nothing in it is tidied up.</p>
+      <h2>See the file before you pay</h2>
+      <p>You do not have to take our word for what is in the file. Here are <strong>16 rows of the real thing</strong>, carrying all 9 of its columns, cut out of the dated copies we sealed ourselves. Nothing in it is made up and nothing in it is tidied up.</p>
       <ul class="spec">
-        <li><a href="https://ustechautomations.com/feeds/grid/sample.csv">Open the 25 rows as a CSV</a><span class="sub">A plain spreadsheet file. It saves to your machine rather than painting itself into a browser tab, and it opens in Excel, Numbers or Google Sheets.</span></li>
-        <li><a href="https://ustechautomations.com/feeds/grid/sample.json">The same 25 rows as JSON</a><span class="sub">The same rows again, laid out for reading with code.</span></li>
+        <li><a href="https://ustechautomations.com/feeds/grid/sample.csv">Open the 16 rows as a CSV</a><span class="sub">A plain spreadsheet file. It saves to your machine rather than painting itself into a browser tab, and it opens in Excel, Numbers or Google Sheets.</span></li>
+        <li><a href="https://ustechautomations.com/feeds/grid/sample.json">The same 16 rows as JSON</a><span class="sub">The same rows again, laid out for reading with code.</span></li>
       </ul>
-      <p class="mail-note">These 25 rows are a slice of the file, not the whole of it. What they cannot show you is how far back the dated copies go.</p>
+      <p class="mail-note"><strong>What arrives after you pay:</strong> a person emails you the whole file as a CSV &mdash; the same plain spreadsheet as the sample file above, not a login and not a web page &mdash; within one working day of your payment.</p>
+      <p class="mail-note">These 16 rows are a slice of the file, not the whole of it. What we cannot show you here is how far back it goes: that is the part you are paying for.</p>
     </section>
-    <section class="contact">
+    <section class="contact buy">
+      <h2>Subscribe to this feed</h2>
+      <p class="buy-price"><strong>$49/mo</strong> &middot; daily seals</p>
+      <a class="btn btn-buy btn-lg" href="https://buy.stripe.com/8x214gdRAf5087G7vc0sU12" data-checkout="grid" rel="noopener">Subscribe — $49 a month</a>
+      <p class="mail-note">$49 a month, billed monthly, for dated what-moved files of the California ISO interconnection queue only. Not the Southwest Power Pool, not ISO New England, not the New York ISO, and not a four-queue blend. One file a week, built from daily seals. A week with no tracked-field moves is still sent: added 0, removed 0, changed 0, plus the two content hashes of the workbooks compared. This file uses material published by the California ISO. Copyright © 2026 California Independent System Operator. All rights reserved. Their terms say &quot;Most of the materials&quot;, not all. This file does not claim the Public Queue Report is inside that &quot;Most&quot;. Cancel any month by email, with no account to close and no notice period. After you pay, a person emails you the first California ISO what-moved file as a CSV within one working day, then a new one every week for as long as the subscription runs. Each file names the two sealed dates compared. If we could not collect that week, the file says so rather than repeating itself.</p>
+      <p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=Queue%20changes%20%E2%80%94%20%2449/mo">Email operations@ustechautomations.com</a>. Say that you want CAISO and we will tell you which weeks we hold for it before you pay.</p>
+    </section>
+
+    <section>
       <h2>This feed came off sale on 24 Aug 2026</h2>
-      <p><strong>There is no price on this page and no card button, and that is not a technical problem.</strong> The Southwest Power Pool is one of the four queues this feed reads, and their own terms page grants permission to copy and pass on their material with a proper credit &mdash; except inside a commercial publication. Selling this file was exactly that. We do not have their written authorization, so we took the price off rather than keep charging.</p>
-      <p>Nothing else changed. <strong>The pages stay up, they stay free, and they keep being rebuilt from the same sealed copies.</strong> We did not stop collecting, we did not delete anything, and we did not quietly weaken the rule to make the price fit.</p>
-      <p class="mail-note">If you want to talk about the queues we hold, <a href="mailto:operations@ustechautomations.com?subject=Queue%20change%20feed%20%E2%80%94%20which%20queues%20do%20you%20hold">email operations@ustechautomations.com</a> and say which ones you follow. We will tell you what we hold and what we do not.</p>
+      <p><strong>On 24 Aug 2026 there was no price on this page and no card button, and that was not a technical problem.</strong> The Southwest Power Pool is one of the four queues this feed reads, and their own terms page grants permission to copy and pass on their material with a proper credit &mdash; except inside a commercial publication. Selling a file that included their rows was exactly that. We do not have their written authorization, so we took the price off rather than keep charging.</p>
+      <p>Nothing else changed that day. <strong>The pages stayed up, they stayed free, and they kept being rebuilt from the same sealed copies.</strong> We did not stop collecting, we did not delete anything, and we did not quietly weaken the rule to make the price fit.</p>
+      <p>On 25 Aug 2026 the feed went back on sale as a California ISO-only file. SPP rows were never in a paid file after 24 Aug 2026 and are not in this one.</p>
     </section>
 
     <section>
@@ -153,7 +177,7 @@
 
       <h3>This data is public and free. What is this page for, then?</h3>
       <p>The data is not the hard part. Last week&rsquo;s copy of it is.</p>
-      <p>Every ISO publishes today&rsquo;s queue and overwrites the last one. Fetch CAISO now and you get today. There is nowhere to fetch last Tuesday. We have been keeping a dated copy since 11 Jun 2026 &mdash; weekly at first, then one every day since 9 Aug 2026, 25 dated copies in all &mdash; so the question &ldquo;what moved&rdquo; still has an answer. What this page shows is built out of those copies. If you already keep your own dated copies, you do not need us.</p>
+      <p>CAISO publishes today&rsquo;s queue and overwrites the last one. Fetch CAISO now and you get today. There is nowhere to fetch last Tuesday. We have been keeping a dated copy since 11 Jun 2026 &mdash; weekly at first, then one every day since 9 Aug 2026, 27 dated copies in all across the queues we read, sealed through 25 Aug 2026 &mdash; so the question &ldquo;what moved&rdquo; still has an answer. What this page shows is built out of those copies. If you already keep your own dated copies, you do not need us.</p>
 
       <h3>Are you allowed to collect this?</h3>
       <p>Everything here comes from a public queue file we fetched with a collector that says who it is.</p>
@@ -169,7 +193,7 @@
 
       <h3>Do you have the queues I follow?</h3>
       <p>Probably not all of them, and this page says which rather than leaving you to find out.</p>
-      <p>We hold current seals for four: CAISO, ISO-NE, NYISO and SPP. We also hold every copy we sealed for MISO up to 6 Aug 2026 and for ERCOT up to 30 Jul 2026, and nothing newer for either, for the reasons above. If the one you need is missing, <a href="mailto:operations@ustechautomations.com?subject=Queue%20change%20feed%20%E2%80%94%20which%20queues%20do%20you%20hold">email us</a> and say which it is. If we cannot collect it we will say so in the reply.</p>
+      <p>The file you pay for is CAISO only. We still collect four current queues: CAISO, ISO-NE, NYISO and SPP, sealed through 25 Aug 2026. ISO-NE and NYISO stay free: they publish no written grant, so they are in no paid file. SPP rows are in no paid file and not on this page, because their written terms allow reuse only outside a commercial publication. We also hold every copy we sealed for MISO up to 6 Aug 2026 and for ERCOT up to 30 Jul 2026, and nothing newer for either, for the reasons above. If the one you need is missing, <a href="mailto:operations@ustechautomations.com?subject=Queue%20change%20feed%20%E2%80%94%20which%20queues%20do%20you%20hold">email us</a> and say which it is. If we cannot collect it we will say so in the reply.</p>
     </section>
 
 

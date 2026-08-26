@@ -238,6 +238,12 @@ def fam_row(fid: str) -> dict:
 def price_of(spec: dict) -> str:
     """What this family costs, read out of catalog.json rather than off the caller.
 
+    One page-level override: a spec that says no_offer carries material whose
+    publisher's written terms forbid a commercial page, so for that page the
+    answer has no dollar sign in it -- and every guard downstream that keys off
+    the dollar sign (sample door, delivery sentence, contact wording) then
+    treats the page as unpriced, which is what it is.
+
     catalog.json is the one place a price is decided. Every page that prints a
     price now reads it from here, so there is nothing left for a build script to
     disagree with.
@@ -260,6 +266,8 @@ def price_of(spec: dict) -> str:
     build_about.py and build_extras.py -- keeps saying what its own module says,
     because there is no other answer to read.
     """
+    if spec.get("no_offer"):
+        return "Not sold from this page"
     fid = str(spec.get("id") or "")
     row = fam_row(fid)
     catalogued = str(row.get("price") or "").strip()
@@ -491,7 +499,14 @@ def offer_block(spec: dict) -> tuple[str, str]:
     The offer section is preceded by the sample door, so the last thing a buyer
     reads before the price is the file itself rather than a description of it.
     """
-    c = spec.get("checkout") or fam_row(str(spec.get("id") or "")).get("checkout") or {}
+    # A page that says no_offer carries material whose publisher permits
+    # copying only outside a commercial publication. It sells nothing, and it
+    # never falls back to the family's checkout record -- that record is
+    # exactly the offer this page may not carry.
+    if spec.get("no_offer"):
+        c = {}
+    else:
+        c = spec.get("checkout") or fam_row(str(spec.get("id") or "")).get("checkout") or {}
     door = sample_door(spec)
     subj = spec["subj"]
     mail = f"mailto:operations@ustechautomations.com?subject={subj}"
@@ -525,7 +540,10 @@ def offer_block(spec: dict) -> tuple[str, str]:
         boards = fam_row(str(spec.get("id") or "")).get("board_checkouts") or {}
         armed_n = sum(1 for r in boards.values()
                       if str((r or {}).get("url") or "").startswith("https://"))
-        if boards and armed_n == len(boards):
+        if spec.get("no_offer"):
+            lead = (f'<strong>Nothing is sold from this page.</strong> Email <a href="{mail}">'
+                    f'operations@ustechautomations.com</a>. {spec["contact_p"]}')
+        elif boards and armed_n == len(boards):
             lead = (f'<strong>Each city sold here has its own pay button, on its own '
                     f'page.</strong> Buy from the city\'s page, so the button you press '
                     f'names the city you get. Rather ask first? Email <a href="{mail}">'

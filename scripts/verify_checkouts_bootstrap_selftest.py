@@ -18,6 +18,13 @@ line = PREFIX + "FAIL: los-angeles checkout was last proved working 31 days ago;
 assert _bootstrap_fault(line) == "los-angeles"
 ok += 1
 
+# GREEN way 2b: the child-page spelling opens and names the FAMILY. Real text
+# from the 2026-08-25 grid arming: the button lives on the caiso child, but
+# the stamp it waits for is the family record's.
+line = PREFIX + "FAIL: grid/caiso checkout was never verified -- run scripts/verify_checkouts.py"
+assert _bootstrap_fault(line) == "grid", _bootstrap_fault(line)
+ok += 1
+
 # RED way 1: a missing pay button is the BUILDER's fault, not the verifier's.
 line = (PREFIX + "FAIL: chicago declares a checkout at https://buy.stripe.com/x "
         "and its own page shows no pay button at all")
@@ -47,4 +54,4 @@ kept = [r for r in rows if r.get("detail") != estate_down]
 assert kept == [{"id": "grid", "detail": "no permission note for its source"}]
 ok += 1
 
-print(f"ok - {ok}/7 both ways")
+print(f"ok - {ok}/8 both ways")

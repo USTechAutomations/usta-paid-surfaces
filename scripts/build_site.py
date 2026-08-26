@@ -747,11 +747,18 @@ def main() -> None:
         # checked. Read from the store, never typed, and left off a family that
         # has no store at all rather than guessed at.
         if st and isinstance(st.get("newest"), str) and st.get("cadence_days"):
+            # The cadence stamp is the promise a BUYER reads, and a hand-written
+            # page that states its own wins over the store map's number: the two
+            # answer different questions. grid promises one file a week while its
+            # collector is watched daily -- stamping the collector's 1 over the
+            # page's 7 held a weekly product to a daily promise it never made
+            # (pipeline._promised_cadence is the reader this feeds).
+            tags = f'<meta name="data-newest" content="{st["newest"]}">\n  '
+            if 'data-cadence-days' not in page:
+                tags += (f'<meta name="data-cadence-days" '
+                         f'content="{st["cadence_days"]}">\n  ')
             page = page.replace(
-                '<link rel="canonical"',
-                f'<meta name="data-newest" content="{st["newest"]}">\n'
-                f'  <meta name="data-cadence-days" content="{st["cadence_days"]}">\n'
-                f'  <link rel="canonical"', 1,
+                '<link rel="canonical"', tags + '<link rel="canonical"', 1,
             )
         closed = fam.get("closed")
         # A typed "this is finished" cannot outlive a dated decision that says
