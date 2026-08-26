@@ -26,8 +26,8 @@
         "label": "Subscribe — $49 a month",
         "lands_on": "buy.stripe.com",
         "status": "live",
-        "checked": "2026-08-25",
-        "verified": "2026-08-25"
+        "checked": "2026-08-26",
+        "verified": "2026-08-26"
       }
     },
     {
@@ -72,8 +72,8 @@
         "url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
         "lands_on": "buy.stripe.com",
         "label": "Subscribe — $99 a month",
-        "checked": "2026-08-25",
-        "verified": "2026-08-25"
+        "checked": "2026-08-26",
+        "verified": "2026-08-26"
       }
     },
     {
@@ -157,54 +157,54 @@
           "lands_on": "buy.stripe.com",
           "label": "Buy the Austin file — $349 once",
           "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
-          "checked": "2026-08-25",
+          "checked": "2026-08-26",
           "status": "live",
-          "verified": "2026-08-25"
+          "verified": "2026-08-26"
         },
         "cambridge-ma": {
           "url": "https://buy.stripe.com/aFadR2aFo7Cy4VueXE0sU0U",
           "lands_on": "buy.stripe.com",
           "label": "Buy the Cambridge file — $349 once",
           "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
-          "checked": "2026-08-25",
+          "checked": "2026-08-26",
           "status": "live",
-          "verified": "2026-08-25"
+          "verified": "2026-08-26"
         },
         "cincinnati": {
           "url": "https://buy.stripe.com/00w28kaFo4qmafOdTA0sU0V",
           "lands_on": "buy.stripe.com",
           "label": "Buy the Cincinnati file — $349 once",
           "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
-          "checked": "2026-08-25",
+          "checked": "2026-08-26",
           "status": "live",
-          "verified": "2026-08-25"
+          "verified": "2026-08-26"
         },
         "montgomery-md": {
           "url": "https://buy.stripe.com/dRmaEQeVE2ie87G8zg0sU0W",
           "lands_on": "buy.stripe.com",
           "label": "Buy the Montgomery County file — $349 once",
           "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
-          "checked": "2026-08-25",
+          "checked": "2026-08-26",
           "status": "live",
-          "verified": "2026-08-25"
+          "verified": "2026-08-26"
         },
         "new-york": {
           "url": "https://buy.stripe.com/aFadR2bJs6yugEc7vc0sU0X",
           "lands_on": "buy.stripe.com",
           "label": "Buy the New York City file — $349 once",
           "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
-          "checked": "2026-08-25",
+          "checked": "2026-08-26",
           "status": "live",
-          "verified": "2026-08-25"
+          "verified": "2026-08-26"
         },
         "san-francisco": {
           "url": "https://buy.stripe.com/6oUdR2eVE8GC9bK6r80sU0Y",
           "lands_on": "buy.stripe.com",
           "label": "Buy the San Francisco file — $349 once",
           "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
-          "checked": "2026-08-25",
+          "checked": "2026-08-26",
           "status": "live",
-          "verified": "2026-08-25"
+          "verified": "2026-08-26"
         }
       }
     },
@@ -418,8 +418,8 @@
         "url": "https://buy.stripe.com/3cI3co28S8GCbjS16O0sU0R",
         "lands_on": "buy.stripe.com",
         "label": "Subscribe — $59 a month",
-        "checked": "2026-08-25",
-        "verified": "2026-08-25"
+        "checked": "2026-08-26",
+        "verified": "2026-08-26"
       }
     },
     {
@@ -444,9 +444,10 @@
         "after": "After you pay, a person emails you the Texas pending-list what-moved file as a CSV within one working day, then a new one most weeks for as long as the subscription runs. Where a stretch has no new sealed copy, that week's file says so.",
         "url": "https://buy.stripe.com/4gMaEQ14O1eafA816O0sU13",
         "label": "Subscribe — $79 a month",
+        "lands_on": "buy.stripe.com",
         "status": "live",
-        "checked": "2026-08-25",
-        "verified": "2026-08-25"
+        "checked": "2026-08-26",
+        "verified": "2026-08-26"
       },
       "sells": "The Texas pending new-source air review list only. Arizona is not part of this feed."
     },
@@ -643,8 +644,8 @@
         "url": "https://buy.stripe.com/5kQbIU5l41eaafO5n40sU0Z",
         "lands_on": "buy.stripe.com",
         "label": "Buy the file — $349 once",
-        "checked": "2026-08-25",
-        "verified": "2026-08-25"
+        "checked": "2026-08-26",
+        "verified": "2026-08-26"
       }
     },
     {
@@ -671,8 +672,8 @@
         "url": "https://buy.stripe.com/4gM3coeVEf505Zyg1I0sU10",
         "lands_on": "buy.stripe.com",
         "label": "Buy the file — $349 once",
-        "checked": "2026-08-25",
-        "verified": "2026-08-25"
+        "checked": "2026-08-26",
+        "verified": "2026-08-26"
       }
     },
     {
@@ -699,8 +700,8 @@
         "url": "https://buy.stripe.com/8x2aEQeVE3mibjS4j00sU11",
         "lands_on": "buy.stripe.com",
         "label": "Buy the file — $349 once",
-        "checked": "2026-08-25",
-        "verified": "2026-08-25"
+        "checked": "2026-08-26",
+        "verified": "2026-08-26"
       }
     },
     {
@@ -727,8 +728,8 @@
         "url": "https://buy.stripe.com/dRmbIU7tc2ie3RqaHo0sU19",
         "label": "Buy the file — $349 once",
         "lands_on": "buy.stripe.com",
-        "checked": "2026-08-25",
-        "verified": "2026-08-25"
+        "checked": "2026-08-26",
+        "verified": "2026-08-26"
       }
     },
     {
@@ -1053,8 +1054,8 @@
         "url": "https://buy.stripe.com/dRmaEQ7tc9KGgEceXE0sU17",
         "label": "Buy the file — $349 once",
         "lands_on": "buy.stripe.com",
-        "checked": "2026-08-25",
-        "verified": "2026-08-25"
+        "checked": "2026-08-26",
+        "verified": "2026-08-26"
       }
     },
     {
@@ -1081,8 +1082,8 @@
         "url": "https://buy.stripe.com/7sYbIU3cW6yugEc02K0sU18",
         "label": "Buy the file — $349 once",
         "lands_on": "buy.stripe.com",
-        "checked": "2026-08-25",
-        "verified": "2026-08-25"
+        "checked": "2026-08-26",
+        "verified": "2026-08-26"
       }
     },
     {
@@ -1109,8 +1110,8 @@
         "url": "https://buy.stripe.com/4gM14g00K0a61Ji9Dk0sU1a",
         "label": "Buy the file — $349 once",
         "lands_on": "buy.stripe.com",
-        "checked": "2026-08-25",
-        "verified": "2026-08-25"
+        "checked": "2026-08-26",
+        "verified": "2026-08-26"
       }
     }
   ],
