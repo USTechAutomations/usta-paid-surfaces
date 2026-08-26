@@ -139,6 +139,17 @@
       "reviewed_by": "claude gmullins-1e 2026-08-25 - the clause bites our own rows: 7% of the 1,350 stored Seattle rows carry contractor_name, so a delivered file can be readily sorted into a list of individuals; refusal stands even under the operator's 2026-08-25 default-open decision (row 17) because this prohibition is written",
       "note": "Dossier: ~/revenue-2026/research/paid-source-terms-2026-08-25/seattle.md. Attribution not required ('Unless otherwise indicated, data on this site does not require specific attribution.').",
       "labels": ["seattle", "seattle, washington"]
+    },
+    "tceq_nsr_pending": {
+      "name": "Texas Commission on Environmental Quality pending New Source Review list",
+      "verdict": "ALLOW_PAID",
+      "decided_on": "2026-08-25",
+      "evidence_url": "https://www.tceq.texas.gov/help/policies/linking_policy.html",
+      "quote": "Unless otherwise noted, content of our site is considered “public domain.” We have no restrictions on linking to our site as long as a fee is not charged to access our material.",
+      "required_text": "",
+      "reviewed_by": "terms fetched 2026-08-25 from the evidence URL; operator named ALLOW this conversation 2026-08-25 for a paid CSV of dated diffs of the pending list. We do not charge anyone to open TCEQ's own page and we do not use the TCEQ logo.",
+      "note": "Arizona ADEQ is not this source and stays refused. The paid file is what moved between our sealed copies, not a fee to read TCEQ's live HTML.",
+      "labels": ["tceq_nsr_pending", "tceq", "texas", "tceq.texas.gov"]
     }
   }
 }
