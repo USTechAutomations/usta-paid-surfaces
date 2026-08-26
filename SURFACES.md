@@ -39,6 +39,16 @@ Use this repo to **organize** the repeatable feeds (including the permits-owned 
 | `families/ttb/` | TTB ledger | `.../families/ttb/` |
 | `families/crawler/` | Crawler sentinel | `.../families/crawler/` |
 | `families/mn-pfas/` | Minnesota PFAS filer check (letter, not a feed) | `.../families/mn-pfas/` |
+| `families/claim-check/` | Claim-check receipt (letter, not a feed) | `.../families/claim-check/` |
+| `families/agent-break/` | Agent break report (letter, not a feed) | `.../families/agent-break/` |
+| `families/raise-prep/` | Raise-talk prep pack (letter, not a feed) | `.../families/raise-prep/` |
+| `families/deprecation-weather/` | Deprecation weather board (letter, not a feed) | `.../families/deprecation-weather/` |
+| `families/terms-ledger/` | Terms-versions evidence pack (letter, not a feed). Not `ai-terms`. | `.../families/terms-ledger/` |
+| `families/cutoff-proof/` | Post-cutoff certificate (letter, not a feed) | `.../families/cutoff-proof/` |
+| `families/extract-custody/` | Document custody vault (letter, not a feed) | `.../families/extract-custody/` |
+| `families/outcome-registry/` | Outcome registry filing (letter, not a feed). Not `verified-record` / `markets-resolved`. | `.../families/outcome-registry/` |
+| `families/canary-ledger/` | Canary marker evidence pack (letter, not a feed) | `.../families/canary-ledger/` |
+| `families/gathering-host/` | Gathering host run sheet (letter, not a feed) | `.../families/gathering-host/` |
 
 Do not invent a fifth shop. Point the stub at the live permits URL until the stub is better, then the stub becomes the public product.
 

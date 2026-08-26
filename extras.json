@@ -27,6 +27,96 @@
     "pill_class": "pill-ready"
   },
   {
+    "id": "claim-check",
+    "short": "Claim-check receipt",
+    "who": "A developer shipping an AI feature that shows citations.",
+    "amount": "$19",
+    "cadence": "per check, credits",
+    "pill": "Example receipt",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "agent-break",
+    "short": "Agent break report",
+    "who": "An engineer who owns a customer-facing AI bot.",
+    "amount": "$450",
+    "cadence": "one audit, then monthly",
+    "pill": "Example report",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "raise-prep",
+    "short": "Raise-talk prep pack",
+    "who": "Someone with a pay-raise talk booked in 14 days or less.",
+    "amount": "$179",
+    "cadence": "one pack",
+    "pill": "Example pack",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "deprecation-weather",
+    "short": "Deprecation weather board",
+    "who": "An engineer who owns the third-party-integration layer at a 5 to 50 person company.",
+    "amount": "$199/mo",
+    "cadence": "monthly per repo",
+    "pill": "Example board",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "terms-ledger",
+    "short": "Terms-versions evidence pack",
+    "who": "A data lead at a small or mid-size AI company who has to show where training data was allowed to come from.",
+    "amount": "$179",
+    "cadence": "dated reads",
+    "pill": "Example quotes",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "cutoff-proof",
+    "short": "Post-cutoff certificate",
+    "who": "A founder or head of engineering whose product's answers must be current after the model's training cutoff.",
+    "amount": "$195",
+    "cadence": "certified run",
+    "pill": "Example certificate",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "extract-custody",
+    "short": "Document custody vault",
+    "who": "A 1 to 5 person AI consultancy handling clients' documents.",
+    "amount": "$9/mo",
+    "cadence": "monthly vault",
+    "pill": "Example log",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "outcome-registry",
+    "short": "Outcome registry filing",
+    "who": "Someone who publicly committed to a dated prediction and wants a neutral sealed record of it.",
+    "amount": "$25",
+    "cadence": "per filing",
+    "pill": "Example filing",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "canary-ledger",
+    "short": "Canary marker evidence pack",
+    "who": "The owner of a small paid-content business being copied.",
+    "amount": "$175",
+    "cadence": "founding pack, then monthly",
+    "pill": "Example marker",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "gathering-host",
+    "short": "Gathering host run sheet",
+    "who": "A person running a recurring, capacity-limited gathering.",
+    "amount": "$348/yr",
+    "cadence": "yearly host plan",
+    "pill": "Example run sheet",
+    "pill_class": "pill-ready"
+  },
+  {
     "id": "coverage",
     "short": "Everything we hold",
     "who": "Anyone deciding whether we hold the record they need, before they ask about price",

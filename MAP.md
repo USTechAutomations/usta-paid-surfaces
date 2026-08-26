@@ -48,6 +48,16 @@ These are the high-probability **repeatable** products. Many buyers, one page. B
 | sec-8k | 8-K auditor/officer changes | Audit / IR / software | $175/mo | `/permits/sec-8k` | FAIL | **New stub** |
 | az-contractors | AZ ROC roster changes | AZ GCs / insurers | $175/mo | roster receipt | FAIL | **New stub** |
 | mn-pfas | Minnesota PFAS filer check | Compliance managers at makers / brand owners / importers selling into Minnesota | $450 once (first named product line) | none; letter via email | worked example on the page | **Proposed 26 Aug 2026**. Not a feed. kind=build. No Stripe URL. |
+| claim-check | Claim-check receipt | Developer shipping an AI feature that shows citations | $19 credit pack | none; prototype in autonomous-systems/claim-check-oracle | real Claim Receipt on the page | **New 25 Aug 2026**. kind=build. No Stripe URL. NEW family. |
+| agent-break | Agent break report | Engineer who owns a customer-facing AI bot | $450 one-time audit | none; not agent-register / agent-incidents | real Break Report on the page | **New 25 Aug 2026**. kind=build. No Stripe URL. NEW family (different buyer). |
+| raise-prep | Raise-talk prep pack | Someone with a pay-raise talk booked in ≤14 days | $179 once | none | redacted example pack on the page | **New 25 Aug 2026**. kind=build. No Stripe URL. Do not wire a charge. |
+| deprecation-weather | Deprecation weather board | Engineer who owns third-party integrations at a 5–50 person co | $199/mo per repo | none | fixture board + measured accuracy on the page | **New 25 Aug 2026**. kind=build. No Stripe URL. |
+| terms-ledger | Terms-versions evidence pack | Data lead at a small-mid AI company | $179 evidence pack | not ai-terms (that family cannot store wording) | dated quoted fixture diffs on the page | **New 25 Aug 2026**. kind=build. No Stripe URL. NEW family. |
+| cutoff-proof | Post-cutoff certificate | Founder/head-eng whose product answers must be current | $195 certified run | none | sealed certificate + scoreboard row on the page | **New 25 Aug 2026**. kind=build. No Stripe URL. |
+| extract-custody | Document custody vault | 1–5 person AI consultancy handling clients' documents | $9/mo solo vault | none | custody log + portable profile on the page | **New 25 Aug 2026**. kind=build. No Stripe URL. Only $9 tier chargeable in code. |
+| outcome-registry | Outcome registry filing | Someone who publicly committed to a dated prediction | $25 per filing | not verified-record / markets-resolved | public sealed record on the page | **New 25 Aug 2026**. kind=build. No Stripe URL. NEW family. |
+| canary-ledger | Canary marker evidence pack | Owner of a small paid-content business being copied | $175 founding | none | minted marker + proven-hit pack on the page | **New 25 Aug 2026**. kind=build. No Stripe URL. |
+| gathering-host | Gathering host run sheet | Person running a recurring, capacity-limited gathering | $348/yr host plan | none | run sheet on the page | **New 25 Aug 2026**. kind=build. No Stripe URL. Never attendee money. |
 
 ## C. Parked — do not build
 
