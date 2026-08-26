@@ -442,8 +442,9 @@
       "checkout": {
         "terms": "$79 a month, billed monthly, for dated diffs of the Texas Commission on Environmental Quality pending New Source Review list only. Arizona is not in this file. Texas is read most days, not every day, and every missed day is named on the page. A row leaving the pending list is not an approval. There is no megawatt figure. Source is the TCEQ pending New Source Review list, public domain unless otherwise noted. We do not charge anyone to open TCEQ's own page, and we do not use the TCEQ logo. Cancel any month by email, with no account to close and no notice period.",
         "after": "After you pay, a person emails you the Texas pending-list what-moved file as a CSV within one working day, then a new one most weeks for as long as the subscription runs. Where a stretch has no new sealed copy, that week's file says so.",
-        "url": "TO-MINT",
-        "label": "Subscribe — $79 a month"
+        "url": "https://buy.stripe.com/4gMaEQ14O1eafA816O0sU13",
+        "label": "Subscribe — $79 a month",
+        "status": "unverified"
       },
       "sells": "The Texas pending new-source air review list only. Arizona is not part of this feed."
     },
