@@ -1,0 +1,199 @@
+{
+  "city": "boston",
+  "dataset": "approved-building-permits",
+  "resource_id": "6ddcd912-32a0-43df-9908-63574f8c7e77",
+  "package_id": "cd1ec3ff-6ebf-4a65-af68-8329eceab740",
+  "fetched_on": "2026-08-26",
+  "fetched_utc": "2026-08-26T01:48:39Z",
+  "csv_bytes": 237918452,
+  "csv_sha256": "fe28d4c7eb0bb2b034fbdddcaa279b9b164241a49e0691fa61acf9ecd40ee121",
+  "ckan_download_url": "https://data.boston.gov/dataset/cd1ec3ff-6ebf-4a65-af68-8329eceab740/resource/6ddcd912-32a0-43df-9908-63574f8c7e77/download/tmpgenxpedd.csv",
+  "s3_last_modified": "Tue, 25 Aug 2026 15:24:33 GMT",
+  "header": [
+    "permitnumber",
+    "worktype",
+    "permittypedescr",
+    "description",
+    "comments",
+    "applicant",
+    "declared_valuation",
+    "total_fees",
+    "issued_date",
+    "expiration_date",
+    "status",
+    "occupancytype",
+    "sq_feet",
+    "address",
+    "city",
+    "state",
+    "zip",
+    "ward",
+    "property_id",
+    "parcel_id",
+    "gpsy",
+    "gpsx",
+    "y_latitude",
+    "x_longitude"
+  ],
+  "n_data_rows": 661051,
+  "n_header_cols": 24,
+  "person_headers_stripped": [
+    "applicant",
+    "comments"
+  ],
+  "strip_why": {
+    "applicant": "column header names a person; outbound_guard PERSON_WORDS includes applicant",
+    "comments": "200-row sample of comments contained person names (e.g. Larry Austin, John Cruz, Niles Sutphin, John Jacobs, Jessica Hartmans, Arthur Choo). Dropped from every paid file and sample."
+  },
+  "issued_date_oldest": "2006-09-26",
+  "issued_date_newest": "2026-08-25",
+  "permittypedescr_counts": [
+    [
+      "Short Form Bldg Permit",
+      190581
+    ],
+    [
+      "Electrical Permit",
+      143512
+    ],
+    [
+      "Plumbing Permit",
+      90880
+    ],
+    [
+      "Gas Permit",
+      65842
+    ],
+    [
+      "Electrical Low Voltage",
+      48368
+    ],
+    [
+      "Long Form/Alteration Permit",
+      45412
+    ],
+    [
+      "Electrical Fire Alarms",
+      34501
+    ],
+    [
+      "Certificate of Occupancy",
+      23311
+    ],
+    [
+      "Electrical Temporary Service",
+      8189
+    ],
+    [
+      "Amendment to a Long Form",
+      5478
+    ],
+    [
+      "Erect/New Construction",
+      3382
+    ],
+    [
+      "Use of Premises",
+      1423
+    ],
+    [
+      "Foundation Permit",
+      172
+    ]
+  ],
+  "slice_windows": {
+    "Short Form Bldg Permit": {
+      "n": 190581,
+      "oldest": "2009-12-09",
+      "newest": "2026-08-24"
+    },
+    "Electrical Permit": {
+      "n": 143512,
+      "oldest": "2009-12-10",
+      "newest": "2026-08-25"
+    },
+    "Plumbing Permit": {
+      "n": 90880,
+      "oldest": "2009-12-11",
+      "newest": "2026-08-24"
+    },
+    "Gas Permit": {
+      "n": 65842,
+      "oldest": "2009-12-10",
+      "newest": "2026-08-24"
+    },
+    "Electrical Low Voltage": {
+      "n": 48368,
+      "oldest": "2009-12-11",
+      "newest": "2026-08-24"
+    }
+  },
+  "all_type_windows": {
+    "Short Form Bldg Permit": {
+      "n": 190581,
+      "oldest": "2009-12-09",
+      "newest": "2026-08-24"
+    },
+    "Electrical Permit": {
+      "n": 143512,
+      "oldest": "2009-12-10",
+      "newest": "2026-08-25"
+    },
+    "Plumbing Permit": {
+      "n": 90880,
+      "oldest": "2009-12-11",
+      "newest": "2026-08-24"
+    },
+    "Gas Permit": {
+      "n": 65842,
+      "oldest": "2009-12-10",
+      "newest": "2026-08-24"
+    },
+    "Electrical Low Voltage": {
+      "n": 48368,
+      "oldest": "2009-12-11",
+      "newest": "2026-08-24"
+    },
+    "Long Form/Alteration Permit": {
+      "n": 45412,
+      "oldest": "2007-12-26",
+      "newest": "2026-08-24"
+    },
+    "Electrical Fire Alarms": {
+      "n": 34501,
+      "oldest": "2009-12-11",
+      "newest": "2026-08-24"
+    },
+    "Certificate of Occupancy": {
+      "n": 23311,
+      "oldest": "2009-12-07",
+      "newest": "2026-08-24"
+    },
+    "Electrical Temporary Service": {
+      "n": 8189,
+      "oldest": "2010-01-04",
+      "newest": "2026-08-20"
+    },
+    "Amendment to a Long Form": {
+      "n": 5478,
+      "oldest": "2010-01-22",
+      "newest": "2026-08-24"
+    },
+    "Erect/New Construction": {
+      "n": 3382,
+      "oldest": "2010-02-23",
+      "newest": "2026-08-19"
+    },
+    "Use of Premises": {
+      "n": 1423,
+      "oldest": "2006-09-26",
+      "newest": "2026-08-20"
+    },
+    "Foundation Permit": {
+      "n": 172,
+      "oldest": "2010-09-08",
+      "newest": "2026-08-13"
+    }
+  },
+  "prior_ckan_datastore_total": 661051
+}

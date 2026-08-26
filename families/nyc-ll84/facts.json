@@ -1,0 +1,43 @@
+{
+  "view_id": "5zyy-y8am",
+  "pulled_on": "2026-08-26",
+  "pulled_utc": "2026-08-26T01:52:45Z",
+  "row_count": 103259,
+  "column_count_city": 265,
+  "column_count_paid": 264,
+  "stripped_field_names": [
+    "multifamily_housing_resident"
+  ],
+  "by_calendar_year": {
+    "2022": 30485,
+    "2023": 33684,
+    "2024": 39090
+  },
+  "by_city_borough_column": {
+    "QUEENS": 19942,
+    "BRONX": 18534,
+    "MANHATTAN": 34430,
+    "BROOKLYN": 24378,
+    "(blank)": 3725,
+    "STATEN IS": 2250
+  },
+  "by_bbl_first_digit": {
+    "Queens": 20778,
+    "Bronx": 19170,
+    "Manhattan": 35299,
+    "Brooklyn": 24859,
+    "Staten Island": 2415,
+    "(BBL first digit not 1-5)": 738
+  },
+  "year_ending_min": "2022-12-31",
+  "year_ending_max": "2024-12-31",
+  "export_sha256": "32136f193fa5840ee16b54abb6d82aa4831c87c51044a55deddeae608e5d99b8",
+  "export_bytes": 319090372,
+  "dictionary_quote": "The first number represents the borough, where 1 is Manhattan, 2 is the Bronx, 3 is Brooklyn, 4 is Queens, and 5 is Staten Island.",
+  "years_absent_from_this_view": [
+    "2021 and earlier",
+    "2025"
+  ],
+  "monthly_view_not_pulled": "fvp3-gcb2",
+  "permit_file_this_is_not": "rbx6-tga4"
+}

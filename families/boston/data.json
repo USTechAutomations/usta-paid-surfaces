@@ -1,0 +1,54 @@
+{
+  "family": "boston",
+  "generated": "2026-08-25",
+  "slices": [
+    {
+      "slug": "short-form-bldg-permit",
+      "newest": "2026-08-26",
+      "oldest": "2009-12-09",
+      "runs": 1,
+      "row_count": 190581,
+      "cadence_days": 365
+    },
+    {
+      "slug": "electrical-permit",
+      "newest": "2026-08-26",
+      "oldest": "2009-12-10",
+      "runs": 1,
+      "row_count": 143512,
+      "cadence_days": 365
+    },
+    {
+      "slug": "plumbing-permit",
+      "newest": "2026-08-26",
+      "oldest": "2009-12-11",
+      "runs": 1,
+      "row_count": 90880,
+      "cadence_days": 365
+    },
+    {
+      "slug": "gas-permit",
+      "newest": "2026-08-26",
+      "oldest": "2009-12-10",
+      "runs": 1,
+      "row_count": 65842,
+      "cadence_days": 365
+    },
+    {
+      "slug": "electrical-low-voltage",
+      "newest": "2026-08-26",
+      "oldest": "2009-12-11",
+      "runs": 1,
+      "row_count": 48368,
+      "cadence_days": 365
+    },
+    {
+      "slug": "coverage",
+      "newest": "2026-08-26",
+      "oldest": "2006-09-26",
+      "runs": 1,
+      "row_count": 661051,
+      "cadence_days": 365
+    }
+  ]
+}

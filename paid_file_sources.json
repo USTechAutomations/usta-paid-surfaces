@@ -150,6 +150,28 @@
       "reviewed_by": "terms fetched 2026-08-25 from the evidence URL; operator named ALLOW this conversation 2026-08-25 for a paid CSV of dated diffs of the pending list. We do not charge anyone to open TCEQ's own page and we do not use the TCEQ logo.",
       "note": "Arizona ADEQ is not this source and stays refused. The paid file is what moved between our sealed copies, not a fee to read TCEQ's live HTML.",
       "labels": ["tceq_nsr_pending", "tceq", "texas", "tceq.texas.gov"]
+    },
+    "boston": {
+      "name": "Boston, Massachusetts (Analyze Boston approved-building-permits)",
+      "verdict": "ALLOW_PAID",
+      "decided_on": "2026-08-26",
+      "evidence_url": "https://data.boston.gov/dataset/approved-building-permits",
+      "quote": "These rights explicitly include commercial use, and do not exclude any field of endeavour.",
+      "required_text": "",
+      "reviewed_by": "grok task-m5-boston-build 2026-08-26; adopted by claude lead 2026-08-25 after byte-check: PDDL grant, preamble and no-attribution sentences each counted once in the saved licence body (sha256 40df1180e82d7f40288ff7be41c4eb4b0cc9d58e4722dd090c63245dcf2141e9); CKAN package names odc-pddl (sha256 c09198d92a2a8150dc3d819f2211c0aec07a180207dd682471bfc0589cb8299b); dataset page licence module re-verified from the task's own fetch",
+      "note": "PDDL v1.0: public-domain dedication, commercial use granted, attribution not required (credit still printed). The one open hole in the task's TERMS (the data-dictionary PDF) was closed by the claude lead 2026-08-25: fetched the real PDF (4 pages, 602 words), zero hits for licence/terms/restrict/commercial/copyright - it is a pure column dictionary. applicant stripped; comments stripped after a 200-row sample contained person names.",
+      "labels": ["boston", "boston, massachusetts", "data.boston.gov", "6ddcd912-32a0-43df-9908-63574f8c7e77"]
+    },
+    "nyc-ll84": {
+      "name": "NYC Local Law 84 energy-and-water disclosure (view 5zyy-y8am)",
+      "verdict": "ALLOW_PAID",
+      "decided_on": "2026-08-25",
+      "evidence_url": "https://opendata.cityofnewyork.us/faq/",
+      "quote": "Open Data belongs to all New Yorkers. There are no restrictions on the use of Open Data.",
+      "required_text": "",
+      "reviewed_by": "terms read by terms-dossier agent (claude-opus-5) 2026-08-25; operator decision 'yes clear' 2026-08-25 (approvals/operator_decisions_2026-08-25.md row 15); same FAQ grant as new-york; quote re-verified byte-for-byte by grok task-m5-nyc-ll84-build (body sha256 257773c7e31c7434dc4d65a5f50dba6d85c8e463159dd6b2b3b5853f1b8480bd) and recounted by the claude lead 2026-08-25 (count 1); the FAQ's Terms of Use link was fetched by the claude lead 2026-08-25: warranty disclaimers only, no commercial-use restriction, no required text",
+      "note": "Same portal-wide NYC Open Data FAQ as the DOB NOW permit board. Different view (5zyy-y8am, not rbx6-tga4). No new required_text. Not the monthly kBtu view fvp3-gcb2.",
+      "labels": ["nyc-ll84", "5zyy-y8am", "local law 84", "ll84"]
     }
   }
 }

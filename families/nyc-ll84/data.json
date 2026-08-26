@@ -1,0 +1,78 @@
+{
+  "family": "nyc-ll84",
+  "generated": "2026-08-25",
+  "slices": [
+    {
+      "slug": "calendar-year-2022",
+      "newest": "2026-08-26",
+      "oldest": "2022-12-31",
+      "runs": 1,
+      "row_count": 30485,
+      "cadence_days": 365
+    },
+    {
+      "slug": "calendar-year-2023",
+      "newest": "2026-08-26",
+      "oldest": "2023-12-31",
+      "runs": 1,
+      "row_count": 33684,
+      "cadence_days": 365
+    },
+    {
+      "slug": "calendar-year-2024",
+      "newest": "2026-08-26",
+      "oldest": "2024-12-31",
+      "runs": 1,
+      "row_count": 39090,
+      "cadence_days": 365
+    },
+    {
+      "slug": "manhattan",
+      "newest": "2026-08-26",
+      "oldest": "2022-12-31",
+      "runs": 1,
+      "row_count": 35299,
+      "cadence_days": 365
+    },
+    {
+      "slug": "bronx",
+      "newest": "2026-08-26",
+      "oldest": "2022-12-31",
+      "runs": 1,
+      "row_count": 19170,
+      "cadence_days": 365
+    },
+    {
+      "slug": "brooklyn",
+      "newest": "2026-08-26",
+      "oldest": "2022-12-31",
+      "runs": 1,
+      "row_count": 24859,
+      "cadence_days": 365
+    },
+    {
+      "slug": "queens",
+      "newest": "2026-08-26",
+      "oldest": "2022-12-31",
+      "runs": 1,
+      "row_count": 20778,
+      "cadence_days": 365
+    },
+    {
+      "slug": "staten-island",
+      "newest": "2026-08-26",
+      "oldest": "2022-12-31",
+      "runs": 1,
+      "row_count": 2415,
+      "cadence_days": 365
+    },
+    {
+      "slug": "coverage",
+      "newest": "2026-08-26",
+      "oldest": "2022-12-31",
+      "runs": 1,
+      "row_count": 103259,
+      "cadence_days": 365
+    }
+  ]
+}

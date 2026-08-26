@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Assemble one paid permit file and run the outbound guard on the exact bytes.
 
-    python3 scripts/assemble_paid_file.py --city chicago --out FILE.csv
-    python3 scripts/assemble_paid_file.py --city los-angeles --out FILE.csv
-    python3 scripts/assemble_paid_file.py --city baton-rouge --out FILE.csv
+    python3 scripts/assemble_city_file.py --city chicago --out FILE.csv
+    python3 scripts/assemble_city_file.py --city los-angeles --out FILE.csv
+    python3 scripts/assemble_city_file.py --city baton-rouge --out FILE.csv
+    python3 scripts/assemble_city_file.py --city boston --out FILE.csv
 
     --keep-person     leave a person column in (negative: must come back BLOCKED)
     --refused-source  stamp Marin County into the file (negative: must come back BLOCKED)
@@ -27,7 +28,7 @@ import outbound_guard as og  # noqa: E402
 
 def main() -> int:
     p = argparse.ArgumentParser()
-    p.add_argument("--city", required=True, choices=("chicago", "los-angeles", "baton-rouge"))
+    p.add_argument("--city", required=True, choices=("chicago", "los-angeles", "baton-rouge", "boston"))
     p.add_argument("--out", required=True)
     p.add_argument("--keep-person", action="store_true")
     p.add_argument("--refused-source", action="store_true")
@@ -38,7 +39,8 @@ def main() -> int:
     rows = bf.load_rows(args.city)
     headers, cells = bf.cleaned_rows(args.city, rows)
     if args.keep_person:
-        headers = list(headers) + ["contractor_name"]
+        person_col = "applicant" if args.city == "boston" else "contractor_name"
+        headers = list(headers) + [person_col]
         cells = [list(r) + ["Jane Example"] for r in cells]
     if args.refused_source:
         headers = list(headers) + ["jurisdiction"]

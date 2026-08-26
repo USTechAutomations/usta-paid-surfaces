@@ -1000,6 +1000,52 @@
       "kind": "build",
       "sample_status": "pass",
       "group": "Checks we run for you"
+    },
+    {
+      "id": "boston",
+      "name": "Boston building permits in one file",
+      "short": "Boston permit file",
+      "who": "General contractors, lenders, and data teams who need Boston's published approved building permits on one sheet, without applicant names.",
+      "buyer": "General contractors, lenders, and data teams who need Boston approved permits on one sheet",
+      "cadence": "one-time file, pulled 26 Aug 2026",
+      "cadence_long": "One assembled file. Not a subscription.",
+      "price": "$349",
+      "sample_status": "pass",
+      "group": "Construction records",
+      "note": "BORN 2026-08-26 in a copy of this repo. PROPOSED. One-time assembled approved-building-permit file from Analyze Boston. Price $349 once per slice, five slices counted off a 661,051-row pull. applicant and comments stripped (comments dropped after a 200-row sample contained person names). Checkout URL left empty for Claude to mint. Never mint from this note. paid_file_sources.json is not changed in this lane; ALLOW_PAID draft is TERMS.md.",
+      "contact_h2": "Ask before you buy",
+      "contact_p": "Name the slice. We reply with how many rows we hold for it, and the date we pulled them, before you spend anything.",
+      "contact_cta": "Email us for the $349 checkout link",
+      "contact_note": "Say which slice you want. We will tell you the row count and the pull date before you pay. There is no pay button on this page until a payment link is minted.",
+      "foot": "Every count and date on this page was read out of the extract we pulled on the day named above. Where a column names a person, it is not in the file you buy. City of Boston rows, Open Data Commons Public Domain Dedication and License (PDDL) v1.0.",
+      "checkout": {
+        "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. The file is City of Boston approved-building-permit rows published on Analyze Boston under the Open Data Commons Public Domain Dedication and License (PDDL) v1.0, with the applicant and comments columns taken out.",
+        "after": "After you pay, a person emails you the whole file as a CSV within one working day of your payment.",
+        "status": "none"
+      }
+    },
+    {
+      "id": "nyc-ll84",
+      "name": "NYC LL84 energy-and-water disclosure files",
+      "short": "NYC LL84 energy file",
+      "who": "LL97 and energy-compliance teams who need one dated NYC energy-and-water disclosure slice, not a permit board.",
+      "buyer": "LL97 and energy-compliance teams who need one dated NYC energy-and-water disclosure slice, not a permit board",
+      "cadence": "one-time file, pulled 26 Aug 2026",
+      "cadence_long": "One assembled file. Not a subscription.",
+      "price": "$349",
+      "sample_status": "pass",
+      "group": "Energy and siting",
+      "note": "BORN 2026-08-26 in a copy of this repo as a PATCH proposal. One-time assembled Local Law 84 energy-and-water disclosure file from NYC Open Data view 5zyy-y8am. Price $349 once per slice. Slices are calendar years that have rows (2022, 2023, 2024) and boroughs derived from BBL first digit with the City's own codes. Checkout URL left empty for Claude to mint. Never mint from this note. Monthly kBtu view fvp3-gcb2 stays off the mint list. This is not permit-files/new-york (DOB NOW Build approved permits, rbx6-tga4).",
+      "contact_h2": "Ask before you buy",
+      "contact_p": "Name the calendar year or the borough. We reply with how many rows we hold for it, and the date we pulled them, before you spend anything.",
+      "contact_cta": "Email us before you pay",
+      "contact_note": "Say which year or borough you want. We will tell you the row count and the pull date before you pay.",
+      "foot": "Every count and date on this page was read out of the extract we pulled on the day named above. The City's CSV stays free. This is not the DOB permit file already on sale.",
+      "checkout": {
+        "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. The City already publishes the unsliced table free. You are buying one dated year or borough cut, not a secret archive and not a subscription.",
+        "after": "After you pay, a person emails you the whole file as a CSV within one working day of your payment.",
+        "status": "none"
+      }
     }
   ],
   "map": "MAP.md",

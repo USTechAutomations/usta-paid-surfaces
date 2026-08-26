@@ -1,0 +1,1327 @@
+[
+  {
+    "field": "report_year",
+    "name": "Calendar Year",
+    "type": "number"
+  },
+  {
+    "field": "property_id",
+    "name": "Property ID",
+    "type": "number"
+  },
+  {
+    "field": "property_name",
+    "name": "Property Name",
+    "type": "text"
+  },
+  {
+    "field": "parent_property_id",
+    "name": "Parent Property ID",
+    "type": "text"
+  },
+  {
+    "field": "parent_property_name",
+    "name": "Parent Property Name",
+    "type": "text"
+  },
+  {
+    "field": "year_ending",
+    "name": "Year Ending",
+    "type": "calendar_date"
+  },
+  {
+    "field": "nyc_borough_block_and_lot",
+    "name": "NYC Borough, Block and Lot (BBL)",
+    "type": "text"
+  },
+  {
+    "field": "nyc_building_identification",
+    "name": "NYC Building Identification Number (BIN)",
+    "type": "text"
+  },
+  {
+    "field": "address_1",
+    "name": "Address 1",
+    "type": "text"
+  },
+  {
+    "field": "city",
+    "name": "City",
+    "type": "text"
+  },
+  {
+    "field": "postal_code",
+    "name": "Postal Code",
+    "type": "text"
+  },
+  {
+    "field": "primary_property_type_self",
+    "name": "Primary Property Type - Self Selected",
+    "type": "text"
+  },
+  {
+    "field": "primary_property_type",
+    "name": "Primary Property Type - Portfolio Manager-Calculated",
+    "type": "text"
+  },
+  {
+    "field": "national_median_reference",
+    "name": "National Median Reference Property Type",
+    "type": "text"
+  },
+  {
+    "field": "list_of_all_property_use",
+    "name": "List of All Property Use Types (GFA) (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "largest_property_use_type",
+    "name": "Largest Property Use Type",
+    "type": "text"
+  },
+  {
+    "field": "largest_property_use_type_1",
+    "name": "Largest Property Use Type - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "_2nd_largest_property_use",
+    "name": "2nd Largest Property Use Type",
+    "type": "text"
+  },
+  {
+    "field": "_2nd_largest_property_use_1",
+    "name": "2nd Largest Property Use Type - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "_3rd_largest_property_use",
+    "name": "3rd Largest Property Use Type",
+    "type": "text"
+  },
+  {
+    "field": "_3rd_largest_property_use_1",
+    "name": "3rd Largest Property Use Type - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "year_built",
+    "name": "Year Built",
+    "type": "number"
+  },
+  {
+    "field": "construction_status",
+    "name": "Construction Status",
+    "type": "text"
+  },
+  {
+    "field": "number_of_buildings",
+    "name": "Number of Buildings",
+    "type": "number"
+  },
+  {
+    "field": "occupancy",
+    "name": "Occupancy",
+    "type": "number"
+  },
+  {
+    "field": "metered_areas_energy",
+    "name": "Metered Areas (Energy)",
+    "type": "text"
+  },
+  {
+    "field": "metered_areas_water",
+    "name": "Metered Areas (Water)",
+    "type": "text"
+  },
+  {
+    "field": "energy_star_score",
+    "name": "ENERGY STAR Score",
+    "type": "text"
+  },
+  {
+    "field": "national_median_energy_star",
+    "name": "National Median ENERGY STAR Score",
+    "type": "text"
+  },
+  {
+    "field": "target_energy_star_score",
+    "name": "Target ENERGY STAR Score",
+    "type": "text"
+  },
+  {
+    "field": "reason_s_for_no_score",
+    "name": "Reason(s) for No Score",
+    "type": "text"
+  },
+  {
+    "field": "energy_star_certification",
+    "name": "ENERGY STAR Certification - Year(s) Certified (Score)",
+    "type": "text"
+  },
+  {
+    "field": "eligible_for_certification_for_report_ped_y_n_",
+    "name": "Eligible for Certification for Report PED (Y/N)",
+    "type": "text"
+  },
+  {
+    "field": "energy_star_certification_1",
+    "name": "ENERGY STAR Certification - Last Approval Date",
+    "type": "text"
+  },
+  {
+    "field": "energy_star_certification_application_status",
+    "name": "ENERGY STAR Certification - Application Status",
+    "type": "text"
+  },
+  {
+    "field": "site_eui_kbtu_ft",
+    "name": "Site EUI (kBtu/ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "weather_normalized_site_eui",
+    "name": "Weather Normalized Site EUI (kBtu/ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "national_median_site_eui",
+    "name": "National Median Site EUI (kBtu/ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "site_energy_use_kbtu",
+    "name": "Site Energy Use (kBtu)",
+    "type": "text"
+  },
+  {
+    "field": "weather_normalized_site_energy",
+    "name": "Weather Normalized Site Energy Use (kBtu)",
+    "type": "text"
+  },
+  {
+    "field": "electricity_weather_normalized",
+    "name": "Electricity - Weather Normalized Site Electricity Use (Grid and Onsite Renewables) (kWh)",
+    "type": "text"
+  },
+  {
+    "field": "electricity_weather_normalized_1",
+    "name": "Electricity - Weather Normalized Site Electricity Intensity (Grid and Onsite Renewables) (kWh/ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "percent_electricity",
+    "name": "Percent Electricity",
+    "type": "text"
+  },
+  {
+    "field": "natural_gas_weather_normalized",
+    "name": "Natural Gas - Weather Normalized Site Natural Gas Use (therms)",
+    "type": "text"
+  },
+  {
+    "field": "natural_gas_weather_normalized_1",
+    "name": "Natural Gas - Weather Normalized Site Natural Gas Intensity (therms/ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "source_eui_kbtu_ft",
+    "name": "Source EUI (kBtu/ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "weather_normalized_source",
+    "name": "Weather Normalized Source EUI (kBtu/ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "national_median_source_eui",
+    "name": "National Median Source EUI (kBtu/ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "source_energy_use_kbtu",
+    "name": "Source Energy Use (kBtu)",
+    "type": "text"
+  },
+  {
+    "field": "weather_normalized_source_1",
+    "name": "Weather Normalized Source Energy Use (kBtu)",
+    "type": "text"
+  },
+  {
+    "field": "fuel_oil_1_use_kbtu",
+    "name": "Fuel Oil #1 Use (kBtu)",
+    "type": "text"
+  },
+  {
+    "field": "fuel_oil_2_use_kbtu",
+    "name": "Fuel Oil #2 Use (kBtu)",
+    "type": "text"
+  },
+  {
+    "field": "fuel_oil_4_use_kbtu",
+    "name": "Fuel Oil #4 Use (kBtu)",
+    "type": "text"
+  },
+  {
+    "field": "fuel_oil_5_6_use_kbtu",
+    "name": "Fuel Oil #5 & 6 Use (kBtu)",
+    "type": "text"
+  },
+  {
+    "field": "diesel_2_use_kbtu",
+    "name": "Diesel #2 Use (kBtu)",
+    "type": "text"
+  },
+  {
+    "field": "propane_use_kbtu",
+    "name": "Propane Use (kBtu)",
+    "type": "text"
+  },
+  {
+    "field": "kerosene_use_kbtu",
+    "name": "Kerosene Use (kBtu)",
+    "type": "text"
+  },
+  {
+    "field": "district_steam_use_kbtu",
+    "name": "District Steam Use (kBtu)",
+    "type": "text"
+  },
+  {
+    "field": "district_hot_water_use_kbtu",
+    "name": "District Hot Water Use (kBtu)",
+    "type": "text"
+  },
+  {
+    "field": "district_chilled_water_use",
+    "name": "District Chilled Water Use (kBtu)",
+    "type": "text"
+  },
+  {
+    "field": "natural_gas_use_kbtu",
+    "name": "Natural Gas Use (kBtu)",
+    "type": "text"
+  },
+  {
+    "field": "natural_gas_use_therms_",
+    "name": "Natural Gas Use (therms)",
+    "type": "text"
+  },
+  {
+    "field": "electricity_use_grid_purchase",
+    "name": "Electricity Use - Grid Purchase (kBtu)",
+    "type": "text"
+  },
+  {
+    "field": "electricity_use_grid_purchase_1",
+    "name": "Electricity Use - Grid Purchase (kWh)",
+    "type": "text"
+  },
+  {
+    "field": "electricity_use_grid_purchase_2",
+    "name": "Electricity Use - Grid Purchase and Generated from Onsite Renewable Systems (kWh)",
+    "type": "text"
+  },
+  {
+    "field": "electricity_use_grid_purchase_3",
+    "name": "Electricity Use - Grid Purchase and Generated from Onsite Renewable Systems (kBtu)",
+    "type": "text"
+  },
+  {
+    "field": "electricity_use_generated",
+    "name": "Electricity Use \u2013 Generated from Onsite Renewable Systems and Used Onsite (kWh)",
+    "type": "text"
+  },
+  {
+    "field": "electricity_use_generated_1",
+    "name": "Electricity Use \u2013 Generated from Onsite Renewable Systems and Used Onsite (kBtu)",
+    "type": "text"
+  },
+  {
+    "field": "electricity_use_generated_2",
+    "name": "Electricity Use \u2013 Generated from Onsite Renewable Systems (kWh)",
+    "type": "text"
+  },
+  {
+    "field": "electricity_use_generated_3",
+    "name": "Electricity Use \u2013 Generated from Onsite Renewable Systems and Exported (kWh)",
+    "type": "text"
+  },
+  {
+    "field": "annual_maximum_demand_kw",
+    "name": "Annual Maximum Demand (kW)",
+    "type": "text"
+  },
+  {
+    "field": "annual_maximum_demand_mm",
+    "name": "Annual Maximum Demand (MM/YYYY)",
+    "type": "text"
+  },
+  {
+    "field": "annual_maximum_demand_meter",
+    "name": "Annual Maximum Demand (Meter Name (Meter ID))",
+    "type": "text"
+  },
+  {
+    "field": "green_power_onsite_kwh",
+    "name": "Green Power - Onsite (kWh)",
+    "type": "text"
+  },
+  {
+    "field": "green_power_offsite_kwh",
+    "name": "Green Power - Offsite (kWh)",
+    "type": "text"
+  },
+  {
+    "field": "green_power_onsite_and_offsite",
+    "name": "Green Power - Onsite and Offsite (kWh)",
+    "type": "text"
+  },
+  {
+    "field": "total_location_based_ghg",
+    "name": "Total (Location-Based) GHG Emissions (Metric Tons CO2e)",
+    "type": "text"
+  },
+  {
+    "field": "total_location_based_ghg_1",
+    "name": "Total (Location-Based) GHG Emissions Intensity (kgCO2e/ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "direct_ghg_emissions_metric",
+    "name": "Direct GHG Emissions (Metric Tons CO2e)",
+    "type": "text"
+  },
+  {
+    "field": "direct_ghg_emissions_intensity",
+    "name": "Direct GHG Emissions Intensity (kgCO2e/ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "indirect_location_based_ghg",
+    "name": "Indirect (Location-Based) GHG Emissions (Metric Tons CO2e)",
+    "type": "text"
+  },
+  {
+    "field": "indirect_location_based_ghg_1",
+    "name": "Indirect (Location-Based) GHG Emissions Intensity (kgCO2e/ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "net_emissions_metric_tons",
+    "name": "Net Emissions (Metric Tons CO2e)",
+    "type": "text"
+  },
+  {
+    "field": "national_median_total_location",
+    "name": "National Median Total (Location-Based) GHG Emissions (Metric Tons CO2e)",
+    "type": "text"
+  },
+  {
+    "field": "avoided_emissions_onsite",
+    "name": "Avoided Emissions - Onsite Green Power (Metric Tons CO2e)",
+    "type": "text"
+  },
+  {
+    "field": "avoided_emissions_offsite",
+    "name": "Avoided Emissions - Offsite Green Power (Metric Tons CO2e)",
+    "type": "text"
+  },
+  {
+    "field": "avoided_emissions_onsite_1",
+    "name": "Avoided Emissions - Onsite and Offsite Green Power (Metric Tons CO2e)",
+    "type": "text"
+  },
+  {
+    "field": "percent_of_electricity_that",
+    "name": "Percent of Electricity that is Green Power",
+    "type": "text"
+  },
+  {
+    "field": "percent_of_recs_retained",
+    "name": "Percent of RECs Retained",
+    "type": "text"
+  },
+  {
+    "field": "percent_of_total_electricity",
+    "name": "Percent of Total Electricity Generated from Onsite Renewable Systems",
+    "type": "text"
+  },
+  {
+    "field": "leed_us_project_id",
+    "name": "LEED US Project ID",
+    "type": "text"
+  },
+  {
+    "field": "default_values",
+    "name": "Default Values",
+    "type": "text"
+  },
+  {
+    "field": "temporary_values",
+    "name": "Temporary Values",
+    "type": "text"
+  },
+  {
+    "field": "estimated_values_energy",
+    "name": "Estimated Values - Energy",
+    "type": "text"
+  },
+  {
+    "field": "estimated_values_water",
+    "name": "Estimated Values - Water",
+    "type": "text"
+  },
+  {
+    "field": "alert_energy_meter_has_less",
+    "name": "Alert - Energy Meter has less than 12 full calendar months of data",
+    "type": "text"
+  },
+  {
+    "field": "alert_energy_meter_has_gaps",
+    "name": "Alert - Energy Meter has gaps",
+    "type": "text"
+  },
+  {
+    "field": "alert_energy_meter_has",
+    "name": "Alert - Energy Meter has overlaps",
+    "type": "text"
+  },
+  {
+    "field": "alert_energy_no_meters",
+    "name": "Alert - Energy - No meters selected for metrics",
+    "type": "text"
+  },
+  {
+    "field": "alert_energy_meter_has_single",
+    "name": "Alert - Energy Meter has single entry more than 65 days",
+    "type": "text"
+  },
+  {
+    "field": "alert_property_has_no_uses",
+    "name": "Alert - Property has no uses",
+    "type": "text"
+  },
+  {
+    "field": "alert_water_meter_has_less",
+    "name": "Alert - Water Meter has less than 12 full calendar months of data",
+    "type": "text"
+  },
+  {
+    "field": "alert_data_center_issue_with",
+    "name": "Alert - Data Center Issue (with Estimates, IT Configuration, or IT Meter)",
+    "type": "text"
+  },
+  {
+    "field": "alert_gross_floor_area_is",
+    "name": "Alert - Gross Floor Area is 0 ft2",
+    "type": "text"
+  },
+  {
+    "field": "estimated_data_flag",
+    "name": "Estimated Data Flag - Electricity (Grid Purchase)",
+    "type": "text"
+  },
+  {
+    "field": "estimated_data_flag_natural",
+    "name": "Estimated Data Flag - Natural Gas",
+    "type": "text"
+  },
+  {
+    "field": "estimated_data_flag_district",
+    "name": "Estimated Data Flag - District Steam",
+    "type": "text"
+  },
+  {
+    "field": "estimated_data_flag_1",
+    "name": "Estimated Data Flag - Municipally Supplied Potable Water: Mixed Indoor/Outdoor Use",
+    "type": "text"
+  },
+  {
+    "field": "estimated_data_flag_fuel",
+    "name": "Estimated Data Flag - Fuel Oil (No. 1)",
+    "type": "text"
+  },
+  {
+    "field": "estimated_data_flag_fuel_1",
+    "name": "Estimated Data Flag - Fuel Oil (No. 2)",
+    "type": "text"
+  },
+  {
+    "field": "estimated_data_flag_fuel_2",
+    "name": "Estimated Data Flag - Fuel Oil (No. 4)",
+    "type": "text"
+  },
+  {
+    "field": "estimated_data_flag_fuel_3",
+    "name": "Estimated Data Flag - Fuel Oil (No. 5 and No. 6)",
+    "type": "text"
+  },
+  {
+    "field": "estimated_data_flag_diesel",
+    "name": "Estimated Data Flag - Diesel",
+    "type": "text"
+  },
+  {
+    "field": "estimated_data_flag_2",
+    "name": "Estimated Data Flag - Electricity (Onsite Solar)",
+    "type": "text"
+  },
+  {
+    "field": "data_center_ups_output_meter",
+    "name": "Data Center - UPS Output Meter (kWh)",
+    "type": "text"
+  },
+  {
+    "field": "data_center_pdu_input_meter",
+    "name": "Data Center - PDU Input Meter (kWh)",
+    "type": "text"
+  },
+  {
+    "field": "data_center_pdu_output_meter",
+    "name": "Data Center - PDU Output Meter (kWh)",
+    "type": "text"
+  },
+  {
+    "field": "data_center_it_equipment",
+    "name": "Data Center - IT Equipment Input Meter (kWh)",
+    "type": "text"
+  },
+  {
+    "field": "data_center_it_site_energy",
+    "name": "Data Center - IT Site Energy (kWh)",
+    "type": "text"
+  },
+  {
+    "field": "data_center_it_source_energy",
+    "name": "Data Center - IT Source Energy (kBtu)",
+    "type": "text"
+  },
+  {
+    "field": "data_center_pue",
+    "name": "Data Center - PUE",
+    "type": "text"
+  },
+  {
+    "field": "data_center_national_median",
+    "name": "Data Center - National Median PUE",
+    "type": "text"
+  },
+  {
+    "field": "data_center_gross_floor_area",
+    "name": "Data Center - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "data_center_ups_system",
+    "name": "Data Center - UPS System Redundancy",
+    "type": "text"
+  },
+  {
+    "field": "data_center_it_energy",
+    "name": "Data Center - IT Energy Configuration",
+    "type": "text"
+  },
+  {
+    "field": "data_center_energy_estimates",
+    "name": "Data Center - Energy Estimates Applied",
+    "type": "text"
+  },
+  {
+    "field": "data_center_cooling_equipment",
+    "name": "Data Center - Cooling Equipment Redundancy",
+    "type": "text"
+  },
+  {
+    "field": "adult_education_gross_floor",
+    "name": "Adult Education - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "ambulatory_surgical_center",
+    "name": "Ambulatory Surgical Center - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "automobile_dealership_gross",
+    "name": "Vehicle Dealership - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "bank_branch_gross_floor_area",
+    "name": "Bank Branch - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "barracks_gross_floor_area",
+    "name": "Barracks- Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "college_university_gross",
+    "name": "College/University - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "convention_center_gross_floor",
+    "name": "Convention Center - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "courthouse_gross_floor_area",
+    "name": "Courthouse - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "distribution_center_gross",
+    "name": "Distribution Center - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "enclosed_mall_gross_floor",
+    "name": "Enclosed Mall - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "energy_power_station_gross",
+    "name": "Energy/Power Station - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "financial_office_gross_floor",
+    "name": "Financial Office - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "financial_office_number_of",
+    "name": "Financial Office - Number of Computers",
+    "type": "text"
+  },
+  {
+    "field": "financial_office_weekly",
+    "name": "Financial Office - Weekly Operating Hours",
+    "type": "text"
+  },
+  {
+    "field": "financial_office_number_of_1",
+    "name": "Financial Office - Number of Workers on Main Shift",
+    "type": "text"
+  },
+  {
+    "field": "fitness_center_health_club",
+    "name": "Fitness Center/Health Club/Gym - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "food_sales_gross_floor_area",
+    "name": "Food Sales - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "food_service_gross_floor",
+    "name": "Food Service - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "hospital_general_medical",
+    "name": "Hospital (General Medical & Surgical) - Full-Time Equivalent (FTE) Workers",
+    "type": "text"
+  },
+  {
+    "field": "hospital_general_medical_1",
+    "name": "Hospital (General Medical & Surgical) - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "hospital_general_medical_2",
+    "name": "Hospital (General Medical & Surgical) - Laboratory",
+    "type": "text"
+  },
+  {
+    "field": "hospital_general_medical_3",
+    "name": "Hospital (General Medical & Surgical) - Licensed Bed Capacity",
+    "type": "text"
+  },
+  {
+    "field": "hospital_general_medical_4",
+    "name": "Hospital (General Medical & Surgical) - Number of MRI Machines",
+    "type": "text"
+  },
+  {
+    "field": "hospital_general_medical_5",
+    "name": "Hospital (General Medical & Surgical) - MRI Density (Number per 1,000 sq ft)",
+    "type": "text"
+  },
+  {
+    "field": "hospital_general_medical_6",
+    "name": "Hospital (General Medical & Surgical) - Number of Staffed Beds",
+    "type": "text"
+  },
+  {
+    "field": "hospital_general_medical_7",
+    "name": "Hospital (General Medical & Surgical) - Staffed Bed Density (Number per 1,000 sq ft)",
+    "type": "text"
+  },
+  {
+    "field": "hospital_general_medical_8",
+    "name": "Hospital (General Medical & Surgical) - Full-Time Equivalent (FTE) Worker Density (Number per 1,000 sq ft)",
+    "type": "text"
+  },
+  {
+    "field": "hospital_general_medical_9",
+    "name": "Hospital (General Medical & Surgical) - Percent That Can Be Cooled",
+    "type": "text"
+  },
+  {
+    "field": "hospital_general_medical_10",
+    "name": "Hospital (General Medical & Surgical) - Percent That Can Be Heated",
+    "type": "text"
+  },
+  {
+    "field": "medical_office_gross_floor",
+    "name": "Medical Office - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "medical_office_number_of",
+    "name": "Medical Office - Number of Computers",
+    "type": "text"
+  },
+  {
+    "field": "medical_office_number_of_1",
+    "name": "Medical Office - Number of MRI Machines",
+    "type": "text"
+  },
+  {
+    "field": "medical_office_number_of_2",
+    "name": "Medical Office - Number of Workers on Main Shift",
+    "type": "text"
+  },
+  {
+    "field": "medical_office_percent_that",
+    "name": "Medical Office - Percent That Can Be Cooled",
+    "type": "text"
+  },
+  {
+    "field": "medical_office_percent_that_1",
+    "name": "Medical Office - Percent That Can Be Heated",
+    "type": "text"
+  },
+  {
+    "field": "medical_office_weekly",
+    "name": "Medical Office - Weekly Operating Hours",
+    "type": "text"
+  },
+  {
+    "field": "outpatient_rehabilitation",
+    "name": "Outpatient Rehabilitation/Physical Therapy - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "urgent_care_clinic_other",
+    "name": "Urgent Care/Clinic/Other Outpatient - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "hotel_gross_floor_area_ft",
+    "name": "Hotel - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "hotel_gym_fitness_center",
+    "name": "Hotel - Gym/fitness  Center Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "k_12_school_gross_floor_area",
+    "name": "K-12 School - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "pre_school_daycare_gross",
+    "name": "Pre-school/Daycare - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "laboratory_gross_floor_area",
+    "name": "Laboratory - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "mailing_center_post_office",
+    "name": "Mailing Center/Post Office - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "movie_theater_gross_floor",
+    "name": "Movie Theater - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "manufacturing_industrial",
+    "name": "Manufacturing/Industrial Plant - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "multifamily_housing_government",
+    "name": "Multifamily Housing - Government Subsidized Housing",
+    "type": "text"
+  },
+  {
+    "field": "institutional_property_y_n_",
+    "name": "Institutional Property? (Y/N)",
+    "type": "text"
+  },
+  {
+    "field": "multifamily_housing_gross",
+    "name": "Multifamily Housing - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "multifamily_housing_number",
+    "name": "Multifamily Housing - Number of Bedrooms",
+    "type": "text"
+  },
+  {
+    "field": "multifamily_housing_number_1",
+    "name": "Multifamily Housing - Number of Bedrooms Density (Number per 1,000 sq ft)",
+    "type": "text"
+  },
+  {
+    "field": "multifamily_housing_number_2",
+    "name": "Multifamily Housing - Number of Laundry Hookups in All Units",
+    "type": "text"
+  },
+  {
+    "field": "multifamily_housing_number_3",
+    "name": "Multifamily Housing - Number of Laundry Hookups in Common Area(s)",
+    "type": "text"
+  },
+  {
+    "field": "multifamily_housing_number_4",
+    "name": "Multifamily Housing - Number of Residential Living Units in a High-Rise Building (10 or more Stories)",
+    "type": "text"
+  },
+  {
+    "field": "multifamily_housing_percent",
+    "name": "Multifamily Housing - Percent That Can Be Cooled",
+    "type": "text"
+  },
+  {
+    "field": "multifamily_housing_percent_1",
+    "name": "Multifamily Housing - Percent That Can Be Heated",
+    "type": "text"
+  },
+  {
+    "field": "multifamily_housing_total",
+    "name": "Multifamily Housing - Total Number of Residential Living Units",
+    "type": "text"
+  },
+  {
+    "field": "multifamily_housing_total_1",
+    "name": "Multifamily Housing - Total Number of Residential Living Units Density (Number per 1,000 sq ft)",
+    "type": "text"
+  },
+  {
+    "field": "multifamily_housing_number_5",
+    "name": "Multifamily Housing - Number of Residential Living Units in a High-Rise Building Density (Number per 1,000 sq ft)",
+    "type": "text"
+  },
+  {
+    "field": "multifamily_housing_number_6",
+    "name": "Multifamily Housing - Number of Residential Living Units in a Mid-Rise Building (5-9 Stories)",
+    "type": "text"
+  },
+  {
+    "field": "multifamily_housing_number_7",
+    "name": "Multifamily Housing - Number of Residential Living Units in a Mid-Rise Building Density (Number per 1,000 sq ft)",
+    "type": "text"
+  },
+  {
+    "field": "multifamily_housing_resident",
+    "name": "Multifamily Housing - Resident Population Type",
+    "type": "text"
+  },
+  {
+    "field": "residence_hall_dormitory",
+    "name": "Residence Hall/Dormitory - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "refrigerated_warehouse_gross",
+    "name": "Refrigerated Warehouse - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "non_refrigerated_warehouse",
+    "name": "Non-Refrigerated Warehouse - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "office_gross_floor_area_ft",
+    "name": "Office - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "office_number_of_computers",
+    "name": "Office - Number of Computers",
+    "type": "text"
+  },
+  {
+    "field": "office_number_of_workers",
+    "name": "Office - Number of Workers on Main Shift",
+    "type": "text"
+  },
+  {
+    "field": "office_percent_that_can_be",
+    "name": "Office - Percent That Can Be Cooled",
+    "type": "text"
+  },
+  {
+    "field": "office_percent_that_can_be_1",
+    "name": "Office - Percent That Can Be Heated",
+    "type": "text"
+  },
+  {
+    "field": "office_weekly_operating_hours",
+    "name": "Office - Weekly Operating Hours",
+    "type": "text"
+  },
+  {
+    "field": "office_worker_density_number",
+    "name": "Office - Worker Density (Number per 1,000 sq ft)",
+    "type": "text"
+  },
+  {
+    "field": "other_gross_floor_area_ft",
+    "name": "Other - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "museum_gross_floor_area_ft",
+    "name": "Museum - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "performing_arts_gross_floor",
+    "name": "Performing Arts - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "parking_gross_floor_area",
+    "name": "Parking - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "parking_open_parking_lot",
+    "name": "Parking - Open Parking Lot Size (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "parking_completely_enclosed",
+    "name": "Parking - Completely Enclosed Parking Garage Size (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "parking_partially_enclosed",
+    "name": "Parking - Partially Enclosed Parking Garage Size (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "restaurant_gross_floor_area",
+    "name": "Restaurant - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "restaurant_weekly_operating",
+    "name": "Restaurant - Weekly Operating Hours",
+    "type": "text"
+  },
+  {
+    "field": "restaurant_worker_density",
+    "name": "Restaurant - Worker Density (Number per 1,000 sq ft)",
+    "type": "text"
+  },
+  {
+    "field": "retail_store_gross_floor",
+    "name": "Retail Store - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "retail_store_number_of_walk",
+    "name": "Retail Store - Number of Walk-in Refrigeration/Freezer Units",
+    "type": "text"
+  },
+  {
+    "field": "retail_store_number_of_open",
+    "name": "Retail Store - Number of Open or Closed Refrigeration/Freezer Units",
+    "type": "text"
+  },
+  {
+    "field": "self_storage_facility_gross",
+    "name": "Self-Storage Facility - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "senior_living_community_gross",
+    "name": "Senior Living Community - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "senior_living_community_living",
+    "name": "Senior Living Community - Living Unit Density (Number per 1,000 sq ft)",
+    "type": "text"
+  },
+  {
+    "field": "social_meeting_hall_gross",
+    "name": "Social/Meeting Hall - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "supermarket_grocery_gross",
+    "name": "Supermarket/Grocery - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "supermarket_grocery_number",
+    "name": "Supermarket/Grocery - Number of Walk-in Refrigeration/Freezer Units",
+    "type": "text"
+  },
+  {
+    "field": "supermarket_grocery_number_1",
+    "name": "Supermarket/Grocery - Number of Open or Closed Refrigeration/Freezer Units",
+    "type": "text"
+  },
+  {
+    "field": "wholesale_club_supercenter",
+    "name": "Wholesale Club/Supercenter- Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "wholesale_club_supercenter_1",
+    "name": "Wholesale Club/Supercenter- Exterior Entrance to the Public",
+    "type": "text"
+  },
+  {
+    "field": "wastewater_treatment_plant",
+    "name": "Wastewater Treatment Plant - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "worship_facility_gross_floor",
+    "name": "Worship Facility - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "strip_mall_gross_floor_area",
+    "name": "Strip Mall - Gross Floor Area (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "property_gfa_self_reported",
+    "name": "Property GFA - Self-Reported (ft\u00b2)",
+    "type": "number"
+  },
+  {
+    "field": "property_gfa_calculated",
+    "name": "Property GFA - Calculated (Buildings and Parking) (ft\u00b2)",
+    "type": "number"
+  },
+  {
+    "field": "property_gfa_calculated_1",
+    "name": "Property GFA - Calculated (Buildings) (ft\u00b2)",
+    "type": "number"
+  },
+  {
+    "field": "property_gfa_calculated_2",
+    "name": "Property GFA - Calculated (Parking) (ft\u00b2)",
+    "type": "text"
+  },
+  {
+    "field": "property_notes",
+    "name": "Property Notes",
+    "type": "text"
+  },
+  {
+    "field": "water_use_all_water_sources",
+    "name": "Water Use (All Water Sources) (kgal)",
+    "type": "text"
+  },
+  {
+    "field": "indoor_water_use_all_water",
+    "name": "Indoor Water Use (All Water Sources) (kgal)",
+    "type": "text"
+  },
+  {
+    "field": "outdoor_water_use_all_water",
+    "name": "Outdoor Water Use (All Water Sources) (kgal)",
+    "type": "text"
+  },
+  {
+    "field": "municipally_supplied_potable",
+    "name": "Municipally Supplied Potable Water - Mixed Indoor/Outdoor Use (kgal)",
+    "type": "text"
+  },
+  {
+    "field": "municipally_supplied_potable_1",
+    "name": "Municipally Supplied Potable Water - Total Use (All Meter Types) (kgal)",
+    "type": "text"
+  },
+  {
+    "field": "municipally_supplied_potable_2",
+    "name": "Municipally Supplied Potable Water - Indoor Use (kgal)",
+    "type": "text"
+  },
+  {
+    "field": "municipally_supplied_potable_3",
+    "name": "Municipally Supplied Potable Water - Outdoor Use (kgal)",
+    "type": "text"
+  },
+  {
+    "field": "third_party_certification",
+    "name": "Third Party Certification",
+    "type": "text"
+  },
+  {
+    "field": "third_party_certification_1",
+    "name": "Third Party Certification Date Anticipated",
+    "type": "text"
+  },
+  {
+    "field": "third_party_certification_2",
+    "name": "Third Party Certification Date Achieved",
+    "type": "text"
+  },
+  {
+    "field": "data_quality_checker_run_",
+    "name": "Data Quality Checker Run?",
+    "type": "text"
+  },
+  {
+    "field": "data_quality_checker_date_run",
+    "name": "Data Quality Checker - Date Run",
+    "type": "text"
+  },
+  {
+    "field": "last_modified_date_property",
+    "name": "Last Modified Date - Property",
+    "type": "calendar_date"
+  },
+  {
+    "field": "last_modified_date_electric",
+    "name": "Last Modified Date - Electric Meters",
+    "type": "calendar_date"
+  },
+  {
+    "field": "electric_distribution_utility",
+    "name": "Electric Distribution Utility",
+    "type": "text"
+  },
+  {
+    "field": "last_modified_date_gas_meters",
+    "name": "Last Modified Date - Gas Meters",
+    "type": "calendar_date"
+  },
+  {
+    "field": "last_modified_date_non",
+    "name": "Last Modified Date - Non-Electric Non-Gas Energy Meters",
+    "type": "calendar_date"
+  },
+  {
+    "field": "last_modified_date_water",
+    "name": "Last Modified Date - Water Meters",
+    "type": "calendar_date"
+  },
+  {
+    "field": "last_modified_date_property_1",
+    "name": "Last Modified Date - Property Use",
+    "type": "calendar_date"
+  },
+  {
+    "field": "last_modified_date_property_2",
+    "name": "Last Modified Date - Property Use Details",
+    "type": "calendar_date"
+  },
+  {
+    "field": "number_of_active_energy_meters",
+    "name": "Number of Active Energy Meters - Total",
+    "type": "number"
+  },
+  {
+    "field": "number_of_active_energy_meters_1",
+    "name": "Number of Active Energy Meters - Used to Compute Metrics",
+    "type": "number"
+  },
+  {
+    "field": "number_of_active_energy_meters_2",
+    "name": "Number of Active Energy Meters - Not Used to Compute Metrics",
+    "type": "number"
+  },
+  {
+    "field": "number_of_active_it_meters",
+    "name": "Number of Active IT Meters",
+    "type": "number"
+  },
+  {
+    "field": "aggregate_meter_s_electric_number_of_individual_meters_included",
+    "name": "Aggregate Meter(s)-Electric \u2013 Number of Individual Meters Included",
+    "type": "text"
+  },
+  {
+    "field": "aggregate_meter_s_natural_gas_number_of_individual_meters_included",
+    "name": "Aggregate Meter(s)-Natural Gas \u2013 Number of Individual Meters Included",
+    "type": "text"
+  },
+  {
+    "field": "aggregate_meter_s_district_steam_number_of_individual_meters_included",
+    "name": "Aggregate Meter(s)-District Steam \u2013 Number of Individual Meters Included",
+    "type": "text"
+  },
+  {
+    "field": "report_generation_date",
+    "name": "Report Generation Date",
+    "type": "calendar_date"
+  },
+  {
+    "field": "report_submission_date",
+    "name": "Report Submission Date",
+    "type": "calendar_date"
+  },
+  {
+    "field": "borough",
+    "name": "Borough",
+    "type": "text"
+  },
+  {
+    "field": "latitude",
+    "name": "Latitude",
+    "type": "number"
+  },
+  {
+    "field": "longitude",
+    "name": "Longitude",
+    "type": "number"
+  },
+  {
+    "field": "community_board",
+    "name": "Community Board",
+    "type": "number"
+  },
+  {
+    "field": "council_district",
+    "name": "Council District",
+    "type": "number"
+  },
+  {
+    "field": "ct2020",
+    "name": "Census Tract (2020)",
+    "type": "number"
+  },
+  {
+    "field": "nta2020",
+    "name": "Neighborhood Tabulation Area (NTA) (2020)",
+    "type": "text"
+  }
+]

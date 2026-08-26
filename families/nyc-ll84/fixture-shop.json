@@ -1,0 +1,1100 @@
+{
+  "calendar-year-2022": [
+    {
+      "property_id": "6414946",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "58-01 Grand Avenue",
+      "address_unit_dropped": false,
+      "energy_star_score": "96",
+      "gfa": "51749",
+      "property_type": "Non-Refrigerated Warehouse"
+    },
+    {
+      "property_id": "9793770",
+      "report_year": "2022",
+      "borough_from_bbl": "Bronx",
+      "address_street": "1870 Pelham Parkway South",
+      "address_unit_dropped": false,
+      "energy_star_score": "61",
+      "gfa": "52941",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "10177418",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "2011 Mott Ave",
+      "address_unit_dropped": false,
+      "energy_star_score": "Not Available",
+      "gfa": "35196",
+      "property_type": "Office"
+    },
+    {
+      "property_id": "13511507",
+      "report_year": "2022",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "215 East 99th Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "64",
+      "gfa": "107234",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "14009907",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "23-25 31 Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "98",
+      "gfa": "75191",
+      "property_type": "Medical Office"
+    },
+    {
+      "property_id": "14377690",
+      "report_year": "2022",
+      "borough_from_bbl": "Brooklyn",
+      "address_street": "1680 Ocean Ave",
+      "address_unit_dropped": false,
+      "energy_star_score": "61",
+      "gfa": "68400",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "14965065",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "33-70 Prince Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "83",
+      "gfa": "89902",
+      "property_type": "Office"
+    },
+    {
+      "property_id": "15104433",
+      "report_year": "2022",
+      "borough_from_bbl": "Brooklyn",
+      "address_street": "2021 Pitkin Avenue",
+      "address_unit_dropped": false,
+      "energy_star_score": "58",
+      "gfa": "63240",
+      "property_type": "Non-Refrigerated Warehouse"
+    },
+    {
+      "property_id": "15176247",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "88-24 Merrick Blvd",
+      "address_unit_dropped": false,
+      "energy_star_score": "16",
+      "gfa": "82576",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15176327",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "90-11 149 str",
+      "address_unit_dropped": false,
+      "energy_star_score": "71",
+      "gfa": "136000",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15176328",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "148-25 89 Ave",
+      "address_unit_dropped": false,
+      "energy_star_score": "37",
+      "gfa": "127200",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15176329",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "166-05 89 Ave",
+      "address_unit_dropped": false,
+      "energy_star_score": "32",
+      "gfa": "56200",
+      "property_type": "Multifamily Housing"
+    }
+  ],
+  "calendar-year-2023": [
+    {
+      "property_id": "6664906",
+      "report_year": "2023",
+      "borough_from_bbl": "Brooklyn",
+      "address_street": "633 E 16th St",
+      "address_unit_dropped": false,
+      "energy_star_score": "46",
+      "gfa": "27820",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "6664908",
+      "report_year": "2023",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "42 West 18th Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "26",
+      "gfa": "29532",
+      "property_type": "Retail Store"
+    },
+    {
+      "property_id": "6664909",
+      "report_year": "2023",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "447 W 45th St",
+      "address_unit_dropped": false,
+      "energy_star_score": "77",
+      "gfa": "30700",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "6664910",
+      "report_year": "2023",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "33 Greene St",
+      "address_unit_dropped": false,
+      "energy_star_score": "Not Available",
+      "gfa": "33029",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "6664912",
+      "report_year": "2023",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "510 West 27th Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "Not Available",
+      "gfa": "42800",
+      "property_type": "Manufacturing/Industrial Plant"
+    },
+    {
+      "property_id": "6664913",
+      "report_year": "2023",
+      "borough_from_bbl": "Queens",
+      "address_street": "104-18 42 AVENUE",
+      "address_unit_dropped": false,
+      "energy_star_score": "100",
+      "gfa": "37963",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "6664914",
+      "report_year": "2023",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "453 Broome Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "Not Available",
+      "gfa": "34886",
+      "property_type": "Retail Store"
+    },
+    {
+      "property_id": "6664916",
+      "report_year": "2023",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "574 ST NICHOLAS AVENUE",
+      "address_unit_dropped": false,
+      "energy_star_score": "70",
+      "gfa": "52976",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "6664917",
+      "report_year": "2023",
+      "borough_from_bbl": "Brooklyn",
+      "address_street": "142 SOUTH 9 STREET",
+      "address_unit_dropped": false,
+      "energy_star_score": "5",
+      "gfa": "31394",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "6664918",
+      "report_year": "2023",
+      "borough_from_bbl": "Brooklyn",
+      "address_street": "190 SOUTH 8 STREET",
+      "address_unit_dropped": false,
+      "energy_star_score": "82",
+      "gfa": "27739",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "6664919",
+      "report_year": "2023",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "97 SEAMAN AVENUE",
+      "address_unit_dropped": false,
+      "energy_star_score": "100",
+      "gfa": "40350",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "6664920",
+      "report_year": "2023",
+      "borough_from_bbl": "Bronx",
+      "address_street": "1996 GLEASON AVENUE",
+      "address_unit_dropped": false,
+      "energy_star_score": "94",
+      "gfa": "48760",
+      "property_type": "Multifamily Housing"
+    }
+  ],
+  "calendar-year-2024": [
+    {
+      "property_id": "7365",
+      "report_year": "2024",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "1155  Avenue",
+      "address_unit_dropped": true,
+      "energy_star_score": "Not Available",
+      "gfa": "694052",
+      "property_type": "Office"
+    },
+    {
+      "property_id": "8139",
+      "report_year": "2024",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "200  East  42nd  St.",
+      "address_unit_dropped": false,
+      "energy_star_score": "69",
+      "gfa": "383165",
+      "property_type": "Office"
+    },
+    {
+      "property_id": "8604",
+      "report_year": "2024",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "114  West  47th  st",
+      "address_unit_dropped": false,
+      "energy_star_score": "77",
+      "gfa": "569516",
+      "property_type": "Financial Office"
+    },
+    {
+      "property_id": "8841",
+      "report_year": "2024",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "733  Third  Avenue",
+      "address_unit_dropped": false,
+      "energy_star_score": "63",
+      "gfa": "389286",
+      "property_type": "Office"
+    },
+    {
+      "property_id": "11809",
+      "report_year": "2024",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "4 Times Square",
+      "address_unit_dropped": false,
+      "energy_star_score": "60",
+      "gfa": "1581387",
+      "property_type": "Office"
+    },
+    {
+      "property_id": "28400",
+      "report_year": "2024",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "622 168th Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "12",
+      "gfa": "5144107",
+      "property_type": "Hospital (General Medical & Surgical)"
+    },
+    {
+      "property_id": "28402",
+      "report_year": "2024",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "525 East 68th Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "47",
+      "gfa": "2801795",
+      "property_type": "Hospital (General Medical & Surgical)"
+    },
+    {
+      "property_id": "28404",
+      "report_year": "2024",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "5141 Broadway",
+      "address_unit_dropped": false,
+      "energy_star_score": "54",
+      "gfa": "309145",
+      "property_type": "Hospital (General Medical & Surgical)"
+    },
+    {
+      "property_id": "1045358",
+      "report_year": "2024",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "320 Park Avenue",
+      "address_unit_dropped": false,
+      "energy_star_score": "74",
+      "gfa": "721979",
+      "property_type": "Financial Office"
+    },
+    {
+      "property_id": "1052478",
+      "report_year": "2024",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "140 Broadway",
+      "address_unit_dropped": false,
+      "energy_star_score": "44",
+      "gfa": "1272119",
+      "property_type": "Office"
+    },
+    {
+      "property_id": "1069082",
+      "report_year": "2024",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "51 Madison Avenue",
+      "address_unit_dropped": false,
+      "energy_star_score": "79",
+      "gfa": "1485386",
+      "property_type": "Office"
+    },
+    {
+      "property_id": "1151970",
+      "report_year": "2024",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "1133 Avenue",
+      "address_unit_dropped": true,
+      "energy_star_score": "72",
+      "gfa": "980106",
+      "property_type": "Office"
+    }
+  ],
+  "manhattan": [
+    {
+      "property_id": "13511507",
+      "report_year": "2022",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "215 East 99th Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "64",
+      "gfa": "107234",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15330689",
+      "report_year": "2022",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "135 Hamilton Place",
+      "address_unit_dropped": false,
+      "energy_star_score": "81",
+      "gfa": "41082",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15332746",
+      "report_year": "2022",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "500 West 144th street/144 Hamilton Place",
+      "address_unit_dropped": false,
+      "energy_star_score": "80",
+      "gfa": "56688",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15333817",
+      "report_year": "2022",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "596 Riverside Drive",
+      "address_unit_dropped": false,
+      "energy_star_score": "7",
+      "gfa": "53832",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15746284",
+      "report_year": "2022",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "2070 Adam Clayton Powell Jr. Blvd",
+      "address_unit_dropped": false,
+      "energy_star_score": "63",
+      "gfa": "146780",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15746285",
+      "report_year": "2022",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "225 West 123rd St",
+      "address_unit_dropped": false,
+      "energy_star_score": "1",
+      "gfa": "98955",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "16823001",
+      "report_year": "2022",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "9 East 4th Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "Not Available",
+      "gfa": "93048",
+      "property_type": "Office"
+    },
+    {
+      "property_id": "16852116",
+      "report_year": "2022",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "334 East 79 St",
+      "address_unit_dropped": false,
+      "energy_star_score": "63",
+      "gfa": "28427",
+      "property_type": "Residence Hall/Dormitory"
+    },
+    {
+      "property_id": "16861477",
+      "report_year": "2022",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "188-192 6 Avenue",
+      "address_unit_dropped": false,
+      "energy_star_score": "52",
+      "gfa": "33930",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "16861479",
+      "report_year": "2022",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "188 6 Avenue",
+      "address_unit_dropped": false,
+      "energy_star_score": "100",
+      "gfa": "11310",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "16861481",
+      "report_year": "2022",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "190 6 Ave",
+      "address_unit_dropped": false,
+      "energy_star_score": "99",
+      "gfa": "11310",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "16861483",
+      "report_year": "2022",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "192 6 Ave",
+      "address_unit_dropped": false,
+      "energy_star_score": "Not Available",
+      "gfa": "11310",
+      "property_type": "Multifamily Housing"
+    }
+  ],
+  "bronx": [
+    {
+      "property_id": "9793770",
+      "report_year": "2022",
+      "borough_from_bbl": "Bronx",
+      "address_street": "1870 Pelham Parkway South",
+      "address_unit_dropped": false,
+      "energy_star_score": "61",
+      "gfa": "52941",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15304524",
+      "report_year": "2022",
+      "borough_from_bbl": "Bronx",
+      "address_street": "1882 Grand Concourse",
+      "address_unit_dropped": false,
+      "energy_star_score": "18",
+      "gfa": "41250",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15305200",
+      "report_year": "2022",
+      "borough_from_bbl": "Bronx",
+      "address_street": "990 Aldus Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "36",
+      "gfa": "45000",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15306290",
+      "report_year": "2022",
+      "borough_from_bbl": "Bronx",
+      "address_street": "996 Aldus Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "46",
+      "gfa": "46068",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15310834",
+      "report_year": "2022",
+      "borough_from_bbl": "Bronx",
+      "address_street": "1025 Aldus Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "44",
+      "gfa": "45786",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15313508",
+      "report_year": "2022",
+      "borough_from_bbl": "Bronx",
+      "address_street": "1032 Aldus Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "27",
+      "gfa": "34380",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15315394",
+      "report_year": "2022",
+      "borough_from_bbl": "Bronx",
+      "address_street": "1010 Bryant Avenue",
+      "address_unit_dropped": false,
+      "energy_star_score": "53",
+      "gfa": "46030",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15316565",
+      "report_year": "2022",
+      "borough_from_bbl": "Bronx",
+      "address_street": "1016 Bryant Avenue",
+      "address_unit_dropped": false,
+      "energy_star_score": "47",
+      "gfa": "36445",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15318022",
+      "report_year": "2022",
+      "borough_from_bbl": "Bronx",
+      "address_street": "57-67 West 175 Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "87",
+      "gfa": "62000",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15319786",
+      "report_year": "2022",
+      "borough_from_bbl": "Bronx",
+      "address_street": "1664 Macombs Road",
+      "address_unit_dropped": false,
+      "energy_star_score": "92",
+      "gfa": "81000",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15321027",
+      "report_year": "2022",
+      "borough_from_bbl": "Bronx",
+      "address_street": "1674 MAcombs Road",
+      "address_unit_dropped": false,
+      "energy_star_score": "61",
+      "gfa": "72000",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15322073",
+      "report_year": "2022",
+      "borough_from_bbl": "Bronx",
+      "address_street": "1325 Grand Concourse",
+      "address_unit_dropped": false,
+      "energy_star_score": "48",
+      "gfa": "55000",
+      "property_type": "Multifamily Housing"
+    }
+  ],
+  "brooklyn": [
+    {
+      "property_id": "14377690",
+      "report_year": "2022",
+      "borough_from_bbl": "Brooklyn",
+      "address_street": "1680 Ocean Ave",
+      "address_unit_dropped": false,
+      "energy_star_score": "61",
+      "gfa": "68400",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15104433",
+      "report_year": "2022",
+      "borough_from_bbl": "Brooklyn",
+      "address_street": "2021 Pitkin Avenue",
+      "address_unit_dropped": false,
+      "energy_star_score": "58",
+      "gfa": "63240",
+      "property_type": "Non-Refrigerated Warehouse"
+    },
+    {
+      "property_id": "15288692",
+      "report_year": "2022",
+      "borough_from_bbl": "Brooklyn",
+      "address_street": "403 Hewes Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "40",
+      "gfa": "25800",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15288693",
+      "report_year": "2022",
+      "borough_from_bbl": "Brooklyn",
+      "address_street": "409 Hewes Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "51",
+      "gfa": "27774",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15746281",
+      "report_year": "2022",
+      "borough_from_bbl": "Brooklyn",
+      "address_street": "367 S 2nd St",
+      "address_unit_dropped": false,
+      "energy_star_score": "12",
+      "gfa": "28000",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "16761950",
+      "report_year": "2022",
+      "borough_from_bbl": "Brooklyn",
+      "address_street": "120 3rd St",
+      "address_unit_dropped": false,
+      "energy_star_score": "Not Available",
+      "gfa": "30931",
+      "property_type": "Office"
+    },
+    {
+      "property_id": "16852041",
+      "report_year": "2022",
+      "borough_from_bbl": "Brooklyn",
+      "address_street": "97 Columbia Heights",
+      "address_unit_dropped": false,
+      "energy_star_score": "76",
+      "gfa": "90426",
+      "property_type": "Residence Hall/Dormitory"
+    },
+    {
+      "property_id": "16852157",
+      "report_year": "2022",
+      "borough_from_bbl": "Brooklyn",
+      "address_street": "1404 Ocean Parkway",
+      "address_unit_dropped": false,
+      "energy_star_score": "Not Available",
+      "gfa": "27206",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "16852162",
+      "report_year": "2022",
+      "borough_from_bbl": "Brooklyn",
+      "address_street": "2442 Ocean Avenue",
+      "address_unit_dropped": false,
+      "energy_star_score": "60",
+      "gfa": "95238",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "16853280",
+      "report_year": "2022",
+      "borough_from_bbl": "Brooklyn",
+      "address_street": "154 North 7 Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "Not Available",
+      "gfa": "34506",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "16856233",
+      "report_year": "2022",
+      "borough_from_bbl": "Brooklyn",
+      "address_street": "1517 Bushwick Avenue",
+      "address_unit_dropped": false,
+      "energy_star_score": "Not Available",
+      "gfa": "68557",
+      "property_type": "Self-Storage Facility"
+    },
+    {
+      "property_id": "17367634",
+      "report_year": "2022",
+      "borough_from_bbl": "Brooklyn",
+      "address_street": "2900 East 29 Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "Not Available",
+      "gfa": "39798",
+      "property_type": "Multifamily Housing"
+    }
+  ],
+  "queens": [
+    {
+      "property_id": "6414946",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "58-01 Grand Avenue",
+      "address_unit_dropped": false,
+      "energy_star_score": "96",
+      "gfa": "51749",
+      "property_type": "Non-Refrigerated Warehouse"
+    },
+    {
+      "property_id": "10177418",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "2011 Mott Ave",
+      "address_unit_dropped": false,
+      "energy_star_score": "Not Available",
+      "gfa": "35196",
+      "property_type": "Office"
+    },
+    {
+      "property_id": "14009907",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "23-25 31 Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "98",
+      "gfa": "75191",
+      "property_type": "Medical Office"
+    },
+    {
+      "property_id": "14965065",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "33-70 Prince Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "83",
+      "gfa": "89902",
+      "property_type": "Office"
+    },
+    {
+      "property_id": "15176247",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "88-24 Merrick Blvd",
+      "address_unit_dropped": false,
+      "energy_star_score": "16",
+      "gfa": "82576",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15176327",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "90-11 149 str",
+      "address_unit_dropped": false,
+      "energy_star_score": "71",
+      "gfa": "136000",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15176328",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "148-25 89 Ave",
+      "address_unit_dropped": false,
+      "energy_star_score": "37",
+      "gfa": "127200",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15176329",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "166-05 89 Ave",
+      "address_unit_dropped": false,
+      "energy_star_score": "32",
+      "gfa": "56200",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15367187",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "89-02 165 St",
+      "address_unit_dropped": false,
+      "energy_star_score": "Not Available",
+      "gfa": "122000",
+      "property_type": "Enclosed Mall"
+    },
+    {
+      "property_id": "15746283",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "33-01 Vernon Blvd",
+      "address_unit_dropped": false,
+      "energy_star_score": "29",
+      "gfa": "27400",
+      "property_type": "Office"
+    },
+    {
+      "property_id": "16775246",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "26-32 Skillman Avenue",
+      "address_unit_dropped": false,
+      "energy_star_score": "32",
+      "gfa": "28148",
+      "property_type": "Hotel"
+    },
+    {
+      "property_id": "16815797",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "115-10 14 Road",
+      "address_unit_dropped": false,
+      "energy_star_score": "Not Available",
+      "gfa": "55000",
+      "property_type": "Non-Refrigerated Warehouse"
+    }
+  ],
+  "staten-island": [
+    {
+      "property_id": "19721702",
+      "report_year": "2022",
+      "borough_from_bbl": "Staten Island",
+      "address_street": "200 Boscombe Avenue",
+      "address_unit_dropped": false,
+      "energy_star_score": "75",
+      "gfa": "75000",
+      "property_type": "Worship Facility"
+    },
+    {
+      "property_id": "25775193",
+      "report_year": "2022",
+      "borough_from_bbl": "Staten Island",
+      "address_street": "5-11 Windham Loop",
+      "address_unit_dropped": false,
+      "energy_star_score": "71",
+      "gfa": "176455",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "27938283",
+      "report_year": "2022",
+      "borough_from_bbl": "Staten Island",
+      "address_street": "140 Meisner Avenue",
+      "address_unit_dropped": false,
+      "energy_star_score": "Not Available",
+      "gfa": "185000",
+      "property_type": "Outpatient Rehabilitation/Physical Therapy"
+    },
+    {
+      "property_id": "27938290",
+      "report_year": "2022",
+      "borough_from_bbl": "Staten Island",
+      "address_street": "110 Meisner Avenue",
+      "address_unit_dropped": false,
+      "energy_star_score": "Not Available",
+      "gfa": "53856",
+      "property_type": "Outpatient Rehabilitation/Physical Therapy"
+    },
+    {
+      "property_id": "28349578",
+      "report_year": "2022",
+      "borough_from_bbl": "Staten Island",
+      "address_street": "105 Jersey Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "Not Available",
+      "gfa": "38915",
+      "property_type": "Manufacturing/Industrial Plant"
+    },
+    {
+      "property_id": "2563626",
+      "report_year": "2022",
+      "borough_from_bbl": "Staten Island",
+      "address_street": "33 CENTRAL AVE",
+      "address_unit_dropped": false,
+      "energy_star_score": "97",
+      "gfa": "75000",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "2715840",
+      "report_year": "2022",
+      "borough_from_bbl": "Staten Island",
+      "address_street": "10 Bay Street",
+      "address_unit_dropped": true,
+      "energy_star_score": "93",
+      "gfa": "183970",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "2800169",
+      "report_year": "2022",
+      "borough_from_bbl": "Staten Island",
+      "address_street": "175 Zoe St",
+      "address_unit_dropped": false,
+      "energy_star_score": "82",
+      "gfa": "84426",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "2800213",
+      "report_year": "2022",
+      "borough_from_bbl": "Staten Island",
+      "address_street": "215 Hart Blvd",
+      "address_unit_dropped": false,
+      "energy_star_score": "17",
+      "gfa": "69015",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "2969010",
+      "report_year": "2022",
+      "borough_from_bbl": "Staten Island",
+      "address_street": "141 East Service Road",
+      "address_unit_dropped": false,
+      "energy_star_score": "Not Available",
+      "gfa": "79897",
+      "property_type": "Bowling Alley"
+    },
+    {
+      "property_id": "3076536",
+      "report_year": "2022",
+      "borough_from_bbl": "Staten Island",
+      "address_street": "119 Cortelyou Ave",
+      "address_unit_dropped": false,
+      "energy_star_score": "96",
+      "gfa": "133232",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "3098815",
+      "report_year": "2022",
+      "borough_from_bbl": "Staten Island",
+      "address_street": "1150 South Ave",
+      "address_unit_dropped": false,
+      "energy_star_score": "84",
+      "gfa": "221081",
+      "property_type": "Office"
+    }
+  ],
+  "family": [
+    {
+      "property_id": "6414946",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "58-01 Grand Avenue",
+      "address_unit_dropped": false,
+      "energy_star_score": "96",
+      "gfa": "51749",
+      "property_type": "Non-Refrigerated Warehouse"
+    },
+    {
+      "property_id": "9793770",
+      "report_year": "2022",
+      "borough_from_bbl": "Bronx",
+      "address_street": "1870 Pelham Parkway South",
+      "address_unit_dropped": false,
+      "energy_star_score": "61",
+      "gfa": "52941",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "10177418",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "2011 Mott Ave",
+      "address_unit_dropped": false,
+      "energy_star_score": "Not Available",
+      "gfa": "35196",
+      "property_type": "Office"
+    },
+    {
+      "property_id": "13511507",
+      "report_year": "2022",
+      "borough_from_bbl": "Manhattan",
+      "address_street": "215 East 99th Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "64",
+      "gfa": "107234",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "14009907",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "23-25 31 Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "98",
+      "gfa": "75191",
+      "property_type": "Medical Office"
+    },
+    {
+      "property_id": "14377690",
+      "report_year": "2022",
+      "borough_from_bbl": "Brooklyn",
+      "address_street": "1680 Ocean Ave",
+      "address_unit_dropped": false,
+      "energy_star_score": "61",
+      "gfa": "68400",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "14965065",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "33-70 Prince Street",
+      "address_unit_dropped": false,
+      "energy_star_score": "83",
+      "gfa": "89902",
+      "property_type": "Office"
+    },
+    {
+      "property_id": "15104433",
+      "report_year": "2022",
+      "borough_from_bbl": "Brooklyn",
+      "address_street": "2021 Pitkin Avenue",
+      "address_unit_dropped": false,
+      "energy_star_score": "58",
+      "gfa": "63240",
+      "property_type": "Non-Refrigerated Warehouse"
+    },
+    {
+      "property_id": "15176247",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "88-24 Merrick Blvd",
+      "address_unit_dropped": false,
+      "energy_star_score": "16",
+      "gfa": "82576",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15176327",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "90-11 149 str",
+      "address_unit_dropped": false,
+      "energy_star_score": "71",
+      "gfa": "136000",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15176328",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "148-25 89 Ave",
+      "address_unit_dropped": false,
+      "energy_star_score": "37",
+      "gfa": "127200",
+      "property_type": "Multifamily Housing"
+    },
+    {
+      "property_id": "15176329",
+      "report_year": "2022",
+      "borough_from_bbl": "Queens",
+      "address_street": "166-05 89 Ave",
+      "address_unit_dropped": false,
+      "energy_star_score": "32",
+      "gfa": "56200",
+      "property_type": "Multifamily Housing"
+    }
+  ]
+}
