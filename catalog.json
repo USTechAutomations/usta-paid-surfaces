@@ -723,7 +723,12 @@
       "checkout": {
         "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. After you pay, a person emails you the whole file as a CSV within one working day of your payment. The file is sold under CC BY 4.0 with attribution; the required credit is printed on this page and travels with the file. We charge for assembly and delivery, not for rights to the data. The District's free portal remains at opendata.dc.gov.",
         "after": "After you pay, a person emails you the whole file as a CSV within one working day of your payment.",
-        "status": "none"
+        "status": "live",
+        "url": "https://buy.stripe.com/dRmbIU7tc2ie3RqaHo0sU19",
+        "label": "Buy the file — $349 once",
+        "lands_on": "buy.stripe.com",
+        "checked": "2026-08-25",
+        "verified": "2026-08-25"
       }
     },
     {
