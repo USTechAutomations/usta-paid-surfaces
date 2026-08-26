@@ -1105,7 +1105,12 @@
       "checkout": {
         "terms": "$349 once, for the metro named on the page. Nothing recurring, nothing to cancel and no subscription behind it. You are buying this status-change file once.",
         "after": "After you pay, a person emails you the CSV within one working day.",
-        "status": "none"
+        "status": "live",
+        "url": "https://buy.stripe.com/4gM14g00K0a61Ji9Dk0sU1a",
+        "label": "Buy the file — $349 once",
+        "lands_on": "buy.stripe.com",
+        "checked": "2026-08-25",
+        "verified": "2026-08-25"
       }
     }
   ],
