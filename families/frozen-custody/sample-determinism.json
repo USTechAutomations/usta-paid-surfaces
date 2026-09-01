@@ -1,0 +1,53 @@
+{
+  "port": 30002,
+  "model_id": "qwen38-s2",
+  "model_root": "unsloth/Qwen3.8-27B-NVFP4",
+  "endpoint": "http://127.0.0.1:30002/v1/chat/completions",
+  "settings": {
+    "temperature": 0,
+    "seed": 42,
+    "max_tokens": 64
+  },
+  "prompt": "Reply with exactly five words: frozen model custody holds.",
+  "runs": 5,
+  "sha256_per_run": [
+    "67266ea3e0c06a4259669d9ce46fbad22104206059166eb73d405fa8cd7e3638",
+    "67266ea3e0c06a4259669d9ce46fbad22104206059166eb73d405fa8cd7e3638",
+    "67266ea3e0c06a4259669d9ce46fbad22104206059166eb73d405fa8cd7e3638",
+    "67266ea3e0c06a4259669d9ce46fbad22104206059166eb73d405fa8cd7e3638",
+    "67266ea3e0c06a4259669d9ce46fbad22104206059166eb73d405fa8cd7e3638"
+  ],
+  "identical": true,
+  "unique_hash_count": 1,
+  "system_fingerprint_per_run": [
+    "vllm-0.25.1-9f488e66",
+    "vllm-0.25.1-9f488e66",
+    "vllm-0.25.1-9f488e66",
+    "vllm-0.25.1-9f488e66",
+    "vllm-0.25.1-9f488e66"
+  ],
+  "finish_reason_per_run": [
+    "length",
+    "length",
+    "length",
+    "length",
+    "length"
+  ],
+  "content_len_per_run": [
+    285,
+    285,
+    285,
+    285,
+    285
+  ],
+  "timestamps_utc": [
+    "2026-09-01T21:50:44.839528+00:00",
+    "2026-09-01T21:50:51.735849+00:00",
+    "2026-09-01T21:50:58.631538+00:00",
+    "2026-09-01T21:51:05.520566+00:00",
+    "2026-09-01T21:51:12.410621+00:00"
+  ],
+  "timestamp_utc": "2026-09-01T21:51:12.410649+00:00",
+  "command": "python3 in-brief: 5x POST /v1/chat/completions temperature=0 seed=42 max_tokens=64 to 127.0.0.1:30002",
+  "notes": "Hash is SHA-256 of choices[0].message.content UTF-8. Request ids and created timestamps are excluded because they change every call."
+}

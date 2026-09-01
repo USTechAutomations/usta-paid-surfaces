@@ -1,0 +1,71 @@
+{
+  "family": "frozen-custody",
+  "generated": "2026-09-01",
+  "note": "Real five-repeat run on our hardware, 2026-09-01. Nothing here is made up. The model is Apache License 2.0. We host a frozen copy on our machine. We do not sell a weights download. Licensor provides the Work on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, including FITNESS FOR A PARTICULAR PURPOSE. We do not warrant that answers are correct.",
+  "where_these_rows_came_from": "Where these rows came from is set out on the page this file came from: https://ustechautomations.com/feeds/frozen-custody",
+  "rows_published": 5,
+  "columns": 7,
+  "headers": [
+    "run",
+    "output_sha256",
+    "engine_fingerprint",
+    "finish_reason",
+    "content_len",
+    "timestamp_utc",
+    "identical"
+  ],
+  "rows": [
+    [
+      "1",
+      "67266ea3e0c06a4259669d9ce46fbad22104206059166eb73d405fa8cd7e3638",
+      "vllm-0.25.1-9f488e66",
+      "length",
+      "285",
+      "2026-09-01T21:50:44.839528+00:00",
+      "true"
+    ],
+    [
+      "2",
+      "67266ea3e0c06a4259669d9ce46fbad22104206059166eb73d405fa8cd7e3638",
+      "vllm-0.25.1-9f488e66",
+      "length",
+      "285",
+      "2026-09-01T21:50:51.735849+00:00",
+      "true"
+    ],
+    [
+      "3",
+      "67266ea3e0c06a4259669d9ce46fbad22104206059166eb73d405fa8cd7e3638",
+      "vllm-0.25.1-9f488e66",
+      "length",
+      "285",
+      "2026-09-01T21:50:58.631538+00:00",
+      "true"
+    ],
+    [
+      "4",
+      "67266ea3e0c06a4259669d9ce46fbad22104206059166eb73d405fa8cd7e3638",
+      "vllm-0.25.1-9f488e66",
+      "length",
+      "285",
+      "2026-09-01T21:51:05.520566+00:00",
+      "true"
+    ],
+    [
+      "5",
+      "67266ea3e0c06a4259669d9ce46fbad22104206059166eb73d405fa8cd7e3638",
+      "vllm-0.25.1-9f488e66",
+      "length",
+      "285",
+      "2026-09-01T21:51:12.410621+00:00",
+      "true"
+    ]
+  ],
+  "input_sha256": "864227ab119fff2bc364478287b933b4a1f3eeb817b42809f627a470c0710f83",
+  "unique_hash_count": 1,
+  "identical": true,
+  "engine_fingerprint": "vllm-0.25.1-9f488e66",
+  "model_id": "qwen38-s2",
+  "model_root": "unsloth/Qwen3.8-27B-NVFP4",
+  "prompt": "Reply with exactly five words: frozen model custody holds."
+}
