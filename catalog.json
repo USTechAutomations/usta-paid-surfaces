@@ -1113,6 +1113,34 @@
         "checked": "2026-08-26",
         "verified": "2026-08-26"
       }
+    },
+    {
+      "id": "clerk-clock",
+      "name": "Clerk Clock Packs",
+      "short": "Clerk Clock Packs",
+      "who": "Expediters, remodel contractors and lenders who need how many days one named office took to move one class of paperwork this quarter, plus that office's walk-in hours.",
+      "buyer": "Expediters, remodel contractors and lenders who need how many days one named office took to move one class of paperwork this quarter, plus that office's walk-in hours",
+      "cadence": "once, not a feed",
+      "cadence_long": "One-time file per office per quarter. You buy this quarter's clock file; next quarter is a new file and a new payment.",
+      "price": "$349",
+      "sample_status": "pass",
+      "group": "Construction records",
+      "note": "BORN 2026-09-01 in a copy of this repo. PROPOSED. One-time clerk-clock file per office per quarter from permit_prediction_snapshots. Price $349 once per office per quarter. Three priced offices (montgomery-md n=270 median 9d; austin n=187 median 14d; san-francisco n=324 median 10d). Checkout empty for Fable to mint. Never mint from this note. This is not metro-file (status-change rows) and not permit-files (the full board CSV). Person-name columns were scanned; none shipped. Montgomery required_text (783 chars) ships in the sample header and on the montgomery page.",
+      "contact_h2": "Ask before you buy",
+      "contact_p": "Name the office. We reply with n, median days, p25, p75, and the checkout link, before you pay anything.",
+      "contact_cta": "Email us before you pay",
+      "contact_note": "Say which office you want. We will tell you n and the middle days before you pay. There is no pay button on this page until a payment link is minted.",
+      "foot": "Every n, median, p25 and p75 on these pages was counted off SAMPLE-clerk-clock.csv built 2026-09-01. The city portals stay free. This is not the full board CSV and it is not the Metro File status-change record.",
+      "checkout": {
+        "terms": "$349 once per office per quarter, for the office named on the page. Nothing recurring, nothing to cancel and no subscription behind it. You are buying this clock file once.",
+        "after": "After you pay, a person emails you the file the same calendar day.",
+        "status": "live",
+        "url": "https://buy.stripe.com/00w9AM4h0f500Fe3eW0sU1h",
+        "label": "Buy the file — $349 once",
+        "lands_on": "buy.stripe.com",
+        "checked": "2026-09-01",
+        "verified": "2026-09-01"
+      }
     }
   ],
   "map": "MAP.md",

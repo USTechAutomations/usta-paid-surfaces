@@ -1,0 +1,6 @@
+# Montgomery County, Maryland required wording (783 characters, including their spelling of WEBISTE). Next line is the county text, character for character.
+The data made available here has been modified for use from its original source, which is Montgomery County, Maryland ("the County"). THE COUNTY MAKES NO REPRESENTATIONS OR WARRANTIES AS TO THE COMPLETENESS, ACCURACY, OR TIMELINESS OF ANY DATA. THE COUNTY EXPRESSLY DISCLAIMS ALL WARRANTIES, WHETHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. THE COUNTY MAKES NO REPRESENTATION OR WARRANTY AS TO THE WEBISTE OR APPLICATION USING DATA DRAWN FROM DATA.MONTGOMERYCOUNTYMD.GOV OR FOR THE USEFULNESS OR INTEGRITY OF THE WEB SITE OR APPLICATION. The data is subject to change and possible deletion, temporarily or permanently. It is understood that the information contained in the web feed is being used at one's own risk.
+board,class,n,median_days,p25,p75,first_date,last_date
+montgomery-md,ALTER / SINGLE FAMILY DWELLING,270,9,6,14,2026-06-26,2026-09-01
+austin,R- 435 Renovations/Remodel / Repair,187,14,8,21,2026-06-09,2026-08-30
+san-francisco,otc alterations permit,324,10,5,17,2026-06-09,2026-08-30
