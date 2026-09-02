@@ -1113,6 +1113,34 @@
         "checked": "2026-08-26",
         "verified": "2026-08-26"
       }
+    },
+    {
+      "id": "access-affidavits",
+      "name": "Access Surface Affidavits",
+      "short": "Access Surface Affidavits",
+      "who": "In-house legal teams at AI model companies, cyber insurance carriers, and outside counsel who need a dated record of what a named tool fetched.",
+      "buyer": "In-house legal teams at AI model companies, cyber insurance carriers, and outside counsel who need a dated record of what a named tool fetched",
+      "cadence": "once, not a feed",
+      "cadence_long": "One oath per named day, paid each time. You buy the written oath for the day you name; we do not send a new copy next month unless you buy again.",
+      "price": "$499",
+      "sample_status": "pass",
+      "group": "Software and AI pages",
+      "note": "Checkout empty for Fable to mint. Never mint from this note.",
+      "contact_h2": "Ask before you buy",
+      "contact_p": "Name the day. We reply with whether we already watched that day, and the checkout link, before you pay anything.",
+      "contact_cta": "Email us before you pay",
+      "contact_note": "No pay button on this page yet. Name the day. We will tell you whether we already watched it before you pay.",
+      "foot": "Every count on this page was counted off our own sealed fetch store. We swear only to our own fetch facts. We never quote another site's robots text.",
+      "checkout": {
+        "terms": "$499 once, for one named day. Nothing recurring, nothing to cancel and no subscription behind it. You are buying this oath once.",
+        "after": "After you pay, a person emails you the written oath within one working day.",
+        "status": "live",
+        "url": "https://buy.stripe.com/bJe7sE8xg0a64VueXE0sU1k",
+        "label": "Buy the oath — $499 once",
+        "lands_on": "buy.stripe.com",
+        "checked": "2026-09-01",
+        "verified": "2026-09-01"
+      }
     }
   ],
   "map": "MAP.md",

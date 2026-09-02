@@ -1,0 +1,42 @@
+{
+  "family": "access-affidavits",
+  "generated": "2026-09-01",
+  "note": "Real fetch-fact rows from 2026-09-01, with site names replaced by site-A, site-B, and site-C. Nothing here is made up. Robots bodies are not reprinted.",
+  "where_these_rows_came_from": "Where these rows came from is set out on the page this file came from: https://ustechautomations.com/feeds/access-affidavits",
+  "rows_published": 3,
+  "columns": 6,
+  "headers": [
+    "oath_date",
+    "site_label",
+    "resource",
+    "status_or_transport",
+    "body_sha256",
+    "our_user_agent"
+  ],
+  "rows": [
+    [
+      "2026-09-01",
+      "site-A",
+      "/robots.txt",
+      "200",
+      "8fa3036c68bfcbd32365f6225d24333264093b7cd38d306e106b4dbdc934fd5b",
+      "closing-web-clock/1.0"
+    ],
+    [
+      "2026-09-01",
+      "site-B",
+      "/robots.txt",
+      "403",
+      "none",
+      "closing-web-clock/1.0"
+    ],
+    [
+      "2026-09-01",
+      "site-C",
+      "/robots.txt",
+      "404",
+      "none",
+      "closing-web-clock/1.0"
+    ]
+  ]
+}
