@@ -1,0 +1,15 @@
+{
+  "family": "address-packet",
+  "generated": "2026-09-01",
+  "slices": [
+    {
+      "slug": "packet",
+      "newest": "2026-09-01",
+      "oldest": "2026-05-12",
+      "runs": 1,
+      "row_count": 21,
+      "cadence_days": 0,
+      "note": "One-time packet. Sellable pool: 989 addresses with 2+ records. Cambridge is thin (58 rows)."
+    }
+  ]
+}

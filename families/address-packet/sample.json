@@ -1,0 +1,217 @@
+{
+  "family": "address-packet",
+  "generated": "2026-09-01",
+  "note": "Real permit rows we already hold for five named streets. Nothing here is made up. No owner names. No contractor names. Not a city-wide file.",
+  "where_these_rows_came_from": "Where these rows came from is set out on the page this file came from: https://ustechautomations.com/feeds/address-packet",
+  "rows_published": 21,
+  "columns": 7,
+  "headers": [
+    "city",
+    "address",
+    "permit_date",
+    "permit_type",
+    "work_class",
+    "status",
+    "source_portal"
+  ],
+  "legal": {
+    "austin": "Data available through the City of Austin Open Data Portal are offered free and without restriction. [...] Unless otherwise noted in metadata, datasets available on the City of Austin Open Data Portal are in the public domain",
+    "cincinnati": "Public Domain",
+    "montgomery-md": "Public Domain",
+    "montgomery-md_required_text": "The data made available here has been modified for use from its original source, which is Montgomery County, Maryland (\"the County\"). THE COUNTY MAKES NO REPRESENTATIONS OR WARRANTIES AS TO THE COMPLETENESS, ACCURACY, OR TIMELINESS OF ANY DATA. THE COUNTY EXPRESSLY DISCLAIMS ALL WARRANTIES, WHETHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. THE COUNTY MAKES NO REPRESENTATION OR WARRANTY AS TO THE WEBISTE OR APPLICATION USING DATA DRAWN FROM DATA.MONTGOMERYCOUNTYMD.GOV OR FOR THE USEFULNESS OR INTEGRITY OF THE WEB SITE OR APPLICATION. The data is subject to change and possible deletion, temporarily or permanently. It is understood that the information contained in the web feed is being used at one's own risk.",
+    "new-york": "Open Data belongs to all New Yorkers. There are no restrictions on the use of Open Data.",
+    "san-francisco": "Except where otherwise stated in the file containing such Data or on the page from which such Data is accessed, including its metadata, Data is made available under the Public Domain Dedication and License v1.0",
+    "cambridge-ma": "Any user of Data distributed by the City may modify, use and publish such Data without charge."
+  },
+  "rows": [
+    [
+      "austin",
+      "1613 WETHERSFIELD RD",
+      "2026-05-12",
+      "R- 435 Renovations/Remodel / Repair",
+      "Repair",
+      "Active",
+      "City of Austin Open Data Portal — Issued Construction Permits"
+    ],
+    [
+      "austin",
+      "1613 WETHERSFIELD RD",
+      "2026-05-15",
+      "R- 435 Renovations/Remodel / Repair",
+      "Repair",
+      "Active",
+      "City of Austin Open Data Portal — Issued Construction Permits"
+    ],
+    [
+      "austin",
+      "1613 WETHERSFIELD RD",
+      "2026-07-06",
+      "R- 434 Addition & Alterations / Addition and Remodel",
+      "Addition and Remodel",
+      "Active",
+      "City of Austin Open Data Portal — Issued Construction Permits"
+    ],
+    [
+      "austin",
+      "1613 WETHERSFIELD RD",
+      "2026-07-16",
+      "R- 649 Demolition All Other Bldgs Res / Demolition",
+      "Demolition",
+      "Active",
+      "City of Austin Open Data Portal — Issued Construction Permits"
+    ],
+    [
+      "cincinnati",
+      "2561 OBSERVATORY AV",
+      "2026-07-21",
+      "Misc. Structures / Existing",
+      "Existing (city code RESS)",
+      "ISSUED",
+      "City of Cincinnati Open Data Portal — Cincinnati Building Permits"
+    ],
+    [
+      "cincinnati",
+      "2561 OBSERVATORY AV",
+      "2026-08-28",
+      "Building / Existing",
+      "Existing (city code RADD)",
+      "ISSUED",
+      "City of Cincinnati Open Data Portal — Cincinnati Building Permits"
+    ],
+    [
+      "cincinnati",
+      "2561 OBSERVATORY AV",
+      "2026-08-28",
+      "Misc. Structures / Existing",
+      "Existing (city code RALT)",
+      "ISSUED",
+      "City of Cincinnati Open Data Portal — Cincinnati Building Permits"
+    ],
+    [
+      "montgomery-md",
+      "19612 SELBY AVE",
+      "2026-07-21",
+      "ALTER / SINGLE FAMILY DWELLING",
+      "ALTER",
+      "Open",
+      "dataMontgomery — Residential Permit"
+    ],
+    [
+      "montgomery-md",
+      "19612 SELBY AVE",
+      "2026-07-28",
+      "ALTER / SINGLE FAMILY DWELLING",
+      "ALTER",
+      "Open",
+      "dataMontgomery — Residential Permit"
+    ],
+    [
+      "montgomery-md",
+      "19612 SELBY AVE",
+      "2026-08-04",
+      "ALTER / SINGLE FAMILY DWELLING",
+      "ALTER",
+      "Open",
+      "dataMontgomery — Residential Permit"
+    ],
+    [
+      "montgomery-md",
+      "19612 SELBY AVE",
+      "2026-08-04",
+      "ALTER / SINGLE FAMILY DWELLING",
+      "ALTER",
+      "Issued",
+      "dataMontgomery — Residential Permit"
+    ],
+    [
+      "new-york",
+      "79 JANE STREET",
+      "2026-05-26",
+      "Foundation / Initial Permit",
+      "Foundation",
+      "Permit Issued",
+      "NYC Open Data — DOB NOW: Build – Approved Permits"
+    ],
+    [
+      "new-york",
+      "79 JANE STREET",
+      "2026-05-28",
+      "General Construction / Initial Permit",
+      "General Construction",
+      "Permit Issued",
+      "NYC Open Data — DOB NOW: Build – Approved Permits"
+    ],
+    [
+      "new-york",
+      "79 JANE STREET",
+      "2026-05-29",
+      "Support of Excavation / Initial Permit",
+      "Support of Excavation",
+      "Permit Issued",
+      "NYC Open Data — DOB NOW: Build – Approved Permits"
+    ],
+    [
+      "new-york",
+      "79 JANE STREET",
+      "2026-06-17",
+      "Structural / Initial Permit",
+      "Structural",
+      "Permit Issued",
+      "NYC Open Data — DOB NOW: Build – Approved Permits"
+    ],
+    [
+      "new-york",
+      "79 JANE STREET",
+      "2026-06-22",
+      "General Construction / Initial Permit",
+      "General Construction",
+      "Permit Issued",
+      "NYC Open Data — DOB NOW: Build – Approved Permits"
+    ],
+    [
+      "new-york",
+      "79 JANE STREET",
+      "2026-06-22",
+      "Foundation / Initial Permit",
+      "Foundation",
+      "Permit Issued",
+      "NYC Open Data — DOB NOW: Build – Approved Permits"
+    ],
+    [
+      "san-francisco",
+      "282 Roosevelt Wy",
+      "2026-06-22",
+      "otc alterations permit",
+      "none on this portal's row",
+      "issued",
+      "DataSF — Building Permits"
+    ],
+    [
+      "san-francisco",
+      "282 Roosevelt Wy",
+      "2026-06-23",
+      "otc alterations permit",
+      "none on this portal's row",
+      "issued",
+      "DataSF — Building Permits"
+    ],
+    [
+      "san-francisco",
+      "282 Roosevelt Wy",
+      "2026-07-01",
+      "otc alterations permit",
+      "none on this portal's row",
+      "issued",
+      "DataSF — Building Permits"
+    ],
+    [
+      "san-francisco",
+      "282 Roosevelt Wy",
+      "2026-08-21",
+      "otc alterations permit",
+      "none on this portal's row",
+      "issued",
+      "DataSF — Building Permits"
+    ]
+  ]
+}

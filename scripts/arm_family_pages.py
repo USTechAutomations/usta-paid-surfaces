@@ -38,6 +38,7 @@ HEADING = {
     "grid": "Subscribe to this feed",
     "permit-metros": "Subscribe to this feed",
     "ttb": "Subscribe to this feed",
+    "address-packet": "Buy the packet",
     "access-affidavits": "Buy the oath",
 }
 NO_BUTTON = re.compile(r'<section class="contact">(?:(?!</section>).)*?No pay button.*?</section>', re.S)
