@@ -38,6 +38,7 @@ HEADING = {
     "grid": "Subscribe to this feed",
     "permit-metros": "Subscribe to this feed",
     "ttb": "Subscribe to this feed",
+    "machine-visitor-ledger": "Buy the report",
     "clean-room-corpus": "Buy the pack",
     "address-packet": "Buy the packet",
     "access-affidavits": "Buy the oath",

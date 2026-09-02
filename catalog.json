@@ -1115,6 +1115,34 @@
       }
     },
     {
+      "id": "machine-visitor-ledger",
+      "name": "Machine Visitor Ledger",
+      "short": "Machine Visitor Ledger",
+      "who": "Small hosting companies, independent publishers, and documentation sites that need a dated file of named-machine share and bytes from their own log.",
+      "buyer": "Small hosting companies, independent publishers, and documentation sites that need a dated file of named-machine share and bytes from their own log",
+      "cadence": "once, not a feed",
+      "cadence_long": "One-time report. One log, one report, one payment. We do not send a new copy next month unless you buy again.",
+      "price": "$199",
+      "sample_status": "pass",
+      "group": "Checks we run for you",
+      "note": "Checkout empty for Fable to mint. Never mint from this note.",
+      "contact_h2": "Ask before you buy",
+      "contact_p": "We reply with what you get, the price, and how to send the log after you pay, before you pay anything.",
+      "contact_cta": "Email us before you pay",
+      "contact_note": "No pay button on this page yet.",
+      "foot": "Every count on this page was counted off the 2,000-line synthetic fixture log on 2026-09-01. Sample rows show the shape of the report, not a customer file.",
+      "checkout": {
+        "terms": "$199 once, for one log, for one report. Nothing recurring, nothing to cancel and no subscription behind it. You are buying this report once.",
+        "after": "After you pay, you reply to the receipt email with your log. The parser runs without a person. We email you the report and we delete your log within 24 hours.",
+        "status": "live",
+        "url": "https://buy.stripe.com/aFa00cfZIe0W87GdTA0sU1n",
+        "label": "Buy the report — $199 once",
+        "lands_on": "buy.stripe.com",
+        "checked": "2026-09-01",
+        "verified": "2026-09-01"
+      }
+    },
+    {
       "id": "clean-room-corpus",
       "name": "Clean-Room Corpus Packs",
       "short": "Clean-Room Corpus Packs",

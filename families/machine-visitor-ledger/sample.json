@@ -1,0 +1,76 @@
+{
+  "family": "machine-visitor-ledger",
+  "generated": "2026-09-01",
+  "note": "Counted off the 2,000-line synthetic fixture log. Invented addresses only. Not a customer file. Nothing here is rounded.",
+  "where_these_rows_came_from": "Where these rows came from is set out on the page this file came from: https://ustechautomations.com/feeds/machine-visitor-ledger",
+  "rows_published": 10,
+  "columns": 4,
+  "headers": [
+    "machine_name",
+    "hits",
+    "bytes",
+    "share_pct"
+  ],
+  "rows": [
+    [
+      "openai_gptbot",
+      180,
+      15308142,
+      9.0
+    ],
+    [
+      "anthropic_claudebot",
+      120,
+      8645871,
+      6.0
+    ],
+    [
+      "bytedance_bytespider",
+      90,
+      8194614,
+      4.5
+    ],
+    [
+      "amazonbot",
+      70,
+      4482625,
+      3.5
+    ],
+    [
+      "perplexitybot",
+      55,
+      3192493,
+      2.75
+    ],
+    [
+      "commoncrawl_ccbot",
+      45,
+      5402385,
+      2.25
+    ],
+    [
+      "meta_externalagent",
+      40,
+      1881977,
+      2.0
+    ],
+    [
+      "openai_searchbot",
+      30,
+      1081005,
+      1.5
+    ],
+    [
+      "openai_chatgpt_user",
+      25,
+      551525,
+      1.25
+    ],
+    [
+      "google_extended",
+      20,
+      361670,
+      1.0
+    ]
+  ]
+}

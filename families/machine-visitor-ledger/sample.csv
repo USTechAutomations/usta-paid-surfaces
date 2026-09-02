@@ -1,0 +1,11 @@
+machine_name,hits,bytes,share_pct
+openai_gptbot,180,15308142,9.00
+anthropic_claudebot,120,8645871,6.00
+bytedance_bytespider,90,8194614,4.50
+amazonbot,70,4482625,3.50
+perplexitybot,55,3192493,2.75
+commoncrawl_ccbot,45,5402385,2.25
+meta_externalagent,40,1881977,2.00
+openai_searchbot,30,1081005,1.50
+openai_chatgpt_user,25,551525,1.25
+google_extended,20,361670,1.00
