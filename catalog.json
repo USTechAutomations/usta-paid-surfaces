@@ -1113,6 +1113,34 @@
         "checked": "2026-08-26",
         "verified": "2026-08-26"
       }
+    },
+    {
+      "id": "address-packet",
+      "name": "Address Record Packet",
+      "short": "Address Record Packet",
+      "who": "A title shop, lender, or closing desk that needs a dated public-record quote on one property for a closing table.",
+      "buyer": "A title shop, lender, or closing desk that needs a dated public-record quote on one property for a closing table",
+      "cadence": "once, not a feed",
+      "cadence_long": "One-time packet. You buy the packet for the street you name; we do not send a new copy next month unless you buy again.",
+      "price": "$249",
+      "sample_status": "pass",
+      "group": "Construction records",
+      "note": "Checkout empty for Fable to mint. Never mint from this note.",
+      "contact_h2": "Ask before you buy",
+      "contact_p": "Name the street and the city, not a person. We reply with how many permit rows we hold and the checkout link, before you pay anything.",
+      "contact_cta": "Email us before you pay",
+      "contact_note": "Say which street and city you want. We will tell you the row count before you pay. There is no pay button on this page until a payment link is minted.",
+      "foot": "The 21 sample rows and the 989-address sellable pool were counted off the live six-city store on 2026-09-01. Cambridge is thin (58 rows). This is not a city-wide dump and it is not a list of people to call.",
+      "checkout": {
+        "terms": "$249 once, for the street you name. Nothing recurring, nothing to cancel and no subscription behind it. You are buying this address packet once.",
+        "after": "After you pay, a person emails you the packet the same day if that street is already in the six-city store. If we hold fewer than two permit rows for that street, you do not pay.",
+        "status": "live",
+        "url": "https://buy.stripe.com/5kQeV600K8GC2Nm8zg0sU1l",
+        "label": "Buy the packet — $249 once",
+        "lands_on": "buy.stripe.com",
+        "checked": "2026-09-01",
+        "verified": "2026-09-01"
+      }
     }
   ],
   "map": "MAP.md",
