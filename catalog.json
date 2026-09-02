@@ -1115,6 +1115,34 @@
       }
     },
     {
+      "id": "clean-room-corpus",
+      "name": "Clean-Room Corpus Packs",
+      "short": "Clean-Room Corpus Packs",
+      "who": "AI data teams, eval labs, and vendor legal teams who need training and eval material they can show a licence line for.",
+      "buyer": "AI data teams, eval labs, and vendor legal teams who need training and eval material they can show a licence line for",
+      "cadence": "once, not a feed",
+      "cadence_long": "One-time file. You buy the snapshot for one seal day; we do not send a new copy next month unless you buy again.",
+      "price": "$499",
+      "sample_status": "pass",
+      "group": "Public records",
+      "note": "Checkout empty for Fable to mint. Never mint from this note. BORN 2026-09-01 in a worktree copy. Three CSV files from one named seal day plus a manifest: TTB permits (public domain), USGS quakes (public domain), and permits from the six paid-ok cities. Every row carries the quoted allow-sentence and the date we read it. No person columns. Sample is first 25 rows of each slice CSV with a leading slice column (75 rows). Full-slice sha256 values are on the page. Price $499 once. Counted sales 0.",
+      "contact_h2": "Ask before you buy",
+      "contact_p": "We reply with the slice counts, the allow-sentences, and the checkout link, before you pay anything.",
+      "contact_cta": "Email us before you pay",
+      "contact_note": "No pay button on this page yet. $499 once, per pack (one seal day). Nothing recurring.",
+      "foot": "Every row count and every hash on this page was counted off the 2026-09-01 sample pack. This is not the TTB appear/disappear table and it is not a scrape of the open web. No person columns anywhere.",
+      "checkout": {
+        "terms": "$499 once, per pack (one seal day). Nothing recurring, nothing to cancel and no subscription behind it. You are buying this pack once.",
+        "after": "After you pay, a person emails you the three files and the manifest the same calendar day the payment lands.",
+        "status": "live",
+        "url": "https://buy.stripe.com/9B69AMfZIbSOcnWg1I0sU1m",
+        "label": "Buy the pack — $499 once",
+        "lands_on": "buy.stripe.com",
+        "checked": "2026-09-01",
+        "verified": "2026-09-01"
+      }
+    },
+    {
       "id": "address-packet",
       "name": "Address Record Packet",
       "short": "Address Record Packet",
