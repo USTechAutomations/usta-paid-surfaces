@@ -1,0 +1,6 @@
+# Public-record quotes only. Not a stamp. No opinion on safety or code compliance.
+# Except where otherwise stated in the file containing such Data or on the page from which such Data is accessed, including its metadata, Data is made available under the Public Domain Dedication and License v1.0
+city,permit_type,work_class,filed_date,status,review_days,source_portal
+San Francisco,otc alterations permit,1 family dwelling,2026-06-16,complete,15,https://data.sfgov.org/Housing-and-Buildings/Building-Permits/i98e-djp9
+San Francisco,otc alterations permit,2 family dwelling,2026-07-14,complete,9,https://data.sfgov.org/Housing-and-Buildings/Building-Permits/i98e-djp9
+San Francisco,otc alterations permit,1 family dwelling,2026-06-05,suspend,9,https://data.sfgov.org/Housing-and-Buildings/Building-Permits/i98e-djp9
