@@ -1113,6 +1113,34 @@
         "checked": "2026-08-26",
         "verified": "2026-08-26"
       }
+    },
+    {
+      "id": "stamper-appendix",
+      "name": "Stamper Evidence Appendix",
+      "short": "Stamper Evidence Appendix",
+      "who": "Licensed engineers and architects who attach public-record permit quotes to their own filing.",
+      "buyer": "Licensed engineers and architects who attach public-record permit quotes to their own filing",
+      "cadence": "once, not a feed",
+      "cadence_long": "One-time pack. You buy the snapshot; we do not send a new copy next month unless you buy again.",
+      "price": "$249",
+      "sample_status": "pass",
+      "group": "Construction records",
+      "note": "BORN 2026-09-01 from pitch pack P10. First pack: San Francisco over-the-counter alterations. 2768 otc alterations permit rows; 150054 snapshot copies 2026-06-07 to 2026-09-01. Three sample packs. We never stamp. Checkout empty for Fable to mint. Never mint from this note.",
+      "contact_h2": "Ask before you buy",
+      "contact_p": "Name the city and filing type. We reply with the pack counts and the checkout link, before you pay anything.",
+      "contact_cta": "Email us before you pay",
+      "contact_note": "No pay button on this page yet. Name the city and filing type. We will tell you the pack counts before you pay.",
+      "foot": "Every count on this page was counted off the 2026-09-01 permit-store read named in the pack. This is not a stamp and it is not an opinion that the work meets code.",
+      "checkout": {
+        "terms": "$249 once, for the San Francisco over-the-counter alterations pack on the page. Nothing recurring, nothing to cancel and no subscription behind it. You are buying this pack once. There is no pay button on this page yet.",
+        "after": "After you pay, a person emails you the pack within one working day.",
+        "status": "live",
+        "url": "https://buy.stripe.com/8x2fZa14ObSO9bK2aS0sU1p",
+        "label": "Buy the pack — $249 once",
+        "lands_on": "buy.stripe.com",
+        "checked": "2026-09-01",
+        "verified": "2026-09-01"
+      }
     }
   ],
   "map": "MAP.md",
