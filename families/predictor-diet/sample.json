@@ -1,0 +1,25 @@
+{
+  "family": "predictor-diet",
+  "generated": "2026-09-02",
+  "note": "We only look at public pages on your own site that you name in the order, and only because you hired us. We never score a named third party. Real sample rows from a dated fetch of our own pages, redacted as example-co /page-1..n. Two-date hash is UNKNOWN for five pages.",
+  "where_these_rows_came_from": "Where these rows came from is set out on the page this file came from: https://ustechautomations.com/feeds/predictor-diet",
+  "rows_published": 8,
+  "columns": 5,
+  "headers": [
+    "page_label",
+    "fetch_date",
+    "status",
+    "answers_to_machine_ua",
+    "hash_changed_between_dates"
+  ],
+  "rows": [
+    ["/page-1", "2026-09-02", "200", "yes", "yes"],
+    ["/page-2", "2026-09-02", "200", "yes", "UNKNOWN"],
+    ["/page-3", "2026-09-02", "404", "no", "no"],
+    ["/page-4", "2026-09-02", "404", "no", "UNKNOWN"],
+    ["/page-5", "2026-09-02", "200", "yes", "UNKNOWN"],
+    ["/page-6", "2026-09-02", "200", "yes", "UNKNOWN"],
+    ["/page-7", "2026-09-02", "200", "yes", "UNKNOWN"],
+    ["/page-8", "2026-09-02", "200", "yes", "UNKNOWN"]
+  ]
+}

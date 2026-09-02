@@ -1,0 +1,9 @@
+page_label,fetch_date,status,answers_to_machine_ua,hash_changed_between_dates
+/page-1,2026-09-02,200,yes,yes
+/page-2,2026-09-02,200,yes,UNKNOWN
+/page-3,2026-09-02,404,no,no
+/page-4,2026-09-02,404,no,UNKNOWN
+/page-5,2026-09-02,200,yes,UNKNOWN
+/page-6,2026-09-02,200,yes,UNKNOWN
+/page-7,2026-09-02,200,yes,UNKNOWN
+/page-8,2026-09-02,200,yes,UNKNOWN

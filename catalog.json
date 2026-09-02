@@ -1115,6 +1115,34 @@
       }
     },
     {
+      "id": "predictor-diet",
+      "name": "Predictor Diet Report",
+      "short": "Predictor Diet Report",
+      "who": "In-house counsel, privacy and AI-governance teams who need a dated quote of their own public pages, not a score of anyone else.",
+      "buyer": "In-house counsel, privacy and AI-governance teams who need a dated quote of their own public pages, not a score of anyone else",
+      "cadence": "once a year, per company",
+      "cadence_long": "One dated report and one refresh inside that year. You buy the year; we do not start a subscription.",
+      "price": "$499",
+      "sample_status": "pass",
+      "group": "Checks we run for you",
+      "note": "Checkout empty for Fable to mint. Never mint from this note.",
+      "contact_h2": "Ask before you buy",
+      "contact_p": "Name the public pages on your own site. We reply with the checkout link, before you pay anything.",
+      "contact_cta": "Email us before you pay",
+      "contact_note": "No pay button on this page yet. We only look at public pages on your own site that you name in the order, and only because you hired us. We never score a named third party.",
+      "foot": "Sample rows show the shape of the commissioned file, not every row you buy. We only look at public pages on your own site that you name in the order, and only because you hired us. We never score a named third party. Two-date hash is UNKNOWN for five pages in the sample.",
+      "checkout": {
+        "terms": "$499 per company per year. One dated report and one refresh inside that year. Nothing recurring, nothing to cancel and no subscription behind it. You are buying this report for the pages you name.",
+        "after": "After you pay, a person emails you the file within 5 working days of your named page list arriving.",
+        "status": "live",
+        "url": "https://buy.stripe.com/dRm8wI3cWcWS1Ji5n40sU1o",
+        "label": "Commission the report — $499 once",
+        "lands_on": "buy.stripe.com",
+        "checked": "2026-09-01",
+        "verified": "2026-09-01"
+      }
+    },
+    {
       "id": "machine-visitor-ledger",
       "name": "Machine Visitor Ledger",
       "short": "Machine Visitor Ledger",
