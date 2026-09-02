@@ -1,0 +1,30 @@
+{
+  "family": "clean-room-corpus",
+  "generated": "2026-09-01",
+  "slices": [
+    {
+      "slug": "ttb_permits",
+      "newest": "2026-09-01",
+      "oldest": "2026-09-01",
+      "runs": 1,
+      "row_count": 200,
+      "cadence_days": 1
+    },
+    {
+      "slug": "usgs_quakes",
+      "newest": "2026-09-02",
+      "oldest": "2026-09-02",
+      "runs": 1,
+      "row_count": 200,
+      "cadence_days": 1
+    },
+    {
+      "slug": "city_permits",
+      "newest": "2026-08-31",
+      "oldest": "2025-07-16",
+      "runs": 1,
+      "row_count": 200,
+      "cadence_days": 1
+    }
+  ]
+}

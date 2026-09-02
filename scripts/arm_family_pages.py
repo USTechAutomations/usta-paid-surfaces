@@ -38,6 +38,7 @@ HEADING = {
     "grid": "Subscribe to this feed",
     "permit-metros": "Subscribe to this feed",
     "ttb": "Subscribe to this feed",
+    "clean-room-corpus": "Buy the pack",
 }
 NO_BUTTON = re.compile(r'<section class="contact">(?:(?!</section>).)*?No pay button.*?</section>', re.S)
 HERO_CTA = re.compile(r'[ \t]*<p class="hero-cta">.*?</p>\n', re.S)
