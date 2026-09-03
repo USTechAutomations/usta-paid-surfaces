@@ -1,36 +1,36 @@
 {
   "family": "agent-incidents",
-  "generated": "2026-08-25",
+  "generated": "2026-09-03",
   "slices": [
     {
       "slug": "new-cases",
-      "newest": "2026-08-24",
+      "newest": "2026-08-25",
       "oldest": "2026-07-10",
-      "runs": 35,
+      "runs": 36,
       "row_count": 12,
       "cadence_days": 1
     },
     {
       "slug": "by-court",
-      "newest": "2026-08-24",
+      "newest": "2026-08-25",
       "oldest": "2026-07-10",
-      "runs": 35,
+      "runs": 36,
       "row_count": 24,
       "cadence_days": 1
     },
     {
       "slug": "by-claim",
-      "newest": "2026-08-24",
+      "newest": "2026-08-25",
       "oldest": "2026-07-10",
-      "runs": 35,
+      "runs": 36,
       "row_count": 24,
       "cadence_days": 1
     },
     {
       "slug": "coverage",
-      "newest": "2026-08-24",
+      "newest": "2026-08-25",
       "oldest": "2026-07-10",
-      "runs": 35,
+      "runs": 36,
       "row_count": 758,
       "cadence_days": 1
     }

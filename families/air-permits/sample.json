@@ -1,6 +1,6 @@
 {
   "family": "air-permits",
-  "generated": "2026-08-25",
+  "generated": "2026-09-03",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/air-permits",
   "rows_published": 25,
@@ -20,13 +20,90 @@
     [
       "Texas",
       "Texas environment agency",
+      "PADUCAH GIN, LLC",
+      "PADUCAH GIN",
+      "36764",
+      "26 Aug 2026",
+      "Administrative Complete Application",
+      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413988-ac.pdf",
+      "3 Sep 2026"
+    ],
+    [
+      "Texas",
+      "Texas environment agency",
+      "LALA CONSTRUCTION LLC",
+      "LALA KRUM PLANT",
+      "185139",
+      "25 Aug 2026",
+      "Administrative Complete Application",
+      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413947-ac.pdf",
+      "3 Sep 2026"
+    ],
+    [
+      "Texas",
+      "Texas environment agency",
+      "BLUE PHANTOM LEASING LLC",
+      "CBP NO 3",
+      "185144",
+      "25 Aug 2026",
+      "Administrative Complete Application",
+      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413958-ac.pdf",
+      "3 Sep 2026"
+    ],
+    [
+      "Texas",
+      "Texas environment agency",
+      "ALLEYTON RESOURCE COMPANY LLC",
+      "SMITH SAND & GRAVEL PLANT",
+      "140441L001",
+      "24 Aug 2026",
+      "Administrative Complete Application",
+      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413784-ac.pdf",
+      "3 Sep 2026"
+    ],
+    [
+      "Texas",
+      "Texas environment agency",
+      "BIG TOWN CONCRETE LLC",
+      "SOUTHPORT LOGISTICS CBP",
+      "185104L001",
+      "24 Aug 2026",
+      "Administrative Complete Application",
+      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413776-ac.pdf",
+      "3 Sep 2026"
+    ],
+    [
+      "Texas",
+      "Texas environment agency",
+      "PAN-GLO SERVICES LLC",
+      "PAN GLO SERVICE",
+      "26275",
+      "24 Aug 2026",
+      "Administrative Complete Application",
+      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413775-ac.pdf",
+      "3 Sep 2026"
+    ],
+    [
+      "Texas",
+      "Texas environment agency",
+      "GRAPHIC PACKAGING INTERNATIONAL LLC",
+      "TEXARKANA MILL",
+      "2975",
+      "21 Aug 2026",
+      "Administrative Complete Application",
+      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413754-ac.pdf",
+      "3 Sep 2026"
+    ],
+    [
+      "Texas",
+      "Texas environment agency",
       "MICHELS ROAD & STONE INC",
       "CONCRETE BATCH PLANT 1",
       "185090L001",
       "20 Aug 2026",
       "Administrative Complete Application",
       "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413715-ac.pdf",
-      "25 Aug 2026"
+      "3 Sep 2026"
     ],
     [
       "Texas",
@@ -37,7 +114,7 @@
       "20 Aug 2026",
       "Administrative Complete Application",
       "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413712-ac.pdf",
-      "25 Aug 2026"
+      "3 Sep 2026"
     ],
     [
       "Texas",
@@ -48,7 +125,7 @@
       "19 Aug 2026",
       "Administrative Complete Application",
       "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413579-ac.pdf",
-      "25 Aug 2026"
+      "3 Sep 2026"
     ],
     [
       "Texas",
@@ -59,7 +136,7 @@
       "19 Aug 2026",
       "Administrative Complete Application",
       "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413566-ac.pdf",
-      "25 Aug 2026"
+      "3 Sep 2026"
     ],
     [
       "Texas",
@@ -70,7 +147,7 @@
       "19 Aug 2026",
       "Administrative Complete Application",
       "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413618-ac.pdf",
-      "25 Aug 2026"
+      "3 Sep 2026"
     ],
     [
       "Texas",
@@ -79,9 +156,20 @@
       "HEREFORD PORTABLE CONCRETE BATCH PLANTS",
       "185043L001",
       "18 Aug 2026",
+      "Technically Complete Application",
+      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413535-tc.pdf",
+      "3 Sep 2026"
+    ],
+    [
+      "Texas",
+      "Texas environment agency",
+      "MICHELS ROAD & STONE INC",
+      "TRIPLE C QUARRY",
+      "185044",
+      "18 Aug 2026",
       "Administrative Complete Application",
-      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413535-ac.pdf",
-      "25 Aug 2026"
+      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413536-ac.pdf",
+      "3 Sep 2026"
     ],
     [
       "Texas",
@@ -92,7 +180,7 @@
       "18 Aug 2026",
       "Administrative Complete Application",
       "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413547-ac.pdf",
-      "25 Aug 2026"
+      "3 Sep 2026"
     ],
     [
       "Texas",
@@ -101,9 +189,9 @@
       "PORTABLE CONCRETE BATCH PLANTS 1 & 2",
       "185036L001",
       "17 Aug 2026",
-      "Administrative Complete Application",
-      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413523-ac.pdf",
-      "25 Aug 2026"
+      "Technically Complete Application",
+      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413523-tc.pdf",
+      "3 Sep 2026"
     ],
     [
       "Texas",
@@ -114,7 +202,7 @@
       "14 Aug 2026",
       "Technically Complete Application",
       "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413442-tc.pdf",
-      "25 Aug 2026"
+      "3 Sep 2026"
     ],
     [
       "Texas",
@@ -125,7 +213,18 @@
       "14 Aug 2026",
       "Administrative Complete Application",
       "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413461-ac.pdf",
-      "25 Aug 2026"
+      "3 Sep 2026"
+    ],
+    [
+      "Texas",
+      "Texas environment agency",
+      "TICONA POLYMERS INC",
+      "BISHOP FACILITY",
+      "2691",
+      "14 Aug 2026",
+      "Administrative Complete Application",
+      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413457-ac.pdf",
+      "3 Sep 2026"
     ],
     [
       "Texas",
@@ -136,7 +235,7 @@
       "13 Aug 2026",
       "Administrative Complete Application",
       "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413402-ac.pdf",
-      "25 Aug 2026"
+      "3 Sep 2026"
     ],
     [
       "Texas",
@@ -147,7 +246,18 @@
       "12 Aug 2026",
       "Administrative Complete Application",
       "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413382-ac.pdf",
-      "25 Aug 2026"
+      "3 Sep 2026"
+    ],
+    [
+      "Texas",
+      "Texas environment agency",
+      "HEREFORD CONCRETE INC",
+      "CONCRETE BATCH PLANT 5",
+      "184998L001",
+      "12 Aug 2026",
+      "Administrative Complete Application",
+      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413383-ac.pdf",
+      "3 Sep 2026"
     ],
     [
       "Texas",
@@ -158,7 +268,7 @@
       "11 Aug 2026",
       "Administrative Complete Application",
       "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413239-ac.pdf",
-      "25 Aug 2026"
+      "3 Sep 2026"
     ],
     [
       "Texas",
@@ -169,7 +279,7 @@
       "11 Aug 2026",
       "Administrative Complete Application",
       "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413301-ac.pdf",
-      "25 Aug 2026"
+      "3 Sep 2026"
     ],
     [
       "Texas",
@@ -180,117 +290,7 @@
       "11 Aug 2026",
       "Administrative Complete Application",
       "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413253-ac.pdf",
-      "25 Aug 2026"
-    ],
-    [
-      "Texas",
-      "Texas environment agency",
-      "NORTH GIN LLC",
-      "NORTHSIDE GIN",
-      "36019",
-      "11 Aug 2026",
-      "Administrative Complete Application",
-      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413246-ac.pdf",
-      "25 Aug 2026"
-    ],
-    [
-      "Texas",
-      "Texas environment agency",
-      "MOTIVA ENTERPRISES LLC",
-      "PORT ARTHUR REFINERY",
-      "8404, PSDTX1062M6, PSDTX1534M3",
-      "11 Aug 2026",
-      "Administrative Complete Application",
-      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413237-ac.pdf",
-      "25 Aug 2026"
-    ],
-    [
-      "Texas",
-      "Texas environment agency",
-      "VAN EATON READY MIX INC",
-      "CEMCO-504 & 401 CBP CROSSROADS WIND FARM",
-      "184938L001",
-      "10 Aug 2026",
-      "Administrative Complete Application",
-      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413172-ac.pdf",
-      "25 Aug 2026"
-    ],
-    [
-      "Texas",
-      "Texas environment agency",
-      "GTO READY MIX LLC",
-      "CBP NO 5",
-      "184945",
-      "10 Aug 2026",
-      "Technically Complete Application",
-      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413185-tc.pdf",
-      "25 Aug 2026"
-    ],
-    [
-      "Texas",
-      "Texas environment agency",
-      "KETJEN LIMITED LIABILITY COMPANY",
-      "ALBEMARLE CATALYSTS",
-      "2487",
-      "10 Aug 2026",
-      "Administrative Complete Application",
-      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413202-ac.pdf",
-      "25 Aug 2026"
-    ],
-    [
-      "Texas",
-      "Texas environment agency",
-      "AMERICAN SPINCAST INC",
-      "AMERICAN SPINCAST",
-      "23465",
-      "7 Aug 2026",
-      "Administrative Complete Application",
-      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413081-ac.pdf",
-      "25 Aug 2026"
-    ],
-    [
-      "Texas",
-      "Texas environment agency",
-      "DAVISWETZEL GROUP LLC",
-      "ODONNELL CRUSHING AND SCREENING",
-      "137569",
-      "6 Aug 2026",
-      "Administrative Complete Application",
-      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413053-ac.pdf",
-      "25 Aug 2026"
-    ],
-    [
-      "Texas",
-      "Texas environment agency",
-      "BROWN OAK PROPERTIES LLC",
-      "BROWN OAK PROPERTIES",
-      "184909",
-      "6 Aug 2026",
-      "Administrative Complete Application",
-      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413033-ac.pdf",
-      "25 Aug 2026"
-    ],
-    [
-      "Texas",
-      "Texas environment agency",
-      "CELEBRATE LIFE MEMORIAL CENTER LLC",
-      "COMPANIONS CROSSING PET CREMATION",
-      "184894",
-      "5 Aug 2026",
-      "Administrative Complete Application",
-      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/412981-ac.pdf",
-      "25 Aug 2026"
-    ],
-    [
-      "Texas",
-      "Texas environment agency",
-      "CARLISLE EPS HOLDING LLC",
-      "THERMAFOAM OPERATING",
-      "79545",
-      "5 Aug 2026",
-      "Administrative Complete Application",
-      "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/413004-ac.pdf",
-      "25 Aug 2026"
+      "3 Sep 2026"
     ]
   ]
 }

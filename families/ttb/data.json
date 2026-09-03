@@ -1,157 +1,157 @@
 {
   "family": "ttb",
-  "generated": "2026-08-25",
+  "generated": "2026-09-03",
   "slices": [
     {
       "slug": "wholesaler",
-      "newest": "2026-08-25",
+      "newest": "2026-09-01",
       "oldest": "2026-08-08",
-      "runs": 4,
-      "row_count": 155608,
+      "runs": 5,
+      "row_count": 194594,
       "cadence_days": 7
     },
     {
       "slug": "importer",
-      "newest": "2026-08-25",
+      "newest": "2026-09-01",
       "oldest": "2026-08-08",
-      "runs": 4,
-      "row_count": 85950,
+      "runs": 5,
+      "row_count": 107491,
       "cadence_days": 7
     },
     {
       "slug": "wine-producer",
-      "newest": "2026-08-25",
+      "newest": "2026-09-01",
       "oldest": "2026-08-08",
-      "runs": 4,
-      "row_count": 72412,
+      "runs": 5,
+      "row_count": 90541,
       "cadence_days": 7
     },
     {
       "slug": "distilled-spirits-plant",
-      "newest": "2026-08-25",
+      "newest": "2026-09-01",
       "oldest": "2026-08-08",
-      "runs": 4,
-      "row_count": 22612,
+      "runs": 5,
+      "row_count": 28290,
       "cadence_days": 7
     },
     {
       "slug": "california",
-      "newest": "2026-08-25",
+      "newest": "2026-09-01",
       "oldest": "2026-08-08",
-      "runs": 4,
-      "row_count": 83924,
+      "runs": 5,
+      "row_count": 104932,
       "cadence_days": 7
     },
     {
       "slug": "new-york",
-      "newest": "2026-08-25",
+      "newest": "2026-09-01",
       "oldest": "2026-08-08",
-      "runs": 4,
-      "row_count": 23513,
+      "runs": 5,
+      "row_count": 29407,
       "cadence_days": 7
     },
     {
       "slug": "texas",
-      "newest": "2026-08-25",
+      "newest": "2026-09-01",
       "oldest": "2026-08-08",
-      "runs": 4,
-      "row_count": 20563,
+      "runs": 5,
+      "row_count": 25723,
       "cadence_days": 7
     },
     {
       "slug": "oregon",
-      "newest": "2026-08-25",
+      "newest": "2026-09-01",
       "oldest": "2026-08-08",
-      "runs": 4,
-      "row_count": 11845,
+      "runs": 5,
+      "row_count": 14812,
       "cadence_days": 7
     },
     {
       "slug": "pennsylvania",
-      "newest": "2026-08-25",
+      "newest": "2026-09-01",
       "oldest": "2026-08-08",
-      "runs": 4,
-      "row_count": 9784,
+      "runs": 5,
+      "row_count": 12234,
       "cadence_days": 7
     },
     {
       "slug": "illinois",
-      "newest": "2026-08-25",
+      "newest": "2026-09-01",
       "oldest": "2026-08-08",
-      "runs": 4,
-      "row_count": 9343,
+      "runs": 5,
+      "row_count": 11685,
       "cadence_days": 7
     },
     {
       "slug": "virginia",
-      "newest": "2026-08-25",
+      "newest": "2026-09-01",
       "oldest": "2026-08-08",
-      "runs": 4,
-      "row_count": 8091,
+      "runs": 5,
+      "row_count": 10118,
       "cadence_days": 7
     },
     {
       "slug": "north-carolina",
-      "newest": "2026-08-25",
+      "newest": "2026-09-01",
       "oldest": "2026-08-08",
-      "runs": 4,
-      "row_count": 7644,
+      "runs": 5,
+      "row_count": 9558,
       "cadence_days": 7
     },
     {
       "slug": "michigan",
-      "newest": "2026-08-25",
+      "newest": "2026-09-01",
       "oldest": "2026-08-08",
-      "runs": 4,
-      "row_count": 7513,
+      "runs": 5,
+      "row_count": 9396,
       "cadence_days": 7
     },
     {
       "slug": "colorado",
-      "newest": "2026-08-25",
+      "newest": "2026-09-01",
       "oldest": "2026-08-08",
-      "runs": 4,
-      "row_count": 6837,
+      "runs": 5,
+      "row_count": 8549,
       "cadence_days": 7
     },
     {
       "slug": "ohio",
-      "newest": "2026-08-25",
+      "newest": "2026-09-01",
       "oldest": "2026-08-08",
-      "runs": 4,
-      "row_count": 6713,
+      "runs": 5,
+      "row_count": 8396,
       "cadence_days": 7
     },
     {
       "slug": "new-jersey",
-      "newest": "2026-08-25",
+      "newest": "2026-09-01",
       "oldest": "2026-08-08",
-      "runs": 4,
-      "row_count": 6460,
+      "runs": 5,
+      "row_count": 8080,
       "cadence_days": 7
     },
     {
       "slug": "georgia",
-      "newest": "2026-08-25",
+      "newest": "2026-09-01",
       "oldest": "2026-08-08",
-      "runs": 4,
-      "row_count": 6006,
+      "runs": 5,
+      "row_count": 7513,
       "cadence_days": 7
     },
     {
       "slug": "massachusetts",
-      "newest": "2026-08-25",
+      "newest": "2026-09-01",
       "oldest": "2026-08-08",
-      "runs": 4,
-      "row_count": 5302,
+      "runs": 5,
+      "row_count": 6631,
       "cadence_days": 7
     },
     {
       "slug": "coverage",
-      "newest": "2026-08-25",
+      "newest": "2026-09-01",
       "oldest": "2026-08-08",
-      "runs": 4,
-      "row_count": 336582,
+      "runs": 5,
+      "row_count": 420916,
       "cadence_days": 7
     }
   ]

@@ -1,6 +1,6 @@
 {
   "family": "agent-register",
-  "generated": "2026-08-25",
+  "generated": "2026-09-03",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/agent-register",
   "rows_published": 25,
@@ -12,6 +12,108 @@
     "where_it_answers"
   ],
   "rows": [
+    [
+      "io.github.entreprisedaney33-rgb/x402-seller-mcp",
+      "2026-09-02",
+      "2026-09-02",
+      "no address in the record"
+    ],
+    [
+      "io.github.nanotools-x402/nanotools",
+      "2026-09-01",
+      "2026-09-01",
+      "nano.vodka-24.com"
+    ],
+    [
+      "io.github.kevin2003050666-coder/x402-micro-tollgate",
+      "2026-09-01",
+      "2026-09-01",
+      "no address in the record"
+    ],
+    [
+      "io.github.forgemeshlabs/x402-scan-mcp",
+      "2026-09-01",
+      "2026-09-01",
+      "no address in the record"
+    ],
+    [
+      "io.github.chico10117/x402-preflight",
+      "2026-09-01",
+      "2026-09-01",
+      "x402-wallet-readiness-service.vercel.app"
+    ],
+    [
+      "fr.humanmirror/x402",
+      "2026-09-01",
+      "2026-09-01",
+      "humanmirror.fr"
+    ],
+    [
+      "dev.workers.clankerceo.multichain-rpc/x402-tools",
+      "2026-09-01",
+      "2026-09-01",
+      "multichain-rpc.clankerceo.workers.dev"
+    ],
+    [
+      "dev.workers.ghost-agent-os.ghost-identity/ghost-x402-market-intel-vet-schema",
+      "2026-08-31",
+      "2026-08-31",
+      "ghost-identity.ghost-agent-os.workers.dev"
+    ],
+    [
+      "io.github.ihen404/x402-express",
+      "2026-08-29",
+      "2026-08-29",
+      "no address in the record"
+    ],
+    [
+      "io.github.ffboers/x402-rpc-gateway",
+      "2026-08-29",
+      "2026-08-29",
+      "no address in the record"
+    ],
+    [
+      "tech.autonomylabsweb.www/autonomy-x402-tools",
+      "2026-08-27",
+      "2026-08-27",
+      "www.autonomylabsweb.tech"
+    ],
+    [
+      "us.inversolabs/x402-compatibility-intelligence",
+      "2026-08-26",
+      "2026-08-26",
+      "intelligence.inversolabs.us"
+    ],
+    [
+      "io.github.devmster/x402-trinity",
+      "2026-08-26",
+      "2026-08-26",
+      "no address in the record"
+    ],
+    [
+      "net.tunnelmole.imkl13-ip-209-115-177-214/x402-text-tools",
+      "2026-08-25",
+      "2026-08-25",
+      "imkl13-ip-209-115-177-214.tunnelmole.net"
+    ],
+    [
+      "net.tunnelmole.heiekc-ip-209-115-177-214/x402-text-tools",
+      "2026-08-25",
+      "2026-08-25",
+      "heiekc-ip-209-115-177-214.tunnelmole.net"
+    ],
+    [
+      "io.github.stevemilton/x402-payagent-mcp",
+      "2026-08-25",
+      "2026-08-25",
+      "no address in the record"
+    ],
+    [
+      "io.github.Hasned-spec/ox402-utils",
+      "2026-08-25",
+      "2026-08-25",
+      "tracy-collar-preview-demands.trycloudflare.com"
+    ],
     [
       "io.github.crypto-yannso/tryx402",
       "2026-08-24",
@@ -59,108 +161,6 @@
       "2026-08-20",
       "2026-08-18",
       "etherealgoodsco.store"
-    ],
-    [
-      "org.x402card/freeland-esim",
-      "2026-08-20",
-      "2026-08-18",
-      "api.x402card.org"
-    ],
-    [
-      "io.github.verixiaapps/hostdefi-x402",
-      "2026-08-20",
-      "2026-08-18",
-      "hostdefi.com"
-    ],
-    [
-      "io.github.nock-for-mak/x402-checker",
-      "2026-08-20",
-      "2026-08-19",
-      "x402-checker.nock-for-mak.workers.dev"
-    ],
-    [
-      "io.github.deriveit33z-ship-it/x402-apis",
-      "2026-08-20",
-      "2026-08-19",
-      "x402-apis-eta.vercel.app"
-    ],
-    [
-      "com.twelvepermissions/x402-doctor",
-      "2026-08-20",
-      "2026-08-17",
-      "x402-doctor.tsharpe.workers.dev"
-    ],
-    [
-      "io.github.verixiaapps/trustdex-x402",
-      "2026-08-16",
-      "2026-08-16",
-      "trustdex.app"
-    ],
-    [
-      "io.github.AgentTanuki/x402-payment-safety",
-      "2026-08-16",
-      "2026-08-16",
-      "agent-guild-5d5r.onrender.com"
-    ],
-    [
-      "io.github.apolito53/launchcheck-x402",
-      "2026-08-15",
-      "2026-08-15",
-      "launchcheck-x402.fly.dev"
-    ],
-    [
-      "com.api402x/apix402",
-      "2026-08-15",
-      "2026-08-14",
-      "api402x.com"
-    ],
-    [
-      "io.github.yunaremaia/x402-crypto-mcp",
-      "2026-08-14",
-      "2026-08-13",
-      "no address in the record"
-    ],
-    [
-      "io.github.geoacpfilho/paygate-monetize-monetization-x402",
-      "2026-08-14",
-      "2026-08-14",
-      "paygate-mcp.rendercriativo.workers.dev"
-    ],
-    [
-      "io.github.benji7891/macro-pulse-x402",
-      "2026-08-12",
-      "2026-08-12",
-      "macro-pulse-x402.onrender.com"
-    ],
-    [
-      "com.mcpscores/x402-market-intelligence",
-      "2026-08-12",
-      "2026-08-12",
-      "mcpfax-intel.bowling-anthony.workers.dev"
-    ],
-    [
-      "com.scriptmasterlabs/x402-gateway",
-      "2026-08-09",
-      "2026-08-08",
-      "acp-x402-scriptmasterlabs.onrender.com"
-    ],
-    [
-      "io.github.ZadenGG/x402-snap",
-      "2026-08-07",
-      "2026-08-06",
-      "x402-snap.zaden-gaming.workers.dev"
-    ],
-    [
-      "io.github.Senpi-Station/x402-web-extract",
-      "2026-08-04",
-      "2026-08-04",
-      "x402-web-extract.senpi-agent.workers.dev"
-    ],
-    [
-      "io.github.michaelhutchings626-hub/alien-plugg-x402",
-      "2026-08-03",
-      "2026-08-03",
-      "base44.app"
     ]
   ]
 }

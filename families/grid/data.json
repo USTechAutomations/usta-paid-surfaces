@@ -1,45 +1,45 @@
 {
   "family": "grid",
-  "generated": "2026-08-25",
+  "generated": "2026-09-03",
   "slices": [
     {
       "slug": "coverage",
       "newest": "2026-07-30",
       "oldest": "2026-06-11",
-      "runs": 27,
-      "row_count": 226498,
+      "runs": 35,
+      "row_count": 280010,
       "cadence_days": 7
     },
     {
       "slug": "caiso",
-      "newest": "2026-08-25",
+      "newest": "2026-09-03",
       "oldest": "2026-06-11",
-      "runs": 26,
-      "row_count": 59228,
+      "runs": 34,
+      "row_count": 77452,
       "cadence_days": 1
     },
     {
       "slug": "isone",
-      "newest": "2026-08-25",
+      "newest": "2026-09-03",
       "oldest": "2026-06-11",
-      "runs": 27,
-      "row_count": 47174,
+      "runs": 35,
+      "row_count": 61150,
       "cadence_days": 1
     },
     {
       "slug": "nyiso",
-      "newest": "2026-08-25",
+      "newest": "2026-09-03",
       "oldest": "2026-06-26",
-      "runs": 24,
-      "row_count": 39313,
+      "runs": 32,
+      "row_count": 52417,
       "cadence_days": 1
     },
     {
       "slug": "spp",
-      "newest": "2026-08-25",
+      "newest": "2026-09-03",
       "oldest": "2026-06-11",
-      "runs": 26,
-      "row_count": 26295,
+      "runs": 34,
+      "row_count": 34503,
       "cadence_days": 1
     },
     {
@@ -60,34 +60,34 @@
     },
     {
       "slug": "california",
-      "newest": "2026-08-25",
+      "newest": "2026-09-03",
       "oldest": "2026-06-11",
-      "runs": 26,
-      "row_count": 53976,
+      "runs": 34,
+      "row_count": 70584,
       "cadence_days": 1
     },
     {
       "slug": "texas",
       "newest": "2026-07-30",
       "oldest": "2026-06-11",
-      "runs": 26,
-      "row_count": 20222,
+      "runs": 34,
+      "row_count": 21094,
       "cadence_days": 7
     },
     {
       "slug": "new-york",
-      "newest": "2026-08-25",
+      "newest": "2026-09-03",
       "oldest": "2026-06-11",
-      "runs": 27,
-      "row_count": 37850,
+      "runs": 35,
+      "row_count": 50754,
       "cadence_days": 1
     },
     {
       "slug": "massachusetts",
-      "newest": "2026-08-25",
+      "newest": "2026-09-03",
       "oldest": "2026-06-11",
-      "runs": 27,
-      "row_count": 16335,
+      "runs": 35,
+      "row_count": 21175,
       "cadence_days": 1
     },
     {
@@ -118,48 +118,48 @@
       "slug": "arkansas",
       "newest": "2026-08-06",
       "oldest": "2026-06-11",
-      "runs": 26,
-      "row_count": 4506,
+      "runs": 34,
+      "row_count": 4674,
       "cadence_days": 7
     },
     {
       "slug": "maine",
-      "newest": "2026-08-25",
+      "newest": "2026-09-03",
       "oldest": "2026-06-11",
-      "runs": 27,
-      "row_count": 10991,
+      "runs": 35,
+      "row_count": 14247,
       "cadence_days": 1
     },
     {
       "slug": "louisiana",
       "newest": "2026-08-06",
       "oldest": "2026-06-11",
-      "runs": 26,
-      "row_count": 4088,
+      "runs": 34,
+      "row_count": 4168,
       "cadence_days": 7
     },
     {
       "slug": "connecticut",
-      "newest": "2026-08-25",
+      "newest": "2026-09-03",
       "oldest": "2026-06-11",
-      "runs": 27,
-      "row_count": 8693,
+      "runs": 35,
+      "row_count": 11269,
       "cadence_days": 1
     },
     {
       "slug": "oklahoma",
-      "newest": "2026-08-25",
+      "newest": "2026-09-03",
       "oldest": "2026-06-11",
-      "runs": 26,
-      "row_count": 8137,
+      "runs": 34,
+      "row_count": 10657,
       "cadence_days": 1
     },
     {
       "slug": "minnesota",
       "newest": "2026-08-06",
       "oldest": "2026-06-11",
-      "runs": 26,
-      "row_count": 2850,
+      "runs": 34,
+      "row_count": 2882,
       "cadence_days": 7
     },
     {
@@ -174,8 +174,8 @@
       "slug": "iowa",
       "newest": "2026-08-06",
       "oldest": "2026-06-11",
-      "runs": 26,
-      "row_count": 2414,
+      "runs": 34,
+      "row_count": 2470,
       "cadence_days": 7
     },
     {
@@ -190,32 +190,32 @@
       "slug": "missouri",
       "newest": "2026-08-06",
       "oldest": "2026-06-11",
-      "runs": 26,
-      "row_count": 2839,
+      "runs": 34,
+      "row_count": 3367,
       "cadence_days": 7
     },
     {
       "slug": "kansas",
-      "newest": "2026-08-25",
+      "newest": "2026-09-03",
       "oldest": "2026-06-11",
-      "runs": 26,
-      "row_count": 4685,
+      "runs": 34,
+      "row_count": 6141,
       "cadence_days": 1
     },
     {
       "slug": "new-hampshire",
-      "newest": "2026-08-25",
+      "newest": "2026-09-03",
       "oldest": "2026-06-11",
-      "runs": 27,
-      "row_count": 3726,
+      "runs": 35,
+      "row_count": 4830,
       "cadence_days": 1
     },
     {
       "slug": "nebraska",
-      "newest": "2026-08-25",
+      "newest": "2026-09-03",
       "oldest": "2026-06-11",
-      "runs": 26,
-      "row_count": 3146,
+      "runs": 34,
+      "row_count": 4083,
       "cadence_days": 1
     }
   ]

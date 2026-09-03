@@ -1,6 +1,6 @@
 {
   "family": "hiring-watch",
-  "generated": "2026-08-25",
+  "generated": "2026-09-03",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/hiring-watch",
   "rows_published": 25,
@@ -19,22 +19,82 @@
     [
       "front.com",
       "role appeared on the page",
-      "Software Engineer (Backend), Foundation",
+      "Full Stack Engineer - Integrations",
       "",
-      "San Francisco, CA",
+      "Santiago, Chile",
       "",
-      "2026-08-24",
-      "2026-08-25"
+      "2026-09-02",
+      "2026-09-03"
     ],
     [
       "sproutsocial.com",
       "role came down off the page",
-      "Website and Growth Strategy Manager",
+      "Senior Solutions Engineer",
       "",
-      "Remote US",
+      "Remote Canada",
+      "Customer Experience",
+      "2026-09-02",
+      "2026-09-03"
+    ],
+    [
+      "ahrefs.com",
+      "same job id, new title",
+      "Head of Influencer Marketing - Letaido",
+      "Head of Partnerships - Letaido",
+      "Cambridge, MA, United States; Palo Alto, CA, United States",
       "Marketing",
-      "2026-08-24",
-      "2026-08-25"
+      "2026-08-26",
+      "2026-09-02"
+    ],
+    [
+      "front.com",
+      "same job id, new title",
+      "Software Engineer, Core Product",
+      "Senior Software Engineer, Core Product",
+      "San Francisco, CA",
+      "",
+      "2026-09-01",
+      "2026-09-02"
+    ],
+    [
+      "sproutsocial.com",
+      "role appeared on the page",
+      "Staff Software Engineer, Web (React)",
+      "",
+      "Remote Poland",
+      "Engineering",
+      "2026-09-01",
+      "2026-09-02"
+    ],
+    [
+      "ahrefs.com",
+      "role appeared on the page",
+      "Accountant",
+      "",
+      "Singapore",
+      "Business Operations",
+      "2026-08-26",
+      "2026-09-02"
+    ],
+    [
+      "front.com",
+      "role came down off the page",
+      "Full Stack Engineer - Integrations",
+      "",
+      "Santiago, Chile",
+      "",
+      "2026-09-01",
+      "2026-09-02"
+    ],
+    [
+      "sproutsocial.com",
+      "same job id, new title",
+      "Software Engineer, Platform (Java)",
+      "Software Engineer - Backend (B2B)",
+      "Remote Poland",
+      "Engineering",
+      "2026-09-01",
+      "2026-09-02"
     ],
     [
       "ahrefs.com",
@@ -49,22 +109,22 @@
     [
       "front.com",
       "role came down off the page",
-      "Senior Software Engineer, Mobile Platform (React Native)",
+      "Software Engineer, Foundations",
       "",
-      "Remote, US",
+      "San Francisco, CA",
       "",
-      "2026-08-24",
-      "2026-08-25"
+      "2026-08-31",
+      "2026-09-01"
     ],
     [
       "sproutsocial.com",
       "role appeared on the page",
-      "Senior Financial Reporting Analyst",
+      "Senior Solutions Engineer",
       "",
-      "Remote US",
-      "Finance",
-      "2026-08-21",
-      "2026-08-22"
+      "Remote Canada",
+      "Customer Experience",
+      "2026-09-01",
+      "2026-09-02"
     ],
     [
       "ahrefs.com",
@@ -79,22 +139,22 @@
     [
       "front.com",
       "role came down off the page",
-      "Senior Software Engineer, Mobile Platform (React Native)",
+      "Senior Software Engineer, Workflows",
       "",
-      "San Francisco, CA",
+      "Paris, France",
       "",
-      "2026-08-24",
-      "2026-08-25"
+      "2026-08-31",
+      "2026-09-01"
     ],
     [
       "sproutsocial.com",
-      "role came down off the page",
-      "Customer Success Manager, Key Accounts",
-      "",
-      "Remote US",
-      "Customer Experience",
-      "2026-08-21",
-      "2026-08-22"
+      "same job id, new title",
+      "Senior Software Engineer, Platform (Scala)",
+      "Senior Software Engineer (Platform/Scala)",
+      "Remote Poland",
+      "Engineering",
+      "2026-09-01",
+      "2026-09-02"
     ],
     [
       "ahrefs.com",
@@ -108,23 +168,23 @@
     ],
     [
       "front.com",
-      "role came down off the page",
-      "Senior Software Engineer - Front End Architecture / React Native",
+      "role appeared on the page",
+      "Full Stack Engineer - Integrations",
       "",
-      "Remote, Argentina",
+      "Santiago, Chile",
       "",
-      "2026-08-24",
-      "2026-08-25"
+      "2026-08-31",
+      "2026-09-01"
     ],
     [
       "sproutsocial.com",
-      "role came down off the page",
-      "Customer Adoption Consultant",
-      "",
-      "Remote US",
-      "Customer Experience",
-      "2026-08-21",
-      "2026-08-22"
+      "same job id, new title",
+      "Senior Software Engineer, Platform (Java)",
+      "Senior Software Engineer (Platform/Java) Poland",
+      "Remote Poland",
+      "Engineering",
+      "2026-09-01",
+      "2026-09-02"
     ],
     [
       "ahrefs.com",
@@ -139,22 +199,22 @@
     [
       "front.com",
       "role appeared on the page",
-      "Senior Platform Security Engineer - Contract to Hire",
+      "Full Stack Engineer - Integrations",
       "",
-      "San Francisco, CA",
+      "Remote, Argentina",
       "",
-      "2026-08-24",
-      "2026-08-25"
+      "2026-08-31",
+      "2026-09-01"
     ],
     [
       "sproutsocial.com",
-      "role appeared on the page",
-      "Talent Acquisition Partner, Sales",
+      "role came down off the page",
+      "Senior Campaign Manager, ABX",
       "",
       "Remote US",
-      "People",
-      "2026-08-20",
-      "2026-08-21"
+      "Marketing",
+      "2026-09-01",
+      "2026-09-02"
     ],
     [
       "ahrefs.com",
@@ -169,22 +229,22 @@
     [
       "front.com",
       "role appeared on the page",
-      "Senior Applied AI Engineer",
+      "Software Engineer, Foundations",
       "",
       "San Francisco, CA",
       "",
-      "2026-08-24",
-      "2026-08-25"
+      "2026-08-27",
+      "2026-08-28"
     ],
     [
       "sproutsocial.com",
       "role appeared on the page",
-      "Strategic Services Consultant (Implementations)",
+      "Product Marketing Strategist",
       "",
       "Remote US",
-      "Customer Experience",
-      "2026-08-20",
-      "2026-08-21"
+      "Marketing",
+      "2026-09-01",
+      "2026-09-02"
     ],
     [
       "ahrefs.com",
@@ -198,73 +258,13 @@
     ],
     [
       "front.com",
-      "role came down off the page",
-      "Sales Development Representative, EMEA",
-      "",
-      "Dublin, Ireland",
-      "",
-      "2026-08-24",
-      "2026-08-25"
-    ],
-    [
-      "sproutsocial.com",
-      "role appeared on the page",
-      "Customer Adoption Consultant",
-      "",
-      "Remote US",
-      "Customer Experience",
-      "2026-08-20",
-      "2026-08-21"
-    ],
-    [
-      "ahrefs.com",
-      "role appeared on the page",
-      "Events Marketing Executive",
-      "",
-      "Cambridge, MA, United States; Palo Alto, CA, United States",
-      "Marketing",
-      "2026-08-05",
-      "2026-08-06"
-    ],
-    [
-      "front.com",
-      "role appeared on the page",
-      "Director, Account Management",
-      "",
-      "Chicago, IL",
-      "",
-      "2026-08-24",
-      "2026-08-25"
-    ],
-    [
-      "sproutsocial.com",
-      "role appeared on the page",
-      "Senior Systems Administrator (B2B)",
-      "",
-      "Hybrid Poland",
-      "IT",
-      "2026-08-19",
-      "2026-08-20"
-    ],
-    [
-      "ahrefs.com",
-      "role came down off the page",
-      "Events Marketing Executive",
-      "",
-      "Remote - Europe",
-      "Marketing",
-      "2026-08-02",
-      "2026-08-03"
-    ],
-    [
-      "front.com",
-      "role appeared on the page",
-      "Director, Account Management",
-      "",
+      "same job id, new title",
+      "Senior Marketing Operations Manager",
+      "Marketing Operations Manager",
       "San Francisco, CA",
       "",
-      "2026-08-24",
-      "2026-08-25"
+      "2026-08-27",
+      "2026-08-28"
     ]
   ]
 }

@@ -1,9 +1,9 @@
 {
   "family": "grid",
-  "generated": "2026-08-25",
+  "generated": "2026-09-03",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/grid",
-  "rows_published": 16,
+  "rows_published": 17,
   "columns": 9,
   "headers": [
     "operator",
@@ -17,6 +17,17 @@
     "sealed_copy_after"
   ],
   "rows": [
+    [
+      "CAISO",
+      "KINGSLEY SOLAR FARM",
+      "1665",
+      "CA",
+      "IMPERIAL",
+      "360",
+      "status ACTIVE \u2192 WITHDRAWN",
+      "2026-08-26",
+      "2026-08-27"
+    ],
     [
       "CAISO",
       "MENIFEE POWER BANK",

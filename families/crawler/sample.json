@@ -1,6 +1,6 @@
 {
   "family": "crawler",
-  "generated": "2026-08-25",
+  "generated": "2026-09-03",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/crawler",
   "rows_published": 25,
@@ -16,229 +16,229 @@
   ],
   "rows": [
     [
-      "dive.games",
-      "Amazonbot",
+      "bilbaoexhibitioncentre.com",
+      "anthropic-ai",
       "blocked from the whole site",
       "named, with 1 allow line and no block",
       "whole-site block taken off",
-      "2026-08-23",
-      "2026-08-24"
+      "2026-09-02",
+      "2026-09-03"
     ],
     [
-      "4life.com",
-      "Bytespider",
+      "aboutus.com",
+      "Amazonbot",
       "not named in the file",
       "blocked from the whole site",
       "whole-site block added",
-      "2026-08-23",
-      "2026-08-24"
+      "2026-09-02",
+      "2026-09-03"
     ],
     [
-      "3hentai.net",
-      "GPTBot",
+      "bisnis.com",
+      "DuckAssistBot",
       "blocked from the whole site",
       "not named in the file",
       "crawler name dropped from the file",
-      "2026-08-23",
-      "2026-08-24"
+      "2026-09-02",
+      "2026-09-03"
     ],
     [
-      "businessweekly.com.tw",
-      "Claude-SearchBot",
-      "not named in the file",
-      "named, with 1 allow line and no block",
-      "crawler named for the first time",
-      "2026-08-23",
-      "2026-08-24"
-    ],
-    [
-      "commslayer.com",
-      "Applebot-Extended",
-      "blocked from 2 folders",
-      "blocked from 3 folders",
-      "rules under the crawler rewritten",
-      "2026-08-23",
-      "2026-08-24"
-    ],
-    [
-      "e-estekhdam.com",
-      "ClaudeBot",
-      "blocked from the whole site",
-      "blocked from 10 folders",
-      "whole-site block taken off",
-      "2026-08-23",
-      "2026-08-24"
-    ],
-    [
-      "anaplan.com",
-      "Amazonbot",
-      "not named in the file",
-      "blocked from the whole site",
-      "whole-site block added",
-      "2026-08-23",
-      "2026-08-24"
-    ],
-    [
-      "butosklep.pl",
+      "21shares.com",
       "AI2Bot",
-      "blocked from the whole site",
       "not named in the file",
-      "crawler name dropped from the file",
-      "2026-08-23",
-      "2026-08-24"
-    ],
-    [
-      "growsurf.com",
-      "Claude-SearchBot",
-      "not named in the file",
-      "named, with 1 allow line and no block",
+      "blocked from 6 folders",
       "crawler named for the first time",
-      "2026-08-23",
-      "2026-08-24"
+      "2026-09-02",
+      "2026-09-03"
     ],
     [
-      "livehindustan.com",
-      "Google-Extended",
-      "blocked from 41 folders",
-      "blocked from 40 folders",
+      "booklooker.de",
+      "CCBot",
+      "blocked from 2893 folders",
+      "blocked from 2891 folders",
       "rules under the crawler rewritten",
-      "2026-08-23",
-      "2026-08-24"
+      "2026-09-02",
+      "2026-09-03"
     ],
     [
-      "ocula.com",
-      "AmazonBot",
-      "blocked from the whole site",
-      "blocked from 1 folder",
-      "whole-site block taken off",
-      "2026-08-23",
-      "2026-08-24"
-    ],
-    [
-      "arynews.tv",
-      "Amazonbot",
-      "not named in the file",
-      "blocked from the whole site",
-      "whole-site block added",
-      "2026-08-23",
-      "2026-08-24"
-    ],
-    [
-      "darmankade.com",
+      "billygraham.org",
       "ChatGPT-User",
-      "named, with 1 allow line and no block",
-      "not named in the file",
-      "crawler name dropped from the file",
-      "2026-08-23",
-      "2026-08-24"
-    ],
-    [
-      "jamtangan.com",
-      "Applebot-Extended",
-      "not named in the file",
-      "blocked from 10 folders",
-      "crawler named for the first time",
-      "2026-08-23",
-      "2026-08-24"
-    ],
-    [
-      "soundclick.com",
-      "Claude-SearchBot",
-      "blocked from 3 folders",
-      "blocked from 5 folders",
-      "rules under the crawler rewritten",
-      "2026-08-23",
-      "2026-08-24"
-    ],
-    [
-      "calculator.name",
-      "Applebot-Extended",
       "blocked from the whole site",
-      "blocked from 2 folders",
+      "named, with 1 allow line and no block",
       "whole-site block taken off",
-      "2026-08-22",
-      "2026-08-23"
+      "2026-09-01",
+      "2026-09-02"
     ],
     [
-      "booxi.eu",
-      "Bytespider",
+      "aboutus.org",
+      "Amazonbot",
       "not named in the file",
       "blocked from the whole site",
       "whole-site block added",
-      "2026-08-23",
-      "2026-08-24"
+      "2026-09-02",
+      "2026-09-03"
     ],
     [
-      "elevenforum.com",
-      "Amazonbot",
-      "blocked from 1 folder",
+      "chargemap.com",
+      "anthropic-ai",
+      "blocked from the whole site, with 2 exceptions",
       "not named in the file",
       "crawler name dropped from the file",
-      "2026-08-23",
-      "2026-08-24"
+      "2026-09-02",
+      "2026-09-03"
     ],
     [
-      "metadata.io",
-      "Amazonbot",
+      "flo.health",
+      "ChatGPT-User",
       "not named in the file",
       "blocked from 4 folders",
       "crawler named for the first time",
-      "2026-08-23",
-      "2026-08-24"
+      "2026-09-02",
+      "2026-09-03"
     ],
     [
-      "steady.page",
-      "Amazonbot",
-      "blocked from 2609 folders",
-      "blocked from 2618 folders",
+      "figma.com",
+      "CHATGPT-User",
+      "blocked from the whole site, with 8797 exceptions",
+      "blocked from the whole site, with 8814 exceptions",
       "rules under the crawler rewritten",
-      "2026-08-23",
-      "2026-08-24"
+      "2026-09-02",
+      "2026-09-03"
     ],
     [
-      "myinvitations.io",
-      "Amazonbot",
+      "epochtimes.com",
+      "cohere-ai",
       "blocked from the whole site",
       "named, with 1 allow line and no block",
       "whole-site block taken off",
-      "2026-08-22",
-      "2026-08-23"
+      "2026-09-01",
+      "2026-09-02"
     ],
     [
-      "eurobricks.com",
+      "alfred.edu",
       "Amazonbot",
       "not named in the file",
       "blocked from the whole site",
       "whole-site block added",
-      "2026-08-23",
-      "2026-08-24"
+      "2026-09-02",
+      "2026-09-03"
     ],
     [
-      "gajian123saba.com",
-      "Amazonbot",
+      "clerk.com",
+      "Bytespider",
       "blocked from the whole site",
       "not named in the file",
       "crawler name dropped from the file",
-      "2026-08-23",
-      "2026-08-24"
+      "2026-09-02",
+      "2026-09-03"
     ],
     [
-      "nordvpn.com",
+      "geico.com",
+      "Amazonbot",
+      "not named in the file",
+      "named, with 1 allow line and no block",
+      "crawler named for the first time",
+      "2026-09-02",
+      "2026-09-03"
+    ],
+    [
+      "hipcamp.com",
+      "Claude-SearchBot",
+      "blocked from 235 folders",
+      "blocked from 245 folders",
+      "rules under the crawler rewritten",
+      "2026-09-02",
+      "2026-09-03"
+    ],
+    [
+      "foodiesfeed.com",
+      "ClaudeBot",
+      "blocked from the whole site",
+      "blocked from 3 folders",
+      "whole-site block taken off",
+      "2026-09-01",
+      "2026-09-02"
+    ],
+    [
+      "amplitude.com",
+      "Bytespider",
+      "blocked from 1 folder",
+      "blocked from the whole site",
+      "whole-site block added",
+      "2026-09-02",
+      "2026-09-03"
+    ],
+    [
+      "commonsense.org",
+      "OAI-SearchBot",
+      "blocked from the whole site",
+      "not named in the file",
+      "crawler name dropped from the file",
+      "2026-09-02",
+      "2026-09-03"
+    ],
+    [
+      "nyfa.edu",
+      "CCBot",
+      "not named in the file",
+      "named, with 1 allow line and no block",
+      "crawler named for the first time",
+      "2026-09-02",
+      "2026-09-03"
+    ],
+    [
+      "hmetro.com.my",
+      "ChatGPT-User",
+      "blocked from the whole site",
+      "blocked from the whole site, with 1 exception",
+      "rules under the crawler rewritten",
+      "2026-09-02",
+      "2026-09-03"
+    ],
+    [
+      "mobile01.com",
+      "Google-Extended",
+      "blocked from the whole site",
+      "blocked from 57 folders",
+      "whole-site block taken off",
+      "2026-09-01",
+      "2026-09-02"
+    ],
+    [
+      "asteroidsathome.net",
+      "Claude-SearchBot",
+      "not named in the file",
+      "blocked from the whole site",
+      "whole-site block added",
+      "2026-09-02",
+      "2026-09-03"
+    ],
+    [
+      "coupons.com",
+      "anthropic-ai",
+      "blocked from the whole site",
+      "not named in the file",
+      "crawler name dropped from the file",
+      "2026-09-02",
+      "2026-09-03"
+    ],
+    [
+      "plusai.com",
       "OAI-SearchBot",
       "not named in the file",
       "named, with 1 allow line and no block",
       "crawler named for the first time",
-      "2026-08-23",
-      "2026-08-24"
+      "2026-09-02",
+      "2026-09-03"
     ],
     [
-      "steadyhq.com",
-      "Amazonbot",
-      "blocked from 2609 folders",
-      "blocked from 2618 folders",
+      "ifa-berlin.com",
+      "anthropic-ai",
+      "blocked from 591 folders",
+      "blocked from 590 folders",
       "rules under the crawler rewritten",
-      "2026-08-23",
-      "2026-08-24"
+      "2026-09-02",
+      "2026-09-03"
     ]
   ]
 }

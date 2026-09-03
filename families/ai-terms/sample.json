@@ -1,6 +1,6 @@
 {
   "family": "ai-terms",
-  "generated": "2026-08-25",
+  "generated": "2026-09-03",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/ai-terms",
   "rows_published": 25,
@@ -16,6 +16,156 @@
     "url"
   ],
   "rows": [
+    [
+      "Suno",
+      "terms of service",
+      "By using the Service or otherwise transmitting Submissions to us, you grant to Suno and our affiliates, successors, assigns, and designees a worldwide, non-exclusive, fully paid-up, sublicensable (directly and indirectly through multiple tiers), assignable, royalty-free, perpetual, irrevocable right and license to use, reproduce, store, modify, distribute, create derivative works based on, perform, display, communicate, transmit and otherwise make available any and all Content (in whole or in part) and any rights you may have in your Voice Model, in each case, in any media now known or hereafter developed, in connection with the provision, use, monetization, promotion, marketing, and improvement of our products and services, including the Service and the artificial intelligence and machine learning models related to the Service.",
+      "By using the Service or otherwise transmitting Submissions to us, you are directing Suno to store those Submissions, and grant to Suno and our affiliates, successors, assigns, and designees a worldwide, non-exclusive, fully paid-up, sublicensable (directly and indirectly through multiple tiers), assignable, royalty-free, perpetual, irrevocable right and license to use, reproduce, store, modify, distribute, create derivative works based on, perform, display, communicate, transmit and otherwise make available any and all Content (in whole or in part), in each case, in any media now known or hereafter developed, in connection with the provision, use, monetization, promotion, marketing, and improvement of our products and services, including the Service and the artificial intelligence and machine learning models related to the Service.",
+      "rewritten in place",
+      "2026-09-02",
+      "2026-09-03",
+      "https://suno.com/terms"
+    ],
+    [
+      "Mistral",
+      "terms of service",
+      "Additional Product Terms Partner-served deployment terms Additional Terms for Use of Mistral AI Products on Customer Infrastructure Data Processing Addendum Connectors terms Privacy Policy Usage Policy Cookie Policy License Notice Applicant Privacy Policy At Mistral AI, transparency, trust, and clarity are at the core of our relationship with you, whether you're a customer, an end-user, a business partner, a researcher, or simply exploring our products.",
+      "At Mistral AI, transparency, trust, and clarity are at the core of our relationship with you, whether you're a customer, an end-user, a business partner, a researcher, or simply exploring our products.",
+      "rewritten in place",
+      "2026-09-02",
+      "2026-09-03",
+      "https://mistral.ai/terms"
+    ],
+    [
+      "Atlassian",
+      "terms of service",
+      "Such entitlements may be based on: (a) number of licenses, copies or instances, (b) entity, division, business unit, website, or field of use, (c) number and type of Users, (d) number of queries, requests or other usage-based subscription units, or (e) other restrictions or billable units.",
+      "Such entitlements may be based on: (a) number of licenses, copies or instances, (b) entity, division, business unit, website, or field of use, (c) number and type of Users, (d) number of queries, requests or other usage-based units, or (e) other restrictions or billable units.",
+      "rewritten in place",
+      "2026-09-01",
+      "2026-09-02",
+      "https://www.atlassian.com/legal/cloud-terms-of-service"
+    ],
+    [
+      "Amazon Web Services",
+      "terms of service",
+      "Per Section 1.24 of the Service Terms, Amazon Bedrock abuse detection mechanisms apply to your use of Kiro.",
+      "Per Section 1.24 of the Service Terms, Amazon Bedrock abuse detection mechanisms apply to your use of Kiro, including our retention and potential human review of inputs and outputs when you select certain models.",
+      "rewritten in place",
+      "2026-09-01",
+      "2026-09-02",
+      "https://aws.amazon.com/service-terms/"
+    ],
+    [
+      "Twilio",
+      "terms of service",
+      "Any arbitration proceedings will take place in the English language in (a) San Francisco, California, if you are domiciled or registered in any country outside of the (i) European Economic Area and its regions and territories, the United Kingdom, Switzerland, Andorra, Vatican City, Monaco, Turkey, Albania, and Nigeria; (ii) Asia-Pacific region; (b) London, England, if you are domiciled or registered in any country within the European Economic Area or its regions or territories, the United Kingdom, Switzerland, Andorra, Vatican City, Monaco, Turkey, Albania, or Nigeria; or (c) Singapore, if you are domiciled or registered in any country within the Asia-Pacific region.",
+      "Any arbitration proceedings will take place in the English language in (a) San Francisco, California, if you are domiciled or registered in any country outside of the (i) European Economic Area and its regions and territories, the United Kingdom, Switzerland, Andorra, Vatican City, Monaco, Turkey, Albania, and Nigeria and (ii) Asia-Pacific region; (b) London, England, if you are domiciled or registered in any country within the European Economic Area or its regions or territories, the United Kingdom, Switzerland, Andorra, Vatican City, Monaco, Turkey, Albania, or Nigeria; or (c) Singapore, if you are domiciled or registered in any country within the Asia-Pacific region.",
+      "rewritten in place",
+      "2026-08-30",
+      "2026-09-01",
+      "https://www.twilio.com/en-us/legal/tos"
+    ],
+    [
+      "Stability",
+      "terms of service",
+      "",
+      "By accessing or using our Services, you agree to these Terms of Service (\u201cTerms\u201d), which govern your access to and use of Brand Studio, Stable Audio, Stable Assistant, Stable Artisan, Stability\u2019s Application Programming Interface (\u201cAPI\u201d) and our websites, and any associated software applications, and any underlying technologies, along with any future apps or services that link to these Terms (together, our \u201cServices\u201d).",
+      "arrived on the page",
+      "2026-08-30",
+      "2026-09-01",
+      "https://stability.ai/terms-of-use"
+    ],
+    [
+      "OpenRouter",
+      "terms of service",
+      "By agreeing to these Terms, you represent and warrant to us that: (a) you are at least 13 years of age; (b) you have not previously been suspended or removed from the Service; and (c) your registration and your use of the Service is in compliance with all applicable laws and regulations.",
+      "By agreeing to these Terms, you represent and warrant to us that: (a) you are at least 18 years of age; (b) you have not previously been suspended or removed from the Service; and (c) your registration and your use of the Service is in compliance with all applicable laws and regulations.",
+      "rewritten in place",
+      "2026-08-30",
+      "2026-09-01",
+      "https://openrouter.ai/terms"
+    ],
+    [
+      "OpenAI",
+      "model retirement page",
+      "",
+      "2026-08-26: Transcription models On August 26, 2026, we notified developers using whisper-1, gpt-4o-transcribe, gpt-4o-mini-transcribe, and gpt-4o-transcribe-diarize of their deprecation and removal from the API on February 26, 2027.",
+      "arrived on the page",
+      "2026-08-30",
+      "2026-09-01",
+      "https://platform.openai.com/docs/deprecations"
+    ],
+    [
+      "Cursor",
+      "enterprise terms",
+      "Our app makes requests to Cursor backend domains to deliver API, indexing, update, and marketplace functionality.",
+      "Our app makes requests to Cursor backend domains to deliver API, update, and marketplace functionality.",
+      "rewritten in place",
+      "2026-08-28",
+      "2026-08-29",
+      "https://www.cursor.com/security"
+    ],
+    [
+      "Databricks",
+      "terms of service",
+      "These Terms expressly do not govern your access to or use of the Databricks Platform Services (known as Databricks and Databricks Community Edition, each located at *.cloud.databricks.com, or the related website at help.databricks.com and platform support services, together the \u201cPlatform Services\u201d), which are subject to the Databricks Terms of Service (or with respect to the Community Edition, the Community Edition Terms of Service) or other written agreement in place between Databricks, Inc.",
+      "These Terms expressly do not govern your access to or use of the Databricks Data + AI Platform Services (known as Databricks and Databricks Community Edition, each located at *.cloud.databricks.com, or the related website at help.databricks.com and platform support services, together the \u201cPlatform Services\u201d), which are subject to the Databricks Terms of Service (or with respect to the Community Edition, the Community Edition Terms of Service) or other written agreement in place between Databricks, Inc.",
+      "rewritten in place",
+      "2026-08-27",
+      "2026-08-28",
+      "https://www.databricks.com/legal/terms-of-use"
+    ],
+    [
+      "Servicenow",
+      "privacy policy",
+      "To a potential buyer (and its agents and advisors) in connection with any proposed merger, acquisition, or any form of sale or transfer of some or all of our assets (including in the event of a reorganisation, dissolution or liquidation), in which case personal data held by us about you will be amongst the assets transferred to the buyer or acquirer.",
+      "To a potential buyer (and its agents and advisors) in connection with any proposed merger, acquisition, or any form of sale or transfer of some or all of our assets and/or receivables (including in the event of a reorganisation, dissolution or liquidation) in which case personal data held by us about you will be amongst the assets and/or receivables transferred to the buyer or acquirer.",
+      "rewritten in place",
+      "2026-08-25",
+      "2026-08-26",
+      "https://www.servicenow.com/privacy-statement.html"
+    ],
+    [
+      "Cohere",
+      "terms of service",
+      "",
+      "The state of sovereign AI adoption in 2026 Cohere and the University of Waterloo launch partnership to strengthen Canada\u2019s AI talent pipeline Introducing North Automations: Intelligent workflow orchestration",
+      "arrived on the page",
+      "2026-08-25",
+      "2026-08-26",
+      "https://cohere.com/terms-of-use"
+    ],
+    [
+      "Salesforce",
+      "privacy policy",
+      "If you believe that we have not been able to assist with your complaint or concern, and you are located in the EEA or the UK, you have the right to lodge a complaint with the competent supervisory authority.",
+      "If, however, you believe that we have not been able to assist with your complaint or concern, and you are located in the European Economic Area or the United Kingdom, you have the right to lodge a complaint with the competent supervisory authority.",
+      "rewritten in place",
+      "2026-08-24",
+      "2026-08-25",
+      "https://www.salesforce.com/company/legal/privacy/"
+    ],
+    [
+      "IBM",
+      "privacy policy",
+      "As a public cloud provider, IBM does not use personal information processed under a contract for the purposes of marketing and advertising without express consent.",
+      "",
+      "left the page",
+      "2026-08-24",
+      "2026-08-25",
+      "https://www.ibm.com/privacy"
+    ],
+    [
+      "Canva",
+      "privacy policy",
+      "If you have any questions about opting out of the collection of cookies and other tracking/recording tools, please read our Cookies Policy\u2060(opens in a new tab or window) or you can contact us directly at privacy@canva.com.",
+      "If you have any questions about opting out of the collection of cookies and other tracking/recording tools, please read our Cookies Policy\u2060(opens in a new tab or window) or you can contact us here\u2060(opens in a new tab or window).",
+      "rewritten in place",
+      "2026-08-24",
+      "2026-08-25",
+      "https://www.canva.com/policies/privacy-policy/"
+    ],
     [
       "Intercom",
       "privacy policy",
@@ -77,16 +227,6 @@
       "https://support.google.com/gemini/answer/13594961"
     ],
     [
-      "Amazon Web Services",
-      "terms of service",
-      "",
-      "Unless you enter into a license with other parties who have access to the project specifying different terms, you grant each party who has access to the project a nonexclusive, worldwide, irrevocable license to use, reproduce, prepare derivatives, distribute, perform, and display Contributed Content you contribute as an End User.",
-      "arrived on the page",
-      "2026-08-17",
-      "2026-08-18",
-      "https://aws.amazon.com/service-terms/"
-    ],
-    [
       "Cursor",
       "terms of service",
       "By using the Service, you agree to these Terms.",
@@ -125,146 +265,6 @@
       "2026-08-11",
       "2026-08-12",
       "https://www.heygen.com/policy"
-    ],
-    [
-      "Fireworks",
-      "privacy policy",
-      "This Privacy Notice explains how Fireworks AI., and its affiliates and subsidiaries (collectively \u201cFireworks\u201d, \u201cwe\u201d, \u201cus\u201d or \u201cour\u201d) collects, uses, discloses, and otherwise processes personal data (as defined below) in connection with our website https://fireworks.ai (the \u201cSite\u201d), and related content, services, products, and other functionalities offered on or through our services (collectively, the \u201cServices\u201d).",
-      "This Privacy Notice explains how Fireworks., and its affiliates and subsidiaries (collectively \u201cFireworks\u201d, \u201cwe\u201d, \u201cus\u201d or \u201cour\u201d) collects, uses, discloses, and otherwise processes personal data (as defined below) in connection with our website https://fireworks.ai (the \u201cSite\u201d), and related content, services, products, and other functionalities offered on or through our services (collectively, the \u201cServices\u201d).",
-      "rewritten in place",
-      "2026-08-11",
-      "2026-08-12",
-      "https://fireworks.ai/privacy-policy"
-    ],
-    [
-      "Google DeepMind",
-      "data-use page",
-      "",
-      "Transcripts of your instructions are saved according to your Keep Activity setting and used as described in the Gemini Apps Privacy Notice, including to improve Gemini with the help of human reviewers.",
-      "arrived on the page",
-      "2026-08-10",
-      "2026-08-11",
-      "https://support.google.com/gemini/answer/13594961"
-    ],
-    [
-      "Anthropic",
-      "model retirement page",
-      "",
-      "This model was retired August 5, 2026.",
-      "arrived on the page",
-      "2026-08-05",
-      "2026-08-06",
-      "https://docs.claude.com/en/docs/about-claude/model-deprecations"
-    ],
-    [
-      "Replit",
-      "terms of service",
-      "If you wish to delete your account, you may request account deletion at https://replit.com/account by selecting \u201cRequest Account Deletion.\u201d Upon account deletion, we will delete your stored data in accordance with our data retention policy and applicable law.",
-      "Account Termination If you wish to delete your account, you may request account deletion at https://replit.com/account by selecting \u201cRequest Account Deletion.\u201d Upon account deletion, we will delete your stored data in accordance with our data retention policy and applicable law.",
-      "rewritten in place",
-      "2026-08-04",
-      "2026-08-05",
-      "https://replit.com/terms-of-service"
-    ],
-    [
-      "Sourcegraph",
-      "terms of service",
-      "",
-      "Subprocessor ListApplies to all Customers and outlines the subprocessors Sourcegraph uses and how to be notified of updates to this list Other Terms Sourcegraph partners are subject to the Sourcegraph Partner Terms. \u2192 Sourcegraph Partner Terms",
-      "arrived on the page",
-      "2026-08-03",
-      "2026-08-04",
-      "https://sourcegraph.com/terms"
-    ],
-    [
-      "OpenRouter",
-      "terms of service",
-      "",
-      "Credits are not redeemable, refundable, or exchangeable for any sum of money or monetary value, except for (i) the refunds described in Section 4.1, (ii) the refund of remaining Credits upon termination described in Section 9, or (iii) as required by applicable law.",
-      "arrived on the page",
-      "2026-08-03",
-      "2026-08-04",
-      "https://openrouter.ai/terms"
-    ],
-    [
-      "AI21 Labs",
-      "privacy policy",
-      "Internal transfers: Transfers within the AI21 group will be covered by an internal processing agreement entered into by members of the AI21 group (an intra-group data processing agreement) which contractually obliges each member to ensure that Personal Data receives an adequate and consistent level of protection wherever it is transferred to.",
-      "Transfers within the AI21 group are covered by an intra-group data processing agreement requiring an adequate and consistent level of protection.",
-      "rewritten in place",
-      "2026-08-03",
-      "2026-08-04",
-      "https://www.ai21.com/privacy-policy/"
-    ],
-    [
-      "OpenAI",
-      "model retirement page",
-      "",
-      "Access to these models was shut down on July 23, 2026.",
-      "arrived on the page",
-      "2026-07-30",
-      "2026-07-31",
-      "https://platform.openai.com/docs/deprecations"
-    ],
-    [
-      "Microsoft",
-      "privacy policy",
-      "Your child\u2019s privacy settings start at the most restrictive level by default Camera and Microphone.",
-      "Your child\u2019s privacy settings start at the most restrictive level by default.",
-      "rewritten in place",
-      "2026-07-30",
-      "2026-07-31",
-      "https://privacy.microsoft.com/en-us/privacystatement"
-    ],
-    [
-      "OpenRouter",
-      "terms of service",
-      "6.3 Opt-in License for Private Prompt Storage Private Prompt Storage is a feature on the Service that allows you to privately save your User Content so you can review them later, such as for debugging purposes.",
-      "Private Prompt Storage is a feature on the Service that allows you to privately save your User Content so you can review it later, such as for debugging purposes.",
-      "rewritten in place",
-      "2026-07-27",
-      "2026-07-28",
-      "https://openrouter.ai/terms"
-    ],
-    [
-      "Notion",
-      "data-use page",
-      "",
-      "When this is off, members must wait for the rolling or monthly window to refresh before using certain Notion AI features again.",
-      "arrived on the page",
-      "2026-07-27",
-      "2026-07-28",
-      "https://www.notion.com/help/notion-ai-security-practices"
-    ],
-    [
-      "Synthesia",
-      "terms of service",
-      "Customer will (a) inform Authorized Users of all Customer policies and practices that are relevant to Customer\u2019s use of the Services, including the use of any Avatars, and of any settings that may impact the processing or generation of Customer Data, (b) ensure any submission, processing, use or generation of Customer Data is lawful, and (c) ensure that when it authorizes the creation or use of a Custom Avatar using the voice or likeness of an individual, such individual is over the applicable statutory legal age and has provided free and informed consent.",
-      "Customer will (a) inform Authorized Users of all Customer policies and practices that are relevant to Customer\u2019s use of the Services and collect all necessary consents, including in the use and creation of any Avatars, and of any settings that may impact the processing, collection, or generation of Customer Data, (b) ensure any submission, processing, use or generation of Customer Data is lawful, and (c) ensure that when it authorizes the creation or use of a Custom Avatar using the voice or likeness of an individual, such individual is over the applicable statutory legal age and has provided free and informed consent.",
-      "rewritten in place",
-      "2026-07-26",
-      "2026-07-27",
-      "https://www.synthesia.io/legal/customer-terms-of-service"
-    ],
-    [
-      "Snowflake",
-      "terms of service",
-      "",
-      "ANNOUNCEMENT Changes to the Snowflake Privacy Notice We recently updated our Snowflake Privacy Notice to reflect changes in how we handle your data, including our use of AI/ML, expanded privacy rights mechanisms, and updated contact details.",
-      "arrived on the page",
-      "2026-07-23",
-      "2026-07-24",
-      "https://www.snowflake.com/legal/"
-    ],
-    [
-      "Runway",
-      "terms of service",
-      "Subject to the terms and conditions of the Agreement and any usage limitations described in the order process, (a) you may access and use the Services, and (b) if you have purchased access to the APIs, you may use the APIs to access the Services, integrate the functionality of such Services into your own applications, products, and services (\u201cYour Applications\u201d), and make that functionality available to end users as part of Your Application, provided that Your Applications made available to end users must prominently display \u201cPowered by Runway\u201d and link to runwayml.com on applicable user interfaces and in accordance with our Branding Guidelines.",
-      "Subject to the terms and conditions of the Agreement and any usage limitations described in the order process, (a) you may access and use the Services, and (b) if you have purchased access to the APIs, you may use the APIs to access the Services, integrate the functionality of such Services into your own applications, products, and services (\u201cYour Applications\u201d), and make that functionality available to end users as part of Your Application, provided that Your Applications made available to end users must prominently display \u201cPowered by Runway\u201d and link to runway.com on applicable user interfaces and in accordance with our Branding Guidelines.",
-      "rewritten in place",
-      "2026-07-23",
-      "2026-07-24",
-      "https://runwayml.com/terms-of-use"
     ]
   ]
 }
