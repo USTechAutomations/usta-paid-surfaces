@@ -1281,6 +1281,267 @@
         "checked": "2026-09-01",
         "verified": "2026-09-01"
       }
+    },
+    {
+      "id": "city-trade",
+      "name": "One page, one business",
+      "kind": "build",
+      "group": "Offers",
+      "short": "City trade pages",
+      "buyer": "Local trade firms (tree removal, roofing, foundation repair, epoxy floors) in ten US cities",
+      "who": "Owners of local trade firms who want one page about their trade in their city with only their name on it.",
+      "cadence": "monthly, cancel at month end",
+      "price": "$249/mo",
+      "sample_status": "pass",
+      "live": "https://ustechautomations.com/feeds/city-trade/",
+      "checkout": {
+        "label": "Subscribe — $249 a month",
+        "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about one trade in one city that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
+        "after": "After you pay, the page is written under the business name and address you gave at checkout and you get an email with its address. Each month you get an email with Google's own count of how often that page was shown and how often it was opened. If either number is zero, we send zero."
+      },
+      "board_checkouts": {
+        "epoxy-floors-akron-oh": {
+          "url": "https://buy.stripe.com/fZufZa5l43micnW02K0sU1L",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Akron that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "epoxy-floors-boise-id": {
+          "url": "https://buy.stripe.com/3cIcMYfZI4qm2NmaHo0sU1M",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Boise that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "epoxy-floors-chattanooga-tn": {
+          "url": "https://buy.stripe.com/7sY4gs9Bk5uq4VuaHo0sU1N",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Chattanooga that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "epoxy-floors-fort-wayne-in": {
+          "url": "https://buy.stripe.com/8x27sEdRA2ie73CbLs0sU1O",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Fort Wayne that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "epoxy-floors-omaha-ne": {
+          "url": "https://buy.stripe.com/00w7sEaFo6yu2Nm9Dk0sU1P",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Omaha that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "epoxy-floors-raleigh-nc": {
+          "url": "https://buy.stripe.com/bJefZa14OaOKafOdTA0sU1Q",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Raleigh that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "epoxy-floors-reno-nv": {
+          "url": "https://buy.stripe.com/cNiaEQ00K7Cy3Rq2aS0sU1R",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Reno that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "epoxy-floors-spokane-wa": {
+          "url": "https://buy.stripe.com/7sY14g8xg7Cy3Rq02K0sU1S",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Spokane that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "epoxy-floors-tulsa-ok": {
+          "url": "https://buy.stripe.com/dRmeV65l41ea0FeaHo0sU1T",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Tulsa that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "epoxy-floors-wichita-ks": {
+          "url": "https://buy.stripe.com/8x26oA00K7CybjSaHo0sU1U",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Wichita that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "foundation-repair-akron-oh": {
+          "url": "https://buy.stripe.com/14AfZa5l40a6gEc6r80sU1V",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Akron that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "foundation-repair-boise-id": {
+          "url": "https://buy.stripe.com/dRm3coaFo3mi2Nm2aS0sU1W",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Boise that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "foundation-repair-chattanooga-tn": {
+          "url": "https://buy.stripe.com/fZu5kw00K4qm9bK02K0sU1X",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Chattanooga that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "foundation-repair-fort-wayne-in": {
+          "url": "https://buy.stripe.com/eVq9AMfZIe0WgEceXE0sU1Y",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Fort Wayne that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "foundation-repair-omaha-ne": {
+          "url": "https://buy.stripe.com/dRm8wIfZIcWSgEcaHo0sU1Z",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Omaha that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "foundation-repair-raleigh-nc": {
+          "url": "https://buy.stripe.com/5kQbIU6p8cWS4VubLs0sU20",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Raleigh that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "foundation-repair-reno-nv": {
+          "url": "https://buy.stripe.com/6oU00c5l4cWS73C8zg0sU21",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Reno that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "foundation-repair-spokane-wa": {
+          "url": "https://buy.stripe.com/8x228k6p88GC87GaHo0sU22",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Spokane that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "foundation-repair-tulsa-ok": {
+          "url": "https://buy.stripe.com/8x228k4h0f505Zy2aS0sU23",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Tulsa that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "foundation-repair-wichita-ks": {
+          "url": "https://buy.stripe.com/8x27sEcNwbSO87G4j00sU24",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Wichita that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "roofing-akron-oh": {
+          "url": "https://buy.stripe.com/4gM28kbJs5uq5ZydTA0sU1r",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Akron that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "roofing-boise-id": {
+          "url": "https://buy.stripe.com/8x24gsbJsaOKcnW8zg0sU1s",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Boise that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "roofing-chattanooga-tn": {
+          "url": "https://buy.stripe.com/fZubIU3cWcWSds08zg0sU1t",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Chattanooga that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "roofing-fort-wayne-in": {
+          "url": "https://buy.stripe.com/7sYfZa9Bk6yu1JicPw0sU1u",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Fort Wayne that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "roofing-omaha-ne": {
+          "url": "https://buy.stripe.com/6oUdR24h06yuew4aHo0sU1v",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Omaha that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "roofing-raleigh-nc": {
+          "url": "https://buy.stripe.com/bJe7sE8xg8GC87G4j00sU1w",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Raleigh that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "roofing-reno-nv": {
+          "url": "https://buy.stripe.com/cNifZa4h04qm9bKaHo0sU1x",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Reno that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "roofing-spokane-wa": {
+          "url": "https://buy.stripe.com/3cIeV64h05uqafOeXE0sU1y",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Spokane that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "roofing-tulsa-ok": {
+          "url": "https://buy.stripe.com/fZu4gs28S1ea5Zy3eW0sU1z",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Tulsa that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "roofing-wichita-ks": {
+          "url": "https://buy.stripe.com/3cI14gfZIcWS87G02K0sU1A",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Wichita that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "tree-removal-akron-oh": {
+          "url": "https://buy.stripe.com/cNibIU9Bkg945Zy3eW0sU1B",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Akron that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "tree-removal-boise-id": {
+          "url": "https://buy.stripe.com/5kQ28k5l45uq2Nm16O0sU1C",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Boise that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "tree-removal-chattanooga-tn": {
+          "url": "https://buy.stripe.com/dRm8wIfZI5uq2Nmg1I0sU1D",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Chattanooga that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "tree-removal-fort-wayne-in": {
+          "url": "https://buy.stripe.com/9B63co5l4e0W87G8zg0sU1E",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Fort Wayne that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "tree-removal-omaha-ne": {
+          "url": "https://buy.stripe.com/aFaeV69BkcWS9bKg1I0sU1F",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Omaha that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "tree-removal-raleigh-nc": {
+          "url": "https://buy.stripe.com/6oU00ceVE2ie5Zy9Dk0sU1G",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Raleigh that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "tree-removal-reno-nv": {
+          "url": "https://buy.stripe.com/4gM14g7tcaOKds04j00sU1H",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Reno that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "tree-removal-spokane-wa": {
+          "url": "https://buy.stripe.com/9B628k6p80a6fA86r80sU1I",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Spokane that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "tree-removal-tulsa-ok": {
+          "url": "https://buy.stripe.com/7sYbIU6p8g945ZybLs0sU1J",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Tulsa that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        },
+        "tree-removal-wichita-ks": {
+          "url": "https://buy.stripe.com/bJe8wI14OaOK9bK02K0sU1K",
+          "lands_on": "buy.stripe.com",
+          "label": "Subscribe — $249 a month",
+          "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Wichita that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period."
+        }
+      },
+      "note": "STAGED 2026-09-02, NOT DEPLOYED. 40 pages, one per trade per city, each with its own recurring $249/month payment link minted 2026-09-02 under the operator's grant (~/.hermes/state/approvals/mint_city_trade_offer_links_2026-09-02.md). kind=\"build\" because this sells a written page, not a dated data file: no clock, no data table, no sample rows. We have never run this offer before; the pages say so. Deploy only on the operator's word."
     }
   ],
   "map": "MAP.md",
