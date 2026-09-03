@@ -12,7 +12,7 @@
     "id": "offers",
     "short": "Offers and evidence",
     "who": "Small businesses that want one piece of automation built.",
-    "amount": "$200 \u2013 $450",
+    "amount": "$200 – $450",
     "cadence": "fixed price, fixed window",
     "pill": "Live",
     "pill_class": "pill-ready"
@@ -117,15 +117,6 @@
     "pill_class": "pill-ready"
   },
   {
-    "id": "city-trade",
-    "short": "City trade pages",
-    "who": "Owners of local trade firms who want one page about their trade in their city with only their name on it.",
-    "amount": "$249/mo",
-    "cadence": "monthly, cancel at month end",
-    "pill": "Live",
-    "pill_class": "pill-ready"
-  },
-  {
     "id": "coverage",
     "short": "Everything we hold",
     "who": "Anyone deciding whether we hold the record they need, before they ask about price",
@@ -150,6 +141,15 @@
     "amount": "Free",
     "cadence": "rebuilt daily",
     "pill": "Worked example",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "city-trade",
+    "short": "City trade pages",
+    "who": "Owners of local trade firms who want one page about their trade in their city with only their name on it.",
+    "amount": "$249/mo",
+    "cadence": "monthly, cancel at month end",
+    "pill": "Live",
     "pill_class": "pill-ready"
   }
 ]
