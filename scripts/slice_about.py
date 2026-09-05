@@ -784,7 +784,7 @@ def coverage(today: dt.date) -> dict:
         (fams[f].get("short") or fams[f]["name"])
         for f in fams
         if f not in covered and fams[f].get("sample_status") != "parked"
-        and fams[f].get("kind") != "build"
+        and fams[f].get("kind") not in ("build", "generated")
     )
 
     # Sold, and not a reader. A build has no clock, no dated rows and no freshness,
@@ -819,11 +819,26 @@ def coverage(today: dt.date) -> dict:
             f'{esc(f["price"])}<span class="sub">Sold as {esc(f.get("short") or f["name"])}. '
             f"{esc(extra)}</span>",
         ))
+    # Generated weekly packs (added 2026-09-05 for changeover-atlas). No reader,
+    # no dated rows read from the world: a script writes a new pack each week
+    # from a dated seed. It is a subscription, so calling it a one-time file
+    # would be a lie, and calling it a reader would be a bigger one.
+    generated = [f for f in fams.values()
+                 if f.get("kind") == "generated" and "$" in f.get("price", "")
+                 and f.get("sample_status") != "parked"]
+    generated_rows = [(
+        f'<strong>{esc(f.get("short") or f["name"])}</strong>'
+        f'<span class="sub">{esc(f.get("who", ""))}</span>',
+        f'{esc(f.get("coverage_what") or "Generated each week, not read from the world")}'
+        f'<span class="sub">{esc(f.get("coverage_how") or "A script writes a new pack from a dated seed. Nothing in it is measured.")}</span>',
+        f'{esc(f["price"])}<span class="sub">Sold as {esc(f.get("short") or f["name"])}. '
+        f'{esc(f.get("price_list_note") or "Ask before you pay.")}</span>',
+    ) for f in generated]
     # One-time files that are not a dated reader and not a custom build. They
     # still have a price, and this is the page a buyer reads to compare.
     one_shot = [f for f in fams.values()
                 if "$" in f.get("price", "")
-                and f.get("kind") != "build"
+                and f.get("kind") not in ("build", "generated")
                 and f.get("sample_status") != "parked"
                 and f["id"] not in covered]
     one_shot_rows = [(
@@ -836,7 +851,7 @@ def coverage(today: dt.date) -> dict:
     ) for f in one_shot]
     # One table, three reasons to be in it: a build was never a dated feed, a
     # one-time file is not one either, and a stopped reader has ceased to be one.
-    not_a_feed = stopped_sold + build_rows + one_shot_rows
+    not_a_feed = stopped_sold + build_rows + generated_rows + one_shot_rows
 
     facts = [
         f"<strong>{len(measured)} readers, {total_rows:,} dated rows, {total_runs:,} sealed "
