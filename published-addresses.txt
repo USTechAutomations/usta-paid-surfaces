@@ -80,6 +80,7 @@ boston/gas-permit
 boston/plumbing-permit
 boston/short-form-bldg-permit
 canary-ledger
+changeover-atlas
 chicago
 chicago/coverage
 chicago/easy-permit-process
@@ -311,8 +312,10 @@ quakes/alaska
 quakes/california
 quakes/coverage
 quakes/depth-revised
+quakes/hawaii
 quakes/magnitude-revised
 quakes/most-revised
+quakes/nevada
 quakes/new-mexico
 quakes/place-revised
 quakes/texas
