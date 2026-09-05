@@ -1,93 +1,93 @@
 {
   "family": "quakes",
-  "generated": "2026-09-03",
+  "generated": "2026-09-04",
   "slices": [
     {
       "slug": "california",
-      "newest": "2026-09-03",
+      "newest": "2026-09-04",
       "oldest": "2026-06-23",
-      "runs": 119,
-      "row_count": 177,
+      "runs": 123,
+      "row_count": 185,
       "cadence_days": 1
     },
     {
       "slug": "alaska",
-      "newest": "2026-09-03",
+      "newest": "2026-09-04",
       "oldest": "2026-06-23",
-      "runs": 119,
-      "row_count": 62,
+      "runs": 123,
+      "row_count": 69,
       "cadence_days": 1
     },
     {
       "slug": "texas",
-      "newest": "2026-09-03",
+      "newest": "2026-09-04",
       "oldest": "2026-06-23",
-      "runs": 119,
-      "row_count": 41,
+      "runs": 123,
+      "row_count": 48,
       "cadence_days": 1
     },
     {
       "slug": "new-mexico",
-      "newest": "2026-09-03",
+      "newest": "2026-09-04",
       "oldest": "2026-06-23",
-      "runs": 119,
-      "row_count": 15,
+      "runs": 123,
+      "row_count": 16,
       "cadence_days": 1
     },
     {
       "slug": "hawaii",
-      "newest": "2026-09-03",
+      "newest": "2026-09-04",
       "oldest": "2026-06-23",
-      "runs": 119,
-      "row_count": 13,
+      "runs": 123,
+      "row_count": 14,
       "cadence_days": 1
     },
     {
       "slug": "nevada",
-      "newest": "2026-09-03",
+      "newest": "2026-09-04",
       "oldest": "2026-06-23",
-      "runs": 119,
-      "row_count": 5,
+      "runs": 123,
+      "row_count": 7,
       "cadence_days": 1
     },
     {
       "slug": "magnitude-revised",
-      "newest": "2026-09-03",
+      "newest": "2026-09-04",
       "oldest": "2026-06-23",
-      "runs": 119,
-      "row_count": 150,
+      "runs": 123,
+      "row_count": 161,
       "cadence_days": 1
     },
     {
       "slug": "depth-revised",
-      "newest": "2026-09-03",
+      "newest": "2026-09-04",
       "oldest": "2026-06-23",
-      "runs": 119,
-      "row_count": 213,
+      "runs": 123,
+      "row_count": 233,
       "cadence_days": 1
     },
     {
       "slug": "place-revised",
-      "newest": "2026-09-03",
+      "newest": "2026-09-04",
       "oldest": "2026-06-23",
-      "runs": 119,
-      "row_count": 126,
+      "runs": 123,
+      "row_count": 138,
       "cadence_days": 1
     },
     {
       "slug": "most-revised",
-      "newest": "2026-09-03",
+      "newest": "2026-09-04",
       "oldest": "2026-06-23",
-      "runs": 119,
-      "row_count": 97,
+      "runs": 123,
+      "row_count": 108,
       "cadence_days": 1
     },
     {
       "slug": "coverage",
-      "newest": "2026-09-03",
+      "newest": "2026-09-04",
       "oldest": "2026-06-23",
-      "runs": 119,
-      "row_count": 69,
+      "runs": 123,
+      "row_count": 70,
       "cadence_days": 1
     }
   ]

@@ -1,6 +1,8 @@
 {
   "family": "grid",
-  "generated": "2026-09-03",
+  "clock": "grid_queue",
+  "generated": "2026-09-05",
+  "rewritten_at": "2026-09-05T15:14:10+00:00",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/grid",
   "rows_published": 17,
@@ -204,5 +206,13 @@
       "2026-06-11",
       "2026-06-18"
     ]
-  ]
+  ],
+  "net_new_ids": 0,
+  "appeared_ids": 0,
+  "disappeared_ids": 0,
+  "newer_seal": "2026-09-05",
+  "older_seal": "2026-09-04",
+  "no_movers": true,
+  "slice_diff": false,
+  "snapshot_note": "The newest sealed copy has the same ids as the copy before it. Nothing appeared or disappeared. This file is not a list of new records."
 }

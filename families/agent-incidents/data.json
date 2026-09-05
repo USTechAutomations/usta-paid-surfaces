@@ -1,6 +1,6 @@
 {
   "family": "agent-incidents",
-  "generated": "2026-09-03",
+  "generated": "2026-09-04",
   "slices": [
     {
       "slug": "new-cases",

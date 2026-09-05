@@ -1,6 +1,8 @@
 {
   "family": "mesa-code",
-  "generated": "2026-09-03",
+  "clock": "mesa_code_compliance",
+  "generated": "2026-09-05",
+  "rewritten_at": "2026-09-05T23:24:03+00:00",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/mesa-code",
   "rows_published": 25,
@@ -15,6 +17,15 @@
     "First copy showing it"
   ],
   "rows": [
+    [
+      "85204",
+      "COD26-04493",
+      "Code Compliance",
+      "Closed",
+      "In Violation",
+      "14 Jul 2026",
+      "4 Sep 2026"
+    ],
     [
       "85215",
       "COD26-04565",
@@ -230,15 +241,14 @@
       "Closed",
       "16 Jul 2026",
       "2 Sep 2026"
-    ],
-    [
-      "85206",
-      "COD26-01372",
-      "Code Compliance",
-      "Citation Issued",
-      "Closed",
-      "26 Feb 2026",
-      "2 Sep 2026"
     ]
-  ]
+  ],
+  "net_new_ids": 0,
+  "appeared_ids": 0,
+  "disappeared_ids": 0,
+  "newer_seal": "2026-09-05",
+  "older_seal": "2026-09-04",
+  "no_movers": true,
+  "slice_diff": false,
+  "snapshot_note": "The newest sealed copy has the same ids as the copy before it. Nothing appeared or disappeared. This file is not a list of new records."
 }

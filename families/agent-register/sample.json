@@ -1,6 +1,6 @@
 {
   "family": "agent-register",
-  "generated": "2026-09-03",
+  "generated": "2026-09-04",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/agent-register",
   "rows_published": 25,
@@ -12,6 +12,18 @@
     "where_it_answers"
   ],
   "rows": [
+    [
+      "io.github.runningoffcode/wormhole-x402",
+      "2026-09-04",
+      "2026-09-04",
+      "no address in the record"
+    ],
+    [
+      "app.vercel.ora-x402-gateway/sensations-mergulho",
+      "2026-09-04",
+      "2026-09-04",
+      "ywabnlhkmhbyewqhbsjm.supabase.co"
+    ],
     [
       "io.github.entreprisedaney33-rgb/x402-seller-mcp",
       "2026-09-02",
@@ -149,18 +161,6 @@
       "2026-08-22",
       "2026-08-22",
       "x402-seller-202595743428.europe-west1.run.app"
-    ],
-    [
-      "io.github.Autonomy-Labs-Tech/autonomy-x402-tools",
-      "2026-08-21",
-      "2026-08-21",
-      "www.autonomylabsweb.tech"
-    ],
-    [
-      "store.etherealgoodsco/x402-tools",
-      "2026-08-20",
-      "2026-08-18",
-      "etherealgoodsco.store"
     ]
   ]
 }

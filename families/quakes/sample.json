@@ -1,6 +1,8 @@
 {
   "family": "quakes",
-  "generated": "2026-09-03",
+  "clock": "usgs_quakes",
+  "generated": "2026-09-05",
+  "rewritten_at": "2026-09-05T22:06:48+00:00",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/quakes",
   "rows_published": 25,
@@ -50,6 +52,60 @@
       "1.44",
       "2026-08-18",
       "2026-08-19"
+    ],
+    [
+      "aka2026rnwxzf",
+      "185 km SE of Perryville, Alaska",
+      "magnitude",
+      "3.6",
+      "3.5",
+      "2026-09-04",
+      "2026-09-05"
+    ],
+    [
+      "aka2026rnhsox",
+      "45 km NW of Skwentna, Alaska",
+      "magnitude",
+      "1.4",
+      "1.6",
+      "2026-09-04",
+      "2026-09-05"
+    ],
+    [
+      "aka2026rmpjyd",
+      "30 km E of Denali Park, Alaska",
+      "magnitude",
+      "2.3",
+      "2.2",
+      "2026-09-04",
+      "2026-09-05"
+    ],
+    [
+      "tx2026rhzvze",
+      "34 km E of McKinney Acres, Texas",
+      "magnitude",
+      "1.3",
+      "1.4",
+      "2026-09-03",
+      "2026-09-04"
+    ],
+    [
+      "hv75028527",
+      "10 km ENE of P\u0101hala, Hawaii",
+      "magnitude",
+      "2.45",
+      "2.0",
+      "2026-09-03",
+      "2026-09-04"
+    ],
+    [
+      "ci41541080",
+      "6 km E of Lake Henshaw, CA",
+      "magnitude",
+      "0.5",
+      "0.63",
+      "2026-09-03",
+      "2026-09-04"
     ],
     [
       "tx2026rgekid",
@@ -185,60 +241,13 @@
       "2.1",
       "2026-08-27",
       "2026-08-28"
-    ],
-    [
-      "tx2026qtiswk",
-      "30 km NW of Toyah, Texas",
-      "magnitude",
-      "1.7",
-      "1.6",
-      "2026-08-26",
-      "2026-08-27"
-    ],
-    [
-      "tx2026qtcodv",
-      "2 km ESE of Gardendale, Texas",
-      "magnitude",
-      "1.0",
-      "0.7",
-      "2026-08-26",
-      "2026-08-27"
-    ],
-    [
-      "tx2026qtbyru",
-      "10 km NNW of Big Spring, Texas",
-      "magnitude",
-      "1.1",
-      "1.0",
-      "2026-08-26",
-      "2026-08-27"
-    ],
-    [
-      "ci41537064",
-      "5 km SSE of Home Gardens, CA",
-      "magnitude",
-      "1.71",
-      "1.68",
-      "2026-08-26",
-      "2026-08-27"
-    ],
-    [
-      "aka2026qvzbwa",
-      "53 km ENE of Pedro Bay, Alaska",
-      "magnitude",
-      "3.2",
-      "3.4",
-      "2026-08-26",
-      "2026-08-27"
-    ],
-    [
-      "nn00923862",
-      "1 km SE of Johnstonville, California",
-      "magnitude",
-      "1.67",
-      "1.53",
-      "2026-08-25",
-      "2026-08-26"
     ]
-  ]
+  ],
+  "net_new_ids": 642,
+  "appeared_ids": 257,
+  "disappeared_ids": 385,
+  "newer_seal": "2026-09-05",
+  "older_seal": "2026-09-04",
+  "no_movers": false,
+  "slice_diff": false
 }

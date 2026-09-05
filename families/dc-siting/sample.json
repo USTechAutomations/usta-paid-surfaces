@@ -1,6 +1,8 @@
 {
   "family": "dc-siting",
-  "generated": "2026-09-03",
+  "clock": "dc_materialization",
+  "generated": "2026-09-05",
+  "rewritten_at": "2026-09-05T13:54:35+00:00",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/dc-siting",
   "rows_published": 25,
@@ -30,7 +32,7 @@
       "Air permit for the site",
       "Technically Complete Application",
       "30 Mar 2026",
-      "3 Sep 2026",
+      "5 Sep 2026",
       "",
       "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/407086-tc.pdf"
     ],
@@ -44,7 +46,7 @@
       "Air permit for the site",
       "Administrative Complete Application",
       "30 Jan 2026",
-      "3 Sep 2026",
+      "5 Sep 2026",
       "",
       "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/404507-ac.pdf"
     ],
@@ -58,7 +60,7 @@
       "Air permit for the site",
       "Technically Complete Application",
       "7 Nov 2025",
-      "3 Sep 2026",
+      "5 Sep 2026",
       "",
       "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/400428-tc.pdf"
     ],
@@ -72,7 +74,7 @@
       "Air permit for the site",
       "Administrative Complete Application",
       "17 Feb 2026",
-      "3 Sep 2026",
+      "5 Sep 2026",
       "",
       "https://www.tceq.texas.gov/assets/public/permitting/air/reports/applications/405217-ac.pdf"
     ],
@@ -370,5 +372,13 @@
       "The project consists of the development of 2 proposed data centers driveways parking bays private streets and associated utilities.",
       ""
     ]
-  ]
+  ],
+  "net_new_ids": 0,
+  "appeared_ids": 0,
+  "disappeared_ids": 0,
+  "newer_seal": "2026-09-05",
+  "older_seal": "2026-09-04",
+  "no_movers": false,
+  "slice_diff": true,
+  "snapshot_note": "No new ids versus the previous seal; the sample still changed (revisions or field moves)."
 }

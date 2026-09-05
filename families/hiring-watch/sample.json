@@ -1,6 +1,8 @@
 {
   "family": "hiring-watch",
-  "generated": "2026-09-03",
+  "clock": "b2b_change",
+  "generated": "2026-09-05",
+  "rewritten_at": "2026-09-05T07:04:43+00:00",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/hiring-watch",
   "rows_published": 25,
@@ -28,13 +30,13 @@
     ],
     [
       "sproutsocial.com",
-      "role came down off the page",
-      "Senior Solutions Engineer",
+      "role appeared on the page",
+      "Director, GTM Strategy & Planning",
       "",
-      "Remote Canada",
-      "Customer Experience",
-      "2026-09-02",
-      "2026-09-03"
+      "Remote US",
+      "Sales",
+      "2026-09-04",
+      "2026-09-05"
     ],
     [
       "ahrefs.com",
@@ -58,13 +60,13 @@
     ],
     [
       "sproutsocial.com",
-      "role appeared on the page",
-      "Staff Software Engineer, Web (React)",
+      "role came down off the page",
+      "Customer Success Manager, Key Accounts",
       "",
-      "Remote Poland",
-      "Engineering",
-      "2026-09-01",
-      "2026-09-02"
+      "Remote US",
+      "Customer Experience",
+      "2026-09-04",
+      "2026-09-05"
     ],
     [
       "ahrefs.com",
@@ -88,13 +90,13 @@
     ],
     [
       "sproutsocial.com",
-      "same job id, new title",
-      "Software Engineer, Platform (Java)",
-      "Software Engineer - Backend (B2B)",
-      "Remote Poland",
-      "Engineering",
-      "2026-09-01",
-      "2026-09-02"
+      "role appeared on the page",
+      "Account Executive, Mid Market",
+      "",
+      "Chicago, IL",
+      "Sales",
+      "2026-09-04",
+      "2026-09-05"
     ],
     [
       "ahrefs.com",
@@ -119,12 +121,12 @@
     [
       "sproutsocial.com",
       "role appeared on the page",
-      "Senior Solutions Engineer",
+      "Account Executive, Corporate",
       "",
-      "Remote Canada",
-      "Customer Experience",
-      "2026-09-01",
-      "2026-09-02"
+      "Chicago, IL",
+      "Sales",
+      "2026-09-04",
+      "2026-09-05"
     ],
     [
       "ahrefs.com",
@@ -148,13 +150,13 @@
     ],
     [
       "sproutsocial.com",
-      "same job id, new title",
-      "Senior Software Engineer, Platform (Scala)",
-      "Senior Software Engineer (Platform/Scala)",
+      "role appeared on the page",
+      "Staff Software Engineer, Web (Angular)",
+      "",
       "Remote Poland",
       "Engineering",
-      "2026-09-01",
-      "2026-09-02"
+      "2026-09-03",
+      "2026-09-04"
     ],
     [
       "ahrefs.com",
@@ -178,13 +180,13 @@
     ],
     [
       "sproutsocial.com",
-      "same job id, new title",
-      "Senior Software Engineer, Platform (Java)",
-      "Senior Software Engineer (Platform/Java) Poland",
-      "Remote Poland",
-      "Engineering",
-      "2026-09-01",
-      "2026-09-02"
+      "role appeared on the page",
+      "Product Marketing Manager II",
+      "",
+      "Remote US",
+      "Marketing",
+      "2026-09-03",
+      "2026-09-04"
     ],
     [
       "ahrefs.com",
@@ -208,13 +210,13 @@
     ],
     [
       "sproutsocial.com",
-      "role came down off the page",
-      "Senior Campaign Manager, ABX",
+      "role appeared on the page",
+      "People Programs Strategist",
       "",
-      "Remote US",
-      "Marketing",
-      "2026-09-01",
-      "2026-09-02"
+      "Chicago, IL",
+      "People",
+      "2026-09-03",
+      "2026-09-04"
     ],
     [
       "ahrefs.com",
@@ -239,12 +241,12 @@
     [
       "sproutsocial.com",
       "role appeared on the page",
-      "Product Marketing Strategist",
+      "Customer Success Manager, Key Accounts",
       "",
       "Remote US",
-      "Marketing",
-      "2026-09-01",
-      "2026-09-02"
+      "Customer Experience",
+      "2026-09-03",
+      "2026-09-04"
     ],
     [
       "ahrefs.com",
@@ -266,5 +268,13 @@
       "2026-08-27",
       "2026-08-28"
     ]
-  ]
+  ],
+  "net_new_ids": 0,
+  "appeared_ids": 0,
+  "disappeared_ids": 0,
+  "newer_seal": "2026-09-05",
+  "older_seal": "2026-09-04",
+  "no_movers": false,
+  "slice_diff": true,
+  "snapshot_note": "No new ids versus the previous seal; the sample still changed (revisions or field moves)."
 }

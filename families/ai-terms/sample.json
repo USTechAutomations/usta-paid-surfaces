@@ -1,6 +1,6 @@
 {
   "family": "ai-terms",
-  "generated": "2026-09-03",
+  "generated": "2026-09-04",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/ai-terms",
   "rows_published": 25,
@@ -16,6 +16,16 @@
     "url"
   ],
   "rows": [
+    [
+      "DeepL",
+      "privacy policy",
+      "Recordings of the calls, including transcriptions of these, are used for internal training and coaching as well as for documentation purposes.",
+      "Recordings of the calls and meetings, including transcriptions of these, are used for internal training and coaching as well as for documentation purposes.",
+      "rewritten in place",
+      "2026-09-03",
+      "2026-09-04",
+      "https://www.deepl.com/en/privacy"
+    ],
     [
       "Suno",
       "terms of service",
@@ -255,16 +265,6 @@
       "2026-08-11",
       "2026-08-12",
       "https://www.nvidia.com/en-us/about-nvidia/privacy-policy/"
-    ],
-    [
-      "HeyGen",
-      "terms of service",
-      "After you delete the information or the account, it is kept in the backups for the purpose of disaster recovery for 30 days and then automatically and permanently erased.",
-      "After you delete the information or the account, it is kept in the backups for the purpose of disaster recovery for 60 days and then automatically and permanently erased.",
-      "rewritten in place",
-      "2026-08-11",
-      "2026-08-12",
-      "https://www.heygen.com/policy"
     ]
   ]
 }

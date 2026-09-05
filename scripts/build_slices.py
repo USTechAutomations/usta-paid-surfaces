@@ -13,12 +13,17 @@ may be published lives in exactly one place:
     pages, because there is nothing honest to put on them.
   * A slice that stopped qualifying has its old page deleted, so a page can never
     outlive the rows that justified it.
-  * A family that has jumped a stage in the pipeline is not written at all, and
-    the run exits non-zero. scripts/pipeline.py has always been able to work out
-    that we are charging for a feed whose source we are not allowed to collect;
-    until today nothing stopped the builder from rebuilding that feed's pages
-    anyway. Measuring a fault and then doing the thing regardless is the same as
-    not measuring it.
+  * A family that has jumped a stage in the pipeline is not written at all. It
+    is SET ASIDE: named in the run output, named again in var/set-aside.json for
+    anything that reads instead of watches, and left entirely unbuilt -- while
+    every other family in the run is built as normal. scripts/pipeline.py has
+    always been able to work out that we are charging for a feed whose source we
+    are not allowed to collect; until today nothing stopped the builder from
+    rebuilding that feed's pages anyway. Measuring a fault and then doing the
+    thing regardless is the same as not measuring it.
+  * A set-aside family does NOT make the run exit non-zero. It used to, and that
+    is how one correctly refused family froze 226 honest pages for two days; see
+    the long note at the foot of main(). Non-zero here means a real build error.
 
 It also writes the freshness record (families/<family>/data.json) and the two
 permanent sample addresses, so the numbers the site shows and the numbers we
@@ -56,6 +61,11 @@ from render_slice import write as write_slice  # noqa: E402
 
 ROOT = HERE.parents[0]
 FAMILIES = ROOT / "families"
+
+# The set-aside families, written every run, for anything that reads a file
+# rather than watches a terminal. Under var/ with the other run state and not
+# under families/, because it is a fact about the run and not a page.
+SET_ASIDE = ROOT / "var" / "set-aside.json"
 
 # Five is the floor from SITEMAP-WAVE3.md. It is not a style preference: a page
 # that cannot name five real rows has nothing a buyer could check.
@@ -404,6 +414,44 @@ def write_sample(fid: str, sample: tuple) -> None:
             fh.write("\n" + bf.DC_ATTRIBUTION_TEXT + "\n")
 
 
+def write_set_aside(entries: list[dict], considered: list[str],
+                    only: str | None, today: dt.date) -> None:
+    """The families this run refused to build, in a form a machine can read.
+
+    Written on EVERY run, a clean one included, and the empty list is the point:
+    a family refused yesterday and fixed today has to fall off this list without
+    anybody remembering to take it out. A file that is only ever added to is a
+    file that quietly goes wrong and then gets believed anyway.
+
+    `scope` and `families_considered` are in it because of --only. A narrowed run
+    looks at one module and can say nothing whatever about the other twenty-eight,
+    so a reader that took its empty list for "nothing is refused anywhere" would
+    be reading a partial answer as a whole one. Those two fields make the
+    difference checkable instead of a matter of trust.
+
+    The date is the run's own date -- the same one the pages and the freshness
+    records are stamped with -- and not a wall-clock time. This machine has two
+    answers for its own timezone and one of them is wrong; a date that matches
+    the rest of the run is worth more here than a timestamp that might be seven
+    hours out.
+    """
+    SET_ASIDE.parent.mkdir(parents=True, exist_ok=True)
+    SET_ASIDE.write_text(
+        json.dumps(
+            {
+                "generated": today.isoformat(),
+                "scope": f"--only {only}" if only else "every slice module",
+                "families_considered": considered,
+                "set_aside_count": len(entries),
+                "set_aside": entries,
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+
 def write_records(fid: str, shipped: list[dict], today: dt.date) -> None:
     """The freshness record only.
 
@@ -489,6 +537,7 @@ def main() -> None:
                   "makes more of them.", file=sys.stderr)
             raise SystemExit(1)
     refused_n = 0
+    set_aside: list[dict] = []
 
     for mod in mods:
         fid = mod.FAMILY
@@ -496,12 +545,26 @@ def main() -> None:
             # Refused, not skipped. Nothing of this family is written and nothing
             # of it is swept either: its pages stay exactly as they are on disk,
             # because deleting them is a decision about the estate and this is a
-            # builder. The run goes red at the end so the refusal cannot be
-            # scrolled past.
+            # builder. The refusal is named here, named again in the set-aside
+            # block at the foot of this function, and named a third time in
+            # var/set-aside.json, so it cannot be scrolled past -- and the rest
+            # of the run carries on without it.
             for r in vetoed[fid]:
                 print(f"{fid:16} {'*':22} REFUSED  {r['higher']} passes while "
                       f"{r['lower']} fails -- {r['why']}")
                 print(f"{'':16} {'':22}          {r['detail']}")
+            set_aside.append({
+                "family": fid,
+                "refusals": [
+                    {
+                        "higher": r["higher"],
+                        "lower": r["lower"],
+                        "why": r["why"],
+                        "detail": r.get("detail"),
+                    }
+                    for r in vetoed[fid]
+                ],
+            })
             refused_n += 1
             continue
         if fid not in rows:
@@ -627,15 +690,64 @@ def main() -> None:
         for w in warnings:
             print(f"  - {w}")
 
-    if refused_n:
-        # Non-zero, every time, with no way to turn it off. A refusal that lets
-        # the run finish green is a refusal somebody reads once and then stops
-        # reading. Fix the surface or take its price off; those are the two
-        # exits, and both of them are somebody's decision, not a flag.
-        print(f"\n{refused_n} family(ies) were refused. Run "
-              f"'python3 scripts/pipeline.py --veto <family>' for the whole answer.",
-              file=sys.stderr)
-        raise SystemExit(1)
+    # Written every run, clean or not, so the list can never be stale. See
+    # write_set_aside() for why a clean run still writes an empty one.
+    write_set_aside(set_aside, sorted({m.FAMILY for m in mods}), only, today)
+
+    if set_aside:
+        # SET ASIDE, LOUD, AND NOT FATAL -- changed 2026-09-04.
+        #
+        # THE REFUSAL ITSELF IS UNTOUCHED. Not one page of these families was
+        # written by this run, nothing of theirs was swept, and
+        # scripts/build_site.py asks the very same build_veto() again before it
+        # fills dist/ -- so a set-aside family reaches neither the deployable
+        # folder nor the site map. What changed is how far the refusal spreads,
+        # not whether it fires.
+        #
+        # This block used to exit 1. The only caller is
+        # scripts/refresh_and_deploy.sh, whose first step is
+        # `python3 scripts/build_slices.py || die`, so one refused family killed
+        # the run before the deployable folder was ever built. On 2026-09-02 that
+        # is exactly what happened: one family was correctly refused -- priced
+        # passes while honest fails, we are charging for a page that is not
+        # telling the truth about its own rows -- and 226 honest pages across the
+        # other 28 families stopped shipping with it. Every live page froze.
+        #
+        # The exit code did the opposite of its job twice over. It punished the
+        # 28 innocent families, and it PROTECTED the guilty one: an aborted
+        # deploy leaves the previous image serving, so the page the honesty check
+        # had called untruthful stayed live, pay button and all, for as long as
+        # the refusal stood.
+        #
+        # scripts/build_site.py settled this same argument on 2026-08-24 and says
+        # so in its own veto block: "an exit code would abort the deploy, the
+        # deploy that aborts leaves the LAST image serving, and that image is the
+        # one with the pay button on it. Refusing loudly and shipping the rest is
+        # what actually takes the button off the internet." The builder now
+        # agrees with the writer downstream of it instead of contradicting it.
+        #
+        # There is still no override flag and there never will be: a set-aside
+        # family cannot be built by passing anything to this script. Fix the
+        # surface or take its price off -- those remain the only two exits, and
+        # both of them are somebody's decision. A real build error -- a malformed
+        # slice, a missing catalog row, a module that raised, the estate honesty
+        # gate red -- still exits non-zero through fail() exactly as before.
+        names = ", ".join(e["family"] for e in set_aside)
+        print(f"\n{len(set_aside)} family(ies) SET ASIDE and NOT built: {names}")
+        print("Nothing of theirs was written. scripts/build_site.py asks the same veto "
+              "again, so they stay out of dist/ and out of the site map too.")
+        print("The whole answer: python3 scripts/pipeline.py --veto <family>")
+        print(f"The same list, for a machine: {SET_ASIDE}")
+        # Counted, never asserted. On a --only run there may be no other family
+        # in the run at all, and a closing line that claimed there was would be
+        # a small lie sitting directly under a refusal, which is the worst place
+        # in the file to put one.
+        if by_family:
+            print(f"The other {len(by_family)} family(ies) in this run were built. "
+                  f"A set-aside family stops itself and nothing else.")
+        else:
+            print("No other family was in this run to build. A set-aside family stops "
+                  "itself and nothing else.")
 
 
 if __name__ == "__main__":

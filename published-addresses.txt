@@ -311,8 +311,10 @@ quakes/alaska
 quakes/california
 quakes/coverage
 quakes/depth-revised
+quakes/hawaii
 quakes/magnitude-revised
 quakes/most-revised
+quakes/nevada
 quakes/new-mexico
 quakes/place-revised
 quakes/texas
