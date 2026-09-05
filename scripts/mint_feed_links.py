@@ -142,6 +142,7 @@ LABEL_FOR_FEED = {
     "grid": "Subscribe — $49 a month",
     "permit-metros": "Subscribe — $79 a month",
     "ttb": "Subscribe — $99 a month",
+    "changeover-atlas": "Subscribe — $49 a month",
 }
 
 # Catalog placeholder written before a Stripe address exists. It is not a
