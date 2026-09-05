@@ -89,6 +89,7 @@ SKU_FOR_FEED = {
     "ai-prices": "ai-price-change-record",
     "air-permits": "air-permits-texas-feed",
     "civic-agenda": "civic-agenda-change-feed",
+    "changeover-atlas": "changeover-schedule-atlas",
     "crawler": "crawler-policy-sentinel",
     "grid": "permits-queue-sentinel",
     "permit-metros": "permit-metros-arrivals",
