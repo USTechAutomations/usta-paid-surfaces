@@ -234,6 +234,7 @@ SEALED_FILE_STORES: dict[str, str] = {
     "cannabis-tape": "/home/gmullins/.hermes/state/cannabis-tape",
     "dealer-licence": "/home/gmullins/.hermes/state/dealer-licence",
     "stormwater-noi": "/home/gmullins/.hermes/state/stormwater-noi",
+    "new-prime-awards": "/home/gmullins/.hermes/state/new-prime-awards",
 }
 SEALED_FILE_LANES: dict[str, tuple[Lane, ...]] = {
     "ai-terms": (
@@ -270,6 +271,11 @@ SEALED_FILE_LANES: dict[str, tuple[Lane, ...]] = {
     ),
     "stormwater-noi": (
         Lane("the EPA ECHO NPDES download (Texas construction stormwater NOIs)",
+             "weekly snapshot files", "snapshot_date", "snapshot_*.json", 7,
+             sealed_files=True),
+    ),
+    "new-prime-awards": (
+        Lane("the USAspending award search API (api.usaspending.gov)",
              "weekly snapshot files", "snapshot_date", "snapshot_*.json", 7,
              sealed_files=True),
     ),

@@ -332,6 +332,22 @@
         "echo.epa.gov",
         "epa"
       ]
+    },
+    "usaspending_award_search": {
+      "name": "USAspending award search (api.usaspending.gov)",
+      "verdict": "UNKNOWN",
+      "decided_on": "2026-09-06",
+      "evidence_url": "https://www.usaspending.gov/about",
+      "quote": "The data on this site is available to copy, adapt, redistribute, or otherwise use for non-commercial or for commercial purposes, subject to the Limitation on Permissible Use of Dun & Bradstreet, Inc. Data noted on the homepage.",
+      "required_text": "",
+      "reviewed_by": "grok-host path worker 2026-09-06; full quotes in families/new-prime-awards/SOURCE_TERMS.md",
+      "note": "Terms read 2026-09-06. SOURCE_TERMS.md verdict PERMITTED for commercial use, with the D&B limitation honoured by dropping DUNS and every street/city/ZIP field and using the public API rather than harvesting the website. A machine may not grant ALLOW_PAID. The operator decides.",
+      "labels": [
+        "usaspending_award_search",
+        "new-prime-awards",
+        "usaspending.gov",
+        "api.usaspending.gov"
+      ]
     }
   }
 }
