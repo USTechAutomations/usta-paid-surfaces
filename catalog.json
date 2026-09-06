@@ -1988,6 +1988,28 @@
       }
     },
     {
+      "id": "carrier-register",
+      "name": "New motor-carrier and broker authority this week",
+      "buyer": "Trucking insurance agents and freight-factoring underwriters who need a dated record of which carriers were newly authorised in a given week",
+      "cadence": "weekly",
+      "cadence_long": "one national file a week, built from this week's Granted actions and the week before. A week that adds nothing is sent as 0 plus the two copy dates",
+      "price": "$49/mo",
+      "sample_status": "pass",
+      "note": "STAGED 2026-09-06, NOT PUBLISHED. Weekly sealed file of FMCSA Granted operating-authority actions (DOT number, MC/FF/MX docket, legal name, city, state, authority type, grant date). No street, no phone, no representative. Named source is the LIVIEW register (https://li-public.fmcsa.dot.gov/LIVIEW/pkg_REGISTER.prc_reg_list); on 2026-09-06 that page had zero date rows and Grant Decision Notices printed NONE for 10 consecutive days 28 Aug–6 Sep [counted]. Rows come from the same agency's Motus AuthHist public file (yu5v-wbh6), reason=Granted, joined to Motus Carrier for name/city/state only. Counted 2026-09-06: 1,399 Granted actions 31 Aug–6 Sep; 1,405 in the prior seven days 24–30 Aug. checkout.url is TO-MINT until a carrier-register SKU at 4900 cents monthly exists in the INSTALLED permits-engine release. Sample rule: newest week's Granted rows with the legal-name column removed, 25 rows. 48 of 1,399 names this week read as a person; those names are withheld on the page table and are not in the sample.",
+      "group": "Other dated records",
+      "short": "New carrier authority, weekly",
+      "who": "Trucking insurance agents and freight-factoring underwriters.",
+      "checkout": {
+        "terms": "$49 a month, billed monthly, for one national file a week: every motor-carrier, broker and freight-forwarder docket FMCSA marked Granted since the previous weekly copy. Seven columns: DOT number, docket (MC/FF/MX), legal name where our copy holds one, city, state, authority type, grant date. No street, no phone, no fax, no representative, no email. FMCSA already publishes Motus AuthHist free; what you are paying for is a sealed dated week and the pair of copy dates behind every row. Cancel any month by email, with no account to close and no notice period.",
+        "after": "After paying you land on a page keyed to your payment. That week's file appears there, and a new one appears every week while the subscription runs. No message from us is needed.",
+        "url": "TO-MINT",
+        "label": "Subscribe — $49 a month"
+      },
+      "coverage_what": "A weekly file of Granted actions, not a contact list",
+      "coverage_how": "We seal FMCSA Motus AuthHist Granted rows each week, with legal name, city and state. No street, no phone.",
+      "price_list_note": "The sample is last week's grants without the business name; read it before you pay."
+    },
+    {
       "id": "clerk-clock",
       "name": "Clerk Clock Packs",
       "short": "Clerk Clock Packs",
