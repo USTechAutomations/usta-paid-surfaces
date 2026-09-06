@@ -1,0 +1,27 @@
+# Licensed under a Creative Commons Attribution 3.0 Unported License
+site,blocked_assistants,allowed_scrapers,rule_source,fact_date
+fastcompany.com,Claude-Web,CCBot (allowed); Bytespider (not named); Diffbot (not named); omgili (not named); ImagesiftBot (not named); img2dataset (not named); AI2Bot (not named); Webzio-Extended (not named); TimpiBot (not named),robots.txt,2026-08-19
+france24.com,"ChatGPT-User,OAI-SearchBot,Claude-User,Claude-Web,Perplexity-User,PerplexityBot,YouBot",Bytespider (not named); Diffbot (not named); ImagesiftBot (not named); Webzio-Extended (not named); TimpiBot (not named),robots.txt,2026-08-19
+snopes.com,"ChatGPT-User,Claude-Web,PerplexityBot,YouBot",AI2Bot (not named); Webzio-Extended (not named); TimpiBot (not named),robots.txt,2026-08-19
+adweek.com,Claude-Web,Diffbot (not named); ImagesiftBot (not named); img2dataset (not named),robots.txt,2026-08-26
+theintercept.com,"ChatGPT-User,PerplexityBot",Bytespider (not named); Diffbot (not named); omgili (not named); ImagesiftBot (not named); img2dataset (not named); AI2Bot (not named); Webzio-Extended (not named); TimpiBot (not named),robots.txt,2026-08-19
+nationalgeographic.org,"ChatGPT-User,Claude-Web,PerplexityBot",img2dataset (not named); AI2Bot (not named); Webzio-Extended (not named); TimpiBot (not named),robots.txt,2026-08-19
+ilsole24ore.com,"ChatGPT-User,OAI-SearchBot,Perplexity-User,PerplexityBot",Bytespider (not named); Diffbot (not named); omgili (not named); ImagesiftBot (not named); img2dataset (not named); AI2Bot (not named); Webzio-Extended (not named); TimpiBot (not named),robots.txt,2026-08-19
+mainichi.jp,"OAI-SearchBot,PerplexityBot",ImagesiftBot (not named); img2dataset (not named),robots.txt,2026-08-19
+towardsdatascience.com,"ChatGPT-User,OAI-SearchBot,Claude-Web,PerplexityBot",Diffbot (not named); omgili (not named); img2dataset (not named); AI2Bot (not named); Webzio-Extended (not named); TimpiBot (not named),robots.txt,2026-08-19
+derstandard.at,"ChatGPT-User,Claude-Web,Perplexity-User,PerplexityBot",Diffbot (not named); ImagesiftBot (not named); img2dataset (not named); AI2Bot (not named); Webzio-Extended (not named); TimpiBot (not named),robots.txt,2026-08-19
+tvtropes.org,"ChatGPT-User,PerplexityBot,YouBot",omgili (not named); AI2Bot (not named); Webzio-Extended (not named); TimpiBot (not named),robots.txt,2026-08-19
+cochranelibrary.com,PerplexityBot,CCBot (not named); Diffbot (not named); omgili (not named); ImagesiftBot (not named); img2dataset (not named); AI2Bot (not named); Webzio-Extended (not named); TimpiBot (not named),robots.txt,2026-08-19
+devpost.com,ChatGPT-User,Diffbot (not named); img2dataset (not named); AI2Bot (not named); Webzio-Extended (not named); TimpiBot (not named),robots.txt,2026-08-19
+dailycaller.com,ChatGPT-User,Diffbot (not named); omgili (not named); ImagesiftBot (not named); img2dataset (not named); AI2Bot (not named); Webzio-Extended (not named); TimpiBot (not named),robots.txt,2026-08-19
+vnexpress.net,"Claude-Web,YouBot",img2dataset (not named); AI2Bot (not named); Webzio-Extended (not named),robots.txt,2026-08-19
+yourdictionary.com,ChatGPT-User,CCBot (not named); Bytespider (not named); Diffbot (not named); omgili (not named); ImagesiftBot (not named); img2dataset (not named); AI2Bot (not named); Webzio-Extended (not named); TimpiBot (not named),robots.txt,2026-08-19
+palletsprojects.com,Claude-Web,ImagesiftBot (not named); img2dataset (not named); AI2Bot (not named); Webzio-Extended (not named),robots.txt,2026-08-19
+sportskeeda.com,"Claude-User,Claude-Web,PerplexityBot,YouBot",img2dataset (not named); AI2Bot (not named); Webzio-Extended (not named),robots.txt,2026-08-19
+tagesanzeiger.ch,"ChatGPT-User,Claude-Web",Diffbot (not named); omgili (not named); ImagesiftBot (not named); img2dataset (not named); AI2Bot (not named); Webzio-Extended (not named); TimpiBot (not named),robots.txt,2026-08-19
+dukeupress.edu,ChatGPT-User,Diffbot (not named); img2dataset (not named); AI2Bot (not named); Webzio-Extended (not named); TimpiBot (not named),robots.txt,2026-08-19
+spacenews.com,"ChatGPT-User,OAI-SearchBot,Claude-User,PerplexityBot",Diffbot (not named); omgili (not named); ImagesiftBot (not named); img2dataset (not named); AI2Bot (not named); Webzio-Extended (not named); TimpiBot (not named),robots.txt,2026-08-19
+laist.com,ChatGPT-User,Bytespider (not named); Diffbot (not named); omgili (not named); ImagesiftBot (not named); img2dataset (not named); AI2Bot (not named); Webzio-Extended (not named); TimpiBot (not named),robots.txt,2026-08-19
+nst.com.my,"ChatGPT-User,OAI-SearchBot,PerplexityBot",omgili (not named); img2dataset (not named); AI2Bot (not named); Webzio-Extended (not named); TimpiBot (not named),robots.txt,2026-08-19
+timeslive.co.za,"ChatGPT-User,Claude-Web,PerplexityBot,YouBot",CCBot (not named); img2dataset (not named); AI2Bot (not named); Webzio-Extended (not named); TimpiBot (not named),robots.txt,2026-08-20
+freemusicarchive.org,ChatGPT-User,Diffbot (not named); ImagesiftBot (not named); img2dataset (not named); AI2Bot (not named); Webzio-Extended (not named); TimpiBot (not named),robots.txt,2026-08-19

@@ -2046,6 +2046,38 @@
         "checked": "2026-09-01",
         "verified": "2026-09-01"
       }
+    },
+    {
+      "id": "wrong-wall",
+      "name": "Wrong Wall Report",
+      "short": "Wrong Wall Report",
+      "who": "Independent web shops, retail brands, and agencies that keep a site's machine-rules file and want answering assistants in and scrapers out.",
+      "buyer": "Independent web shops, retail brands, and agencies that keep a site's machine-rules file and want answering assistants in and scrapers out",
+      "cadence": "once, not a feed",
+      "cadence_long": "One dated report for one named site, from the copy we already hold. We do not re-fetch unless you buy the yearly re-check.",
+      "price": "$249",
+      "sample_status": "pass",
+      "group": "Checks we run for you",
+      "kind": "build",
+      "coverage_what": "A report, not a feed",
+      "coverage_how": "A person emails you the dated Markdown and PDF report for the site you named.",
+      "price_list_note": "One named site, one dated copy.",
+      "note": "BORN 2026-09-01 in a copy of this repo. One dated report for one named site quoting that site's own robots.txt: blocked assistants, scrapers allowed or unnamed, three rule changes, copy date. Price $249 once per site. A $349 a year re-check is a note on the page, not a second button. Checkout empty for Fable to mint. Never mint from this note. Sample is 25 real rows from the packed CSV (demonstration only; we do not sell the CSV). Person-name columns: none. Majestic Million used as sort key only; credit ships on the page and in the sample header.",
+      "contact_h2": "Ask before you buy",
+      "contact_p": "Name the site. We reply with whether we already hold a copy that names a blocked assistant, and the checkout link, before you pay anything.",
+      "contact_cta": "Email us before you pay",
+      "contact_note": "Say which site you want. There is no pay button on this page until a payment link is minted.",
+      "foot": "Every sample row was counted off stored robots.txt copies dated 2026-08-19 to 2026-08-26. No live re-fetch. Money lost by a block is UNKNOWN. The 25-row list is a demonstration, not the product.",
+      "checkout": {
+        "terms": "$249 once, for the site you name. A $349 a year re-check is a note on the page, not a second button. Nothing on this page takes a card. If the report cannot quote at least one line from your own file that names a blocked assistant, you get the $249 back.",
+        "after": "After you pay, a person emails you the Markdown and PDF report for that site the same day, from the copy we already hold.",
+        "status": "live",
+        "url": "https://buy.stripe.com/dRmcMYcNwf509bK2aS0sU1i",
+        "label": "Buy the report — $249 once",
+        "lands_on": "buy.stripe.com",
+        "checked": "2026-09-01",
+        "verified": "2026-09-01"
+      }
     }
   ],
   "map": "MAP.md",
