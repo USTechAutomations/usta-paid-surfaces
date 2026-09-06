@@ -434,10 +434,17 @@ def sample_door(spec: dict) -> str:
     json_url = f"{FEEDS_BASE}/{fid}/sample.json"
     for_sale = "$" in price_of(spec)
     heading = "See the file before you pay" if for_sale else "See the file we hold"
-    rest = (
+    rest = spec.get("sample_rest") or (
         "that is the part you are paying for"
         if for_sale
         else "the file goes back further than these rows do"
+    )
+    # "Nothing in it is made up" is true of every sealed public record here and
+    # false of a generated family, whose minutes ARE made up and say so. A family
+    # may state its own sample sentence; the default stays for every other page.
+    sample_note = spec.get("sample_note") or (
+        "cut out of the dated copies we sealed ourselves. Nothing in it is made up "
+        "and nothing in it is tidied up."
     )
     # The written terms, printed at the door as well as beside the button. A
     # buyer reads the sample, then what the money buys, then the price -- and
@@ -457,8 +464,7 @@ def sample_door(spec: dict) -> str:
         f"      <h2>{heading}</h2>\n"
         f"      <p>You do not have to take our word for what is in the file. Here are "
         f"<strong>{n_rows} rows of the real thing</strong>, carrying all {n_cols} of its "
-        "columns, cut out of the dated copies we sealed ourselves. Nothing in it is made up "
-        "and nothing in it is tidied up.</p>\n"
+        f"columns, {sample_note}</p>\n"
         '      <ul class="spec">\n'
         f'        <li><a href="{csv_url}">Open the {n_rows} rows as a CSV</a>'
         '<span class="sub">A plain spreadsheet file. It saves to your machine rather than '
