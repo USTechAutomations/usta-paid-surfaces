@@ -230,6 +230,7 @@ SEALED_FILE_STORES: dict[str, str] = {
     # Generated weekly packs, not a collector: the build script writes one dated
     # JSON+CSV pair a week and nothing in it is read from the world.
     "changeover-atlas": "/home/gmullins/.hermes/state/changeover-atlas",
+    "cannabis-tape": "/home/gmullins/.hermes/state/cannabis-tape",
 }
 SEALED_FILE_LANES: dict[str, tuple[Lane, ...]] = {
     "ai-terms": (
@@ -251,6 +252,10 @@ SEALED_FILE_LANES: dict[str, tuple[Lane, ...]] = {
     "changeover-atlas": (
         Lane("the weekly packs", "weekly pack files", "snapshot_date",
              "atlas_*.json", 7, sealed_files=True),
+    ),
+    "cannabis-tape": (
+        Lane("the California cannabis licence search", "daily snapshot files",
+             "snapshot_date", "snapshot_*.json", 7, sealed_files=True),
     ),
 }
 
