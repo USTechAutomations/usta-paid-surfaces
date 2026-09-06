@@ -1,23 +1,5 @@
 [
   {
-    "id": "permits",
-    "short": "The permits library",
-    "who": "Contractors, homeowners and anyone filing in the Phoenix metro.",
-    "amount": "Free",
-    "cadence": "no login",
-    "pill": "Live and free",
-    "pill_class": "pill-ready"
-  },
-  {
-    "id": "offers",
-    "short": "Offers and evidence",
-    "who": "Small businesses that want one piece of automation built.",
-    "amount": "$200 \u2013 $450",
-    "cadence": "fixed price, fixed window",
-    "pill": "Live",
-    "pill_class": "pill-ready"
-  },
-  {
     "id": "mn-pfas",
     "short": "Minnesota PFAS filer check",
     "who": "Compliance managers at companies that make, brand, or import a product that may be sold into Minnesota.",
@@ -140,6 +122,24 @@
     "who": "Shop owners whose bot rules block the AI shopping agents and let the scrapers in; one dated report for one named site.",
     "amount": "$249",
     "cadence": "once, not a feed",
+    "pill": "Live",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "permits",
+    "short": "The permits library",
+    "who": "Contractors, homeowners and anyone filing in the Phoenix metro.",
+    "amount": "Free",
+    "cadence": "no login",
+    "pill": "Live and free",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "offers",
+    "short": "Offers and evidence",
+    "who": "Small businesses that want one piece of automation built.",
+    "amount": "$200 \u2013 $450",
+    "cadence": "fixed price, fixed window",
     "pill": "Live",
     "pill_class": "pill-ready"
   },

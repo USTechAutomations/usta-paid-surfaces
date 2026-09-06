@@ -1,4 +1,8 @@
 server_name,first_copy_of_ours,date_the_register_gives,where_it_answers
+io.sslip.249.111.77.187/x402-mcp-tools,2026-09-06,2026-09-06,mcp.187.77.111.249.sslip.io
+io.github.kadopi/x402-mcp-starter,2026-09-06,2026-09-06,x402-mcp-starter.kadopi.workers.dev
+io.github.arden-instance/x402lint,2026-09-06,2026-09-06,no address in the record
+com.scriptmasterlabs/x402-pay,2026-09-06,2026-09-05,squeezeos-api.onrender.com
 world.agentindex/x402,2026-09-05,2026-09-05,x402.agentindex.world
 io.github.runningoffcode/wormhole-x402,2026-09-04,2026-09-04,no address in the record
 app.vercel.ora-x402-gateway/sensations-mergulho,2026-09-04,2026-09-04,ywabnlhkmhbyewqhbsjm.supabase.co
@@ -20,7 +24,3 @@ net.tunnelmole.heiekc-ip-209-115-177-214/x402-text-tools,2026-08-25,2026-08-25,h
 io.github.stevemilton/x402-payagent-mcp,2026-08-25,2026-08-25,no address in the record
 io.github.Hasned-spec/ox402-utils,2026-08-25,2026-08-25,tracy-collar-preview-demands.trycloudflare.com
 io.github.crypto-yannso/tryx402,2026-08-24,2026-08-24,no address in the record
-io.github.nexus-mcp-infra/x402-receipt-verifier,2026-08-23,2026-08-23,x402-receipt-verifier-325572559480.us-central1.run.app
-io.github.nexus-mcp-infra/new-x402-listings-feed,2026-08-23,2026-08-22,new-x402-listings-feed-325572559480.us-central1.run.app
-io.github.ANAMIZED/x402-cloudflare-starter,2026-08-23,2026-08-23,no address in the record
-io.github.Diogoup26/mcp-x402,2026-08-22,2026-08-22,mcp-x402-production.up.railway.app

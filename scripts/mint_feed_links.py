@@ -94,6 +94,9 @@ SKU_FOR_FEED = {
     "carrier-register": "motor-carrier-authority-register",
     "dealer-licence": "texas-dealer-licence-week",
     "stormwater-noi": "texas-construction-stormwater-noi-week",
+    "storm-warned-counties": "storm-warned-counties-week",
+    "new-prime-awards": "new-prime-awards-week",
+    "hts-revision-seal": "hts-revision-seal",
     "crawler": "crawler-policy-sentinel",
     "grid": "permits-queue-sentinel",
     "permit-metros": "permit-metros-arrivals",
@@ -150,6 +153,9 @@ LABEL_FOR_FEED = {
     "carrier-register": "Subscribe — $49 a month",
     "cannabis-tape": "Subscribe — $49 a month",
     "stormwater-noi": "Subscribe — $49 a month",
+    "storm-warned-counties": "Subscribe — $49 a month",
+    "new-prime-awards": "Subscribe — $49 a month",
+    "hts-revision-seal": "Subscribe — $49 a month",
 }
 
 # Catalog placeholder written before a Stripe address exists. It is not a

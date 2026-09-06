@@ -6,7 +6,7 @@
       "slug": "gptbot",
       "newest": "2026-09-06",
       "oldest": "2026-06-09",
-      "runs": 344,
+      "runs": 345,
       "row_count": 199,
       "cadence_days": 1
     },
@@ -14,7 +14,7 @@
       "slug": "claudebot",
       "newest": "2026-09-06",
       "oldest": "2026-06-09",
-      "runs": 344,
+      "runs": 345,
       "row_count": 204,
       "cadence_days": 1
     },
@@ -22,7 +22,7 @@
       "slug": "google-extended",
       "newest": "2026-09-06",
       "oldest": "2026-06-09",
-      "runs": 344,
+      "runs": 345,
       "row_count": 189,
       "cadence_days": 1
     },
@@ -30,7 +30,7 @@
       "slug": "ccbot",
       "newest": "2026-09-06",
       "oldest": "2026-06-09",
-      "runs": 344,
+      "runs": 345,
       "row_count": 167,
       "cadence_days": 1
     },
@@ -38,7 +38,7 @@
       "slug": "perplexitybot",
       "newest": "2026-09-06",
       "oldest": "2026-06-09",
-      "runs": 344,
+      "runs": 345,
       "row_count": 129,
       "cadence_days": 1
     },
@@ -46,7 +46,7 @@
       "slug": "started-blocking",
       "newest": "2026-09-06",
       "oldest": "2026-06-09",
-      "runs": 344,
+      "runs": 345,
       "row_count": 979,
       "cadence_days": 1
     },
@@ -54,7 +54,7 @@
       "slug": "stopped-blocking",
       "newest": "2026-09-06",
       "oldest": "2026-06-09",
-      "runs": 344,
+      "runs": 345,
       "row_count": 34,
       "cadence_days": 1
     },
@@ -62,7 +62,7 @@
       "slug": "stopped-naming",
       "newest": "2026-09-06",
       "oldest": "2026-06-09",
-      "runs": 344,
+      "runs": 345,
       "row_count": 503,
       "cadence_days": 1
     },
@@ -70,7 +70,7 @@
       "slug": "coverage",
       "newest": "2026-09-06",
       "oldest": "2026-06-09",
-      "runs": 344,
+      "runs": 345,
       "row_count": 69000,
       "cadence_days": 1
     }
