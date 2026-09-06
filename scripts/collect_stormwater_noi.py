@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import csv
 import io
+import json
 import shutil
 import ssl
 import sys
@@ -21,7 +22,7 @@ import time
 import urllib.error
 import urllib.request
 import zipfile
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 UA = (
@@ -35,6 +36,7 @@ TCEQ_PAGE = "https://www.tceq.texas.gov/permitting/stormwater/construction"
 TCEQ_QUERY = "https://www2.tceq.texas.gov/wq_dpa/index.cfm"
 EPA_ROBOTS = "https://echo.epa.gov/robots.txt"
 EPA_ZIP = "https://echo.epa.gov/files/echodownloads/npdes_downloads.zip"
+SOURCE_ID = "epa_echo_npdes_downloads"
 MASTER = "TXR150000"
 TIMEOUT = 60
 ZIP_TIMEOUT = 480
@@ -189,24 +191,39 @@ def is_txr15(pid: str) -> bool:
     return p.startswith("TXR15") and p != MASTER
 
 
-def ensure_zip(today: date) -> Path:
+def ensure_zip(today: date) -> tuple[Path, str]:
     RAW.mkdir(parents=True, exist_ok=True)
     dest = RAW / f"npdes_downloads_{today.isoformat()}.zip"
     if dest.exists() and dest.stat().st_size > 1_000_000:
-        return dest
+        return dest, EPA_ZIP
     tmp = Path("/tmp/npdes_dl/npdes_downloads.zip")
     if tmp.exists() and tmp.stat().st_size > 1_000_000:
         shutil.copy2(tmp, dest)
         print(f"zip copied {dest} ({dest.stat().st_size} bytes)")
-        return dest
+        return dest, EPA_ZIP
     print(f"GET {EPA_ZIP}")
-    code, body, _ = fetch(EPA_ZIP, dest, timeout=ZIP_TIMEOUT)
+    code, body, final = fetch(EPA_ZIP, dest, timeout=ZIP_TIMEOUT)
     if code != 200 or not dest.exists() or dest.stat().st_size < 1_000_000:
         if dest.exists():
             dest.unlink()
         raise SystemExit(f"EPA zip failed: HTTP {code} bytes={len(body)}")
     print(f"zip saved {dest} ({dest.stat().st_size} bytes)")
-    return dest
+    return dest, (final or EPA_ZIP)
+
+
+def write_day_record(path: Path, payload: dict) -> None:
+    """One JSON object per sealed day. Keep extra keys already on disk."""
+    existing: dict = {}
+    if path.is_file():
+        try:
+            loaded = json.loads(path.read_text(encoding="utf-8"))
+            if isinstance(loaded, dict):
+                existing = loaded
+        except (OSError, ValueError):
+            existing = {}
+    rec = dict(existing)
+    rec.update(payload)
+    path.write_text(json.dumps(rec, indent=2) + "\n", encoding="utf-8")
 
 
 def load_permits(zpath: Path) -> dict[str, dict]:
@@ -296,7 +313,7 @@ def main() -> int:
         raise SystemExit("echo.epa.gov robots.txt disallows the NPDES zip; refusing")
     notes.append("EPA echo.epa.gov robots allow /files/echodownloads/")
 
-    zpath = ensure_zip(today)
+    zpath, source_url = ensure_zip(today)
     permits = load_permits(zpath)
     sites = load_sites(zpath, set(permits))
     rows = []
@@ -314,6 +331,18 @@ def main() -> int:
     snap = STORE / f"snapshot_{today.isoformat()}.csv"
     write_csv(snap, SNAP_FIELDS, rows)
     print(f"snapshot {len(rows)} rows {snap}")
+    day_rec = STORE / f"snapshot_{today.isoformat()}.json"
+    write_day_record(
+        day_rec,
+        {
+            "snapshot_date": today.isoformat(),
+            "source_id": SOURCE_ID,
+            "source_url": source_url,
+            "row_count": len(rows),
+            "fetched_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        },
+    )
+    print(f"day record {day_rec}")
 
     snaps = sorted(STORE.glob("snapshot_*.csv"))
     later = snaps[-1]

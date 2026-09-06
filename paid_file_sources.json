@@ -153,13 +153,13 @@
     },
     "tceq_cgp_noi": {
       "name": "Texas construction stormwater notices of intent (CGP TXR150000 / TXR15 coverages)",
-      "verdict": "ALLOW_PAID",
-      "decided_on": "2026-09-06",
+      "verdict": "UNKNOWN",
+      "decided_on": "",
       "evidence_url": "https://www.tceq.texas.gov/help/policies/linking_policy.html",
       "quote": "Unless otherwise noted, content of our site is considered “public domain.” We have no restrictions on linking to our site as long as a fee is not charged to access our material.",
       "required_text": "",
-      "reviewed_by": "terms re-read 2026-09-06 from the evidence URL into families/stormwater-noi/SOURCE_TERMS.md. Same public-domain clause as tceq_nsr_pending. We do not charge anyone to open TCEQ's own page and we do not use the TCEQ logo. The dated rows were sealed from EPA's public ICIS NPDES download because TCEQ's own query host did not answer.",
-      "note": "Issuer is TCEQ. Working copy on 2026-09-06 is EPA echo.epa.gov/files/echodownloads/npdes_downloads.zip (robots allow that path). echodata.epa.gov is Disallow:* and is not called.",
+      "reviewed_by": "",
+      "note": "Verdict set back to UNKNOWN by Fable 2026-09-06: the evidence below was gathered by the grok-host build worker, and a machine may not grant ALLOW_PAID (rule: how_to_change_it). The operator decides. Also: the dated rows were downloaded from EPA ECHO (echo.epa.gov), a different publisher whose terms were not read; the TCEQ clause quoted here does not cover EPA's file. Issuer is TCEQ. Working copy on 2026-09-06 is EPA echo.epa.gov/files/echodownloads/npdes_downloads.zip (robots allow that path). echodata.epa.gov is Disallow:* and is not called.",
       "labels": ["tceq_cgp_noi", "stormwater-noi", "txr15", "tceq", "texas", "tceq.texas.gov"]
     },
     "boston": {
@@ -194,6 +194,17 @@
       "reviewed_by": "terms read by grok-task-m5-dc-rework 2026-08-26 against saved input/dc-build/raw/dc-data-terms (sha256 88d42f21eb1222d5103b3bdeca1159f88a5e487d0ba07ebca9f47238b384cc48) and input/dc-build/raw/dcat-year-excerpts; Claude lead ruling 2026-08-25: CC BY 4.0 hold RESOLVED — SELL WITH ATTRIBUTION",
       "note": "Catalog CC0 is scoped to data available from the District Data Catalog. The FeatureServer is that catalog's service (DCAT distribution 'ArcGIS GeoService' points at maps2.dcgis.dc.gov FEEDS/DCRA/FeatureServer layers 15-18). HARD CHECK: each year's DCAT licence is CC BY 4.0, not CC0. Claude lead 2026-08-25 ruled sell with attribution. Logo carve-out stands: no District logos, including the stars and bars. Credit line is the catalog example citation and is required_text together with the CC BY 4.0 name/link line.",
       "labels": ["washington-dc", "washington dc", "district of columbia", "opendata.dc.gov", "7296e6392349498bb6ba6ba3db836644"]
+    },
+    "epa_echo_npdes_downloads": {
+      "name": "EPA ECHO NPDES bulk download (used as the working copy for Texas construction stormwater NOIs)",
+      "verdict": "UNKNOWN",
+      "decided_on": "",
+      "evidence_url": "https://echo.epa.gov/files/echodownloads/npdes_downloads.zip",
+      "quote": "",
+      "required_text": "",
+      "reviewed_by": "",
+      "note": "Nobody has read EPA ECHO's terms for reselling rows from this download. Added by Fable 2026-09-06 so the source the rows actually came from has a record. The operator decides.",
+      "labels": ["epa_echo_npdes_downloads", "stormwater-noi", "echo.epa.gov", "epa"]
     }
   }
 }
