@@ -2122,6 +2122,28 @@
         "url": "TO-MINT",
         "label": "Subscribe — $49 a month"
       }
+    },
+    {
+      "id": "dealer-licence",
+      "name": "Texas dealer licences this week",
+      "buyer": "Floor-plan lenders, dealer-software vendors and auto-auction account managers who need a dated record of which Texas dealers were licensed or lapsed in a given week",
+      "cadence": "weekly",
+      "cadence_long": "one file a week, built from the newest sealed copy of the TxDMV licensee spreadsheet and the copy before it. A week that adds nothing is sent as 0 plus the two copy dates",
+      "price": "$49/mo",
+      "sample_status": "pass",
+      "note": "STAGED 2026-09-06, NOT PUBLISHED. Weekly file of Texas motor-vehicle dealer licences that were added or that expired, sealed from the TxDMV licensee spreadsheet at texasdmv.my.salesforce-sites.com/dealers. checkout.url is TO-MINT: mint_feed_links.py is out of scope for this worker and refuses a brand-new SKU until an engine release names dealer-licence at 4900 cents monthly. Terms verdict UNKNOWN (families/dealer-licence/SOURCE_TERMS.md): no clause found that permits or forbids selling a weekly diff; Salesforce robots.txt Disallow:/ for User-agent *. Sample rule: newest what-changed file with business_name removed, never a street. Counted 2026-09-06 off the first sealed copy: 20,852 licensee rows; 51 added and 82 expired in the 31 Aug–6 Sep window on that copy.",
+      "group": "Other dated records",
+      "short": "Texas dealer-licence week",
+      "who": "Floor-plan lenders, dealer-software vendors and auto-auction account managers.",
+      "checkout": {
+        "terms": "$49 a month, billed monthly, for one file a week of Texas motor-vehicle dealer licences that were added or that expired since the previous sealed copy of the TxDMV licensee list. Columns: licence number, city, county, licence type, dealer type, status, active date, expiry date, and on the paid file the business name where the copy holds one. No street, no phone, no email. The live TxDMV lookup is free; this file is the dated change record that lookup does not keep. Cancel any month by email, with no account to close and no notice period.",
+        "after": "After paying you land on a page keyed to your payment. That week's file appears there, and a new one appears every week while the subscription runs. No message from us is needed.",
+        "url": "TO-MINT",
+        "label": "Subscribe — $49 a month"
+      },
+      "coverage_what": "Weekly additions and lapses on the Texas motor-vehicle dealer licence list",
+      "coverage_how": "We seal the TxDMV licensee spreadsheet and write the week's changes. Until two copies exist, the file is dealers whose ActiveDate or Expired licence date falls in the seven days ending on the copy we hold.",
+      "price_list_note": "The sample is the newest what-changed file without business names; read it before you pay."
     }
   ],
   "map": "MAP.md",

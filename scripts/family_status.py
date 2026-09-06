@@ -232,6 +232,7 @@ SEALED_FILE_STORES: dict[str, str] = {
     "changeover-atlas": "/home/gmullins/.hermes/state/changeover-atlas",
     "carrier-register": "/home/gmullins/.hermes/state/carrier-register",
     "cannabis-tape": "/home/gmullins/.hermes/state/cannabis-tape",
+    "dealer-licence": "/home/gmullins/.hermes/state/dealer-licence",
 }
 SEALED_FILE_LANES: dict[str, tuple[Lane, ...]] = {
     "ai-terms": (
@@ -261,6 +262,10 @@ SEALED_FILE_LANES: dict[str, tuple[Lane, ...]] = {
     "cannabis-tape": (
         Lane("the California cannabis licence search", "weekly snapshot files",
              "snapshot_date", "snapshot_*.json", 7, sealed_files=True),
+    ),
+    "dealer-licence": (
+        Lane("the sealed TxDMV licensee copies", "weekly snapshot files", "snapshot_date",
+             "snapshot_*.json", 7, sealed_files=True),
     ),
 }
 
