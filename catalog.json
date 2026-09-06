@@ -2178,6 +2178,28 @@
         "checked": "2026-09-06",
         "verified": "2026-09-06"
       }
+    },
+    {
+      "id": "storm-warned-counties",
+      "name": "Storm-warned US counties this week",
+      "buyer": "Roofing, storm-restoration and public-adjuster firms that decide which counties to canvass each week after storms",
+      "cadence": "weekly",
+      "cadence_long": "one US file a week, built from sealed daily copies of National Weather Service warning alerts, grouped by county and event. A week we could not read is named as a gap. A week that adds nothing is sent as 0 plus the week-ending date",
+      "price": "$49/mo",
+      "sample_status": "pass",
+      "note": "STAGED 2026-09-06, NOT PUBLISHED. Weekly file of US counties under National Weather Service Severe Thunderstorm, Tornado, Flash Flood and High Wind warnings at $49/mo. First seal 2026-09-06: 42 county-alert rows from 18 matching active warnings (277 alerts on the live feed); weekly file 39 county-event rows grouped from that one daily snapshot. Six days in the seven-day window have no sealed snapshot and are named as gaps (31 Aug–5 Sep 2026). Sample: newest weekly file, 25 rows, no person-name column, no street. checkout.url is TO-MINT until a storm-warned-counties SKU at 4900 cents monthly exists in the INSTALLED permits-engine release. Terms verdict PERMITTED: NWS public-domain clause quoted in families/storm-warned-counties/SOURCE_TERMS.md, read 2026-09-06. api.weather.gov robots.txt is Disallow:/ ; collector makes one documented API GET with a named User-Agent. Demand-probe SURFACES edit is outside this worker's write paths (BLOCKED). Timer skipped on instruction.",
+      "group": "Weather records",
+      "short": "Storm-warned counties, weekly",
+      "who": "Roofing, storm-restoration and public-adjuster firms that decide which counties to canvass each week after storms.",
+      "coverage_what": "A weekly sealed file of US counties under NWS storm warnings",
+      "coverage_how": "We seal the National Weather Service active-alerts feed daily and group the last seven daily copies by county and event. Until seven copies exist, the file is the days we hold, and the page names the missing days as gaps.",
+      "price_list_note": "The sample is the newest week; read it before you pay.",
+      "checkout": {
+        "terms": "$49 a month, billed monthly, for one US file a week: every county that had a Severe Thunderstorm Warning, Tornado Warning, Flash Flood Warning or High Wind Warning in the daily National Weather Service alert snapshots we hold for that week, grouped by county and event, with state, county FIPS, county name, NWS zone, warning count, max hail inches where the warning text carried a number, max wind mph where the warning text carried a number, first onset (UTC), last expiry (UTC), and issuing office. No street, no person's name, no phone, no address. The National Weather Service publishes the warnings; this file is our county grouping of dated copies we sealed, not an official NWS product. A day we could not read the alerts feed is named as a gap. This first week is built from the one daily snapshot we hold (6 Sep 2026), and the page says so. Cancel any month by email, with no account to close and no notice period.",
+        "after": "After paying you land on a page keyed to your payment. That week's file appears there, and a new one appears every week while the subscription runs. No message from us is needed.",
+        "url": "TO-MINT",
+        "label": "Subscribe — $49 a month"
+      }
     }
   ],
   "map": "MAP.md",
