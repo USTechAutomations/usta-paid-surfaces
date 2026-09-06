@@ -231,6 +231,7 @@ SEALED_FILE_STORES: dict[str, str] = {
     # JSON+CSV pair a week and nothing in it is read from the world.
     "changeover-atlas": "/home/gmullins/.hermes/state/changeover-atlas",
     "carrier-register": "/home/gmullins/.hermes/state/carrier-register",
+    "cannabis-tape": "/home/gmullins/.hermes/state/cannabis-tape",
 }
 SEALED_FILE_LANES: dict[str, tuple[Lane, ...]] = {
     "ai-terms": (
@@ -256,6 +257,10 @@ SEALED_FILE_LANES: dict[str, tuple[Lane, ...]] = {
     "carrier-register": (
         Lane("the FMCSA operating-authority grant table", "weekly snapshot files", "snapshot_date",
              "snapshot_*.json", 7, sealed_files=True),
+    ),
+    "cannabis-tape": (
+        Lane("the California cannabis licence search", "weekly snapshot files",
+             "snapshot_date", "snapshot_*.json", 7, sealed_files=True),
     ),
 }
 

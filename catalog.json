@@ -2100,6 +2100,28 @@
         "checked": "2026-09-05",
         "verified": "2026-09-05"
       }
+    },
+    {
+      "id": "cannabis-tape",
+      "name": "California cannabis licence change tape, weekly",
+      "buyer": "Cannabis insurance brokers and packaging suppliers who need a dated record of which licences appeared or lapsed in a given week",
+      "cadence": "weekly",
+      "cadence_long": "one California file a week, built from sealed copies of the state licence search, which updates daily and overwrites. A week that adds nothing is sent as 0 plus the two copy dates",
+      "price": "$49/mo",
+      "sample_status": "pass",
+      "note": "STAGED 2026-09-06, NOT PUBLISHED. Weekly sealed file of California cannabis licence additions, expiries and status changes read from the Department of Cannabis Control licence search (https://www.cannabis.ca.gov/resources/search-for-licensed-business/, live tool https://search.cannabis.ca.gov/). The search overwrites daily; the product is the dated weekly diff. checkout.url is the placeholder TO-MINT: scripts/mint_feed_links.py refuses this feed until a 'cannabis-tape' SKU at 4900 cents monthly exists in the INSTALLED permits-engine release, and adding that SKU is an engine release the operator has to call. Terms verdict PERMITTED 2026-09-06 (families/cannabis-tape/SOURCE_TERMS.md) quoting the statewide Conditions of Use public-domain clause; paid_file_sources.json is not operator-cleared. Sample rule: the newest what-changed file with the business-name column removed. No street, no owner name, no phone, no email.",
+      "group": "Other dated records",
+      "short": "Cannabis licence tape, weekly",
+      "who": "Cannabis insurance brokers and packaging suppliers who need a dated record of which licences appeared or lapsed in a given week.",
+      "coverage_what": "A weekly file, not a live lookup",
+      "coverage_how": "We seal the state licence search, which updates daily and overwrites, and send the week's additions, expiries and status changes.",
+      "price_list_note": "The sample on the page is this week's file without the business name; read it before you pay.",
+      "checkout": {
+        "terms": "$49 a month, billed monthly, for one California file a week: every Department of Cannabis Control licence that appeared, expired, stopped being listed, or changed status since the previous sealed copy. Columns: licence number, status, prior status where it changed, licence type, designation, issue date, expiry date, status-change date, business legal name where our copy holds one, city, county, and the two copy dates. No street, no owner name, no phone, no email. The state's live search is free and shows only the current list; you are paying for the dated tape. Cancel any month by email, with no account to close and no notice period.",
+        "after": "After paying you land on a page keyed to your payment. That week's file appears there, and a new one appears every week while the subscription runs. No message from us is needed.",
+        "url": "TO-MINT",
+        "label": "Subscribe — $49 a month"
+      }
     }
   ],
   "map": "MAP.md",
