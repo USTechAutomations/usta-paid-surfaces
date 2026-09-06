@@ -235,6 +235,7 @@ SEALED_FILE_STORES: dict[str, str] = {
     "dealer-licence": "/home/gmullins/.hermes/state/dealer-licence",
     "stormwater-noi": "/home/gmullins/.hermes/state/stormwater-noi",
     "storm-warned-counties": "/home/gmullins/.hermes/state/storm-warned-counties",
+    "new-prime-awards": "/home/gmullins/.hermes/state/new-prime-awards",
 }
 SEALED_FILE_LANES: dict[str, tuple[Lane, ...]] = {
     "ai-terms": (
@@ -276,6 +277,11 @@ SEALED_FILE_LANES: dict[str, tuple[Lane, ...]] = {
     ),
     "storm-warned-counties": (
         Lane("the National Weather Service alerts feed (api.weather.gov)",
+             "weekly snapshot files", "snapshot_date", "snapshot_*.json", 7,
+             sealed_files=True),
+    ),
+    "new-prime-awards": (
+        Lane("the USAspending award search API (api.usaspending.gov)",
              "weekly snapshot files", "snapshot_date", "snapshot_*.json", 7,
              sealed_files=True),
     ),
