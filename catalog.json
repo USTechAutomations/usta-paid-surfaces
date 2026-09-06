@@ -2266,8 +2266,10 @@
       "checkout": {
         "terms": "$175 once, for one order of up to 60 paper logbook pages. Nothing recurring, nothing to cancel and no subscription behind it. You get four files: an entries file (date, aircraft type, tail number, from, to, route, total time, PIC, SIC, dual received, night, actual instrument, simulated instrument, cross country, day landings, night landings, remarks, page number, confidence), a ForeFlight import file, a LogTen import file, and a checksum table with running totals. Check the checksum table against the paper logbook before you import. This is a transcription, not an FAA-accepted logbook, and we do not claim a regulator will accept it. We do not keep your pages or personal data after we send the files. If fewer than 90% of the entries on the pages you sent were read, you get the $175 back. There is no pay button on this page yet.",
         "after": "After you pay, reply to your receipt email with photos or PDF scans; files come back within 1 business day.",
-        "url": "TO-MINT",
-        "label": "Buy — $175 one-off"
+        "url": "https://buy.stripe.com/7sY6oA7tc4qm0Fe4j00sU2u",
+        "label": "Buy — $175 one-off",
+        "lands_on": "buy.stripe.com",
+        "status": "unverified"
       },
       "sample_status": "pass",
       "group": "Aviation services"

@@ -311,6 +311,37 @@ def _find_product(stripe, fid: str, sku: str):
 
 
 
+def _create_product_with_price(stripe, fam, fid, old_product, cents, cadence, meta):
+    """Route around a key that may write products but not prices: archive the
+    product that has no price, then create one whose price is set inline."""
+    stripe.Product.modify(old_product["id"], active=False)
+    dp = dict(currency="usd", unit_amount=cents, tax_behavior="exclusive", metadata=meta)
+    if cadence == "monthly":
+        dp["recurring"] = {"interval": "month"}
+    product = stripe.Product.create(
+        name=f"{fam['name']} — US Tech Automations",
+        metadata=meta,
+        default_price_data=dp,
+        idempotency_key=f"feeds-product-{fid}-{cadence}-{cents}-inline-v1",
+    )
+    return stripe.Price.retrieve(product["default_price"])
+
+
+# A family the machine holds back from minting on purpose, with the reason. A
+# button here would take money for something the delivery job cannot yet send.
+HOLD_UNTIL_BUILT = {
+    "wp-accessibility-scan": "the per-buyer weekly scan is not built: no checkout "
+                             "collects the site address and the delivery job "
+                             "cannot scan a buyer's site yet (2026-09-06)",
+}
+
+# Extra questions a checkout asks, per family. Read back by the delivery job.
+CUSTOM_FIELDS_FOR_FEED = {
+    "wp-accessibility-scan": [{"key": "site_url", "type": "text",
+                               "label": {"type": "custom", "custom": "Website address to scan"}}],
+}
+
+
 def _ensure_tax(stripe, price, link, live):
     """Stripe Tax (enabled 2026-08-02) only runs on links whose prices declare
     tax_behavior and whose link has automatic_tax on. Reused objects minted
@@ -403,6 +434,8 @@ def mint_one(stripe, fam, sku, cents, cadence, live: bool) -> dict:
     fid = fam["id"]
     meta = {"feeds_family": fid, "permits_sku": sku, "surface": SURFACE}
     money = f"{cents} cents {cadence}"
+    if fid in HOLD_UNTIL_BUILT:
+        return {"id": fid, "action": f"NOT MINTED, held by the machine: {HOLD_UNTIL_BUILT[fid]}"}
 
     product = _find_product(stripe, fid, sku)
     if product is None:
@@ -424,7 +457,16 @@ def mint_one(stripe, fam, sku, cents, cadence, live: bool) -> dict:
                       idempotency_key=f"feeds-price-{fid}-{cadence}-{cents}-v1")
         if cadence == "monthly":
             kwargs["recurring"] = {"interval": "month"}
-        price = stripe.Price.create(**kwargs)
+        try:
+            price = stripe.Price.create(**kwargs)
+        except stripe.error.PermissionError:
+            # 2026-09-06: the restricted key created prices at 17:37Z and was
+            # denied "Prices: Write" at 22:01Z the same day (key file unchanged
+            # since 2026-08-27, so the permission was edited in the dashboard).
+            # Products: Write still lets a product be born WITH its price, so
+            # the priceless product is archived and a fresh one is created with
+            # the price inside it. Same amount, same cadence, same stamps.
+            price = _create_product_with_price(stripe, fam, fid, product, cents, cadence, meta)
 
     link = _find_link(stripe, fid, sku, cents, cadence)
     _, link, _ = _ensure_tax(stripe, None, link, live)
@@ -435,6 +477,8 @@ def mint_one(stripe, fam, sku, cents, cadence, live: bool) -> dict:
                       automatic_tax={"enabled": True}, billing_address_collection="required",
                       after_completion={"type": "redirect", "redirect": {"url": AFTER_PAYMENT_URL}},
                       idempotency_key=f"feeds-link-{fid}-{cadence}-{cents}-v1")
+        if fid in CUSTOM_FIELDS_FOR_FEED:
+            kwargs["custom_fields"] = CUSTOM_FIELDS_FOR_FEED[fid]
         if cadence == "monthly":
             kwargs["subscription_data"] = {"metadata": meta}
         else:
