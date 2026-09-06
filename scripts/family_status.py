@@ -236,6 +236,7 @@ SEALED_FILE_STORES: dict[str, str] = {
     "stormwater-noi": "/home/gmullins/.hermes/state/stormwater-noi",
     "storm-warned-counties": "/home/gmullins/.hermes/state/storm-warned-counties",
     "new-prime-awards": "/home/gmullins/.hermes/state/new-prime-awards",
+    "hts-revision-seal": "/home/gmullins/.hermes/state/hts-revision-seal",
 }
 SEALED_FILE_LANES: dict[str, tuple[Lane, ...]] = {
     "ai-terms": (
@@ -282,6 +283,11 @@ SEALED_FILE_LANES: dict[str, tuple[Lane, ...]] = {
     ),
     "new-prime-awards": (
         Lane("the USAspending award search API (api.usaspending.gov)",
+             "weekly snapshot files", "snapshot_date", "snapshot_*.json", 7,
+             sealed_files=True),
+    ),
+    "hts-revision-seal": (
+        Lane("the USITC Harmonized Tariff Schedule current-release export (hts.usitc.gov)",
              "weekly snapshot files", "snapshot_date", "snapshot_*.json", 7,
              sealed_files=True),
     ),

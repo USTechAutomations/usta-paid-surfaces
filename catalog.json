@@ -2180,6 +2180,28 @@
       }
     },
     {
+      "id": "hts-revision-seal",
+      "name": "Hashed Harmonized Tariff Schedule revision, weekly",
+      "buyer": "Customs brokers, importer compliance desks, trade lawyers and auditors who must prove which tariff text and duty rate applied on an entry date",
+      "cadence": "weekly",
+      "cadence_long": "one file a week: the sealed current-release schedule, the line-level difference from the previous sealed copy, and a seal with the release name and hashes. A week that adds nothing is sent as 0 plus the copy date",
+      "price": "$49/mo",
+      "sample_status": "pass",
+      "note": "STAGED 2026-09-06, NOT PUBLISHED. Weekly hashed file of the USITC Harmonized Tariff Schedule current release at $49/mo. First seal 2026-09-06: release 2026HTSRev18, 35,804 schedule lines from hts.usitc.gov/reststop/exportList; weekly what-changed file is empty until a second release is sealed, and the page says so. Sample: 25 lines of the sealed schedule (the newest weekly file is empty on the first copy). No street, no person's name. checkout.url is TO-MINT until a hts-revision-seal SKU at 4900 cents monthly exists in the INSTALLED permits-engine release. Terms verdict PERMITTED: data.gov U.S. Government Work clause quoted in families/hts-revision-seal/SOURCE_TERMS.md, read 2026-09-06. USITC policies page HTTP 403 from this box. Demand-probe SURFACES edit is outside this worker's write paths (BLOCKED). Timer skipped on instruction.",
+      "group": "Trade records",
+      "short": "HTS revision seal, weekly",
+      "who": "Customs brokers, importer compliance desks, trade lawyers and auditors who must prove which tariff text and duty rate applied on an entry date.",
+      "coverage_what": "A weekly sealed copy of the current Harmonized Tariff Schedule plus the line-level difference from the previous sealed copy",
+      "coverage_how": "We read the USITC current-release export, hash it, and sell that dated copy plus the week's field changes. Until two copies exist, the what-changed table is empty and the page says so.",
+      "price_list_note": "The sample is the newest weekly file; on the first copy it is 25 lines of the sealed schedule because the what-changed table is empty. Read it before you pay.",
+      "checkout": {
+        "terms": "$49 a month, billed monthly, for one file a week: a sealed copy of the USITC Harmonized Tariff Schedule current release (HTS number, indent, description, unit, general rate, special rate, column-two rate, release id, fetch time) plus a line-level what-changed table against the previous sealed copy (empty until a second release exists, and the page says so) plus a seal text file with the release name and hashes. No street, no person's name, no classification advice. Source: United States International Trade Commission, Harmonized Tariff Schedule current-release export (hts.usitc.gov). A week we could not read is named as a gap. Cancel any month by email, with no account to close and no notice period.",
+        "after": "After paying you land on a page keyed to your payment. That week's file appears there, and a new one appears every week while the subscription runs. No message from us is needed.",
+        "url": "TO-MINT",
+        "label": "Subscribe — $49 a month"
+      }
+    },
+    {
       "id": "new-prime-awards",
       "name": "New federal prime contract awards this week",
       "buyer": "Subcontractors and suppliers who want to pitch the company that just won a federal prime contract in their trade and state",
