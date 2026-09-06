@@ -1,0 +1,270 @@
+{
+  "family": "carrier-register",
+  "generated": "2026-09-06",
+  "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
+  "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/carrier-register",
+  "rows_published": 25,
+  "columns": 8,
+  "headers": [
+    "DOT number",
+    "Docket",
+    "Town",
+    "State",
+    "Authority type",
+    "Grant date",
+    "Earlier sealed copy",
+    "Later sealed copy"
+  ],
+  "rows": [
+    [
+      "3354327",
+      "MC1073396",
+      "Whiteland",
+      "IN",
+      "Motor Carrier of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "3473672",
+      "MC1137739",
+      "Mount Airy",
+      "NC",
+      "Broker of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "3648019",
+      "MC1256322",
+      "Elgin",
+      "IL",
+      "Motor Carrier of Household Goods",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "3881475",
+      "MC1424197",
+      "Clovis",
+      "CA",
+      "Motor Carrier of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "3942874",
+      "MC1464898",
+      "Cincinnati",
+      "OH",
+      "Motor Carrier of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "3979148",
+      "MC1489289",
+      "Phoenix",
+      "AZ",
+      "Motor Carrier of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "4110973",
+      "MC1570199",
+      "Kermit",
+      "TX",
+      "Motor Carrier of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "3797224",
+      "MC1575959",
+      "Steelton",
+      "PA",
+      "Motor Carrier of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "4338930",
+      "MC1695061",
+      "Cypress",
+      "TX",
+      "Motor Carrier of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "4359327",
+      "MC1705602",
+      "Kingston",
+      "PA",
+      "Motor Carrier of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "4521212",
+      "MC1791396",
+      "Tinley Park",
+      "IL",
+      "Motor Carrier of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "4366791",
+      "MC1795841",
+      "Pflugerville",
+      "TX",
+      "Motor Carrier of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "4462654",
+      "MC1797433",
+      "Woodbridge",
+      "VA",
+      "Motor Carrier of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "4561839",
+      "MC1813317",
+      "Cabot",
+      "AR",
+      "Motor Carrier of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "3732235",
+      "MC1815536",
+      "East Boston",
+      "MA",
+      "Motor Carrier of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "4578877",
+      "MC1822475",
+      "Orem",
+      "UT",
+      "Motor Carrier of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "4579861",
+      "MC1822941",
+      "Saint Cloud",
+      "FL",
+      "Motor Carrier of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "4580388",
+      "MC1823238",
+      "Tulare",
+      "CA",
+      "Motor Carrier of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "4582529",
+      "MC1824337",
+      "Macon",
+      "GA",
+      "Motor Carrier of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "6108349",
+      "MC45399313",
+      "Philadelphia",
+      "PA",
+      "Motor Carrier of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "8508022",
+      "MC45445210",
+      "Phoenix",
+      "AZ",
+      "Enterprise Motor Carrier of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "5447391",
+      "MC45668377",
+      "Aurora",
+      "CO",
+      "Motor Carrier of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "6547679",
+      "MC46213773",
+      "St Petersburg",
+      "FL",
+      "Motor Carrier of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "9462516",
+      "MC46373644",
+      "Miami",
+      "FL",
+      "Broker of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ],
+    [
+      "3938641",
+      "MC46432441",
+      "Urbana",
+      "IL",
+      "Motor Carrier of Property (Except Household Goods)",
+      "31 Aug 2026",
+      "30 Aug 2026",
+      "6 Sep 2026"
+    ]
+  ]
+}

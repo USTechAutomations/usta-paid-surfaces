@@ -1988,6 +1988,28 @@
       }
     },
     {
+      "id": "carrier-register",
+      "name": "New motor-carrier and broker authority this week",
+      "buyer": "Trucking insurance agents and freight-factoring underwriters who need a dated record of which carriers were newly authorised in a given week",
+      "cadence": "weekly",
+      "cadence_long": "one national file a week, built from this week's Granted actions and the week before. A week that adds nothing is sent as 0 plus the two copy dates",
+      "price": "$49/mo",
+      "sample_status": "pass",
+      "note": "STAGED 2026-09-06, NOT PUBLISHED. Weekly sealed file of FMCSA Granted operating-authority actions (DOT number, MC/FF/MX docket, legal name, city, state, authority type, grant date). No street, no phone, no representative. Named source is the LIVIEW register (https://li-public.fmcsa.dot.gov/LIVIEW/pkg_REGISTER.prc_reg_list); on 2026-09-06 that page had zero date rows and Grant Decision Notices printed NONE for 10 consecutive days 28 Aug–6 Sep [counted]. Rows come from the same agency's Motus AuthHist public file (yu5v-wbh6), reason=Granted, joined to Motus Carrier for name/city/state only. Counted 2026-09-06: 1,399 Granted actions 31 Aug–6 Sep; 1,405 in the prior seven days 24–30 Aug. checkout.url is TO-MINT until a carrier-register SKU at 4900 cents monthly exists in the INSTALLED permits-engine release. Sample rule: newest week's Granted rows with the legal-name column removed, 25 rows. 48 of 1,399 names this week read as a person; those names are withheld on the page table and are not in the sample.",
+      "group": "Other dated records",
+      "short": "New carrier authority, weekly",
+      "who": "Trucking insurance agents and freight-factoring underwriters.",
+      "checkout": {
+        "terms": "$49 a month, billed monthly, for one national file a week: every motor-carrier, broker and freight-forwarder docket FMCSA marked Granted since the previous weekly copy. Seven columns: DOT number, docket (MC/FF/MX), legal name where our copy holds one, city, state, authority type, grant date. No street, no phone, no fax, no representative, no email. FMCSA already publishes Motus AuthHist free; what you are paying for is a sealed dated week and the pair of copy dates behind every row. Cancel any month by email, with no account to close and no notice period.",
+        "after": "After paying you land on a page keyed to your payment. That week's file appears there, and a new one appears every week while the subscription runs. No message from us is needed.",
+        "url": "TO-MINT",
+        "label": "Subscribe — $49 a month"
+      },
+      "coverage_what": "A weekly file of Granted actions, not a contact list",
+      "coverage_how": "We seal FMCSA Motus AuthHist Granted rows each week, with legal name, city and state. No street, no phone.",
+      "price_list_note": "The sample is last week's grants without the business name; read it before you pay."
+    },
+    {
       "id": "clerk-clock",
       "name": "Clerk Clock Packs",
       "short": "Clerk Clock Packs",
@@ -2077,6 +2099,72 @@
         "lands_on": "buy.stripe.com",
         "checked": "2026-09-05",
         "verified": "2026-09-05"
+      }
+    },
+    {
+      "id": "cannabis-tape",
+      "name": "California cannabis licence change tape, weekly",
+      "buyer": "Cannabis insurance brokers and packaging suppliers who need a dated record of which licences appeared or lapsed in a given week",
+      "cadence": "weekly",
+      "cadence_long": "one California file a week, built from sealed copies of the state licence search, which updates daily and overwrites. A week that adds nothing is sent as 0 plus the two copy dates",
+      "price": "$49/mo",
+      "sample_status": "pass",
+      "note": "STAGED 2026-09-06, NOT PUBLISHED. Weekly sealed file of California cannabis licence additions, expiries and status changes read from the Department of Cannabis Control licence search (https://www.cannabis.ca.gov/resources/search-for-licensed-business/, live tool https://search.cannabis.ca.gov/). The search overwrites daily; the product is the dated weekly diff. checkout.url is the placeholder TO-MINT: scripts/mint_feed_links.py refuses this feed until a 'cannabis-tape' SKU at 4900 cents monthly exists in the INSTALLED permits-engine release, and adding that SKU is an engine release the operator has to call. Terms verdict PERMITTED 2026-09-06 (families/cannabis-tape/SOURCE_TERMS.md) quoting the statewide Conditions of Use public-domain clause; paid_file_sources.json is not operator-cleared. Sample rule: the newest what-changed file with the business-name column removed. No street, no owner name, no phone, no email.",
+      "group": "Other dated records",
+      "short": "Cannabis licence tape, weekly",
+      "who": "Cannabis insurance brokers and packaging suppliers who need a dated record of which licences appeared or lapsed in a given week.",
+      "coverage_what": "A weekly file, not a live lookup",
+      "coverage_how": "We seal the state licence search, which updates daily and overwrites, and send the week's additions, expiries and status changes.",
+      "price_list_note": "The sample on the page is this week's file without the business name; read it before you pay.",
+      "checkout": {
+        "terms": "$49 a month, billed monthly, for one California file a week: every Department of Cannabis Control licence that appeared, expired, stopped being listed, or changed status since the previous sealed copy. Columns: licence number, status, prior status where it changed, licence type, designation, issue date, expiry date, status-change date, business legal name where our copy holds one, city, county, and the two copy dates. No street, no owner name, no phone, no email. The state's live search is free and shows only the current list; you are paying for the dated tape. Cancel any month by email, with no account to close and no notice period.",
+        "after": "After paying you land on a page keyed to your payment. That week's file appears there, and a new one appears every week while the subscription runs. No message from us is needed.",
+        "url": "TO-MINT",
+        "label": "Subscribe — $49 a month"
+      }
+    },
+    {
+      "id": "dealer-licence",
+      "name": "Texas dealer licences this week",
+      "buyer": "Floor-plan lenders, dealer-software vendors and auto-auction account managers who need a dated record of which Texas dealers were licensed or lapsed in a given week",
+      "cadence": "weekly",
+      "cadence_long": "one file a week, built from the newest sealed copy of the TxDMV licensee spreadsheet and the copy before it. A week that adds nothing is sent as 0 plus the two copy dates",
+      "price": "$49/mo",
+      "sample_status": "pass",
+      "note": "STAGED 2026-09-06, NOT PUBLISHED. Weekly file of Texas motor-vehicle dealer licences that were added or that expired, sealed from the TxDMV licensee spreadsheet at texasdmv.my.salesforce-sites.com/dealers. checkout.url is TO-MINT: mint_feed_links.py is out of scope for this worker and refuses a brand-new SKU until an engine release names dealer-licence at 4900 cents monthly. Terms verdict UNKNOWN (families/dealer-licence/SOURCE_TERMS.md): no clause found that permits or forbids selling a weekly diff; Salesforce robots.txt Disallow:/ for User-agent *. Sample rule: newest what-changed file with business_name removed, never a street. Counted 2026-09-06 off the first sealed copy: 20,852 licensee rows; 51 added and 82 expired in the 31 Aug–6 Sep window on that copy.",
+      "group": "Other dated records",
+      "short": "Texas dealer-licence week",
+      "who": "Floor-plan lenders, dealer-software vendors and auto-auction account managers.",
+      "checkout": {
+        "terms": "$49 a month, billed monthly, for one file a week of Texas motor-vehicle dealer licences that were added or that expired since the previous sealed copy of the TxDMV licensee list. Columns: licence number, city, county, licence type, dealer type, status, active date, expiry date, and on the paid file the business name where the copy holds one. No street, no phone, no email. The live TxDMV lookup is free; this file is the dated change record that lookup does not keep. Cancel any month by email, with no account to close and no notice period.",
+        "after": "After paying you land on a page keyed to your payment. That week's file appears there, and a new one appears every week while the subscription runs. No message from us is needed.",
+        "url": "TO-MINT",
+        "label": "Subscribe — $49 a month"
+      },
+      "coverage_what": "Weekly additions and lapses on the Texas motor-vehicle dealer licence list",
+      "coverage_how": "We seal the TxDMV licensee spreadsheet and write the week's changes. Until two copies exist, the file is dealers whose ActiveDate or Expired licence date falls in the seven days ending on the copy we hold.",
+      "price_list_note": "The sample is the newest what-changed file without business names; read it before you pay."
+    },
+    {
+      "id": "stormwater-noi",
+      "name": "Texas construction stormwater notices this week",
+      "buyer": "Erosion-control, portable-sanitation and equipment-rental branch managers who need a dated record of which large sites started in their county this week",
+      "cadence": "weekly",
+      "cadence_long": "one Texas file a week, built from the newest sealed copy of TXR15 authorizations and the copy before it. A week that adds nothing is sent as 0 plus the two copy dates",
+      "price": "$49/mo",
+      "sample_status": "pass",
+      "note": "STAGED 2026-09-06, NOT PUBLISHED. Weekly file of new Texas construction stormwater notices of intent (TXR15) at $49/mo. TCEQ issues the notice before ground is broken on sites disturbing an acre or more. TCEQ's own general-permit query (www2.tceq.texas.gov/wq_dpa) did not answer from this box on 2026-09-06 (connection closed). The working copy is EPA ICIS NPDES npdes_downloads.zip (echo.epa.gov/files/echodownloads, robots allow that path; echodata.epa.gov Disallow:* is not called). First seal 2026-09-06: 26,041 effective TXR15 rows; weekly file 74 notices whose filing date on this copy falls in the seven days before the copy date, because a second snapshot does not exist yet. Sample: newest changed file with the operator column removed, 25 rows. No street. checkout.url is TO-MINT until a stormwater-noi SKU at 4900 cents monthly exists in the INSTALLED permits-engine release. Terms verdict PERMITTED: TCEQ public-domain clause quoted in families/stormwater-noi/SOURCE_TERMS.md, read 2026-09-06. Demand-probe SURFACES edit is outside this worker's write paths (BLOCKED). Timer skipped on instruction.",
+      "group": "Construction records",
+      "short": "Texas construction stormwater NOIs, weekly",
+      "who": "Erosion-control, portable-sanitation and equipment-rental branch managers watching large sites in their county.",
+      "coverage_what": "A weekly sealed file of Texas construction stormwater notices",
+      "coverage_how": "We seal the public copy of TCEQ TXR15 authorizations and sell the week's new rows, not the whole list.",
+      "price_list_note": "The sample is the newest week without the operator column; read it before you pay.",
+      "checkout": {
+        "terms": "$49 a month, billed monthly, for one Texas file a week: every construction stormwater notice of intent (permit number starting TXR15) that is new since the previous sealed copy, with site name, county, city, operator, filing date, and the two copy dates. No street, no phone. TCEQ issues the notice; this first copy was sealed from EPA's public ICIS NPDES download because TCEQ's own search did not answer from this machine on 6 Sep 2026. Until a second copy exists, the weekly file is notices whose filing date on the one copy we hold falls in the seven days before that copy date, and the page says so. Cancel any month by email, with no account to close and no notice period.",
+        "after": "After paying you land on a page keyed to your payment. That week's file appears there, and a new one appears every week while the subscription runs. No message from us is needed.",
+        "url": "TO-MINT",
+        "label": "Subscribe — $49 a month"
       }
     }
   ],
