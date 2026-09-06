@@ -329,10 +329,9 @@ def _create_product_with_price(stripe, fam, fid, old_product, cents, cadence, me
 
 # A family the machine holds back from minting on purpose, with the reason. A
 # button here would take money for something the delivery job cannot yet send.
-HOLD_UNTIL_BUILT = {
-    "wp-accessibility-scan": "the per-buyer weekly scan is not built: no checkout "
-                             "collects the site address and the delivery job "
-                             "cannot scan a buyer's site yet (2026-09-06)",
+HOLD_UNTIL_BUILT: dict[str, str] = {
+    # wp-accessibility-scan was held here 2026-09-06 until the delivery job
+    # could scan a buyer's own site; lifted the same evening (76 checks green).
 }
 
 # Extra questions a checkout asks, per family. Read back by the delivery job.

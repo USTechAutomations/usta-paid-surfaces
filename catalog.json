@@ -2294,8 +2294,10 @@
       "checkout": {
         "terms": "$49 a month, billed monthly, for a weekly hosted scan of the site address you give us. Each week's report lists the pages crawled, the issues grouped by rule, and a one-line fix for each. It never logs in, never stores personal data, and never claims a site meets any legal accessibility rule. Automated checks find some of the issues the guidelines describe, not all. A site our crawler cannot read is reported as such and refunded on request for that month. Cancel any month by email, with no account to close and no notice period.",
         "after": "Tell us the site address on the payment form; the first report arrives within 7 days.",
-        "url": "TO-MINT",
-        "label": "Subscribe — $49 a month"
+        "url": "https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v",
+        "label": "Subscribe — $49 a month",
+        "lands_on": "buy.stripe.com",
+        "status": "unverified"
       }
     }
   ],
