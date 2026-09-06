@@ -2297,7 +2297,9 @@
         "url": "https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v",
         "label": "Subscribe — $49 a month",
         "lands_on": "buy.stripe.com",
-        "status": "unverified"
+        "status": "live",
+        "checked": "2026-09-06",
+        "verified": "2026-09-06"
       }
     }
   ],

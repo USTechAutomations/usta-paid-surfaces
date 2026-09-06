@@ -53,6 +53,407 @@
     "washington-dc",
     "wp-accessibility-scan"
   ],
-  "set_aside_count": 0,
-  "set_aside": []
+  "set_aside_count": 26,
+  "set_aside": [
+    {
+      "family": "agentic-commerce",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        },
+        {
+          "higher": "payable",
+          "lower": "honest",
+          "why": "a card can be taken on a page that is not telling the truth",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "air-permits",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        },
+        {
+          "higher": "payable",
+          "lower": "honest",
+          "why": "a card can be taken on a page that is not telling the truth",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "baton-rouge",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        },
+        {
+          "higher": "payable",
+          "lower": "honest",
+          "why": "a card can be taken on a page that is not telling the truth",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "boston",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        },
+        {
+          "higher": "payable",
+          "lower": "honest",
+          "why": "a card can be taken on a page that is not telling the truth",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "cannabis-tape",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        },
+        {
+          "higher": "payable",
+          "lower": "honest",
+          "why": "a card can be taken on a page that is not telling the truth",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "carrier-register",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        },
+        {
+          "higher": "payable",
+          "lower": "honest",
+          "why": "a card can be taken on a page that is not telling the truth",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "changeover-atlas",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        },
+        {
+          "higher": "payable",
+          "lower": "honest",
+          "why": "a card can be taken on a page that is not telling the truth",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "chicago",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        },
+        {
+          "higher": "payable",
+          "lower": "honest",
+          "why": "a card can be taken on a page that is not telling the truth",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "dealer-licence",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "grid",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        },
+        {
+          "higher": "payable",
+          "lower": "honest",
+          "why": "a card can be taken on a page that is not telling the truth",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "hospital-mrf",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        },
+        {
+          "higher": "payable",
+          "lower": "honest",
+          "why": "a card can be taken on a page that is not telling the truth",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "hts-revision-seal",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "los-angeles",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        },
+        {
+          "higher": "payable",
+          "lower": "honest",
+          "why": "a card can be taken on a page that is not telling the truth",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "mn-pfas",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "model-cards",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        },
+        {
+          "higher": "payable",
+          "lower": "honest",
+          "why": "a card can be taken on a page that is not telling the truth",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "new-prime-awards",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "nyc-ll84",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        },
+        {
+          "higher": "payable",
+          "lower": "honest",
+          "why": "a card can be taken on a page that is not telling the truth",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "permit-files",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "pilot-logbook-digitizer",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        },
+        {
+          "higher": "payable",
+          "lower": "honest",
+          "why": "a card can be taken on a page that is not telling the truth",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "storm-warned-counties",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "stormwater-noi",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        },
+        {
+          "higher": "payable",
+          "lower": "honest",
+          "why": "a card can be taken on a page that is not telling the truth",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "texas-formulary",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        },
+        {
+          "higher": "payable",
+          "lower": "honest",
+          "why": "a card can be taken on a page that is not telling the truth",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "trustee-sales",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        },
+        {
+          "higher": "payable",
+          "lower": "honest",
+          "why": "a card can be taken on a page that is not telling the truth",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "ttb",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        },
+        {
+          "higher": "payable",
+          "lower": "honest",
+          "why": "a card can be taken on a page that is not telling the truth",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "ttb-new-permits",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    },
+    {
+      "family": "washington-dc",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        },
+        {
+          "higher": "payable",
+          "lower": "honest",
+          "why": "a card can be taken on a page that is not telling the truth",
+          "detail": "scripts/check_site.py is failing: FAIL: wp-accessibility-scan declares a checkout at https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+        }
+      ]
+    }
+  ]
 }
