@@ -183,6 +183,17 @@
       "reviewed_by": "terms read by grok-task-m5-dc-rework 2026-08-26 against saved input/dc-build/raw/dc-data-terms (sha256 88d42f21eb1222d5103b3bdeca1159f88a5e487d0ba07ebca9f47238b384cc48) and input/dc-build/raw/dcat-year-excerpts; Claude lead ruling 2026-08-25: CC BY 4.0 hold RESOLVED — SELL WITH ATTRIBUTION",
       "note": "Catalog CC0 is scoped to data available from the District Data Catalog. The FeatureServer is that catalog's service (DCAT distribution 'ArcGIS GeoService' points at maps2.dcgis.dc.gov FEEDS/DCRA/FeatureServer layers 15-18). HARD CHECK: each year's DCAT licence is CC BY 4.0, not CC0. Claude lead 2026-08-25 ruled sell with attribution. Logo carve-out stands: no District logos, including the stars and bars. Credit line is the catalog example citation and is required_text together with the CC BY 4.0 name/link line.",
       "labels": ["washington-dc", "washington dc", "district of columbia", "opendata.dc.gov", "7296e6392349498bb6ba6ba3db836644"]
+    },
+    "ca-dcc-licence-search": {
+      "name": "California Department of Cannabis Control licence search (public search app)",
+      "verdict": "UNKNOWN",
+      "decided_on": "",
+      "evidence_url": "https://search.cannabis.ca.gov/",
+      "quote": "",
+      "required_text": "",
+      "reviewed_by": "",
+      "note": "Terms as read by the grok-host build worker are quoted in families/cannabis-tape/SOURCE_TERMS.md (its verdict there: PERMITTED / public domain). A machine may not grant ALLOW_PAID; the operator decides.",
+      "labels": ["ca-dcc-licence-search", "cannabis-tape", "search.cannabis.ca.gov", "dcc", "california"]
     }
   }
 }

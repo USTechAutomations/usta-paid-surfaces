@@ -33,6 +33,7 @@ UA = (
     "USTechAutomations/cannabis-tape "
     "(+https://ustechautomations.com; operations@ustechautomations.com)"
 )
+SOURCE_ID = "ca-dcc-licence-search"
 SOURCE_PAGE = "https://www.cannabis.ca.gov/resources/search-for-licensed-business/"
 SEARCH_APP = "https://search.cannabis.ca.gov/"
 
@@ -113,13 +114,16 @@ def _get(url: str) -> dict:
     return json.loads(raw.decode("utf-8"))
 
 
-def fetch_all() -> tuple[list[dict], dict]:
+def fetch_all() -> tuple[list[dict], dict, str]:
     rows: list[dict] = []
     seen: set[str] = set()
     page = 1  # API is 1-based; `page=` is ignored and always returns page 1
     meta: dict = {}
+    first_url = ""
     while True:
         url = f"{API}?pageNumber={page}&pageSize={PAGE_SIZE}"
+        if not first_url:
+            first_url = url
         try:
             blob = _get(url)
         except urllib.error.HTTPError as e:
@@ -153,7 +157,7 @@ def fetch_all() -> tuple[list[dict], dict]:
         if page > 200:
             raise SystemExit("collect_cannabis_tape: more than 200 pages; refusing to hammer")
         time.sleep(PAUSE_S)
-    return rows, meta
+    return rows, meta, first_url
 
 
 def to_snapshot_row(rec: dict, snap: str) -> dict:
@@ -166,7 +170,17 @@ def to_snapshot_row(rec: dict, snap: str) -> dict:
     return out
 
 
-def write_snapshot(rows: list[dict], snap: str, meta: dict) -> Path:
+def _load_existing_sidecar(path: Path) -> dict:
+    if not path.is_file():
+        return {}
+    try:
+        blob = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    return blob if isinstance(blob, dict) else {}
+
+
+def write_snapshot(rows: list[dict], snap: str, meta: dict, source_url: str) -> Path:
     STORE.mkdir(parents=True, exist_ok=True)
     csv_path = STORE / f"snapshot_{snap}.csv"
     fields = [k for k, _ in SNAPSHOT_FIELDS] + ["snapshot_date"]
@@ -175,21 +189,24 @@ def write_snapshot(rows: list[dict], snap: str, meta: dict) -> Path:
         w.writeheader()
         w.writerows(rows)
     refreshed = sorted({r.get("data_refreshed_date") or "" for r in rows if r.get("data_refreshed_date")})
-    sidecar = {
-        "snapshot_date": snap,
-        "source_url": SOURCE_PAGE,
-        "search_app": SEARCH_APP,
-        "api": API,
-        "row_count": len(rows),
-        "api_total_count": meta.get("totalCount"),
-        "data_refreshed_date": refreshed[-1] if refreshed else "",
-        "fetched_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "user_agent": UA,
-        "pages": meta.get("totalPages"),
-    }
-    (STORE / f"snapshot_{snap}.json").write_text(
-        json.dumps(sidecar, indent=2) + "\n", encoding="utf-8"
+    json_path = STORE / f"snapshot_{snap}.json"
+    sidecar = _load_existing_sidecar(json_path)
+    sidecar.update(
+        {
+            "snapshot_date": snap,
+            "source_id": SOURCE_ID,
+            "source_url": source_url,
+            "row_count": len(rows),
+            "fetched_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "search_app": SEARCH_APP,
+            "api": API,
+            "api_total_count": meta.get("totalCount"),
+            "data_refreshed_date": refreshed[-1] if refreshed else "",
+            "user_agent": UA,
+            "pages": meta.get("totalPages"),
+        }
     )
+    json_path.write_text(json.dumps(sidecar, indent=2) + "\n", encoding="utf-8")
     return csv_path
 
 
@@ -293,12 +310,12 @@ def write_changes(rows: list[dict], snap: str, method: str, earlier: str, later:
 def main() -> int:
     today = date.today().isoformat()
     print(f"fetching {API} as {UA}", flush=True)
-    raw, meta = fetch_all()
+    raw, meta, source_url = fetch_all()
     if not raw:
         raise SystemExit("collect_cannabis_tape: source returned 0 licences")
     leaked = [k for rec in raw[:1] for k in DROP if rec.get(k)]
     snap_rows = [to_snapshot_row(rec, today) for rec in raw]
-    csv_path = write_snapshot(snap_rows, today, meta)
+    csv_path = write_snapshot(snap_rows, today, meta, source_url)
     print(f"wrote {len(snap_rows)} rows {csv_path}")
     if leaked:
         print(f"(source sent {sorted(set(leaked))}; those columns were dropped)")

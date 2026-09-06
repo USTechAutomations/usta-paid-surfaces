@@ -254,7 +254,7 @@ SEALED_FILE_LANES: dict[str, tuple[Lane, ...]] = {
              "atlas_*.json", 7, sealed_files=True),
     ),
     "cannabis-tape": (
-        Lane("the California cannabis licence search", "daily snapshot files",
+        Lane("the California cannabis licence search", "weekly snapshot files",
              "snapshot_date", "snapshot_*.json", 7, sealed_files=True),
     ),
 }
