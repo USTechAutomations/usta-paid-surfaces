@@ -2244,6 +2244,28 @@
         "url": "TO-MINT",
         "label": "Subscribe — $49 a month"
       }
+    },
+    {
+      "id": "wp-accessibility-scan",
+      "name": "Weekly hosted accessibility scan for WordPress sites",
+      "buyer": "WordPress site owners and small web shops who must answer accessibility complaints and want a downloadable audit file, not an overlay widget",
+      "cadence": "monthly",
+      "cadence_long": "one hosted whole-site scan a week, billed monthly. A site we cannot read is reported as such. A week that finds nothing is sent as 0 plus the date",
+      "price": "$49/mo",
+      "sample_status": "pass",
+      "note": "STAGED 2026-09-06, NOT PUBLISHED. Hosted weekly accessibility scan at $49/mo. Free WordPress plugin (GPL-2.0) runs the same checks on the buyer's own site with no key. checkout.url is TO-MINT until a wp-accessibility-scan SKU at 4900 cents monthly exists in the INSTALLED permits-engine release. Demand-probe SURFACES edit is outside this worker's write paths (BLOCKED). Timer skipped on instruction. wordpress.org listing is pending human review.",
+      "group": "Website services",
+      "short": "WP accessibility scan, weekly",
+      "who": "WordPress site owners and small web shops who must answer accessibility complaints and want a downloadable audit file, not an overlay widget.",
+      "coverage_what": "A weekly hosted scan of the public pages of a WordPress site the buyer names",
+      "coverage_how": "We fetch the public home page plus up to 40 more pages on the same site, obey robots.txt, and write a CSV of findings. The free plugin runs the same checks inside WordPress admin with no key.",
+      "price_list_note": "The sample is the newest demo scan; read it before you pay.",
+      "checkout": {
+        "terms": "$49 a month, billed monthly, for a weekly hosted scan of the site address you give us. Each week's report lists the pages crawled, the issues grouped by rule, and a one-line fix for each. It never logs in, never stores personal data, and never claims a site meets any legal accessibility rule. Automated checks find some of the issues the guidelines describe, not all. A site our crawler cannot read is reported as such and refunded on request for that month. Cancel any month by email, with no account to close and no notice period.",
+        "after": "Tell us the site address on the payment form; the first report arrives within 7 days.",
+        "url": "TO-MINT",
+        "label": "Subscribe — $49 a month"
+      }
     }
   ],
   "map": "MAP.md",
