@@ -238,6 +238,7 @@ SEALED_FILE_STORES: dict[str, str] = {
     "new-prime-awards": "/home/gmullins/.hermes/state/new-prime-awards",
     "hts-revision-seal": "/home/gmullins/.hermes/state/hts-revision-seal",
     "wp-accessibility-scan": "/home/gmullins/.hermes/state/wp-accessibility-scan",
+    "pilot-logbook-digitizer": "/home/gmullins/.hermes/state/pilot-logbook-digitizer",
 }
 SEALED_FILE_LANES: dict[str, tuple[Lane, ...]] = {
     "ai-terms": (
@@ -294,6 +295,11 @@ SEALED_FILE_LANES: dict[str, tuple[Lane, ...]] = {
     ),
     "wp-accessibility-scan": (
         Lane("weekly hosted accessibility scans run from our machine",
+             "weekly snapshot files", "snapshot_date", "snapshot_*.json", 7,
+             sealed_files=True),
+    ),
+    "pilot-logbook-digitizer": (
+        Lane("weekly self-test runs of the logbook digitizer on fixture pages",
              "weekly snapshot files", "snapshot_date", "snapshot_*.json", 7,
              sealed_files=True),
     ),
