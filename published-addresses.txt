@@ -80,6 +80,8 @@ boston/gas-permit
 boston/plumbing-permit
 boston/short-form-bldg-permit
 canary-ledger
+cannabis-tape
+carrier-register
 changeover-atlas
 chicago
 chicago/coverage
@@ -194,6 +196,7 @@ dc-siting/arizona
 dc-siting/coverage
 dc-siting/faa-notices
 dc-siting/texas
+dealer-licence
 deprecation-weather
 extract-custody
 fed-obligations
@@ -356,6 +359,7 @@ sec-8k/coverage
 sec-8k/listing-warnings
 sec-8k/officer-changes
 stamper-appendix
+stormwater-noi
 terms-ledger
 texas-formulary
 trustee-sales

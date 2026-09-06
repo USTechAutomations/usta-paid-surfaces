@@ -1,61 +1,61 @@
 {
   "family": "civic-agenda",
-  "generated": "2026-09-05",
+  "generated": "2026-09-06",
   "slices": [
     {
       "slug": "chicago",
-      "newest": "2026-09-05",
+      "newest": "2026-09-06",
       "oldest": "2026-06-11",
-      "runs": 74,
-      "row_count": 59191,
+      "runs": 75,
+      "row_count": 59991,
       "cadence_days": 1
     },
     {
       "slug": "seattle",
-      "newest": "2026-09-05",
+      "newest": "2026-09-06",
       "oldest": "2026-06-11",
-      "runs": 74,
-      "row_count": 6360,
+      "runs": 75,
+      "row_count": 6407,
       "cadence_days": 1
     },
     {
       "slug": "austin",
-      "newest": "2026-09-05",
+      "newest": "2026-09-06",
       "oldest": "2026-06-11",
-      "runs": 74,
-      "row_count": 5034,
+      "runs": 75,
+      "row_count": 5059,
       "cadence_days": 1
     },
     {
       "slug": "phoenix",
-      "newest": "2026-09-05",
+      "newest": "2026-09-06",
       "oldest": "2026-06-11",
-      "runs": 75,
-      "row_count": 8188,
+      "runs": 76,
+      "row_count": 8352,
       "cadence_days": 1
     },
     {
       "slug": "columbus",
-      "newest": "2026-09-05",
+      "newest": "2026-09-06",
       "oldest": "2026-06-11",
-      "runs": 75,
-      "row_count": 13833,
+      "runs": 76,
+      "row_count": 14095,
       "cadence_days": 1
     },
     {
       "slug": "la-county",
-      "newest": "2026-09-05",
+      "newest": "2026-09-06",
       "oldest": "2026-06-11",
-      "runs": 75,
-      "row_count": 13504,
+      "runs": 76,
+      "row_count": 13998,
       "cadence_days": 1
     },
     {
       "slug": "coverage",
-      "newest": "2026-09-05",
+      "newest": "2026-09-06",
       "oldest": "2026-06-11",
-      "runs": 80,
-      "row_count": 106110,
+      "runs": 81,
+      "row_count": 107902,
       "cadence_days": 1
     }
   ]

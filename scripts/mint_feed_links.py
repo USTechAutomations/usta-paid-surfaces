@@ -147,6 +147,9 @@ LABEL_FOR_FEED = {
     "permit-metros": "Subscribe — $79 a month",
     "ttb": "Subscribe — $99 a month",
     "changeover-atlas": "Subscribe — $49 a month",
+    "carrier-register": "Subscribe — $49 a month",
+    "cannabis-tape": "Subscribe — $49 a month",
+    "stormwater-noi": "Subscribe — $49 a month",
 }
 
 # Catalog placeholder written before a Stripe address exists. It is not a
@@ -359,6 +362,33 @@ def _find_link(stripe, fid: str, sku: str, cents: int, cadence: str):
     return None
 
 
+# After paying, the buyer must land on the delivery page, where the file waits
+# under their own payment id. Without this a subscriber lands on a bare Stripe
+# thank-you page and never sees the file (found 2026-09-06; every link minted
+# from now on carries it, and a reused link is brought up to date).
+AFTER_PAYMENT_URL = ("https://us-tech-automations.github.io/usta-autonomous-packs/"
+                     "paid.html?session_id={CHECKOUT_SESSION_ID}")
+
+
+def _redirect_ok(link) -> bool:
+    ac = json.loads(str(link)).get("after_completion") or {}
+    return ac.get("type") == "redirect" and (ac.get("redirect") or {}).get("url") == AFTER_PAYMENT_URL
+
+
+def _ensure_redirect(stripe, link, live: bool):
+    """Point the link's after-payment step at the delivery page; verify by re-reading."""
+    if link is None or _redirect_ok(link):
+        return link
+    if not live:
+        return link
+    link = stripe.PaymentLink.modify(link["id"], after_completion={"type": "redirect",
+                                                                    "redirect": {"url": AFTER_PAYMENT_URL}})
+    link = stripe.PaymentLink.retrieve(link["id"])
+    if not _redirect_ok(link):
+        raise SystemExit(f"{link['id']}: refusing to arm -- after-payment redirect did not stick")
+    return link
+
+
 def mint_one(stripe, fam, sku, cents, cadence, live: bool) -> dict:
     fid = fam["id"]
     meta = {"feeds_family": fid, "permits_sku": sku, "surface": SURFACE}
@@ -393,6 +423,7 @@ def mint_one(stripe, fam, sku, cents, cadence, live: bool) -> dict:
             return {"id": fid, "action": f"product + price exist; would create link at {money}"}
         kwargs = dict(line_items=[{"price": price["id"], "quantity": 1}], metadata=meta,
                       automatic_tax={"enabled": True}, billing_address_collection="required",
+                      after_completion={"type": "redirect", "redirect": {"url": AFTER_PAYMENT_URL}},
                       idempotency_key=f"feeds-link-{fid}-{cadence}-{cents}-v1")
         if cadence == "monthly":
             kwargs["subscription_data"] = {"metadata": meta}
@@ -400,6 +431,7 @@ def mint_one(stripe, fam, sku, cents, cadence, live: bool) -> dict:
             kwargs["payment_intent_data"] = {"metadata": meta}
         link = stripe.PaymentLink.create(**kwargs)
 
+    link = _ensure_redirect(stripe, link, live)
     url = link["url"]
     if not _link_host_ok(url):
         raise SystemExit(f"{fid}: minted URL is not on a Stripe checkout host; refusing to arm")
