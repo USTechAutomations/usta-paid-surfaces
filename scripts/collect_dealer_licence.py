@@ -30,6 +30,7 @@ import zipfile
 from pathlib import Path
 
 FAMILY = "dealer-licence"
+SOURCE_ID = "txdmv-licensee-list"
 STORE = Path(os.path.expanduser("~/.hermes/state/dealer-licence"))
 HOME = "https://texasdmv.my.salesforce-sites.com"
 LIST_PATH = "/dealers/motorvehicledealerliststaging"
@@ -253,6 +254,28 @@ def write_csv(path: Path, fields: tuple[str, ...], rows: list[dict[str, str]]) -
             w.writerow({k: row.get(k, "") for k in fields})
 
 
+def utc_now() -> str:
+    return dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def write_snapshot_json(path: Path, payload: dict) -> None:
+    """Write one day record. Keep keys already on disk; fill only the missing ones."""
+    existing: dict = {}
+    if path.is_file():
+        try:
+            loaded = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            loaded = None
+        if isinstance(loaded, dict):
+            existing = loaded
+    merged = dict(existing)
+    for key, value in payload.items():
+        if key not in merged:
+            merged[key] = value
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(merged, indent=2) + "\n", encoding="utf-8")
+
+
 def read_snapshot(path: Path) -> dict[str, dict[str, str]]:
     with path.open(encoding="utf-8", newline="") as fh:
         rows = list(csv.DictReader(fh))
@@ -356,20 +379,20 @@ def main() -> int:
         fail("spreadsheet parsed to 0 dealer rows")
     snap_path = STORE / f"snapshot_{copy_date}.csv"
     write_csv(snap_path, SNAPSHOT_FIELDS, records)
-    (STORE / f"snapshot_{copy_date}.json").write_text(
-        json.dumps(
-            {
-                "snapshot_date": copy_date,
-                "source": LIST_URL,
-                "download": dl,
-                "rows": len(records),
-                "user_agent": UA,
-                "robots_disallow_root": blocked,
-            },
-            indent=2,
-        )
-        + "\n",
-        encoding="utf-8",
+    write_snapshot_json(
+        STORE / f"snapshot_{copy_date}.json",
+        {
+            "snapshot_date": copy_date,
+            "source_id": SOURCE_ID,
+            "source_url": final or dl,
+            "row_count": len(records),
+            "fetched_at": utc_now(),
+            "source": LIST_URL,
+            "download": dl,
+            "rows": len(records),
+            "user_agent": UA,
+            "robots_disallow_root": blocked,
+        },
     )
     print(f"snapshot    {snap_path}  {len(records)} rows")
 
