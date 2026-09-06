@@ -239,6 +239,7 @@ hiring-watch/coverage
 hiring-watch/roles-that-moved
 hospital-mrf
 how-we-seal
+hts-revision-seal
 import-checks
 los-angeles
 los-angeles/bldg-addition
@@ -286,6 +287,7 @@ new-entities/coverage
 new-entities/los-angeles
 new-entities/nyc
 new-entities/san-francisco
+new-prime-awards
 nyc-ll84
 nyc-ll84/bronx
 nyc-ll84/brooklyn
@@ -359,6 +361,7 @@ sec-8k/coverage
 sec-8k/listing-warnings
 sec-8k/officer-changes
 stamper-appendix
+storm-warned-counties
 stormwater-noi
 terms-ledger
 texas-formulary
