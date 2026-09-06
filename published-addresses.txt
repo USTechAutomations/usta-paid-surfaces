@@ -318,6 +318,7 @@ permit-metros/san-francisco
 permit-metros/scottsdale
 permit-metros/seattle
 permits
+pilot-logbook-digitizer
 predictor-diet
 quakes
 quakes/alaska
@@ -406,4 +407,5 @@ washington-dc/year-2024
 washington-dc/year-2025
 washington-dc/year-2026
 what-we-dont-collect
+wp-accessibility-scan
 wrong-wall

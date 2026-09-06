@@ -846,6 +846,13 @@ def main() -> None:
                 f = fam_dir / name
                 if f.is_file():
                     shutil.copy2(f, DIST / fid / name)
+            # A family may hand out one downloadable attachment next to its page
+            # (2026-09-06: the free WordPress plugin zip). Only a top-level .zip
+            # is copied, only when the page links to it by name; the type map in
+            # deploy/nginx.conf names zip, so it is served as a download.
+            for f in sorted(fam_dir.glob("*.zip")):
+                if f.name in (fam_dir / "index.html").read_text(encoding="utf-8"):
+                    shutil.copy2(f, DIST / fid / f.name)
 
     # An address we published before and did not build this run still has to
     # answer. See write_retired(): the file that promises this had no code
