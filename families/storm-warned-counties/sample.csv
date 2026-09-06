@@ -1,0 +1,26 @@
+week_ending,state,county_fips,county_name,nws_zone,event,warning_count,max_hail_in,max_wind_mph,first_onset_utc,last_expires_utc,issuing_office
+2026-09-06,AL,01075,Lamar,ALC075,Severe Thunderstorm Warning,1,1,60,2026-09-06T19:41:00Z,2026-09-06T20:00:00Z,NWS Birmingham AL
+2026-09-06,AL,01093,Marion,ALC093,Severe Thunderstorm Warning,1,1,60,2026-09-06T19:41:00Z,2026-09-06T20:00:00Z,NWS Birmingham AL
+2026-09-06,GA,13029,Bryan,GAC029,Flash Flood Warning,1,,,2026-09-06T19:38:00Z,2026-09-06T22:45:00Z,NWS Charleston SC
+2026-09-06,GA,13031,Bulloch,GAC031,Severe Thunderstorm Warning,1,1,60,2026-09-06T19:41:00Z,2026-09-06T20:15:00Z,NWS Charleston SC
+2026-09-06,GA,13051,Chatham,GAC051,Flash Flood Warning,1,,,2026-09-06T19:38:00Z,2026-09-06T22:45:00Z,NWS Charleston SC
+2026-09-06,GA,13103,Effingham,GAC103,Flash Flood Warning,1,,,2026-09-06T19:38:00Z,2026-09-06T22:45:00Z,NWS Charleston SC
+2026-09-06,GA,13107,Emanuel,GAC107,Severe Thunderstorm Warning,1,1,60,2026-09-06T19:48:00Z,2026-09-06T20:15:00Z,NWS Peachtree City GA
+2026-09-06,GA,13145,Harris,GAC145,Severe Thunderstorm Warning,1,1,60,2026-09-06T19:37:00Z,2026-09-06T20:30:00Z,NWS Peachtree City GA
+2026-09-06,GA,13163,Jefferson,GAC163,Severe Thunderstorm Warning,1,1,60,2026-09-06T19:48:00Z,2026-09-06T20:15:00Z,NWS Peachtree City GA
+2026-09-06,GA,13167,Johnson,GAC167,Severe Thunderstorm Warning,1,1,60,2026-09-06T19:48:00Z,2026-09-06T20:15:00Z,NWS Peachtree City GA
+2026-09-06,GA,13215,Muscogee,GAC215,Severe Thunderstorm Warning,1,1,60,2026-09-06T19:37:00Z,2026-09-06T20:30:00Z,NWS Peachtree City GA
+2026-09-06,GA,13251,Screven,GAC251,Severe Thunderstorm Warning,1,1,60,2026-09-06T19:41:00Z,2026-09-06T20:15:00Z,NWS Charleston SC
+2026-09-06,IA,19021,Buena Vista,IAC021,Severe Thunderstorm Warning,1,1,60,2026-09-06T19:50:00Z,2026-09-06T20:15:00Z,NWS Sioux Falls SD
+2026-09-06,IA,19035,Cherokee,IAC035,Flash Flood Warning,1,,,2026-09-06T19:11:00Z,2026-09-06T23:15:00Z,NWS Sioux Falls SD
+2026-09-06,IA,19035,Cherokee,IAC035,Severe Thunderstorm Warning,1,1,60,2026-09-06T19:50:00Z,2026-09-06T20:15:00Z,NWS Sioux Falls SD
+2026-09-06,IA,19063,Emmet,IAC063,Flash Flood Warning,1,,,2026-09-06T19:06:00Z,2026-09-06T23:00:00Z,NWS Des Moines IA
+2026-09-06,IA,19093,Ida,IAC093,Severe Thunderstorm Warning,1,1,60,2026-09-06T19:50:00Z,2026-09-06T20:15:00Z,NWS Sioux Falls SD
+2026-09-06,IA,19119,Lyon,IAC119,Flash Flood Warning,1,,,2026-09-06T18:37:00Z,2026-09-06T21:00:00Z,NWS Sioux Falls SD
+2026-09-06,IA,19143,Osceola,IAC143,Flash Flood Warning,1,,,2026-09-06T18:37:00Z,2026-09-06T21:00:00Z,NWS Sioux Falls SD
+2026-09-06,IA,19147,Palo Alto,IAC147,Flash Flood Warning,1,,,2026-09-06T19:06:00Z,2026-09-06T23:00:00Z,NWS Des Moines IA
+2026-09-06,IA,19161,Sac,IAC161,Severe Thunderstorm Warning,1,1,60,2026-09-06T19:37:00Z,2026-09-06T20:15:00Z,NWS Des Moines IA
+2026-09-06,MN,27043,Faribault,MNC043,Flash Flood Warning,1,,,2026-09-06T18:28:00Z,2026-09-06T22:30:00Z,NWS Twin Cities/Chanhassen MN
+2026-09-06,MN,27105,Nobles,MNC105,Flash Flood Warning,1,,,2026-09-06T18:37:00Z,2026-09-06T21:00:00Z,NWS Sioux Falls SD
+2026-09-06,NC,37021,Buncombe,NCC021,Severe Thunderstorm Warning,1,0.88,60,2026-09-06T19:20:00Z,2026-09-06T20:30:00Z,NWS Greenville-Spartanburg SC
+2026-09-06,NC,37045,Cleveland,NCC045,Severe Thunderstorm Warning,1,1.5,70,2026-09-06T19:46:00Z,2026-09-06T20:45:00Z,NWS Greenville-Spartanburg SC
