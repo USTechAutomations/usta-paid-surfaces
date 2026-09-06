@@ -18,7 +18,12 @@
       "quote": "Data available through the  City of Austin Open Data Portal  are offered free and without restriction. [...] Unless otherwise noted in metadata, datasets available on the  City of Austin Open Data Portal  are in the public domain",
       "required_text": "",
       "reviewed_by": "terms read by terms-dossier agent (claude-opus-5) 2026-08-25; operator decision 'yes clear' 2026-08-25 (approvals/operator_decisions_2026-08-25.md row 15); evidence dossier research/paid-source-terms-2026-08-25/austin.md",
-      "labels": ["austin", "austin, texas", "data.austintexas.gov", "3syk-w9eu"]
+      "labels": [
+        "austin",
+        "austin, texas",
+        "data.austintexas.gov",
+        "3syk-w9eu"
+      ]
     },
     "baton-rouge": {
       "name": "Baton Rouge, Louisiana",
@@ -29,7 +34,10 @@
       "required_text": "",
       "reviewed_by": "",
       "note": "Hold LIFTED 2026-08-25 by operator decision row 18 (verbatim 'Sell it', ~/revenue-2026/approvals/operator_decisions_2026-08-25.md): the written collection-method prohibition ('data mining, robots or similar') does NOT keep rows off-sale under row 17. History: held earlier the same day pending that answer (terms forbid the collection method, not the sale; row 16 kept the collector running). Verdict stays a truthful UNKNOWN - terms were read, nothing forbids the sale itself.",
-      "labels": ["baton-rouge", "baton rouge"]
+      "labels": [
+        "baton-rouge",
+        "baton rouge"
+      ]
     },
     "cambridge-ma": {
       "name": "Cambridge, Massachusetts",
@@ -39,7 +47,10 @@
       "quote": "Any user of Data distributed by the City may modify, use and publish such Data\nwithout charge.",
       "required_text": "",
       "reviewed_by": "terms read by terms-dossier agent (claude-opus-5) 2026-08-25; operator decision 'yes clear' 2026-08-25 (approvals/operator_decisions_2026-08-25.md row 15); evidence dossier research/paid-source-terms-2026-08-25/cambridge-ma.md",
-      "labels": ["cambridge-ma", "cambridge, massachusetts"]
+      "labels": [
+        "cambridge-ma",
+        "cambridge, massachusetts"
+      ]
     },
     "chicago": {
       "name": "Chicago, Illinois",
@@ -50,7 +61,10 @@
       "required_text": "This site provides applications using data that has been modified for use from its original source, www.cityofchicago.org, the official website of the City of Chicago.  The City of Chicago makes no claims as to the content, accuracy, timeliness, or completeness of any of the data provided at this site.  The data provided at this site is subject to change at any time.  It is understood that the data provided at this site is being used at one’s own risk.",
       "reviewed_by": "",
       "note": "Terms read 2026-08-25 (Grok wave-7 dossier ~/grok-playground/output/task-w7-terms-chicago/dossier.md, disclaimer wording verified byte-for-byte against raw/02-data-terms-of-use.body by gmullins-1e, HTML entities decoded). No sentence in the Data Terms of Use uses commercial, sell, sale, resale, or paid. Sellable under operator decision row 17 (2026-08-25). The terms require the recorded disclaimer wherever an application or derivative using the data is offered; required_text enforces it in outgoing files. The City may require any user to terminate display or distribution for any reason.",
-      "labels": ["chicago", "chicago, illinois"]
+      "labels": [
+        "chicago",
+        "chicago, illinois"
+      ]
     },
     "cincinnati": {
       "name": "Cincinnati, Ohio",
@@ -60,7 +74,10 @@
       "quote": "Public Domain",
       "required_text": "",
       "reviewed_by": "terms read by terms-dossier agent (claude-opus-5) 2026-08-25; operator decision 'yes clear' 2026-08-25 (approvals/operator_decisions_2026-08-25.md row 15); evidence dossier research/paid-source-terms-2026-08-25/cincinnati.md; NOTE: label-only evidence (license.name in dataset metadata; no terms page exists) — operator cleared knowing it is the thinnest of the six",
-      "labels": ["cincinnati", "cincinnati, ohio"]
+      "labels": [
+        "cincinnati",
+        "cincinnati, ohio"
+      ]
     },
     "los-angeles": {
       "name": "Los Angeles, California",
@@ -71,7 +88,10 @@
       "required_text": "",
       "reviewed_by": "",
       "note": "Terms read 2026-08-25 (Grok wave-7 dossier ~/grok-playground/output/task-w7-terms-losangeles/dossier.md). The portal Terms of Use (May 2014) contain no sentence using commercial, sell, resell, redistribute, republication, attribution, or Creative Commons about City-published datasets. Sellable under operator decision row 17 (2026-08-25). Datasets are 'provided for informational purposes' as-is; the older permit dataset is login-walled and was not read.",
-      "labels": ["los-angeles", "los angeles"]
+      "labels": [
+        "los-angeles",
+        "los angeles"
+      ]
     },
     "marin-county": {
       "name": "Marin County, California",
@@ -83,7 +103,12 @@
       "required_text": "",
       "reviewed_by": "operator",
       "note": "Unchanged by this refusal: we keep collecting Marin, the 2,192 stored rows stay stored, and the ODbL notice stays on the free public pages because their material is still shown there. If a buyer names Marin, stop and tell the team lead -- do not send a file with it and do not send one without it either.",
-      "labels": ["marin-county", "marin county", "marincounty.gov", "mkbn-caye"]
+      "labels": [
+        "marin-county",
+        "marin county",
+        "marincounty.gov",
+        "mkbn-caye"
+      ]
     },
     "montgomery-md": {
       "name": "Montgomery County, Maryland",
@@ -94,7 +119,11 @@
       "required_text": "The data made available here has been modified for use from its original source, which is Montgomery County, Maryland (\"the County\"). THE COUNTY MAKES NO REPRESENTATIONS OR WARRANTIES AS TO THE COMPLETENESS, ACCURACY, OR TIMELINESS OF ANY DATA. THE COUNTY EXPRESSLY DISCLAIMS ALL WARRANTIES, WHETHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. THE COUNTY MAKES NO REPRESENTATION OR WARRANTY AS TO THE WEBISTE OR APPLICATION USING DATA DRAWN FROM DATA.MONTGOMERYCOUNTYMD.GOV OR FOR THE USEFULNESS OR INTEGRITY OF THE WEB SITE OR APPLICATION. The data is subject to change and possible deletion, temporarily or permanently. It is understood that the information contained in the web feed is being used at one's own risk.",
       "reviewed_by": "terms read by terms-dossier agent (claude-opus-5) 2026-08-25; operator decision 'yes clear' 2026-08-25 (approvals/operator_decisions_2026-08-25.md row 15); evidence dossier research/paid-source-terms-2026-08-25/montgomery-md.md; required_text is the County's prescribed disclaimer, byte-for-byte (783 chars, sha256 839f41460a3ebe7f...), and must ship in every paid file carrying montgomery-md rows",
       "note": "Their portal requires a set disclaimer on applications using their data. The wording is quoted word for word in scripts/slice_permit_metros.py. It goes in required_text as part of the read that decides this verdict, not before.",
-      "labels": ["montgomery-md", "montgomery county", "data.montgomerycountymd.gov"]
+      "labels": [
+        "montgomery-md",
+        "montgomery county",
+        "data.montgomerycountymd.gov"
+      ]
     },
     "new-york": {
       "name": "New York City",
@@ -104,7 +133,11 @@
       "quote": "Open Data belongs to all New Yorkers. There are no restrictions on the use of Open Data.",
       "required_text": "",
       "reviewed_by": "terms read by terms-dossier agent (claude-opus-5) 2026-08-25; operator decision 'yes clear' 2026-08-25 (approvals/operator_decisions_2026-08-25.md row 15); evidence dossier research/paid-source-terms-2026-08-25/new-york.md",
-      "labels": ["new-york", "new york city", "new york"]
+      "labels": [
+        "new-york",
+        "new york city",
+        "new york"
+      ]
     },
     "san-francisco": {
       "name": "San Francisco, California",
@@ -114,7 +147,10 @@
       "quote": "Except where otherwise stated in the file containing such Data or on the page from which such Data is accessed, including its metadata, Data is made available under the Public Domain Dedication and License v1.0",
       "required_text": "",
       "reviewed_by": "terms read by terms-dossier agent (claude-opus-5) 2026-08-25; operator decision 'yes clear' 2026-08-25 (approvals/operator_decisions_2026-08-25.md row 15); evidence dossier research/paid-source-terms-2026-08-25/san-francisco.md",
-      "labels": ["san-francisco", "san francisco"]
+      "labels": [
+        "san-francisco",
+        "san francisco"
+      ]
     },
     "scottsdale": {
       "name": "Scottsdale, Arizona",
@@ -126,7 +162,10 @@
       "required_text": "",
       "reviewed_by": "claude gmullins-1e 2026-08-25 - refusal is the fail-closed direction; recorded without an operator ask under the standing delegation (asks are for sends and money out only)",
       "note": "Second, independent reason not to sell: the city's own portal serves the full permit history free (288,121 rows counted by the wave-7 research run, count PROPOSED not yet recounted on our side). Either fact alone is enough to refuse.",
-      "labels": ["scottsdale", "scottsdale, arizona"]
+      "labels": [
+        "scottsdale",
+        "scottsdale, arizona"
+      ]
     },
     "seattle": {
       "name": "Seattle, Washington",
@@ -138,7 +177,10 @@
       "required_text": "",
       "reviewed_by": "claude gmullins-1e 2026-08-25 - the clause bites our own rows: 7% of the 1,350 stored Seattle rows carry contractor_name, so a delivered file can be readily sorted into a list of individuals; refusal stands even under the operator's 2026-08-25 default-open decision (row 17) because this prohibition is written",
       "note": "Dossier: ~/revenue-2026/research/paid-source-terms-2026-08-25/seattle.md. Attribution not required ('Unless otherwise indicated, data on this site does not require specific attribution.').",
-      "labels": ["seattle", "seattle, washington"]
+      "labels": [
+        "seattle",
+        "seattle, washington"
+      ]
     },
     "tceq_nsr_pending": {
       "name": "Texas Commission on Environmental Quality pending New Source Review list",
@@ -149,7 +191,12 @@
       "required_text": "",
       "reviewed_by": "terms fetched 2026-08-25 from the evidence URL; operator named ALLOW this conversation 2026-08-25 for a paid CSV of dated diffs of the pending list. We do not charge anyone to open TCEQ's own page and we do not use the TCEQ logo.",
       "note": "Arizona ADEQ is not this source and stays refused. The paid file is what moved between our sealed copies, not a fee to read TCEQ's live HTML.",
-      "labels": ["tceq_nsr_pending", "tceq", "texas", "tceq.texas.gov"]
+      "labels": [
+        "tceq_nsr_pending",
+        "tceq",
+        "texas",
+        "tceq.texas.gov"
+      ]
     },
     "boston": {
       "name": "Boston, Massachusetts (Analyze Boston approved-building-permits)",
@@ -160,7 +207,12 @@
       "required_text": "",
       "reviewed_by": "grok task-m5-boston-build 2026-08-26; adopted by claude lead 2026-08-25 after byte-check: PDDL grant, preamble and no-attribution sentences each counted once in the saved licence body (sha256 40df1180e82d7f40288ff7be41c4eb4b0cc9d58e4722dd090c63245dcf2141e9); CKAN package names odc-pddl (sha256 c09198d92a2a8150dc3d819f2211c0aec07a180207dd682471bfc0589cb8299b); dataset page licence module re-verified from the task's own fetch",
       "note": "PDDL v1.0: public-domain dedication, commercial use granted, attribution not required (credit still printed). The one open hole in the task's TERMS (the data-dictionary PDF) was closed by the claude lead 2026-08-25: fetched the real PDF (4 pages, 602 words), zero hits for licence/terms/restrict/commercial/copyright - it is a pure column dictionary. applicant stripped; comments stripped after a 200-row sample contained person names.",
-      "labels": ["boston", "boston, massachusetts", "data.boston.gov", "6ddcd912-32a0-43df-9908-63574f8c7e77"]
+      "labels": [
+        "boston",
+        "boston, massachusetts",
+        "data.boston.gov",
+        "6ddcd912-32a0-43df-9908-63574f8c7e77"
+      ]
     },
     "nyc-ll84": {
       "name": "NYC Local Law 84 energy-and-water disclosure (view 5zyy-y8am)",
@@ -171,7 +223,12 @@
       "required_text": "",
       "reviewed_by": "terms read by terms-dossier agent (claude-opus-5) 2026-08-25; operator decision 'yes clear' 2026-08-25 (approvals/operator_decisions_2026-08-25.md row 15); same FAQ grant as new-york; quote re-verified byte-for-byte by grok task-m5-nyc-ll84-build (body sha256 257773c7e31c7434dc4d65a5f50dba6d85c8e463159dd6b2b3b5853f1b8480bd) and recounted by the claude lead 2026-08-25 (count 1); the FAQ's Terms of Use link was fetched by the claude lead 2026-08-25: warranty disclaimers only, no commercial-use restriction, no required text",
       "note": "Same portal-wide NYC Open Data FAQ as the DOB NOW permit board. Different view (5zyy-y8am, not rbx6-tga4). No new required_text. Not the monthly kBtu view fvp3-gcb2.",
-      "labels": ["nyc-ll84", "5zyy-y8am", "local law 84", "ll84"]
+      "labels": [
+        "nyc-ll84",
+        "5zyy-y8am",
+        "local law 84",
+        "ll84"
+      ]
     },
     "fmcsa-motus-authhist": {
       "name": "FMCSA Motus AuthHist (operating-authority grants)",
@@ -182,7 +239,14 @@
       "required_text": "",
       "reviewed_by": "",
       "note": "Verdict set back to UNKNOWN by Fable 2026-09-06: the evidence below was gathered by the grok-host build worker, and a machine may not grant ALLOW_PAID (rule: how_to_change_it). The operator decides. Paid file is Granted actions only. Street, phone, fax, representative and email are stripped. The LIVIEW register HTML for Sep 2026 printed NONE in Grant Decision Notices; rows come from this Motus table, not from a scrape of phones.",
-      "labels": ["fmcsa-motus-authhist", "fmcsa", "motus", "yu5v-wbh6", "carrier-register", "li-public.fmcsa.dot.gov"]
+      "labels": [
+        "fmcsa-motus-authhist",
+        "fmcsa",
+        "motus",
+        "yu5v-wbh6",
+        "carrier-register",
+        "li-public.fmcsa.dot.gov"
+      ]
     },
     "washington-dc": {
       "name": "Washington, District of Columbia",
@@ -193,7 +257,13 @@
       "required_text": "Data retrieved from Open Data DC catalog (https://opendata.dc.gov)\nCreative Commons Attribution 4.0 International (CC BY 4.0), https://creativecommons.org/licenses/by/4.0",
       "reviewed_by": "terms read by grok-task-m5-dc-rework 2026-08-26 against saved input/dc-build/raw/dc-data-terms (sha256 88d42f21eb1222d5103b3bdeca1159f88a5e487d0ba07ebca9f47238b384cc48) and input/dc-build/raw/dcat-year-excerpts; Claude lead ruling 2026-08-25: CC BY 4.0 hold RESOLVED — SELL WITH ATTRIBUTION",
       "note": "Catalog CC0 is scoped to data available from the District Data Catalog. The FeatureServer is that catalog's service (DCAT distribution 'ArcGIS GeoService' points at maps2.dcgis.dc.gov FEEDS/DCRA/FeatureServer layers 15-18). HARD CHECK: each year's DCAT licence is CC BY 4.0, not CC0. Claude lead 2026-08-25 ruled sell with attribution. Logo carve-out stands: no District logos, including the stars and bars. Credit line is the catalog example citation and is required_text together with the CC BY 4.0 name/link line.",
-      "labels": ["washington-dc", "washington dc", "district of columbia", "opendata.dc.gov", "7296e6392349498bb6ba6ba3db836644"]
+      "labels": [
+        "washington-dc",
+        "washington dc",
+        "district of columbia",
+        "opendata.dc.gov",
+        "7296e6392349498bb6ba6ba3db836644"
+      ]
     },
     "ca-dcc-licence-search": {
       "name": "California Department of Cannabis Control licence search (public search app)",
@@ -204,7 +274,64 @@
       "required_text": "",
       "reviewed_by": "",
       "note": "Terms as read by the grok-host build worker are quoted in families/cannabis-tape/SOURCE_TERMS.md (its verdict there: PERMITTED / public domain). A machine may not grant ALLOW_PAID; the operator decides.",
-      "labels": ["ca-dcc-licence-search", "cannabis-tape", "search.cannabis.ca.gov", "dcc", "california"]
+      "labels": [
+        "ca-dcc-licence-search",
+        "cannabis-tape",
+        "search.cannabis.ca.gov",
+        "dcc",
+        "california"
+      ]
+    },
+    "txdmv-licensee-list": {
+      "name": "Texas Department of Motor Vehicles dealer licensee list",
+      "verdict": "UNKNOWN",
+      "decided_on": "2026-09-06",
+      "evidence_url": "https://www.txdmv.gov/site-policies/disclaimer",
+      "quote": "",
+      "required_text": "",
+      "reviewed_by": "grok-host path worker 2026-09-06; full quotes in families/dealer-licence/SOURCE_TERMS.md",
+      "note": "Terms read 2026-09-06. TxDMV disclaimer, privacy policy, DPPA page, Salesforce list page and robots.txt. No clause found that permits or forbids selling a weekly diff of the licensee spreadsheet. Salesforce robots.txt Disallow:/ for User-agent *. Verdict stays UNKNOWN. Collector still sealed the public spreadsheet the list page offers for download.",
+      "labels": [
+        "dealer-licence",
+        "texasdmv.my.salesforce-sites.com",
+        "txdmv-dealers",
+        "txdmv-licensee-list",
+        "txdmv.gov"
+      ]
+    },
+    "tceq_cgp_noi": {
+      "name": "Texas construction stormwater notices of intent (CGP TXR150000 / TXR15 coverages)",
+      "verdict": "UNKNOWN",
+      "decided_on": "",
+      "evidence_url": "https://www.tceq.texas.gov/help/policies/linking_policy.html",
+      "quote": "Unless otherwise noted, content of our site is considered “public domain.” We have no restrictions on linking to our site as long as a fee is not charged to access our material.",
+      "required_text": "",
+      "reviewed_by": "",
+      "note": "Verdict set back to UNKNOWN by Fable 2026-09-06: the evidence below was gathered by the grok-host build worker, and a machine may not grant ALLOW_PAID (rule: how_to_change_it). The operator decides. Also: the dated rows were downloaded from EPA ECHO (echo.epa.gov), a different publisher whose terms were not read; the TCEQ clause quoted here does not cover EPA's file. Issuer is TCEQ. Working copy on 2026-09-06 is EPA echo.epa.gov/files/echodownloads/npdes_downloads.zip (robots allow that path). echodata.epa.gov is Disallow:* and is not called.",
+      "labels": [
+        "tceq_cgp_noi",
+        "stormwater-noi",
+        "txr15",
+        "tceq",
+        "texas",
+        "tceq.texas.gov"
+      ]
+    },
+    "epa_echo_npdes_downloads": {
+      "name": "EPA ECHO NPDES bulk download (used as the working copy for Texas construction stormwater NOIs)",
+      "verdict": "UNKNOWN",
+      "decided_on": "",
+      "evidence_url": "https://echo.epa.gov/files/echodownloads/npdes_downloads.zip",
+      "quote": "",
+      "required_text": "",
+      "reviewed_by": "",
+      "note": "Nobody has read EPA ECHO's terms for reselling rows from this download. Added by Fable 2026-09-06 so the source the rows actually came from has a record. The operator decides.",
+      "labels": [
+        "epa_echo_npdes_downloads",
+        "stormwater-noi",
+        "echo.epa.gov",
+        "epa"
+      ]
     }
   }
 }
