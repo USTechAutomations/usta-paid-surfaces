@@ -1,0 +1,26 @@
+page_url,rule,severity,element,fix
+https://ustechautomations.com/feeds/,heading-skip,medium,,"Do not skip heading levels; follow h1 with h2, then h3."
+https://ustechautomations.com/,form-label,high,,"Tie a label to this field with for/id, wrap it in a label, or add aria-label."
+https://ustechautomations.com/,heading-skip,medium,,"Do not skip heading levels; follow h1 with h2, then h3."
+https://ustechautomations.com/,heading-skip,medium,,"Do not skip heading levels; follow h1 with h2, then h3."
+https://ustechautomations.com/,duplicate-id,medium,"id=""eyeMask""",Give each id a unique value on the page.
+https://ustechautomations.com/about,form-label,high,,"Tie a label to this field with for/id, wrap it in a label, or add aria-label."
+https://ustechautomations.com/about,heading-skip,medium,,"Do not skip heading levels; follow h1 with h2, then h3."
+https://ustechautomations.com/about,duplicate-id,medium,"id=""eyeMask""",Give each id a unique value on the page.
+https://ustechautomations.com/blog-sponsorship,form-label,high,,"Tie a label to this field with for/id, wrap it in a label, or add aria-label."
+https://ustechautomations.com/blog-sponsorship,duplicate-id,medium,"id=""eyeMask""",Give each id a unique value on the page.
+https://ustechautomations.com/partner,form-label,high,,"Tie a label to this field with for/id, wrap it in a label, or add aria-label."
+https://ustechautomations.com/partner,form-label,high,,"Tie a label to this field with for/id, wrap it in a label, or add aria-label."
+https://ustechautomations.com/partner,form-label,high,,"Tie a label to this field with for/id, wrap it in a label, or add aria-label."
+https://ustechautomations.com/partner,duplicate-id,medium,"id=""eyeMask""",Give each id a unique value on the page.
+https://ustechautomations.com/pricing,empty-button,high,,Put visible text or an aria-label on the button.
+https://ustechautomations.com/pricing,empty-button,high,,Put visible text or an aria-label on the button.
+https://ustechautomations.com/pricing,form-label,high,,"Tie a label to this field with for/id, wrap it in a label, or add aria-label."
+https://ustechautomations.com/pricing,form-label,high,,"Tie a label to this field with for/id, wrap it in a label, or add aria-label."
+https://ustechautomations.com/pricing,form-label,high,,"Tie a label to this field with for/id, wrap it in a label, or add aria-label."
+https://ustechautomations.com/pricing,form-label,high,,"Tie a label to this field with for/id, wrap it in a label, or add aria-label."
+https://ustechautomations.com/pricing,form-label,high,,"Tie a label to this field with for/id, wrap it in a label, or add aria-label."
+https://ustechautomations.com/pricing,duplicate-id,medium,"id=""eyeMask""",Give each id a unique value on the page.
+https://ustechautomations.com/privacy,form-label,high,,"Tie a label to this field with for/id, wrap it in a label, or add aria-label."
+https://ustechautomations.com/privacy,heading-skip,medium,,"Do not skip heading levels; follow h1 with h2, then h3."
+https://ustechautomations.com/privacy,heading-skip,medium,,"Do not skip heading levels; follow h1 with h2, then h3."
