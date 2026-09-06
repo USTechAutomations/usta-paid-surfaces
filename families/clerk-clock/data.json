@@ -1,0 +1,54 @@
+{
+  "family": "clerk-clock",
+  "generated": "2026-09-01",
+  "slices": [
+    {
+      "slug": "montgomery-md",
+      "newest": "2026-09-01",
+      "oldest": "2026-06-25",
+      "runs": 1,
+      "row_count": 270,
+      "cadence_days": 1,
+      "n": 270,
+      "median_days": 9,
+      "p25": 6,
+      "p75": 14,
+      "first_date": "2026-06-26",
+      "last_date": "2026-09-01",
+      "class": "ALTER / SINGLE FAMILY DWELLING",
+      "hours": "Monday\u2013Friday, 7:30 a.m.\u20134 p.m."
+    },
+    {
+      "slug": "austin",
+      "newest": "2026-08-30",
+      "oldest": "2026-06-07",
+      "runs": 1,
+      "row_count": 187,
+      "cadence_days": 1,
+      "n": 187,
+      "median_days": 14,
+      "p25": 8,
+      "p75": 21,
+      "first_date": "2026-06-09",
+      "last_date": "2026-08-30",
+      "class": "R- 435 Renovations/Remodel / Repair",
+      "hours": "UNKNOWN"
+    },
+    {
+      "slug": "san-francisco",
+      "newest": "2026-08-30",
+      "oldest": "2026-06-07",
+      "runs": 1,
+      "row_count": 324,
+      "cadence_days": 1,
+      "n": 324,
+      "median_days": 10,
+      "p25": 5,
+      "p75": 17,
+      "first_date": "2026-06-09",
+      "last_date": "2026-08-30",
+      "class": "otc alterations permit",
+      "hours": "UNKNOWN"
+    }
+  ]
+}
