@@ -151,6 +151,17 @@
       "note": "Arizona ADEQ is not this source and stays refused. The paid file is what moved between our sealed copies, not a fee to read TCEQ's live HTML.",
       "labels": ["tceq_nsr_pending", "tceq", "texas", "tceq.texas.gov"]
     },
+    "tceq_cgp_noi": {
+      "name": "Texas construction stormwater notices of intent (CGP TXR150000 / TXR15 coverages)",
+      "verdict": "ALLOW_PAID",
+      "decided_on": "2026-09-06",
+      "evidence_url": "https://www.tceq.texas.gov/help/policies/linking_policy.html",
+      "quote": "Unless otherwise noted, content of our site is considered “public domain.” We have no restrictions on linking to our site as long as a fee is not charged to access our material.",
+      "required_text": "",
+      "reviewed_by": "terms re-read 2026-09-06 from the evidence URL into families/stormwater-noi/SOURCE_TERMS.md. Same public-domain clause as tceq_nsr_pending. We do not charge anyone to open TCEQ's own page and we do not use the TCEQ logo. The dated rows were sealed from EPA's public ICIS NPDES download because TCEQ's own query host did not answer.",
+      "note": "Issuer is TCEQ. Working copy on 2026-09-06 is EPA echo.epa.gov/files/echodownloads/npdes_downloads.zip (robots allow that path). echodata.epa.gov is Disallow:* and is not called.",
+      "labels": ["tceq_cgp_noi", "stormwater-noi", "txr15", "tceq", "texas", "tceq.texas.gov"]
+    },
     "boston": {
       "name": "Boston, Massachusetts (Analyze Boston approved-building-permits)",
       "verdict": "ALLOW_PAID",

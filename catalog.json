@@ -2078,6 +2078,28 @@
         "checked": "2026-09-05",
         "verified": "2026-09-05"
       }
+    },
+    {
+      "id": "stormwater-noi",
+      "name": "Texas construction stormwater notices this week",
+      "buyer": "Erosion-control, portable-sanitation and equipment-rental branch managers who need a dated record of which large sites started in their county this week",
+      "cadence": "weekly",
+      "cadence_long": "one Texas file a week, built from the newest sealed copy of TXR15 authorizations and the copy before it. A week that adds nothing is sent as 0 plus the two copy dates",
+      "price": "$49/mo",
+      "sample_status": "pass",
+      "note": "STAGED 2026-09-06, NOT PUBLISHED. Weekly file of new Texas construction stormwater notices of intent (TXR15) at $49/mo. TCEQ issues the notice before ground is broken on sites disturbing an acre or more. TCEQ's own general-permit query (www2.tceq.texas.gov/wq_dpa) did not answer from this box on 2026-09-06 (connection closed). The working copy is EPA ICIS NPDES npdes_downloads.zip (echo.epa.gov/files/echodownloads, robots allow that path; echodata.epa.gov Disallow:* is not called). First seal 2026-09-06: 26,041 effective TXR15 rows; weekly file 74 notices whose filing date on this copy falls in the seven days before the copy date, because a second snapshot does not exist yet. Sample: newest changed file with the operator column removed, 25 rows. No street. checkout.url is TO-MINT until a stormwater-noi SKU at 4900 cents monthly exists in the INSTALLED permits-engine release. Terms verdict PERMITTED: TCEQ public-domain clause quoted in families/stormwater-noi/SOURCE_TERMS.md, read 2026-09-06. Demand-probe SURFACES edit is outside this worker's write paths (BLOCKED). Timer skipped on instruction.",
+      "group": "Construction records",
+      "short": "Texas construction stormwater NOIs, weekly",
+      "who": "Erosion-control, portable-sanitation and equipment-rental branch managers watching large sites in their county.",
+      "coverage_what": "A weekly sealed file of Texas construction stormwater notices",
+      "coverage_how": "We seal the public copy of TCEQ TXR15 authorizations and sell the week's new rows, not the whole list.",
+      "price_list_note": "The sample is the newest week without the operator column; read it before you pay.",
+      "checkout": {
+        "terms": "$49 a month, billed monthly, for one Texas file a week: every construction stormwater notice of intent (permit number starting TXR15) that is new since the previous sealed copy, with site name, county, city, operator, filing date, and the two copy dates. No street, no phone. TCEQ issues the notice; this first copy was sealed from EPA's public ICIS NPDES download because TCEQ's own search did not answer from this machine on 6 Sep 2026. Until a second copy exists, the weekly file is notices whose filing date on the one copy we hold falls in the seven days before that copy date, and the page says so. Cancel any month by email, with no account to close and no notice period.",
+        "after": "After paying you land on a page keyed to your payment. That week's file appears there, and a new one appears every week while the subscription runs. No message from us is needed.",
+        "url": "TO-MINT",
+        "label": "Subscribe — $49 a month"
+      }
     }
   ],
   "map": "MAP.md",
