@@ -97,6 +97,8 @@ SKU_FOR_FEED = {
     "storm-warned-counties": "storm-warned-counties-week",
     "new-prime-awards": "new-prime-awards-week",
     "hts-revision-seal": "hts-revision-seal",
+    "wp-accessibility-scan": "wp-accessibility-scan",
+    "pilot-logbook-digitizer": "pilot-logbook-digitizer",
     "crawler": "crawler-policy-sentinel",
     "grid": "permits-queue-sentinel",
     "permit-metros": "permit-metros-arrivals",
@@ -156,6 +158,8 @@ LABEL_FOR_FEED = {
     "storm-warned-counties": "Subscribe — $49 a month",
     "new-prime-awards": "Subscribe — $49 a month",
     "hts-revision-seal": "Subscribe — $49 a month",
+    "wp-accessibility-scan": "Subscribe — $49 a month",
+    "pilot-logbook-digitizer": "Buy — $175 one-off",
 }
 
 # Catalog placeholder written before a Stripe address exists. It is not a
