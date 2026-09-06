@@ -1,0 +1,26 @@
+hts_number,indent,description,unit,general_rate,special_rate,column_two_rate,release_id,fetched_utc
+0101,0,"Live horses, asses, mules and hinnies:",,,,,2026HTSRev18,2026-09-06T19:51:33Z
+,1,Horses:,,,,,2026HTSRev18,2026-09-06T19:51:33Z
+0101.21.00,2,Purebred breeding animals,,Free,,Free,2026HTSRev18,2026-09-06T19:51:33Z
+0101.21.00.10,3,Males,"[""No.""]",,,,2026HTSRev18,2026-09-06T19:51:33Z
+0101.21.00.20,3,Females,"[""No.""]",,,,2026HTSRev18,2026-09-06T19:51:33Z
+0101.29.00,2,Other,,Free,,20%,2026HTSRev18,2026-09-06T19:51:33Z
+0101.29.00.10,3,Imported for immediate slaughter,"[""No.""]",,,,2026HTSRev18,2026-09-06T19:51:33Z
+0101.29.00.90,3,Other,"[""No.""]",,,,2026HTSRev18,2026-09-06T19:51:33Z
+0101.30.00.00,1,Asses,"[""No.""]",6.8%,"Free (A+,AU,BH,CL,CO,D,E,IL,JO,KR,MA,OM,P,PA,PE,S,SG)",15%,2026HTSRev18,2026-09-06T19:51:33Z
+0101.90,1,Other:,,,,,2026HTSRev18,2026-09-06T19:51:33Z
+0101.90.30.00,2,Imported for immediate slaughter,"[""No.""]",Free,,Free,2026HTSRev18,2026-09-06T19:51:33Z
+0101.90.40.00,2,Other,"[""No.""]",4.5%,"Free (A+,AU,BH,CL,CO,D,E, IL,JO,KR,MA,OM,P,PA,PE,S, SG)",20%,2026HTSRev18,2026-09-06T19:51:33Z
+0102,0,Live bovine animals:,,,,,2026HTSRev18,2026-09-06T19:51:33Z
+,1,Cattle:,,,,,2026HTSRev18,2026-09-06T19:51:33Z
+0102.21.00,2,Purebred breeding animals,,Free,,Free,2026HTSRev18,2026-09-06T19:51:33Z
+,3,Dairy:,,,,,2026HTSRev18,2026-09-06T19:51:33Z
+0102.21.00.10,4,Male,"[""No.""]",,,,2026HTSRev18,2026-09-06T19:51:33Z
+0102.21.00.20,4,Female,"[""No.""]",,,,2026HTSRev18,2026-09-06T19:51:33Z
+,3,Other:,,,,,2026HTSRev18,2026-09-06T19:51:33Z
+0102.21.00.30,4,Male,"[""No.""]",,,,2026HTSRev18,2026-09-06T19:51:33Z
+0102.21.00.50,4,Female,"[""No.""]",,,,2026HTSRev18,2026-09-06T19:51:33Z
+0102.29,2,Other:,,,,,2026HTSRev18,2026-09-06T19:51:33Z
+0102.29.20,3,Cows imported specially for dairy purposes,,Free,,6.6¢/kg,2026HTSRev18,2026-09-06T19:51:33Z
+0102.29.20.11,4,Weighing less than 90 kg each,"[""No."",""kg""]",,,,2026HTSRev18,2026-09-06T19:51:33Z
+0102.29.20.12,4,Weighing 90 kg or more each,"[""No."",""kg""]",,,,2026HTSRev18,2026-09-06T19:51:33Z
