@@ -1,6 +1,6 @@
 {
   "family": "agent-register",
-  "generated": "2026-09-04",
+  "generated": "2026-09-05",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/agent-register",
   "rows_published": 25,
@@ -12,6 +12,12 @@
     "where_it_answers"
   ],
   "rows": [
+    [
+      "world.agentindex/x402",
+      "2026-09-05",
+      "2026-09-05",
+      "x402.agentindex.world"
+    ],
     [
       "io.github.runningoffcode/wormhole-x402",
       "2026-09-04",
@@ -52,7 +58,7 @@
       "io.github.chico10117/x402-preflight",
       "2026-09-01",
       "2026-09-01",
-      "x402-wallet-readiness-service.vercel.app"
+      "x402.chikocorp.com"
     ],
     [
       "fr.humanmirror/x402",
@@ -155,12 +161,6 @@
       "2026-08-22",
       "2026-08-22",
       "mcp-x402-production.up.railway.app"
-    ],
-    [
-      "app.run.europe-west1.x402-seller-202595743428/eudata402",
-      "2026-08-22",
-      "2026-08-22",
-      "x402-seller-202595743428.europe-west1.run.app"
     ]
   ]
 }

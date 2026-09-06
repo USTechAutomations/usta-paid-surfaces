@@ -228,6 +228,7 @@ grid/wisconsin
 hiring-watch
 hiring-watch/coverage
 hiring-watch/roles-that-moved
+hospital-mrf
 how-we-seal
 import-checks
 los-angeles
@@ -269,6 +270,7 @@ metro-file/montgomery-md
 metro-file/new-york
 metro-file/san-francisco
 mn-pfas
+model-cards
 new-entities
 new-entities/chicago
 new-entities/coverage
@@ -318,6 +320,7 @@ quakes/nevada
 quakes/new-mexico
 quakes/place-revised
 quakes/texas
+quakes/utah
 raise-prep
 recalls
 recalls/arizona
@@ -348,6 +351,7 @@ sec-8k/listing-warnings
 sec-8k/officer-changes
 stamper-appendix
 terms-ledger
+texas-formulary
 trustee-sales
 trustee-sales/coverage
 trustee-sales/postponed

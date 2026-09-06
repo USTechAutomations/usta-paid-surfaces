@@ -223,11 +223,26 @@ LANE_STORES: dict[str, str] = {
 # from the file's timestamp.
 SEALED_FILE_STORES: dict[str, str] = {
     "ai-terms": "/home/gmullins/Claude CLI/constraint-moat/archive/seals",
+    "texas-formulary": "/home/gmullins/code/usta-autonomous-packs/var/seals/texas_formulary",
+    "hospital-mrf": "/home/gmullins/code/usta-autonomous-packs/var/seals/hospital_mrf",
+    "model-cards": "/home/gmullins/code/usta-autonomous-packs/var/seals/model_cards",
 }
 SEALED_FILE_LANES: dict[str, tuple[Lane, ...]] = {
     "ai-terms": (
         Lane("the sealed day records", "sealed day files", "snapshot_date",
              "*.txt", 1, sealed_files=True),
+    ),
+    "texas-formulary": (
+        Lane("the Texas Medicaid weekly drug list", "sealed day files", "sealed",
+             "*/meta.json", 1, sealed_files=True),
+    ),
+    "hospital-mrf": (
+        Lane("the HonorHealth CMS charge-file zip", "sealed day files", "sealed",
+             "*/meta.json", 1, sealed_files=True),
+    ),
+    "model-cards": (
+        Lane("the public Anthropic system-card PDF", "sealed day files", "sealed",
+             "*/meta.json", 1, sealed_files=True),
     ),
 }
 

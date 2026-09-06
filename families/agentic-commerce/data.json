@@ -1,61 +1,61 @@
 {
   "family": "agentic-commerce",
-  "generated": "2026-09-04",
+  "generated": "2026-09-05",
   "slices": [
     {
       "slug": "coverage",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-06-11",
-      "runs": 79,
-      "row_count": 152628,
+      "runs": 80,
+      "row_count": 154560,
       "cadence_days": 1
     },
     {
       "slug": "doors-opened",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-06-11",
-      "runs": 79,
-      "row_count": 152628,
+      "runs": 80,
+      "row_count": 154560,
       "cadence_days": 1
     },
     {
       "slug": "agent-instructions",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-06-11",
-      "runs": 79,
-      "row_count": 21804,
+      "runs": 80,
+      "row_count": 22080,
       "cadence_days": 1
     },
     {
       "slug": "checkout-manifest",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-06-11",
-      "runs": 79,
-      "row_count": 21804,
+      "runs": 80,
+      "row_count": 22080,
       "cadence_days": 1
     },
     {
       "slug": "two-hundred-not-a-file",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-06-11",
-      "runs": 79,
-      "row_count": 152628,
+      "runs": 80,
+      "row_count": 154560,
       "cadence_days": 1
     },
     {
       "slug": "cannot-read",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-06-11",
-      "runs": 79,
-      "row_count": 152628,
+      "runs": 80,
+      "row_count": 154560,
       "cadence_days": 1
     },
     {
       "slug": "no-machine-door",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-06-11",
-      "runs": 79,
-      "row_count": 130824,
+      "runs": 80,
+      "row_count": 132480,
       "cadence_days": 1
     }
   ]

@@ -1,8 +1,6 @@
 {
   "family": "quakes",
-  "clock": "usgs_quakes",
   "generated": "2026-09-05",
-  "rewritten_at": "2026-09-05T22:06:48+00:00",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/quakes",
   "rows_published": 25,
@@ -242,12 +240,5 @@
       "2026-08-27",
       "2026-08-28"
     ]
-  ],
-  "net_new_ids": 642,
-  "appeared_ids": 257,
-  "disappeared_ids": 385,
-  "newer_seal": "2026-09-05",
-  "older_seal": "2026-09-04",
-  "no_movers": false,
-  "slice_diff": false
+  ]
 }

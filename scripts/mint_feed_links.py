@@ -291,6 +291,24 @@ def _find_product(stripe, fid: str, sku: str):
     return None
 
 
+
+def _ensure_tax(stripe, price, link, live):
+    """Stripe Tax (enabled 2026-08-02) only runs on links whose prices declare
+    tax_behavior and whose link has automatic_tax on. Reused objects minted
+    before that date lack both; fix them in place when live."""
+    notes = []
+    if price is not None and price.get("tax_behavior") == "unspecified":
+        if live:
+            price = stripe.Price.modify(price["id"], tax_behavior="exclusive")
+        notes.append("price lacks tax_behavior")
+    if link is not None and not (link.get("automatic_tax") or {}).get("enabled"):
+        if live:
+            link = stripe.PaymentLink.modify(link["id"], automatic_tax={"enabled": True},
+                                             billing_address_collection="required")
+        notes.append("link has automatic tax off")
+    return price, link, notes
+
+
 def _find_price(stripe, product_id: str, cents: int, cadence: str):
     for pr in stripe.Price.list(product=product_id, active=True, limit=100).auto_paging_iter():
         rec = pr.recurring
@@ -351,20 +369,24 @@ def mint_one(stripe, fam, sku, cents, cadence, live: bool) -> dict:
         )
 
     price = _find_price(stripe, product["id"], cents, cadence)
+    price, _, _ = _ensure_tax(stripe, price, None, live)
     if price is None:
         if not live:
             return {"id": fid, "action": f"product exists; would create price + link at {money}"}
         kwargs = dict(product=product["id"], unit_amount=cents, currency="usd", metadata=meta,
+                      tax_behavior="exclusive",
                       idempotency_key=f"feeds-price-{fid}-{cadence}-{cents}-v1")
         if cadence == "monthly":
             kwargs["recurring"] = {"interval": "month"}
         price = stripe.Price.create(**kwargs)
 
     link = _find_link(stripe, fid, sku, cents, cadence)
+    _, link, _ = _ensure_tax(stripe, None, link, live)
     if link is None:
         if not live:
             return {"id": fid, "action": f"product + price exist; would create link at {money}"}
         kwargs = dict(line_items=[{"price": price["id"], "quantity": 1}], metadata=meta,
+                      automatic_tax={"enabled": True}, billing_address_collection="required",
                       idempotency_key=f"feeds-link-{fid}-{cadence}-{cents}-v1")
         if cadence == "monthly":
             kwargs["subscription_data"] = {"metadata": meta}

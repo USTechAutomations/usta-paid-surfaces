@@ -1,29 +1,29 @@
 {
   "family": "air-permits",
-  "generated": "2026-09-04",
+  "generated": "2026-09-05",
   "slices": [
     {
       "slug": "texas-new",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-07-10",
-      "runs": 50,
-      "row_count": 24161,
+      "runs": 51,
+      "row_count": 24633,
       "cadence_days": 1
     },
     {
       "slug": "texas-moved",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-07-10",
-      "runs": 50,
-      "row_count": 24161,
+      "runs": 51,
+      "row_count": 24633,
       "cadence_days": 1
     },
     {
       "slug": "data-centers",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-07-10",
-      "runs": 50,
-      "row_count": 299,
+      "runs": 51,
+      "row_count": 305,
       "cadence_days": 1
     },
     {
@@ -38,8 +38,8 @@
       "slug": "coverage",
       "newest": "2026-08-13",
       "oldest": "2026-07-10",
-      "runs": 83,
-      "row_count": 26884,
+      "runs": 84,
+      "row_count": 27356,
       "cadence_days": 1
     }
   ]

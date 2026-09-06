@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import datetime as dt
 import html
+import json
 import re
 import sqlite3
 import sys
@@ -1411,7 +1412,23 @@ def sample() -> tuple[list[str], list[list[str]]]:
              "changed": "rules under the crawler rewritten"}
     rows = []
     clean = [c for c in d["changes"] if _shop_window_ok(c["domain"])]
-    for c in _spread(clean, 25):
+    prefer_path = Path(__file__).resolve().parent.parent / "families" / "crawler" / "shop_domains.json"
+    prefer: list[str] = []
+    if prefer_path.is_file():
+        try:
+            prefer = [str(x).lower() for x in json.loads(prefer_path.read_text()).get("domains") or []]
+        except (ValueError, OSError):
+            prefer = []
+    if prefer:
+        by = {}
+        for c in clean:
+            by.setdefault(c["domain"].lower(), c)
+        ordered = [by[d] for d in prefer if d in by]
+        rest = [c for c in clean if c["domain"].lower() not in set(prefer)]
+        chosen = (ordered + rest)[:12]
+    else:
+        chosen = _spread(clean, 25)
+    for c in chosen:
         rows.append([c["domain"], _bot_label(c), c["before"], c["after"],
                      words[c["direction"]], c["before_date"], c["after_date"]])
     return headers, rows

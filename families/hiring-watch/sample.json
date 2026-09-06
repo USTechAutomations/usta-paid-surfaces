@@ -1,8 +1,6 @@
 {
   "family": "hiring-watch",
-  "clock": "b2b_change",
   "generated": "2026-09-05",
-  "rewritten_at": "2026-09-05T07:04:43+00:00",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/hiring-watch",
   "rows_published": 25,
@@ -268,13 +266,5 @@
       "2026-08-27",
       "2026-08-28"
     ]
-  ],
-  "net_new_ids": 0,
-  "appeared_ids": 0,
-  "disappeared_ids": 0,
-  "newer_seal": "2026-09-05",
-  "older_seal": "2026-09-04",
-  "no_movers": false,
-  "slice_diff": true,
-  "snapshot_note": "No new ids versus the previous seal; the sample still changed (revisions or field moves)."
+  ]
 }

@@ -1340,30 +1340,45 @@ def slices() -> list[dict]:
 
 
 def sample() -> tuple[list[str], list[list[str]]]:
-    """Real rows off the newest sealed copy of each list, air only, plain text.
+    """Texas what-moved rows only. Arizona is refused and is not in this file.
 
-    This feeds the permanent sample.json and sample.csv addresses. A value the
-    agency never published comes back empty here; the web pages mark it instead.
+    The paid file is the applications that appeared or changed stage between two
+    sealed copies, not today's free pending list. Header says Company, never
+    Applicant — that word is a person-column the send check refuses.
     """
-    headers = ["State", "Agency", "Applicant", "Site", "Permit number", "Date filed",
-               "Stage", "Link to the agency paper", "Sealed copy"]
+    headers = [
+        "State", "Agency", "Company", "Site", "Permit number", "Date filed",
+        "Stage on the earlier copy", "Stage on the later copy", "What changed",
+        "Link to the agency paper", "Earlier sealed copy", "Later sealed copy",
+    ]
     rows: list[list[str]] = []
     with _conn() as c:
-        # Texas only. Arizona is refused and is not in the paid file, so it is
-        # not in the sample of that file either.
-        cfg, per = TX, 25
-        day = _q(c, "SELECT MAX(snapshot_date) FROM application WHERE source_id=?",
-                 cfg["source_id"])[0][0]
-        if day:
-            got = sorted(
-                _rows(c, cfg, day),
-                key=lambda r: (str(r[3] or "")[6:10] + str(r[3] or "")[:2] + str(r[3] or "")[3:5]),
-                reverse=True)
-            for r in [x for x in got if _named(x)][:per]:
-                rows.append([cfg["state"],
-                             cfg["agency"].replace("the ", "").capitalize(),
-                             str(r[1] or ""), str(r[2] or ""), str(r[0] or ""),
-                             _d(r[3]), str(r[4] or ""), str(r[5] or ""), _d(day)])
+        days = _sealed_days(c, TX["source_id"])
+        if len(days) < 2:
+            return headers, rows
+        old_day, new_day = _window(days)
+        appeared, moved = _events(c, TX, old_day, new_day)
+        agency = TX["agency"].replace("the ", "").capitalize()
+        for r in appeared:
+            if len(rows) >= 25:
+                break
+            rows.append([
+                TX["state"], agency, str(r[1] or ""), str(r[2] or ""),
+                str(r[0] or ""), _d(r[3]), "", str(r[4] or ""),
+                f"Not on our {_d(old_day)} copy", str(r[5] or ""),
+                _d(old_day), _d(new_day),
+            ])
+        for r, was in moved:
+            if len(rows) >= 25:
+                break
+            was_s = " / ".join(w for w in was if w) or "blank"
+            now_s = str(r[4] or "")
+            rows.append([
+                TX["state"], agency, str(r[1] or ""), str(r[2] or ""),
+                str(r[0] or ""), _d(r[3]), was_s, now_s,
+                f"{was_s} → {now_s}", str(r[5] or ""),
+                _d(old_day), _d(new_day),
+            ])
     return headers, rows
 
 
@@ -1395,7 +1410,7 @@ def _shop(c: sqlite3.Connection, tx_days: list[str], az_days: list[str]) -> dict
                      html.escape(f"{' / '.join(w for w in was if w) or 'blank'} "
                                  f"→ {r[4]}")])
     return {
-        "headers": ["State", "Applicant", "Site", "Permit number", "What changed"],
+        "headers": ["State", "Company", "Site", "Permit number", "What changed"],
         "rows": rows,
         "caption": (f"Named Texas applications that appeared or moved a stage between our "
                     f"{_d(old_day)} and {_d(new_day)} copies. Arizona is not in this file."),

@@ -1,36 +1,36 @@
 {
   "family": "vendor-prices",
-  "generated": "2026-09-04",
+  "generated": "2026-09-05",
   "slices": [
     {
       "slug": "coverage",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-06-10",
-      "runs": 83,
-      "row_count": 39176,
+      "runs": 84,
+      "row_count": 39648,
       "cadence_days": 1
     },
     {
       "slug": "changed-every-read",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-06-10",
-      "runs": 83,
-      "row_count": 5039,
+      "runs": 84,
+      "row_count": 5098,
       "cadence_days": 1
     },
     {
       "slug": "never-answered",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-06-10",
-      "runs": 83,
-      "row_count": 3320,
+      "runs": 84,
+      "row_count": 3360,
       "cadence_days": 1
     },
     {
       "slug": "stopped-answering",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-06-10",
-      "runs": 83,
+      "runs": 84,
       "row_count": 381,
       "cadence_days": 1
     }

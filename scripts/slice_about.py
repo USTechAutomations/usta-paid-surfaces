@@ -74,6 +74,9 @@ INVENTORY = (
     ("mesa_code_compliance", "Mesa code cases",
      "Code-compliance cases the City of Mesa, Arizona has opened against a property.",
      ("case_snapshot",), "mesa-code"),
+    ("distress_signals", "Arizona trustee sales",
+     "The front of one Arizona trustee's public sale list. The list overwrites; we keep a dated copy.",
+     ("nts",), "trustee-sales"),
     ("usgs_quakes", "Earthquake records",
      "Every earthquake the US Geological Survey had located worldwide, as USGS described "
      "it that day.",

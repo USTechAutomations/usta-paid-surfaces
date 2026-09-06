@@ -56,7 +56,9 @@ PERMISSION
     bid, maximum bid and a cancelled flag. There is no name and no street
     address in any of the 454 rows, and none inside the raw copy either.
 
-NOT PRICED. That is deliberate and it is not this module's decision to make.
+PRICED $349 once, 2026-08-28, by operator name. One dated pack. After pay,
+Stripe sends the buyer to the paid-file page; nobody emails them. The amount
+lives in catalog.json, not here.
 """
 from __future__ import annotations
 
@@ -314,7 +316,7 @@ def held_sentence(h: dict) -> str:
         f"We hold {h['row_count']:,} dated rows on {len(h['days'])} days, "
         f"{d(h['oldest'])} to {d(h['newest'])}, covering {h['files']:,} properties "
         f"in {len(h['counties'])} counties.{dark} It is the front of one trustee's "
-        f"list, not the whole state, and we will say so again when we reply."
+        f"list, not the whole state."
     )
 
 
@@ -797,22 +799,24 @@ def family_spec() -> dict:
                 "that moved</strong>"
                 '<span class="sub">The full copy of the list as it stood on each day we '
                 "captured it.</span></li>\n"
-                "        <li><strong>The counties you name</strong>"
-                f'<span class="sub">Any of the {len(h["counties"])} we have seen, or all '
-                "of them.</span></li>\n"
+                "        <li><strong>Every county on this one list</strong>"
+                f'<span class="sub">{len(h["counties"])} counties we have seen. Not the '
+                "whole state, and not a custom cut.</span></li>\n"
                 "        <li><strong>The read date, on every file</strong>"
                 f'<span class="sub">Every file says our newest read is {d(h["newest"])}, '
                 "so an old file can never be mistaken for a current one.</span></li>\n"
+                "        <li><strong>No new file next month unless you buy again</strong>"
+                '<span class="sub">This is one dated pack, not a subscription.</span></li>\n'
                 "      </ul>",
             ),
             section(
                 "How it works",
                 None,
                 '      <ol class="steps">\n'
-                "        <li>You email us and say which counties you follow.</li>\n"
-                "        <li>We tell you what our dated copies hold for them, and we name "
-                "the date of our newest one.</li>\n"
-                "        <li>A person emails you the file. There is nothing to pay.</li>\n"
+                "        <li>You pay $349 once on this page.</li>\n"
+                "        <li>Stripe sends you to a page with your payment id in the "
+                "address bar.</li>\n"
+                "        <li>The dated pack appears on that page. Nobody emails you.</li>\n"
                 "      </ol>",
             ),
         ]
@@ -822,7 +826,10 @@ def family_spec() -> dict:
             "ready": True,
             "group": "Public records",
             "cadence": _fam_cadence_short(h["days"]),
-            "cadence_long": "A dated copy of the front of one Arizona trustee's sale list",
+            "cadence_long": (
+                "One dated pack. The public list overwrites. We do not send a "
+                "new copy unless you buy again."
+            ),
             "crumb": "Arizona trustee sales",
             "h1": "Arizona trustee sale postponements",
             "price": PRICE,
@@ -843,14 +850,13 @@ def family_spec() -> dict:
                 "later.</strong>"
             ),
             "pill_label": "Sale dates that moved on this page",
-            "subj": "Arizona%20trustee%20sales%20%E2%80%94%20what%20do%20you%20hold",
-            "contact_h2": "Start the thread",
+            "subj": "Arizona%20trustee%20sale%20postponements",
+            "contact_h2": "Buy this dated pack",
             "contact_p": (
-                "We are not charging for this feed yet. Tell us which Arizona counties "
-                "you follow and we will tell you what our dated copies hold for them, "
-                "and how old the newest one is, before you spend anything."
+                "This is one dated pack. After you pay, the file appears on the "
+                "paid-file page. Nobody emails you."
             ),
-            "contact_cta": "Email us the counties you are following",
+            "contact_cta": "Ask what we hold for this pack",
             # One sentence for the parent and the three child pages, so they
             # cannot drift apart. The parent counted its own copy of this
             # already; the children were reading a typed one out of the catalog,

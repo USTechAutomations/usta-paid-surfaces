@@ -822,29 +822,30 @@ def main() -> None:
         if fid in vetoed:
             continue
         slice_dirs = [d for d in sorted(fam_dir.iterdir()) if d.is_dir() and (d / "index.html").is_file()]
-        if not slice_dirs:
-            continue
-        if fid not in parents:
-            fail(
-                f"{fid} has child pages but no page of its own on the site. "
-                f"If it is a new family, run scripts/merge_catalog_adds.py and build its family page first."
-            )
-        for d in slice_dirs:
-            src = d / "index.html"
-            name = re.search(r'<meta name="data-slice-name" content="([^"]*)">', src.read_text(encoding="utf-8"))
-            if not name:
-                fail(f"{fid}/{d.name} has no data-slice-name; rebuild it with scripts/build_slices.py")
-            crumb = f'<a href="{BASE}/{fid}">{parents[fid]}</a><span class="sep">/</span>{name.group(1)}'
-            page = build_page(src, fid, crumb, path=f"{fid}/{d.name}")
-            outdir = DIST / fid / d.name
-            outdir.mkdir(parents=True, exist_ok=True)
-            (outdir / "index.html").write_text(page, encoding="utf-8")
-            built.append(f"/feeds/{fid}/{d.name}")
-        # The two permanent sample addresses ride along with the pages they came from.
-        for name in ("sample.json", "sample.csv"):
-            f = fam_dir / name
-            if f.is_file():
-                shutil.copy2(f, DIST / fid / name)
+        if slice_dirs:
+            if fid not in parents:
+                fail(
+                    f"{fid} has child pages but no page of its own on the site. "
+                    f"If it is a new family, run scripts/merge_catalog_adds.py and build its family page first."
+                )
+            for d in slice_dirs:
+                src = d / "index.html"
+                name = re.search(r'<meta name="data-slice-name" content="([^"]*)">', src.read_text(encoding="utf-8"))
+                if not name:
+                    fail(f"{fid}/{d.name} has no data-slice-name; rebuild it with scripts/build_slices.py")
+                crumb = f'<a href="{BASE}/{fid}">{parents[fid]}</a><span class="sep">/</span>{name.group(1)}'
+                page = build_page(src, fid, crumb, path=f"{fid}/{d.name}")
+                outdir = DIST / fid / d.name
+                outdir.mkdir(parents=True, exist_ok=True)
+                (outdir / "index.html").write_text(page, encoding="utf-8")
+                built.append(f"/feeds/{fid}/{d.name}")
+        # Samples belong to the family, not to the child pages. A parent-only
+        # pack (no slices) still owes the two sample files or its sample door 404s.
+        if fid in parents:
+            for name in ("sample.json", "sample.csv"):
+                f = fam_dir / name
+                if f.is_file():
+                    shutil.copy2(f, DIST / fid / name)
 
     # An address we published before and did not build this run still has to
     # answer. See write_retired(): the file that promises this had no code

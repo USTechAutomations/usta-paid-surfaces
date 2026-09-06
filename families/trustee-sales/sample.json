@@ -1,8 +1,6 @@
 {
   "family": "trustee-sales",
-  "clock": "distress_signals",
-  "generated": "2026-09-04",
-  "rewritten_at": "2026-09-05T06:04:40+00:00",
+  "generated": "2026-09-05",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/trustee-sales",
   "rows_published": 10,
@@ -85,12 +83,5 @@
       "3 Sep 2026 7 days later",
       "27 Aug 2026 \u2192 28 Aug 2026"
     ]
-  ],
-  "net_new_ids": 9,
-  "appeared_ids": 0,
-  "disappeared_ids": 9,
-  "newer_seal": "2026-09-05",
-  "older_seal": "2026-09-04",
-  "no_movers": false,
-  "slice_diff": true
+  ]
 }

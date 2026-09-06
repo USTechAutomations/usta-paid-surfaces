@@ -1,77 +1,77 @@
 {
   "family": "crawler",
-  "generated": "2026-09-04",
+  "generated": "2026-09-05",
   "slices": [
     {
       "slug": "gptbot",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-06-09",
-      "runs": 306,
-      "row_count": 185,
+      "runs": 327,
+      "row_count": 194,
       "cadence_days": 1
     },
     {
       "slug": "claudebot",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-06-09",
-      "runs": 306,
-      "row_count": 191,
+      "runs": 327,
+      "row_count": 199,
       "cadence_days": 1
     },
     {
       "slug": "google-extended",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-06-09",
-      "runs": 306,
-      "row_count": 180,
+      "runs": 327,
+      "row_count": 184,
       "cadence_days": 1
     },
     {
       "slug": "ccbot",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-06-09",
-      "runs": 306,
-      "row_count": 156,
+      "runs": 327,
+      "row_count": 161,
       "cadence_days": 1
     },
     {
       "slug": "perplexitybot",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-06-09",
-      "runs": 306,
-      "row_count": 123,
+      "runs": 327,
+      "row_count": 126,
       "cadence_days": 1
     },
     {
       "slug": "started-blocking",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-06-09",
-      "runs": 306,
-      "row_count": 983,
+      "runs": 327,
+      "row_count": 963,
       "cadence_days": 1
     },
     {
       "slug": "stopped-blocking",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-06-09",
-      "runs": 306,
+      "runs": 327,
       "row_count": 34,
       "cadence_days": 1
     },
     {
       "slug": "stopped-naming",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-06-09",
-      "runs": 306,
-      "row_count": 497,
+      "runs": 327,
+      "row_count": 515,
       "cadence_days": 1
     },
     {
       "slug": "coverage",
-      "newest": "2026-09-04",
+      "newest": "2026-09-05",
       "oldest": "2026-06-09",
-      "runs": 306,
-      "row_count": 72150,
+      "runs": 327,
+      "row_count": 73200,
       "cadence_days": 1
     }
   ]
