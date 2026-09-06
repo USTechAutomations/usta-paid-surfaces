@@ -89,6 +89,7 @@ SKU_FOR_FEED = {
     "ai-prices": "ai-price-change-record",
     "air-permits": "air-permits-texas-feed",
     "civic-agenda": "civic-agenda-change-feed",
+    "changeover-atlas": "changeover-schedule-atlas",
     "crawler": "crawler-policy-sentinel",
     "grid": "permits-queue-sentinel",
     "permit-metros": "permit-metros-arrivals",
@@ -141,6 +142,7 @@ LABEL_FOR_FEED = {
     "grid": "Subscribe — $49 a month",
     "permit-metros": "Subscribe — $79 a month",
     "ttb": "Subscribe — $99 a month",
+    "changeover-atlas": "Subscribe — $49 a month",
 }
 
 # Catalog placeholder written before a Stripe address exists. It is not a

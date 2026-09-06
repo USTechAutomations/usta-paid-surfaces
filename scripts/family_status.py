@@ -226,6 +226,9 @@ SEALED_FILE_STORES: dict[str, str] = {
     "texas-formulary": "/home/gmullins/code/usta-autonomous-packs/var/seals/texas_formulary",
     "hospital-mrf": "/home/gmullins/code/usta-autonomous-packs/var/seals/hospital_mrf",
     "model-cards": "/home/gmullins/code/usta-autonomous-packs/var/seals/model_cards",
+    # Generated weekly packs, not a collector: the build script writes one dated
+    # JSON+CSV pair a week and nothing in it is read from the world.
+    "changeover-atlas": "/home/gmullins/.hermes/state/changeover-atlas",
 }
 SEALED_FILE_LANES: dict[str, tuple[Lane, ...]] = {
     "ai-terms": (
@@ -243,6 +246,10 @@ SEALED_FILE_LANES: dict[str, tuple[Lane, ...]] = {
     "model-cards": (
         Lane("the public Anthropic system-card PDF", "sealed day files", "sealed",
              "*/meta.json", 1, sealed_files=True),
+    ),
+    "changeover-atlas": (
+        Lane("the weekly packs", "weekly pack files", "snapshot_date",
+             "atlas_*.json", 7, sealed_files=True),
     ),
 }
 

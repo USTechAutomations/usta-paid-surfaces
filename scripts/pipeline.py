@@ -603,6 +603,58 @@ def _sources_read_now(fid: str, today: dt.date) -> Result:
                   {"store": store, "sources": sorted(ids), "unattributed": unattributed})
 
 
+# Where the operator's dated acks live. A family whose rows are GENERATED on
+# this machine has no publisher whose terms a person could read, so the one
+# written decision that can stand in for a permission note is the operator's
+# own, filed here by hand and dated. Software never writes one of these.
+APPROVALS = Path.home() / ".hermes" / "state" / "approvals"
+GENERATED_ACK_REVIEW = re.compile(r"Re-review on:\**\s*(\d{4}-\d{2}-\d{2})")
+
+
+def _generated_sale_ack(sid: str, today: dt.date, approvals: Path | None = None) -> Result:
+    """The lawful verdict for a family whose rows are generated, not read.
+
+    There is no source to clear, and that is exactly why this cannot be a free
+    pass: "nothing was read" is the kind of sentence that gets written over a
+    scraper. The rule is the same as for every other note on this estate --
+    only a written, dated, human decision counts, and a lapsed one is unknown
+    again. The decision is the operator's ack file
+    approvals/<date>-<family>-*may-be-sold*.md, which must quote the operator
+    and carry a re-review date.
+    """
+    root = approvals if approvals is not None else APPROVALS
+    hits = sorted(root.glob(f"*-{sid}-*may-be-sold*.md")) if root.is_dir() else []
+    if not hits:
+        return Result(UNKNOWN,
+                      "its rows are generated on this machine, so there is no publisher's "
+                      "terms to read; but the operator has not said in writing that generated "
+                      f"rows may be sold (no *-{sid}-*may-be-sold*.md under approvals/)",
+                      {"position": "unknown", "generated": True})
+    path = hits[-1]
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError as exc:
+        return Result(UNKNOWN, f"the ack file {path.name} could not be read: {exc}",
+                      {"position": "unknown", "generated": True, "ack": path.name})
+    acked = path.name[:10]
+    m = GENERATED_ACK_REVIEW.search(text)
+    review = m.group(1) if m else None
+    ev = {"position": "unknown", "generated": True, "ack": path.name,
+          "acked_on": acked, "review_on": review}
+    if "may be sold" not in text.lower():
+        return Result(UNKNOWN, f"{path.name} is filed as an ack but does not say the rows "
+                               f"may be sold", ev)
+    if not review:
+        return Result(UNKNOWN, f"{path.name} carries no 'Re-review on:' date, so nobody has "
+                               f"said when this decision must be looked at again", ev)
+    if review < today.isoformat():
+        return Result(UNKNOWN, f"the operator's ack in {path.name} lapsed on {review}", ev)
+    ev["position"] = "open"
+    return Result(PASS, f"generated on this machine, nothing read from anyone; the operator "
+                        f"said in writing on {acked} that these generated rows may be sold "
+                        f"({path.name}), to be looked at again by {review}", ev)
+
+
 def g_lawful(s: Surface, today: dt.date) -> Result:
     """open, refused, or unknown -- and unknown is an honest answer.
 
@@ -623,6 +675,8 @@ def g_lawful(s: Surface, today: dt.date) -> Result:
     """
     if s.kind != "feed":
         return Result(NA, "this page has no outside source behind it")
+    if (s.fam or {}).get("kind") == "generated":
+        return _generated_sale_ack(s.sid, today)
 
     try:
         import family_status as fs
@@ -963,6 +1017,9 @@ def g_keepable(s: Surface, lawful: Result, today: dt.date) -> Result:
         return Result(NA, "this page has no outside source behind it")
 
     ev = lawful.evidence or {}
+    if ev.get("generated"):
+        return Result(NA, "its rows are generated here, nothing is downloaded, so there is "
+                          "no source file to keep or not keep")
     store = ev.get("store")
     used: dict[str, str] = ev.get("notes_used") or {}
     if not store or str(store).startswith("/"):
@@ -3802,6 +3859,26 @@ def selftest() -> int:
                   f"that, not as silence: {r.because}")
         else:
             print(f"FAIL  re-sealing was not named: {r.verdict} -- {r.because}")
+            fails += 1
+
+        # GENERATED ROWS. A family with no outside source must still not sell on
+        # nothing: no ack file is unknown, a dated ack with a future re-review is
+        # open, and a lapsed ack is unknown again. Three states, all three counted.
+        acks = tmp / "approvals"
+        acks.mkdir()
+        t = dt.date(2026, 9, 5)
+        r0 = _generated_sale_ack("a-made-up-pack", t, acks)
+        (acks / "2026-09-05-a-made-up-pack-generated-data-may-be-sold.md").write_text(
+            "Operator's words: \"The generated data may be sold.\"\n\n**Re-review on:** 2026-12-05.\n",
+            encoding="utf-8")
+        r1 = _generated_sale_ack("a-made-up-pack", t, acks)
+        r2 = _generated_sale_ack("a-made-up-pack", dt.date(2026, 12, 6), acks)
+        if r0.verdict == UNKNOWN and r1.verdict == PASS and r2.verdict == UNKNOWN:
+            print("PASS  a generated family is unknown with no ack, open on a dated operator "
+                  "ack, and unknown again once that ack lapses")
+        else:
+            print(f"FAIL  the generated-rows rule: no-ack={r0.verdict} ack={r1.verdict} "
+                  f"lapsed={r2.verdict}")
             fails += 1
 
         # 12/13. A THIRD STORE SHAPE, described rather than denied. `ai-terms`

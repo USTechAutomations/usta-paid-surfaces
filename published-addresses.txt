@@ -80,6 +80,7 @@ boston/gas-permit
 boston/plumbing-permit
 boston/short-form-bldg-permit
 canary-ledger
+changeover-atlas
 chicago
 chicago/coverage
 chicago/easy-permit-process
