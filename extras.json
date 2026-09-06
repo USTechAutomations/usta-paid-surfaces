@@ -12,7 +12,7 @@
     "id": "offers",
     "short": "Offers and evidence",
     "who": "Small businesses that want one piece of automation built.",
-    "amount": "$200 \u2013 $450",
+    "amount": "$200 – $450",
     "cadence": "fixed price, fixed window",
     "pill": "Live",
     "pill_class": "pill-ready"
@@ -122,6 +122,24 @@
     "who": "Owners of local trade firms who want one page about their trade in their city with only their name on it.",
     "amount": "$249/mo",
     "cadence": "monthly, cancel at month end",
+    "pill": "Live",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "frozen-custody",
+    "short": "Frozen Model Custody",
+    "who": "Teams whose audit must re-run a model exactly as it ran before: same model, same settings, same bytes, next year.",
+    "amount": "$300/mo",
+    "cadence": "monthly per pin",
+    "pill": "Live",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "wrong-wall",
+    "short": "Wrong Wall Report",
+    "who": "Shop owners whose bot rules block the AI shopping agents and let the scrapers in; one dated report for one named site.",
+    "amount": "$249",
+    "cadence": "once, not a feed",
     "pill": "Live",
     "pill_class": "pill-ready"
   },

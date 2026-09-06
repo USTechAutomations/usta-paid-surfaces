@@ -161,6 +161,10 @@ civic-agenda/phoenix
 civic-agenda/seattle
 claim-check
 clean-room-corpus
+clerk-clock
+clerk-clock/austin
+clerk-clock/montgomery-md
+clerk-clock/san-francisco
 coverage
 crawler
 crawler/ccbot
@@ -358,6 +362,7 @@ trustee-sales/coverage
 trustee-sales/postponed
 trustee-sales/second-date
 ttb
+ttb-new-permits
 ttb/california
 ttb/colorado
 ttb/coverage
