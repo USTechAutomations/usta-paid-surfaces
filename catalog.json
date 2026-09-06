@@ -2014,6 +2014,38 @@
         "checked": "2026-09-01",
         "verified": "2026-09-01"
       }
+    },
+    {
+      "id": "frozen-custody",
+      "name": "Frozen Model Custody",
+      "short": "Frozen Model Custody",
+      "who": "Teams who must replay last year's model answer and cannot if the cloud shop deleted that version.",
+      "buyer": "Teams who must replay last year's model answer and cannot if the cloud shop deleted that version",
+      "cadence": "monthly per pin",
+      "cadence_long": "Billed monthly per pin. The pin stays up. You may re-run sealed inputs on that pin. One signed certificate each paid month.",
+      "price": "$300/mo",
+      "sample_status": "pass",
+      "group": "Checks we run for you",
+      "kind": "build",
+      "coverage_what": "A pin and a paper, not a feed",
+      "coverage_how": "The pin stays up. You may re-run sealed inputs on that pin. A person emails you one signed certificate each paid month.",
+      "price_list_note": "Ask before you pay.",
+      "note": "BORN 2026-09-01 in a copy of this repo as a PATCH proposal. PROPOSED. Service, not a data feed. Sample is five identical SHA-256 runs plus vLLM fingerprint vllm-0.25.1-9f488e66 on 2026-09-01. Price $300/mo per pin; three months prepaid is $900 in prose, not on the rail. Guarantee: If a re-run of a sealed input on your pin is not the same bytes, that month is refunded. We do not guarantee the answer is correct. Checkout empty for Fable to mint. Never mint from this note.",
+      "contact_h2": "Ask before you buy",
+      "contact_p": "Name the model version and the settings list you want pinned. We reply with whether that pin is free and the checkout link, before you pay anything.",
+      "contact_cta": "Email us before you pay",
+      "contact_note": "There is no pay button on this page until a payment link is minted.",
+      "foot": "The five matching hashes on this page were counted off a real run on 2026-09-01. This is not a chatbot subscription. We do not sell a weights download.",
+      "checkout": {
+        "terms": "$300/mo per pin. If a re-run of a sealed input on your pin is not the same bytes, that month is refunded. We do not guarantee the answer is correct. Three months prepaid is $900; that amount is not the rail price.",
+        "after": "Pin live within one business day of payment. First certificate the same day you run your first sealed input.",
+        "status": "live",
+        "url": "https://buy.stripe.com/28E14g28S7Cy9bKaHo0sU1j",
+        "label": "Pin a model — $300 a month",
+        "lands_on": "buy.stripe.com",
+        "checked": "2026-09-01",
+        "verified": "2026-09-01"
+      }
     }
   ],
   "map": "MAP.md",

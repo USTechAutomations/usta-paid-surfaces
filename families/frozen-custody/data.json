@@ -1,0 +1,14 @@
+{
+  "family": "frozen-custody",
+  "generated": "2026-09-01",
+  "slices": [
+    {
+      "slug": "certificate",
+      "newest": "2026-09-01",
+      "oldest": "2026-09-01",
+      "runs": 5,
+      "row_count": 5,
+      "cadence_days": 30
+    }
+  ]
+}
