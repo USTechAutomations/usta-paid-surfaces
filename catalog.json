@@ -15,15 +15,15 @@
       "price": "$49/mo",
       "sample_status": "pass",
       "live": "https://ustechautomations.com/permits/offers/permits-queue-sentinel",
-      "note": "OFF SALE 2026-08-24, on the Southwest Power Pool's own written terms, and this is a permission decision rather than a product one. SPP's terms page says permission to copy and distribute their material is granted \"(with appropriate citation) EXCEPT when such materials will be used, in whole or in part, within a commercial publication\", and that \"Any commercial use of these materials requires prior, express written authorization\". We have no such authorization. SPP rows are a quarter of what this feed sold: at 2026-08-23 we held 24 SPP copies, and the family page's own sample line counts 1,028 SPP rows that only the second copy has. Their refusal is scoped to MONEY and to nothing else, which makes SPP the one publisher on this estate for whom taking the price off is a real answer rather than a dodge: unpriced, their citation condition is the whole of it, and the grid pages now carry that citation next to the rows. THE PAGES STAY UP AND STAY FREE. NOTHING WAS DESTROYED IN STRIPE: the link, its price and its product are untouched and still carry their stamps; the team lead switched the two grid links off and read them back as active=false on 2026-08-24 at about 21:15 UTC. Never mint a second. TO SELL THIS AGAIN there are exactly two lawful routes and both are the operator's call: get SPP's prior express written authorization, or build a product that does not contain SPP rows at all -- and note that New York and New England grant nothing either, so they are UNKNOWN, not a yes. The terms this row carried while it was on sale were: \"$99 a month, billed monthly, for the four queues we still read: CAISO, ISO-NE, NYISO and SPP. MISO and ERCOT are not read any more and no new copy of either is coming. Cancel any month by email, with no account to close and no notice period.\" and after payment: \"After you pay, a person emails you the first what-moved file as a CSV within one working day, then a new one every week for as long as the subscription runs. Each file names any queue we could not collect that week.\" The checkout URL it carried was https://ustechautomations.com/permits/offers/permits-queue-sentinel/buy labelled \"Subscribe — $99 a month\", last verified 2026-08-23. THAT OFFER PAGE IS NOT PART OF THIS SITE AND WAS NOT TOUCHED: it lives under /permits, which this build does not own or rebuild, so whether it still offers this feed is UNKNOWN from here and is somebody else's surface to check. Also 2026-08-24: every grid page gained a \"Who published the data on this page\" section naming in full the operators whose rows that page holds, because the California ISO's written terms allow this use only on condition of credit and the only source name on the pages sat inside the subscribe box, which is product copy and not a credit. PRIOR RECORD, KEPT UNCHANGED EXCEPT THAT THE $175-vs-$99 SENTENCE BELOW IS NOW STALE AND CLOSED -- the site was rebuilt and deployed on 2026-08-24 and the pages printed $99 before they came off sale entirely: Price cut to $99/mo on 2026-08-22 by the wave-4 decision sheet. The pay link was minted at $99/mo the same day on the existing 'Interconnection queue sentinel' Stripe product, so the name on a buyer's card statement is unchanged; the superseded $175/mo link was switched off in Stripe so the old address can no longer take a card. The permits record charges 9900 and the offer page at the live address above prints $99/month, so page, record and charge now agree. Until this site is rebuilt and deployed the published page still prints $175/mo while the button charges $99 — the disagreement is in the buyer's favour and closes on the next deploy. Read daily since 2026-08-09, weekly before that: recounted 2026-08-23, 25 sealed dates from 2026-06-11 to 2026-08-23 in project_snapshots, median gap 1 day. Per queue on that count: CAISO 24 copies (22 Aug missing), ISO-NE 25, NYISO 22 from 26 Jun, SPP 24 (13 Aug missing); MISO stops at 2026-08-06 and ERCOT at 2026-07-30. ERCOT and MISO are behind the rest. Do not rebuild the finished /permits page.cadence_long added 2026-08-24. Every child pay box read \"$99/mo · daily seals\", taken from the cadence field, and that was false for a third of what this row sells: on 2026-08-24 CAISO held 13 of the last 14 days, ISO-NE 14, NYISO 14 and SPP 13, while ERCOT held 0 of 14 (last copy 2026-07-30) and MISO 0 of 14 (last copy 2026-08-06). The checkout terms already said the subscription covers only the four queues we still read; the pay box did not, and the pay box is the line next to the button. Counted off snapshot_date in project_snapshots, never off a cadence number: a cadence is a median gap and a median cannot see a queue that stopped. The family page is NOT built from this field and is unchanged.\n\nPREP 2026-08-25 (task-m5-w8-flips-prep, PROPOSED): price put back at $99/mo for a California ISO-only weekly what-moved file. SPP / ISO-NE / NYISO / MISO / ERCOT are not in the paid file. checkout.url is the placeholder TO-MINT; Claude mints. Status left unset until verify_checkouts after mint.\n\nRULING 2026-08-25 (Claude lead, harvest rulings file): price set at $49/mo, not the $99 this row carried for the four-queue product. The paid file is now California ISO only, and its own diff volume measured 16 status moves across 26 seals. The engine SKU amount must read 4900 cents before minting; the mint script refuses any disagreement.",
+      "note": "OFF SALE 2026-08-24, on the Southwest Power Pool's own written terms, and this is a permission decision rather than a product one. SPP's terms page says permission to copy and distribute their material is granted \"(with appropriate citation) EXCEPT when such materials will be used, in whole or in part, within a commercial publication\", and that \"Any commercial use of these materials requires prior, express written authorization\". We have no such authorization. SPP rows are a quarter of what this feed sold: at 2026-08-23 we held 24 SPP copies, and the family page's own sample line counts 1,028 SPP rows that only the second copy has. Their refusal is scoped to MONEY and to nothing else, which makes SPP the one publisher on this estate for whom taking the price off is a real answer rather than a dodge: unpriced, their citation condition is the whole of it, and the grid pages now carry that citation next to the rows. THE PAGES STAY UP AND STAY FREE. NOTHING WAS DESTROYED IN STRIPE: the link, its price and its product are untouched and still carry their stamps; the team lead switched the two grid links off and read them back as active=false on 2026-08-24 at about 21:15 UTC. Never mint a second. TO SELL THIS AGAIN there are exactly two lawful routes and both are the operator's call: get SPP's prior express written authorization, or build a product that does not contain SPP rows at all -- and note that New York and New England grant nothing either, so they are UNKNOWN, not a yes. The terms this row carried while it was on sale were: \"$99 a month, billed monthly, for the four queues we still read: CAISO, ISO-NE, NYISO and SPP. MISO and ERCOT are not read any more and no new copy of either is coming. Cancel any month by email, with no account to close and no notice period.\" and after payment: \"After you pay, a person emails you the first what-moved file as a CSV within one working day, then a new one every week for as long as the subscription runs. Each file names any queue we could not collect that week.\" The checkout URL it carried was https://ustechautomations.com/permits/offers/permits-queue-sentinel/buy labelled \"Subscribe \u2014 $99 a month\", last verified 2026-08-23. THAT OFFER PAGE IS NOT PART OF THIS SITE AND WAS NOT TOUCHED: it lives under /permits, which this build does not own or rebuild, so whether it still offers this feed is UNKNOWN from here and is somebody else's surface to check. Also 2026-08-24: every grid page gained a \"Who published the data on this page\" section naming in full the operators whose rows that page holds, because the California ISO's written terms allow this use only on condition of credit and the only source name on the pages sat inside the subscribe box, which is product copy and not a credit. PRIOR RECORD, KEPT UNCHANGED EXCEPT THAT THE $175-vs-$99 SENTENCE BELOW IS NOW STALE AND CLOSED -- the site was rebuilt and deployed on 2026-08-24 and the pages printed $99 before they came off sale entirely: Price cut to $99/mo on 2026-08-22 by the wave-4 decision sheet. The pay link was minted at $99/mo the same day on the existing 'Interconnection queue sentinel' Stripe product, so the name on a buyer's card statement is unchanged; the superseded $175/mo link was switched off in Stripe so the old address can no longer take a card. The permits record charges 9900 and the offer page at the live address above prints $99/month, so page, record and charge now agree. Until this site is rebuilt and deployed the published page still prints $175/mo while the button charges $99 \u2014 the disagreement is in the buyer's favour and closes on the next deploy. Read daily since 2026-08-09, weekly before that: recounted 2026-08-23, 25 sealed dates from 2026-06-11 to 2026-08-23 in project_snapshots, median gap 1 day. Per queue on that count: CAISO 24 copies (22 Aug missing), ISO-NE 25, NYISO 22 from 26 Jun, SPP 24 (13 Aug missing); MISO stops at 2026-08-06 and ERCOT at 2026-07-30. ERCOT and MISO are behind the rest. Do not rebuild the finished /permits page.cadence_long added 2026-08-24. Every child pay box read \"$99/mo \u00b7 daily seals\", taken from the cadence field, and that was false for a third of what this row sells: on 2026-08-24 CAISO held 13 of the last 14 days, ISO-NE 14, NYISO 14 and SPP 13, while ERCOT held 0 of 14 (last copy 2026-07-30) and MISO 0 of 14 (last copy 2026-08-06). The checkout terms already said the subscription covers only the four queues we still read; the pay box did not, and the pay box is the line next to the button. Counted off snapshot_date in project_snapshots, never off a cadence number: a cadence is a median gap and a median cannot see a queue that stopped. The family page is NOT built from this field and is unchanged.\n\nPREP 2026-08-25 (task-m5-w8-flips-prep, PROPOSED): price put back at $99/mo for a California ISO-only weekly what-moved file. SPP / ISO-NE / NYISO / MISO / ERCOT are not in the paid file. checkout.url is the placeholder TO-MINT; Claude mints. Status left unset until verify_checkouts after mint.\n\nRULING 2026-08-25 (Claude lead, harvest rulings file): price set at $49/mo, not the $99 this row carried for the four-queue product. The paid file is now California ISO only, and its own diff volume measured 16 status moves across 26 seals. The engine SKU amount must read 4900 cents before minting; the mint script refuses any disagreement.",
       "group": "Energy and siting",
       "short": "Queue changes",
       "who": "Energy researchers, journalists, and interconnection-software vendors.",
       "checkout": {
-        "terms": "$49 a month, billed monthly, for dated what-moved files of the California ISO interconnection queue only. Not the Southwest Power Pool, not ISO New England, not the New York ISO, and not a four-queue blend. One file a week, built from daily seals. A week with no tracked-field moves is still sent: added 0, removed 0, changed 0, plus the two content hashes of the workbooks compared. This file uses material published by the California ISO. Copyright © 2026 California Independent System Operator. All rights reserved. Their terms say \"Most of the materials\", not all. This file does not claim the Public Queue Report is inside that \"Most\". Cancel any month by email, with no account to close and no notice period.",
+        "terms": "$49 a month, billed monthly, for dated what-moved files of the California ISO interconnection queue only. Not the Southwest Power Pool, not ISO New England, not the New York ISO, and not a four-queue blend. One file a week, built from daily seals. A week with no tracked-field moves is still sent: added 0, removed 0, changed 0, plus the two content hashes of the workbooks compared. This file uses material published by the California ISO. Copyright \u00a9 2026 California Independent System Operator. All rights reserved. Their terms say \"Most of the materials\", not all. This file does not claim the Public Queue Report is inside that \"Most\". Cancel any month by email, with no account to close and no notice period.",
         "after": "After you pay, a person emails you the first California ISO what-moved file as a CSV within one working day, then a new one every week for as long as the subscription runs. Each file names the two sealed dates compared. If we could not collect that week, the file says so rather than repeating itself.",
         "url": "https://buy.stripe.com/8x214gdRAf5087G7vc0sU12",
-        "label": "Subscribe — $49 a month",
+        "label": "Subscribe \u2014 $49 a month",
         "lands_on": "buy.stripe.com",
         "status": "live",
         "checked": "2026-09-06",
@@ -66,12 +66,12 @@
       "short": "TTB appear / disappear list",
       "who": "Beverage compliance and wholesaler ops.",
       "checkout": {
-        "terms": "$99 a month, billed monthly, for one state or territory you name — not the national file. You get every permit that appeared and every permit that stopped being listed between the copies we hold, with the permit number, the city, the state, the industry, and the business name where our copy holds one. Often it does not: across the dated copies we hold today, about half the appear and disappear rows carry no business name. We print the gap rather than filling it in, because a permit number you can look up is worth more than a name we guessed. Cancel any month by email, with no account to close and no notice period.",
-        "after": "After you pay, a person emails you the whole appear / disappear file as a CSV within one working day, and a new one every week for as long as the subscription runs. That weekly email is what we undertake to send you. The TTB says on its own page that it posts updates weekly. We have read the source 4 times — 8, 11, 19 and 25 August 2026 — and the gaps were 3, 8 and 6 days, not one of them 7. What we have measured ourselves does not match that weekly rhythm, so the weekly email is what we undertake to send you, not a rhythm we claim to have seen. Where a week brings no new copy of the source, or we could not collect it, that week's file says so rather than repeating itself, and if we stop being able to read the source at all the file says that too. The TTB publishes the permit list as it stands today and overwrites the last one. It publishes the new permits free each week in its own short file, so most of the appearances in your file can also be had free from the TTB: in the most recent week we sealed, 96 of the 105 appearances were in that free file. What is published nowhere free is the permits that stopped being listed and the quiet changes to permits already on the list, and that is what you are paying us to keep. We tell you exactly which dated copies we hold for your state or territory before you pay anything.",
+        "terms": "$99 a month, billed monthly, for one state or territory you name \u2014 not the national file. You get every permit that appeared and every permit that stopped being listed between the copies we hold, with the permit number, the city, the state, the industry, and the business name where our copy holds one. Often it does not: across the dated copies we hold today, about half the appear and disappear rows carry no business name. We print the gap rather than filling it in, because a permit number you can look up is worth more than a name we guessed. Cancel any month by email, with no account to close and no notice period.",
+        "after": "After you pay, a person emails you the whole appear / disappear file as a CSV within one working day, and a new one every week for as long as the subscription runs. That weekly email is what we undertake to send you. The TTB says on its own page that it posts updates weekly. We have read the source 4 times \u2014 8, 11, 19 and 25 August 2026 \u2014 and the gaps were 3, 8 and 6 days, not one of them 7. What we have measured ourselves does not match that weekly rhythm, so the weekly email is what we undertake to send you, not a rhythm we claim to have seen. Where a week brings no new copy of the source, or we could not collect it, that week's file says so rather than repeating itself, and if we stop being able to read the source at all the file says that too. The TTB publishes the permit list as it stands today and overwrites the last one. It publishes the new permits free each week in its own short file, so most of the appearances in your file can also be had free from the TTB: in the most recent week we sealed, 96 of the 105 appearances were in that free file. What is published nowhere free is the permits that stopped being listed and the quiet changes to permits already on the list, and that is what you are paying us to keep. We tell you exactly which dated copies we hold for your state or territory before you pay anything.",
         "status": "live",
         "url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
         "lands_on": "buy.stripe.com",
-        "label": "Subscribe — $99 a month",
+        "label": "Subscribe \u2014 $99 a month",
         "checked": "2026-09-06",
         "verified": "2026-09-06"
       }
@@ -155,7 +155,7 @@
         "austin": {
           "url": "https://buy.stripe.com/aFafZa3cWg94gEcdTA0sU0T",
           "lands_on": "buy.stripe.com",
-          "label": "Buy the Austin file — $349 once",
+          "label": "Buy the Austin file \u2014 $349 once",
           "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
           "checked": "2026-09-06",
           "status": "live",
@@ -164,7 +164,7 @@
         "cambridge-ma": {
           "url": "https://buy.stripe.com/aFadR2aFo7Cy4VueXE0sU0U",
           "lands_on": "buy.stripe.com",
-          "label": "Buy the Cambridge file — $349 once",
+          "label": "Buy the Cambridge file \u2014 $349 once",
           "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
           "checked": "2026-09-06",
           "status": "live",
@@ -173,7 +173,7 @@
         "cincinnati": {
           "url": "https://buy.stripe.com/00w28kaFo4qmafOdTA0sU0V",
           "lands_on": "buy.stripe.com",
-          "label": "Buy the Cincinnati file — $349 once",
+          "label": "Buy the Cincinnati file \u2014 $349 once",
           "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
           "checked": "2026-09-06",
           "status": "live",
@@ -182,7 +182,7 @@
         "montgomery-md": {
           "url": "https://buy.stripe.com/dRmaEQeVE2ie87G8zg0sU0W",
           "lands_on": "buy.stripe.com",
-          "label": "Buy the Montgomery County file — $349 once",
+          "label": "Buy the Montgomery County file \u2014 $349 once",
           "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
           "checked": "2026-09-06",
           "status": "live",
@@ -191,7 +191,7 @@
         "new-york": {
           "url": "https://buy.stripe.com/aFadR2bJs6yugEc7vc0sU0X",
           "lands_on": "buy.stripe.com",
-          "label": "Buy the New York City file — $349 once",
+          "label": "Buy the New York City file \u2014 $349 once",
           "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
           "checked": "2026-09-06",
           "status": "live",
@@ -200,7 +200,7 @@
         "san-francisco": {
           "url": "https://buy.stripe.com/6oUdR2eVE8GC9bK6r80sU0Y",
           "lands_on": "buy.stripe.com",
-          "label": "Buy the San Francisco file — $349 once",
+          "label": "Buy the San Francisco file \u2014 $349 once",
           "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
           "checked": "2026-09-06",
           "status": "live",
@@ -219,7 +219,7 @@
       "note": "NOT SELLABLE YET, re-decided 2026-08-24. The reason the old note gave is fixed and is no longer the blocker: a price-text detector exists that keys on the plan name and the amount printed next to it, so an edit anywhere else on the page no longer reads as a price change. Two different reasons block it now, and both were counted off the store on 2026-08-24 rather than taken from a note. FIRST, the whole sealed history holds 2 real price changes -- ngrok and secureframe -- against the estate's 5-row floor in scripts/build_slices.py. SECOND, of the 236 companies on this panel, 0 carry a written permission note covering the two page kinds we read: 0 ALLOW, 0 REFUSE, 236 UNKNOWN. A paid file may draw only from sources whose note says ALLOW, so the publishable row count today is 0 whatever the first reason says. Either reason on its own is enough. Do not force this one -- clearing one block leaves the other standing. On the biggest lever: across the two price page kinds we hold 33,984 dated reads and only 1,078 of them carry a plan price we can name; the collector caps a stored page body at 256 KiB (MAX_BODY_BYTES in its store.py) and flags the truncation, so pages bigger than that were sealed cut off. Raising that cap is a collector setting, not a detector fix, and it only helps future reads, because sealed history cannot be re-fetched. 72 sealed dates from 2026-06-10 to 2026-08-24.",
       "group": "Software and AI pages",
       "short": "B2B price-page changes",
-      "who": "Software vendors watching competitors’ public price pages.",
+      "who": "Software vendors watching competitors\u2019 public price pages.",
       "contact_h2": "Start the thread",
       "contact_p": "We are not charging for this feed. A monthly price is a promise that a new file turns up next month, and we will not make that promise until we can tell a real price change from a page that only looks different &mdash; and although we can now tell those apart, only two real price changes exist in everything we hold, which is not a feed. The dated copies below are real and they are free to read. Name the vendors you follow. We reply with how many dated copies we hold for each of them, and we will say plainly that we cannot yet tell you which of those copies changed a price.",
       "contact_cta": "Email us the vendors you follow",
@@ -313,7 +313,7 @@
       "cadence_long": "sealed on some days, not daily, and every missed day is named on the page",
       "price": "Not for sale yet",
       "sample_status": "pass",
-      "note": "Price held at $175/mo, 2026-08-22. 61 sealed dates from 2026-06-11 to 2026-08-22 in the events table, median gap 1 day, biggest gap 8 days. Rows are read live from the civic_agenda clock at build time by scripts/slice_civic_agenda.py. The page must say the 10-18 Aug hole produced nothing and that LA County stops at 18 Aug, and the item-level docket rows belong in the sample file.cadence_long added 2026-08-24. All nine child pay boxes read \"$175/mo · daily seals\", taken from the cadence field. Counted off snapshot_date in the civic_agenda clock on 2026-08-24: every one of the eight governments holds 7 of the last 14 days, missing 11 Aug to 17 Aug. The pages already named that seven-day stretch further down, so each page argued with itself next to a $175 button, and whichever half a buyer believed, one was wrong. The rail and the freshness sentence are now counted off the sealed dates by _recent_reads() in scripts/slice_civic_agenda.py rather than built from cadence_days, which is the literal integer 1 typed into the slice spec and can never say anything but \"every day\".\n\n2026-08-24 -- TWO SOURCES REMOVED BY OPERATOR DECISION, family stays on sale with the other six. Their own written terms were fetched and read before anything was changed; evidence in /home/gmullins/reports/civic-agenda-permission-2026-08-24.md\n  King County, Washington -- REFUSED. Their terms of use say \"You may not publish, display, distribute or commercially exploit any of the the website or app or the content therein without the prior written permission of King County\" (the doubled \"the the\" is theirs). We hold no such permission. That sentence bans PUBLISHING, not only charging, so their material comes off the free pages too, not just the paid ones. Their separate statement that county records are open for public review does NOT answer this: being allowed to look at something and being allowed to republish it are different questions.\n  Mesa, Arizona (agenda site) -- REFUSED. Mesa's policies page puts website content under a Creative Commons Attribution-Noncommercial-Share Alike licence and limits downloads to \"personal, non-commercial use\". This family carries a price. TRAP: Mesa also runs an open-data portal whose licence permits commercial use. It does not help -- that licence names the two hosts it covers and we read neither. We take Mesa's agendas from the council-system supplier. A permission only counts if it reaches the address we actually call. The SAME trap caught King County.\n  NOT THE SAME AS mesa-code: Mesa's BUILDING CODE data IS permitted, because there the publisher connected their licence to the host we really read. Same city, opposite answer, different family. Do not confuse them.\n  THE OTHER SIX ARE NOT ALL CLEARED. Austin is a written PERMISSION -- \"free and without restriction\", \"in the public domain\" -- and asks for credit, which the pages now give. The remaining five (Chicago, Seattle, Phoenix, Columbus, Los Angeles County) wrote nothing we can find and are UNKNOWN. Unknown is not approval.\n  WHY THE PERMISSIONS KEEP MISSING: we do not read these agendas from any city website. Five of the six come from one supplier's programming interface. Every generous licence found so far names the addresses it applies to, and the address our collector actually calls is never one of them. The permissions are real; they are bolted to the wrong door.\n  Chicago is one email from a yes: their terms ban material obtained \"through any means not intentionally made available\", and their own page documents by name the public interface we read -- so our means IS provided. There is simply no sentence about reselling and we are not rounding that up.\n  STRIPE: the existing payment link is stamped feeds_family=civic-agenda and is currently DEACTIVATED. Reactivating it is the operator's decision. NEVER mint a second link -- find the existing one by that stamp.\n  The removal caused no gap in the data. The collector still reads all eight; stopping the two is a separate decision and has not been taken here.\n\n2026-08-24 -- OFF SALE. Taken off sale the same day, in the same change that dropped the two sources. Not a price decision: the build refused to write this family at all while it carried a price, because a priced feed whose source is refused is one of the seven things this estate will not ship (\"priced passes while lawful fails\"). The refusal was correct. Our collector was still reading all eight governments into the store while the page sold six, and read-set != sold-set is exactly what it was naming.\n  WHAT CAME OFF: the price, the checkout terms and the pay button, on the pages AND on the directory card, in one change. The pages stay up as a free display with six governments. King County and Mesa material is gone from the pages, from the sample and from the child pages, which are deleted.\n  STRIPE UNTOUCHED. The existing link is stamped feeds_family=civic-agenda and was deactivated by the operator on 2026-08-24. Nothing was archived, nothing was minted. NEVER mint a second link -- find the existing one by that stamp.\n  TO SELL THIS AGAIN, in this order and not another: (1) the two refused sources are out of universe/clients_v1.json so the collector stops reading them; (2) wait for a seal whose newest day holds six sources and no more -- the gate reads the NEWEST SEALED DAY, so it does not clear the moment the file changes; (3) confirm the gate is green; (4) put the price back across all three surfaces in one change; (5) the operator reactivates the existing link. A price put back before step 2 lands re-refuses the family and jams the estate publish again.",
+      "note": "Price held at $175/mo, 2026-08-22. 61 sealed dates from 2026-06-11 to 2026-08-22 in the events table, median gap 1 day, biggest gap 8 days. Rows are read live from the civic_agenda clock at build time by scripts/slice_civic_agenda.py. The page must say the 10-18 Aug hole produced nothing and that LA County stops at 18 Aug, and the item-level docket rows belong in the sample file.cadence_long added 2026-08-24. All nine child pay boxes read \"$175/mo \u00b7 daily seals\", taken from the cadence field. Counted off snapshot_date in the civic_agenda clock on 2026-08-24: every one of the eight governments holds 7 of the last 14 days, missing 11 Aug to 17 Aug. The pages already named that seven-day stretch further down, so each page argued with itself next to a $175 button, and whichever half a buyer believed, one was wrong. The rail and the freshness sentence are now counted off the sealed dates by _recent_reads() in scripts/slice_civic_agenda.py rather than built from cadence_days, which is the literal integer 1 typed into the slice spec and can never say anything but \"every day\".\n\n2026-08-24 -- TWO SOURCES REMOVED BY OPERATOR DECISION, family stays on sale with the other six. Their own written terms were fetched and read before anything was changed; evidence in /home/gmullins/reports/civic-agenda-permission-2026-08-24.md\n  King County, Washington -- REFUSED. Their terms of use say \"You may not publish, display, distribute or commercially exploit any of the the website or app or the content therein without the prior written permission of King County\" (the doubled \"the the\" is theirs). We hold no such permission. That sentence bans PUBLISHING, not only charging, so their material comes off the free pages too, not just the paid ones. Their separate statement that county records are open for public review does NOT answer this: being allowed to look at something and being allowed to republish it are different questions.\n  Mesa, Arizona (agenda site) -- REFUSED. Mesa's policies page puts website content under a Creative Commons Attribution-Noncommercial-Share Alike licence and limits downloads to \"personal, non-commercial use\". This family carries a price. TRAP: Mesa also runs an open-data portal whose licence permits commercial use. It does not help -- that licence names the two hosts it covers and we read neither. We take Mesa's agendas from the council-system supplier. A permission only counts if it reaches the address we actually call. The SAME trap caught King County.\n  NOT THE SAME AS mesa-code: Mesa's BUILDING CODE data IS permitted, because there the publisher connected their licence to the host we really read. Same city, opposite answer, different family. Do not confuse them.\n  THE OTHER SIX ARE NOT ALL CLEARED. Austin is a written PERMISSION -- \"free and without restriction\", \"in the public domain\" -- and asks for credit, which the pages now give. The remaining five (Chicago, Seattle, Phoenix, Columbus, Los Angeles County) wrote nothing we can find and are UNKNOWN. Unknown is not approval.\n  WHY THE PERMISSIONS KEEP MISSING: we do not read these agendas from any city website. Five of the six come from one supplier's programming interface. Every generous licence found so far names the addresses it applies to, and the address our collector actually calls is never one of them. The permissions are real; they are bolted to the wrong door.\n  Chicago is one email from a yes: their terms ban material obtained \"through any means not intentionally made available\", and their own page documents by name the public interface we read -- so our means IS provided. There is simply no sentence about reselling and we are not rounding that up.\n  STRIPE: the existing payment link is stamped feeds_family=civic-agenda and is currently DEACTIVATED. Reactivating it is the operator's decision. NEVER mint a second link -- find the existing one by that stamp.\n  The removal caused no gap in the data. The collector still reads all eight; stopping the two is a separate decision and has not been taken here.\n\n2026-08-24 -- OFF SALE. Taken off sale the same day, in the same change that dropped the two sources. Not a price decision: the build refused to write this family at all while it carried a price, because a priced feed whose source is refused is one of the seven things this estate will not ship (\"priced passes while lawful fails\"). The refusal was correct. Our collector was still reading all eight governments into the store while the page sold six, and read-set != sold-set is exactly what it was naming.\n  WHAT CAME OFF: the price, the checkout terms and the pay button, on the pages AND on the directory card, in one change. The pages stay up as a free display with six governments. King County and Mesa material is gone from the pages, from the sample and from the child pages, which are deleted.\n  STRIPE UNTOUCHED. The existing link is stamped feeds_family=civic-agenda and was deactivated by the operator on 2026-08-24. Nothing was archived, nothing was minted. NEVER mint a second link -- find the existing one by that stamp.\n  TO SELL THIS AGAIN, in this order and not another: (1) the two refused sources are out of universe/clients_v1.json so the collector stops reading them; (2) wait for a seal whose newest day holds six sources and no more -- the gate reads the NEWEST SEALED DAY, so it does not clear the moment the file changes; (3) confirm the gate is green; (4) put the price back across all three surfaces in one change; (5) the operator reactivates the existing link. A price put back before step 2 lands re-refuses the family and jams the estate publish again.",
       "group": "Local government records",
       "short": "City and county agenda changes",
       "who": "Lobbying and government-affairs teams, land-use lawyers, construction bidders, and local reporters.",
@@ -417,7 +417,7 @@
         "status": "live",
         "url": "https://buy.stripe.com/3cI3co28S8GCbjS16O0sU0R",
         "lands_on": "buy.stripe.com",
-        "label": "Subscribe — $59 a month",
+        "label": "Subscribe \u2014 $59 a month",
         "checked": "2026-09-06",
         "verified": "2026-09-06"
       }
@@ -443,7 +443,7 @@
         "terms": "$79 a month, billed monthly, for dated diffs of the Texas Commission on Environmental Quality pending New Source Review list only. Arizona is not in this file. Texas is read most days, not every day, and every missed day is named on the page. A row leaving the pending list is not an approval. There is no megawatt figure. Source is the TCEQ pending New Source Review list, public domain unless otherwise noted. We do not charge anyone to open TCEQ's own page, and we do not use the TCEQ logo. Cancel any month by email, with no account to close and no notice period.",
         "after": "After you pay, a person emails you the Texas pending-list what-moved file as a CSV within one working day, then a new one most weeks for as long as the subscription runs. Where a stretch has no new sealed copy, that week's file says so.",
         "url": "https://buy.stripe.com/4gMaEQ14O1eafA816O0sU13",
-        "label": "Subscribe — $79 a month",
+        "label": "Subscribe \u2014 $79 a month",
         "lands_on": "buy.stripe.com",
         "status": "live",
         "checked": "2026-09-06",
@@ -493,7 +493,7 @@
       "kind": "build",
       "buyer": "Small businesses that want one piece of automation built",
       "cadence": "Fixed price, fixed window",
-      "price": "$200 – $450",
+      "price": "$200 \u2013 $450",
       "sample_status": "pass",
       "live": "https://ustechautomations.com/feeds/offers/",
       "note": "Not a dated feed. This is a door to the 11 open automation builds at ustechautomations.com/offers, which keep their own address. kind=\"build\" keeps it out of the feed counts on the hub and out of the reader table on families/coverage/, because it has no clock, no data table and no freshness: counting it as a feed would overstate both. Counted from the live offers page on 2026-08-23: 11 offers, $200 to $450, 8 paid once and 3 priced per month, delivery windows of 3 to 12 days, every offer stating one. Those figures are recounted on every build by check_offer_counts() in scripts/build_extras.py, which stops the build if the source has moved. CORRECTED 2026-08-23: the page said all 11 were \"one time\" and 3 of them were priced per month on 13 Aug and still are, so the claim was wrong when it was hand-typed on 22 Aug, not merely stale. OPEN, OPERATOR DECISION: there is no refund or delivery-failure remedy anywhere in this estate -- the only \"guarantee\" wording is the provenance charter, which is about traceability, not money. The terms below therefore say when we charge and promise to tell you if the window slips, and claim no refund. Do not add one without the operator.",
@@ -548,7 +548,7 @@
         "after": "After you pay, Stripe sends you to a page with your payment id. The dated pack appears there. Nobody emails you.",
         "status": "live",
         "url": "https://buy.stripe.com/8x26oA7tc9KGds02aS0sU1b",
-        "label": "Buy the pack — $349 once",
+        "label": "Buy the pack \u2014 $349 once",
         "lands_on": "buy.stripe.com",
         "checked": "2026-09-06",
         "verified": "2026-09-06"
@@ -577,7 +577,7 @@
       "group": "Energy and siting",
       "short": "Grid peak calls, scored",
       "who": "Factories and data centres whose grid bill is set by their load during a few peak hours.",
-      "note": "BORN NOT FOR SALE 2026-08-25 (dated from the newest rows in the recorder's own store, not from this machine's clock, which reads two different days depending which setting is asked). WHAT THE LANE DOES: a factory or data centre's grid bill for a whole year is largely set by how much it was pulling during a handful of hours -- the hours when the whole grid was at its busiest. Once a day, for the day after, the recorder reads the grid operator's own published forecast and writes down one of two things: cut your load, or ordinary day. That is a call. It is sealed with a fingerprint at the moment it is made, before anyone knows how the day went, and it is scored afterwards against the operator's own record of what actually happened -- wrong calls included, one row per call. NOTHING HAS EVER BEEN SOLD HERE and there is no price on the page. The lane's own spec describes a possible paid product later (the calls themselves, ahead of the day) but that is a separate decision that has not been made, and the recorder's own can_we_sell() answers no and names the reasons. The page is the free scoreboard, and it is free forever: the whole record is on it. NO SAMPLE FILE, ON PURPOSE, AND sample_status IS 'fail' RATHER THAN 'on-page' FOR A REASON. There is no file behind this page to slice, so there is nothing to sample and the pill saying 'sample not ready' is correct. It is NOT 'on-page' either: on-page means the whole of what we hold is printed on the page, and that is false here -- the page prints every call, but the recorded grid load behind the threshold rule (hundreds of days of it) is counted on the page, not printed on it. Calling it on-page would be a sentence a stranger could check and find untrue. THERE IS NO UPLOAD SERVICE, no form, no account and no self-serve anything -- this estate's platform is not ours to add one to. The only way in is an email thread with a person, which is what the contact block on the page says. NO NUMBER, DATE, PRICE, GROUP, CADENCE OR BUYER IS TYPED INTO THE PAGE. scripts/slice_peak_call.py reads group, cadence, buyer and price out of this row with no fallback, and reads every call, date, hour, megawatt figure, fingerprint and count out of revenue-2026/var/peak_call.db read-only at build time. It recomputes every call's fingerprint with the recorder's own function on every build and refuses to write the page if one no longer matches, because the only claim this record makes is that it was not edited after the fact. It also reads the addresses the recorder fetches out of the recorder's own code and refuses to build unless each one carries a permission note whose verdict is 'allowed' -- a grid operator that refuses to be read is never named here as a source of anything. THE ZEROS ARE THE CONTENT, NOT A GAP. At 2026-08-25 no call had been scored yet and no call had told anyone to cut, and the page says both in words rather than printing an empty counter. The recorder's own written bar refuses a hit rate under 5 warnings, and refuses to call the record sellable under 60 scored calls, 5 warnings and 90 days of public record -- all three written down on 2026-08-24 while the answer to all three was still no. The page carries that bar and no percentage. cadence_long is NOT stored in this row on purpose: the module recounts it off the sealed calls at build time, so the page cannot go stale even if this row does. STILL TO WIRE, FOR WHOEVER MERGES THIS: there is no peak-call entry in scripts/family_status.py. That is harmless while this row lives in a fragment, because scripts/build_site.py reads catalog.json only and this family never reaches dist/. The day this row is merged into catalog.json it stops being harmless: the built page will carry no read-date stamp and scripts/check_built.py will mark it as a page with no read date. The store is at an absolute path, which _store_path() already supports. CORRECTION 2026-08-25, appended not edited: this row was written as sample_status \"fail\" and that was the wrong word. \"fail\" means a sample file exists and is wrong; there is no sample file here and there is never going to be one, because the record on the page IS the product. The page said both \"sample not ready\" and \"all of it is on the page\" in the same paragraph, which are the two halves of a contradiction — a stranger reads \"sample not ready\" as a file that is coming, and no file is coming. Status moved to \"on-page\", the same word free-time and verified-record carry, and the page now says the sentence the honesty gate demands instead of quoting a pill it cannot see. Nothing about the price changed: it was not for sale before this correction and it is not for sale after it."
+      "note": "BORN NOT FOR SALE 2026-08-25 (dated from the newest rows in the recorder's own store, not from this machine's clock, which reads two different days depending which setting is asked). WHAT THE LANE DOES: a factory or data centre's grid bill for a whole year is largely set by how much it was pulling during a handful of hours -- the hours when the whole grid was at its busiest. Once a day, for the day after, the recorder reads the grid operator's own published forecast and writes down one of two things: cut your load, or ordinary day. That is a call. It is sealed with a fingerprint at the moment it is made, before anyone knows how the day went, and it is scored afterwards against the operator's own record of what actually happened -- wrong calls included, one row per call. NOTHING HAS EVER BEEN SOLD HERE and there is no price on the page. The lane's own spec describes a possible paid product later (the calls themselves, ahead of the day) but that is a separate decision that has not been made, and the recorder's own can_we_sell() answers no and names the reasons. The page is the free scoreboard, and it is free forever: the whole record is on it. NO SAMPLE FILE, ON PURPOSE, AND sample_status IS 'fail' RATHER THAN 'on-page' FOR A REASON. There is no file behind this page to slice, so there is nothing to sample and the pill saying 'sample not ready' is correct. It is NOT 'on-page' either: on-page means the whole of what we hold is printed on the page, and that is false here -- the page prints every call, but the recorded grid load behind the threshold rule (hundreds of days of it) is counted on the page, not printed on it. Calling it on-page would be a sentence a stranger could check and find untrue. THERE IS NO UPLOAD SERVICE, no form, no account and no self-serve anything -- this estate's platform is not ours to add one to. The only way in is an email thread with a person, which is what the contact block on the page says. NO NUMBER, DATE, PRICE, GROUP, CADENCE OR BUYER IS TYPED INTO THE PAGE. scripts/slice_peak_call.py reads group, cadence, buyer and price out of this row with no fallback, and reads every call, date, hour, megawatt figure, fingerprint and count out of revenue-2026/var/peak_call.db read-only at build time. It recomputes every call's fingerprint with the recorder's own function on every build and refuses to write the page if one no longer matches, because the only claim this record makes is that it was not edited after the fact. It also reads the addresses the recorder fetches out of the recorder's own code and refuses to build unless each one carries a permission note whose verdict is 'allowed' -- a grid operator that refuses to be read is never named here as a source of anything. THE ZEROS ARE THE CONTENT, NOT A GAP. At 2026-08-25 no call had been scored yet and no call had told anyone to cut, and the page says both in words rather than printing an empty counter. The recorder's own written bar refuses a hit rate under 5 warnings, and refuses to call the record sellable under 60 scored calls, 5 warnings and 90 days of public record -- all three written down on 2026-08-24 while the answer to all three was still no. The page carries that bar and no percentage. cadence_long is NOT stored in this row on purpose: the module recounts it off the sealed calls at build time, so the page cannot go stale even if this row does. STILL TO WIRE, FOR WHOEVER MERGES THIS: there is no peak-call entry in scripts/family_status.py. That is harmless while this row lives in a fragment, because scripts/build_site.py reads catalog.json only and this family never reaches dist/. The day this row is merged into catalog.json it stops being harmless: the built page will carry no read-date stamp and scripts/check_built.py will mark it as a page with no read date. The store is at an absolute path, which _store_path() already supports. CORRECTION 2026-08-25, appended not edited: this row was written as sample_status \"fail\" and that was the wrong word. \"fail\" means a sample file exists and is wrong; there is no sample file here and there is never going to be one, because the record on the page IS the product. The page said both \"sample not ready\" and \"all of it is on the page\" in the same paragraph, which are the two halves of a contradiction \u2014 a stranger reads \"sample not ready\" as a file that is coming, and no file is coming. Status moved to \"on-page\", the same word free-time and verified-record carry, and the page now says the sentence the honesty gate demands instead of quoting a pill it cannot see. Nothing about the price changed: it was not for sale before this correction and it is not for sale after it."
     },
     {
       "id": "verified-record",
@@ -654,7 +654,7 @@
         "status": "live",
         "url": "https://buy.stripe.com/5kQbIU5l41eaafO5n40sU0Z",
         "lands_on": "buy.stripe.com",
-        "label": "Buy the file — $349 once",
+        "label": "Buy the file \u2014 $349 once",
         "checked": "2026-09-06",
         "verified": "2026-09-06"
       }
@@ -682,7 +682,7 @@
         "status": "live",
         "url": "https://buy.stripe.com/4gM3coeVEf505Zyg1I0sU10",
         "lands_on": "buy.stripe.com",
-        "label": "Buy the file — $349 once",
+        "label": "Buy the file \u2014 $349 once",
         "checked": "2026-09-06",
         "verified": "2026-09-06"
       }
@@ -710,7 +710,7 @@
         "status": "live",
         "url": "https://buy.stripe.com/8x2aEQeVE3mibjS4j00sU11",
         "lands_on": "buy.stripe.com",
-        "label": "Buy the file — $349 once",
+        "label": "Buy the file \u2014 $349 once",
         "checked": "2026-09-06",
         "verified": "2026-09-06"
       }
@@ -726,7 +726,7 @@
       "price": "$349",
       "sample_status": "pass",
       "group": "Construction records",
-      "note": "BORN 2026-08-26 in a copy of this repo; REWORK 2026-08-26 (task-m5-dc-rework) to sell under CC BY 4.0 with full attribution. One-time assembled building-permit file from Open Data DC FeatureServer layers 15-18 (years 2023-2026). Price $349 once per slice, five slices (four years plus the concatenation). Person columns PERMIT_APPLICANT, OWNER_NAME, CREATED_USER, LAST_EDITED_USER stripped at query time; DESC_OF_WORK dropped after the pull. Checkout URL left empty (status none) for Claude to mint. Never mint from this note. RULING 2026-08-25 (Claude lead): CC BY 4.0 hold RESOLVED — SELL WITH ATTRIBUTION. Catalog DCAT names https://creativecommons.org/licenses/by/4.0 on each of the four year datasets, an 'otherwise noted' exception to the District Data Catalog CC0 sentence; commercial use is permitted on condition of attribution, which travels with every page, sample, and paid file. FeatureServer is in catalog scope (DCAT distribution ArcGIS GeoService). No District logos. Required credit line: Data retrieved from Open Data DC catalog (https://opendata.dc.gov).",
+      "note": "BORN 2026-08-26 in a copy of this repo; REWORK 2026-08-26 (task-m5-dc-rework) to sell under CC BY 4.0 with full attribution. One-time assembled building-permit file from Open Data DC FeatureServer layers 15-18 (years 2023-2026). Price $349 once per slice, five slices (four years plus the concatenation). Person columns PERMIT_APPLICANT, OWNER_NAME, CREATED_USER, LAST_EDITED_USER stripped at query time; DESC_OF_WORK dropped after the pull. Checkout URL left empty (status none) for Claude to mint. Never mint from this note. RULING 2026-08-25 (Claude lead): CC BY 4.0 hold RESOLVED \u2014 SELL WITH ATTRIBUTION. Catalog DCAT names https://creativecommons.org/licenses/by/4.0 on each of the four year datasets, an 'otherwise noted' exception to the District Data Catalog CC0 sentence; commercial use is permitted on condition of attribution, which travels with every page, sample, and paid file. FeatureServer is in catalog scope (DCAT distribution ArcGIS GeoService). No District logos. Required credit line: Data retrieved from Open Data DC catalog (https://opendata.dc.gov).",
       "contact_h2": "Ask before you buy",
       "contact_p": "Name the slice. We reply with how many rows we hold for it and the date we pulled them, before you spend anything.",
       "contact_cta": "Email us before you pay",
@@ -737,7 +737,7 @@
         "after": "After you pay, a person emails you the whole file as a CSV within one working day of your payment.",
         "status": "live",
         "url": "https://buy.stripe.com/dRmbIU7tc2ie3RqaHo0sU19",
-        "label": "Buy the file — $349 once",
+        "label": "Buy the file \u2014 $349 once",
         "lands_on": "buy.stripe.com",
         "checked": "2026-09-06",
         "verified": "2026-09-06"
@@ -787,7 +787,7 @@
       "contact_p": "Name the bot. We reply with the integration contract and the checkout link, before you spend anything.",
       "contact_cta": "Email us about the bot",
       "contact_note": "No pay button on this page yet. Zero proven breaks means we could not prove a break, never that the bot is safe.",
-      "delivery": "<strong>What arrives after you pay:</strong> a person emails you the break report — reproductions, the clean control, and the canary proof — for the bot you named.",
+      "delivery": "<strong>What arrives after you pay:</strong> a person emails you the break report \u2014 reproductions, the clean control, and the canary proof \u2014 for the bot you named.",
       "note": "BORN 2026-08-25 from autonomous-systems/agent-break-tester. NEW family, not an extension of agent-register (listed servers) or agent-incidents (court cases). kind=build. Sample is a real Break Report from the prototype on local demo agents. Price $450 one-time on the rail; $49/mo in terms/prose only. No Stripe URL.",
       "checkout": {
         "terms": "$450 once, for one named bot. A $49 per month re-run of that same bot is quoted in the email thread, not on this page's rail. Nothing on this page takes a card. Zero proven breaks means we could not prove a break, never that the bot is safe.",
@@ -841,7 +841,7 @@
       "contact_p": "Send the claim and the URL. We reply with whether we can check it and the checkout link, before you spend anything.",
       "contact_cta": "Email us the claim and the URL",
       "contact_note": "No pay button on this page yet. Don't-know answers stay free.",
-      "delivery": "<strong>What arrives after you pay:</strong> a person emails you the sealed claim receipt — the verdict, the exact sentence, the sha256 fingerprint, and the time we read the page. Don't-know answers are not charged.",
+      "delivery": "<strong>What arrives after you pay:</strong> a person emails you the sealed claim receipt \u2014 the verdict, the exact sentence, the sha256 fingerprint, and the time we read the page. Don't-know answers are not charged.",
       "note": "BORN 2026-08-25 from autonomous-systems/claim-check-oracle. kind=build: not a dated feed. Sample is a real Claim Receipt from the prototype on local fixtures, labelled as an example. Price $19 credit pack on the rail; ~5c/check and $249 audit live in checkout.terms and body prose only. No Stripe URL. Money button OFF.",
       "checkout": {
         "terms": "$19 once, for a credit pack of claim checks at about 5 cents per decided check. A don't-know answer is not charged. A $249 written audit of a batch of citations is quoted in the email thread, not on this page's rail. Nothing recurring and nothing to cancel. There is no pay button on this page yet.",
@@ -1063,7 +1063,7 @@
         "after": "After you pay, a person emails you the whole file as a CSV within one working day of your payment.",
         "status": "live",
         "url": "https://buy.stripe.com/dRmaEQ7tc9KGgEceXE0sU17",
-        "label": "Buy the file — $349 once",
+        "label": "Buy the file \u2014 $349 once",
         "lands_on": "buy.stripe.com",
         "checked": "2026-09-06",
         "verified": "2026-09-06"
@@ -1091,7 +1091,7 @@
         "after": "After you pay, a person emails you the whole file as a CSV within one working day of your payment.",
         "status": "live",
         "url": "https://buy.stripe.com/7sYbIU3cW6yugEc02K0sU18",
-        "label": "Buy the file — $349 once",
+        "label": "Buy the file \u2014 $349 once",
         "lands_on": "buy.stripe.com",
         "checked": "2026-09-06",
         "verified": "2026-09-06"
@@ -1119,7 +1119,7 @@
         "after": "After you pay, a person emails you the CSV within one working day.",
         "status": "live",
         "url": "https://buy.stripe.com/4gM14g00K0a61Ji9Dk0sU1a",
-        "label": "Buy the file — $349 once",
+        "label": "Buy the file \u2014 $349 once",
         "lands_on": "buy.stripe.com",
         "checked": "2026-09-06",
         "verified": "2026-09-06"
@@ -1147,7 +1147,7 @@
         "after": "After you pay, a person emails you the pack within one working day.",
         "status": "live",
         "url": "https://buy.stripe.com/8x2fZa14ObSO9bK2aS0sU1p",
-        "label": "Buy the pack — $249 once",
+        "label": "Buy the pack \u2014 $249 once",
         "lands_on": "buy.stripe.com",
         "checked": "2026-09-06",
         "verified": "2026-09-06"
@@ -1175,7 +1175,7 @@
         "after": "After you pay, a person emails you the file within 5 working days of your named page list arriving.",
         "status": "live",
         "url": "https://buy.stripe.com/dRm8wI3cWcWS1Ji5n40sU1o",
-        "label": "Commission the report — $499 once",
+        "label": "Commission the report \u2014 $499 once",
         "lands_on": "buy.stripe.com",
         "checked": "2026-09-06",
         "verified": "2026-09-06"
@@ -1203,7 +1203,7 @@
         "after": "After you pay, you reply to the receipt email with your log. The parser runs without a person. We email you the report and we delete your log within 24 hours.",
         "status": "live",
         "url": "https://buy.stripe.com/aFa00cfZIe0W87GdTA0sU1n",
-        "label": "Buy the report — $199 once",
+        "label": "Buy the report \u2014 $199 once",
         "lands_on": "buy.stripe.com",
         "checked": "2026-09-06",
         "verified": "2026-09-06"
@@ -1231,7 +1231,7 @@
         "after": "After you pay, a person emails you the three files and the manifest the same calendar day the payment lands.",
         "status": "live",
         "url": "https://buy.stripe.com/9B69AMfZIbSOcnWg1I0sU1m",
-        "label": "Buy the pack — $499 once",
+        "label": "Buy the pack \u2014 $499 once",
         "lands_on": "buy.stripe.com",
         "checked": "2026-09-06",
         "verified": "2026-09-06"
@@ -1259,7 +1259,7 @@
         "after": "After you pay, a person emails you the packet the same day if that street is already in the six-city store. If we hold fewer than two permit rows for that street, you do not pay.",
         "status": "live",
         "url": "https://buy.stripe.com/5kQeV600K8GC2Nm8zg0sU1l",
-        "label": "Buy the packet — $249 once",
+        "label": "Buy the packet \u2014 $249 once",
         "lands_on": "buy.stripe.com",
         "checked": "2026-09-06",
         "verified": "2026-09-06"
@@ -1287,7 +1287,7 @@
         "after": "After you pay, a person emails you the written oath within one working day.",
         "status": "live",
         "url": "https://buy.stripe.com/bJe7sE8xg0a64VueXE0sU1k",
-        "label": "Buy the oath — $499 once",
+        "label": "Buy the oath \u2014 $499 once",
         "lands_on": "buy.stripe.com",
         "checked": "2026-09-06",
         "verified": "2026-09-06"
@@ -1306,7 +1306,7 @@
       "sample_status": "pass",
       "live": "https://ustechautomations.com/feeds/city-trade/",
       "checkout": {
-        "label": "Subscribe — $249 a month",
+        "label": "Subscribe \u2014 $249 a month",
         "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about one trade in one city that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
         "after": "After you pay, the page is written under the business name and address you gave at checkout and you get an email with its address. Each month you get an email with Google's own count of how often that page was shown and how often it was opened. If either number is zero, we send zero."
       },
@@ -1314,7 +1314,7 @@
         "epoxy-floors-akron-oh": {
           "url": "https://buy.stripe.com/fZufZa5l43micnW02K0sU1L",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Akron that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1323,7 +1323,7 @@
         "epoxy-floors-boise-id": {
           "url": "https://buy.stripe.com/3cIcMYfZI4qm2NmaHo0sU1M",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Boise that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1332,7 +1332,7 @@
         "epoxy-floors-chattanooga-tn": {
           "url": "https://buy.stripe.com/7sY4gs9Bk5uq4VuaHo0sU1N",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Chattanooga that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1341,7 +1341,7 @@
         "epoxy-floors-fort-wayne-in": {
           "url": "https://buy.stripe.com/8x27sEdRA2ie73CbLs0sU1O",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Fort Wayne that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1350,7 +1350,7 @@
         "epoxy-floors-omaha-ne": {
           "url": "https://buy.stripe.com/00w7sEaFo6yu2Nm9Dk0sU1P",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Omaha that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1359,7 +1359,7 @@
         "epoxy-floors-raleigh-nc": {
           "url": "https://buy.stripe.com/bJefZa14OaOKafOdTA0sU1Q",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Raleigh that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1368,7 +1368,7 @@
         "epoxy-floors-reno-nv": {
           "url": "https://buy.stripe.com/cNiaEQ00K7Cy3Rq2aS0sU1R",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Reno that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1377,7 +1377,7 @@
         "epoxy-floors-spokane-wa": {
           "url": "https://buy.stripe.com/7sY14g8xg7Cy3Rq02K0sU1S",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Spokane that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1386,7 +1386,7 @@
         "epoxy-floors-tulsa-ok": {
           "url": "https://buy.stripe.com/dRmeV65l41ea0FeaHo0sU1T",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Tulsa that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1395,7 +1395,7 @@
         "epoxy-floors-wichita-ks": {
           "url": "https://buy.stripe.com/8x26oA00K7CybjSaHo0sU1U",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Wichita that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1404,7 +1404,7 @@
         "foundation-repair-akron-oh": {
           "url": "https://buy.stripe.com/14AfZa5l40a6gEc6r80sU1V",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Akron that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1413,7 +1413,7 @@
         "foundation-repair-boise-id": {
           "url": "https://buy.stripe.com/dRm3coaFo3mi2Nm2aS0sU1W",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Boise that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1422,7 +1422,7 @@
         "foundation-repair-chattanooga-tn": {
           "url": "https://buy.stripe.com/fZu5kw00K4qm9bK02K0sU1X",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Chattanooga that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1431,7 +1431,7 @@
         "foundation-repair-fort-wayne-in": {
           "url": "https://buy.stripe.com/eVq9AMfZIe0WgEceXE0sU1Y",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Fort Wayne that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1440,7 +1440,7 @@
         "foundation-repair-omaha-ne": {
           "url": "https://buy.stripe.com/dRm8wIfZIcWSgEcaHo0sU1Z",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Omaha that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1449,7 +1449,7 @@
         "foundation-repair-raleigh-nc": {
           "url": "https://buy.stripe.com/5kQbIU6p8cWS4VubLs0sU20",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Raleigh that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1458,7 +1458,7 @@
         "foundation-repair-reno-nv": {
           "url": "https://buy.stripe.com/6oU00c5l4cWS73C8zg0sU21",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Reno that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1467,7 +1467,7 @@
         "foundation-repair-spokane-wa": {
           "url": "https://buy.stripe.com/8x228k6p88GC87GaHo0sU22",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Spokane that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1476,7 +1476,7 @@
         "foundation-repair-tulsa-ok": {
           "url": "https://buy.stripe.com/8x228k4h0f505Zy2aS0sU23",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Tulsa that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1485,7 +1485,7 @@
         "foundation-repair-wichita-ks": {
           "url": "https://buy.stripe.com/8x27sEcNwbSO87G4j00sU24",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Wichita that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1494,7 +1494,7 @@
         "garage-door-repair-akron-oh": {
           "url": "https://buy.stripe.com/7sY14g8xg6yu87GeXE0sU25",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about garage door repair in Akron that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1503,7 +1503,7 @@
         "garage-door-repair-boise-id": {
           "url": "https://buy.stripe.com/5kQ3co28SbSO9bKaHo0sU26",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about garage door repair in Boise that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1512,7 +1512,7 @@
         "garage-door-repair-chattanooga-tn": {
           "url": "https://buy.stripe.com/4gMaEQfZIaOK5ZybLs0sU27",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about garage door repair in Chattanooga that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1521,7 +1521,7 @@
         "garage-door-repair-fort-wayne-in": {
           "url": "https://buy.stripe.com/14A14g14O6yubjS2aS0sU28",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about garage door repair in Fort Wayne that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1530,7 +1530,7 @@
         "garage-door-repair-omaha-ne": {
           "url": "https://buy.stripe.com/00wdR24h04qm9bKcPw0sU29",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about garage door repair in Omaha that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1539,7 +1539,7 @@
         "garage-door-repair-raleigh-nc": {
           "url": "https://buy.stripe.com/fZu14g7tc5uqbjS6r80sU2a",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about garage door repair in Raleigh that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1548,7 +1548,7 @@
         "garage-door-repair-reno-nv": {
           "url": "https://buy.stripe.com/eVqcMY6p87Cy0Fe16O0sU2b",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about garage door repair in Reno that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1557,7 +1557,7 @@
         "garage-door-repair-spokane-wa": {
           "url": "https://buy.stripe.com/bJe28k6p89KGcnWdTA0sU2c",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about garage door repair in Spokane that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1566,7 +1566,7 @@
         "garage-door-repair-tulsa-ok": {
           "url": "https://buy.stripe.com/00weV6eVE6yu2Nm9Dk0sU2d",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about garage door repair in Tulsa that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1575,7 +1575,7 @@
         "garage-door-repair-wichita-ks": {
           "url": "https://buy.stripe.com/5kQ00cdRAe0Wew4dTA0sU2e",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about garage door repair in Wichita that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1584,7 +1584,7 @@
         "roofing-akron-oh": {
           "url": "https://buy.stripe.com/4gM28kbJs5uq5ZydTA0sU1r",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Akron that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1593,7 +1593,7 @@
         "roofing-boise-id": {
           "url": "https://buy.stripe.com/8x24gsbJsaOKcnW8zg0sU1s",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Boise that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1602,7 +1602,7 @@
         "roofing-chattanooga-tn": {
           "url": "https://buy.stripe.com/fZubIU3cWcWSds08zg0sU1t",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Chattanooga that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1611,7 +1611,7 @@
         "roofing-fort-wayne-in": {
           "url": "https://buy.stripe.com/7sYfZa9Bk6yu1JicPw0sU1u",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Fort Wayne that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1620,7 +1620,7 @@
         "roofing-omaha-ne": {
           "url": "https://buy.stripe.com/6oUdR24h06yuew4aHo0sU1v",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Omaha that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1629,7 +1629,7 @@
         "roofing-raleigh-nc": {
           "url": "https://buy.stripe.com/bJe7sE8xg8GC87G4j00sU1w",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Raleigh that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1638,7 +1638,7 @@
         "roofing-reno-nv": {
           "url": "https://buy.stripe.com/cNifZa4h04qm9bKaHo0sU1x",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Reno that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1647,7 +1647,7 @@
         "roofing-spokane-wa": {
           "url": "https://buy.stripe.com/3cIeV64h05uqafOeXE0sU1y",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Spokane that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1656,7 +1656,7 @@
         "roofing-tulsa-ok": {
           "url": "https://buy.stripe.com/fZu4gs28S1ea5Zy3eW0sU1z",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Tulsa that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1665,7 +1665,7 @@
         "roofing-wichita-ks": {
           "url": "https://buy.stripe.com/3cI14gfZIcWS87G02K0sU1A",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Wichita that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1674,7 +1674,7 @@
         "tree-removal-akron-oh": {
           "url": "https://buy.stripe.com/cNibIU9Bkg945Zy3eW0sU1B",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Akron that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1683,7 +1683,7 @@
         "tree-removal-boise-id": {
           "url": "https://buy.stripe.com/5kQ28k5l45uq2Nm16O0sU1C",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Boise that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1692,7 +1692,7 @@
         "tree-removal-chattanooga-tn": {
           "url": "https://buy.stripe.com/dRm8wIfZI5uq2Nmg1I0sU1D",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Chattanooga that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1701,7 +1701,7 @@
         "tree-removal-fort-wayne-in": {
           "url": "https://buy.stripe.com/9B63co5l4e0W87G8zg0sU1E",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Fort Wayne that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1710,7 +1710,7 @@
         "tree-removal-omaha-ne": {
           "url": "https://buy.stripe.com/aFaeV69BkcWS9bKg1I0sU1F",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Omaha that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1719,7 +1719,7 @@
         "tree-removal-raleigh-nc": {
           "url": "https://buy.stripe.com/6oU00ceVE2ie5Zy9Dk0sU1G",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Raleigh that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1728,7 +1728,7 @@
         "tree-removal-reno-nv": {
           "url": "https://buy.stripe.com/4gM14g7tcaOKds04j00sU1H",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Reno that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1737,7 +1737,7 @@
         "tree-removal-spokane-wa": {
           "url": "https://buy.stripe.com/9B628k6p80a6fA86r80sU1I",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Spokane that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1746,7 +1746,7 @@
         "tree-removal-tulsa-ok": {
           "url": "https://buy.stripe.com/7sYbIU6p8g945ZybLs0sU1J",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Tulsa that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1755,7 +1755,7 @@
         "tree-removal-wichita-ks": {
           "url": "https://buy.stripe.com/bJe8wI14OaOK9bK02K0sU1K",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Wichita that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1764,7 +1764,7 @@
         "water-damage-akron-oh": {
           "url": "https://buy.stripe.com/bJe14g5l41eacnWbLs0sU2f",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about water damage restoration in Akron that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1773,7 +1773,7 @@
         "water-damage-boise-id": {
           "url": "https://buy.stripe.com/eVqcMY5l47Cy5ZydTA0sU2g",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about water damage restoration in Boise that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1782,7 +1782,7 @@
         "water-damage-chattanooga-tn": {
           "url": "https://buy.stripe.com/3cIfZacNw7Cy1Ji02K0sU2h",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about water damage restoration in Chattanooga that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1791,7 +1791,7 @@
         "water-damage-fort-wayne-in": {
           "url": "https://buy.stripe.com/28E7sE3cW5uq3RqeXE0sU2i",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about water damage restoration in Fort Wayne that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1800,7 +1800,7 @@
         "water-damage-omaha-ne": {
           "url": "https://buy.stripe.com/8x2fZacNw3mi73C7vc0sU2j",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about water damage restoration in Omaha that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1809,7 +1809,7 @@
         "water-damage-raleigh-nc": {
           "url": "https://buy.stripe.com/dRmaEQcNwaOK2Nm2aS0sU2k",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about water damage restoration in Raleigh that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1818,7 +1818,7 @@
         "water-damage-reno-nv": {
           "url": "https://buy.stripe.com/fZudR29Bk4qm1Ji5n40sU2l",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about water damage restoration in Reno that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1827,7 +1827,7 @@
         "water-damage-spokane-wa": {
           "url": "https://buy.stripe.com/5kQ4gs9BkaOKgEc2aS0sU2m",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about water damage restoration in Spokane that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1836,7 +1836,7 @@
         "water-damage-tulsa-ok": {
           "url": "https://buy.stripe.com/aFa4gs6p81eafA89Dk0sU2n",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about water damage restoration in Tulsa that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1845,7 +1845,7 @@
         "water-damage-wichita-ks": {
           "url": "https://buy.stripe.com/eVq00ccNw3micnWeXE0sU2o",
           "lands_on": "buy.stripe.com",
-          "label": "Subscribe — $249 a month",
+          "label": "Subscribe \u2014 $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about water damage restoration in Wichita that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
           "checked": "2026-09-06",
           "status": "live",
@@ -1877,7 +1877,7 @@
         "after": "After you pay, Stripe sends you to a page with your payment id. The dated pack appears there. Nobody emails you.",
         "status": "live",
         "url": "https://buy.stripe.com/dRm3cofZI8GC1JibLs0sU14",
-        "label": "Buy the pack — $349 once",
+        "label": "Buy the pack \u2014 $349 once",
         "lands_on": "buy.stripe.com",
         "checked": "2026-09-06",
         "verified": "2026-09-06"
@@ -1906,7 +1906,7 @@
         "after": "After you pay, Stripe sends you to a page with your payment id. The dated pack appears there. Nobody emails you.",
         "status": "live",
         "url": "https://buy.stripe.com/8x23coeVE3mids03eW0sU15",
-        "label": "Buy the pack — $349 once",
+        "label": "Buy the pack \u2014 $349 once",
         "lands_on": "buy.stripe.com",
         "checked": "2026-09-06",
         "verified": "2026-09-06"
@@ -1935,7 +1935,7 @@
         "after": "After you pay, Stripe sends you to a page with your payment id. The dated pack appears there. Nobody emails you.",
         "status": "live",
         "url": "https://buy.stripe.com/14AbIU28S4qm9bK5n40sU16",
-        "label": "Buy the pack — $349 once",
+        "label": "Buy the pack \u2014 $349 once",
         "lands_on": "buy.stripe.com",
         "checked": "2026-09-06",
         "verified": "2026-09-06"
@@ -1957,7 +1957,7 @@
         "terms": "$49 a month buys one file a week with 24 already-solved shop shapes. Each has 1, 2 or 3 machines; 6, 8, 10 or 12 jobs; and one changeover rule family. You get a table of changeover minutes, the obvious job order, the best order our solver found, minutes saved, and the job order on each machine. Nothing in it is measured from a real factory: every figure is generated by our solver from a starting value tied to the date. Billed monthly. Cancel at month end by email. No account.",
         "after": "After you pay, a person emails you that week's file as a CSV within one working day. A fresh file comes by email each week. Cancel by email at any time and the files already sent stay yours. The sample stays free on this page, with the sequence column removed.",
         "url": "https://buy.stripe.com/eVq5kw00K0a6afO6r80sU2q",
-        "label": "Subscribe — $49 a month",
+        "label": "Subscribe \u2014 $49 a month",
         "lands_on": "buy.stripe.com",
         "status": "live",
         "checked": "2026-09-06",
@@ -1984,7 +1984,7 @@
         "terms": "$49 a month, billed monthly, for one national file a week: every federal alcohol permit that first appeared on the TTB list since the previous Tuesday copy, and every permit that stopped being listed. Six columns: permit number, business name where our copy holds one, city, state, county, and the permit type. No street, no owner name, no phone. About half the appearing rows carry no business name and we print the gap rather than filling it in. The TTB itself publishes its new permits free every week in its own short file, so most of the appearing rows can be had free from the government; what is published nowhere free is the permits that stopped being listed, and the dated pair of copies behind every row. Cancel any month by email, with no account to close and no notice period.",
         "after": "After you pay, a person emails you the current week's file as a CSV within one working day, then a new one every Tuesday for as long as the subscription runs. Each file names the two dated copies it was built from. A week where we could not read the source says so rather than repeating itself.",
         "url": "TO-MINT",
-        "label": "Subscribe — $49 a month"
+        "label": "Subscribe \u2014 $49 a month"
       }
     },
     {
@@ -1995,7 +1995,7 @@
       "cadence_long": "one national file a week, built from this week's Granted actions and the week before. A week that adds nothing is sent as 0 plus the two copy dates",
       "price": "$49/mo",
       "sample_status": "pass",
-      "note": "STAGED 2026-09-06, NOT PUBLISHED. Weekly sealed file of FMCSA Granted operating-authority actions (DOT number, MC/FF/MX docket, legal name, city, state, authority type, grant date). No street, no phone, no representative. Named source is the LIVIEW register (https://li-public.fmcsa.dot.gov/LIVIEW/pkg_REGISTER.prc_reg_list); on 2026-09-06 that page had zero date rows and Grant Decision Notices printed NONE for 10 consecutive days 28 Aug–6 Sep [counted]. Rows come from the same agency's Motus AuthHist public file (yu5v-wbh6), reason=Granted, joined to Motus Carrier for name/city/state only. Counted 2026-09-06: 1,399 Granted actions 31 Aug–6 Sep; 1,405 in the prior seven days 24–30 Aug. checkout.url is TO-MINT until a carrier-register SKU at 4900 cents monthly exists in the INSTALLED permits-engine release. Sample rule: newest week's Granted rows with the legal-name column removed, 25 rows. 48 of 1,399 names this week read as a person; those names are withheld on the page table and are not in the sample.",
+      "note": "STAGED 2026-09-06, NOT PUBLISHED. Weekly sealed file of FMCSA Granted operating-authority actions (DOT number, MC/FF/MX docket, legal name, city, state, authority type, grant date). No street, no phone, no representative. Named source is the LIVIEW register (https://li-public.fmcsa.dot.gov/LIVIEW/pkg_REGISTER.prc_reg_list); on 2026-09-06 that page had zero date rows and Grant Decision Notices printed NONE for 10 consecutive days 28 Aug\u20136 Sep [counted]. Rows come from the same agency's Motus AuthHist public file (yu5v-wbh6), reason=Granted, joined to Motus Carrier for name/city/state only. Counted 2026-09-06: 1,399 Granted actions 31 Aug\u20136 Sep; 1,405 in the prior seven days 24\u201330 Aug. checkout.url is TO-MINT until a carrier-register SKU at 4900 cents monthly exists in the INSTALLED permits-engine release. Sample rule: newest week's Granted rows with the legal-name column removed, 25 rows. 48 of 1,399 names this week read as a person; those names are withheld on the page table and are not in the sample.",
       "group": "Other dated records",
       "short": "New carrier authority, weekly",
       "who": "Trucking insurance agents and freight-factoring underwriters.",
@@ -2003,7 +2003,7 @@
         "terms": "$49 a month, billed monthly, for one national file a week: every motor-carrier, broker and freight-forwarder docket FMCSA marked Granted since the previous weekly copy. Seven columns: DOT number, docket (MC/FF/MX), legal name where our copy holds one, city, state, authority type, grant date. No street, no phone, no fax, no representative, no email. FMCSA already publishes Motus AuthHist free; what you are paying for is a sealed dated week and the pair of copy dates behind every row. Cancel any month by email, with no account to close and no notice period.",
         "after": "After paying you land on a page keyed to your payment. That week's file appears there, and a new one appears every week while the subscription runs. No message from us is needed.",
         "url": "https://buy.stripe.com/28E7sE5l49KGcnW6r80sU2r",
-        "label": "Subscribe — $49 a month",
+        "label": "Subscribe \u2014 $49 a month",
         "lands_on": "buy.stripe.com",
         "status": "live",
         "checked": "2026-09-06",
@@ -2035,7 +2035,7 @@
         "after": "After you pay, a person emails you the file the same calendar day.",
         "status": "live",
         "url": "https://buy.stripe.com/00w9AM4h0f500Fe3eW0sU1h",
-        "label": "Buy the file — $349 once",
+        "label": "Buy the file \u2014 $349 once",
         "lands_on": "buy.stripe.com",
         "checked": "2026-09-06",
         "verified": "2026-09-06"
@@ -2067,7 +2067,7 @@
         "after": "Pin live within one business day of payment. First certificate the same day you run your first sealed input.",
         "status": "live",
         "url": "https://buy.stripe.com/28E14g28S7Cy9bKaHo0sU1j",
-        "label": "Pin a model — $300 a month",
+        "label": "Pin a model \u2014 $300 a month",
         "lands_on": "buy.stripe.com",
         "checked": "2026-09-06",
         "verified": "2026-09-06"
@@ -2099,7 +2099,7 @@
         "after": "After you pay, a person emails you the Markdown and PDF report for that site the same day, from the copy we already hold.",
         "status": "live",
         "url": "https://buy.stripe.com/dRmcMYcNwf509bK2aS0sU1i",
-        "label": "Buy the report — $249 once",
+        "label": "Buy the report \u2014 $249 once",
         "lands_on": "buy.stripe.com",
         "checked": "2026-09-06",
         "verified": "2026-09-06"
@@ -2124,7 +2124,7 @@
         "terms": "$49 a month, billed monthly, for one California file a week: every Department of Cannabis Control licence that appeared, expired, stopped being listed, or changed status since the previous sealed copy. Columns: licence number, status, prior status where it changed, licence type, designation, issue date, expiry date, status-change date, business legal name where our copy holds one, city, county, and the two copy dates. No street, no owner name, no phone, no email. The state's live search is free and shows only the current list; you are paying for the dated tape. Cancel any month by email, with no account to close and no notice period.",
         "after": "After paying you land on a page keyed to your payment. That week's file appears there, and a new one appears every week while the subscription runs. No message from us is needed.",
         "url": "https://buy.stripe.com/3cI6oA14O0a6ds06r80sU2s",
-        "label": "Subscribe — $49 a month",
+        "label": "Subscribe \u2014 $49 a month",
         "lands_on": "buy.stripe.com",
         "status": "live",
         "checked": "2026-09-06",
@@ -2139,7 +2139,7 @@
       "cadence_long": "one file a week, built from the newest sealed copy of the TxDMV licensee spreadsheet and the copy before it. A week that adds nothing is sent as 0 plus the two copy dates",
       "price": "$49/mo",
       "sample_status": "pass",
-      "note": "STAGED 2026-09-06, NOT PUBLISHED. Weekly file of Texas motor-vehicle dealer licences that were added or that expired, sealed from the TxDMV licensee spreadsheet at texasdmv.my.salesforce-sites.com/dealers. checkout.url is TO-MINT: mint_feed_links.py is out of scope for this worker and refuses a brand-new SKU until an engine release names dealer-licence at 4900 cents monthly. Terms verdict UNKNOWN (families/dealer-licence/SOURCE_TERMS.md): no clause found that permits or forbids selling a weekly diff; Salesforce robots.txt Disallow:/ for User-agent *. Sample rule: newest what-changed file with business_name removed, never a street. Counted 2026-09-06 off the first sealed copy: 20,852 licensee rows; 51 added and 82 expired in the 31 Aug–6 Sep window on that copy.",
+      "note": "STAGED 2026-09-06, NOT PUBLISHED. Weekly file of Texas motor-vehicle dealer licences that were added or that expired, sealed from the TxDMV licensee spreadsheet at texasdmv.my.salesforce-sites.com/dealers. checkout.url is TO-MINT: mint_feed_links.py is out of scope for this worker and refuses a brand-new SKU until an engine release names dealer-licence at 4900 cents monthly. Terms verdict UNKNOWN (families/dealer-licence/SOURCE_TERMS.md): no clause found that permits or forbids selling a weekly diff; Salesforce robots.txt Disallow:/ for User-agent *. Sample rule: newest what-changed file with business_name removed, never a street. Counted 2026-09-06 off the first sealed copy: 20,852 licensee rows; 51 added and 82 expired in the 31 Aug\u20136 Sep window on that copy.",
       "group": "Other dated records",
       "short": "Texas dealer-licence week",
       "who": "Floor-plan lenders, dealer-software vendors and auto-auction account managers.",
@@ -2147,7 +2147,7 @@
         "terms": "$49 a month, billed monthly, for one file a week of Texas motor-vehicle dealer licences that were added or that expired since the previous sealed copy of the TxDMV licensee list. Columns: licence number, city, county, licence type, dealer type, status, active date, expiry date, and on the paid file the business name where the copy holds one. No street, no phone, no email. The live TxDMV lookup is free; this file is the dated change record that lookup does not keep. Cancel any month by email, with no account to close and no notice period.",
         "after": "After paying you land on a page keyed to your payment. That week's file appears there, and a new one appears every week while the subscription runs. No message from us is needed.",
         "url": "TO-MINT",
-        "label": "Subscribe — $49 a month"
+        "label": "Subscribe \u2014 $49 a month"
       },
       "coverage_what": "Weekly additions and lapses on the Texas motor-vehicle dealer licence list",
       "coverage_how": "We seal the TxDMV licensee spreadsheet and write the week's changes. Until two copies exist, the file is dealers whose ActiveDate or Expired licence date falls in the seven days ending on the copy we hold.",
@@ -2172,7 +2172,7 @@
         "terms": "$49 a month, billed monthly, for one Texas file a week: every construction stormwater notice of intent (permit number starting TXR15) that is new since the previous sealed copy, with site name, county, city, operator, filing date, and the two copy dates. No street, no phone. TCEQ issues the notice; this first copy was sealed from EPA's public ICIS NPDES download because TCEQ's own search did not answer from this machine on 6 Sep 2026. Until a second copy exists, the weekly file is notices whose filing date on the one copy we hold falls in the seven days before that copy date, and the page says so. Cancel any month by email, with no account to close and no notice period.",
         "after": "After paying you land on a page keyed to your payment. That week's file appears there, and a new one appears every week while the subscription runs. No message from us is needed.",
         "url": "https://buy.stripe.com/3cIdR2bJs5uqbjScPw0sU2t",
-        "label": "Subscribe — $49 a month",
+        "label": "Subscribe \u2014 $49 a month",
         "lands_on": "buy.stripe.com",
         "status": "live",
         "checked": "2026-09-06",
@@ -2198,7 +2198,7 @@
         "terms": "$49 a month, billed monthly, for one file a week: a sealed copy of the USITC Harmonized Tariff Schedule current release (HTS number, indent, description, unit, general rate, special rate, column-two rate, release id, fetch time) plus a line-level what-changed table against the previous sealed copy (empty until a second release exists, and the page says so) plus a seal text file with the release name and hashes. No street, no person's name, no classification advice. Source: United States International Trade Commission, Harmonized Tariff Schedule current-release export (hts.usitc.gov). A week we could not read is named as a gap. Cancel any month by email, with no account to close and no notice period.",
         "after": "After paying you land on a page keyed to your payment. That week's file appears there, and a new one appears every week while the subscription runs. No message from us is needed.",
         "url": "TO-MINT",
-        "label": "Subscribe — $49 a month"
+        "label": "Subscribe \u2014 $49 a month"
       }
     },
     {
@@ -2220,7 +2220,7 @@
         "terms": "$49 a month, billed monthly, for one national file a week: every new federal prime contract award id since the previous sealed copy, with award id, action date, awarding agency, NAICS code and description, PSC code, company recipient name, recipient state, place of performance state, obligated amount, period-of-performance end, and set-aside type where the search returned one. No street, no phone, no DUNS, no UEI, no person's name. USAspending.gov (U.S. Department of the Treasury, Bureau of the Fiscal Service) is the source. Until a second copy exists, the weekly file is the new awards in the seven days ending on the one copy we hold, up to 50 pages of 100, and the page says so. A week we could not read is named as a gap. Cancel any month by email, with no account to close and no notice period.",
         "after": "After paying you land on a page keyed to your payment. That week's file appears there, and a new one appears every week while the subscription runs. No message from us is needed.",
         "url": "TO-MINT",
-        "label": "Subscribe — $49 a month"
+        "label": "Subscribe \u2014 $49 a month"
       }
     },
     {
@@ -2231,7 +2231,7 @@
       "cadence_long": "one US file a week, built from sealed daily copies of National Weather Service warning alerts, grouped by county and event. A week we could not read is named as a gap. A week that adds nothing is sent as 0 plus the week-ending date",
       "price": "$49/mo",
       "sample_status": "pass",
-      "note": "STAGED 2026-09-06, NOT PUBLISHED. Weekly file of US counties under National Weather Service Severe Thunderstorm, Tornado, Flash Flood and High Wind warnings at $49/mo. First seal 2026-09-06: 42 county-alert rows from 18 matching active warnings (277 alerts on the live feed); weekly file 39 county-event rows grouped from that one daily snapshot. Six days in the seven-day window have no sealed snapshot and are named as gaps (31 Aug–5 Sep 2026). Sample: newest weekly file, 25 rows, no person-name column, no street. checkout.url is TO-MINT until a storm-warned-counties SKU at 4900 cents monthly exists in the INSTALLED permits-engine release. Terms verdict PERMITTED: NWS public-domain clause quoted in families/storm-warned-counties/SOURCE_TERMS.md, read 2026-09-06. api.weather.gov robots.txt is Disallow:/ ; collector makes one documented API GET with a named User-Agent. Demand-probe SURFACES edit is outside this worker's write paths (BLOCKED). Timer skipped on instruction.",
+      "note": "STAGED 2026-09-06, NOT PUBLISHED. Weekly file of US counties under National Weather Service Severe Thunderstorm, Tornado, Flash Flood and High Wind warnings at $49/mo. First seal 2026-09-06: 42 county-alert rows from 18 matching active warnings (277 alerts on the live feed); weekly file 39 county-event rows grouped from that one daily snapshot. Six days in the seven-day window have no sealed snapshot and are named as gaps (31 Aug\u20135 Sep 2026). Sample: newest weekly file, 25 rows, no person-name column, no street. checkout.url is TO-MINT until a storm-warned-counties SKU at 4900 cents monthly exists in the INSTALLED permits-engine release. Terms verdict PERMITTED: NWS public-domain clause quoted in families/storm-warned-counties/SOURCE_TERMS.md, read 2026-09-06. api.weather.gov robots.txt is Disallow:/ ; collector makes one documented API GET with a named User-Agent. Demand-probe SURFACES edit is outside this worker's write paths (BLOCKED). Timer skipped on instruction.",
       "group": "Weather records",
       "short": "Storm-warned counties, weekly",
       "who": "Roofing, storm-restoration and public-adjuster firms that decide which counties to canvass each week after storms.",
@@ -2242,8 +2242,36 @@
         "terms": "$49 a month, billed monthly, for one US file a week: every county that had a Severe Thunderstorm Warning, Tornado Warning, Flash Flood Warning or High Wind Warning in the daily National Weather Service alert snapshots we hold for that week, grouped by county and event, with state, county FIPS, county name, NWS zone, warning count, max hail inches where the warning text carried a number, max wind mph where the warning text carried a number, first onset (UTC), last expiry (UTC), and issuing office. No street, no person's name, no phone, no address. The National Weather Service publishes the warnings; this file is our county grouping of dated copies we sealed, not an official NWS product. A day we could not read the alerts feed is named as a gap. This first week is built from the one daily snapshot we hold (6 Sep 2026), and the page says so. Cancel any month by email, with no account to close and no notice period.",
         "after": "After paying you land on a page keyed to your payment. That week's file appears there, and a new one appears every week while the subscription runs. No message from us is needed.",
         "url": "TO-MINT",
-        "label": "Subscribe — $49 a month"
+        "label": "Subscribe \u2014 $49 a month"
       }
+    },
+    {
+      "id": "pilot-logbook-digitizer",
+      "name": "Paper pilot logbook digitizer",
+      "short": "Paper logbook digitizer",
+      "buyer": "Private and career pilots moving from paper to a digital logbook, and pilots rebuilding totals before a checkride or airline application",
+      "who": "Private and career pilots moving from paper to a digital logbook, and pilots rebuilding totals before a checkride or airline application.",
+      "cadence": "once, not a feed",
+      "cadence_long": "One order. You send scans after you pay. Files come back within one business day. Nothing dated arrives afterwards.",
+      "price": "$175",
+      "coverage_what": "A one-time transcription of paper logbook pages, not a feed",
+      "coverage_how": "A person emails you four files within one business day of the scans: entries, ForeFlight import, LogTen import, and a checksum table.",
+      "price_list_note": "The sample is fixture rows, not a live pilot's book. Read it before you pay.",
+      "contact_h2": "Ask before you pay",
+      "contact_p": "Ask how many pages you have. We reply with whether they fit the 60-page cap and the checkout link, before you spend anything.",
+      "contact_cta": "Email us about digitizing a paper logbook",
+      "contact_note": "No pay button on this page yet. Check the checksum table against the paper before you import.",
+      "delivery": "<strong>What arrives after you pay:</strong> reply to your receipt email with photos or PDF scans; files come back within 1 business day.",
+      "note": "STAGED 2026-09-06, NOT PUBLISHED. One-off paper logbook transcription at $175. Buyer replies to the receipt with photos or PDF scans, up to 60 pages. Four files come back within 1 business day: entries.csv, foreflight_import.csv, logten_import.csv, checksum.csv plus totals.txt. Per-page checksum table (page, entries found, hours read, confidence). Pilot must check totals against the paper before importing. No FAA-acceptance claim. No personal data kept after delivery. Refund if fewer than 90% of entries were read. Sample is the 5 fixture rows from 3 synthetic pages. checkout.url is TO-MINT until a pilot-logbook-digitizer SKU at 17500 cents one-off exists in the INSTALLED permits-engine release. Demand-probe SURFACES edit is outside this worker's write paths (BLOCKED). Timer skipped on instruction. No mailbox reader.",
+      "checkout": {
+        "terms": "$175 once, for one order of up to 60 paper logbook pages. Nothing recurring, nothing to cancel and no subscription behind it. You get four files: an entries file (date, aircraft type, tail number, from, to, route, total time, PIC, SIC, dual received, night, actual instrument, simulated instrument, cross country, day landings, night landings, remarks, page number, confidence), a ForeFlight import file, a LogTen import file, and a checksum table with running totals. Check the checksum table against the paper logbook before you import. This is a transcription, not an FAA-accepted logbook, and we do not claim a regulator will accept it. We do not keep your pages or personal data after we send the files. If fewer than 90% of the entries on the pages you sent were read, you get the $175 back. There is no pay button on this page yet.",
+        "after": "After you pay, reply to your receipt email with photos or PDF scans; files come back within 1 business day.",
+        "url": "TO-MINT",
+        "label": "Buy \u2014 $175 one-off"
+      },
+      "kind": "build",
+      "sample_status": "pass",
+      "group": "Aviation services"
     }
   ],
   "map": "MAP.md",
