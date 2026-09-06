@@ -175,13 +175,13 @@
     },
     "fmcsa-motus-authhist": {
       "name": "FMCSA Motus AuthHist (operating-authority grants)",
-      "verdict": "ALLOW_PAID",
-      "decided_on": "2026-09-06",
+      "verdict": "UNKNOWN",
+      "decided_on": "",
       "evidence_url": "https://data.transportation.gov/api/views/yu5v-wbh6.json",
       "quote": "\"Public Access Level\": \"public\" ... \"Rights\": \"public\"",
       "required_text": "",
-      "reviewed_by": "grok-host path worker 2026-09-06; metadata fetched from evidence_url the same day; LIVIEW register page itself has no terms (robots.txt 404); full quotes in families/carrier-register/SOURCE_TERMS.md",
-      "note": "Paid file is Granted actions only. Street, phone, fax, representative and email are stripped. The LIVIEW register HTML for Sep 2026 printed NONE in Grant Decision Notices; rows come from this Motus table, not from a scrape of phones.",
+      "reviewed_by": "",
+      "note": "Verdict set back to UNKNOWN by Fable 2026-09-06: the evidence below was gathered by the grok-host build worker, and a machine may not grant ALLOW_PAID (rule: how_to_change_it). The operator decides. Paid file is Granted actions only. Street, phone, fax, representative and email are stripped. The LIVIEW register HTML for Sep 2026 printed NONE in Grant Decision Notices; rows come from this Motus table, not from a scrape of phones.",
       "labels": ["fmcsa-motus-authhist", "fmcsa", "motus", "yu5v-wbh6", "carrier-register", "li-public.fmcsa.dot.gov"]
     },
     "washington-dc": {

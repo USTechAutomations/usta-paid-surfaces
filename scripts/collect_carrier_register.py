@@ -5,6 +5,7 @@ Reads the public LIVIEW register (one HTTP GET per page) and the same
 agency's Motus AuthHist open-data table. Writes:
 
   ~/.hermes/state/carrier-register/snapshot_<YYYY-MM-DD>.csv
+  ~/.hermes/state/carrier-register/snapshot_<YYYY-MM-DD>.json
   ~/.hermes/state/carrier-register/what_changed_<older>_<newer>.csv
 
 Never writes street, phone, fax, email, or a representative's name.
@@ -25,7 +26,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 UA = (
@@ -39,6 +40,7 @@ LIVIEW_DETAIL = (
 )
 AUTHHIST = "https://data.transportation.gov/resource/yu5v-wbh6.json"
 CARRIER = "https://data.transportation.gov/resource/inys-ebih.json"
+SOURCE_ID = "fmcsa-motus-authhist"
 STATE = Path.home() / ".hermes" / "state" / "carrier-register"
 SLEEP = 1.1
 COLUMNS = (
@@ -158,21 +160,24 @@ def compact(d: date) -> str:
     return d.strftime("%Y%m%d")
 
 
-def fetch_authhist(start: date, end: date) -> list[dict]:
+def authhist_query(start: date, end: date) -> tuple[str, dict]:
     where = (
         "upper(reason)='GRANTED' AND status_change_date >= "
         f"'{compact(start)}' AND status_change_date <= '{compact(end)}'"
     )
-    rows = socrata(
-        AUTHHIST,
-        {
-            "$where": where,
-            "$limit": "50000",
-            "$order": "status_change_date,docket_number",
-            "$select": "docket_number,usdot_number,op_auth_type,op_auth_status,"
-            "reason,status_change_date",
-        },
-    )
+    params = {
+        "$where": where,
+        "$limit": "50000",
+        "$order": "status_change_date,docket_number",
+        "$select": "docket_number,usdot_number,op_auth_type,op_auth_status,"
+        "reason,status_change_date",
+    }
+    return AUTHHIST + "?" + urllib.parse.urlencode(params), params
+
+
+def fetch_authhist(start: date, end: date) -> tuple[list[dict], str]:
+    q, params = authhist_query(start, end)
+    rows = socrata(AUTHHIST, params)
     out = []
     for r in rows:
         raw = str(r.get("status_change_date") or "")
@@ -193,7 +198,7 @@ def fetch_authhist(start: date, end: date) -> list[dict]:
                 "snapshot_date": "",
             }
         )
-    return out
+    return out, q
 
 
 def fill_carrier_names(rows: list[dict]) -> None:
@@ -245,6 +250,36 @@ def write_csv(path: Path, rows: list[dict]) -> None:
         w.writeheader()
         for r in sorted(rows, key=lambda x: (x.get("grant_date") or "", x.get("docket_number") or "")):
             w.writerow({k: r.get(k, "") for k in COLUMNS})
+
+
+def write_snapshot_json(
+    snap_date: str,
+    row_count: int,
+    source_url: str,
+    fetched_at: str | None = None,
+) -> Path:
+    """Seal one day record. Keep any extra keys already on disk."""
+    path = STATE / f"snapshot_{snap_date}.json"
+    rec: dict = {}
+    if path.exists():
+        try:
+            loaded = json.loads(path.read_text(encoding="utf-8"))
+            if isinstance(loaded, dict):
+                rec = loaded
+        except (OSError, ValueError):
+            rec = {}
+    rec.update(
+        {
+            "snapshot_date": snap_date,
+            "source_id": SOURCE_ID,
+            "source_url": source_url,
+            "row_count": int(row_count),
+            "fetched_at": fetched_at
+            or datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        }
+    )
+    path.write_text(json.dumps(rec, indent=2) + "\n", encoding="utf-8")
+    return path
 
 
 def key_of(r: dict) -> tuple:
@@ -308,7 +343,7 @@ def main() -> int:
     older_end = newer_start - timedelta(days=1)
     older_start = older_end - timedelta(days=6)
     log(f"authhist {older_start} .. {newer_end}")
-    motus = fetch_authhist(older_start, newer_end)
+    motus, source_url = fetch_authhist(older_start, newer_end)
     log(f"  {len(motus)} Granted rows in {older_start}..{newer_end}")
     fill_carrier_names(motus)
     named = sum(1 for r in motus if r["legal_name"])
@@ -344,6 +379,8 @@ def main() -> int:
     newer_path = STATE / f"snapshot_{newer_end.isoformat()}.csv"
     write_csv(older_path, older)
     write_csv(newer_path, newer)
+    older_json = write_snapshot_json(older_end.isoformat(), len(older), source_url)
+    newer_json = write_snapshot_json(newer_end.isoformat(), len(newer), source_url)
     strip_contact_headers(older_path)
     strip_contact_headers(newer_path)
 
@@ -372,6 +409,8 @@ def main() -> int:
 
     log(f"wrote {older_path} ({len(older)} rows)")
     log(f"wrote {newer_path} ({len(newer)} rows)")
+    log(f"wrote {older_json}")
+    log(f"wrote {newer_json}")
     log(f"wrote {changed_path} ({len(appeared)} rows)")
     if not newer:
         log("WARN: newer snapshot is empty; the page must say so")
