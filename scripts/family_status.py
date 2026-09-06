@@ -108,6 +108,7 @@ SOURCES: dict[str, tuple] = {
     # ---- already wired; five of these were reading the wrong table ----
     "grid": ("grid_queue", "project_snapshots", "snapshot_date", 1),
     "ttb": ("ttb_permits", "permit", "snapshot_date", 7),
+    "ttb-new-permits": ("ttb_permits", "permit", "snapshot_date", 7),
     "new-entities": ("business_formation", "business_filings", "snapshot_date", 1),
     "crawler": ("closing_web", "policy_snapshots", "snapshot_date", 1),
     "mesa-code": ("mesa_code_compliance", "case_snapshot", "snapshot_date", 1),

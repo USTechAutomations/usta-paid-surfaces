@@ -1967,6 +1967,25 @@
       "coverage_what": "Generated each week, not read from the world",
       "coverage_how": "Our solver writes 24 bounded scheduling instances from a seed tied to the date. Nothing in the pack is measured from a real factory, and the page says so.",
       "price_list_note": "The sample on the page is the newest pack without the sequence column; read it before you pay."
+    },
+    {
+      "id": "ttb-new-permits",
+      "name": "New federal alcohol permits this week",
+      "buyer": "Vendors who sell to newly permitted alcohol businesses: packaging, labels, equipment, compliance, lenders, distributors",
+      "cadence": "weekly, every Tuesday",
+      "cadence_long": "one national file a week, built from the Tuesday copy of the TTB list and the one before it. A week that adds nothing is sent as 0 plus the two copy dates",
+      "price": "$49/mo",
+      "sample_status": "pass",
+      "note": "STAGED 2026-09-04, NOT PUBLISHED. Sibling of the live /feeds/ttb family, which sells one state at a time for $99/mo; this one sells the whole country as one weekly file at $49/mo, restricted to permits that first appeared and permits that stopped being listed. No field-change rows. checkout.url is the placeholder TO-MINT: scripts/mint_feed_links.py refuses this feed until a 'ttb-new-permits' SKU at 4900 cents monthly exists in the INSTALLED permits-engine release, and adding that SKU is an engine release the operator has to call. The paid-file source gate: paid_file_sources.json has no TTB entry, so the file is UNKNOWN, not ALLOW; the operator must read the TTB terms and record the verdict with a dated quote before a paid file ships. Sample rule: the newest week's new-permit rows with the business-name column removed, 25 rows. Counted 2026-09-04 off the sealed copies: 143, 78, 105 and 69 permits appeared in the four weekly gaps from 8 Aug to 1 Sep; 37, 11, 15 and 8 stopped being listed.",
+      "group": "Other dated records",
+      "short": "New alcohol permits, weekly",
+      "who": "Vendors who sell to newly permitted alcohol businesses.",
+      "checkout": {
+        "terms": "$49 a month, billed monthly, for one national file a week: every federal alcohol permit that first appeared on the TTB list since the previous Tuesday copy, and every permit that stopped being listed. Six columns: permit number, business name where our copy holds one, city, state, county, and the permit type. No street, no owner name, no phone. About half the appearing rows carry no business name and we print the gap rather than filling it in. The TTB itself publishes its new permits free every week in its own short file, so most of the appearing rows can be had free from the government; what is published nowhere free is the permits that stopped being listed, and the dated pair of copies behind every row. Cancel any month by email, with no account to close and no notice period.",
+        "after": "After you pay, a person emails you the current week's file as a CSV within one working day, then a new one every Tuesday for as long as the subscription runs. Each file names the two dated copies it was built from. A week where we could not read the source says so rather than repeating itself.",
+        "url": "TO-MINT",
+        "label": "Subscribe — $49 a month"
+      }
     }
   ],
   "map": "MAP.md",
