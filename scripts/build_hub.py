@@ -44,6 +44,9 @@ ORDER = [
     "Checks we run for you",
     "Comparison tables",
     "Construction records",
+    "Weather records",
+    "Federal contract records",
+    "Trade records",
     "Other dated records",
 ]
 
