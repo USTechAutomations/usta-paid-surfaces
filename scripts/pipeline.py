@@ -422,7 +422,49 @@ def g_named(s: Surface) -> Result:
 # ---------------------------------------------- gate 2: may we collect it
 
 
-def _preflight_notes(clock: str) -> dict[str, dict]:
+def _notes_root(store: str) -> Path:
+    """The folder one store's permission notes are filed in.
+
+    TWO SHAPES, because two kinds of reader write into this estate and only one
+    of them lives under clocks/. A clock reader is named by its folder. A
+    sealed-file reader is named by an absolute path: its store IS a folder, and
+    its notes are filed in that same folder, next to the day records they cover.
+
+    ONE RULE COVERS BOTH: the notes sit in the folder the store itself sits in,
+    and for a store that IS a folder, that is the folder. A store named by an
+    absolute path to a database file therefore files its notes beside the file.
+
+    Nothing else about a note changes with the shape -- same three file shapes,
+    same globs, same rule that software never writes one and that a folder with
+    no note in it is unknown rather than allowed.
+    """
+    if not str(store).startswith("/"):
+        return CLOCKS / str(store)
+    root = Path(store)
+    return root if root.is_dir() else root.parent
+
+
+def _preflight_note_files(root: Path) -> list[Path]:
+    """The files that could hold a note, whether or not any of them does.
+
+    Kept apart from reading them because "there is no note file here at all" and
+    "there are note files and not one of them covers this source" are two
+    different sentences. The first one is the one that tells a person where the
+    missing note has to be filed, and it cannot be said by a reader that only
+    ever returns what it found.
+    """
+    if not root.is_dir():
+        return []
+    files: list[Path] = []
+    if (root / "universe").is_dir():
+        files += sorted((root / "universe").glob("*.json"))
+    files += sorted(root.glob("*SOURCE_GATE*.json"))
+    files += sorted(root.glob("*SOURCE_PREFLIGHT*.json"))
+    files += sorted(root.glob("preflight*.json"))
+    return files
+
+
+def _preflight_notes(store: str) -> dict[str, dict]:
     """Every written permission note filed with one reader, by source.
 
     A note is a person's dated decision about one source: what we may take, on
@@ -440,20 +482,13 @@ def _preflight_notes(clock: str) -> dict[str, dict]:
       3. review    a whole-lane review filed at the reader's root, which is how
                    the one refusal in this estate is recorded
 
-    All three are read. A reader with none of them comes back empty, and empty
-    is not the same as allowed.
+    All three are read, out of whichever folder this reader files them in --
+    a clock folder under clocks/, or the sealed-file store itself when the store
+    is named by an absolute path. A reader with none of them comes back empty,
+    and empty is not the same as allowed.
     """
     notes: dict[str, dict] = {}
-    root = CLOCKS / clock
-    if not root.is_dir():
-        return notes
-    files: list[Path] = []
-    if (root / "universe").is_dir():
-        files += sorted((root / "universe").glob("*.json"))
-    files += sorted(root.glob("*SOURCE_GATE*.json"))
-    files += sorted(root.glob("*SOURCE_PREFLIGHT*.json"))
-    files += sorted(root.glob("preflight*.json"))
-    for path in files:
+    for path in _preflight_note_files(_notes_root(store)):
         try:
             doc = read_json(path)
         except (OSError, ValueError):
@@ -534,6 +569,38 @@ def _note_review_date(note: dict) -> str | None:
 SOURCE_ID_IN_WHERE = re.compile(r"source_id\s*=\s*'([^']+)'")
 
 
+def _newest_sealed_day(store: str, lane: Any) -> dict | None:
+    """The newest day record in a sealed-file store, read out of the records.
+
+    NEWEST BY THE DATE INSIDE THE RECORD -- the lane's own date field -- never by
+    the file's name and never by its timestamp. That is the same rule
+    family_status reads these folders under, and it is not fussiness: a name is a
+    claim about a file, and this estate does not take dates from claims.
+
+    A record that will not parse is skipped rather than guessed at, and a folder
+    with no parsable record at all comes back None. None upstairs is
+    `unattributed`, which is exactly what every sealed lane was before today.
+    """
+    folder = Path(store)
+    if not folder.is_dir():
+        return None
+    newest: tuple[str, dict] | None = None
+    for path in sorted(folder.glob(lane.where or "*.json")):
+        try:
+            rec = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        if not isinstance(rec, dict):
+            continue
+        day = rec.get(lane.column)
+        if not day:
+            continue
+        key = str(day)[:10]
+        if newest is None or key > newest[0]:
+            newest = (key, rec)
+    return newest[1] if newest else None
+
+
 def _sources_read_now(fid: str, today: dt.date) -> Result:
     """Which named sources this feed READ on its newest sealed day.
 
@@ -566,7 +633,23 @@ def _sources_read_now(fid: str, today: dt.date) -> Result:
             ids.update(named)
             continue
         if lane.sealed_files:
-            unattributed.append(lane.label)
+            # A sealed-file store keeps its rows as one dated record per day in
+            # a folder, and the newest of those records names what was actually
+            # downloaded. Read it. A lane whose newest day carries a source_id is
+            # attributed exactly like a table that writes the source onto the
+            # row; one that carries none stays unattributed, which is where every
+            # sealed lane on this estate sat before today.
+            #
+            # This widens which lane can be ATTRIBUTED. It does not widen what a
+            # note is allowed to say, and it cannot make a source allowed: the
+            # name read here is then looked up in the notes like any other, and
+            # a name with no note behind it is still `unknown`.
+            rec = _newest_sealed_day(store, lane)
+            named_here = str((rec or {}).get("source_id") or "").strip()
+            if not named_here:
+                unattributed.append(lane.label)
+                continue
+            ids.add(named_here)
             continue
         db = fs._store_path(store)
         if not db.is_file():
@@ -695,20 +778,30 @@ def g_lawful(s: Surface, today: dt.date) -> Result:
     read = got.evidence["sources"]
     loose = got.evidence["unattributed"]
 
-    if store.startswith("/"):
-        # A store that is not one of the readers under clocks/ has no notes
-        # folder to look in. Say that, rather than reporting a clean sheet.
-        return Result(UNKNOWN,
-                      f"its rows come from {store}, which files no permission notes we "
-                      f"can read, so we cannot say whether a person cleared this source",
-                      {"position": "unknown", "store": store})
-
+    # A sealed-file store is named by an absolute path and files its notes in
+    # that same folder. This used to stop here -- "which files no permission
+    # notes we can read" -- WITHOUT EVER LOOKING, which made a written, dated,
+    # human decision unreadable purely because of where its reader keeps its
+    # days. The rule is untouched: only a written note counts, software never
+    # writes one, and a folder holding no note is unknown rather than allowed.
+    # What changes is that the folder gets opened.
+    root = _notes_root(store)
     notes = _preflight_notes(store)
     if not read and loose:
         return Result(UNKNOWN,
                       f"the store names no source on its rows ({'; '.join(loose)}), so a "
                       f"note cannot be tied to what was read",
                       {"position": "unknown", "unattributed": loose})
+    if not _preflight_note_files(root):
+        # Nothing was found because there is nothing to find, and that sentence
+        # is worth more to a person than "no note for src_x": it names the folder
+        # the missing note has to be written into. Still unknown, still never a
+        # pass, and nothing here may write the file it is asking for.
+        return Result(UNKNOWN,
+                      f"no written permission note filed at {root}, so nobody has said in "
+                      f"writing whether {', '.join(sorted(read))} may be read",
+                      {"position": "unknown", "store": store, "read_now": sorted(read),
+                       "notes_root": str(root)})
 
     host = notes.get(HOST_WIDE)
     refused, missing, lapsed, allowed, by_host, by_variant = [], [], [], [], [], []
@@ -803,9 +896,14 @@ def _bodies_on_disk(store: str) -> tuple[int, int, str] | str:
     counted. A store with a body table and nothing in it is (0, 0), which is a
     real answer; a store we cannot open is not.
     """
-    db = CLOCKS / store / "data" / f"{store}.db"
+    # Both store shapes, resolved by the one function that knows them. Built by
+    # hand out of CLOCKS this pasted an absolute store into the middle of a path
+    # and then reported "there is no store file at <name>.db" about a folder
+    # sitting right there -- the same false sentence about the same third shape
+    # that _why_unopenable exists to have stopped saying.
+    db = _store_db(store)
     if not db.is_file():
-        return _why_unopenable(db)
+        return _why_unopenable(db, "the copies it holds")
     try:
         con = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
         tables = {r[0] for r in con.execute(
@@ -1022,7 +1120,13 @@ def g_keepable(s: Surface, lawful: Result, today: dt.date) -> Result:
                           "no source file to keep or not keep")
     store = ev.get("store")
     used: dict[str, str] = ev.get("notes_used") or {}
-    if not store or str(store).startswith("/"):
+    # A sealed-file store used to be dropped here on the shape of its name -- it
+    # starts with a slash, therefore "we could not say which store feeds this
+    # page". We could say. We knew the folder, we had just decided not to open
+    # it. What a folder store genuinely cannot answer is the BYTE COUNT, and
+    # _bodies_on_disk says that in its own words a few lines down, so the answer
+    # is still unknown for the shapes that deserve it and the sentence is true.
+    if not store:
         return Result(UNKNOWN, "we could not say which store feeds this page, so nothing "
                                "here can say what it keeps")
     if not used:
@@ -1271,8 +1375,13 @@ def _store_db(store: str) -> Path:
     return CLOCKS / store / "data" / f"{store}.db"
 
 
-def _why_unopenable(db: Path) -> str:
+def _why_unopenable(db: Path, what: str = "its days") -> str:
     """Why this store cannot be opened, in words that match what is on disk.
+
+    `what` is the thing the CALLER could not count, because three callers ask
+    this for three different reasons -- the days, the run log, the copies held --
+    and one sentence about days printed under a question about kept files is the
+    same class of mistake as the one this function was written to end.
 
     "There is no store file" was being said about a store that is very much
     there. `ai-terms` keeps its evidence as a FOLDER of dated sealed files --
@@ -1288,7 +1397,7 @@ def _why_unopenable(db: Path) -> str:
     if db.is_dir():
         n = sum(1 for _ in db.iterdir()) if db.exists() else 0
         return (f"{db.name} is a folder of {n} sealed file(s), not a database this "
-                f"knows how to open, so its days cannot be counted here")
+                f"knows how to open, so {what} cannot be counted here")
     return f"there is no store file at {db.name} to look in"
 
 
@@ -1329,8 +1438,17 @@ def _sealed_days(store: str, lanes: list, since: str) -> list[dt.date] | str:
     grounds has not stopped producing; it produces less. Judging a stopped lane
     here would be this gate answering a question that belongs to `honest`, which
     is the exact mistake that has now cost three verdicts on this estate.
+
+    A FOLDER STORE IS COUNTED, NOT SKIPPED. Its dated records ARE its rows, the
+    date is inside each record, and family_status has read them that way since
+    the day the shape was added. Answering "not a database this knows how to
+    open" here was a fact about this function printed as if it were a fact about
+    the store -- and it silenced the one reading that still works when there is
+    no run log, which on a folder store there never is.
     """
     db = _store_db(store)
+    if db.is_dir():
+        return _sealed_days_from_folder(store, lanes, since)
     if not db.is_file():
         return _why_unopenable(db)
     days: set[str] = set()
@@ -1356,6 +1474,40 @@ def _sealed_days(store: str, lanes: list, since: str) -> list[dt.date] | str:
             con.close()
         except Exception:  # noqa: BLE001
             pass
+    if not read:
+        return (f"not one of this feed's {len(lanes)} lane(s) could be counted "
+                f"({'; '.join(failed) or 'no reason given'})")
+    out = []
+    for x in sorted(days):
+        try:
+            out.append(dt.date.fromisoformat(x))
+        except ValueError:
+            continue
+    return out
+
+
+def _sealed_days_from_folder(store: str, lanes: list, since: str) -> list[dt.date] | str:
+    """The same count, off a folder of dated records instead of a table.
+
+    family_status already knows how to read the date out of one of these records,
+    and this calls it rather than carrying a second copy of the rule. Two readers
+    of the same folder is how the two of them end up disagreeing about which day
+    a file belongs to, and then arguing about which one is right.
+    """
+    try:
+        import family_status as fs
+    except Exception as exc:  # noqa: BLE001
+        return f"the store map could not be loaded to count days: {exc}"
+    days: set[str] = set()
+    read, failed = 0, []
+    for ln in lanes:
+        try:
+            got = fs._dates_from_sealed_files(store, store, ln)
+        except Exception as exc:  # noqa: BLE001
+            failed.append(f"{ln.label}: {exc.__class__.__name__}")
+            continue
+        read += 1
+        days.update(d for d in got if d >= since)
     if not read:
         return (f"not one of this feed's {len(lanes)} lane(s) could be counted "
                 f"({'; '.join(failed) or 'no reason given'})")
@@ -1452,7 +1604,7 @@ def _run_log(store: str, since: str) -> tuple[int, int, str | None] | str:
     # that, and it was still a claim rather than a reading. Open it and look.
     db = _store_db(store)
     if not db.is_file():
-        return _why_unopenable(db)
+        return _why_unopenable(db, "whether it ran")
     try:
         con = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
         tables = {r[0] for r in con.execute(
@@ -3904,6 +4056,126 @@ def selftest() -> int:
             print(f"PASS  and a store that really is absent still says so: {gone}")
         else:
             print(f"FAIL  an absent store stopped saying it was absent: {gone}")
+            fails += 1
+
+        # ---- 14-18. THE SEALED-FILE STORE, THROUGH THE PERMISSION GATE ------
+        #
+        # A feed whose store is a FOLDER of dated day records rather than a
+        # database could not reach a pass here at all, and neither half of the
+        # reason was about the source. Every sealed lane went straight into
+        # `unattributed`, so nothing was ever read; and the store's absolute path
+        # was taken as proof that there was nowhere to look for a note, without
+        # looking. Two facts about this file, printed as facts about the store.
+        #
+        # Five states, on a throwaway folder, because a gate that can only reach
+        # one verdict has not been tested. The note is written HERE, by the test.
+        # Nothing in pipeline.py writes one, and nothing in this block relaxes
+        # that: an empty folder is still unknown, a REFUSE still refuses, and a
+        # lapsed review date is unknown again rather than a quiet yes.
+        checks += 5
+
+        def _sealed(name: str, day: dict | None, note: dict | None = None) -> Path:
+            """One invented sealed-file store: a day record, and maybe a note."""
+            folder = tmp / name
+            folder.mkdir(parents=True, exist_ok=True)
+            if day is not None:
+                (folder / f"snapshot_{day['snapshot_date']}.json").write_text(
+                    json.dumps(day), encoding="utf-8")
+            if note is not None:
+                (folder / "SOURCE_PREFLIGHT_2026-09-06.json").write_text(
+                    json.dumps(note), encoding="utf-8")
+            return folder
+
+        def _note(decision: str, review_on: str) -> dict:
+            """The smallest note this reader accepts, in the shape a person files.
+
+            Shape 1: the decision sits on the source's own record. Keyed by the
+            source id the day record carries, so the note is tied to what was
+            actually downloaded rather than to who we think the publisher is.
+            """
+            return {"records": [{"source_id": "a-real-publisher",
+                                 "meta": {"source_preflight": {
+                                     "decision": decision,
+                                     "decided_on": "2026-09-06",
+                                     "evidence_url": "https://example.gov/terms",
+                                     "quote": "this register may be downloaded and re-used",
+                                     "reviewed_by": "the operator",
+                                     "review_on": review_on}}}]}
+
+        def _lawful(folder: Path, day: dt.date) -> Result:
+            """The real gate, pointed at an invented store, world put back after."""
+            surf = Surface(folder.name, "feed", {}, None, Path("nowhere"))
+            lane = fs.Lane("the sealed day records", "sealed day files", "snapshot_date",
+                           "snapshot_*.json", 7, True)
+            old_lanes = fs._lanes
+            try:
+                fs._lanes = lambda fid: (str(folder), (lane,))
+                return g_lawful(surf, day)
+            finally:
+                fs._lanes = old_lanes
+
+        seen = dt.date(2026, 9, 6)
+        named = {"snapshot_date": "2026-09-06", "source_id": "a-real-publisher",
+                 "source_url": "https://example.gov/register", "row_count": 12}
+
+        # 14. THE PASSING PATH THAT DID NOT EXIST. The newest day record names
+        #     what was downloaded, and a dated ALLOW note for that exact name is
+        #     filed in the same folder.
+        r = _lawful(_sealed("sealed-with-a-note", named, _note("ALLOW", "2026-12-06")), seen)
+        if r.verdict == PASS and "a-real-publisher" in r.because:
+            print(f"PASS  a sealed-file store whose newest day names its publisher, with a "
+                  f"dated ALLOW note filed in that folder, comes back open: {r.because}")
+        else:
+            print(f"FAIL  a sealed store with a real note could not reach a pass: "
+                  f"{r.verdict} -- {r.because}")
+            fails += 1
+
+        # 15. AND THE EMPTY FOLDER IS STILL UNKNOWN. This is the half that must
+        #     not move: opening the folder is not the same as finding something
+        #     in it, and the sentence has to name the folder the note is missing
+        #     from rather than saying nothing could be looked at.
+        r = _lawful(_sealed("sealed-with-no-note", named), seen)
+        if r.verdict == UNKNOWN and "no written permission note filed at" in r.because:
+            print(f"PASS  the same store with no note in the folder is unknown, and the "
+                  f"message names where the note has to be filed: {r.because}")
+        else:
+            print(f"FAIL  a sealed store with no note came back {r.verdict}: {r.because}")
+            fails += 1
+
+        # 16. A refusal still refuses, read out of the same folder.
+        r = _lawful(_sealed("sealed-refused", named, _note("REFUSE", "2026-12-06")), seen)
+        if r.verdict == FAIL and "a-real-publisher" in r.because:
+            print(f"PASS  a REFUSE note in a sealed store fails the gate and names the "
+                  f"source: {r.because}")
+        else:
+            print(f"FAIL  a refused sealed source was not failed: {r.verdict} -- "
+                  f"{r.because}")
+            fails += 1
+
+        # 17. A note nobody has looked at since its own review date is unknown
+        #     again. A lapsed yes is not a yes, whatever shape the store is.
+        r = _lawful(_sealed("sealed-lapsed", named, _note("ALLOW", "2026-01-01")), seen)
+        if r.verdict == UNKNOWN and "lapsed" in r.because:
+            print(f"PASS  an ALLOW note past its own review date is unknown again in a "
+                  f"sealed store too: {r.because}")
+        else:
+            print(f"FAIL  a lapsed note in a sealed store came back {r.verdict}: "
+                  f"{r.because}")
+            fails += 1
+
+        # 18. THE ONE A NOTE MUST NOT RESCUE. The day record carries no
+        #     source_id, so nothing says what was downloaded -- and the folder
+        #     holds a perfectly good ALLOW note. A note that cannot be tied to
+        #     what was read is not evidence about what was read.
+        anon = {"snapshot_date": "2026-09-06",
+                "source_url": "https://example.gov/register", "row_count": 12}
+        r = _lawful(_sealed("sealed-unattributed", anon, _note("ALLOW", "2026-12-06")), seen)
+        if r.verdict == UNKNOWN and "names no source on its rows" in r.because:
+            print(f"PASS  a day record with no source_id stays unknown even with an ALLOW "
+                  f"note sitting in the folder: {r.because}")
+        else:
+            print(f"FAIL  an unattributed sealed day was rescued by a note it cannot be "
+                  f"tied to: {r.verdict} -- {r.because}")
             fails += 1
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
