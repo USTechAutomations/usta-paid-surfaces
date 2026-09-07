@@ -1,26 +1,26 @@
 domain,crawler,said_before,says_now,what_moved,first_read,second_read
 ledvance.com,Amazonbot,blocked from the whole site,blocked from 5 folders,whole-site block taken off,2026-09-03,2026-09-04
 letmejerk.com,Amazonbot,not named in the file,blocked from the whole site,whole-site block added,2026-09-05,2026-09-06
-privateladyescorts.com,ChatGPT-User,"named, with 1 allow line and no block",not named in the file,crawler name dropped from the file,2026-09-05,2026-09-06
+kompas.com,Claude-SearchBot,blocked from the whole site,not named in the file,crawler name dropped from the file,2026-09-05,2026-09-06
 saatchiart.com,PetalBot,not named in the file,named with nothing written under it,crawler named for the first time,2026-09-05,2026-09-06
 bizapedia.com,anthropic-ai,blocked from the whole site,"blocked from the whole site, with 1 exception",rules under the crawler rewritten,2026-09-05,2026-09-06
 bilbaoexhibitioncentre.com,anthropic-ai,blocked from the whole site,"named, with 1 allow line and no block",whole-site block taken off,2026-09-02,2026-09-03
 techbuzz.ai,cohere-ai,not named in the file,blocked from the whole site,whole-site block added,2026-09-05,2026-09-06
-serp.co,Amazonbot,blocked from the whole site,not named in the file,crawler name dropped from the file,2026-09-05,2026-09-06
+privateladyescorts.com,ChatGPT-User,"named, with 1 allow line and no block",not named in the file,crawler name dropped from the file,2026-09-05,2026-09-06
 biorender.com,Amazonbot,not named in the file,blocked from 8 folders,crawler named for the first time,2026-09-04,2026-09-05
 booklooker.de,CCBot,blocked from 2888 folders,blocked from 2887 folders,rules under the crawler rewritten,2026-09-05,2026-09-06
 billygraham.org,ChatGPT-User,blocked from the whole site,"named, with 1 allow line and no block",whole-site block taken off,2026-09-01,2026-09-02
 bundesliga.com,YouBot,not named in the file,blocked from the whole site,whole-site block added,2026-09-04,2026-09-05
-theskylive.com,Claude-SearchBot,blocked from the whole site,not named in the file,crawler name dropped from the file,2026-09-05,2026-09-06
+serp.co,Amazonbot,blocked from the whole site,not named in the file,crawler name dropped from the file,2026-09-05,2026-09-06
 juicer.io,ChatGPT-User,not named in the file,blocked from 2 folders,crawler named for the first time,2026-09-04,2026-09-05
 ifa-berlin.com,anthropic-ai,blocked from 647 folders,blocked from 649 folders,rules under the crawler rewritten,2026-09-05,2026-09-06
 epochtimes.com,cohere-ai,blocked from the whole site,"named, with 1 allow line and no block",whole-site block taken off,2026-09-01,2026-09-02
 bundesliga.de,YouBot,not named in the file,blocked from the whole site,whole-site block added,2026-09-04,2026-09-05
-afrotech.com,Bytespider,blocked from the whole site,not named in the file,crawler name dropped from the file,2026-09-04,2026-09-05
+theskylive.com,Claude-SearchBot,blocked from the whole site,not named in the file,crawler name dropped from the file,2026-09-05,2026-09-06
 marc.info,ChatGPT-User,not named in the file,blocked from 2 folders,crawler named for the first time,2026-09-04,2026-09-05
 lasillavacia.com,DuckAssistBot,"named, with 1 allow line and no block",blocked from 2 folders,rules under the crawler rewritten,2026-09-05,2026-09-06
-foodiesfeed.com,ClaudeBot,blocked from the whole site,blocked from 3 folders,whole-site block taken off,2026-09-01,2026-09-02
+estantevirtual.com.br,CCBot,blocked from the whole site,"named, with 1 allow line and no block",whole-site block taken off,2026-09-01,2026-09-02
 iqsdirectory.com,Amazonbot,not named in the file,blocked from the whole site,whole-site block added,2026-09-04,2026-09-05
-emirates247.com,Amazonbot,blocked from the whole site,not named in the file,crawler name dropped from the file,2026-09-04,2026-09-05
+afrotech.com,Bytespider,blocked from the whole site,not named in the file,crawler name dropped from the file,2026-09-04,2026-09-05
 mend.io,Applebot-Extended,not named in the file,blocked from 5 folders,crawler named for the first time,2026-09-04,2026-09-05
 showmelocal.com,ClaudeBot,"named, with 1 allow line and no block",blocked from 2 folders,rules under the crawler rewritten,2026-09-05,2026-09-06

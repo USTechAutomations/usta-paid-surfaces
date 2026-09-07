@@ -34,9 +34,9 @@
       "2026-09-06"
     ],
     [
-      "privateladyescorts.com",
-      "ChatGPT-User",
-      "named, with 1 allow line and no block",
+      "kompas.com",
+      "Claude-SearchBot",
+      "blocked from the whole site",
       "not named in the file",
       "crawler name dropped from the file",
       "2026-09-05",
@@ -79,9 +79,9 @@
       "2026-09-06"
     ],
     [
-      "serp.co",
-      "Amazonbot",
-      "blocked from the whole site",
+      "privateladyescorts.com",
+      "ChatGPT-User",
+      "named, with 1 allow line and no block",
       "not named in the file",
       "crawler name dropped from the file",
       "2026-09-05",
@@ -124,8 +124,8 @@
       "2026-09-05"
     ],
     [
-      "theskylive.com",
-      "Claude-SearchBot",
+      "serp.co",
+      "Amazonbot",
       "blocked from the whole site",
       "not named in the file",
       "crawler name dropped from the file",
@@ -169,13 +169,13 @@
       "2026-09-05"
     ],
     [
-      "afrotech.com",
-      "Bytespider",
+      "theskylive.com",
+      "Claude-SearchBot",
       "blocked from the whole site",
       "not named in the file",
       "crawler name dropped from the file",
-      "2026-09-04",
-      "2026-09-05"
+      "2026-09-05",
+      "2026-09-06"
     ],
     [
       "marc.info",
@@ -196,10 +196,10 @@
       "2026-09-06"
     ],
     [
-      "foodiesfeed.com",
-      "ClaudeBot",
+      "estantevirtual.com.br",
+      "CCBot",
       "blocked from the whole site",
-      "blocked from 3 folders",
+      "named, with 1 allow line and no block",
       "whole-site block taken off",
       "2026-09-01",
       "2026-09-02"
@@ -214,8 +214,8 @@
       "2026-09-05"
     ],
     [
-      "emirates247.com",
-      "Amazonbot",
+      "afrotech.com",
+      "Bytespider",
       "blocked from the whole site",
       "not named in the file",
       "crawler name dropped from the file",

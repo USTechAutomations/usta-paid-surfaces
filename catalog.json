@@ -2241,8 +2241,12 @@
       "checkout": {
         "terms": "$49 a month, billed monthly, for one US file a week: every county that had a Severe Thunderstorm Warning, Tornado Warning, Flash Flood Warning or High Wind Warning in the daily National Weather Service alert snapshots we hold for that week, grouped by county and event, with state, county FIPS, county name, NWS zone, warning count, max hail inches where the warning text carried a number, max wind mph where the warning text carried a number, first onset (UTC), last expiry (UTC), and issuing office. No street, no person's name, no phone, no address. The National Weather Service publishes the warnings; this file is our county grouping of dated copies we sealed, not an official NWS product. A day we could not read the alerts feed is named as a gap. This first week is built from the one daily snapshot we hold (6 Sep 2026), and the page says so. Cancel any month by email, with no account to close and no notice period.",
         "after": "After paying you land on a page keyed to your payment. That week's file appears there, and a new one appears every week while the subscription runs. No message from us is needed.",
-        "url": "TO-MINT",
-        "label": "Subscribe — $49 a month"
+        "url": "https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w",
+        "label": "Subscribe — $49 a month",
+        "lands_on": "buy.stripe.com",
+        "status": "live",
+        "checked": "2026-09-06",
+        "verified": "2026-09-06"
       }
     },
     {
