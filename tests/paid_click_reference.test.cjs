@@ -16,3 +16,4 @@ assert.equal(run('gclid=abcdefghijk',{},'https://example.com/').link.href,'https
 assert.equal(new URL(run('gclid=abcdefghijk',{},'https://buy.stripe.com/aFafZa3cWg94gEcdTA0sU0T?client_reference_id=existing').link.href).searchParams.get('client_reference_id'),'existing');
 x.context.navigator.globalPrivacyControl=true;x.listeners.click();assert.equal(new URL(x.link.href).searchParams.has('client_reference_id'),false);
 console.log('PASS: reference, mobile IDs, privacy, malformed IDs, foreign links, existing references, late opt-out.');
+const sitelink=run('gclid=abcdefghijk');sitelink.context.location.search='?ad_campaign=r1&ad_group=gs&ad_arm=S&gclid=abcdefghijk';vm.runInNewContext(script,sitelink.context);assert.match(new URL(sitelink.link.href).searchParams.get('client_reference_id'),/^usta1_r1_gs_S_g_/);

@@ -14,7 +14,7 @@
   if (params.get('ad_campaign') !== route[0]) return;
   document.documentElement.classList.add('purchase-visit');
   var group = params.get('ad_group'), arm = params.get('ad_arm');
-  if (!/^g[12]$/.test(group || '') || !/^[AB]$/.test(arm || '')) return;
+  if (!((/^g[12]$/.test(group || '') && /^[AB]$/.test(arm || '')) || (group === 'gs' && arm === 'S'))) return;
   function denied() {
     if (navigator.globalPrivacyControl === true || navigator.doNotTrack === '1') return true;
     var deniedNow = false;
