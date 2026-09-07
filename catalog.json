@@ -2395,6 +2395,35 @@
         "checked": "2026-09-07",
         "verified": ""
       }
+    },
+    {
+      "id": "enforcement-action-board",
+      "name": "State-by-state EPA enforcement action boards",
+      "kind": "build",
+      "short": "Enforcement action board",
+      "who": "Compliance consultants and environmental attorneys who help facilities respond to formal EPA enforcement actions and want to reach companies in one state right after an action lands.",
+      "buyer": "Compliance consultants and environmental attorneys who help facilities respond to EPA enforcement actions",
+      "cadence": "monthly",
+      "cadence_long": "The public boards refresh monthly from a sealed copy of EPA's ECHO case search. The paid part is not a feed: it is one Featured 'Get help' slot on a state's board, held for twelve months.",
+      "price": "$350 for 12 months",
+      "sample_status": "pass",
+      "group": "Public records",
+      "note": "BORN 2026-09-07 in this worktree. Free public boards, one per state, of the newest formal US EPA enforcement actions, plus a national board of the 100 largest federal penalties in the last 90 days. Every row is reproduced verbatim from a dated copy of EPA's ECHO case search we sealed ourselves (fv5/families/enforcement-action-board/data/board.json, written by refresh.py); the slice module never touches the network. Fields per row: company/facility name, most recent case date, statute/program, federal penalty, outcome, EPA source link. EPA's case dataset has no city or street for the party, so the boards show no town and say so. A facility named after a natural person (a sole proprietor, 'John Smith Farms') is WITHHELD, not renamed, and each board says how many rows it held back and why. kind=build because there is no dated file to hand over and no clock behind the paid part: what is sold is one Featured slot per state per agency, first paid first shown, $350 for 12 months, bought by a compliance consultant or attorney through an email thread until a checkout link is minted. A second buyer for a taken state is told the slot is taken and refunded by replying to their Stripe receipt. checkout.url is TO-MINT until a 35000-cents twelve-month SKU exists in the installed permits-engine release; Claude mints it, no timer was installed. OSHA was best-effort only: the DOL catalog page answered but ingesting the OSHA CSV is not built, so boards are EPA-only for now and say so.",
+      "coverage_what": "A Featured 'Get help' slot on one state's board",
+      "coverage_how": "The public boards are free to read. Your firm's name and website sit in the 'Get help in <state>' box on the state you name, for twelve months. One firm per state, first paid first shown.",
+      "price_list_note": "The boards are free; ask which state's slot is open before you pay.",
+      "delivery": "<strong>What arrives after you pay:</strong> your firm's name and website go into the Get help box on your state's board within 15 minutes. If anything holds that up, reply to your Stripe receipt and a person finishes it by hand. The board records themselves are free to read.",
+      "contact_h2": "Ask about a state's slot",
+      "contact_p": "Name the state you want. We reply with whether its Get help slot is open, the fields we need, and the checkout link, before you spend anything.",
+      "contact_cta": "Email us about the Get help slot",
+      "contact_note": "Say the state and your firm. We will tell you whether the slot is open and what we need before you pay. There is no pay button on this page yet.",
+      "foot": "Records are reproduced from EPA as published, may lag the source, and say nothing about guilt or current compliance. US Tech Automations is not EPA.",
+      "checkout": {
+        "terms": "$350 once, for one Featured 'Get help' slot on one state's board, held for twelve months. One firm per state per agency, first paid first shown. Nothing recurring and no subscription behind it. If the state was already taken, or you change your mind within 14 days, reply to your Stripe receipt and we refund it. This buys a listing on our page; it is not legal help, not a filing, and not any endorsement by EPA.",
+        "after": "After you pay, your firm's name and website go into the Get help box on the state's board within 15 minutes. If the slot was already taken, we refund you and tell you, no questions.",
+        "status": "TO-MINT",
+        "url": ""
+      }
     }
   ],
   "map": "MAP.md",

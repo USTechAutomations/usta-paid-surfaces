@@ -1,0 +1,40 @@
+{
+  "id": "cs_test_fv5_enforcement-action-board_001",
+  "object": "checkout.session",
+  "mode": "payment",
+  "payment_status": "paid",
+  "amount_total": 35000,
+  "currency": "usd",
+  "created": 1788791400,
+  "customer_details": {
+    "email": "buyer@example.com",
+    "name": "Evergreen Compliance Partners LLC"
+  },
+  "custom_fields": [
+    {
+      "key": "business_name",
+      "type": "text",
+      "text": {
+        "value": "Evergreen Compliance Partners LLC"
+      }
+    },
+    {
+      "key": "website",
+      "type": "text",
+      "text": {
+        "value": "https://evergreencompliance.example"
+      }
+    },
+    {
+      "key": "state",
+      "type": "dropdown",
+      "dropdown": {
+        "value": "CA"
+      }
+    }
+  ],
+  "metadata": {
+    "family": "enforcement-action-board",
+    "private_slug": "eab-ca-001"
+  }
+}
