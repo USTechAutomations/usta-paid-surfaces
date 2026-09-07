@@ -143,7 +143,8 @@ def pending(catalog: dict, only: str | None = None) -> list[dict]:
         if not (FAMILIES_DIR / str(fid)).is_dir():
             continue
         c = fam.get("checkout") or {}
-        if c.get("url") == PLACEHOLDER and parse_price(fam.get("price", "")) is not None:
+        pending_row = c.get("url") == PLACEHOLDER or (c.get("url", "") == "" and c.get("status") == PLACEHOLDER)
+        if pending_row and parse_price(fam.get("price", "")) is not None:
             out.append(fam)
     return out
 

@@ -68,7 +68,93 @@ def _import_module(family_id: str, path: Path):
     spec = importlib.util.spec_from_file_location(name, path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)  # type: ignore[union-attr]
+    # Families built against the family contract (COMMON-FAMILY.md) may omit the
+    # three module constants; fill sensible defaults so both shapes plug in.
+    if not hasattr(module, "LINK_ID_ENV_OR_CATALOG"):
+        module.LINK_ID_ENV_OR_CATALOG = family_id
+    if not hasattr(module, "PRODUCT_NAME"):
+        module.PRODUCT_NAME = family_id.replace("-", " ")
+    if not hasattr(module, "ETA_MINUTES"):
+        module.ETA_MINUTES = 15
     return module
+
+
+# ------------------------------------------------------------ session view
+class SessionView(dict):
+    """A paid checkout in BOTH shapes a family may expect.
+
+    The scaffold's own families read `session.custom_fields` as a dict of
+    answers; families built to the family contract read a Stripe-shaped
+    session (`session["custom_fields"]` list, `session["metadata"]["private_slug"]`).
+    This object answers to both: attribute access and item access.
+    """
+
+    def __init__(self, s):
+        answers = dict(getattr(s, "custom_fields", {}) or {})
+        slug = ppp.private_slug(s.session_id)
+        super().__init__(
+            id=s.session_id, session_id=s.session_id, created=s.created,
+            amount_total=s.amount_total, currency=s.currency,
+            custom_fields=[{"key": k, "type": "text", "text": {"value": v},
+                            "dropdown": {"value": v}} for k, v in answers.items()],
+            answers=answers, customer_details={"email": None},
+            email_hash=getattr(s, "email_hash", ""), link_id=getattr(s, "link_id", ""),
+            metadata={"private_slug": slug, "fv5_family": ""},
+        )
+
+    def __getattr__(self, name):
+        if name == "custom_fields":       # scaffold shape: dict of answers
+            return self["answers"]
+        try:
+            return self[name]
+        except KeyError:
+            raise AttributeError(name) from None
+
+
+def _apply_state_update(state_dir: Path, family_id: str, update: dict, slug: str,
+                        created: int) -> None:
+    """Persist what a family asked to remember about this sale (live only).
+
+    `{"watch": {...}}`   -> appended to <family>/watches.jsonl
+    `{"featured": {...}}` -> appended to the list in <family>/featured.json
+    anything else        -> appended to <family>/state_updates.jsonl
+    """
+    fam_dir = state_dir / family_id
+    fam_dir.mkdir(parents=True, exist_ok=True)
+    stamp = {"slug": slug, "created": created}
+    for kind, payload in (update or {}).items():
+        row = dict(payload or {})
+        row.update(stamp)
+        if kind == "watch":
+            with (fam_dir / "watches.jsonl").open("a") as fh:
+                fh.write(json.dumps(row, sort_keys=True) + "\n")
+        elif kind == "featured":
+            p = fam_dir / "featured.json"
+            try:
+                cur = json.loads(p.read_text()) if p.is_file() else []
+            except Exception:  # noqa: BLE001
+                cur = []
+            if not isinstance(cur, list):
+                cur = []
+            cur.append(row)
+            p.write_text(json.dumps(cur, indent=1, sort_keys=True))
+        else:
+            with (fam_dir / "state_updates.jsonl").open("a") as fh:
+                fh.write(json.dumps({"kind": kind, **row}, sort_keys=True) + "\n")
+
+
+def _normalise_result(result):
+    """Family fulfil() may return HTML (str), None, or a dict with html/state_update."""
+    if result is None:
+        return None, None
+    if isinstance(result, str):
+        return result, None
+    if isinstance(result, dict):
+        html = result.get("html")
+        if not isinstance(html, str) or not html.strip():
+            return None, None
+        return html, result.get("state_update")
+    raise TypeError(f"fulfil() returned {type(result).__name__}, expected str, None or dict")
 
 
 # ------------------------------------------------------------ link lookup
@@ -186,7 +272,7 @@ def process_family(family_id: str, module, *, root: Path, state_dir: Path,
             summary["already"] += 1
             continue
         try:
-            html = module.fulfil(s)
+            html, state_update = _normalise_result(module.fulfil(SessionView(s)))
         except Exception as exc:  # noqa: BLE001 -- never crash the batch on one buyer
             outcome = f"error: {_redact(exc)}"
             summary["errors"] += 1
@@ -206,6 +292,8 @@ def process_family(family_id: str, module, *, root: Path, state_dir: Path,
         summary["outcomes"].append((slug, "written"))
         if live:
             ppp.write_private_page(root, family_id, s.session_id, html, s.created)
+            if state_update:
+                _apply_state_update(state_dir, family_id, state_update, slug, s.created)
             append_row(sess_path, {"slug": slug, "created": s.created,
                                    "amount": s.amount_total, "outcome": "written"})
     return summary
