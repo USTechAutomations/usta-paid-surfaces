@@ -198,6 +198,7 @@ dc-siting/faa-notices
 dc-siting/texas
 dealer-licence
 deprecation-weather
+done-means-done
 extract-custody
 fed-obligations
 fed-obligations/coverage
@@ -206,6 +207,7 @@ fed-obligations/restatements
 free-time
 frozen-custody
 gathering-host
+grant-fit
 grid
 grid/arkansas
 grid/caiso
@@ -241,6 +243,7 @@ hospital-mrf
 how-we-seal
 hts-revision-seal
 import-checks
+kdp-lens
 los-angeles
 los-angeles/bldg-addition
 los-angeles/bldg-alter-repair
@@ -288,6 +291,7 @@ new-entities/los-angeles
 new-entities/nyc
 new-entities/san-francisco
 new-prime-awards
+notice-responder
 nyc-ll84
 nyc-ll84/bronx
 nyc-ll84/brooklyn
@@ -399,6 +403,7 @@ vendor-prices/coverage
 vendor-prices/never-answered
 vendor-prices/stopped-answering
 verified-record
+warn-right
 washington-dc
 washington-dc/all-years
 washington-dc/coverage
