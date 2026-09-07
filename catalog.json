@@ -2313,6 +2313,36 @@
         "checked": "2026-09-06",
         "verified": "2026-09-06"
       }
+    },
+    {
+      "id": "patent-practitioner-directory",
+      "name": "Patent Practitioner Directory",
+      "buyer": "Patent law firms and solo patent practitioners who want to be found in their city",
+      "cadence": "rebuilt at each site build",
+      "cadence_long": "the USPTO roster is read fresh at every site build; a Featured listing itself runs 12 months",
+      "price": "$350/12mo",
+      "sample_status": "pass",
+      "note": "STAGED 2026-09-07, NOT PUBLISHED. Featured patent-firm listing at $350 for 12 months, one per city. checkout.url is TO-MINT until a Stripe Payment Link for this SKU exists. 200 city pages built from a live USPTO OED practitioner-roster pull (53,690 rows). Free listing shows firm names and counts only; individual practitioners and personal-looking firm names are withheld by name and pooled into one count. No prompts used.",
+      "group": "Public records",
+      "short": "Patent practitioner directory",
+      "who": "Patent law firms and solo patent practitioners who want to be found in their city.",
+      "coverage_what": "Every US city with at least 25 USPTO-registered patent attorneys and agents, grouped by firm",
+      "coverage_how": "We download the USPTO Office of Enrollment and Discipline's public practitioner roster, group rows by city and by organization, withhold anything that reads as a person's own name rather than a firm, and publish the rest as one page per qualifying city.",
+      "price_list_note": "The sample is the largest firms across our largest cities, read straight out of the roster.",
+      "contact_h2": "Claim the Featured slot in your city",
+      "contact_cta": "Email us for the $350 checkout link",
+      "contact_note": "Say which city; we reply saying whether it is still available.",
+      "foot": "Roster data from the USPTO Office of Enrollment and Discipline as of the date named above. US Tech Automations is not the USPTO. A listing is not an endorsement. This is not legal, tax, or professional advice. Every count on this page was read out of that same dated roster copy.",
+      "checkout": {
+        "terms": "$350 for a 12-month Featured listing in one city, naming your firm and website at the top of that city's page. One Featured firm per city; if the city you name already has a Featured firm when we process this, nothing runs and the payment is refunded on request within 14 days. Records may lag the source roster by up to one site build.",
+        "after": "After you pay we email you within one working day to confirm the city and firm name; the listing goes live within 15 minutes of payment. Still not there after 15 minutes? Reply to your Stripe receipt.",
+        "url": "",
+        "label": "Feature your firm — $350/12mo",
+        "lands_on": "",
+        "status": "TO-MINT",
+        "checked": "2026-09-07",
+        "verified": ""
+      }
     }
   ],
   "map": "MAP.md",
