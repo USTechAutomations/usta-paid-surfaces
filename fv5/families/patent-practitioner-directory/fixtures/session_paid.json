@@ -1,0 +1,11 @@
+{
+  "id": "cs_test_fv5_patent-practitioner-directory_001",
+  "created": 1757260800,
+  "amount_total": 35000,
+  "currency": "usd",
+  "custom_fields": [
+    {"key": "firm_name", "type": "text", "text": {"value": "Harbor & Vance Patent Law LLP"}},
+    {"key": "website", "type": "text", "text": {"value": "https://harborvancepatents.example"}},
+    {"key": "city_state", "type": "text", "text": {"value": "Boston, MA"}}
+  ]
+}

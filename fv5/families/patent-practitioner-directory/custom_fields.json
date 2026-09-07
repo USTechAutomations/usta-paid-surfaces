@@ -1,0 +1,5 @@
+[
+  {"key": "firm_name", "label": "Your firm's name, exactly as it should appear", "type": "text", "optional": false},
+  {"key": "website", "label": "Your firm's website (https://...)", "type": "text", "optional": false},
+  {"key": "city_state", "label": "City, ST as it appears on our page (e.g. Boston, MA)", "type": "text", "optional": false}
+]

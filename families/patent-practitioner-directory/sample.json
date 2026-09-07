@@ -1,0 +1,140 @@
+{
+  "family": "patent-practitioner-directory",
+  "generated": "2026-09-07",
+  "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
+  "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/patent-practitioner-directory",
+  "rows_published": 25,
+  "columns": 3,
+  "headers": [
+    "City",
+    "Firm",
+    "Registered practitioners"
+  ],
+  "rows": [
+    [
+      "Washington, DC",
+      "Finnegan, Henderson, Farabow, Garrett & Dunner, LLP",
+      "113"
+    ],
+    [
+      "Irvine, CA",
+      "Knobbe, Martens, Olson & Bear, LLP",
+      "89"
+    ],
+    [
+      "Washington, DC",
+      "Sterne, Kessler, Goldstein & Fox P.L.L.C.",
+      "84"
+    ],
+    [
+      "Chicago, IL",
+      "Marshall, Gerstein & Borun LLP",
+      "80"
+    ],
+    [
+      "Boston, MA",
+      "Wolf, Greenfield & Sacks, P.C.",
+      "77"
+    ],
+    [
+      "Chicago, IL",
+      "McDonnell Boehnen Hulbert & Berghoff LLP",
+      "71"
+    ],
+    [
+      "Washington, DC",
+      "Sughrue Mion, PLLC",
+      "67"
+    ],
+    [
+      "Redmond, WA",
+      "Microsoft Corporation",
+      "64"
+    ],
+    [
+      "Portland, OR",
+      "Klarquist Sparkman, LLP",
+      "63"
+    ],
+    [
+      "Boston, MA",
+      "Goodwin Procter LLP",
+      "62"
+    ],
+    [
+      "Irvine, CA",
+      "Knobbe Martens Olson & Bear, LLP",
+      "61"
+    ],
+    [
+      "Pittsburgh, PA",
+      "The Webb Law Firm",
+      "55"
+    ],
+    [
+      "Milwaukee, WI",
+      "Foley & Lardner LLP",
+      "55"
+    ],
+    [
+      "New Brunswick, NJ",
+      "Johnson & Johnson",
+      "55"
+    ],
+    [
+      "Palo Alto, CA",
+      "Wilson Sonsini Goodrich & Rosati",
+      "54"
+    ],
+    [
+      "San Diego, CA",
+      "Wilson Sonsini Goodrich & Rosati",
+      "52"
+    ],
+    [
+      "Mountain View, CA",
+      "Fenwick & West LLP",
+      "52"
+    ],
+    [
+      "Greenville, SC",
+      "Dority & Manning, P.A.",
+      "52"
+    ],
+    [
+      "South San Francisco, CA",
+      "Genentech, Inc.",
+      "51"
+    ],
+    [
+      "Cincinnati, OH",
+      "The Procter & Gamble Company",
+      "49"
+    ],
+    [
+      "Thousand Oaks, CA",
+      "Amgen Inc.",
+      "48"
+    ],
+    [
+      "San Diego, CA",
+      "Qualcomm Incorporated",
+      "47"
+    ],
+    [
+      "Hartford, CT",
+      "Cantor Colburn LLP",
+      "47"
+    ],
+    [
+      "Washington, DC",
+      "Bookoff McAndrews PLLC",
+      "46"
+    ],
+    [
+      "Chicago, IL",
+      "Banner & Witcoff, Ltd.",
+      "46"
+    ]
+  ]
+}
