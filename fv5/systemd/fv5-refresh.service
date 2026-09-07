@@ -1,0 +1,9 @@
+[Unit]
+Description=fv5 weekly refresh: rebuild every fv5 family, gate, and publish
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/gmullins/code/usta-paid-surfaces
+ExecStart=/usr/bin/python3 /home/gmullins/code/usta-paid-surfaces/fv5/refresh.py --live

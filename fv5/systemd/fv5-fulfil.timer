@@ -1,0 +1,11 @@
+[Unit]
+Description=Run fv5 delivery every 10 minutes
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=10min
+OnCalendar=*:0/10
+Persistent=true
+
+[Install]
+WantedBy=timers.target
