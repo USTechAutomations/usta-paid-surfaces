@@ -1,0 +1,53 @@
+{
+  "title": "NRC spill-notices scraper input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "state": {
+      "title": "State (2-letter)",
+      "type": "string",
+      "description": "Keep only incidents in this state, e.g. LA. Leave blank for every state.",
+      "editor": "textfield",
+      "example": "LA"
+    },
+    "dateFrom": {
+      "title": "From date (YYYY-MM-DD)",
+      "type": "string",
+      "description": "Keep only incidents on or after this date. The year part also picks which annual file to pull.",
+      "editor": "textfield",
+      "example": "2024-01-01"
+    },
+    "dateTo": {
+      "title": "To date (YYYY-MM-DD)",
+      "type": "string",
+      "description": "Keep only incidents on or before this date. Blank means no upper bound.",
+      "editor": "textfield",
+      "example": "2024-12-31"
+    },
+    "materialKeyword": {
+      "title": "Material keyword",
+      "type": "string",
+      "description": "Keep only incidents whose text contains this word, e.g. crude or diesel.",
+      "editor": "textfield"
+    },
+    "maxItems": {
+      "title": "Max incidents",
+      "type": "integer",
+      "description": "Stop after this many incidents. Hard ceiling is 1000, so a run cannot run away.",
+      "editor": "number",
+      "default": 1000,
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "timeoutSeconds": {
+      "title": "Run timeout (seconds)",
+      "type": "integer",
+      "description": "Stop collecting after this many seconds so a run cannot hang.",
+      "editor": "number",
+      "default": 300,
+      "minimum": 30,
+      "maximum": 3600
+    }
+  },
+  "required": []
+}

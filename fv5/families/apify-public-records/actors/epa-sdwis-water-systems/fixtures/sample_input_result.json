@@ -1,0 +1,48 @@
+{
+  "FIXTURE": true,
+  "NOTE": "REAL EPA SDWIS rows (not synthetic). EPA Envirofacts is readable live and in full, so this fixture is a small real slice for offline tests. input.state='AZ' reproduces the shape a live run returns.",
+  "schema_source": "https://data.epa.gov/efservice/WATER_SYSTEM/STATE_CODE/AZ/PWS_TYPE_CODE/CWS/PWS_ACTIVITY_CODE/A/JSON",
+  "input": {
+    "state": "AZ",
+    "systemType": "CWS",
+    "maxItems": 3
+  },
+  "rows": [
+    {
+      "pwsid": "090400001",
+      "pws_name": "Topawa Intertie",
+      "state": "AZ",
+      "city": "Sells",
+      "population_served": 1318,
+      "service_connections": 292,
+      "water_source": "Ground water",
+      "owner_type": "Native American",
+      "violations_total": 1,
+      "violations_health_based": 0
+    },
+    {
+      "pwsid": "090400003",
+      "pws_name": "Chui Chu",
+      "state": "AZ",
+      "city": "Sells",
+      "population_served": 420,
+      "service_connections": 178,
+      "water_source": "Ground water",
+      "owner_type": "Native American",
+      "violations_total": 1,
+      "violations_health_based": 0
+    },
+    {
+      "pwsid": "090400004",
+      "pws_name": "Fresnal",
+      "state": "AZ",
+      "city": "Sells",
+      "population_served": 105,
+      "service_connections": 26,
+      "water_source": "Ground water",
+      "owner_type": "Native American",
+      "violations_total": 0,
+      "violations_health_based": 0
+    }
+  ]
+}

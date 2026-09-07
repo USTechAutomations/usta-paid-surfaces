@@ -1,0 +1,67 @@
+{
+  "FIXTURE": true,
+  "WARNING": "SYNTHETIC TEST FIXTURE. These are not real OSHA records. Every value is made up and marked SAMPLE so it can never be mistaken for a real severe-injury report. Used only for local `apify run` because osha.gov returns HTTP 403 to automated fetches from this environment (see SOURCES.md).",
+  "schema_source": "https://www.osha.gov/severeinjury (column names mirrored; no worker name is in the public dataset and none is kept)",
+  "rows": [
+    {
+      "id": "SAMPLE-0001",
+      "event_date": "SAMPLE-DATE",
+      "employer": "SAMPLE FIXTURE EMPLOYER 1",
+      "city": "TESTVILLE",
+      "state": "AZ",
+      "naics": "238160",
+      "hospitalized": 1,
+      "amputation": 0,
+      "nature": "Fracture (SAMPLE)",
+      "body_part": "Ankle (SAMPLE)"
+    },
+    {
+      "id": "SAMPLE-0002",
+      "event_date": "SAMPLE-DATE",
+      "employer": "SAMPLE FIXTURE EMPLOYER 2",
+      "city": "TESTVILLE",
+      "state": "TX",
+      "naics": "336411",
+      "hospitalized": 1,
+      "amputation": 1,
+      "nature": "Amputation (SAMPLE)",
+      "body_part": "Finger (SAMPLE)"
+    },
+    {
+      "id": "SAMPLE-0003",
+      "event_date": "SAMPLE-DATE",
+      "employer": "SAMPLE FIXTURE EMPLOYER 3",
+      "city": "TESTVILLE",
+      "state": "OH",
+      "naics": "484121",
+      "hospitalized": 1,
+      "amputation": 0,
+      "nature": "Concussion (SAMPLE)",
+      "body_part": "Head (SAMPLE)"
+    },
+    {
+      "id": "SAMPLE-0004",
+      "event_date": "SAMPLE-DATE",
+      "employer": "SAMPLE FIXTURE EMPLOYER 4",
+      "city": "TESTVILLE",
+      "state": "CA",
+      "naics": "311615",
+      "hospitalized": 1,
+      "amputation": 1,
+      "nature": "Amputation (SAMPLE)",
+      "body_part": "Hand (SAMPLE)"
+    },
+    {
+      "id": "SAMPLE-0005",
+      "event_date": "SAMPLE-DATE",
+      "employer": "SAMPLE FIXTURE EMPLOYER 5",
+      "city": "TESTVILLE",
+      "state": "FL",
+      "naics": "238990",
+      "hospitalized": 1,
+      "amputation": 0,
+      "nature": "Burn (SAMPLE)",
+      "body_part": "Arm (SAMPLE)"
+    }
+  ]
+}

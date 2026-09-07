@@ -1,0 +1,60 @@
+{
+  "title": "OSHA severe-injury reports scraper input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "state": {
+      "title": "State (2-letter)",
+      "type": "string",
+      "description": "Keep only reports from this state, e.g. AZ. Leave blank for every state.",
+      "editor": "textfield",
+      "example": "AZ"
+    },
+    "dateFrom": {
+      "title": "From date (YYYY-MM-DD)",
+      "type": "string",
+      "description": "Keep only reports on or after this date. Blank means no lower bound.",
+      "editor": "textfield",
+      "example": "2024-01-01"
+    },
+    "dateTo": {
+      "title": "To date (YYYY-MM-DD)",
+      "type": "string",
+      "description": "Keep only reports on or before this date. Blank means no upper bound.",
+      "editor": "textfield",
+      "example": "2024-12-31"
+    },
+    "naicsPrefix": {
+      "title": "Industry code prefix (NAICS)",
+      "type": "string",
+      "description": "Keep only reports whose industry code starts with this, e.g. 23 for construction.",
+      "editor": "textfield",
+      "example": "23"
+    },
+    "keyword": {
+      "title": "Keyword",
+      "type": "string",
+      "description": "Keep only reports whose text contains this word, e.g. amputation.",
+      "editor": "textfield"
+    },
+    "maxItems": {
+      "title": "Max reports",
+      "type": "integer",
+      "description": "Stop after this many reports. Hard ceiling is 1000, so a run cannot run away.",
+      "editor": "number",
+      "default": 1000,
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "timeoutSeconds": {
+      "title": "Run timeout (seconds)",
+      "type": "integer",
+      "description": "Stop collecting after this many seconds so a run cannot hang.",
+      "editor": "number",
+      "default": 300,
+      "minimum": 30,
+      "maximum": 3600
+    }
+  },
+  "required": []
+}

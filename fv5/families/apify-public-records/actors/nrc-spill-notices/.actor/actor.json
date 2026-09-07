@@ -1,0 +1,45 @@
+{
+  "actorSpecification": 1,
+  "name": "nrc-spill-notices",
+  "title": "NRC Spill Notices Scraper",
+  "description": "One clean item per pollution incident reported to the Coast Guard's National Response Center: date, state, town, material, medium and incident type. Incidents only, no caller names. Pay per run.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "storages": {
+    "dataset": {
+      "actorSpecification": 1,
+      "title": "NRC spill notices",
+      "views": {
+        "overview": {
+          "title": "Incidents",
+          "transformation": {
+            "fields": ["report_id", "incident_date", "state", "city", "material",
+                       "quantity", "medium", "incident_type", "source_url"]
+          },
+          "display": {"component": "table"}
+        }
+      }
+    }
+  },
+  "pricingInfos": [
+    {
+      "pricingModel": "PAY_PER_EVENT",
+      "pricingPerEvent": {
+        "actorChargeEvents": {
+          "run-start": {
+            "eventTitle": "Run start",
+            "eventDescription": "Flat fee charged once when a run starts.",
+            "eventPriceUsd": 0.5
+          },
+          "result-item": {
+            "eventTitle": "Result item",
+            "eventDescription": "Charged for each incident the run returns.",
+            "eventPriceUsd": 0.005
+          }
+        }
+      }
+    }
+  ]
+}

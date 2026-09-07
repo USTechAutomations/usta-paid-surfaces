@@ -1,0 +1,5 @@
+[
+  {"key": "scraper", "label": "Which scraper", "type": "dropdown", "optional": false,
+   "options": ["osha-severe-injury-reports", "epa-sdwis-water-systems", "nrc-spill-notices"]},
+  {"key": "state", "label": "US state (2-letter, optional)", "type": "text", "optional": true}
+]

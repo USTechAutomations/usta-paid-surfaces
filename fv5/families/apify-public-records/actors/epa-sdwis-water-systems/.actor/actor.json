@@ -1,0 +1,46 @@
+{
+  "actorSpecification": 1,
+  "name": "epa-sdwis-water-systems",
+  "title": "EPA SDWIS Drinking-Water Systems Scraper",
+  "description": "One clean item per public water system from EPA SDWIS: ID, name, town, people served, connections, water source, owner type, and its count of safe-drinking-water violations. Facilities only. Pay per run.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "storages": {
+    "dataset": {
+      "actorSpecification": 1,
+      "title": "EPA drinking-water systems",
+      "views": {
+        "overview": {
+          "title": "Water systems",
+          "transformation": {
+            "fields": ["pwsid", "pws_name", "state", "city", "population_served",
+                       "service_connections", "water_source", "owner_type",
+                       "violations_total", "violations_health_based", "source_url"]
+          },
+          "display": {"component": "table"}
+        }
+      }
+    }
+  },
+  "pricingInfos": [
+    {
+      "pricingModel": "PAY_PER_EVENT",
+      "pricingPerEvent": {
+        "actorChargeEvents": {
+          "run-start": {
+            "eventTitle": "Run start",
+            "eventDescription": "Flat fee charged once when a run starts.",
+            "eventPriceUsd": 0.5
+          },
+          "result-item": {
+            "eventTitle": "Result item",
+            "eventDescription": "Charged for each water system the run returns.",
+            "eventPriceUsd": 0.005
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "actorSpecification": 1,
+  "name": "osha-severe-injury-reports",
+  "title": "OSHA Severe-Injury Reports Scraper",
+  "description": "One clean item per OSHA severe-injury report: employer, city, state, industry code, and whether a hospitalisation or amputation was reported. Firms only, no worker names. Pay per run.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "storages": {
+    "dataset": {
+      "actorSpecification": 1,
+      "title": "OSHA severe-injury reports",
+      "views": {
+        "overview": {
+          "title": "Reports",
+          "transformation": {
+            "fields": ["event_date", "employer", "city", "state", "naics",
+                       "hospitalized", "amputation", "nature", "body_part", "source_url"]
+          },
+          "display": {"component": "table"}
+        }
+      }
+    }
+  },
+  "pricingInfos": [
+    {
+      "pricingModel": "PAY_PER_EVENT",
+      "pricingPerEvent": {
+        "actorChargeEvents": {
+          "run-start": {
+            "eventTitle": "Run start",
+            "eventDescription": "Flat fee charged once when a run starts.",
+            "eventPriceUsd": 0.5
+          },
+          "result-item": {
+            "eventTitle": "Result item",
+            "eventDescription": "Charged for each severe-injury report the run returns.",
+            "eventPriceUsd": 0.005
+          }
+        }
+      }
+    }
+  ]
+}
