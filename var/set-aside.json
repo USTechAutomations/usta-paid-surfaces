@@ -62,13 +62,13 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         },
         {
           "higher": "payable",
           "lower": "honest",
           "why": "a card can be taken on a page that is not telling the truth",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -79,13 +79,13 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         },
         {
           "higher": "payable",
           "lower": "honest",
           "why": "a card can be taken on a page that is not telling the truth",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -96,13 +96,13 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         },
         {
           "higher": "payable",
           "lower": "honest",
           "why": "a card can be taken on a page that is not telling the truth",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -113,13 +113,13 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         },
         {
           "higher": "payable",
           "lower": "honest",
           "why": "a card can be taken on a page that is not telling the truth",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -130,13 +130,13 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         },
         {
           "higher": "payable",
           "lower": "honest",
           "why": "a card can be taken on a page that is not telling the truth",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -147,13 +147,13 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         },
         {
           "higher": "payable",
           "lower": "honest",
           "why": "a card can be taken on a page that is not telling the truth",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -164,13 +164,13 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         },
         {
           "higher": "payable",
           "lower": "honest",
           "why": "a card can be taken on a page that is not telling the truth",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -181,13 +181,13 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         },
         {
           "higher": "payable",
           "lower": "honest",
           "why": "a card can be taken on a page that is not telling the truth",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -198,7 +198,7 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -209,13 +209,13 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         },
         {
           "higher": "payable",
           "lower": "honest",
           "why": "a card can be taken on a page that is not telling the truth",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -226,24 +226,13 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         },
         {
           "higher": "payable",
           "lower": "honest",
           "why": "a card can be taken on a page that is not telling the truth",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
-        }
-      ]
-    },
-    {
-      "family": "hts-revision-seal",
-      "refusals": [
-        {
-          "higher": "priced",
-          "lower": "honest",
-          "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -254,13 +243,13 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         },
         {
           "higher": "payable",
           "lower": "honest",
           "why": "a card can be taken on a page that is not telling the truth",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -271,7 +260,7 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -282,13 +271,13 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         },
         {
           "higher": "payable",
           "lower": "honest",
           "why": "a card can be taken on a page that is not telling the truth",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -299,7 +288,13 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
+        },
+        {
+          "higher": "payable",
+          "lower": "honest",
+          "why": "a card can be taken on a page that is not telling the truth",
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -310,13 +305,13 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         },
         {
           "higher": "payable",
           "lower": "honest",
           "why": "a card can be taken on a page that is not telling the truth",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -327,7 +322,7 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -338,13 +333,30 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         },
         {
           "higher": "payable",
           "lower": "honest",
           "why": "a card can be taken on a page that is not telling the truth",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
+        }
+      ]
+    },
+    {
+      "family": "storm-warned-counties",
+      "refusals": [
+        {
+          "higher": "priced",
+          "lower": "honest",
+          "why": "we are charging for a page that is not telling the truth about its own rows",
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
+        },
+        {
+          "higher": "payable",
+          "lower": "honest",
+          "why": "a card can be taken on a page that is not telling the truth",
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -355,13 +367,13 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         },
         {
           "higher": "payable",
           "lower": "honest",
           "why": "a card can be taken on a page that is not telling the truth",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -372,13 +384,13 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         },
         {
           "higher": "payable",
           "lower": "honest",
           "why": "a card can be taken on a page that is not telling the truth",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -389,13 +401,13 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         },
         {
           "higher": "payable",
           "lower": "honest",
           "why": "a card can be taken on a page that is not telling the truth",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -406,13 +418,13 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         },
         {
           "higher": "payable",
           "lower": "honest",
           "why": "a card can be taken on a page that is not telling the truth",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -423,7 +435,7 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -434,13 +446,13 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         },
         {
           "higher": "payable",
           "lower": "honest",
           "why": "a card can be taken on a page that is not telling the truth",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     },
@@ -451,13 +463,13 @@
           "higher": "priced",
           "lower": "honest",
           "why": "we are charging for a page that is not telling the truth about its own rows",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         },
         {
           "higher": "payable",
           "lower": "honest",
           "why": "a card can be taken on a page that is not telling the truth",
-          "detail": "scripts/check_site.py is failing: FAIL: storm-warned-counties declares a checkout at https://buy.stripe.com/9B67sE7tc5uq87G5n40sU2w and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a b"
+          "detail": "scripts/check_site.py is failing: FAIL: hts-revision-seal declares a checkout at https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y and its own page shows no pay button at all, so the link is chargeable and nothing anywhere points a buyer"
         }
       ]
     }

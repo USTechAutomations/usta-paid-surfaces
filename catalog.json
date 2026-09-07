@@ -2197,8 +2197,12 @@
       "checkout": {
         "terms": "$49 a month, billed monthly, for one file a week: a sealed copy of the USITC Harmonized Tariff Schedule current release (HTS number, indent, description, unit, general rate, special rate, column-two rate, release id, fetch time) plus a line-level what-changed table against the previous sealed copy (empty until a second release exists, and the page says so) plus a seal text file with the release name and hashes. No street, no person's name, no classification advice. Source: United States International Trade Commission, Harmonized Tariff Schedule current-release export (hts.usitc.gov). A week we could not read is named as a gap. Cancel any month by email, with no account to close and no notice period.",
         "after": "After paying you land on a page keyed to your payment. That week's file appears there, and a new one appears every week while the subscription runs. No message from us is needed.",
-        "url": "TO-MINT",
-        "label": "Subscribe — $49 a month"
+        "url": "https://buy.stripe.com/14A14gcNw5uq1JieXE0sU2y",
+        "label": "Subscribe — $49 a month",
+        "lands_on": "buy.stripe.com",
+        "status": "live",
+        "checked": "2026-09-06",
+        "verified": "2026-09-06"
       }
     },
     {
@@ -2219,8 +2223,12 @@
       "checkout": {
         "terms": "$49 a month, billed monthly, for one national file a week: every new federal prime contract award id since the previous sealed copy, with award id, action date, awarding agency, NAICS code and description, PSC code, company recipient name, recipient state, place of performance state, obligated amount, period-of-performance end, and set-aside type where the search returned one. No street, no phone, no DUNS, no UEI, no person's name. USAspending.gov (U.S. Department of the Treasury, Bureau of the Fiscal Service) is the source. Until a second copy exists, the weekly file is the new awards in the seven days ending on the one copy we hold, up to 50 pages of 100, and the page says so. A week we could not read is named as a gap. Cancel any month by email, with no account to close and no notice period.",
         "after": "After paying you land on a page keyed to your payment. That week's file appears there, and a new one appears every week while the subscription runs. No message from us is needed.",
-        "url": "TO-MINT",
-        "label": "Subscribe — $49 a month"
+        "url": "https://buy.stripe.com/14A3codRAbSOcnWbLs0sU2x",
+        "label": "Subscribe — $49 a month",
+        "lands_on": "buy.stripe.com",
+        "status": "live",
+        "checked": "2026-09-06",
+        "verified": "2026-09-06"
       }
     },
     {
