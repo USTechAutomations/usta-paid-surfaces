@@ -1,0 +1,28 @@
+{
+  "id": "cs_test_fv5_trademark-watch_001",
+  "object": "checkout.session",
+  "mode": "payment",
+  "payment_status": "paid",
+  "status": "complete",
+  "amount_total": 17500,
+  "currency": "usd",
+  "customer_details": {
+    "email": "buyer@example.com",
+    "name": "Sample Buyer"
+  },
+  "custom_fields": [
+    {
+      "key": "serial",
+      "label": { "type": "custom", "custom": "USPTO serial number, 8 digits" },
+      "text": { "value": "99000002" }
+    },
+    {
+      "key": "mark_text",
+      "label": { "type": "custom", "custom": "Mark text (optional)" },
+      "text": { "value": "ORION GRID" }
+    }
+  ],
+  "metadata": {
+    "family": "trademark-watch"
+  }
+}
