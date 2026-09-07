@@ -2369,6 +2369,32 @@
         "checked": "",
         "verified": ""
       }
+    },
+    {
+      "id": "apify-public-records",
+      "name": "Public-records scrapers on the Apify Store",
+      "buyer": "analysts, journalists and compliance teams who want OSHA severe injuries, EPA drinking-water systems or NRC spill notices as a clean table, billed per run with no subscription",
+      "cadence": "per run",
+      "cadence_long": "billed per run on the Apify Store, not by us: a start charge plus a small charge for each record returned. Every run reads its public source live",
+      "price": "Pay-per-run on the Apify Store",
+      "sample_status": "pass",
+      "note": "STAGED 2026-09-07, NOT PUBLISHED. Three pay-per-run scrapers for the Apify Store (OSHA severe-injury reports, EPA SDWIS water systems, NRC spill notices). Billing is EXTERNAL: the Apify Store charges the buyer $0.50 per run + $0.005 per result item and pays us the rest; we take no card on this estate. checkout.url is empty because the Apify CLI is NOT logged in on this machine, so the three actors are built but not pushed and no live Store listing exists to point at yet. The operator must run fv5/families/apify-public-records/PUBLISH.sh once logged in, then set checkout.url to the first actor's listing (https://apify.com/<username>/osha-severe-injury-reports) and checkout.status back to live. Catalog price carries no dollar sign on purpose: a dollar sign here would demand a row on families/coverage/ that this worker may not write; the exact $0.50/$0.005 pricing is stated in the page body. EPA is the only source we can read live and in full; OSHA returns HTTP 403 and NRC serves an ASP.NET download form (see SOURCES.md).",
+      "group": "Data scrapers",
+      "short": "Public-records scrapers",
+      "who": "analysts, journalists and compliance teams who want OSHA severe injuries, EPA drinking-water systems or NRC spill notices as a clean table, billed per run with no subscription.",
+      "coverage_what": "Three scrapers on the Apify Store that turn one free public source each into a clean table",
+      "coverage_how": "Each run reads its agency source live (EPA Envirofacts SDWIS in full; OSHA and NRC as their access allows) and returns one row per record. No operator name, phone, email or street address is kept. The Apify Store bills per run.",
+      "price_list_note": "The sample is real EPA drinking-water data; read it before you run anything.",
+      "checkout": {
+        "terms": "Billed by the Apify Store, not by US Tech Automations. Running a scraper costs $0.50 to start the run plus $0.005 for each record it returns, charged by Apify to your Apify account. A run returns a table you download as CSV or JSON the moment it finishes, so delivery is instant and there is no subscription. Public records can lag the event they describe, and each record says which source and date it was read from. A run that fails or returns nothing usable is refundable on request within 14 days through Apify; we do not hold your card and cannot charge or refund it ourselves.",
+        "after": "No card is taken on this page. Email us for the direct Store link to each scraper; you run it on your own Apify account.",
+        "url": "",
+        "label": "Run it on the Apify Store",
+        "lands_on": "apify.com",
+        "status": "EXTERNAL",
+        "checked": "2026-09-07",
+        "verified": ""
+      }
     }
   ],
   "map": "MAP.md",

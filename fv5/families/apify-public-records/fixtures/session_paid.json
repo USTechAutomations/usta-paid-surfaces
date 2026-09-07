@@ -1,0 +1,13 @@
+{
+  "id": "cs_test_fv5_apify-public-records_001",
+  "object": "checkout.session",
+  "amount_total": 0,
+  "currency": "usd",
+  "created": 1757260800,
+  "custom_fields": [
+    {"key": "scraper", "text": {"value": "epa-sdwis-water-systems"}},
+    {"key": "state", "text": {"value": "AZ"}}
+  ],
+  "customer_details": {"email": "buyer@example.com"},
+  "metadata": {"private_slug": "apify-public-records-cs_test_fv5_apify-public-records_001"}
+}

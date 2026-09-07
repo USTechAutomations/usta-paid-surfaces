@@ -1,0 +1,57 @@
+{
+  "FIXTURE": true,
+  "WARNING": "SYNTHETIC TEST FIXTURE. These are not real National Response Center incident reports. Every value is made up and marked SAMPLE. Used only for local `apify run`: nrc.uscg.mil serves its data through an ASP.NET postback download form (DownLoad.aspx, HTTP 200), not a plain file URL, so the live pull is done inside the actor and this fixture is the local-dev fallback (see SOURCES.md).",
+  "schema_source": "https://nrc.uscg.mil/ (annual incident download; no caller name is kept)",
+  "rows": [
+    {
+      "report_id": "SAMPLE-900001",
+      "incident_date": "SAMPLE-DATE",
+      "state": "LA",
+      "city": "TESTVILLE",
+      "material": "CRUDE OIL (SAMPLE)",
+      "quantity": "SAMPLE",
+      "medium": "WATER (SAMPLE)",
+      "incident_type": "FIXED (SAMPLE)"
+    },
+    {
+      "report_id": "SAMPLE-900002",
+      "incident_date": "SAMPLE-DATE",
+      "state": "TX",
+      "city": "TESTVILLE",
+      "material": "DIESEL (SAMPLE)",
+      "quantity": "SAMPLE",
+      "medium": "LAND (SAMPLE)",
+      "incident_type": "MOBILE (SAMPLE)"
+    },
+    {
+      "report_id": "SAMPLE-900003",
+      "incident_date": "SAMPLE-DATE",
+      "state": "CA",
+      "city": "TESTVILLE",
+      "material": "UNKNOWN SHEEN (SAMPLE)",
+      "quantity": "SAMPLE",
+      "medium": "WATER (SAMPLE)",
+      "incident_type": "VESSEL (SAMPLE)"
+    },
+    {
+      "report_id": "SAMPLE-900004",
+      "incident_date": "SAMPLE-DATE",
+      "state": "AK",
+      "city": "TESTVILLE",
+      "material": "GASOLINE (SAMPLE)",
+      "quantity": "SAMPLE",
+      "medium": "WATER (SAMPLE)",
+      "incident_type": "PIPELINE (SAMPLE)"
+    },
+    {
+      "report_id": "SAMPLE-900005",
+      "incident_date": "SAMPLE-DATE",
+      "state": "WA",
+      "city": "TESTVILLE",
+      "material": "HYDRAULIC OIL (SAMPLE)",
+      "quantity": "SAMPLE",
+      "medium": "WATER (SAMPLE)",
+      "incident_type": "FIXED (SAMPLE)"
+    }
+  ]
+}
