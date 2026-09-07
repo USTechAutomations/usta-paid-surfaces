@@ -1,12 +1,12 @@
 {
   "family": "quakes",
-  "generated": "2026-09-06",
+  "generated": "2026-09-07",
   "slices": [
     {
       "slug": "california",
       "newest": "2026-09-07",
       "oldest": "2026-06-23",
-      "runs": 133,
+      "runs": 135,
       "row_count": 194,
       "cadence_days": 1
     },
@@ -14,7 +14,7 @@
       "slug": "alaska",
       "newest": "2026-09-07",
       "oldest": "2026-06-23",
-      "runs": 133,
+      "runs": 135,
       "row_count": 83,
       "cadence_days": 1
     },
@@ -22,7 +22,7 @@
       "slug": "texas",
       "newest": "2026-09-07",
       "oldest": "2026-06-23",
-      "runs": 133,
+      "runs": 135,
       "row_count": 59,
       "cadence_days": 1
     },
@@ -30,7 +30,7 @@
       "slug": "new-mexico",
       "newest": "2026-09-07",
       "oldest": "2026-06-23",
-      "runs": 133,
+      "runs": 135,
       "row_count": 16,
       "cadence_days": 1
     },
@@ -38,7 +38,7 @@
       "slug": "hawaii",
       "newest": "2026-09-07",
       "oldest": "2026-06-23",
-      "runs": 133,
+      "runs": 135,
       "row_count": 15,
       "cadence_days": 1
     },
@@ -46,7 +46,7 @@
       "slug": "nevada",
       "newest": "2026-09-07",
       "oldest": "2026-06-23",
-      "runs": 133,
+      "runs": 135,
       "row_count": 7,
       "cadence_days": 1
     },
@@ -54,7 +54,7 @@
       "slug": "utah",
       "newest": "2026-09-07",
       "oldest": "2026-06-23",
-      "runs": 133,
+      "runs": 135,
       "row_count": 5,
       "cadence_days": 1
     },
@@ -62,7 +62,7 @@
       "slug": "magnitude-revised",
       "newest": "2026-09-07",
       "oldest": "2026-06-23",
-      "runs": 133,
+      "runs": 135,
       "row_count": 180,
       "cadence_days": 1
     },
@@ -70,7 +70,7 @@
       "slug": "depth-revised",
       "newest": "2026-09-07",
       "oldest": "2026-06-23",
-      "runs": 133,
+      "runs": 135,
       "row_count": 265,
       "cadence_days": 1
     },
@@ -78,7 +78,7 @@
       "slug": "place-revised",
       "newest": "2026-09-07",
       "oldest": "2026-06-23",
-      "runs": 133,
+      "runs": 135,
       "row_count": 155,
       "cadence_days": 1
     },
@@ -86,7 +86,7 @@
       "slug": "most-revised",
       "newest": "2026-09-07",
       "oldest": "2026-06-23",
-      "runs": 133,
+      "runs": 135,
       "row_count": 117,
       "cadence_days": 1
     },
@@ -94,7 +94,7 @@
       "slug": "coverage",
       "newest": "2026-09-07",
       "oldest": "2026-06-23",
-      "runs": 133,
+      "runs": 135,
       "row_count": 73,
       "cadence_days": 1
     }

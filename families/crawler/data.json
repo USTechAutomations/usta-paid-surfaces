@@ -1,77 +1,77 @@
 {
   "family": "crawler",
-  "generated": "2026-09-06",
+  "generated": "2026-09-07",
   "slices": [
     {
       "slug": "gptbot",
       "newest": "2026-09-07",
       "oldest": "2026-06-09",
-      "runs": 350,
-      "row_count": 186,
+      "runs": 369,
+      "row_count": 206,
       "cadence_days": 1
     },
     {
       "slug": "claudebot",
       "newest": "2026-09-07",
       "oldest": "2026-06-09",
-      "runs": 350,
-      "row_count": 194,
+      "runs": 369,
+      "row_count": 212,
       "cadence_days": 1
     },
     {
       "slug": "google-extended",
       "newest": "2026-09-07",
       "oldest": "2026-06-09",
-      "runs": 350,
-      "row_count": 178,
+      "runs": 369,
+      "row_count": 195,
       "cadence_days": 1
     },
     {
       "slug": "ccbot",
       "newest": "2026-09-07",
       "oldest": "2026-06-09",
-      "runs": 350,
-      "row_count": 155,
+      "runs": 369,
+      "row_count": 172,
       "cadence_days": 1
     },
     {
       "slug": "perplexitybot",
       "newest": "2026-09-07",
       "oldest": "2026-06-09",
-      "runs": 350,
-      "row_count": 124,
+      "runs": 369,
+      "row_count": 132,
       "cadence_days": 1
     },
     {
       "slug": "started-blocking",
       "newest": "2026-09-07",
       "oldest": "2026-06-09",
-      "runs": 350,
-      "row_count": 923,
+      "runs": 369,
+      "row_count": 1040,
       "cadence_days": 1
     },
     {
       "slug": "stopped-blocking",
       "newest": "2026-09-07",
       "oldest": "2026-06-09",
-      "runs": 350,
-      "row_count": 35,
+      "runs": 369,
+      "row_count": 41,
       "cadence_days": 1
     },
     {
       "slug": "stopped-naming",
       "newest": "2026-09-07",
       "oldest": "2026-06-09",
-      "runs": 350,
-      "row_count": 496,
+      "runs": 369,
+      "row_count": 505,
       "cadence_days": 1
     },
     {
       "slug": "coverage",
       "newest": "2026-09-07",
       "oldest": "2026-06-09",
-      "runs": 350,
-      "row_count": 800,
+      "runs": 369,
+      "row_count": 71500,
       "cadence_days": 1
     }
   ]

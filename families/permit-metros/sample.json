@@ -1,6 +1,6 @@
 {
   "family": "permit-metros",
-  "generated": "2026-09-06",
+  "generated": "2026-09-07",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/permit-metros",
   "rows_published": 24,
@@ -15,6 +15,15 @@
     "First in our copy"
   ],
   "rows": [
+    [
+      "Austin",
+      "2026-050237 BP",
+      "2607 S 4TH ST",
+      "Green Falmingo Properties LLC",
+      "R- 649 Demolition All Other Bldgs Res / Demolition",
+      "5 Sep 2026",
+      "7 Sep 2026"
+    ],
     [
       "Austin",
       "2025-155434 BP",
@@ -38,15 +47,6 @@
       "2026-104659 BP",
       "6132 PERLITA DR",
       "Renewal by Andersen",
-      "R- 435 Renovations/Remodel / Repair",
-      "4 Sep 2026",
-      "6 Sep 2026"
-    ],
-    [
-      "Austin",
-      "2026-112173 BP",
-      "8806 CLEARBROOK TRL",
-      "Window Nation LLC**Main**",
       "R- 435 Renovations/Remodel / Repair",
       "4 Sep 2026",
       "6 Sep 2026"
@@ -161,39 +161,66 @@
     ],
     [
       "Scottsdale",
-      "324362",
-      "7384 E CALLE DE LAS BRISAS",
-      "K.HOVNANIAN HOMES",
-      "SFR-SINGLE FAMILY ATTACHED",
-      "28 Aug 2026",
-      "31 Aug 2026"
+      "324379",
+      "10441 E PINNACLE PEAK RD",
+      "COMMUNITY DEVELOPMENT LLC",
+      "FENCE",
+      "4 Sep 2026",
+      "7 Sep 2026"
     ],
     [
       "Scottsdale",
-      "324363",
-      "7390 E CALLE DE LAS BRISAS",
-      "K.HOVNANIAN HOMES",
-      "SFR-SINGLE FAMILY ATTACHED",
-      "28 Aug 2026",
-      "31 Aug 2026"
+      "324380",
+      "9980 E CHARTER OAK RD",
+      "SC Homes",
+      "SFR-ADDITION",
+      "4 Sep 2026",
+      "7 Sep 2026"
     ],
     [
       "Scottsdale",
-      "324364",
-      "10610 N 82ND PL",
-      "ELI MORGAN DEVELOPMENT & CONST",
-      "GUEST HOUSE",
-      "28 Aug 2026",
-      "31 Aug 2026"
+      "324381",
+      "9701 E HAPPY VALLEY RD",
+      "OWNER BUILDER",
+      "SFR-CUSTOM IN SUBDIVISION",
+      "4 Sep 2026",
+      "7 Sep 2026"
     ],
     [
       "Scottsdale",
-      "324365",
-      "10610 N 82ND PL",
-      "ELI MORGAN DEVELOPMENT & CONST",
-      "SFR-DETACHED GARAGE",
-      "28 Aug 2026",
-      "31 Aug 2026"
+      "324374",
+      "11319 E DREYFUS AV",
+      "MORGAN TAYLOR HOMES",
+      "SFR-CUSTOM IN SUBDIVISION",
+      "2 Sep 2026",
+      "7 Sep 2026"
+    ],
+    [
+      "Seattle",
+      "7161153-CN",
+      "11218 35TH AVE SW",
+      "not given",
+      "Building / Addition/Alteration",
+      "5 Sep 2026",
+      "7 Sep 2026"
+    ],
+    [
+      "Seattle",
+      "6988569-DM",
+      "933 N NORTHLAKE WAY",
+      "not given",
+      "Demolition / Relocation",
+      "4 Sep 2026",
+      "7 Sep 2026"
+    ],
+    [
+      "Seattle",
+      "7152435-CN",
+      "610 W HALLADAY ST",
+      "not given",
+      "Building / Addition/Alteration",
+      "4 Sep 2026",
+      "7 Sep 2026"
     ],
     [
       "Seattle",
@@ -201,33 +228,6 @@
       "933 N NORTHLAKE WAY",
       "not given",
       "Building / New",
-      "4 Sep 2026",
-      "6 Sep 2026"
-    ],
-    [
-      "Seattle",
-      "7099413-CN",
-      "6712 14TH AVE NW",
-      "not given",
-      "Building / New",
-      "4 Sep 2026",
-      "6 Sep 2026"
-    ],
-    [
-      "Seattle",
-      "7115881-CN",
-      "8621 17TH AVE NE",
-      "not given",
-      "Building / New",
-      "4 Sep 2026",
-      "6 Sep 2026"
-    ],
-    [
-      "Seattle",
-      "7115882-DM",
-      "8619 17TH AVE NE",
-      "not given",
-      "Demolition / Demolition",
       "4 Sep 2026",
       "6 Sep 2026"
     ]
