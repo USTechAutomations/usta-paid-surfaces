@@ -1,0 +1,40 @@
+{
+  "family": "grant-fit",
+  "generated": "2026-09-07",
+  "note": "demo",
+  "label": "demo",
+  "demo": true,
+  "where_these_rows_came_from": "Where these rows came from is set out on the page this file came from: https://ustechautomations.com/feeds/grant-fit",
+  "rows_published": 1,
+  "columns": 6,
+  "headers": [
+    "eligible",
+    "fit_score",
+    "deadline",
+    "match_required",
+    "reasons",
+    "loi_outline"
+  ],
+  "rows": [
+    {
+      "eligible": "yes",
+      "fit_score": 78,
+      "deadline": "2026-11-15",
+      "match_required": "none listed",
+      "reasons": [
+        "Mission lines up with youth literacy coaching.",
+        "Geography includes rural counties named in the notice.",
+        "501(c)(3) yes matches the eligible-applicant line."
+      ],
+      "loi_outline": [
+        "Who you are and who you serve",
+        "The need in the counties you named",
+        "What you will run in the grant year",
+        "What it costs and whether a match is required",
+        "Who to contact and when you can start"
+      ],
+      "opportunity_title": "Rural Youth Literacy Coaching (demo opportunity)",
+      "org_name": "High Desert Literacy Project (demo org)"
+    }
+  ]
+}
