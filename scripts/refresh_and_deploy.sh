@@ -106,6 +106,9 @@ if [ -z "$GCLOUD" ]; then
 fi
 
 cd "$REPO"
+mkdir -p "$HOME/.hermes/state/feeds"
+exec 9>"$HOME/.hermes/state/feeds/deploy.lock"
+flock -n 9 || die "another feeds deployment holds the lock"
 
 # 1. Re-read the clocks and rewrite every family and slice page.
 python3 scripts/build_slices.py || die "rebuilding the pages from the databases failed"
@@ -135,12 +138,15 @@ python3 scripts/build_site.py || die "the build gate said no"
 # So we compare the built folder against the last build we actually got a live
 # 200 for. The stamp is written only after that check passes, so a publish that
 # half-failed is retried on the next run instead of being remembered as done.
-rm -rf deploy/site
-cp -a dist deploy/site
+BUILD_DIR="$(mktemp -d)"
+trap 'rm -rf "$BUILD_DIR"' EXIT
+cp deploy/Dockerfile deploy/nginx.conf "$BUILD_DIR/"
+cp -a dist "$BUILD_DIR/site"
+python3 scripts/preserve_independent_overlays.py prepare --candidate "$BUILD_DIR" --account "$DEPLOY_ACCOUNT" --gcloud "$GCLOUD" || die "independent component preservation failed"
 STATE_DIR="$HOME/.hermes/state/feeds"
 mkdir -p "$STATE_DIR"
 STAMP_FILE="$STATE_DIR/published.sha256"
-NEW_HASH="$(cd dist && find . -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum | cut -d' ' -f1)"
+NEW_HASH="$(cd "$BUILD_DIR" && find site nginx.conf -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum | cut -d' ' -f1)"
 OLD_HASH="$(cat "$STAMP_FILE" 2>/dev/null || true)"
 if [ -n "$OLD_HASH" ] && [ "$NEW_HASH" = "$OLD_HASH" ]; then
   echo "no change since the last publish"
@@ -152,10 +158,12 @@ fi
 #    by tag, then point the service at it. A --source deploy is refused and a
 #    local docker push is refused.
 run_gcloud "the container build failed" \
-  builds submit deploy \
+  builds submit "$BUILD_DIR" \
   --tag "gcr.io/$PROJECT/$SERVICE:$STAMP" \
   --project "$PROJECT" \
   --account "$DEPLOY_ACCOUNT"
+
+python3 scripts/preserve_independent_overlays.py check-head --candidate "$BUILD_DIR" --account "$DEPLOY_ACCOUNT" --gcloud "$GCLOUD" || die "feeds head changed during build; refusing stale deployment"
 
 run_gcloud "the publish step failed" \
   run deploy "$SERVICE" \
@@ -170,6 +178,8 @@ code="$(curl -s -o /dev/null -w '%{http_code}' https://ustechautomations.com/fee
   "GET https://ustechautomations.com/feeds returned HTTP $code, not 200. The new
 image is live on $SERVICE but is not serving the page, so the published stamp was
 not written and the next run will try again."
+
+python3 scripts/preserve_independent_overlays.py verify-public --candidate "$BUILD_DIR" --account "$DEPLOY_ACCOUNT" --gcloud "$GCLOUD" || die "published independent component verification failed"
 
 echo "$NEW_HASH" > "$STAMP_FILE"
 rm -f "$ALERT"
