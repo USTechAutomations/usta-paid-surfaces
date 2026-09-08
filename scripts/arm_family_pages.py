@@ -102,7 +102,14 @@ def main() -> int:
     for fam in CAT["families"]:
         fid = fam["id"]
         c = fam.get("checkout") or {}
-        if not c.get("url") or c.get("status") != "live":
+        # "live" is the verifier's stamp. "unverified" is the state the minter
+        # leaves a fresh buy.stripe.com link in, and the verifier will not stamp
+        # it live while the page shows no button (check_site refuses a declared
+        # link with no button). So a freshly minted link is armed here too; the
+        # page still cannot ship until the verifier has proved it, because the
+        # site gate refuses an unverified declared link. Anything else stays put.
+        url = str(c.get("url") or "")
+        if not url.startswith("https://buy.stripe.com/") or c.get("status") not in ("live", "unverified"):
             continue
         page = ROOT / "families" / fid / "index.html"
         raw = page.read_text(encoding="utf-8")
