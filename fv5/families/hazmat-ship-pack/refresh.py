@@ -83,6 +83,31 @@ COLOR_RE = re.compile(
     r"(?P<color>[a-z][a-z \-]{2,80}?)[.,]", re.I)
 
 
+# The eCFR web page wraps paragraph letters like "(a)" and every section
+# cross-reference "§ 172.407" in their own tags. Anyone checking our quote
+# against that page reads the tags as spaces, so "(a)" arrives as "( a )" and a
+# quote that spans one can never be found even though the words are right. We
+# therefore quote the longest stretch of the paragraph that holds none of them:
+# still the rule's own words, cut where the page's own markup cuts them.
+_MARKED_UP = re.compile(r"\((?:[a-z]|[ivx]{1,4}|\d{1,3})\)|\u00a7\s*\d+\.\d+[a-z]?|\u00a7")
+_QUOTE_MIN = 50
+
+
+def _quotable(para: str) -> str:
+    """The first long stretch of `para` that a reader can find on the eCFR page."""
+    runs = []
+    for r in _MARKED_UP.split(para):
+        r = re.sub(r"\s+", " ", r).strip(" ,;:.\u2014-").strip()
+        if r:
+            runs.append(r)
+    if not runs:
+        return ""
+    for r in runs:
+        if len(r) >= _QUOTE_MIN:
+            return r[:QUOTE_CHARS].strip()
+    return max(runs, key=len)[:QUOTE_CHARS].strip()
+
+
 def _first_para(xml: str, prefix: str) -> str:
     """The section's paragraph that starts with `prefix`, flattened. '' if gone."""
     try:
@@ -195,7 +220,7 @@ def build_citations(date: str, prior: list[dict], allow_network: bool) -> tuple[
     for sec, prefix in CITES:
         xml = hb.fetch_section_xml(sec, date, allow_network=allow_network)
         para = _first_para(xml, prefix) if xml else ""
-        quote = para[:QUOTE_CHARS]
+        quote = _quotable(para)
         old = was.get((sec, prefix))
         if not quote:
             status = "missing"

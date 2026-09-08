@@ -77,3 +77,22 @@ They are inside the label-section range this build sweeps (172.411–172.448), s
 the sweep asks for them and the eCFR says they are not there. That is the whole
 of the gap between the 149 sections held and the 152 asked for. No bot wall was
 met, and nothing was evaded.
+
+## How the quotes in `data/citations.json` are cut
+
+The quote is never typed by hand. Each run cuts it from the eCFR's own XML, so
+the file can only ever hold words the eCFR served. One extra rule shapes where
+the cut falls.
+
+The eCFR **web page** puts every paragraph letter — `(a)`, `(1)` — and every
+section cross-reference — `§ 172.407` — inside its own tag. Anyone who checks our
+quote by stripping tags out of that page reads each tag as a space, so `(a)`
+reaches them as `( a )`. A quote that spans one of those can never be found on
+the page even when every word is right, and a citation nobody can check is worth
+nothing.
+
+So each quote is the **first stretch of at least 50 characters of the cited
+paragraph that holds none of those marked-up pieces**. It is still the rule's own
+words, in order, unedited; it just starts and stops where the page's own markup
+starts and stops. Every one of the 15 rows was confirmed findable on the public
+page on 2026-09-08.
