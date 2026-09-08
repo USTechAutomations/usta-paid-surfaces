@@ -100,6 +100,7 @@ class Acceptance(unittest.TestCase):
         self.assertEqual({r['name'] for r in snap},{r['registration']['name'].strip() for r in self.old})
         meta=json.loads((self.out/'snapshot_2026-09-07.json').read_text())
         self.assertNotIn('dropped_listing_records',meta); self.assertEqual(meta['source_records'],302)
+        self.assertEqual(meta['source_id'],'openfda-device-registrationlisting')
 
     def test_fetch_writes_dated_export_atomically(self):
         spec=importlib.util.spec_from_file_location('collector',COLLECT); mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
