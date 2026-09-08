@@ -6,6 +6,7 @@
   "version": "0.1",
   "buildTag": "latest",
   "input": "./input_schema.json",
+  "output": "./output_schema.json",
   "dockerfile": "./Dockerfile",
   "storages": {
     "dataset": {
@@ -15,32 +16,25 @@
         "overview": {
           "title": "Water systems",
           "transformation": {
-            "fields": ["pwsid", "pws_name", "state", "city", "population_served",
-                       "service_connections", "water_source", "owner_type",
-                       "violations_total", "violations_health_based", "source_url"]
+            "fields": [
+              "pwsid",
+              "pws_name",
+              "state",
+              "city",
+              "population_served",
+              "service_connections",
+              "water_source",
+              "owner_type",
+              "violations_total",
+              "violations_health_based",
+              "source_url"
+            ]
           },
-          "display": {"component": "table"}
-        }
-      }
-    }
-  },
-  "pricingInfos": [
-    {
-      "pricingModel": "PAY_PER_EVENT",
-      "pricingPerEvent": {
-        "actorChargeEvents": {
-          "run-start": {
-            "eventTitle": "Run start",
-            "eventDescription": "Flat fee charged once when a run starts.",
-            "eventPriceUsd": 0.5
-          },
-          "result-item": {
-            "eventTitle": "Result item",
-            "eventDescription": "Charged for each water system the run returns.",
-            "eventPriceUsd": 0.005
+          "display": {
+            "component": "table"
           }
         }
       }
     }
-  ]
+  }
 }

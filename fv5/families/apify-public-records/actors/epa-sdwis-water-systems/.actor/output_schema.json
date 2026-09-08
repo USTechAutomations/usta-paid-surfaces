@@ -1,0 +1,17 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "title": "Output of EPA SDWIS Drinking-Water Systems Scraper",
+  "properties": {
+    "results": {
+      "type": "string",
+      "title": "Water systems",
+      "description": "All items the run produced, one per record, as JSON.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items"
+    },
+    "results_csv": {
+      "type": "string",
+      "title": "Water systems (CSV)",
+      "template": "{{links.apiDefaultDatasetUrl}}/items?format=csv"
+    }
+  }
+}

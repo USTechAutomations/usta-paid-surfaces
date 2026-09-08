@@ -6,6 +6,7 @@
   "version": "0.1",
   "buildTag": "latest",
   "input": "./input_schema.json",
+  "output": "./output_schema.json",
   "dockerfile": "./Dockerfile",
   "storages": {
     "dataset": {
@@ -15,31 +16,23 @@
         "overview": {
           "title": "Incidents",
           "transformation": {
-            "fields": ["report_id", "incident_date", "state", "city", "material",
-                       "quantity", "medium", "incident_type", "source_url"]
+            "fields": [
+              "report_id",
+              "incident_date",
+              "state",
+              "city",
+              "material",
+              "quantity",
+              "medium",
+              "incident_type",
+              "source_url"
+            ]
           },
-          "display": {"component": "table"}
-        }
-      }
-    }
-  },
-  "pricingInfos": [
-    {
-      "pricingModel": "PAY_PER_EVENT",
-      "pricingPerEvent": {
-        "actorChargeEvents": {
-          "run-start": {
-            "eventTitle": "Run start",
-            "eventDescription": "Flat fee charged once when a run starts.",
-            "eventPriceUsd": 0.5
-          },
-          "result-item": {
-            "eventTitle": "Result item",
-            "eventDescription": "Charged for each incident the run returns.",
-            "eventPriceUsd": 0.005
+          "display": {
+            "component": "table"
           }
         }
       }
     }
-  ]
+  }
 }

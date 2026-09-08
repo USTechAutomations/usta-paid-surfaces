@@ -1,0 +1,17 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "title": "Output of OSHA Severe-Injury Reports Scraper",
+  "properties": {
+    "results": {
+      "type": "string",
+      "title": "Severe-injury reports",
+      "description": "All items the run produced, one per record, as JSON.",
+      "template": "{{links.apiDefaultDatasetUrl}}/items"
+    },
+    "results_csv": {
+      "type": "string",
+      "title": "Severe-injury reports (CSV)",
+      "template": "{{links.apiDefaultDatasetUrl}}/items?format=csv"
+    }
+  }
+}

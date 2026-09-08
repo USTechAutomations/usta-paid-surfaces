@@ -6,6 +6,7 @@
   "version": "0.1",
   "buildTag": "latest",
   "input": "./input_schema.json",
+  "output": "./output_schema.json",
   "dockerfile": "./Dockerfile",
   "storages": {
     "dataset": {
@@ -15,31 +16,24 @@
         "overview": {
           "title": "Reports",
           "transformation": {
-            "fields": ["event_date", "employer", "city", "state", "naics",
-                       "hospitalized", "amputation", "nature", "body_part", "source_url"]
+            "fields": [
+              "event_date",
+              "employer",
+              "city",
+              "state",
+              "naics",
+              "hospitalized",
+              "amputation",
+              "nature",
+              "body_part",
+              "source_url"
+            ]
           },
-          "display": {"component": "table"}
-        }
-      }
-    }
-  },
-  "pricingInfos": [
-    {
-      "pricingModel": "PAY_PER_EVENT",
-      "pricingPerEvent": {
-        "actorChargeEvents": {
-          "run-start": {
-            "eventTitle": "Run start",
-            "eventDescription": "Flat fee charged once when a run starts.",
-            "eventPriceUsd": 0.5
-          },
-          "result-item": {
-            "eventTitle": "Result item",
-            "eventDescription": "Charged for each severe-injury report the run returns.",
-            "eventPriceUsd": 0.005
+          "display": {
+            "component": "table"
           }
         }
       }
     }
-  ]
+  }
 }
