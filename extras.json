@@ -138,7 +138,7 @@
     "id": "offers",
     "short": "Offers and evidence",
     "who": "Small businesses that want one piece of automation built.",
-    "amount": "$200 – $450",
+    "amount": "$200 \u2013 $450",
     "cadence": "fixed price, fixed window",
     "pill": "Live",
     "pill_class": "pill-ready"
@@ -216,33 +216,6 @@
     "pill_class": "pill-ready"
   },
   {
-    "id": "coverage",
-    "short": "Everything we hold",
-    "who": "Anyone deciding whether we hold the record they need, before they ask about price",
-    "amount": "Free",
-    "cadence": "rebuilt daily",
-    "pill": "Counted today",
-    "pill_class": "pill-ready"
-  },
-  {
-    "id": "what-we-dont-collect",
-    "short": "What we refuse to collect",
-    "who": "Anyone who wants to know what we turn down and why, in writing",
-    "amount": "Free",
-    "cadence": "rebuilt daily",
-    "pill": "Counted today",
-    "pill_class": "pill-ready"
-  },
-  {
-    "id": "how-we-seal",
-    "short": "How a sealed copy works",
-    "who": "Anyone who needs to show a third party that a dated copy is what it says it is",
-    "amount": "Free",
-    "cadence": "rebuilt daily",
-    "pill": "Worked example",
-    "pill_class": "pill-ready"
-  },
-  {
     "id": "qrelay",
     "short": "Security questionnaire relay",
     "who": "Software companies that answer and send vendor security questionnaires.",
@@ -285,6 +258,33 @@
     "amount": "$49/mo",
     "cadence": "A monthly key. Free: a reorder sheet with our small badge, up to 500 products. Paid: no badge, up to 5,000 products. Cancel any time through Stripe.",
     "pill": "Live",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "coverage",
+    "short": "Everything we hold",
+    "who": "Anyone deciding whether we hold the record they need, before they ask about price",
+    "amount": "Free",
+    "cadence": "rebuilt daily",
+    "pill": "Counted today",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "what-we-dont-collect",
+    "short": "What we refuse to collect",
+    "who": "Anyone who wants to know what we turn down and why, in writing",
+    "amount": "Free",
+    "cadence": "rebuilt daily",
+    "pill": "Counted today",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "how-we-seal",
+    "short": "How a sealed copy works",
+    "who": "Anyone who needs to show a third party that a dated copy is what it says it is",
+    "amount": "Free",
+    "cadence": "rebuilt daily",
+    "pill": "Worked example",
     "pill_class": "pill-ready"
   }
 ]
