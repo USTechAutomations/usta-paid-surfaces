@@ -15,37 +15,55 @@
   <link rel="manifest" href="/site.webmanifest">
   <link rel="stylesheet" href="../../styles.css">
   <style>
-    /* Layout for the checker box only. Colors and type come from styles.css. */
+    /* Layout for the checker box only. Every colour and every corner comes from
+       styles.css (BRAND.md §1, §4); this block sets no colour of its own. */
     .ac-app { display: grid; gap: 0.75rem; margin: 1.5rem 0; }
-    #ac-input { width: 100%; min-height: 12rem; font-family: var(--mono, monospace); font-size: 0.85rem; }
+    #ac-input { min-height: 12rem; font-family: var(--mono); font-size: 0.85rem; max-width: none; }
     .ac-row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
-    #ac-results { border: 1px solid hsl(var(--border)); border-radius: 8px; padding: 0.9rem 1rem; min-height: 3rem; }
+    #ac-results { border: 1px solid var(--line); border-radius: var(--radius); padding: 0.9rem 1rem; min-height: 3rem; }
     .ac-ok { font-weight: 600; }
     .ac-summary { font-weight: 600; margin-top: 0; }
     .ac-findings { list-style: none; margin: 0; padding: 0; }
-    .ac-findings li { border-top: 1px solid hsl(var(--border)); padding: 0.6rem 0; }
+    .ac-findings li { border-top: 1px solid var(--line); padding: 0.6rem 0; }
     .ac-findings li:first-child { border-top: none; padding-top: 0; }
     .ac-msg { margin: 0 0 0.2rem; }
-    .ac-fix { margin: 0; color: var(--muted-fg, #555); font-size: 0.9rem; }
+    .ac-fix { margin: 0; color: var(--muted-fg); font-size: 0.9rem; }
   </style>
 </head>
 <body data-family="acacheck">
-  <header>
-    <nav><a href="../../">Feeds</a> · <a href="./">ACA e-file pre-check</a></nav>
-    <h1>ACA e-file pre-check</h1>
-    <p class="price">$499 for 12 months</p>
-    <p>Paste your 1094-C/1095-C file below and this page tells you, in plain English, what is likely to get rejected and how to fix it, before you send it to the IRS.</p>
-  </header>
+<a class="skip" href="#main">Skip to content</a>
 
-  <main>
+<header class="masthead">
+  <div class="wrap">
+    <a class="wordmark" href="../../">Dated change feeds <span>/ US Tech Automations</span></a>
+    <p class="crumbs"><a href="../../">Feeds</a><span class="sep">/</span>ACA e-file pre-check</p>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Browser tool <span class="dot"></span> One payment for 12 months <span class="dot"></span> Live</p>
+    <h1>ACA e-file pre-check</h1>
+    <p class="lede">Paste your 1094-C/1095-C file below and this page tells you, in plain English, what is likely to get rejected and how to fix it, before you send it to the IRS.</p>
+    <dl class="rail">
+      <div><dt>Price</dt><dd class="price">$499 for 12 months</dd></div>
+      <div><dt>Built for</dt><dd>Payroll engineers who file 1094-C and 1095-C returns electronically.</dd></div>
+      <div><dt>Free part</dt><dd>The checker on this page, always</dd></div>
+      <div><dt>Status</dt><dd><span class="state"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8.4l3.6 3.6L13.5 4"/></svg>Live</span></dd></div>
+    </dl>
+  </div>
+</section>
+
+<main id="main">
+  <div class="wrap">
     <h2>Try it now — free, and it never leaves your browser</h2>
     <p>Copy the XML text of your IRS health-coverage e-file (the 1094-C and 1095-C forms together) and paste it into the box below. Nothing you paste is sent anywhere. The check runs on your own screen only.</p>
 
     <div class="ac-app">
-      <textarea id="ac-input" placeholder="Paste your 1094-C/1095-C XML here…" spellcheck="false"></textarea>
+      <textarea id="ac-input" class="field" placeholder="Paste your 1094-C/1095-C XML here…" spellcheck="false"></textarea>
       <div class="ac-row">
-        <button type="button" id="ac-check">Check my file</button>
-        <button type="button" id="ac-demo">Try a sample file</button>
+        <button class="btn btn-ghost" type="button" id="ac-check">Check my file</button>
+        <button class="btn btn-ghost" type="button" id="ac-demo">Try a sample file</button>
       </div>
       <div id="ac-results"><p>Paste a file and press "Check my file" to see what it finds.</p></div>
     </div>
@@ -72,6 +90,7 @@
       <p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=ACA%20e-file%20pre-check">Email operations@ustechautomations.com</a>. One payment for 12 months. The open-source checker is free forever; the paid key unlocks the hosted check with every finding and the full rejection-code decoder. Nothing recurring.</p>
     </section>
   <p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=ACA%20e-file%20pre-check">Email operations@ustechautomations.com</a>. We reply within one working day.</p>
+  </div>
 </main>
 
 <footer class="site">

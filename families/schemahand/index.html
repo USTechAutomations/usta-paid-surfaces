@@ -15,23 +15,25 @@
   <link rel="manifest" href="/site.webmanifest">
   <link rel="stylesheet" href="../../styles.css">
   <style>
-    /* Layout for the tool itself. Colors and type come from styles.css;
-       this only positions the parts that are specific to this page. */
+    /* Layout for the tool itself. Every colour and every corner comes from
+       styles.css (BRAND.md §1, §4); this only positions the parts that are
+       specific to this page. The error line used to carry its own red, #b42318,
+       which was the estate's fifth different red; it takes the shared one now. */
     .sh-app { display: grid; grid-template-columns: 1fr; gap: 1rem; margin: 1.5rem 0; }
     .sh-input-row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
-    #sh-input { width: 100%; min-height: 9rem; font-family: var(--mono, monospace); font-size: 0.85rem; }
+    #sh-input { min-height: 9rem; font-family: var(--mono); font-size: 0.85rem; max-width: none; }
     .sh-workspace { display: grid; grid-template-columns: 3fr 1fr; gap: 1rem; min-height: 28rem; }
-    #sh-canvas { border: 1px solid hsl(var(--border)); border-radius: 8px; min-height: 28rem; overflow: hidden; }
-    #sh-side { border: 1px solid hsl(var(--border)); border-radius: 8px; padding: 0.75rem; overflow-y: auto; max-height: 30rem; }
+    #sh-canvas { border: 1px solid var(--line); border-radius: var(--radius); min-height: 28rem; overflow: hidden; }
+    #sh-side { border: 1px solid var(--line); border-radius: var(--radius); padding: 0.75rem; overflow-y: auto; max-height: 30rem; }
     .sh-side-table { margin-bottom: 1rem; }
     .sh-side-table h3 { margin: 0 0 0.25rem; font-size: 0.95rem; }
     .sh-side-table textarea { width: 100%; min-height: 2.5rem; font-size: 0.8rem; }
     .sh-side-table ul { list-style: none; margin: 0.4rem 0 0; padding: 0; font-size: 0.8rem; }
     .sh-side-table li { display: flex; justify-content: space-between; gap: 0.4rem; margin: 0.15rem 0; }
     .sh-side-table li input { width: 8rem; font-size: 0.75rem; }
-    #sh-error { color: #b42318; font-weight: 600; margin: 0.5rem 0; }
+    #sh-error { color: hsl(var(--accent-rose-fg)); font-weight: 600; margin: 0.5rem 0; }
     #sh-error[hidden] { display: none; }
-    .sh-pro-box { border: 1px solid hsl(var(--border)); border-radius: 8px; padding: 1rem; margin: 1.5rem 0; }
+    .sh-pro-box { border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem; margin: 1.5rem 0; }
     .sh-pro-box input[type="text"] { width: 18rem; max-width: 100%; }
     @media (max-width: 720px) {
       .sh-workspace { grid-template-columns: 1fr; }
@@ -39,30 +41,47 @@
   </style>
 </head>
 <body data-family="schemahand">
-  <header>
-    <nav><a href="../../">Feeds</a> · <a href="./">Schema handoff package</a></nav>
-    <h1>Schema handoff package</h1>
-    <p class="price">$199 for 12 months</p>
-    <p>Paste your database's table definitions. Get a diagram you can hand to a client, with plain notes on every table
-      and column. Made for database consultancies who send this to clients again and again.</p>
-    <p>You pay once through Stripe; the private page with your key builds itself within 10 minutes.
-      No email is sent.</p>
-  </header>
+<a class="skip" href="#main">Skip to content</a>
 
-  <main>
+<header class="masthead">
+  <div class="wrap">
+    <a class="wordmark" href="../../">Dated change feeds <span>/ US Tech Automations</span></a>
+    <p class="crumbs"><a href="../../">Feeds</a><span class="sep">/</span>Schema handoff package</p>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Browser tool <span class="dot"></span> One payment for 12 months <span class="dot"></span> Live</p>
+    <h1>Schema handoff package</h1>
+    <p class="lede">Paste your database's table definitions. Get a diagram you can hand to a client, with plain notes on every table
+      and column. Made for database consultancies who send this to clients again and again.</p>
+    <dl class="rail">
+      <div><dt>Price</dt><dd class="price">$199 for 12 months</dd></div>
+      <div><dt>Built for</dt><dd>Developers who hand a database schema to a client.</dd></div>
+      <div><dt>Free part</dt><dd>The diagram tool on this page, always</dd></div>
+      <div><dt>Status</dt><dd><span class="state"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8.4l3.6 3.6L13.5 4"/></svg>Live</span></dd></div>
+    </dl>
+    <p class="hero-note">You pay once through Stripe; the private page with your key builds itself within 10 minutes.
+      No email is sent.</p>
+  </div>
+</section>
+
+<main id="main">
+  <div class="wrap">
     <h2>Try it now — free, and it never leaves your browser</h2>
     <p>Paste a <code>CREATE TABLE</code> script below (PostgreSQL or MySQL). Nothing you paste is
       sent anywhere. The diagram is drawn on your screen only.</p>
 
     <div class="sh-app">
       <div class="sh-input-row">
-        <textarea id="sh-input" placeholder="Paste your CREATE TABLE script here…" spellcheck="false"></textarea>
+        <textarea id="sh-input" class="field" placeholder="Paste your CREATE TABLE script here…" spellcheck="false"></textarea>
       </div>
       <div class="sh-input-row">
-        <button type="button" id="sh-parse">Draw diagram</button>
-        <button type="button" id="sh-demo">Try a sample schema</button>
+        <button class="btn btn-ghost" type="button" id="sh-parse">Draw diagram</button>
+        <button class="btn btn-ghost" type="button" id="sh-demo">Try a sample schema</button>
         <input type="search" id="sh-search" placeholder="Search tables and columns…">
-        <button type="button" id="sh-export-free">Download diagram HTML</button>
+        <button class="btn btn-ghost" type="button" id="sh-export-free">Download diagram HTML</button>
       </div>
       <p id="sh-error" role="alert" hidden></p>
       <div class="sh-workspace">
@@ -79,10 +98,10 @@
         every table and column.</p>
       <p>
         <input type="text" id="sh-pro-key" placeholder="Paste your key (starts with lp1.schemahand.)">
-        <button type="button" id="sh-pro-unlock">Unlock handoff package</button>
+        <button class="btn btn-ghost" type="button" id="sh-pro-unlock">Unlock handoff package</button>
       </p>
       <p id="sh-pro-status"></p>
-      <button type="button" id="sh-export-pro" hidden>Download handoff package</button>
+      <button class="btn btn-ghost" type="button" id="sh-export-pro" hidden>Download handoff package</button>
     </div>
 
     <h2>What you get for $199</h2>
@@ -102,6 +121,7 @@
       <p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=Schema%20hand-over%20diagram">Email operations@ustechautomations.com</a>. One payment for 12 months. The diagram tool runs free in the browser; the paid key unlocks the handoff package export. Nothing recurring.</p>
     </section>
   <p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=Schema%20hand-over%20diagram">Email operations@ustechautomations.com</a>. We reply within one working day.</p>
+  </div>
 </main>
 
 <footer class="site">
