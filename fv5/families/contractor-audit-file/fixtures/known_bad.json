@@ -1,0 +1,17 @@
+{
+ "note": "Federal only, nothing answered. The page must show the federal factor sheets and say plainly that there are no answers yet.",
+ "input": {
+  "state": "US-DOL",
+  "role": "",
+  "answers": {}
+ },
+ "expect_contains": [
+  "No answers yet",
+  "Economic reality"
+ ],
+ "expect_absent": [
+  "You wrote:",
+  "you are an employee",
+  "likely contractor"
+ ]
+}

@@ -2597,6 +2597,38 @@
       "sample_status": "pass",
       "group": "Trade records",
       "kind": "build"
+    },
+    {
+      "id": "contractor-audit-file",
+      "name": "The contractor audit file — your state's test, your answers, your documents",
+      "short": "Contractor audit file",
+      "buyer": "A founder or small business paying people on 1099 who wants one organised file ready for a state audit, a 1099 mismatch letter or a lawyer's questionnaire",
+      "who": "A founder or small business paying people on 1099 who wants one organised file ready for a state audit, a 1099 mismatch letter or a lawyer's questionnaire.",
+      "cadence": "once, not a feed",
+      "cadence_long": "One payment, not a subscription. You get one private page you can print or save. We re-read the cited statute pages and re-check every quote; buying again is your choice, nothing recurring.",
+      "price": "$49",
+      "coverage_what": "Your state's worker-status test set out prong by prong in the statute's own words, your own answers written next to the prong each one touches, the documents an auditor would ask to see for each answer, the penalty section quoted, and the federal IRS and Department of Labor factor sheets",
+      "coverage_how": "We fetch the official statute or agency page for each jurisdiction, check the bytes really carry the section we cite, and lift the passages word for word. A state whose site does not answer, or answers with the wrong page, is named as not covered and the status code we saw is printed. Nothing is paraphrased into law and nothing is invented.",
+      "price_list_note": "The free questionnaire on this page shows you the whole shape of the file before you pay. Read it first.",
+      "contact_h2": "Buy the audit file",
+      "contact_p": "Ask which states are quoted and which are not before you buy. We reply with the current list and the checkout link.",
+      "contact_cta": "Email us for the $49 checkout link",
+      "contact_note": "No pay button on this page yet. This is an evidence file, not an opinion, and it never says what the worker is.",
+      "delivery": "<strong>What arrives after you pay:</strong> one private web page — the prong-by-prong evidence sheet for your state with your answers echoed, the document checklist as tick boxes you can export, the penalty text, the federal factor sheets and a printable cover sheet — within 15 minutes of payment.",
+      "note": "STAGED 2026-09-08, NOT PUBLISHED. One-off $49 audit-evidence file for worker classification. Free estate: family page carries an 18-question questionnaire tool (inline JS, inline data, answers in sessionStorage only) plus one page per jurisdiction we can quote and two federal pages (IRS common-law factors, 29 CFR 795 economic-reality factors). Paid page (fulfil): the same test with the buyer's answers echoed prong by prong, a document checklist with JSON export/import, the penalty quote, the federal sheets and a printable cover sheet. NO VERDICT ANYWHERE: a selftest gate fails the build if any page, free or paid, says what a worker is or is likely to be; statute quotes are exempt only when byte-identical to a data/citations.json row. Sources are official statute and agency pages only; states whose sites 403 or do not answer this host are named on the family page with the status seen, not guessed at. checkout.url is TO-MINT until a contractor-audit-file SKU at 4900 cents one-off exists in the INSTALLED permits-engine release. No timer, no mailbox reader.",
+      "checkout": {
+        "terms": "$49 once, for one private web page holding your contractor audit file. Nothing recurring, nothing to cancel and no subscription behind it. You get your state's worker-status test set out prong by prong in the statute's own words with a link to the official page, your own questionnaire answers written next to the prong each one touches, the documents an auditor would expect behind each answer as a checklist you can tick and export, the penalty section quoted where the official page names an amount, the federal IRS and Department of Labor factor sheets, and a printable cover sheet. This is an evidence file, not an opinion. It does not say what the worker is, is likely to be, or should be, because only a court or an agency can decide that and only on the whole record. It is not legal or tax advice and we are not your lawyer. Statute text can change and an official page can move; the page carries the date each quote was read and says so if a quote has changed since. Not every state is covered — the free page lists which are quoted and which are not, and why. Refund on request within 14 days. There is no pay button on this page yet.",
+        "after": "The private page is delivered within 15 minutes of payment. Still not here after 15 minutes? Reply to your Stripe receipt.",
+        "url": "TO-MINT",
+        "label": "Buy — $49 one-off",
+        "lands_on": "buy.stripe.com",
+        "status": "TO-MINT",
+        "checked": "",
+        "verified": ""
+      },
+      "sample_status": "pass",
+      "group": "Employment records",
+      "kind": "build"
     }
   ],
   "map": "MAP.md",

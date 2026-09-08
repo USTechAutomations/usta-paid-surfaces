@@ -1,0 +1,40 @@
+{
+ "note": "California, a filled-in answer set. The page must echo the Labor Code 2775 prong B and C text and must carry no verdict sentence.",
+ "input": {
+  "state": "CA",
+  "role": "delivery driver",
+  "answers": {
+   "hours": "We decide",
+   "how": "We decide",
+   "supervise": "Yes, in progress",
+   "train": "Yes",
+   "where": "The customer's site",
+   "tools": "You",
+   "core": "Yes",
+   "employees": "Yes",
+   "integrated": "Yes, it is a step in what we deliver",
+   "ownbiz": "No",
+   "clients": "No, only us",
+   "advertise": "No",
+   "licence": "Not required for this work",
+   "profit": "No, the pay is the same either way",
+   "invest": "No",
+   "pay": "By the hour, day or week",
+   "term": "Open-ended, no end date",
+   "agreement": "No written agreement"
+  }
+ },
+ "expect_contains": [
+  "outside the usual course of the hiring entity's business",
+  "customarily engaged in an independently established trade",
+  "You wrote:",
+  "Cal. Lab. Code 2775"
+ ],
+ "expect_absent": [
+  "you are an employee",
+  "you are an independent contractor",
+  "this worker is",
+  "likely employee",
+  "likely contractor"
+ ]
+}
