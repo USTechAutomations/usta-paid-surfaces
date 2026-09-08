@@ -1,6 +1,6 @@
 {
   "family": "trustee-sales",
-  "generated": "2026-09-06",
+  "generated": "2026-09-08",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/trustee-sales",
   "rows_published": 10,
@@ -13,6 +13,20 @@
     "Between these two reads"
   ],
   "rows": [
+    [
+      "26-04834-US-AZ",
+      "Casa Grande, Pinal 85122",
+      "30 Jun 2026",
+      "8 Sep 2026 70 days later",
+      "30 Jun 2026 \u2192 7 Sep 2026"
+    ],
+    [
+      "26-01005-MC-AZ",
+      "Arizona City, Pinal 85123",
+      "30 Jun 2026",
+      "8 Sep 2026 70 days later",
+      "30 Jun 2026 \u2192 7 Sep 2026"
+    ],
     [
       "26-08238-GU-AZ",
       "Phoenix, Maricopa 85051",
@@ -68,20 +82,6 @@
       "1 Sep 2026",
       "6 Oct 2026 35 days later",
       "1 Sep 2026 \u2192 2 Sep 2026"
-    ],
-    [
-      "24-03087-SF-AZ",
-      "Lake Havasu City, Mohave 86406",
-      "13 Aug 2026",
-      "3 Sep 2026 21 days later",
-      "11 Aug 2026 \u2192 2 Sep 2026"
-    ],
-    [
-      "26-07047-SW-AZ",
-      "Glendale, Maricopa 85306",
-      "27 Aug 2026",
-      "3 Sep 2026 7 days later",
-      "27 Aug 2026 \u2192 28 Aug 2026"
     ]
   ]
 }

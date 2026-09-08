@@ -1,6 +1,6 @@
 {
   "family": "permit-metros",
-  "generated": "2026-09-07",
+  "generated": "2026-09-08",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/permit-metros",
   "rows_published": 24,
@@ -17,6 +17,33 @@
   "rows": [
     [
       "Austin",
+      "2026-115600 BP",
+      "7623 SCENIC BROOK DR",
+      "Iliana's Painting and Remodeling",
+      "R- 435 Renovations/Remodel / Repair",
+      "6 Sep 2026",
+      "8 Sep 2026"
+    ],
+    [
+      "Austin",
+      "2026-115803 BP",
+      "4804 NATIVE PEARL LN",
+      "Trophy Signature Homes",
+      "R- 101 Single Family Houses / New",
+      "6 Sep 2026",
+      "8 Sep 2026"
+    ],
+    [
+      "Austin",
+      "2026-116958 BP",
+      "12217 KILMARTIN LN",
+      "Douglas Foundation Repair",
+      "R- 435 Renovations/Remodel / Repair",
+      "6 Sep 2026",
+      "8 Sep 2026"
+    ],
+    [
+      "Austin",
       "2026-050237 BP",
       "2607 S 4TH ST",
       "Green Falmingo Properties LLC",
@@ -25,31 +52,13 @@
       "7 Sep 2026"
     ],
     [
-      "Austin",
-      "2025-155434 BP",
-      "1101 MINDA DR",
+      "Chicago",
+      "B200509821",
+      "4400 W WEST END AVE",
       "not given",
-      "R- 434 Addition & Alterations / Addition and Remodel",
-      "4 Sep 2026",
-      "6 Sep 2026"
-    ],
-    [
-      "Austin",
-      "2026-100655 BP",
-      "5902 NORTH WEST PL",
-      "CG&S Construction, Inc. dba: CG&S Design-Build",
-      "R- 434 Addition & Alterations / Addition and Remodel",
-      "4 Sep 2026",
-      "6 Sep 2026"
-    ],
-    [
-      "Austin",
-      "2026-104659 BP",
-      "6132 PERLITA DR",
-      "Renewal by Andersen",
-      "R- 435 Renovations/Remodel / Repair",
-      "4 Sep 2026",
-      "6 Sep 2026"
+      "PERMIT \u2013 EXPRESS PERMIT PROGRAM / Plumbing Work",
+      "5 Sep 2026",
+      "8 Sep 2026"
     ],
     [
       "Chicago",
@@ -75,15 +84,6 @@
       "6822 S CLAREMONT AVE",
       "not given",
       "PERMIT - RENOVATION/ALTERATION",
-      "4 Sep 2026",
-      "6 Sep 2026"
-    ],
-    [
-      "Chicago",
-      "101084472",
-      "1621 W BRYN MAWR AVE",
-      "not given",
-      "PERMIT - NEW CONSTRUCTION",
       "4 Sep 2026",
       "6 Sep 2026"
     ],

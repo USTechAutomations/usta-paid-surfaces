@@ -1,6 +1,6 @@
 {
   "family": "ai-terms",
-  "generated": "2026-09-07",
+  "generated": "2026-09-08",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/ai-terms",
   "rows_published": 25,
@@ -16,6 +16,16 @@
     "url"
   ],
   "rows": [
+    [
+      "Intercom",
+      "terms of service",
+      "In addition to the rights contained in Section 3.2, Customer agrees that Intercom may use certain technical and other data about Customer\u2019s and People's use of the Services (\u201cUsage Data\u201d) and/or Customer Data, which is anonymized to remove any personal data of People (\u201cAnonymized Data\u201d) to analyze, improve, support and operate our Services during and after the term of this Agreement, and Customer agrees that Intercom is permitted to anonymize Customer Data to use for the aforementioned purposes.",
+      "In addition to the rights contained in Section 3.2, Customer agrees that Intercom may use certain technical and other data about Customers and People's use of the Services (\u201cUsage Data\u201d) and/or Customer Data, which is de-identified or anonymized to remove any personal data of People (\u201cAnonymized Data\u201d) to analyze, improve, support and operate our Services during and after the term of this Agreement, and Customer agrees that Intercom is permitted to de-identify or anonymize Customer Data to use for the aforementioned purposes.",
+      "rewritten in place",
+      "2026-09-07",
+      "2026-09-08",
+      "https://www.intercom.com/legal/terms-and-policies"
+    ],
     [
       "DeepL",
       "terms of service",
@@ -255,16 +265,6 @@
       "2026-08-13",
       "2026-08-14",
       "https://www.cursor.com/terms-of-service"
-    ],
-    [
-      "Inflection",
-      "privacy policy",
-      "Appeals If we deny your rights request, you may appeal our decision by contacting us.",
-      "Appeals and Complaints If we deny your rights request, you may appeal our decision by contacting us.",
-      "rewritten in place",
-      "2026-08-12",
-      "2026-08-13",
-      "https://inflection.ai/privacy-policy"
     ]
   ]
 }

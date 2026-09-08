@@ -42,7 +42,7 @@
       <div><dt>Price</dt><dd class="price">$49</dd></div>
       <div><dt>Built for</dt><dd>a notary public or loan-signing agent who wants their state's own words about a journal, and a journal that keeps entries on their own device</dd></div>
       <div><dt>Cadence</dt><dd>a one-off purchase; the state pages are re-read every week and say when a rule moved</dd></div>
-      <div><dt>Public sample</dt><dd><span class="pill pill-ready">Free tool on this page</span></dd></div>
+      <div><dt>Public sample</dt><dd><span class="state"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8.4l3.6 3.6L13.5 4"/></svg>Free tool on this page</span></dd></div>
     </dl>
     <p class="hero-cta"><a class="btn btn-buy" href="https://buy.stripe.com/eVq5kw7tcf500Fe4j00sU2N" data-checkout="notary-journal" rel="noopener">Buy — $49 one-off</a><span class="btn-note">$49 once, for one private web page carrying the same notary journal with no entry limit and your state already selected. Nothing recurring, nothing to cancel and no subscription behind it. The journal runs in your own browser: entries are sealed with a passphrase you choose and are stored only on your device, so nothing is uploaded and nobody here, including us, can read an entry or reset a forgotten passphrase. A browser can delete stored data on its own, which is why the tool asks for an encrypted backup file and refuses a new entry until one is saved; the backup is your copy to keep. It is sold only for states whose own text we could read and whose text permits a journal in an electronic format, and each state page shows those words and when we read them. It is a record you keep, not a legal opinion, and nothing here is legal or professional advice. Refund on request within 14 days.</span></p>
   </div>
@@ -56,23 +56,24 @@
       <p>Pick a state and the form follows the fields named in that state's own text. The free tool holds 25 entries. The copy sold on this page, $49 paid once, has no limit and is offered only for the states whose text permits an electronic journal.</p>
 
 <style>
-#nj{border:1px solid #d8d8d8;border-radius:6px;padding:1rem;margin:1.5rem 0;background:#fff}
+#nj{border:1px solid var(--line);border-radius:var(--radius);padding:1rem;margin:1.5rem 0;background:var(--surface)}
 #nj h3{margin-top:0}
 #nj .row{margin:.5rem 0}
 #nj label{display:block;font-weight:600;margin-bottom:.15rem}
 #nj input,#nj select,#nj textarea{width:100%;max-width:34rem;padding:.4rem;
- border:1px solid #bbb;border-radius:4px;font:inherit}
-#nj .nj-note{background:#fff8e1;border-left:4px solid #e0a800;padding:.6rem .8rem;margin:.6rem 0}
-#nj .nj-stop{background:#fdecea;border-left:4px solid #c0392b;padding:.6rem .8rem;margin:.6rem 0}
-#nj .nj-ok{background:#eaf6ec;border-left:4px solid #2e7d32;padding:.6rem .8rem;margin:.6rem 0}
+ border:1px solid var(--line);border-radius:var(--radius);font:inherit;
+ background:var(--surface);color:var(--fg)}
+#nj .nj-note{background:hsl(var(--accent-amber) / .5);border-left:4px solid hsl(var(--accent-amber-fg));padding:.6rem .8rem;margin:.6rem 0}
+#nj .nj-stop{background:hsl(var(--accent-rose) / .5);border-left:4px solid hsl(var(--accent-rose-fg));padding:.6rem .8rem;margin:.6rem 0}
+#nj .nj-ok{background:hsl(var(--accent-emerald) / .5);border-left:4px solid hsl(var(--accent-emerald-fg));padding:.6rem .8rem;margin:.6rem 0}
 #nj button{font:inherit;padding:.45rem .9rem;margin:.2rem .3rem .2rem 0;
- border:1px solid #444;border-radius:4px;background:#f4f4f4;cursor:pointer}
+ border:1px solid var(--line);border-radius:var(--radius);background:var(--surface-2);color:var(--fg);cursor:pointer}
 #nj button:disabled{opacity:.5;cursor:not-allowed}
 #nj table{border-collapse:collapse;width:100%;font-size:.92em}
-#nj th,#nj td{border:1px solid #ddd;padding:.35rem .5rem;text-align:left;vertical-align:top}
-#nj canvas{border:1px dashed #999;border-radius:4px;touch-action:none;background:#fff}
+#nj th,#nj td{border:1px solid var(--line);padding:.35rem .5rem;text-align:left;vertical-align:top}
+#nj canvas{border:1px dashed var(--line);border-radius:var(--radius);touch-action:none;background:var(--surface)}
 #nj .nj-hide{display:none}
-#nj .nj-cite{font-size:.88em;color:#444}
+#nj .nj-cite{font-size:.88em;color:var(--muted-fg)}
 @media print{body *{visibility:hidden}#nj-print,#nj-print *{visibility:visible}
  #nj-print{position:absolute;left:0;top:0;width:100%}}
 </style>

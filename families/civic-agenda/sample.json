@@ -1,6 +1,6 @@
 {
   "family": "civic-agenda",
-  "generated": "2026-09-06",
+  "generated": "2026-09-08",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/civic-agenda",
   "rows_published": 25,
@@ -17,6 +17,17 @@
     "Sealed after"
   ],
   "rows": [
+    [
+      "Los Angeles County",
+      "agenda item",
+      "Audit Committee",
+      "26-5318",
+      "DYD- Semi-Annual Notification of Audits and Contract Monitoring Reviews Conducted by Entities other than the Auditor-Controller, January 1 through June 30, 2026. 0 Audits and Contract Monitoring Reviews 0 High-Priority Findings",
+      "",
+      "Moved to the 21 Oct 2026 agenda",
+      "2026-09-07",
+      "2026-09-08"
+    ],
     [
       "Seattle",
       "meeting",
@@ -278,17 +289,6 @@
       "Request Retroactive Authorization to Apply for U.S. Department of Transportation Safe Streets and Roads for All (SS4A) Grant Opportunity for Federal Fiscal Year 2026 (Ordinance S-53177) - Districts 4 & 5",
       "",
       "Wording rewritten",
-      "2026-09-03",
-      "2026-09-04"
-    ],
-    [
-      "Phoenix",
-      "agenda item",
-      "City Council Formal Meeting",
-      "26-1754",
-      "Amend City Code - Ordinance Adoption - Rezoning Application Z-35-26-6 - Approximately 400 Feet East of the Southeast Corner of 16th Street and Maryland Avenue (Ordinance G-7544) - District 6",
-      "",
-      "\u201cG- )\u201d -> \u201cG-7544)\u201d",
       "2026-09-03",
       "2026-09-04"
     ]
