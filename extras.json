@@ -138,7 +138,7 @@
     "id": "offers",
     "short": "Offers and evidence",
     "who": "Small businesses that want one piece of automation built.",
-    "amount": "$200 \u2013 $450",
+    "amount": "$200 – $450",
     "cadence": "fixed price, fixed window",
     "pill": "Live",
     "pill_class": "pill-ready"
@@ -240,6 +240,51 @@
     "amount": "Free",
     "cadence": "rebuilt daily",
     "pill": "Worked example",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "qrelay",
+    "short": "Security questionnaire relay",
+    "who": "Software companies that answer and send vendor security questionnaires.",
+    "amount": "$175/mo",
+    "cadence": "A monthly key. Free: three open questionnaires per 30 days and a small badge on your public answers page. Paid: no limit, no badge. Cancel any time through Stripe; the key stops working when the subscription ends.",
+    "pill": "Live",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "acacheck",
+    "short": "ACA e-file pre-checker",
+    "who": "Payroll engineers who file 1094-C and 1095-C returns electronically.",
+    "amount": "$499 for 12 months",
+    "cadence": "One payment for 12 months. The open-source checker is free forever; the paid key unlocks the hosted check with every finding and the full rejection-code decoder. Nothing recurring.",
+    "pill": "Live",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "ledgermatch",
+    "short": "Supplier ledger reconciliation",
+    "who": "Bookkeepers who chase invoice differences with suppliers.",
+    "amount": "$99/mo",
+    "cadence": "A monthly key. Free: two workspaces per 30 days and 200 rows a side. Paid: no limit and 2,000 rows a side. Cancel any time through Stripe.",
+    "pill": "Live",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "schemahand",
+    "short": "Schema handoff diagram",
+    "who": "Developers who hand a database schema to a client.",
+    "amount": "$199 for 12 months",
+    "cadence": "One payment for 12 months. The diagram tool runs free in the browser; the paid key unlocks the handoff package export. Nothing recurring.",
+    "pill": "Live",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "casepack",
+    "short": "Bilingual reorder sheet",
+    "who": "Wholesalers whose customers reorder by the case.",
+    "amount": "$49/mo",
+    "cadence": "A monthly key. Free: a reorder sheet with our small badge, up to 500 products. Paid: no badge, up to 5,000 products. Cancel any time through Stripe.",
+    "pill": "Live",
     "pill_class": "pill-ready"
   }
 ]
