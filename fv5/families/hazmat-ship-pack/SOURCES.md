@@ -61,3 +61,19 @@ only** and link to the full text; Part 173 is not reproduced.
 ## Refusals and walls seen
 
 None. No 403, no 406, no bot wall. Every fetch above answered 200 on 2026-09-08.
+
+## Status seen, section by section (2026-09-08)
+
+All fetches to `www.ecfr.gov` answered **200** except three, which answered
+**404** and are recorded here rather than retried:
+
+| Section | Status | What it means |
+|---|---|---|
+| 172.425 | 404 | Not a section of the current CFR. Reserved or removed. |
+| 172.428 | 404 | Not a section of the current CFR. Reserved or removed. |
+| 172.433 | 404 | Not a section of the current CFR. Reserved or removed. |
+
+They are inside the label-section range this build sweeps (172.411–172.448), so
+the sweep asks for them and the eCFR says they are not there. That is the whole
+of the gap between the 149 sections held and the 152 asked for. No bot wall was
+met, and nothing was evaded.

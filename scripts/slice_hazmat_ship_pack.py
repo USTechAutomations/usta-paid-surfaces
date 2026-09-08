@@ -84,6 +84,18 @@ def rows_for(ident: str) -> list[dict]:
     return [dict(zip(keys, r)) for r in hmt().get("entries", {}).get(ident, [])]
 
 
+def carried(ident: str) -> list[int]:
+    """Which of this number's rows had their first four cells carried down.
+
+    The printed table states a symbol, name, class and identification number
+    once and leaves them blank on the packing-group rows underneath. We fill
+    them in so each row stands alone, and we say so on the page rather than
+    letting a reader think the table repeated itself.
+    """
+    c = hmt().get("carried", {}).get(ident)
+    return list(c) if c else [0] * len(rows_for(ident))
+
+
 def slug_of(ident: str) -> str:
     return ident.lower()
 
@@ -209,6 +221,17 @@ def _row_cells(r: dict) -> list[str]:
     return out
 
 
+def row_caption(ident: str, n: int) -> str:
+    nc = sum(carried(ident))
+    cap = (f"The § 172.101 table {'row' if n == 1 else 'rows'} for {ident} — "
+           f"{n} of {n}, printed whole")
+    if nc:
+        cap += (f" ({nc} packing-group {'row' if nc == 1 else 'rows'} with the first "
+                f"four cells carried down from the row above, as the printed table "
+                f"intends)")
+    return cap
+
+
 def entry_tables(ident: str) -> list[dict]:
     """The two tables every UN page carries: the row itself, then the glossary."""
     rows = rows_for(ident)
@@ -218,9 +241,8 @@ def entry_tables(ident: str) -> list[dict]:
     gloss = [[_e(c["label"]), _e(c["means"])] for c in hmt().get("columns", [])]
     n = len(rows)
     return [
-        {"caption": (f"The § 172.101 table {'row' if n == 1 else 'rows'} for "
-                     f"{ident} — {n} of {n}, printed whole"),
-         "stamp": stamp, "headers": headers, "rows": body},
+        {"caption": row_caption(ident, n), "stamp": stamp,
+         "headers": headers, "rows": body},
         {"caption": "What each of the fourteen columns means",
          "stamp": "our plain-English glossary of the table's own columns",
          "headers": ["Column", "What it means"], "rows": gloss},
@@ -243,6 +265,14 @@ def _facts(ident: str) -> list[str]:
         (f'This page counts {n + ncols} lines: the {n} table '
          f'{"row" if n == 1 else "rows"} above and the {ncols}-line column glossary '
          f'below them.'),
+        (f'{sum(carried(ident))} of those {n} '
+         f'{"row is a packing group whose" if sum(carried(ident)) == 1 else "rows are packing groups whose"} '
+         f'symbol, shipping name, class and number the printed table leaves blank and '
+         f'carries down from the row above. We filled them in so each row stands on '
+         f'its own; the table did not repeat them.'
+         if sum(carried(ident)) else
+         f'No row here is a carried-down packing group: the table prints '
+         f'{"this row" if n == 1 else "each of these rows"} in full.'),
         (f'Column 6 asks for label {"code" if len(lbls) == 1 else "codes"} '
          f'{_e(named)}. The names come from the Label Substitution Table printed in '
          f'§ 172.101 itself, not from us. '
@@ -480,8 +510,7 @@ def write_overflow() -> int:
                     f"{ident}, with all {len(cols)} columns and a note on what each "
                     f"column is for."),
             n_over=f"{n_over:,}", budget=INDEX_BUDGET, n_all=f"{n_all:,}",
-            caption=_e(f"The § 172.101 table {'row' if len(rows) == 1 else 'rows'} for "
-                       f"{ident} — {len(rows)} of {len(rows)}, printed whole"),
+            caption=_e(row_caption(ident, len(rows))),
             stamp=_e(f"49 CFR 172.101 as of {as_of()}"),
             headers=headers, body=body, gloss=gloss,
             limits="".join(f"<li>{l}</li>" for l in _limits(ident)),

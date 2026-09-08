@@ -363,6 +363,17 @@ def build_html(ident: str, rows: list[dict], hmt: dict, sp: dict, sections: dict
         f"<td>{_e(r.get(k) or '') or '—'}</td>" for k in keys) + "</tr>" for r in rows)
     gloss = "".join(f"<tr><td>{_e(c['label'])}</td><td>{_e(c['means'])}</td></tr>"
                     for c in cols)
+    # The printed table leaves the symbol, name, class and number blank on every
+    # packing-group row after the first and carries them down. We fill them in so
+    # each row stands alone, and we say so instead of letting the buyer think the
+    # table repeated itself.
+    nc = sum(hmt.get("carried", {}).get(ident, [])[:len(rows)])
+    carried_note = ""
+    if nc:
+        carried_note = (f" {nc} of the {len(rows)} rows "
+                        f"{'is a packing group' if nc == 1 else 'are packing groups'} "
+                        f"whose first four cells the table leaves blank and carries down "
+                        f"from the row above; we filled them in.")
 
     # PART 1 — the description sequence 172.202 asks for.
     sheets = []
@@ -449,7 +460,7 @@ Built from the eCFR as of {_e(as_of)}.</p>
 
 <h2><span class="part">The table row</span><br>What § 172.101 prints for {_e(ident)}</h2>
 <div class="scroll"><table><thead><tr>{heads}</tr></thead><tbody>{body}</tbody></table></div>
-<p class="sub">All {len(cols)} columns, copied whole from the eCFR's XML.
+<p class="sub">All {len(cols)} columns, copied whole from the eCFR's XML.{carried_note}
   <a href="{HMT_URL}" data-source-url="{HMT_URL}">§ 172.101 at the eCFR</a></p>
 <details><summary>What each column means</summary>
 <div class="scroll"><table><thead><tr><th>Column</th><th>What it means</th></tr></thead>

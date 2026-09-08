@@ -243,16 +243,52 @@ def parse_hmt(xml_path: Path) -> dict:
                         labels[code] = name
         elif not cap_txt and rows and len(rows[0]) == 2 and rows[0][0].startswith("§"):
             xref = [r for r in rows if len(r) == 2]
+    # A printed table repeats nothing it does not have to. An entry with several
+    # packing groups is printed ONCE with its symbol, name, class and
+    # identification number, and every packing group after the first is a row
+    # whose first four cells are BLANK -- the reader is expected to carry the
+    # values down the page. UN1993 is printed once and has three rows.
+    #
+    # A parser that keeps only rows with an identification number in cell 3
+    # silently drops those continuations, and then a page that says "all rows,
+    # printed whole" is cutting two thirds of the biggest entries. So the first
+    # four cells are carried down exactly as the printed table intends, and the
+    # row is marked a continuation so a page can say which values were inherited
+    # rather than pretending the table restated them.
+    #
+    # A cross-reference row ("Anti-freeze, liquid, see Flammable liquids,
+    # n.o.s.") is NOT a continuation: it carries a name and nothing else, so it
+    # never inherits and never becomes an entry.
+    CARRY = 4  # symbol, proper shipping name, class/division, identification no.
     entries: dict[str, list[list[str]]] = {}
+    cont: dict[str, list[int]] = {}
+    continued = 0
+    last: list[str] | None = None
     for r in hmt_rows:
-        ident = r[3].strip()
+        cells = [c.strip() for c in r]
+        ident = cells[3]
+        is_cont = False
         if not ID_RE.match(ident):
-            continue
-        entries.setdefault(ident, []).append([c.strip() for c in r])
+            # Blank leading cells plus real data further along: a packing group
+            # of the entry above. Anything else (a "see" row, a blank spacer) is
+            # not ours and is left out.
+            if (last is not None and not cells[1] and not ident
+                    and any(cells[CARRY:])):
+                cells[:CARRY] = last[:CARRY]
+                ident = cells[3]
+                is_cont = True
+                continued += 1
+            else:
+                continue
+        entries.setdefault(ident, []).append(cells)
+        cont.setdefault(ident, []).append(1 if is_cont else 0)
+        last = cells
     return {
         "rows_seen": len(hmt_rows),
         "rows_with_id": sum(len(v) for v in entries.values()),
+        "rows_continued": continued,
         "entries": entries,
+        "carried": cont,
         "labels": labels,
         "pkg_xref": xref,
     }

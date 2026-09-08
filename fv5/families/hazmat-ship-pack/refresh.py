@@ -332,7 +332,9 @@ def main() -> int:
         "label_sections": label_map,
         "pkg_xref": parsed["pkg_xref"],
         "rows_seen": parsed["rows_seen"],
+        "rows_continued": parsed["rows_continued"],
         "entries": parsed["entries"],
+        "carried": parsed["carried"],
     }
     n_hmt = write_json("hmt.json", hmt)
     n_sp = write_json("sp.json", {
