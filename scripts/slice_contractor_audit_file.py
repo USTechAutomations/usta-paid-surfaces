@@ -365,7 +365,11 @@ def slices() -> list[dict]:
             "row_count": len(prong_rows) + len(ev_rows),
             "read_label": "Re-read monthly",
             "read_phrase": "We re-read each cited page monthly and flag any quote whose words have changed.",
-            "rows_intro": ("The first table is the official text, prong by prong. "
+            # The estate renders a page's foot from the CATALOG row, not from
+            # this spec, so the required affiliation-and-advice line is put
+            # here, where it is rendered above the tables on every sub-page.
+            "rows_intro": (f"{DISCLAIMER} Read {gen}. "
+                           "The first table is the official text, prong by prong. "
                            "The second is the eighteen questions the free tool asks "
                            "and the documents behind each one."),
             "tables": [
