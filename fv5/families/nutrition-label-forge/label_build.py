@@ -555,47 +555,60 @@ def build_dv(*, offline: bool = False) -> dict:
 # tool never says a product is or is not exempt -- see the verdict gate in
 # selftest.py. `para` is the anchor used to cut the quote out of the live text.
 EXEMPTION_QUESTIONS = [
-    {"id": "small-business-notice", "para": "(18)",
+    {"id": "small-business-notice", "paras": ["18"],
      "ask": "Do you have fewer than 100 full-time-equivalent employees AND sell "
             "fewer than 100,000 units of this product in the United States in a year?",
-     "reads": "The small-business exemption at (j)(18), which turns on a notice "
-              "filed with FDA."},
-    {"id": "low-volume-sales", "para": "(1)",
+     "reads": "21 CFR 101.9(j)(18), the low-volume paragraph, which turns on a "
+              "notice filed with FDA."},
+    {"id": "low-volume-sales", "paras": ["1"],
      "ask": "Are your annual gross sales of food to consumers not more than "
             "$50,000, or your total annual gross sales not more than $500,000?",
-     "reads": "The low-volume exemption at (j)(1)."},
-    {"id": "nutrient-claim", "para": "(1)",
+     "reads": "21 CFR 101.9(j)(1), the small-seller paragraph."},
+    {"id": "nutrient-claim", "paras": ["1", "18"],
      "ask": "Does the label, labelling or advertising make any nutrient content "
-            "claim or health claim (for example “low fat” or “high fibre”)?",
-     "reads": "Whether a claim removes an exemption at all. Read (j)(1) and (j)(18)."},
-    {"id": "insignificant", "para": "(4)",
+            "claim or health claim, for example “low fat” or “high fibre”?",
+     "reads": "Both low-volume paragraphs, (j)(1) and (j)(18), which each say what "
+              "a claim does to them."},
+    {"id": "insignificant", "paras": ["4"],
      "ask": "Does the food contain insignificant amounts of every nutrient the "
-            "panel would have to declare (for example plain coffee beans, tea "
-            "leaves, most spices)?",
-     "reads": "The no-significant-nutrients exemption at (j)(4)."},
-    {"id": "small-package", "para": "(13)",
+            "panel would have to declare, for example plain tea leaves or most spices?",
+     "reads": "21 CFR 101.9(j)(4) and the definition of an insignificant amount in "
+              "101.9(f)(1)."},
+    {"id": "small-package", "paras": ["13", "17"],
      "ask": "Is the total surface area available to bear labelling less than 12 "
             "square inches?",
-     "reads": "The small-package rules at (j)(13)."},
-    {"id": "restaurant", "para": "(2)",
-     "ask": "Is the food served or sold for immediate consumption in a restaurant, "
-            "cafeteria, delicatessen, hospital or similar place?",
-     "reads": "The restaurant and ready-to-eat exemption at (j)(2)."},
-    {"id": "bulk-shipping", "para": "(9)",
-     "ask": "Is it shipped in bulk, not for sale in that form to consumers, for "
-            "further processing or repacking?",
-     "reads": "The bulk-shipment exemption at (j)(9)."},
-    {"id": "raw-produce-fish", "para": "(10)",
-     "ask": "Is it a raw fruit, vegetable or fish covered by the voluntary "
-            "programme?",
-     "reads": "The raw fruit, vegetable and fish provision at (j)(10)."},
-    {"id": "single-ingredient-meat", "para": "(11)",
-     "ask": "Is it a single-ingredient raw game meat product?",
-     "reads": "The single-ingredient game meat provision at (j)(11)."},
-    {"id": "donated", "para": "(7)",
-     "ask": "Is the food donated by the manufacturer to a non-profit for "
-            "distribution at no cost?",
-     "reads": "The donated-food exemption at (j)(7)."},
+     "reads": "21 CFR 101.9(j)(13) on small packages and (j)(17) on packages over "
+              "40 square inches."},
+    {"id": "restaurant", "paras": ["2", "3"],
+     "ask": "Is the food served or sold for immediate consumption, for example in a "
+            "restaurant, cafeteria, delicatessen or hospital?",
+     "reads": "21 CFR 101.9(j)(2) and (j)(3), read together with § 101.11 on menu "
+              "labelling."},
+    {"id": "bulk-shipping", "paras": ["9", "16"],
+     "ask": "Is it shipped or sold in bulk, not for sale in that form to consumers?",
+     "reads": "21 CFR 101.9(j)(9) on bulk shipment and (j)(16) on sales from bulk "
+              "containers."},
+    {"id": "raw-produce-fish", "paras": ["10"],
+     "ask": "Is it a raw fruit, vegetable or fish covered by the voluntary programme?",
+     "reads": "21 CFR 101.9(j)(10)."},
+    {"id": "single-ingredient-meat", "paras": ["11", "12"],
+     "ask": "Is it a packaged single-ingredient fish or game meat product?",
+     "reads": "21 CFR 101.9(j)(11) and (j)(12). Meat and poultry under the Federal "
+              "Meat Inspection Act or the Poultry Products Inspection Act are "
+              "labelled under USDA rules, not this section."},
+    {"id": "dietary-supplement", "paras": ["6", "8"],
+     "ask": "Is it a dietary supplement or a medical food?",
+     "reads": "21 CFR 101.9(j)(6) and (j)(8), which send those products to their "
+              "own labelling sections."},
+    {"id": "infant-food", "paras": ["5", "7"],
+     "ask": "Is it represented as being specifically for infants or for children "
+            "under 4 years of age, or is it an infant formula?",
+     "reads": "21 CFR 101.9(j)(5) and (j)(7), and the separate reference amounts in "
+              "101.12(b) Table 1."},
+    {"id": "multiunit-package", "paras": ["14", "15"],
+     "ask": "Is it shell eggs in a carton, or a unit inside a multiunit retail "
+            "package that is not sold on its own?",
+     "reads": "21 CFR 101.9(j)(14) and (j)(15)."},
 ]
 
 # The rule pages. Each is a page of quoted paragraphs on one narrow question, and
