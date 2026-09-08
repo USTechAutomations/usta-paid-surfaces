@@ -113,9 +113,14 @@ def main() -> int:
     fetch_log: list[dict] = []
     fetched: dict[str, str] = {}
 
+    # "source_ok" means: sources we can actually read the law in. A source we
+    # are walled out of still has bytes on disk -- the wall's own challenge page
+    # -- and counting those would flatter the number. Only sources marked
+    # "curl", with real cached text, count, in both modes.
     if args.dry_run:
-        source_ok = sum(1 for sid in nb.SOURCES
-                        if nb.read_source_text(sid) is not None)
+        source_ok = sum(1 for sid, s in nb.SOURCES.items()
+                        if s["fetch"] == "curl"
+                        and nb.read_source_text(sid) is not None)
     else:
         fetched, fetch_log = pull(args.limit, args.verbose)
         source_ok = sum(1 for r in fetch_log if r["ok"])

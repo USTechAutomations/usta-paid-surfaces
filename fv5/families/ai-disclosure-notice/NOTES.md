@@ -12,6 +12,10 @@ What is finished, what is not, and every place where I could not stand a fact up
   re-checkable against bytes on this machine and match word for word today.
 - **8 notice templates**, each tied to the clauses that motivated it, each
   produced as plain text and as a pasteable block of page code.
+- **7 of the 11 sources are readable from this machine.** The other four are the
+  two New York sections (403), the official EU text (bot challenge) and Illinois
+  (certificate failure). The four unverifiable quotes are all New York's, and
+  they are marked `unchecked` rather than `ok` in the citations file.
 - **1 family page + 12 sub-pages.** Six by place, six by the kind of notice.
   Biggest page 94,660 bytes, well under the 900 KB ceiling. All 13 indexable,
   against a budget of 200.
@@ -103,6 +107,14 @@ own 12 pages ship in the same run. `python3 scripts/check_site.py` exits `0`.
 
 I record this rather than fixing it, because fixing another family is outside
 what I was asked to do here.
+
+## A number I corrected rather than reported
+
+The dry run of `refresh.py` first said `source_ok=8/11` while the live run said
+`7/11`. The eighth was the EUR-Lex bot-challenge page: real bytes on disk, no law
+in them. Counting it made the family look better read than it is. The count now
+means "sources we can actually read the law in" in both modes, and both say
+`7/11`.
 
 ## One thing worth knowing about the build
 
