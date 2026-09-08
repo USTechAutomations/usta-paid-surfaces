@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
-"""Seal privacy-filtered openFDA ZIP exports; offline transport only."""
+"""Seal openFDA device establishment exports (offline folder or --fetch download); public business registrations only."""
 from __future__ import annotations
-import argparse, csv, fcntl, hashlib, io, json, os, re, sys, tempfile, zipfile
+import argparse, csv, fcntl, hashlib, io, json, os, re, shutil, sys, tempfile, urllib.request, zipfile
 from datetime import date
 from pathlib import Path
 BET_ID = 'fda-device-establishment-week'
 KILL_DATE = '2026-10-08'
 STATE = Path.home() / '.hermes/state' / BET_ID
-BUSINESS = re.compile(r'(?<![A-Za-z])(?:inc|incorporated|llc|ltd|limited|corp|corporation|co|company|gmbh|sa|medical|technologies)(?![A-Za-z])', re.I)
 COLUMNS = ('week_ending','fei_number','registration_number','owner_operator_number','name','city','state_code','iso_country_code','establishment_types','status_code','reg_expiry_date_year','product_code_count')
 DELTA_COLUMNS = COLUMNS + ('change','changed_fields')
 COMPARE = tuple(c for c in COLUMNS if c not in ('week_ending','fei_number','registration_number'))
 EXPORT = re.compile(r'^export_([0-9]{4}-[0-9]{2}-[0-9]{2})$')
 PART = re.compile(r'(?:part[-_]?|[-_])([0-9]+)[-_]of[-_]([0-9]+)',re.I)
 SOURCE = 'https://api.fda.gov/download.json'
+DATASET = ('device','registrationlisting')
+MAX_PART_BYTES = 400*1024*1024
 
 def sha(blob):
     return hashlib.sha256(blob).hexdigest()
@@ -53,7 +54,7 @@ def read_export(folder):
     elif manifest is None:
         raise ValueError('ZIP completeness UNKNOWN: supply part-X-of-Y filenames or manifest.json')
     if manifest is not None and manifest.get('parts')!=len(files): raise ValueError('manifest part count mismatch')
-    records=0; dropped=0; missing_identity=0; unsafe=0; conflicts=set(); by_key={}; suppressed=set(); inputs=[]
+    records=0; missing_identity=0; unsafe=0; conflicts=set(); by_key={}; suppressed=set(); inputs=[]
     for file in files:
         blob=file.read_bytes(); inputs.append({'file':file.name,'sha256':sha(blob)})
         with zipfile.ZipFile(io.BytesIO(blob)) as archive:
@@ -72,8 +73,6 @@ def read_export(folder):
             identity=(scalar(reg.get('registration_number')),scalar(reg.get('fei_number')))
             if not all(identity):
                 missing_identity+=1; continue
-            if not BUSINESS.search(name):
-                suppressed.add(identity); dropped+=1; continue
             owner=reg.get('owner_operator') or {}
             if not isinstance(owner,dict): raise ValueError('invalid owner operator')
             types=record.get('establishment_type',[]); products=record.get('products',[])
@@ -105,7 +104,7 @@ def read_export(folder):
         result[identity]=row
     if not result: raise ValueError('no eligible establishments: comparison UNKNOWN')
     metadata={'bet_id':BET_ID,'export_date':day,'source_url':SOURCE,'input_parts':inputs,
-              'source_records':records,'dropped_listing_records':dropped,'missing_identity_records':missing_identity,'unsafe_listing_records':unsafe,'conflicting_identities':len(conflicts),'eligible_establishments':len(result)}
+              'source_records':records,'missing_identity_records':missing_identity,'unsafe_listing_records':unsafe,'conflicting_identities':len(conflicts),'eligible_establishments':len(result)}
     return day,result,metadata,suppressed
 
 def changes(older,newer,new_day,suppressed=()):
@@ -135,6 +134,39 @@ def seal(out,artifacts):
             f.write(blob); f.flush(); os.fsync(f.fileno())
         os.replace(tmp,path)
 
+def fetch_export(root,opener=urllib.request.urlopen):
+    """Download today's dated export into root/export_<date>/ atomically; returns the folder (existing folder reused)."""
+    with opener(SOURCE,timeout=120) as r: index=json.loads(r.read().decode('utf-8'))
+    section=index['results']
+    for k in DATASET: section=section[k]
+    day=section['export_date']; date.fromisoformat(day)
+    parts=section['partitions']
+    if not isinstance(parts,list) or not parts: raise ValueError('download index lists no partitions')
+    folder=root/f'export_{day}'
+    if folder.exists():
+        if len(list(folder.glob('*.zip')))==len(parts): return folder
+        raise ValueError('partial export folder present: '+str(folder))
+    root.mkdir(parents=True,exist_ok=True)
+    tmp=Path(tempfile.mkdtemp(prefix='.pending-export-',dir=root))
+    try:
+        for part in parts:
+            url=part['file']; name=url.rsplit('/',1)[-1]
+            if not PART.search(name) or not name.endswith('.zip'): raise ValueError('unexpected part name: '+name)
+            with opener(url,timeout=600) as r, (tmp/name).open('wb') as f:
+                copied=0
+                while True:
+                    chunk=r.read(1<<20)
+                    if not chunk: break
+                    copied+=len(chunk)
+                    if copied>MAX_PART_BYTES: raise ValueError('part exceeds size cap: '+name)
+                    f.write(chunk)
+                f.flush(); os.fsync(f.fileno())
+        (tmp/'manifest.json').write_text(json.dumps({'parts':len(parts),'records':section.get('total_records'),'export_date':day,'source_url':SOURCE},sort_keys=True))
+        os.rename(tmp,folder)
+    except BaseException:
+        shutil.rmtree(tmp,ignore_errors=True); raise
+    return folder
+
 def collect(offline,out):
     if EXPORT.fullmatch(offline.name): folders=[offline]
     else: folders=sorted(p for p in offline.glob('export_*') if p.is_dir() and EXPORT.fullmatch(p.name))
@@ -160,9 +192,15 @@ def collect(offline,out):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--offline',type=Path,required=True); p.add_argument('--out',type=Path,default=STATE)
+    p.add_argument('--offline',type=Path,help='folder of export_YYYY-MM-DD dirs (default: <out>/raw)')
+    p.add_argument('--fetch',action='store_true',help='download the current export from openFDA into <offline>/export_<date>/ first')
+    p.add_argument('--out',type=Path,default=STATE)
     args=p.parse_args()
-    try: collect(args.offline,args.out)
+    if args.offline is None and not args.fetch: p.error('supply --offline <folder> or --fetch')
+    offline=args.offline if args.offline is not None else args.out/'raw'
+    try:
+        if args.fetch: fetch_export(offline)
+        collect(offline,args.out)
     except (ValueError,OSError,KeyError,TypeError,zipfile.BadZipFile) as exc:
         print('REFUSED: '+str(exc),file=sys.stderr); return 2
     return 0

@@ -1,1 +1,26 @@
-week_ending,fei_number,registration_number,owner_operator_number,city,state_code,iso_country_code,establishment_types,status_code,reg_expiry_date_year,product_code_count,change,changed_fields
+week_ending,fei_number,registration_number,owner_operator_number,name,city,state_code,iso_country_code,establishment_types,status_code,reg_expiry_date_year,product_code_count,change,changed_fields
+2026-09-07,1000036852,1000036852,10091394,"Astellas Pharma US, Inc.",Northbrook,IL,US,Complaint File Establishment per 21 CFR 820.198;Manufacture Medical Device,1,2026,1,vanished,
+2026-09-07,1000163068,1000163068,8031539,"SB-KAWASUMI LABORATORIES, INC.",Kawasaki-shi Kanagawa,,JP,Develop Specifications But Do Not Manufacture At This Facility,1,2026,11,vanished,
+2026-09-07,1000164532,1000164532,10088928,"Yamato Scale Co., LTD",Akashi Hyogo,,JP,Manufacture Medical Device,1,2026,1,vanished,
+2026-09-07,1000015879,1033422,9001775,KIMBERLY-CLARK CORPORATION,Roswell,GA,US,Complaint File Establishment per 21 CFR 820.198;Develop Specifications But Do Not Manufacture At This Facility,1,2026,4,vanished,
+2026-09-07,1287329,1287329,9106359,Sequel Special Products d.b.a Nissha Medical Technologies,Wolcott,CT,US,Manufacture Medical Device for Another Party (Contract Manufacturer),1,2026,14,vanished,
+2026-09-07,1000136007,1528764,9006978,"SPECTRAMED, LLC",Gahanna,OH,US,Develop Specifications But Do Not Manufacture At This Facility,1,2026,2,vanished,
+2026-09-07,1000117854,1645362,9005876,"Movair, Inc.",Austin,TX,US,Manufacture Medical Device,1,2026,1,vanished,
+2026-09-07,1824231,1824231,8020727,"ICU Medical, Inc.",Gary,IN,US,Manufacture Medical Device,1,2026,6,vanished,
+2026-09-07,2020703,2020703,2020703,"WYKLE RESEARCH, INC.",CARSON CITY,NV,US,Complaint File Establishment per 21 CFR 820.198;Manufacture Medical Device;Repack or Relabel Medical Device,1,2026,6,vanished,
+2026-09-07,2025881,2025881,2025881,"PRESSURE PRODUCTS, INC.",Santa Barbara,CA,US,Complaint File Establishment per 21 CFR 820.198;Develop Specifications But Do Not Manufacture At This Facility,1,2026,2,vanished,
+2026-09-07,1000121375,1000121375,10090292,SUMMERS LABORATORIES INC.,Collegeville,PA,US,Repack or Relabel Medical Device,1,2026,1,appeared,
+2026-09-07,1000486410,1000486410,10094027,KNOWLES ELECTRONICS (MALAYSIA) SDN. BHD.,BAYAN LEPAS Pulau Pinang,,MY,Manufacture Medical Device for Another Party (Contract Manufacturer),1,2026,1,appeared,
+2026-09-07,1037039,1037039,1037039,"QED, INC.",LEXINGTON,KY,US,Manufacture Medical Device,1,2026,4,appeared,
+2026-09-07,1039671,1039671,1039671,SWEAT INSTITUTE,Atlanta,GA,US,Manufacture Medical Device,1,2026,1,appeared,
+2026-09-07,1000112898,1044143,1044143,PETER SCHIFF ENTERPRISE,COOKEVILLE,TN,US,Manufacture Medical Device,1,2026,2,appeared,
+2026-09-07,1052243,1052243,1052243,"MACBRUD CORP., MEDICAL DIVISION",Crossings,FL,US,Manufacture Medical Device,1,2026,1,appeared,
+2026-09-07,3003457476,1067085,9047881,"AMBRA LE ROY, LLC",CHARLOTTE,NC,US,Repack or Relabel Medical Device,1,2026,2,appeared,
+2026-09-07,1219392,1219392,1219276,ACCUSYNC MEDICAL RESEARCH CORP.,Trumbull,CT,US,Manufacture Medical Device,1,2026,1,appeared,
+2026-09-07,1220018,1220018,1220018,"SONTEK MEDICAL, LLC",Rochester,NH,US,Develop Specifications But Do Not Manufacture At This Facility,1,2026,2,appeared,
+2026-09-07,3001237338,1225492,9026654,NextPhase Medical Devices LLC,ROCHESTER,NH,US,Manufacture Medical Device for Another Party (Contract Manufacturer);Repack or Relabel Medical Device,1,2026,18,appeared,
+2026-09-07,1000121056,1000121056,9912058,Boston Scientific Corporation,Coventry,RI,US,Develop Specifications But Do Not Manufacture At This Facility;Manufacture Device in the United States for Export Only;Manufacture Medical Device,1,2026,124,changed,establishment_types;product_code_count
+2026-09-07,3004393730,1000150646,9924008,Wyeth Pharmaceuticals LLC,Collegeville,PA,US,Complaint File Establishment per 21 CFR 820.198,1,2026,3,changed,product_code_count
+2026-09-07,1000165971,1000165971,9059364,MicroPort CRM S.r.l.,Saluggia (VC)      Vercelli,,IT,Export Device to the United States But Perform No Other Operation on Device;Manufacture Medical Device;Repack or Relabel Medical Device,1,2026,12,changed,city
+2026-09-07,1000172127,1000172127,9027281,DELTA S.R.L.,DOMEGGE Di CADORE      Belluno,,IT,Manufacture Medical Device,1,2026,2,changed,city
+2026-09-07,1000181154,1000181154,9031117,BARCO S.R.L.,Saronno      Varese,,IT,Manufacture Medical Device;Manufacture Medical Device for Another Party (Contract Manufacturer),1,2026,6,changed,city

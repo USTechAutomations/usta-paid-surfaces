@@ -2570,20 +2570,23 @@
       "id": "fda-device-establishment-week",
       "name": "FDA device establishment weekly changes",
       "buyer": "Device distributors and initial importers who must prove a foreign manufacturer or importer is still FDA-registered; product-liability insurers; hospital supply-chain compliance desks",
-      "cadence": "weekly, after the Monday export",
-      "cadence_long": "Compare dated FDA exports after the weekly refresh; missing or invalid inputs withhold the comparison.",
+      "cadence": "weekly, every Wednesday",
+      "cadence_long": "one national file a week, built from the Monday FDA export and the one before it. A week that changes nothing is sent as 0 plus the two export dates",
       "price": "$49/mo",
-      "sample_status": "unknown",
-      "note": "STAGED offline artifact. Only a baseline source export is supplied; historical changes UNKNOWN. Sample withheld until a genuine dated pair exists. Person-like firm names are excluded; vanished-only public CSV omits name. Checkout is TO-MINT.",
+      "sample_status": "pass",
+      "note": "STAGED 2026-09-08, NOT PUBLISHED until merged. Weekly comparison of dated openFDA device registration-and-listing exports: establishments that appeared, stopped being listed, or changed a detail. First sealed pair is 2026-05-01 (Internet Archive capture) to 2026-09-07, so the first sample spans four months and says so; weekly pairs start with the first two copies the timer seals itself. Public federal business registrations only: no street, phone or person columns. checkout.url is TO-MINT: the mint job proves the page then mints; no button until then.",
       "group": "Other dated records",
       "short": "Device establishment changes",
       "who": "Device distributors and initial importers who must prove a foreign manufacturer or importer is still FDA-registered; product-liability insurers; hospital supply-chain compliance desks",
       "checkout": {
+        "terms": "$49 a month, billed monthly, for one national file a week: every FDA device establishment that appeared on the register since the previous weekly export, every one that stopped being listed, and every one whose details changed, with the fields that changed named. Fourteen columns; no street address, phone or person. Cancel any time by email.",
+        "after": "After you pay, a person emails you the current week's file as a CSV within one working day, then a new one every Wednesday for as long as the subscription runs. Each file names the two export dates it was built from. A week where we could not read the FDA file says so rather than repeating the last one.",
         "url": "TO-MINT",
-        "label": "Subscribe — $49/mo",
-        "terms": "$49/mo for a weekly CSV of eligible business establishments that appeared, vanished, or changed between dated openFDA exports. Registration listing changes are not proof of approval, compliance, or permanent closure.",
-        "after": "Checkout and automated subscriber delivery are not connected in this staged artifact."
-      }
+        "label": "Subscribe — $49 a month"
+      },
+      "price_list_note": "Weekly appeared, gone and changed rows from the FDA device establishment register, every country in one file.",
+      "coverage_what": "FDA device establishment register, compared week to week",
+      "coverage_how": "We seal the weekly openFDA registration-and-listing export and compare it with the one before."
     }
   ],
   "map": "MAP.md",

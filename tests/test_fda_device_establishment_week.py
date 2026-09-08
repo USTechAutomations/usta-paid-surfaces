@@ -1,5 +1,5 @@
 # bet_id: fda-device-establishment-week; kill_date: 2026-10-08
-import copy, csv, hashlib, importlib.util, json, os, re, subprocess, sys, tempfile, unittest, zipfile
+import copy, csv, hashlib, importlib.util, io, json, os, re, subprocess, sys, tempfile, unittest, zipfile
 from collections import Counter
 from pathlib import Path
 ROOT=Path(os.environ.get('FDA_FIXTURE_ROOT',Path(__file__).resolve().parent if Path(__file__).resolve().parent.name!='tests' else Path(__file__).resolve().parents[2]))
@@ -7,7 +7,6 @@ WT=Path(os.environ.get('FDA_WORKTREE',ROOT/'wt-feeds-fda-device-establishment-we
 COLLECT=WT/'scripts/collect_fda_device_establishment_week.py'
 SLICE=WT/'scripts/slice_fda_device_establishment_week.py'
 REAL=ROOT/'raw/export_2026-09-07'
-BUSINESS=re.compile(r'\b(?:inc|incorporated|llc|ltd|limited|corp|corporation|co|company|gmbh|sa|medical|technologies)\b',re.I)
 ALLOWED={'week_ending','fei_number','registration_number','owner_operator_number','name','city','state_code','iso_country_code','establishment_types','status_code','reg_expiry_date_year','product_code_count','change','changed_fields'}
 
 def run_logged(cmd, **kwargs):
@@ -39,7 +38,7 @@ class Acceptance(unittest.TestCase):
                     for record in json.loads(z.read(member))['results']:
                         reg=record.get('registration',{})
                         key=(reg.get('registration_number'),reg.get('fei_number'))
-                        if all(key) and BUSINESS.search(reg.get('name','')) and key not in unique:
+                        if all(key) and key not in unique:
                             unique[key]=record
                         if len(unique)==305: break
                     if len(unique)==305: break
@@ -71,7 +70,6 @@ class Acceptance(unittest.TestCase):
             with p.open() as f: headers=next(csv.reader(f))
             self.assertTrue(set(headers)<=ALLOWED,headers)
             self.assertFalse(any(re.search('address|zip|postal|agent',c,re.I) for c in headers))
-            self.assertTrue(all(BUSINESS.search(r['name']) for r in rows(p)))
         before={p.name:p.read_bytes() for p in self.out.iterdir() if p.is_file() and p.suffix in ('.csv','.json')}
         self.run_collector()
         self.assertEqual(before,{p.name:p.read_bytes() for p in self.out.iterdir() if p.is_file() and p.suffix in ('.csv','.json')})
@@ -91,15 +89,49 @@ class Acceptance(unittest.TestCase):
         self.run_collector(False)
         self.assertFalse(list(self.out.glob('*.csv')))
 
-    def test_person_dropped_and_listing_duplicates_aggregated(self):
-        person=copy.deepcopy(self.old[0]); person['registration'].update(name='Jane Privateperson',registration_number='PRIVATE_SENTINEL',fei_number='PRIVATE_FEI')
+    def test_listing_duplicates_aggregated_and_names_kept(self):
         duplicate=copy.deepcopy(self.old[1]); duplicate['products']=[{'product_code':'ZZZ'}]
-        export(self.src,'2026-08-31',self.old+[person,duplicate])
-        export(self.src,'2026-09-07',self.old+[person,duplicate,duplicate])
+        export(self.src,'2026-08-31',self.old+[duplicate])
+        export(self.src,'2026-09-07',self.old+[duplicate,duplicate])
         self.run_collector()
-        self.assertEqual(len(rows(self.out/'snapshot_2026-09-07.csv')),300)
+        snap=rows(self.out/'snapshot_2026-09-07.csv')
+        self.assertEqual(len(snap),300)
         self.assertEqual(rows(self.out/'what_changed_2026-08-31_2026-09-07.csv'),[])
-        self.assertFalse(any('PRIVATE_SENTINEL' in p.read_text() or 'Jane Privateperson' in p.read_text() for p in self.out.glob('*.csv')))
+        self.assertEqual({r['name'] for r in snap},{r['registration']['name'].strip() for r in self.old})
+        meta=json.loads((self.out/'snapshot_2026-09-07.json').read_text())
+        self.assertNotIn('dropped_listing_records',meta); self.assertEqual(meta['source_records'],302)
+
+    def test_fetch_writes_dated_export_atomically(self):
+        spec=importlib.util.spec_from_file_location('collector',COLLECT); mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
+        parts={}
+        for i in range(2):
+            buf=io.BytesIO()
+            with zipfile.ZipFile(buf,'w') as z: z.writestr('data.json',json.dumps({'meta':{'export_date':'2026-09-14'},'results':self.new[i::2]}))
+            parts[f'https://download.open.fda.gov/device/registrationlisting/device-registrationlisting-000{i+1}-of-0002.json.zip']=buf.getvalue()
+        index=json.dumps({'results':{'device':{'registrationlisting':{'export_date':'2026-09-14','total_records':len(self.new),
+            'partitions':[{'file':u,'records':1} for u in parts]}}}}).encode()
+        calls=[]
+        class Resp(io.BytesIO):
+            def __enter__(self): return self
+            def __exit__(self,*a): return False
+        def opener(url,timeout=0):
+            calls.append(url)
+            if url==mod.SOURCE: return Resp(index)
+            if url in parts: return Resp(parts[url])
+            raise OSError('unexpected url '+url)
+        root=self.tmp/'fetched'
+        folder=mod.fetch_export(root,opener=opener)
+        self.assertEqual(folder,root/'export_2026-09-14'); self.assertEqual(len(calls),3)
+        self.assertEqual(sorted(p.name for p in folder.iterdir()),['device-registrationlisting-0001-of-0002.json.zip','device-registrationlisting-0002-of-0002.json.zip','manifest.json'])
+        self.assertFalse([p for p in root.iterdir() if p.name.startswith('.pending')])
+        self.assertEqual(mod.fetch_export(root,opener=opener),folder); self.assertEqual(len(calls),4)
+        day,result,meta,_=mod.read_export(folder); self.assertEqual((day,len(result)),('2026-09-14',300))
+        def broken(url,timeout=0):
+            if url==mod.SOURCE: return Resp(index)
+            raise OSError('network down')
+        with self.assertRaises(OSError): mod.fetch_export(self.tmp/'fetched2',opener=broken)
+        self.assertFalse([p for p in (self.tmp/'fetched2').iterdir()])
+        p=run_logged([sys.executable,'-B',str(COLLECT),'--out',str(self.tmp/'noargs')],capture_output=True,text=True); self.assertEqual(p.returncode,2)
 
     def test_snapshot_immutable_and_concurrent_lock(self):
         self.run_collector()
@@ -119,9 +151,10 @@ class Acceptance(unittest.TestCase):
         p=run_logged([sys.executable,'-B',str(SLICE),'--state',str(self.out),'--out',str(page)],capture_output=True,text=True)
         self.assertEqual(p.returncode,0,p.stderr)
         sample=rows(page/'sample.csv')
-        self.assertEqual(len(sample),5)
-        self.assertTrue(all(r['change']=='vanished' for r in sample))
-        self.assertNotIn('name',sample[0]); self.assertTrue(set(sample[0])<=ALLOWED)
+        self.assertEqual(Counter(r['change'] for r in sample),{'vanished':5,'appeared':5,'changed':3})
+        self.assertIn('name',sample[0]); self.assertTrue(set(sample[0])<=ALLOWED)
+        blob=json.loads((page/'sample.json').read_text()); self.assertEqual(blob['rows_published'],13); self.assertEqual(blob['headers'],list(sample[0]))
+        self.assertIn('Sample ready',body:=(page/'index.html').read_text()); self.assertNotIn('Sample not ready',body)
         body=(page/'index.html').read_text()
         import html
         for r in self.old[:5]: self.assertIn(html.escape(r['registration']['name']),body)
@@ -136,19 +169,19 @@ class Acceptance(unittest.TestCase):
         self.assertFalse(list(self.out.glob('what_changed_*.csv')))
         page=self.tmp/'baseline-page'
         p=run_logged([sys.executable,'-B',str(SLICE),'--state',str(self.out),'--out',str(page)],capture_output=True,text=True)
-        self.assertEqual(p.returncode,0,p.stderr)
-        body=(page/'index.html').read_text(); self.assertIn('UNKNOWN',body); self.assertNotIn('href="sample.csv"',body)
-        self.assertEqual(rows(page/'sample.csv'),[])
+        # The catalog clears a public sample; one copy cannot produce one. A page saying
+        # both "sample ready" and "not ready" is a lie, so the slicer refuses to write it.
+        self.assertEqual(p.returncode,2,p.stdout); self.assertIn('one copy held',p.stderr)
+        self.assertFalse(page.exists())
 
     def test_excluded_identity_never_becomes_false_vanished(self):
         conflict=copy.deepcopy(self.new[0]); conflict['registration']['name']='Conflicting Owner Medical Inc'
         unsafe=copy.deepcopy(self.new[1]); unsafe['registration']['city']='=HYPERLINK(unsafe)'
-        person=copy.deepcopy(self.new[2]); person['registration']['name']='Jane Privateperson'
         missing=copy.deepcopy(self.new[3]); missing['registration'].update(registration_number='',fei_number='')
-        export(self.src,'2026-09-07',self.new+[conflict,unsafe,person,missing])
+        export(self.src,'2026-09-07',self.new+[conflict,unsafe,missing])
         self.run_collector()
         delta=rows(self.out/'what_changed_2026-08-31_2026-09-07.csv')
-        excluded={r['registration']['registration_number'] for r in (conflict,unsafe,person)}
+        excluded={r['registration']['registration_number'] for r in (conflict,unsafe)}
         self.assertFalse(any(r['registration_number'] in excluded for r in delta))
         current=rows(self.out/'snapshot_2026-09-07.csv')
         self.assertFalse(any(r['registration_number'] in excluded for r in current))
