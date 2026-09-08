@@ -1,0 +1,26 @@
+{
+  "id": "trademark-watch",
+  "name": "Watch one US trademark for 12 months",
+  "buyer": "Applicants and owners of a US trademark who want to know early about a refusal, a publication for opposition, or a look-alike filing in their class",
+  "cadence": "once, not a feed",
+  "cadence_long": "One payment for 12 months of watch on one mark. We re-read the USPTO record about once a week and email you on any change. Nothing recurring.",
+  "price": "$175",
+  "sample_status": "pass",
+  "note": "HELD 2026-09-07: no real USPTO daily file reachable from this host (bulkdata DNS fails; Open Data Portal needs an API key). Row parked at fv5/families/trademark-watch/catalog_row.json until the source is connected. STAGED 2026-09-07, NOT PUBLISHED. Twelve months of watch on ONE US trademark application or registration at $175 one-off. Buyer gives the 8-digit USPTO serial number (and optional mark text) at checkout. After payment: a private, noindex watch page within 15 minutes, kept current for 12 months, plus an email on any status change, a similar filing in the mark's class, or a coming opposition/office-action deadline. Public per-mark pages are built by refresh.py for company-owned marks with a watch-worthy event; individual owners are withheld entirely. Monitoring, not legal advice, not a filing. Source is the USPTO Trademark Applications Daily XML (TRTDXFAP), no login; the no-login bulk file was unreachable in this build (see SOURCES.md), so pages are built from a synthetic fixture and say so, source_ok=0/1. checkout.url is empty (TO-MINT) until a trademark-watch SKU at 17500 cents one-off exists in the INSTALLED permits-engine release; until then the page routes to an email thread. No mailbox reader, no timer installed.",
+  "group": "Trade records",
+  "short": "Trademark watch",
+  "who": "Applicants and owners of a US trademark who want to know early about a refusal, a publication for opposition, or a look-alike filing in their class.",
+  "coverage_what": "Twelve months of monitoring on one US trademark application or registration, not a feed",
+  "coverage_how": "We re-read the public USPTO daily file (TRTDXFAP) about once a week, email the buyer on a status change, a similar filing in the class, or a coming deadline, and keep a private watch page current for 12 months.",
+  "price_list_note": "The sample is company-owned marks with a recent event; read it before you pay.",
+  "checkout": {
+    "terms": "$175 once, for 12 months of watch on one US trademark application or registration. Not a subscription and nothing to cancel. Tell us the 8-digit USPTO serial number at checkout. You get a private watch page within 15 minutes, kept current for 12 months, plus an email whenever the mark's status changes, a similar mark is filed in its class, or an opposition or office-action deadline is coming up. This is monitoring, not legal advice, and not a filing: we read public USPTO records and do not act on your behalf at the USPTO. We are not the USPTO and we are not a law firm. Refund on request within 14 days. There is no pay button on this page yet.",
+    "after": "Tell us the 8-digit USPTO serial number on the payment form; your private watch page is ready within 15 minutes and we email you the link.",
+    "url": "",
+    "label": "Watch this mark for 12 months — $175",
+    "lands_on": "",
+    "status": "HOLD",
+    "checked": "",
+    "verified": ""
+  }
+}

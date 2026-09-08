@@ -215,9 +215,9 @@ def family_spec() -> dict:
             "runs too long, so a run cannot quietly cost more than you meant.</p>\n"
             '      <div class="honest">\n'
             "        <p><strong>There is no button on this page.</strong> Until the three "
-            "listings are live on the Apify Store, email us and we will send the direct "
-            "links. The price above is the Store's price; we set it and Apify collects "
-            "it.</p>\n"
+            "listings are live on the Apify Store this page is the sample; the direct "
+            "Store links appear here the day they are published. The price above is "
+            "the Store's price; we set it and Apify collects it.</p>\n"
             "      </div>",
         ),
         section(

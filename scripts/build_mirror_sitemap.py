@@ -74,7 +74,12 @@ def build() -> tuple[str, int, int, list[str]]:
             skipped.append(fam)
             continue
         loc = f"{BASE}/" if not addr else f"{BASE}/{addr}/"
-        m = NEWEST.search(committed_text(path))
+        text = committed_text(path)
+        if 'name="robots" content="noindex' in text:
+            # a page that asks not to be indexed is never advertised here
+            skipped.append(addr)
+            continue
+        m = NEWEST.search(text)
         if m:
             dated += 1
             urls.append(f"<url><loc>{loc}</loc><lastmod>{m.group(1)}</lastmod></url>")
