@@ -2528,6 +2528,38 @@
         "checked": "2026-09-07",
         "verified": "2026-09-07"
       }
+    },
+    {
+      "id": "customs-broker-exam-bank",
+      "name": "The last five Customs Broker License Exam sittings, explained",
+      "short": "Customs Broker Exam bank, explained",
+      "buyer": "Candidates studying for the CBP Customs Broker License Exam who want the recent papers with the official answer and a plain explanation on each question",
+      "who": "Candidates studying for the CBP Customs Broker License Exam who want the recent papers with the official answer and a plain explanation on each question.",
+      "cadence": "once, not a feed",
+      "cadence_long": "One payment, not a subscription. You get the whole explained bank as a single page. We add each new sitting after the April and October exams; buying again is your choice, nothing recurring.",
+      "price": "$49",
+      "coverage_what": "The last five Customs Broker License Exam sittings, every question with CBP's official answer and, where the key cites a Title 19 CFR rule, our explanation that quotes it",
+      "coverage_how": "We parse CBP's own exam and answer-key PDFs, fetch the exact Title 19 CFR text the key cites from the eCFR, and draft one explanation per question on a local model, checked by a second local model. Classification questions cite the tariff schedule, not the CFR, and are marked rather than explained.",
+      "price_list_note": "The sample is real explained questions cut from the sealed CBP papers. Read it before you pay.",
+      "contact_h2": "Buy the full explained bank",
+      "contact_p": "Ask anything about what is and is not explained before you buy. We reply with the current explained count per sitting and the checkout link.",
+      "contact_cta": "Email us for the $49 checkout link",
+      "contact_note": "No pay button on this page yet. The answers are CBP's own; the explanations are ours and are not CBP's.",
+      "delivery": "<strong>What arrives after you pay:</strong> a single private web page with the whole explained bank — all sittings, every question, grouped by topic — within 15 minutes of payment.",
+      "note": "STAGED 2026-09-07, NOT PUBLISHED. One-off explained question bank at $49 for the last five CBP Customs Broker License Exam sittings (2024-05, 2024-10, 2025-04, 2025-10, 2026-04). Questions and answer keys are CBP publications (public domain, 17 U.S.C. 105), parsed from PDFs already in fv5_data_cble/. Explanations are machine-drafted on the local door :30003 and machine-checked on :30004; each quotes the Title 19 CFR text the official key cites, fetched from the eCFR API. Explanations withheld and counted where the key cites the tariff schedule, the question was withdrawn, two answers were accepted, or a door was down. Free pages: family page + one page per sitting with a 10-question sample and an honest 'N of M explained' count. Paid page (fulfil): the whole bank, all sittings, grouped by topic, noindex, no buyer email. Refresh is manual twice a year (cbp.gov 403s to curl). checkout.url is TO-MINT until a customs-broker-exam-bank SKU at 4900 cents one-off exists in the INSTALLED permits-engine release. Timer skipped on instruction. No mailbox reader.",
+      "checkout": {
+        "terms": "$49 once, for the explained bank of the last five Customs Broker License Exam sittings. Nothing recurring, nothing to cancel and no subscription behind it. You get one private web page with every question from those sittings, CBP's own official answer on each, and — where the official key cites a Title 19 CFR rule — our explanation that quotes that rule. The questions and answer keys are CBP publications in the public domain; the explanations are ours, machine-drafted and machine-checked, and are not CBP's. Not every question is explained: classification questions cite the tariff schedule rather than the CFR, some questions were withdrawn by CBP or had two accepted answers, and those carry no single explanation — the page shows the honest count. This is a study aid, not legal or tax advice, and we do not guarantee exam results. Refund on request within 14 days. There is no pay button on this page yet.",
+        "after": "The private page is delivered within 15 minutes of payment. Still not here after 15 minutes? Reply to your Stripe receipt.",
+        "url": "",
+        "label": "Buy — $49 one-off",
+        "lands_on": "",
+        "status": "TO-MINT",
+        "checked": "",
+        "verified": ""
+      },
+      "sample_status": "pass",
+      "group": "Trade records",
+      "kind": "build"
     }
   ],
   "map": "MAP.md",
