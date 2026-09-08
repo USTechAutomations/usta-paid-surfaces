@@ -1,0 +1,20 @@
+{
+  "note": "Zero servings per container. The calculator must refuse and say why, and no panel may be drawn. A panel built on a divide-by-zero would print numbers that look finished.",
+  "input": {
+    "items": [
+      { "fdc": 173904, "g": 400, "desc": "Cereals, oats, regular and quick, not fortified, dry" }
+    ],
+    "yield_g": 400,
+    "servings": 0,
+    "serving_g": 50,
+    "house": "1/2 cup",
+    "added_sugars_g": 0,
+    "ingredient_statement": "INGREDIENTS: ROLLED OATS.",
+    "allergen_statement": ""
+  },
+  "expect": {
+    "error_shown": true,
+    "error_contains": "Servings per container has to be a number above zero",
+    "panel_drawn": false
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "note": "A six-ingredient granola. The ingredients are named by FoodData Central id so the numbers cannot drift when a description changes. The expected values below are what 21 CFR 101.9(c) rounding produces from the USDA figures in data/foods.json; browser_test.py drives the page with this input and checks them on the drawn panel.",
+  "input": {
+    "items": [
+      { "fdc": 173904, "g": 400, "desc": "Cereals, oats, regular and quick, not fortified, dry" },
+      { "fdc": 169640, "g": 120, "desc": "Honey" },
+      { "fdc": 171025, "g": 80, "desc": "Oil, sunflower, linoleic, (approx. 65%)" },
+      { "fdc": 170567, "g": 100, "desc": "Nuts, almonds" },
+      { "fdc": 170562, "g": 60, "desc": "Seeds, sunflower seed kernels, dried" },
+      { "fdc": 173468, "g": 3, "desc": "Salt, table" }
+    ],
+    "yield_g": 700,
+    "servings": 14,
+    "serving_g": 50,
+    "house": "1/2 cup",
+    "added_sugars_g": 97,
+    "ingredient_statement": "INGREDIENTS: ROLLED OATS, HONEY, SUNFLOWER OIL, ALMONDS, SUNFLOWER SEEDS, SALT.",
+    "allergen_statement": "CONTAINS: TREE NUTS (ALMONDS)."
+  },
+  "expect": {
+    "panel_text_contains": [
+      "Nutrition Facts",
+      "14 servings per container",
+      "1/2 cup (50g)",
+      "Amount per serving",
+      "% Daily Value*"
+    ],
+    "calories_between": [200, 300],
+    "values": {
+      "kcal": "250",
+      "fat": "13g",
+      "sat": "1.5g",
+      "trans": "0g",
+      "chol": "0mg",
+      "na": "85mg",
+      "carb": "29g",
+      "fib": "4g",
+      "sug": "8g",
+      "addsug": "Includes 7g Added Sugars",
+      "prot": "6g"
+    },
+    "daily_values": { "fat": 17, "sat": 8, "na": 4, "carb": 11, "fib": 14, "addsug": 14 },
+    "sodium_rounding": "Sodium is 85 mg. 21 CFR 101.9(c)(4) puts values above 5 mg and up to 140 mg on the nearest 5 mg, so a 5 mg increment is the right one here and 10 mg would be wrong.",
+    "formats": ["vertical", "tabular", "linear"],
+    "draft_watermark_on_free_page": true
+  }
+}
