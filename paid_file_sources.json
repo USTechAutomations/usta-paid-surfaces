@@ -349,5 +349,44 @@
         "api.usaspending.gov"
       ]
     }
+  },
+  "ttb": {
+    "name": "Alcohol and Tobacco Tax and Trade Bureau (TTB), List of Permittees",
+    "verdict": "ALLOW_PAID",
+    "decided_on": "2026-09-08",
+    "evidence_url": "https://www.ttb.gov/about-ttb/privacy-policy",
+    "quote": "Federal employees cannot claim copyright for any work on the TTB.gov website that was created or maintained during the course of their duties. You may copy text and images from our website freely, with the exception of official seals, names, and symbols (see below), but credit must be given to TTB. If copyrighted material appears on our site, or is reached through a link on this site, the copyright holder must be consulted before the material may be reproduced.",
+    "required_text": "Source: Alcohol and Tobacco Tax and Trade Bureau (TTB), List of Permittees, https://www.ttb.gov/public-information/foia/list-of-permittees",
+    "reviewed_by": "terms read by terms-dossier agent (claude-opus-5) 2026-09-08, quote re-checked against the live page by Fable 2026-09-08; operator decision 'Yes all 3' 2026-09-08 (~/.hermes/state/approvals/operator_decisions_2026-09-08.md rows 2-4); evidence dossier ~/reports/platform-launch-20260908/rights-20260908/ttb.md",
+    "note": "Terms read 2026-09-08, evidence dossier ~/reports/platform-launch-20260908/rights-20260908/ttb.md. Recommendation RECOMMEND_ALLOW, conditional on a credit line. The copyright notice sets no limit on purpose, does not restrict the method of collection, and does not forbid resale; the only carve-outs are official seals/names/symbols (18 U.S.C. 701, 31 U.S.C. 333, 31 CFR Part 27) and third-party copyrighted material, neither of which touches a data file. The list is a proactive FOIA disclosure that TTB updates weekly. CREDIT IS MANDATORY: TTB writes 'credit must be given to TTB' as a condition in the same sentence as the permission, which is stronger than the openFDA and USGS asks. TTB prescribes NO exact wording anywhere on its site, so the required_text above is our wording and needs the operator's sign-off before the guard enforces it. Do not use the TTB seal, logo or initials in any way that suggests endorsement. Sourced files must not be described as covering all TTB permits: 26 U.S.C. 6103 keeps brewers, industrial alcohol holders and tobacco permit holders off this list. Source page https://www.ttb.gov/public-information/foia/list-of-permittees, JSON at https://www.ttb.gov/system/files/2025-04/FRL_All_Permits.json. robots.txt pulled 2026-09-08 blocks neither path. No rate limit published.",
+    "labels": [
+      "ttb",
+      "alcohol and tobacco tax and trade bureau",
+      "list of permittees",
+      "www.ttb.gov",
+      "ttb.gov",
+      "FRL_All_Permits.json",
+      "ttb_new_permits"
+    ]
+  },
+  "usgs-earthquake": {
+    "name": "U.S. Geological Survey, earthquake real-time feed",
+    "verdict": "ALLOW_PAID",
+    "decided_on": "2026-09-08",
+    "evidence_url": "https://www.usgs.gov/information-policies-and-instructions/acknowledging-or-crediting-usgs",
+    "quote": "Most U.S. Geological Survey (USGS) information resides in the Public Domain and may be used without restriction. When using information from USGS information products, publications, or websites, we ask that proper credit be given.",
+    "required_text": "Source of USGS earthquake feed data: U.S. Geological Survey",
+    "reviewed_by": "terms read by terms-dossier agent (claude-opus-5) 2026-09-08, quote re-checked against the live page by Fable 2026-09-08; operator decision 'Yes all 3' 2026-09-08 (~/.hermes/state/approvals/operator_decisions_2026-09-08.md rows 2-4); evidence dossier ~/reports/platform-launch-20260908/rights-20260908/usgs.md",
+    "note": "Terms read 2026-09-08, evidence dossier ~/reports/platform-launch-20260908/rights-20260908/usgs.md. Recommendation RECOMMEND_ALLOW; the cleanest of the three sources read that day. The second decisive quote is a heading and template on the same evidence page: 'When Value-Adding to USGS Information for Resale / Source of (product or data name): U.S. Geological Survey', with USGS's own worked example 'Source of Parkfield seismic data: U.S. Geological Survey'. USGS prints credit templates for three separate resale scenarios, so resale is plainly contemplated and permitted. Second terms page https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits states 'USGS-authored or produced data and information are considered to be in the U.S. Public Domain'. Carve-outs: non-USGS photographs and graphics (our feed has none), publicity rights on multimedia showing USGS staff (our feed contains no people at all), and the trademarked USGS identifier, which must NOT appear on our product or sales page. required_text above is USGS's own template with our data name in their placeholder. No request-rate limit is published anywhere; the live feed sends 'cache-control: public, max-age=60' and the feed index says 'Updated every minute', so once a minute is the practical ceiling and our daily seal is far below it. Feed Life Cycle Policy at https://earthquake.usgs.gov/earthquakes/feed/policy.php promises at least 6 months availability and 30 days notice before deprecation; v1.0 has been production since 2013-05-22 with no end-of-life date. Recommend subscribing to the USGS API mailing list for change notices. Source https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson. earthquake.usgs.gov has no robots.txt (404).",
+    "labels": [
+      "usgs-earthquake",
+      "usgs",
+      "u.s. geological survey",
+      "earthquake.usgs.gov",
+      "www.usgs.gov",
+      "all_day.geojson",
+      "usgs_quakes",
+      "quakes"
+    ]
   }
 }
