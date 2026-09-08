@@ -116,6 +116,21 @@ in them. Counting it made the family look better read than it is. The count now
 means "sources we can actually read the law in" in both modes, and both say
 `7/11`.
 
+## Two things the estate does that surprised me
+
+**A slice's `foot` key is ignored.** I put the "not affiliated, not advice, read
+as of this date" line in a `foot` key, which reads naturally and reaches nothing:
+`scripts/build_slices.py` renders `limits` and has no `foot`. The line was on the
+family page and on none of the twelve sub-pages until I moved it into `limits`.
+It is now the last limit on every page. Worth knowing before anyone adds a key
+that looks like it should work.
+
+**The hub does not list this family, and should not.** `scripts/build_hub.py`
+skips every catalog row whose `kind` is `build`, and this family is a build, like
+the exemplar. Separately, running the hub builder rewrites one line of the site
+front page even with my row taken out, so that drift is the estate's and not
+mine. I left the front page untouched.
+
 ## One thing worth knowing about the build
 
 `scripts/build_slices.py` rewrites the whole estate, not just one family. A run

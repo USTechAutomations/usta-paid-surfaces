@@ -784,6 +784,9 @@ def slices() -> list[dict]:
             f"We re-read the sources about every {CADENCE_DAYS} days. If more than "
             f"{CADENCE_DAYS * 2} days have passed since the date at the top, treat this "
             "page as stale and open the source links yourself.")
+        # build_slices renders "limits". It has no "foot" key, so the affiliation
+        # and not-advice line has to ride here to reach a sub-page at all.
+        limits.append(disclaimer())
 
         out.append({
             "slug": slug,
@@ -870,6 +873,7 @@ def slices() -> list[dict]:
         checks = [d["cite_check"] for d in rows if d.get("cite_check")]
         if checks:
             limits.append("We could not verify: " + "; ".join(checks) + ".")
+        limits.append(disclaimer())
 
         out.append({
             "slug": slug,
