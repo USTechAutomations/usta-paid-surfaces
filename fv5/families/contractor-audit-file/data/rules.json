@@ -1,0 +1,1401 @@
+{
+ "generated": "2026-09-08",
+ "jurisdictions": [
+  {
+   "code": "AL",
+   "name": "Alabama",
+   "slug": "alabama",
+   "source_url": "https://labor.alabama.gov/uc/employer/",
+   "cite": "Alabama Department of Labor, unemployment compensation for employers",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "unreachable",
+   "why": "the address answered 404 from this host"
+  },
+  {
+   "code": "AK",
+   "name": "Alaska",
+   "slug": "alaska",
+   "source_url": "https://www.akleg.gov/basis/statutes.asp#23.20.525",
+   "cite": "AS 23.20.525",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "wrong-page",
+   "why": "the page came back without the section number we asked for, so we do not treat it as that section"
+  },
+  {
+   "code": "AZ",
+   "name": "Arizona",
+   "slug": "arizona",
+   "source_url": "https://www.azleg.gov/ars/23/00902.htm",
+   "cite": "A.R.S. 23-902",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "No passage in the page we fetched carried any of the words we look for.",
+   "chars": 4933,
+   "status": "no-passage",
+   "why": "the page answered, but none of the words these tests are written with are in it"
+  },
+  {
+   "code": "AR",
+   "name": "Arkansas",
+   "slug": "arkansas",
+   "source_url": "https://www.dws.arkansas.gov/employers/unemployment-insurance/",
+   "cite": "Arkansas Division of Workforce Services, unemployment insurance for employers",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "unreachable",
+   "why": "the address answered 404 from this host"
+  },
+  {
+   "code": "CA",
+   "name": "California",
+   "slug": "california",
+   "source_url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=2775.&lawCode=LAB",
+   "cite": "Cal. Lab. Code 2775",
+   "prongs": [
+    {
+     "id": "control",
+     "label": "Control over how the work is done",
+     "asks": "whether the worker is free from the hiring firm's control and direction over how the work is performed",
+     "quote": "…contractor unless the hiring entity demonstrates that all of the following conditions are satisfied: (A) The person is free from the control and direction of the hiring entity in connection with the performance of the work, both under the contract for the performance of the work and in fact.",
+     "cite_url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=2775.&lawCode=LAB",
+     "cite": "Cal. Lab. Code 2775",
+     "documents": [
+      "The written agreement, and any schedule or statement of work attached to it",
+      "Messages that set hours, order of work or method (email, chat, job app)",
+      "Any training material, handbook or induction the worker was given",
+      "Timesheets, rotas or shift rosters the hiring firm produced"
+     ]
+    },
+    {
+     "id": "business",
+     "label": "Whether the work sits outside the hiring firm's usual business",
+     "asks": "whether the work performed is outside the usual course of the hiring firm's business, or outside all its places of business",
+     "quote": "(B) The person performs work that is outside the usual course of the hiring entity's business.",
+     "cite_url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=2775.&lawCode=LAB",
+     "cite": "Cal. Lab. Code 2775",
+     "documents": [
+      "The hiring firm's own description of what it sells (website, catalogue, filings)",
+      "The job or brief the worker was engaged for, in writing",
+      "Any list of the firm's own staff doing the same kind of work",
+      "The address where the work was carried out"
+     ]
+    },
+    {
+     "id": "independent",
+     "label": "Whether the worker has an independent business of their own",
+     "asks": "whether the worker is customarily engaged in an independently established trade, occupation or business of the same kind",
+     "quote": "(C) The person is customarily engaged in an independently established trade, occupation, or business of the same nature as that involved in the work performed.",
+     "cite_url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=2775.&lawCode=LAB",
+     "cite": "Cal. Lab. Code 2775",
+     "documents": [
+      "The worker's own business registration, licence or trading name",
+      "Invoices the worker raised, and invoices they raised to other firms",
+      "The worker's own advertising: website, listing, van livery, cards",
+      "Proof of the worker's own tools, equipment, premises or insurance"
+     ]
+    }
+   ],
+   "penalties": [
+    {
+     "quote": "…in any of the enumerated violations of subdivision (a), the person or employer shall be subject to a civil penalty of not less than five thousand dollars ($5,000) and not more than fifteen thousand dollars ($15,000) for each violation, in addition to any other penalties or fines permitted by law.",
+     "cite_url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=LAB&sectionNum=226.8",
+     "cite": "Cal. Lab. Code 226.8",
+     "name": "California willful misclassification penalty"
+    }
+   ],
+   "fetched": "2026-09-08",
+   "shape": "The section we fetched carries wording for all three questions: control, the firm's usual business, and the worker's own trade.",
+   "chars": 3330,
+   "status": "quoted",
+   "why": ""
+  },
+  {
+   "code": "CO",
+   "name": "Colorado",
+   "slug": "colorado",
+   "source_url": "https://cdle.colorado.gov/employers/employer-services/independent-contractors",
+   "cite": "Colorado Department of Labor and Employment, independent contractors",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "unreachable",
+   "why": "the address answered 403 from this host"
+  },
+  {
+   "code": "CT",
+   "name": "Connecticut",
+   "slug": "connecticut",
+   "source_url": "https://www.cga.ct.gov/current/pub/chap_567.htm",
+   "cite": "Conn. Gen. Stat. 31-222",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "unreachable",
+   "why": "the address answered 0 from this host"
+  },
+  {
+   "code": "DE",
+   "name": "Delaware",
+   "slug": "delaware",
+   "source_url": "https://delcode.delaware.gov/title19/c033/index.html",
+   "cite": "19 Del. C. 3302",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "wrong-page",
+   "why": "the page came back without the section number we asked for, so we do not treat it as that section"
+  },
+  {
+   "code": "DC",
+   "name": "District of Columbia",
+   "slug": "district-of-columbia",
+   "source_url": "https://code.dccouncil.gov/us/dc/council/code/sections/51-101",
+   "cite": "D.C. Code 51-101",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "wrong-page",
+   "why": "the page came back without the section number we asked for, so we do not treat it as that section"
+  },
+  {
+   "code": "FL",
+   "name": "Florida",
+   "slug": "florida",
+   "source_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0400-0499/0443/Sections/0443.1216.html",
+   "cite": "Fla. Stat. 443.1216",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "No passage in the page we fetched carried any of the words we look for.",
+   "chars": 38694,
+   "status": "no-passage",
+   "why": "the page answered, but none of the words these tests are written with are in it"
+  },
+  {
+   "code": "GA",
+   "name": "Georgia",
+   "slug": "georgia",
+   "source_url": "https://dol.georgia.gov/employer-portal",
+   "cite": "Georgia Department of Labor, employer portal",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "unreachable",
+   "why": "the address answered 404 from this host"
+  },
+  {
+   "code": "HI",
+   "name": "Hawaii",
+   "slug": "hawaii",
+   "source_url": "https://www.capitol.hawaii.gov/hrscurrent/Vol07_Ch0346-0398/HRS0383/HRS_0383-0006.htm",
+   "cite": "HRS 383-6",
+   "prongs": [
+    {
+     "id": "control",
+     "label": "Control over how the work is done",
+     "asks": "whether the worker is free from the hiring firm's control and direction over how the work is performed",
+     "quote": "…exists unless and until it is shown to the satisfaction of the department of labor and industrial relations that: (1) The individual has been and will continue to be free from control or direction over the performance of such service, both under the individual's contract of hire and in fact;",
+     "cite_url": "https://www.capitol.hawaii.gov/hrscurrent/Vol07_Ch0346-0398/HRS0383/HRS_0383-0006.htm",
+     "cite": "HRS 383-6",
+     "documents": [
+      "The written agreement, and any schedule or statement of work attached to it",
+      "Messages that set hours, order of work or method (email, chat, job app)",
+      "Any training material, handbook or induction the worker was given",
+      "Timesheets, rotas or shift rosters the hiring firm produced"
+     ]
+    },
+    {
+     "id": "business",
+     "label": "Whether the work sits outside the hiring firm's usual business",
+     "asks": "whether the work performed is outside the usual course of the hiring firm's business, or outside all its places of business",
+     "quote": "(2) The service is either outside the usual course of the business for which the service is performed or that the service is performed outside of all the places of business of the enterprise for which the service is performed;",
+     "cite_url": "https://www.capitol.hawaii.gov/hrscurrent/Vol07_Ch0346-0398/HRS0383/HRS_0383-0006.htm",
+     "cite": "HRS 383-6",
+     "documents": [
+      "The hiring firm's own description of what it sells (website, catalogue, filings)",
+      "The job or brief the worker was engaged for, in writing",
+      "Any list of the firm's own staff doing the same kind of work",
+      "The address where the work was carried out"
+     ]
+    },
+    {
+     "id": "independent",
+     "label": "Whether the worker has an independent business of their own",
+     "asks": "whether the worker is customarily engaged in an independently established trade, occupation or business of the same kind",
+     "quote": "and (3) The individual is customarily engaged in an independently established trade, occupation, profession, or business of the same nature as that involved in the contract of service.",
+     "cite_url": "https://www.capitol.hawaii.gov/hrscurrent/Vol07_Ch0346-0398/HRS0383/HRS_0383-0006.htm",
+     "cite": "HRS 383-6",
+     "documents": [
+      "The worker's own business registration, licence or trading name",
+      "Invoices the worker raised, and invoices they raised to other firms",
+      "The worker's own advertising: website, listing, van livery, cards",
+      "Proof of the worker's own tools, equipment, premises or insurance"
+     ]
+    }
+   ],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "The section we fetched carries wording for all three questions: control, the firm's usual business, and the worker's own trade.",
+   "chars": 1752,
+   "status": "quoted",
+   "why": ""
+  },
+  {
+   "code": "ID",
+   "name": "Idaho",
+   "slug": "idaho",
+   "source_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH13/SECT72-1316/",
+   "cite": "Idaho Code 72-1316",
+   "prongs": [
+    {
+     "id": "control",
+     "label": "Control over how the work is done",
+     "asks": "whether the worker is free from the hiring firm's control and direction over how the work is performed",
+     "quote": "…by an individual for remuneration shall, for the purposes of the employment security law, be covered employment unless it is shown: (a) That the worker has been and will continue to be free from control or direction in the performance of his work, both under his contract of service and in fact;",
+     "cite_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH13/SECT72-1316/",
+     "cite": "Idaho Code 72-1316",
+     "documents": [
+      "The written agreement, and any schedule or statement of work attached to it",
+      "Messages that set hours, order of work or method (email, chat, job app)",
+      "Any training material, handbook or induction the worker was given",
+      "Timesheets, rotas or shift rosters the hiring firm produced"
+     ]
+    },
+    {
+     "id": "independent",
+     "label": "Whether the worker has an independent business of their own",
+     "asks": "whether the worker is customarily engaged in an independently established trade, occupation or business of the same kind",
+     "quote": "and (b) That the worker is engaged in an independently established trade, occupation, profession, or business.",
+     "cite_url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH13/SECT72-1316/",
+     "cite": "Idaho Code 72-1316",
+     "documents": [
+      "The worker's own business registration, licence or trading name",
+      "Invoices the worker raised, and invoices they raised to other firms",
+      "The worker's own advertising: website, listing, van livery, cards",
+      "Proof of the worker's own tools, equipment, premises or insurance"
+     ]
+    }
+   ],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "The section we fetched carries wording for two of the three questions. The third is not in the passage we quote.",
+   "chars": 9336,
+   "status": "quoted",
+   "why": ""
+  },
+  {
+   "code": "IL",
+   "name": "Illinois",
+   "slug": "illinois",
+   "source_url": "https://www.ilga.gov/legislation/ilcs/ilcs3.asp?ActID=2789&ChapterID=68",
+   "cite": "820 ILCS 185 (Employee Classification Act)",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "unreachable",
+   "why": "the address answered 0 from this host"
+  },
+  {
+   "code": "IN",
+   "name": "Indiana",
+   "slug": "indiana",
+   "source_url": "https://iga.in.gov/laws/2024/ic/titles/22",
+   "cite": "Ind. Code 22-4-8-1",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "wrong-page",
+   "why": "the page came back without the section number we asked for, so we do not treat it as that section"
+  },
+  {
+   "code": "IA",
+   "name": "Iowa",
+   "slug": "iowa",
+   "source_url": "https://www.legis.iowa.gov/docs/code/96.19.pdf",
+   "cite": "Iowa Code 96.19",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "wrong-page",
+   "why": "the page came back without the section number we asked for, so we do not treat it as that section"
+  },
+  {
+   "code": "KS",
+   "name": "Kansas",
+   "slug": "kansas",
+   "source_url": "https://www.ksrevisor.gov/statutes/chapters/ch44/044_007_0003.html",
+   "cite": "K.S.A. 44-703",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "No passage in the page we fetched carried any of the words we look for.",
+   "chars": 68338,
+   "status": "no-passage",
+   "why": "the page answered, but none of the words these tests are written with are in it"
+  },
+  {
+   "code": "KY",
+   "name": "Kentucky",
+   "slug": "kentucky",
+   "source_url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=48929",
+   "cite": "KRS 341.050",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "wrong-page",
+   "why": "the page came back without the section number we asked for, so we do not treat it as that section"
+  },
+  {
+   "code": "LA",
+   "name": "Louisiana",
+   "slug": "louisiana",
+   "source_url": "https://www.legis.la.gov/legis/Law.aspx?d=85383",
+   "cite": "La. R.S. 23:1472",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "wrong-page",
+   "why": "the page came back without the section number we asked for, so we do not treat it as that section"
+  },
+  {
+   "code": "ME",
+   "name": "Maine",
+   "slug": "maine",
+   "source_url": "https://legislature.maine.gov/statutes/26/title26sec1043.html",
+   "cite": "26 M.R.S. 1043",
+   "prongs": [
+    {
+     "id": "control",
+     "label": "Control over how the work is done",
+     "asks": "whether the worker is free from the hiring firm's control and direction over how the work is performed",
+     "quote": "…it is shown to the satisfaction of the bureau that the individual is free from the essential direction and control of the employing unit, both under the individual's contract of service and in fact, and the employing unit proves that the individual meets all of the criteria in subparagraph…",
+     "cite_url": "https://legislature.maine.gov/statutes/26/title26sec1043.html",
+     "cite": "26 M.R.S. 1043",
+     "documents": [
+      "The written agreement, and any schedule or statement of work attached to it",
+      "Messages that set hours, order of work or method (email, chat, job app)",
+      "Any training material, handbook or induction the worker was given",
+      "Timesheets, rotas or shift rosters the hiring firm produced"
+     ]
+    },
+    {
+     "id": "business",
+     "label": "Whether the work sits outside the hiring firm's usual business",
+     "asks": "whether the work performed is outside the usual course of the hiring firm's business, or outside all its places of business",
+     "quote": "(f) The work is outside the usual course of business for which the service is performed;",
+     "cite_url": "https://legislature.maine.gov/statutes/26/title26sec1043.html",
+     "cite": "26 M.R.S. 1043",
+     "documents": [
+      "The hiring firm's own description of what it sells (website, catalogue, filings)",
+      "The job or brief the worker was engaged for, in writing",
+      "Any list of the firm's own staff doing the same kind of work",
+      "The address where the work was carried out"
+     ]
+    },
+    {
+     "id": "independent",
+     "label": "Whether the worker has an independent business of their own",
+     "asks": "whether the worker is customarily engaged in an independently established trade, occupation or business of the same kind",
+     "quote": "(b) The individual is customarily engaged in an independently established trade, occupation, profession or business;",
+     "cite_url": "https://legislature.maine.gov/statutes/26/title26sec1043.html",
+     "cite": "26 M.R.S. 1043",
+     "documents": [
+      "The worker's own business registration, licence or trading name",
+      "Invoices the worker raised, and invoices they raised to other firms",
+      "The worker's own advertising: website, listing, van livery, cards",
+      "Proof of the worker's own tools, equipment, premises or insurance"
+     ]
+    }
+   ],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "The section we fetched carries wording for all three questions: control, the firm's usual business, and the worker's own trade.",
+   "chars": 71150,
+   "status": "quoted",
+   "why": ""
+  },
+  {
+   "code": "MD",
+   "name": "Maryland",
+   "slug": "maryland",
+   "source_url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gle&section=8-205",
+   "cite": "Md. Code, Lab. & Empl. 8-205",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "wrong-page",
+   "why": "the page came back without the section number we asked for, so we do not treat it as that section"
+  },
+  {
+   "code": "MA",
+   "name": "Massachusetts",
+   "slug": "massachusetts",
+   "source_url": "https://malegislature.gov/laws/generallaws/parti/titlexxi/chapter149/section148B",
+   "cite": "Mass. Gen. Laws c.149 148B",
+   "prongs": [
+    {
+     "id": "control",
+     "label": "Control over how the work is done",
+     "asks": "whether the worker is free from the hiring firm's control and direction over how the work is performed",
+     "quote": "…any service, except as authorized under this chapter, shall be considered to be an employee under those chapters unless:— (1) the individual is free from control and direction in connection with the performance of the service, both under his contract for the performance of service and in fact;",
+     "cite_url": "https://malegislature.gov/laws/generallaws/parti/titlexxi/chapter149/section148B",
+     "cite": "Mass. Gen. Laws c.149 148B",
+     "documents": [
+      "The written agreement, and any schedule or statement of work attached to it",
+      "Messages that set hours, order of work or method (email, chat, job app)",
+      "Any training material, handbook or induction the worker was given",
+      "Timesheets, rotas or shift rosters the hiring firm produced"
+     ]
+    },
+    {
+     "id": "business",
+     "label": "Whether the work sits outside the hiring firm's usual business",
+     "asks": "whether the work performed is outside the usual course of the hiring firm's business, or outside all its places of business",
+     "quote": "and (2) the service is performed outside the usual course of the business of the employer;",
+     "cite_url": "https://malegislature.gov/laws/generallaws/parti/titlexxi/chapter149/section148B",
+     "cite": "Mass. Gen. Laws c.149 148B",
+     "documents": [
+      "The hiring firm's own description of what it sells (website, catalogue, filings)",
+      "The job or brief the worker was engaged for, in writing",
+      "Any list of the firm's own staff doing the same kind of work",
+      "The address where the work was carried out"
+     ]
+    },
+    {
+     "id": "independent",
+     "label": "Whether the worker has an independent business of their own",
+     "asks": "whether the worker is customarily engaged in an independently established trade, occupation or business of the same kind",
+     "quote": "and, (3) the individual is customarily engaged in an independently established trade, occupation, profession or business of the same nature as that involved in the service performed.",
+     "cite_url": "https://malegislature.gov/laws/generallaws/parti/titlexxi/chapter149/section148B",
+     "cite": "Mass. Gen. Laws c.149 148B",
+     "documents": [
+      "The worker's own business registration, licence or trading name",
+      "Invoices the worker raised, and invoices they raised to other firms",
+      "The worker's own advertising: website, listing, van livery, cards",
+      "Proof of the worker's own tools, equipment, premises or insurance"
+     ]
+    }
+   ],
+   "penalties": [
+    {
+     "quote": "…may be issued requiring any or all of the following: that the infraction be rectified, that restitution be made to the aggrieved party, or that a civil penalty of not more than $25,000 for each violation be paid to the commonwealth, within 21 days of the date of issuance of such citation.",
+     "cite_url": "https://malegislature.gov/laws/generallaws/parti/titlexxi/chapter149/section27C",
+     "cite": "Mass. Gen. Laws c.149 27C",
+     "name": "Massachusetts enforcement and penalties"
+    }
+   ],
+   "fetched": "2026-09-08",
+   "shape": "The section we fetched carries wording for all three questions: control, the firm's usual business, and the worker's own trade.",
+   "chars": 6962,
+   "status": "quoted",
+   "why": ""
+  },
+  {
+   "code": "MI",
+   "name": "Michigan",
+   "slug": "michigan",
+   "source_url": "https://www.michigan.gov/leo/bureaus-agencies/uia/employers",
+   "cite": "Michigan Unemployment Insurance Agency, employers",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "unreachable",
+   "why": "the address answered 403 from this host"
+  },
+  {
+   "code": "MN",
+   "name": "Minnesota",
+   "slug": "minnesota",
+   "source_url": "https://www.revisor.mn.gov/statutes/cite/268.035",
+   "cite": "Minn. Stat. 268.035",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "No passage in the page we fetched carried any of the words we look for.",
+   "chars": 52080,
+   "status": "no-passage",
+   "why": "the page answered, but none of the words these tests are written with are in it"
+  },
+  {
+   "code": "MS",
+   "name": "Mississippi",
+   "slug": "mississippi",
+   "source_url": "https://mdes.ms.gov/employers/",
+   "cite": "Mississippi Department of Employment Security, employers",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "No passage in the page we fetched carried any of the words we look for.",
+   "chars": 5330,
+   "status": "no-passage",
+   "why": "the page answered, but none of the words these tests are written with are in it"
+  },
+  {
+   "code": "MO",
+   "name": "Missouri",
+   "slug": "missouri",
+   "source_url": "https://revisor.mo.gov/main/OneSection.aspx?section=288.034",
+   "cite": "Mo. Rev. Stat. 288.034",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "No passage in the page we fetched carried any of the words we look for.",
+   "chars": 26836,
+   "status": "no-passage",
+   "why": "the page answered, but none of the words these tests are written with are in it"
+  },
+  {
+   "code": "MT",
+   "name": "Montana",
+   "slug": "montana",
+   "source_url": "https://erd.dli.mt.gov/work-comp-regulations/independent-contractor-central-unit/",
+   "cite": "Montana Department of Labor and Industry, independent contractor central unit",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "unreachable",
+   "why": "the address answered 404 from this host"
+  },
+  {
+   "code": "NE",
+   "name": "Nebraska",
+   "slug": "nebraska",
+   "source_url": "https://nebraskalegislature.gov/laws/statutes.php?statute=48-604",
+   "cite": "Neb. Rev. Stat. 48-604",
+   "prongs": [
+    {
+     "id": "control",
+     "label": "Control over how the work is done",
+     "asks": "whether the worker is free from the hiring firm's control and direction over how the work is performed",
+     "quote": "…commissioner that (a) such individual has been and will continue to be free from control or direction over the performance of such services, both under his or her contract of service and in fact, (b) such service is either outside the usual course of the business for which such service is…",
+     "cite_url": "https://nebraskalegislature.gov/laws/statutes.php?statute=48-604",
+     "cite": "Neb. Rev. Stat. 48-604",
+     "documents": [
+      "The written agreement, and any schedule or statement of work attached to it",
+      "Messages that set hours, order of work or method (email, chat, job app)",
+      "Any training material, handbook or induction the worker was given",
+      "Timesheets, rotas or shift rosters the hiring firm produced"
+     ]
+    },
+    {
+     "id": "business",
+     "label": "Whether the work sits outside the hiring firm's usual business",
+     "asks": "whether the work performed is outside the usual course of the hiring firm's business, or outside all its places of business",
+     "quote": "…his or her contract of service and in fact, (b) such service is either outside the usual course of the business for which such service is performed or such service is performed outside of all the places of business of the enterprise for which such service is performed, and (c) such individual…",
+     "cite_url": "https://nebraskalegislature.gov/laws/statutes.php?statute=48-604",
+     "cite": "Neb. Rev. Stat. 48-604",
+     "documents": [
+      "The hiring firm's own description of what it sells (website, catalogue, filings)",
+      "The job or brief the worker was engaged for, in writing",
+      "Any list of the firm's own staff doing the same kind of work",
+      "The address where the work was carried out"
+     ]
+    },
+    {
+     "id": "independent",
+     "label": "Whether the worker has an independent business of their own",
+     "asks": "whether the worker is customarily engaged in an independently established trade, occupation or business of the same kind",
+     "quote": "…of the business for which such service is performed or such service is performed outside of all the places of business of the enterprise for which such service is performed, and (c) such individual is customarily engaged in an independently established trade, occupation, profession, or business.",
+     "cite_url": "https://nebraskalegislature.gov/laws/statutes.php?statute=48-604",
+     "cite": "Neb. Rev. Stat. 48-604",
+     "documents": [
+      "The worker's own business registration, licence or trading name",
+      "Invoices the worker raised, and invoices they raised to other firms",
+      "The worker's own advertising: website, listing, van livery, cards",
+      "Proof of the worker's own tools, equipment, premises or insurance"
+     ]
+    }
+   ],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "The section we fetched carries wording for all three questions: control, the firm's usual business, and the worker's own trade.",
+   "chars": 29485,
+   "status": "quoted",
+   "why": ""
+  },
+  {
+   "code": "NV",
+   "name": "Nevada",
+   "slug": "nevada",
+   "source_url": "https://www.leg.state.nv.us/nrs/nrs-612.html",
+   "cite": "NRS 612",
+   "prongs": [
+    {
+     "id": "control",
+     "label": "Control over how the work is done",
+     "asks": "whether the worker is free from the hiring firm's control and direction over how the work is performed",
+     "quote": "The person has been and will continue to be free from control or direction over the performance of the services, both under his or her contract of service and in fact;",
+     "cite_url": "https://www.leg.state.nv.us/nrs/nrs-612.html",
+     "cite": "NRS 612",
+     "documents": [
+      "The written agreement, and any schedule or statement of work attached to it",
+      "Messages that set hours, order of work or method (email, chat, job app)",
+      "Any training material, handbook or induction the worker was given",
+      "Timesheets, rotas or shift rosters the hiring firm produced"
+     ]
+    },
+    {
+     "id": "business",
+     "label": "Whether the work sits outside the hiring firm's usual business",
+     "asks": "whether the work performed is outside the usual course of the hiring firm's business, or outside all its places of business",
+     "quote": "The service is either outside the usual course of the business for which the service is performed or that the service is performed outside of all the places of business of the enterprises for which the service is performed;",
+     "cite_url": "https://www.leg.state.nv.us/nrs/nrs-612.html",
+     "cite": "NRS 612",
+     "documents": [
+      "The hiring firm's own description of what it sells (website, catalogue, filings)",
+      "The job or brief the worker was engaged for, in writing",
+      "Any list of the firm's own staff doing the same kind of work",
+      "The address where the work was carried out"
+     ]
+    },
+    {
+     "id": "independent",
+     "label": "Whether the worker has an independent business of their own",
+     "asks": "whether the worker is customarily engaged in an independently established trade, occupation or business of the same kind",
+     "quote": "The service is performed in the course of an independently established trade, occupation, profession or business in which the person is customarily engaged, of the same nature as that involved in the contract of service.",
+     "cite_url": "https://www.leg.state.nv.us/nrs/nrs-612.html",
+     "cite": "NRS 612",
+     "documents": [
+      "The worker's own business registration, licence or trading name",
+      "Invoices the worker raised, and invoices they raised to other firms",
+      "The worker's own advertising: website, listing, van livery, cards",
+      "Proof of the worker's own tools, equipment, premises or insurance"
+     ]
+    }
+   ],
+   "penalties": [
+    {
+     "quote": "Any employer who violates this section shall hire or reinstate any such employee with no loss of pay or benefits, is liable for any amounts not withheld and shall be fined $1,000.",
+     "cite_url": "https://www.leg.state.nv.us/nrs/nrs-612.html",
+     "cite": "NRS 612",
+     "name": "Nevada"
+    }
+   ],
+   "fetched": "2026-09-08",
+   "shape": "The section we fetched carries wording for all three questions: control, the firm's usual business, and the worker's own trade.",
+   "chars": 339490,
+   "status": "quoted",
+   "why": ""
+  },
+  {
+   "code": "NH",
+   "name": "New Hampshire",
+   "slug": "new-hampshire",
+   "source_url": "https://www.gencourt.state.nh.us/rsa/html/XXIII/282-A/282-A-9.htm",
+   "cite": "RSA 282-A:9",
+   "prongs": [
+    {
+     "id": "control",
+     "label": "Control over how the work is done",
+     "asks": "whether the worker is free from the hiring firm's control and direction over how the work is performed",
+     "quote": "…chapter unless and until it is shown to the satisfaction of the commissioner of the department of employment security that: (a) Such individual has been and will continue to be free from control or direction over the performance of such services, both under his contract of service and in fact;",
+     "cite_url": "https://www.gencourt.state.nh.us/rsa/html/XXIII/282-A/282-A-9.htm",
+     "cite": "RSA 282-A:9",
+     "documents": [
+      "The written agreement, and any schedule or statement of work attached to it",
+      "Messages that set hours, order of work or method (email, chat, job app)",
+      "Any training material, handbook or induction the worker was given",
+      "Timesheets, rotas or shift rosters the hiring firm produced"
+     ]
+    },
+    {
+     "id": "business",
+     "label": "Whether the work sits outside the hiring firm's usual business",
+     "asks": "whether the work performed is outside the usual course of the hiring firm's business, or outside all its places of business",
+     "quote": "and (b) Such service is either outside the usual course of the business for which such service is performed or that such service is performed outside of all the places of business of the enterprise for which such service is performed;",
+     "cite_url": "https://www.gencourt.state.nh.us/rsa/html/XXIII/282-A/282-A-9.htm",
+     "cite": "RSA 282-A:9",
+     "documents": [
+      "The hiring firm's own description of what it sells (website, catalogue, filings)",
+      "The job or brief the worker was engaged for, in writing",
+      "Any list of the firm's own staff doing the same kind of work",
+      "The address where the work was carried out"
+     ]
+    },
+    {
+     "id": "independent",
+     "label": "Whether the worker has an independent business of their own",
+     "asks": "whether the worker is customarily engaged in an independently established trade, occupation or business of the same kind",
+     "quote": "and (c) Such individual is customarily engaged in an independently established trade, occupation, profession, or business.",
+     "cite_url": "https://www.gencourt.state.nh.us/rsa/html/XXIII/282-A/282-A-9.htm",
+     "cite": "RSA 282-A:9",
+     "documents": [
+      "The worker's own business registration, licence or trading name",
+      "Invoices the worker raised, and invoices they raised to other firms",
+      "The worker's own advertising: website, listing, van livery, cards",
+      "Proof of the worker's own tools, equipment, premises or insurance"
+     ]
+    }
+   ],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "The section we fetched carries wording for all three questions: control, the firm's usual business, and the worker's own trade.",
+   "chars": 17980,
+   "status": "quoted",
+   "why": ""
+  },
+  {
+   "code": "NJ",
+   "name": "New Jersey",
+   "slug": "new-jersey",
+   "source_url": "https://www.nj.gov/labor/myworkrights/worker-protections/independent_contractors/",
+   "cite": "New Jersey Department of Labor, independent contractors (N.J.S.A. 43:21-19(i)(6))",
+   "prongs": [
+    {
+     "id": "control",
+     "label": "Control over how the work is done",
+     "asks": "whether the worker is free from the hiring firm's control and direction over how the work is performed",
+     "quote": "…Compensation Law 43:21-19(i)6(A)(B)(C), a worker should be considered an employee unless all the following circumstances apply: The individual has been and will continue to be free from control or direction over the performance of work performed, both under contract of service and in fact;",
+     "cite_url": "https://www.nj.gov/labor/myworkrights/worker-protections/independent_contractors/",
+     "cite": "New Jersey Department of Labor, independent contractors (N.J.S.A. 43:21-19(i)(6))",
+     "documents": [
+      "The written agreement, and any schedule or statement of work attached to it",
+      "Messages that set hours, order of work or method (email, chat, job app)",
+      "Any training material, handbook or induction the worker was given",
+      "Timesheets, rotas or shift rosters the hiring firm produced"
+     ]
+    },
+    {
+     "id": "business",
+     "label": "Whether the work sits outside the hiring firm's usual business",
+     "asks": "whether the work performed is outside the usual course of the hiring firm's business, or outside all its places of business",
+     "quote": "and The work is either outside the usual course of the business for which such service is performed, or the work is performed outside of all the places of business of the enterprise for which such service is performed;",
+     "cite_url": "https://www.nj.gov/labor/myworkrights/worker-protections/independent_contractors/",
+     "cite": "New Jersey Department of Labor, independent contractors (N.J.S.A. 43:21-19(i)(6))",
+     "documents": [
+      "The hiring firm's own description of what it sells (website, catalogue, filings)",
+      "The job or brief the worker was engaged for, in writing",
+      "Any list of the firm's own staff doing the same kind of work",
+      "The address where the work was carried out"
+     ]
+    },
+    {
+     "id": "independent",
+     "label": "Whether the worker has an independent business of their own",
+     "asks": "whether the worker is customarily engaged in an independently established trade, occupation or business of the same kind",
+     "quote": "and The individual is customarily engaged in an independently established trade, occupation, profession or business.",
+     "cite_url": "https://www.nj.gov/labor/myworkrights/worker-protections/independent_contractors/",
+     "cite": "New Jersey Department of Labor, independent contractors (N.J.S.A. 43:21-19(i)(6))",
+     "documents": [
+      "The worker's own business registration, licence or trading name",
+      "Invoices the worker raised, and invoices they raised to other firms",
+      "The worker's own advertising: website, listing, van livery, cards",
+      "Proof of the worker's own tools, equipment, premises or insurance"
+     ]
+    }
+   ],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "The section we fetched carries wording for all three questions: control, the firm's usual business, and the worker's own trade.",
+   "chars": 19681,
+   "status": "quoted",
+   "why": ""
+  },
+  {
+   "code": "NM",
+   "name": "New Mexico",
+   "slug": "new-mexico",
+   "source_url": "https://www.dws.state.nm.us/Unemployment-Insurance-Tax",
+   "cite": "New Mexico Department of Workforce Solutions, unemployment insurance tax",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "wrong-page",
+   "why": "the page came back without the section number we asked for, so we do not treat it as that section"
+  },
+  {
+   "code": "NY",
+   "name": "New York",
+   "slug": "new-york",
+   "source_url": "https://dol.ny.gov/independent-contractors",
+   "cite": "New York State Department of Labor, independent contractors",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "No passage in the page we fetched carried any of the words we look for.",
+   "chars": 7749,
+   "status": "no-passage",
+   "why": "the page answered, but none of the words these tests are written with are in it"
+  },
+  {
+   "code": "NC",
+   "name": "North Carolina",
+   "slug": "north-carolina",
+   "source_url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_96/GS_96-1.html",
+   "cite": "N.C.G.S. 96-1",
+   "prongs": [
+    {
+     "id": "control",
+     "label": "Control over how the work is done",
+     "asks": "whether the worker is free from the hiring firm's control and direction over how the work is performed",
+     "quote": "- An individual who contracts to do work for a person and is not subject to that person's control or direction with respect to the manner in which the details of the work are to be performed or what the individual must do as the work progresses.",
+     "cite_url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_96/GS_96-1.html",
+     "cite": "N.C.G.S. 96-1",
+     "documents": [
+      "The written agreement, and any schedule or statement of work attached to it",
+      "Messages that set hours, order of work or method (email, chat, job app)",
+      "Any training material, handbook or induction the worker was given",
+      "Timesheets, rotas or shift rosters the hiring firm produced"
+     ]
+    }
+   ],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "The section we fetched carries wording for one of the three questions. The rest is not in the passage we quote.",
+   "chars": 7128,
+   "status": "quoted",
+   "why": ""
+  },
+  {
+   "code": "ND",
+   "name": "North Dakota",
+   "slug": "north-dakota",
+   "source_url": "https://www.jobsnd.com/unemployment-individuals/employer-liability",
+   "cite": "Job Service North Dakota, employer liability",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "unreachable",
+   "why": "the address answered 404 from this host"
+  },
+  {
+   "code": "OH",
+   "name": "Ohio",
+   "slug": "ohio",
+   "source_url": "https://codes.ohio.gov/ohio-revised-code/section-4141.01",
+   "cite": "Ohio Rev. Code 4141.01",
+   "prongs": [
+    {
+     "id": "control",
+     "label": "Control over how the work is done",
+     "asks": "whether the worker is free from the hiring firm's control and direction over how the work is performed",
+     "quote": "…a stockholder or a member of the board of directors of the corporation, unless it is shown to the satisfaction of the director that such individual has been and will continue to be free from direction or control over the performance of such service, both under a contract of service and in fact.",
+     "cite_url": "https://codes.ohio.gov/ohio-revised-code/section-4141.01",
+     "cite": "Ohio Rev. Code 4141.01",
+     "documents": [
+      "The written agreement, and any schedule or statement of work attached to it",
+      "Messages that set hours, order of work or method (email, chat, job app)",
+      "Any training material, handbook or induction the worker was given",
+      "Timesheets, rotas or shift rosters the hiring firm produced"
+     ]
+    }
+   ],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "The section we fetched carries wording for one of the three questions. The rest is not in the passage we quote.",
+   "chars": 51116,
+   "status": "quoted",
+   "why": ""
+  },
+  {
+   "code": "OK",
+   "name": "Oklahoma",
+   "slug": "oklahoma",
+   "source_url": "https://oklahoma.gov/oesc/businesses.html",
+   "cite": "Oklahoma Employment Security Commission, businesses",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "unreachable",
+   "why": "the address answered 404 from this host"
+  },
+  {
+   "code": "OR",
+   "name": "Oregon",
+   "slug": "oregon",
+   "source_url": "https://www.oregon.gov/boli/employers/pages/independent-contractors.aspx",
+   "cite": "Oregon Bureau of Labor and Industries, independent contractors",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "unreachable",
+   "why": "the address answered 404 from this host"
+  },
+  {
+   "code": "PA",
+   "name": "Pennsylvania",
+   "slug": "pennsylvania",
+   "source_url": "https://www.pa.gov/agencies/dli/programs-services/unemployment-benefits.html",
+   "cite": "Pennsylvania Department of Labor and Industry, unemployment benefits",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "unreachable",
+   "why": "the address answered 404 from this host"
+  },
+  {
+   "code": "RI",
+   "name": "Rhode Island",
+   "slug": "rhode-island",
+   "source_url": "https://webserver.rilegislature.gov/Statutes/TITLE28/28-42/28-42-8.HTM",
+   "cite": "R.I. Gen. Laws 28-42-8",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "No passage in the page we fetched carried any of the words we look for.",
+   "chars": 8223,
+   "status": "no-passage",
+   "why": "the page answered, but none of the words these tests are written with are in it"
+  },
+  {
+   "code": "SC",
+   "name": "South Carolina",
+   "slug": "south-carolina",
+   "source_url": "https://www.scstatehouse.gov/code/t41c027.php",
+   "cite": "S.C. Code 41-27-260",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "No passage in the page we fetched carried any of the words we look for.",
+   "chars": 107127,
+   "status": "no-passage",
+   "why": "the page answered, but none of the words these tests are written with are in it"
+  },
+  {
+   "code": "SD",
+   "name": "South Dakota",
+   "slug": "south-dakota",
+   "source_url": "https://sdlegislature.gov/Statutes/61-1-11",
+   "cite": "SDCL 61-1-11",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "wrong-page",
+   "why": "the page came back without the section number we asked for, so we do not treat it as that section"
+  },
+  {
+   "code": "TN",
+   "name": "Tennessee",
+   "slug": "tennessee",
+   "source_url": "https://www.tn.gov/workforce/employers/tax-and-insurance-redirect/unemployment-insurance-tax.html",
+   "cite": "Tennessee Department of Labor and Workforce Development, unemployment insurance tax",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "No passage in the page we fetched carried any of the words we look for.",
+   "chars": 6392,
+   "status": "no-passage",
+   "why": "the page answered, but none of the words these tests are written with are in it"
+  },
+  {
+   "code": "TX",
+   "name": "Texas",
+   "slug": "texas",
+   "source_url": "https://www.twc.texas.gov/programs/unemployment-tax/independent-contractor-test",
+   "cite": "Texas Workforce Commission, independent contractor test",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "unreachable",
+   "why": "the address answered 404 from this host"
+  },
+  {
+   "code": "UT",
+   "name": "Utah",
+   "slug": "utah",
+   "source_url": "https://le.utah.gov/xcode/Title35A/Chapter4/35A-4-S204.html",
+   "cite": "Utah Code 35A-4-204",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "wrong-page",
+   "why": "the page came back without the section number we asked for, so we do not treat it as that section"
+  },
+  {
+   "code": "VT",
+   "name": "Vermont",
+   "slug": "vermont",
+   "source_url": "https://legislature.vermont.gov/statutes/section/21/017/01301",
+   "cite": "21 V.S.A. 1301",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "unreachable",
+   "why": "the address answered 0 from this host"
+  },
+  {
+   "code": "VA",
+   "name": "Virginia",
+   "slug": "virginia",
+   "source_url": "https://law.lis.virginia.gov/vacode/title60.2/chapter2/section60.2-212/",
+   "cite": "Va. Code 60.2-212",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "No passage in the page we fetched carried any of the words we look for.",
+   "chars": 4874,
+   "status": "no-passage",
+   "why": "the page answered, but none of the words these tests are written with are in it"
+  },
+  {
+   "code": "WA",
+   "name": "Washington",
+   "slug": "washington",
+   "source_url": "https://app.leg.wa.gov/RCW/default.aspx?cite=51.08.195",
+   "cite": "RCW 51.08.195",
+   "prongs": [
+    {
+     "id": "control",
+     "label": "Control over how the work is done",
+     "asks": "whether the worker is free from the hiring firm's control and direction over how the work is performed",
+     "quote": "…, services performed by an individual for remuneration shall not constitute employment subject to this title if it is shown that: (1) The individual has been and will continue to be free from control or direction over the performance of the service, both under the contract of service and in fact;",
+     "cite_url": "https://app.leg.wa.gov/RCW/default.aspx?cite=51.08.195",
+     "cite": "RCW 51.08.195",
+     "documents": [
+      "The written agreement, and any schedule or statement of work attached to it",
+      "Messages that set hours, order of work or method (email, chat, job app)",
+      "Any training material, handbook or induction the worker was given",
+      "Timesheets, rotas or shift rosters the hiring firm produced"
+     ]
+    },
+    {
+     "id": "business",
+     "label": "Whether the work sits outside the hiring firm's usual business",
+     "asks": "whether the work performed is outside the usual course of the hiring firm's business, or outside all its places of business",
+     "quote": "and (2) The service is either outside the usual course of business for which the service is performed, or the service is performed outside all of the places of business of the enterprise for which the service is performed, or the individual is responsible, both under the contract and in fact, for…",
+     "cite_url": "https://app.leg.wa.gov/RCW/default.aspx?cite=51.08.195",
+     "cite": "RCW 51.08.195",
+     "documents": [
+      "The hiring firm's own description of what it sells (website, catalogue, filings)",
+      "The job or brief the worker was engaged for, in writing",
+      "Any list of the firm's own staff doing the same kind of work",
+      "The address where the work was carried out"
+     ]
+    },
+    {
+     "id": "independent",
+     "label": "Whether the worker has an independent business of their own",
+     "asks": "whether the worker is customarily engaged in an independently established trade, occupation or business of the same kind",
+     "quote": "and (3) The individual is customarily engaged in an independently established trade, occupation, profession, or business, of the same nature as that involved in the contract of service, or the individual has a principal place of business for the business the individual is conducting that is…",
+     "cite_url": "https://app.leg.wa.gov/RCW/default.aspx?cite=51.08.195",
+     "cite": "RCW 51.08.195",
+     "documents": [
+      "The worker's own business registration, licence or trading name",
+      "Invoices the worker raised, and invoices they raised to other firms",
+      "The worker's own advertising: website, listing, van livery, cards",
+      "Proof of the worker's own tools, equipment, premises or insurance"
+     ]
+    }
+   ],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "The section we fetched carries wording for all three questions: control, the firm's usual business, and the worker's own trade.",
+   "chars": 6335,
+   "status": "quoted",
+   "why": ""
+  },
+  {
+   "code": "WV",
+   "name": "West Virginia",
+   "slug": "west-virginia",
+   "source_url": "https://code.wvlegislature.gov/21A-1-3/",
+   "cite": "W. Va. Code 21A-1-3",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "No passage in the page we fetched carried any of the words we look for.",
+   "chars": 13027,
+   "status": "no-passage",
+   "why": "the page answered, but none of the words these tests are written with are in it"
+  },
+  {
+   "code": "WI",
+   "name": "Wisconsin",
+   "slug": "wisconsin",
+   "source_url": "https://docs.legis.wisconsin.gov/statutes/statutes/108/02/12",
+   "cite": "Wis. Stat. 108.02(12)",
+   "prongs": [
+    {
+     "id": "control",
+     "label": "Control over how the work is done",
+     "asks": "whether the worker is free from the hiring firm's control and direction over how the work is performed",
+     "quote": "The services of the individual are performed free from control or direction by the employing unit over the performance of his or her services.",
+     "cite_url": "https://docs.legis.wisconsin.gov/statutes/statutes/108/02/12",
+     "cite": "Wis. Stat. 108.02(12)",
+     "documents": [
+      "The written agreement, and any schedule or statement of work attached to it",
+      "Messages that set hours, order of work or method (email, chat, job app)",
+      "Any training material, handbook or induction the worker was given",
+      "Timesheets, rotas or shift rosters the hiring firm produced"
+     ]
+    },
+    {
+     "id": "independent",
+     "label": "Whether the worker has an independent business of their own",
+     "asks": "whether the worker is customarily engaged in an independently established trade, occupation or business of the same kind",
+     "quote": "That such services have been performed in an independently established trade, business or profession in which the individual is customarily engaged.",
+     "cite_url": "https://docs.legis.wisconsin.gov/statutes/statutes/108/02/12",
+     "cite": "Wis. Stat. 108.02(12)",
+     "documents": [
+      "The worker's own business registration, licence or trading name",
+      "Invoices the worker raised, and invoices they raised to other firms",
+      "The worker's own advertising: website, listing, van livery, cards",
+      "Proof of the worker's own tools, equipment, premises or insurance"
+     ]
+    }
+   ],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "The section we fetched carries wording for two of the three questions. The third is not in the passage we quote.",
+   "chars": 22810,
+   "status": "quoted",
+   "why": ""
+  },
+  {
+   "code": "WY",
+   "name": "Wyoming",
+   "slug": "wyoming",
+   "source_url": "https://dws.wyo.gov/dws-division/unemployment-insurance/",
+   "cite": "Wyoming Department of Workforce Services, unemployment insurance",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "No passage in the page we fetched carried any of the words we look for.",
+   "chars": 4339,
+   "status": "no-passage",
+   "why": "the page answered, but none of the words these tests are written with are in it"
+  }
+ ],
+ "federal": [
+  {
+   "code": "US-DOL",
+   "name": "Federal wage law (economic reality)",
+   "slug": "federal-wage-law-economic-reality",
+   "source_url": "https://www.ecfr.gov/api/versioner/v1/full/2026-01-01/title-29.xml?part=795",
+   "cite": "29 CFR part 795",
+   "prongs": [
+    {
+     "id": "profit-loss",
+     "label": "Opportunity for profit or loss depending on managerial skill",
+     "asks": "whether the worker can make more or less money by the way they run the work",
+     "quote": "(b) Economic reality factors —(1) Opportunity for profit or loss depending on managerial skill.",
+     "cite_url": "https://www.ecfr.gov/api/versioner/v1/full/2026-01-01/title-29.xml?part=795",
+     "cite": "29 CFR part 795",
+     "documents": [
+      "Quotes and bids the worker gave",
+      "Any job the worker turned down",
+      "Evidence the worker set or negotiated their own rate",
+      "Records of the worker's own costs on the job"
+     ]
+    },
+    {
+     "id": "investment",
+     "label": "Investments by the worker and the potential employer",
+     "asks": "whether the worker put their own money into equipment or capacity",
+     "quote": "(2) Investments by the worker and the potential employer.",
+     "cite_url": "https://www.ecfr.gov/api/versioner/v1/full/2026-01-01/title-29.xml?part=795",
+     "cite": "29 CFR part 795",
+     "documents": [
+      "Receipts for the worker's own tools, vehicle or software",
+      "The hiring firm's own equipment list for the same work",
+      "Lease or finance agreements in the worker's own name",
+      "Insurance the worker bought for the work"
+     ]
+    },
+    {
+     "id": "permanence",
+     "label": "Degree of permanence of the work relationship",
+     "asks": "whether the arrangement is open-ended or for a definite piece of work",
+     "quote": "(3) Degree of permanence of the work relationship.",
+     "cite_url": "https://www.ecfr.gov/api/versioner/v1/full/2026-01-01/title-29.xml?part=795",
+     "cite": "29 CFR part 795",
+     "documents": [
+      "Start and end dates in the written agreement",
+      "Every renewal or extension, in writing",
+      "The full payment history and its dates",
+      "Records of the worker's engagements with other firms in the same period"
+     ]
+    },
+    {
+     "id": "control-fed",
+     "label": "Nature and degree of control",
+     "asks": "who sets the schedule, supervises the work and sets the terms",
+     "quote": "(4) Nature and degree of control.",
+     "cite_url": "https://www.ecfr.gov/api/versioner/v1/full/2026-01-01/title-29.xml?part=795",
+     "cite": "29 CFR part 795",
+     "documents": [
+      "Rotas, schedules or shift assignments",
+      "Supervision notes, reviews or quality checks",
+      "Rules the worker had to follow beyond the law",
+      "Any exclusivity or non-compete clause"
+     ]
+    },
+    {
+     "id": "integral",
+     "label": "Extent to which the work is an integral part of the business",
+     "asks": "whether the work is part of what the hiring firm exists to do",
+     "quote": "(5) Extent to which the work performed is an integral part of the potential employer's business.",
+     "cite_url": "https://www.ecfr.gov/api/versioner/v1/full/2026-01-01/title-29.xml?part=795",
+     "cite": "29 CFR part 795",
+     "documents": [
+      "The hiring firm's own description of its business",
+      "Revenue split by the service the worker performed",
+      "Whether the firm's own staff do the same work",
+      "What the firm sells to its own customers"
+     ]
+    },
+    {
+     "id": "skill",
+     "label": "Skill and initiative",
+     "asks": "whether the worker brings specialised skill they use in their own business",
+     "quote": "(6) Skill and initiative.",
+     "cite_url": "https://www.ecfr.gov/api/versioner/v1/full/2026-01-01/title-29.xml?part=795",
+     "cite": "29 CFR part 795",
+     "documents": [
+      "The worker's qualifications, tickets or certificates",
+      "Training the worker paid for themselves",
+      "The worker's own marketing of that skill",
+      "Evidence the firm trained the worker instead"
+     ]
+    }
+   ],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "The section we fetched carries wording for all three questions: control, the firm's usual business, and the worker's own trade.",
+   "chars": 11980,
+   "status": "quoted",
+   "why": ""
+  },
+  {
+   "code": "US-DOL-NEWS",
+   "name": "Federal wage law rulemaking",
+   "slug": "federal-wage-law-rulemaking",
+   "source_url": "https://www.dol.gov/newsroom/releases/whd/whd20260226",
+   "cite": "US Department of Labor news release, 26 February 2026",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "",
+   "shape": "",
+   "chars": 0,
+   "status": "unreachable",
+   "why": "the address answered 403 from this host"
+  },
+  {
+   "code": "US-IRS",
+   "name": "Federal employment tax (common-law control)",
+   "slug": "federal-employment-tax-common-law-control",
+   "source_url": "https://www.irs.gov/businesses/small-businesses-self-employed/independent-contractor-self-employed-or-employee",
+   "cite": "IRS: Independent contractor (self-employed) or employee?",
+   "prongs": [
+    {
+     "id": "behavioral",
+     "label": "Behavioral control",
+     "asks": "whether the firm has the right to direct and control how the work is done",
+     "quote": "…of the degree of control and independence fall into three categories: Behavioral : Does the company control or have the right to control what the worker does and how the worker does his or her job? Financial : Are the business aspects of the worker's job controlled by the payer? (these…",
+     "cite_url": "https://www.irs.gov/businesses/small-businesses-self-employed/independent-contractor-self-employed-or-employee",
+     "cite": "IRS: Independent contractor (self-employed) or employee?",
+     "documents": [
+      "Instructions given about when, where and how to work",
+      "Training the firm provided",
+      "Evaluation systems the firm applied",
+      "Any required tools, systems or procedures"
+     ]
+    },
+    {
+     "id": "financial",
+     "label": "Financial control",
+     "asks": "whether the firm controls the money side of the job",
+     "quote": "…to control what the worker does and how the worker does his or her job? Financial : Are the business aspects of the worker's job controlled by the payer? (these include things like how worker is paid, whether expenses are reimbursed, who provides tools/supplies, etc.) Type of relationship :…",
+     "cite_url": "https://www.irs.gov/businesses/small-businesses-self-employed/independent-contractor-self-employed-or-employee",
+     "cite": "IRS: Independent contractor (self-employed) or employee?",
+     "documents": [
+      "How and when the worker was paid, and on what document",
+      "Unreimbursed expenses the worker carried",
+      "The worker's own investment in equipment",
+      "Whether the worker offers the service to the wider market"
+     ]
+    },
+    {
+     "id": "relationship",
+     "label": "Type of relationship",
+     "asks": "what the two sides agreed and how permanent it looks",
+     "quote": "…paid, whether expenses are reimbursed, who provides tools/supplies, etc.) Type of relationship : Are there written contracts or employee type benefits (that is, pension plan, insurance, vacation pay, etc.)? Will the relationship continue and is the work performed a key aspect of the business?…",
+     "cite_url": "https://www.irs.gov/businesses/small-businesses-self-employed/independent-contractor-self-employed-or-employee",
+     "cite": "IRS: Independent contractor (self-employed) or employee?",
+     "documents": [
+      "The written contract itself",
+      "Any benefits given (insurance, pension, paid leave)",
+      "How long the arrangement has run",
+      "Whether the work is a key part of the firm's regular business"
+     ]
+    }
+   ],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "The section we fetched carries wording for all three questions: control, the firm's usual business, and the worker's own trade.",
+   "chars": 14225,
+   "status": "quoted",
+   "why": ""
+  },
+  {
+   "code": "US-IRS-SS8",
+   "name": "Form SS-8 determination",
+   "slug": "form-ss-8-determination",
+   "source_url": "https://www.irs.gov/businesses/small-businesses-self-employed/completing-form-ss-8",
+   "cite": "IRS: Completing Form SS-8",
+   "prongs": [],
+   "penalties": [],
+   "fetched": "2026-09-08",
+   "shape": "No passage in the page we fetched carried any of the words we look for.",
+   "chars": 12064,
+   "status": "no-passage",
+   "why": "the page answered, but none of the words these tests are written with are in it"
+  }
+ ]
+}

@@ -1,0 +1,410 @@
+{
+ "generated": "2026-09-08",
+ "citations": [
+  {
+   "key": "CA:control",
+   "jurisdiction": "California",
+   "cite": "Cal. Lab. Code 2775",
+   "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=2775.&lawCode=LAB",
+   "quote": "…contractor unless the hiring entity demonstrates that all of the following conditions are satisfied: (A) The person is free from the control and direction of the hiring entity in connection with the performance of the work, both under the contract for the performance of the work and in fact.",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "CA:business",
+   "jurisdiction": "California",
+   "cite": "Cal. Lab. Code 2775",
+   "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=2775.&lawCode=LAB",
+   "quote": "(B) The person performs work that is outside the usual course of the hiring entity's business.",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "CA:independent",
+   "jurisdiction": "California",
+   "cite": "Cal. Lab. Code 2775",
+   "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=2775.&lawCode=LAB",
+   "quote": "(C) The person is customarily engaged in an independently established trade, occupation, or business of the same nature as that involved in the work performed.",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "CA:penalty0",
+   "jurisdiction": "California",
+   "cite": "Cal. Lab. Code 226.8",
+   "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=LAB&sectionNum=226.8",
+   "quote": "…in any of the enumerated violations of subdivision (a), the person or employer shall be subject to a civil penalty of not less than five thousand dollars ($5,000) and not more than fifteen thousand dollars ($15,000) for each violation, in addition to any other penalties or fines permitted by law.",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "HI:control",
+   "jurisdiction": "Hawaii",
+   "cite": "HRS 383-6",
+   "url": "https://www.capitol.hawaii.gov/hrscurrent/Vol07_Ch0346-0398/HRS0383/HRS_0383-0006.htm",
+   "quote": "…exists unless and until it is shown to the satisfaction of the department of labor and industrial relations that: (1) The individual has been and will continue to be free from control or direction over the performance of such service, both under the individual's contract of hire and in fact;",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "HI:business",
+   "jurisdiction": "Hawaii",
+   "cite": "HRS 383-6",
+   "url": "https://www.capitol.hawaii.gov/hrscurrent/Vol07_Ch0346-0398/HRS0383/HRS_0383-0006.htm",
+   "quote": "(2) The service is either outside the usual course of the business for which the service is performed or that the service is performed outside of all the places of business of the enterprise for which the service is performed;",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "HI:independent",
+   "jurisdiction": "Hawaii",
+   "cite": "HRS 383-6",
+   "url": "https://www.capitol.hawaii.gov/hrscurrent/Vol07_Ch0346-0398/HRS0383/HRS_0383-0006.htm",
+   "quote": "and (3) The individual is customarily engaged in an independently established trade, occupation, profession, or business of the same nature as that involved in the contract of service.",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "ID:control",
+   "jurisdiction": "Idaho",
+   "cite": "Idaho Code 72-1316",
+   "url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH13/SECT72-1316/",
+   "quote": "…by an individual for remuneration shall, for the purposes of the employment security law, be covered employment unless it is shown: (a) That the worker has been and will continue to be free from control or direction in the performance of his work, both under his contract of service and in fact;",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "ID:independent",
+   "jurisdiction": "Idaho",
+   "cite": "Idaho Code 72-1316",
+   "url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH13/SECT72-1316/",
+   "quote": "and (b) That the worker is engaged in an independently established trade, occupation, profession, or business.",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "ME:control",
+   "jurisdiction": "Maine",
+   "cite": "26 M.R.S. 1043",
+   "url": "https://legislature.maine.gov/statutes/26/title26sec1043.html",
+   "quote": "…it is shown to the satisfaction of the bureau that the individual is free from the essential direction and control of the employing unit, both under the individual's contract of service and in fact, and the employing unit proves that the individual meets all of the criteria in subparagraph…",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "ME:business",
+   "jurisdiction": "Maine",
+   "cite": "26 M.R.S. 1043",
+   "url": "https://legislature.maine.gov/statutes/26/title26sec1043.html",
+   "quote": "(f) The work is outside the usual course of business for which the service is performed;",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "ME:independent",
+   "jurisdiction": "Maine",
+   "cite": "26 M.R.S. 1043",
+   "url": "https://legislature.maine.gov/statutes/26/title26sec1043.html",
+   "quote": "(b) The individual is customarily engaged in an independently established trade, occupation, profession or business;",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "MA:control",
+   "jurisdiction": "Massachusetts",
+   "cite": "Mass. Gen. Laws c.149 148B",
+   "url": "https://malegislature.gov/laws/generallaws/parti/titlexxi/chapter149/section148B",
+   "quote": "…any service, except as authorized under this chapter, shall be considered to be an employee under those chapters unless:— (1) the individual is free from control and direction in connection with the performance of the service, both under his contract for the performance of service and in fact;",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "MA:business",
+   "jurisdiction": "Massachusetts",
+   "cite": "Mass. Gen. Laws c.149 148B",
+   "url": "https://malegislature.gov/laws/generallaws/parti/titlexxi/chapter149/section148B",
+   "quote": "and (2) the service is performed outside the usual course of the business of the employer;",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "MA:independent",
+   "jurisdiction": "Massachusetts",
+   "cite": "Mass. Gen. Laws c.149 148B",
+   "url": "https://malegislature.gov/laws/generallaws/parti/titlexxi/chapter149/section148B",
+   "quote": "and, (3) the individual is customarily engaged in an independently established trade, occupation, profession or business of the same nature as that involved in the service performed.",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "MA:penalty0",
+   "jurisdiction": "Massachusetts",
+   "cite": "Mass. Gen. Laws c.149 27C",
+   "url": "https://malegislature.gov/laws/generallaws/parti/titlexxi/chapter149/section27C",
+   "quote": "…may be issued requiring any or all of the following: that the infraction be rectified, that restitution be made to the aggrieved party, or that a civil penalty of not more than $25,000 for each violation be paid to the commonwealth, within 21 days of the date of issuance of such citation.",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "NE:control",
+   "jurisdiction": "Nebraska",
+   "cite": "Neb. Rev. Stat. 48-604",
+   "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=48-604",
+   "quote": "…commissioner that (a) such individual has been and will continue to be free from control or direction over the performance of such services, both under his or her contract of service and in fact, (b) such service is either outside the usual course of the business for which such service is…",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "NE:business",
+   "jurisdiction": "Nebraska",
+   "cite": "Neb. Rev. Stat. 48-604",
+   "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=48-604",
+   "quote": "…his or her contract of service and in fact, (b) such service is either outside the usual course of the business for which such service is performed or such service is performed outside of all the places of business of the enterprise for which such service is performed, and (c) such individual…",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "NE:independent",
+   "jurisdiction": "Nebraska",
+   "cite": "Neb. Rev. Stat. 48-604",
+   "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=48-604",
+   "quote": "…of the business for which such service is performed or such service is performed outside of all the places of business of the enterprise for which such service is performed, and (c) such individual is customarily engaged in an independently established trade, occupation, profession, or business.",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "NV:control",
+   "jurisdiction": "Nevada",
+   "cite": "NRS 612",
+   "url": "https://www.leg.state.nv.us/nrs/nrs-612.html",
+   "quote": "The person has been and will continue to be free from control or direction over the performance of the services, both under his or her contract of service and in fact;",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "NV:business",
+   "jurisdiction": "Nevada",
+   "cite": "NRS 612",
+   "url": "https://www.leg.state.nv.us/nrs/nrs-612.html",
+   "quote": "The service is either outside the usual course of the business for which the service is performed or that the service is performed outside of all the places of business of the enterprises for which the service is performed;",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "NV:independent",
+   "jurisdiction": "Nevada",
+   "cite": "NRS 612",
+   "url": "https://www.leg.state.nv.us/nrs/nrs-612.html",
+   "quote": "The service is performed in the course of an independently established trade, occupation, profession or business in which the person is customarily engaged, of the same nature as that involved in the contract of service.",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "NV:penalty0",
+   "jurisdiction": "Nevada",
+   "cite": "NRS 612",
+   "url": "https://www.leg.state.nv.us/nrs/nrs-612.html",
+   "quote": "Any employer who violates this section shall hire or reinstate any such employee with no loss of pay or benefits, is liable for any amounts not withheld and shall be fined $1,000.",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "NH:control",
+   "jurisdiction": "New Hampshire",
+   "cite": "RSA 282-A:9",
+   "url": "https://www.gencourt.state.nh.us/rsa/html/XXIII/282-A/282-A-9.htm",
+   "quote": "…chapter unless and until it is shown to the satisfaction of the commissioner of the department of employment security that: (a) Such individual has been and will continue to be free from control or direction over the performance of such services, both under his contract of service and in fact;",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "NH:business",
+   "jurisdiction": "New Hampshire",
+   "cite": "RSA 282-A:9",
+   "url": "https://www.gencourt.state.nh.us/rsa/html/XXIII/282-A/282-A-9.htm",
+   "quote": "and (b) Such service is either outside the usual course of the business for which such service is performed or that such service is performed outside of all the places of business of the enterprise for which such service is performed;",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "NH:independent",
+   "jurisdiction": "New Hampshire",
+   "cite": "RSA 282-A:9",
+   "url": "https://www.gencourt.state.nh.us/rsa/html/XXIII/282-A/282-A-9.htm",
+   "quote": "and (c) Such individual is customarily engaged in an independently established trade, occupation, profession, or business.",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "NJ:control",
+   "jurisdiction": "New Jersey",
+   "cite": "New Jersey Department of Labor, independent contractors (N.J.S.A. 43:21-19(i)(6))",
+   "url": "https://www.nj.gov/labor/myworkrights/worker-protections/independent_contractors/",
+   "quote": "…Compensation Law 43:21-19(i)6(A)(B)(C), a worker should be considered an employee unless all the following circumstances apply: The individual has been and will continue to be free from control or direction over the performance of work performed, both under contract of service and in fact;",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "NJ:business",
+   "jurisdiction": "New Jersey",
+   "cite": "New Jersey Department of Labor, independent contractors (N.J.S.A. 43:21-19(i)(6))",
+   "url": "https://www.nj.gov/labor/myworkrights/worker-protections/independent_contractors/",
+   "quote": "and The work is either outside the usual course of the business for which such service is performed, or the work is performed outside of all the places of business of the enterprise for which such service is performed;",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "NJ:independent",
+   "jurisdiction": "New Jersey",
+   "cite": "New Jersey Department of Labor, independent contractors (N.J.S.A. 43:21-19(i)(6))",
+   "url": "https://www.nj.gov/labor/myworkrights/worker-protections/independent_contractors/",
+   "quote": "and The individual is customarily engaged in an independently established trade, occupation, profession or business.",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "NC:control",
+   "jurisdiction": "North Carolina",
+   "cite": "N.C.G.S. 96-1",
+   "url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_96/GS_96-1.html",
+   "quote": "- An individual who contracts to do work for a person and is not subject to that person's control or direction with respect to the manner in which the details of the work are to be performed or what the individual must do as the work progresses.",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "OH:control",
+   "jurisdiction": "Ohio",
+   "cite": "Ohio Rev. Code 4141.01",
+   "url": "https://codes.ohio.gov/ohio-revised-code/section-4141.01",
+   "quote": "…a stockholder or a member of the board of directors of the corporation, unless it is shown to the satisfaction of the director that such individual has been and will continue to be free from direction or control over the performance of such service, both under a contract of service and in fact.",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "WA:control",
+   "jurisdiction": "Washington",
+   "cite": "RCW 51.08.195",
+   "url": "https://app.leg.wa.gov/RCW/default.aspx?cite=51.08.195",
+   "quote": "…, services performed by an individual for remuneration shall not constitute employment subject to this title if it is shown that: (1) The individual has been and will continue to be free from control or direction over the performance of the service, both under the contract of service and in fact;",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "WA:business",
+   "jurisdiction": "Washington",
+   "cite": "RCW 51.08.195",
+   "url": "https://app.leg.wa.gov/RCW/default.aspx?cite=51.08.195",
+   "quote": "and (2) The service is either outside the usual course of business for which the service is performed, or the service is performed outside all of the places of business of the enterprise for which the service is performed, or the individual is responsible, both under the contract and in fact, for…",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "WA:independent",
+   "jurisdiction": "Washington",
+   "cite": "RCW 51.08.195",
+   "url": "https://app.leg.wa.gov/RCW/default.aspx?cite=51.08.195",
+   "quote": "and (3) The individual is customarily engaged in an independently established trade, occupation, profession, or business, of the same nature as that involved in the contract of service, or the individual has a principal place of business for the business the individual is conducting that is…",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "WI:control",
+   "jurisdiction": "Wisconsin",
+   "cite": "Wis. Stat. 108.02(12)",
+   "url": "https://docs.legis.wisconsin.gov/statutes/statutes/108/02/12",
+   "quote": "The services of the individual are performed free from control or direction by the employing unit over the performance of his or her services.",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "WI:independent",
+   "jurisdiction": "Wisconsin",
+   "cite": "Wis. Stat. 108.02(12)",
+   "url": "https://docs.legis.wisconsin.gov/statutes/statutes/108/02/12",
+   "quote": "That such services have been performed in an independently established trade, business or profession in which the individual is customarily engaged.",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "US-DOL:profit-loss",
+   "jurisdiction": "Federal wage law (economic reality)",
+   "cite": "29 CFR part 795",
+   "url": "https://www.ecfr.gov/api/versioner/v1/full/2026-01-01/title-29.xml?part=795",
+   "quote": "(b) Economic reality factors —(1) Opportunity for profit or loss depending on managerial skill.",
+   "fetched": "2026-09-08",
+   "status": "unchanged"
+  },
+  {
+   "key": "US-DOL:investment",
+   "jurisdiction": "Federal wage law (economic reality)",
+   "cite": "29 CFR part 795",
+   "url": "https://www.ecfr.gov/api/versioner/v1/full/2026-01-01/title-29.xml?part=795",
+   "quote": "(2) Investments by the worker and the potential employer.",
+   "fetched": "2026-09-08",
+   "status": "unchanged"
+  },
+  {
+   "key": "US-DOL:permanence",
+   "jurisdiction": "Federal wage law (economic reality)",
+   "cite": "29 CFR part 795",
+   "url": "https://www.ecfr.gov/api/versioner/v1/full/2026-01-01/title-29.xml?part=795",
+   "quote": "(3) Degree of permanence of the work relationship.",
+   "fetched": "2026-09-08",
+   "status": "unchanged"
+  },
+  {
+   "key": "US-DOL:control-fed",
+   "jurisdiction": "Federal wage law (economic reality)",
+   "cite": "29 CFR part 795",
+   "url": "https://www.ecfr.gov/api/versioner/v1/full/2026-01-01/title-29.xml?part=795",
+   "quote": "(4) Nature and degree of control.",
+   "fetched": "2026-09-08",
+   "status": "unchanged"
+  },
+  {
+   "key": "US-DOL:integral",
+   "jurisdiction": "Federal wage law (economic reality)",
+   "cite": "29 CFR part 795",
+   "url": "https://www.ecfr.gov/api/versioner/v1/full/2026-01-01/title-29.xml?part=795",
+   "quote": "(5) Extent to which the work performed is an integral part of the potential employer's business.",
+   "fetched": "2026-09-08",
+   "status": "unchanged"
+  },
+  {
+   "key": "US-DOL:skill",
+   "jurisdiction": "Federal wage law (economic reality)",
+   "cite": "29 CFR part 795",
+   "url": "https://www.ecfr.gov/api/versioner/v1/full/2026-01-01/title-29.xml?part=795",
+   "quote": "(6) Skill and initiative.",
+   "fetched": "2026-09-08",
+   "status": "unchanged"
+  },
+  {
+   "key": "US-IRS:behavioral",
+   "jurisdiction": "Federal employment tax (common-law control)",
+   "cite": "IRS: Independent contractor (self-employed) or employee?",
+   "url": "https://www.irs.gov/businesses/small-businesses-self-employed/independent-contractor-self-employed-or-employee",
+   "quote": "…of the degree of control and independence fall into three categories: Behavioral : Does the company control or have the right to control what the worker does and how the worker does his or her job? Financial : Are the business aspects of the worker's job controlled by the payer? (these…",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "US-IRS:financial",
+   "jurisdiction": "Federal employment tax (common-law control)",
+   "cite": "IRS: Independent contractor (self-employed) or employee?",
+   "url": "https://www.irs.gov/businesses/small-businesses-self-employed/independent-contractor-self-employed-or-employee",
+   "quote": "…to control what the worker does and how the worker does his or her job? Financial : Are the business aspects of the worker's job controlled by the payer? (these include things like how worker is paid, whether expenses are reimbursed, who provides tools/supplies, etc.) Type of relationship :…",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  },
+  {
+   "key": "US-IRS:relationship",
+   "jurisdiction": "Federal employment tax (common-law control)",
+   "cite": "IRS: Independent contractor (self-employed) or employee?",
+   "url": "https://www.irs.gov/businesses/small-businesses-self-employed/independent-contractor-self-employed-or-employee",
+   "quote": "…paid, whether expenses are reimbursed, who provides tools/supplies, etc.) Type of relationship : Are there written contracts or employee type benefits (that is, pension plan, insurance, vacation pay, etc.)? Will the relationship continue and is the work performed a key aspect of the business?…",
+   "fetched": "2026-09-08",
+   "status": "fetched"
+  }
+ ]
+}

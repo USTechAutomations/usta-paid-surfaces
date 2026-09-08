@@ -1,0 +1,257 @@
+{
+ "note": "Eighteen questions in plain words. Each one is tied to the family of prongs it touches, and each carries the documents an auditor would expect to see behind the answer. The tool records the answer and lists the documents. It never scores, ranks or concludes.",
+ "prong_families": {
+  "control": "Control over how the work is done",
+  "business": "Whether the work sits inside your usual business",
+  "independent": "Whether the worker has a business of their own"
+ },
+ "questions": [
+  {
+   "id": "hours",
+   "family": "control",
+   "ask": "Who decides the days and hours the work happens?",
+   "options": [
+    "The worker decides",
+    "We decide",
+    "We set a window, the worker picks inside it"
+   ],
+   "documents": [
+    "Any schedule, rota or shift message you sent",
+    "The written agreement clause on hours"
+   ]
+  },
+  {
+   "id": "how",
+   "family": "control",
+   "ask": "Who decides the method — the actual steps used to do the job?",
+   "options": [
+    "The worker decides",
+    "We decide",
+    "We give a spec, the worker picks the method"
+   ],
+   "documents": [
+    "Your written spec, brief or standard operating procedure",
+    "Emails or chat where the method was set"
+   ]
+  },
+  {
+   "id": "supervise",
+   "family": "control",
+   "ask": "Does anyone at your firm supervise or review the work while it is in progress?",
+   "options": [
+    "No",
+    "Yes, in progress",
+    "Only the finished result is checked"
+   ],
+   "documents": [
+    "Supervisor notes, check-in calendar invites",
+    "Quality review or sign-off records"
+   ]
+  },
+  {
+   "id": "train",
+   "family": "control",
+   "ask": "Did you train the worker in how you want the work done?",
+   "options": [
+    "No",
+    "Yes",
+    "Only an induction on site rules or safety"
+   ],
+   "documents": [
+    "Training materials, induction pack, attendance record"
+   ]
+  },
+  {
+   "id": "where",
+   "family": "control",
+   "ask": "Where is the work done?",
+   "options": [
+    "The worker's own place",
+    "Your premises",
+    "The customer's site",
+    "Mixed"
+   ],
+   "documents": [
+    "Site or access records",
+    "The agreement clause on place of work"
+   ]
+  },
+  {
+   "id": "tools",
+   "family": "control",
+   "ask": "Who supplies the tools, equipment and materials?",
+   "options": [
+    "The worker",
+    "You",
+    "Both"
+   ],
+   "documents": [
+    "Invoices or receipts for the worker's own equipment",
+    "Your asset register or loan form"
+   ]
+  },
+  {
+   "id": "core",
+   "family": "business",
+   "ask": "Is the work the same thing your business sells to its own customers?",
+   "options": [
+    "No",
+    "Yes",
+    "Partly"
+   ],
+   "documents": [
+    "Your marketing pages and customer contracts describing what you sell",
+    "The scope of work in the agreement"
+   ]
+  },
+  {
+   "id": "employees",
+   "family": "business",
+   "ask": "Do your own employees do this same work?",
+   "options": [
+    "No",
+    "Yes",
+    "They used to"
+   ],
+   "documents": [
+    "Job descriptions for employees doing similar work",
+    "Payroll records"
+   ]
+  },
+  {
+   "id": "integrated",
+   "family": "business",
+   "ask": "Is the work a step inside your normal production or service line?",
+   "options": [
+    "No, it is a separate service we buy in",
+    "Yes, it is a step in what we deliver"
+   ],
+   "documents": [
+    "A process or workflow diagram",
+    "The customer-facing delivery description"
+   ]
+  },
+  {
+   "id": "ownbiz",
+   "family": "independent",
+   "ask": "Does the worker have a registered business of their own?",
+   "options": [
+    "Yes",
+    "No",
+    "Unknown"
+   ],
+   "documents": [
+    "Business registration or incorporation certificate",
+    "Business tax filings"
+   ]
+  },
+  {
+   "id": "clients",
+   "family": "independent",
+   "ask": "Does the worker do this work for other customers too?",
+   "options": [
+    "Yes, others as well",
+    "No, only us",
+    "Unknown"
+   ],
+   "documents": [
+    "Invoices the worker issued to other customers",
+    "The worker's own website or advertising"
+   ]
+  },
+  {
+   "id": "advertise",
+   "family": "independent",
+   "ask": "Does the worker advertise the service to the public?",
+   "options": [
+    "Yes",
+    "No",
+    "Unknown"
+   ],
+   "documents": [
+    "Website, listing, van livery, business cards, ad receipts"
+   ]
+  },
+  {
+   "id": "licence",
+   "family": "independent",
+   "ask": "Does the worker hold their own licence, permit or insurance for this work?",
+   "options": [
+    "Yes",
+    "No",
+    "Not required for this work"
+   ],
+   "documents": [
+    "Licence or permit certificate",
+    "Certificate of insurance"
+   ]
+  },
+  {
+   "id": "profit",
+   "family": "independent",
+   "ask": "Can the worker make more or less money by managing the job well or badly?",
+   "options": [
+    "Yes, the worker carries the profit and the loss",
+    "No, the pay is the same either way"
+   ],
+   "documents": [
+    "Fixed-price quotes the worker issued",
+    "Records of a job the worker lost money on"
+   ]
+  },
+  {
+   "id": "invest",
+   "family": "independent",
+   "ask": "Has the worker spent their own money on equipment or premises for this work?",
+   "options": [
+    "Yes",
+    "No",
+    "Unknown"
+   ],
+   "documents": [
+    "Purchase invoices, lease or finance agreements"
+   ]
+  },
+  {
+   "id": "pay",
+   "family": "independent",
+   "ask": "How is the worker paid?",
+   "options": [
+    "Per job or per deliverable, against their invoice",
+    "By the hour, day or week",
+    "A fixed regular amount"
+   ],
+   "documents": [
+    "The worker's invoices",
+    "Your payment ledger entries"
+   ]
+  },
+  {
+   "id": "term",
+   "family": "independent",
+   "ask": "How long has the arrangement run, or how long is it expected to run?",
+   "options": [
+    "A defined project with an end",
+    "Open-ended, no end date",
+    "Rolling, renewed repeatedly"
+   ],
+   "documents": [
+    "The signed agreement with dates",
+    "Renewal or extension emails"
+   ]
+  },
+  {
+   "id": "agreement",
+   "family": "independent",
+   "ask": "Is there a signed written agreement, and does it name the parties' intent?",
+   "options": [
+    "Yes, signed",
+    "Yes, unsigned draft",
+    "No written agreement"
+   ],
+   "documents": [
+    "The agreement itself, signature page included"
+   ]
+  }
+ ]
+}
