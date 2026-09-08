@@ -1,0 +1,57 @@
+{
+  "title": "EPA SDWIS water-systems scraper input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "state": {
+      "title": "State (2-letter)",
+      "type": "string",
+      "description": "Which state's water systems to read, e.g. AZ.",
+      "editor": "textfield",
+      "default": "AZ",
+      "example": "AZ"
+    },
+    "county": {
+      "title": "County",
+      "type": "string",
+      "description": "Keep only systems whose county or town matches this. Blank means the whole state.",
+      "editor": "textfield"
+    },
+    "systemType": {
+      "title": "System type",
+      "type": "string",
+      "description": "CWS = community, TNCWS = transient non-community, NTNCWS = non-transient non-community.",
+      "editor": "select",
+      "enum": ["CWS", "NTNCWS", "TNCWS"],
+      "enumTitles": ["Community (CWS)", "Non-transient non-community (NTNCWS)", "Transient non-community (TNCWS)"],
+      "default": "CWS"
+    },
+    "populationMin": {
+      "title": "Minimum people served",
+      "type": "integer",
+      "description": "Keep only systems serving at least this many people. 0 means all.",
+      "editor": "number",
+      "default": 0,
+      "minimum": 0
+    },
+    "maxItems": {
+      "title": "Max water systems",
+      "type": "integer",
+      "description": "Stop after this many systems. Hard ceiling is 1000, so a run cannot run away.",
+      "editor": "number",
+      "default": 1000,
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "timeoutSeconds": {
+      "title": "Run timeout (seconds)",
+      "type": "integer",
+      "description": "Stop collecting after this many seconds so a run cannot hang.",
+      "editor": "number",
+      "default": 300,
+      "minimum": 30,
+      "maximum": 3600
+    }
+  },
+  "required": []
+}

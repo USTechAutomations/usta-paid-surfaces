@@ -1,0 +1,10 @@
+[Unit]
+Description=fv5 health: prove every live fv5 family is sellable and fresh
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/gmullins/code/usta-paid-surfaces
+# health.py reads Stripe amounts; use the venv that has the Stripe library.
+ExecStart="/home/gmullins/Claude CLI/lead-outreach/venv/bin/python" /home/gmullins/code/usta-paid-surfaces/fv5/health.py

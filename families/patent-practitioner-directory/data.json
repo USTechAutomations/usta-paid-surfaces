@@ -1,0 +1,1606 @@
+{
+  "family": "patent-practitioner-directory",
+  "generated": "2026-09-07",
+  "slices": [
+    {
+      "slug": "washington-dc",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "new-york-ny",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "chicago-il",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "boston-ma",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "houston-tx",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "san-diego-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "san-francisco-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "dallas-tx",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "austin-tx",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "atlanta-ga",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "minneapolis-mn",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "palo-alto-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "los-angeles-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "seattle-wa",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "alexandria-va",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "irvine-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "san-jose-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "philadelphia-pa",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "denver-co",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "cambridge-ma",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "salt-lake-city-ut",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "pittsburgh-pa",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "indianapolis-in",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "portland-or",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "cleveland-oh",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "arlington-va",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "milwaukee-wi",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 57,
+      "cadence_days": 1
+    },
+    {
+      "slug": "cincinnati-oh",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "charlotte-nc",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "st-louis-mo",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "mountain-view-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 59,
+      "cadence_days": 1
+    },
+    {
+      "slug": "reston-va",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "wilmington-de",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "phoenix-az",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "menlo-park-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "raleigh-nc",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "troy-mi",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 51,
+      "cadence_days": 1
+    },
+    {
+      "slug": "mclean-va",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "fairfax-va",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 50,
+      "cadence_days": 1
+    },
+    {
+      "slug": "santa-clara-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 58,
+      "cadence_days": 1
+    },
+    {
+      "slug": "plano-tx",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "redwood-city-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "sunnyvale-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "greenville-sc",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 42,
+      "cadence_days": 1
+    },
+    {
+      "slug": "kansas-city-mo",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 45,
+      "cadence_days": 1
+    },
+    {
+      "slug": "madison-wi",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 50,
+      "cadence_days": 1
+    },
+    {
+      "slug": "boulder-co",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 55,
+      "cadence_days": 1
+    },
+    {
+      "slug": "princeton-nj",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 55,
+      "cadence_days": 1
+    },
+    {
+      "slug": "south-san-francisco-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 40,
+      "cadence_days": 1
+    },
+    {
+      "slug": "rockville-md",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "scottsdale-az",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 57,
+      "cadence_days": 1
+    },
+    {
+      "slug": "spokane-wa",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 30,
+      "cadence_days": 1
+    },
+    {
+      "slug": "hartford-ct",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 33,
+      "cadence_days": 1
+    },
+    {
+      "slug": "cupertino-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 25,
+      "cadence_days": 1
+    },
+    {
+      "slug": "las-vegas-nv",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 54,
+      "cadence_days": 1
+    },
+    {
+      "slug": "miami-fl",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "bethesda-md",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 52,
+      "cadence_days": 1
+    },
+    {
+      "slug": "san-antonio-tx",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 61,
+      "cadence_days": 1
+    },
+    {
+      "slug": "durham-nc",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 46,
+      "cadence_days": 1
+    },
+    {
+      "slug": "cary-nc",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 39,
+      "cadence_days": 1
+    },
+    {
+      "slug": "falls-church-va",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 21,
+      "cadence_days": 1
+    },
+    {
+      "slug": "tucson-az",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 45,
+      "cadence_days": 1
+    },
+    {
+      "slug": "baltimore-md",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 47,
+      "cadence_days": 1
+    },
+    {
+      "slug": "ann-arbor-mi",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 28,
+      "cadence_days": 1
+    },
+    {
+      "slug": "st-paul-mn",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 27,
+      "cadence_days": 1
+    },
+    {
+      "slug": "brooklyn-ny",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 24,
+      "cadence_days": 1
+    },
+    {
+      "slug": "gaithersburg-md",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 34,
+      "cadence_days": 1
+    },
+    {
+      "slug": "oakland-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 33,
+      "cadence_days": 1
+    },
+    {
+      "slug": "columbus-oh",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 54,
+      "cadence_days": 1
+    },
+    {
+      "slug": "grand-rapids-mi",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 37,
+      "cadence_days": 1
+    },
+    {
+      "slug": "nashville-tn",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 51,
+      "cadence_days": 1
+    },
+    {
+      "slug": "redmond-wa",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 20,
+      "cadence_days": 1
+    },
+    {
+      "slug": "carlsbad-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 33,
+      "cadence_days": 1
+    },
+    {
+      "slug": "vienna-va",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 36,
+      "cadence_days": 1
+    },
+    {
+      "slug": "bellevue-wa",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 34,
+      "cadence_days": 1
+    },
+    {
+      "slug": "silver-spring-md",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 23,
+      "cadence_days": 1
+    },
+    {
+      "slug": "louisville-ky",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 41,
+      "cadence_days": 1
+    },
+    {
+      "slug": "orlando-fl",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 43,
+      "cadence_days": 1
+    },
+    {
+      "slug": "stamford-ct",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 45,
+      "cadence_days": 1
+    },
+    {
+      "slug": "richmond-va",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 37,
+      "cadence_days": 1
+    },
+    {
+      "slug": "costa-mesa-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 29,
+      "cadence_days": 1
+    },
+    {
+      "slug": "detroit-mi",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 27,
+      "cadence_days": 1
+    },
+    {
+      "slug": "rochester-ny",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 35,
+      "cadence_days": 1
+    },
+    {
+      "slug": "waltham-ma",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 42,
+      "cadence_days": 1
+    },
+    {
+      "slug": "akron-oh",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 36,
+      "cadence_days": 1
+    },
+    {
+      "slug": "tampa-fl",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 46,
+      "cadence_days": 1
+    },
+    {
+      "slug": "oklahoma-city-ok",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 34,
+      "cadence_days": 1
+    },
+    {
+      "slug": "overland-park-ks",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 1
+    },
+    {
+      "slug": "pasadena-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 34,
+      "cadence_days": 1
+    },
+    {
+      "slug": "boise-id",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 31,
+      "cadence_days": 1
+    },
+    {
+      "slug": "los-altos-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 29,
+      "cadence_days": 1
+    },
+    {
+      "slug": "albany-ny",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 29,
+      "cadence_days": 1
+    },
+    {
+      "slug": "melville-ny",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 34,
+      "cadence_days": 1
+    },
+    {
+      "slug": "newport-beach-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 32,
+      "cadence_days": 1
+    },
+    {
+      "slug": "albuquerque-nm",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 36,
+      "cadence_days": 1
+    },
+    {
+      "slug": "knoxville-tn",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 26,
+      "cadence_days": 1
+    },
+    {
+      "slug": "des-moines-ia",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 34,
+      "cadence_days": 1
+    },
+    {
+      "slug": "saint-louis-mo",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 31,
+      "cadence_days": 1
+    },
+    {
+      "slug": "fort-worth-tx",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 33,
+      "cadence_days": 1
+    },
+    {
+      "slug": "fremont-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 23,
+      "cadence_days": 1
+    },
+    {
+      "slug": "berkeley-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 27,
+      "cadence_days": 1
+    },
+    {
+      "slug": "thousand-oaks-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 8,
+      "cadence_days": 1
+    },
+    {
+      "slug": "new-brunswick-nj",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 8,
+      "cadence_days": 1
+    },
+    {
+      "slug": "royal-oak-mi",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 10,
+      "cadence_days": 1
+    },
+    {
+      "slug": "herndon-va",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 20,
+      "cadence_days": 1
+    },
+    {
+      "slug": "san-mateo-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 19,
+      "cadence_days": 1
+    },
+    {
+      "slug": "baton-rouge-la",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 28,
+      "cadence_days": 1
+    },
+    {
+      "slug": "beaverton-or",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 18,
+      "cadence_days": 1
+    },
+    {
+      "slug": "glendale-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 1
+    },
+    {
+      "slug": "boca-raton-fl",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 28,
+      "cadence_days": 1
+    },
+    {
+      "slug": "chapel-hill-nc",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 1
+    },
+    {
+      "slug": "springfield-va",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 1
+    },
+    {
+      "slug": "chandler-az",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 30,
+      "cadence_days": 1
+    },
+    {
+      "slug": "foster-city-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 12,
+      "cadence_days": 1
+    },
+    {
+      "slug": "potomac-md",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 11,
+      "cadence_days": 1
+    },
+    {
+      "slug": "new-orleans-la",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 40,
+      "cadence_days": 1
+    },
+    {
+      "slug": "omaha-ne",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 22,
+      "cadence_days": 1
+    },
+    {
+      "slug": "pleasanton-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 21,
+      "cadence_days": 1
+    },
+    {
+      "slug": "tarrytown-ny",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 12,
+      "cadence_days": 1
+    },
+    {
+      "slug": "southfield-mi",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 19,
+      "cadence_days": 1
+    },
+    {
+      "slug": "dayton-oh",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 23,
+      "cadence_days": 1
+    },
+    {
+      "slug": "syracuse-ny",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 13,
+      "cadence_days": 1
+    },
+    {
+      "slug": "walnut-creek-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 23,
+      "cadence_days": 1
+    },
+    {
+      "slug": "birmingham-al",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 30,
+      "cadence_days": 1
+    },
+    {
+      "slug": "sugar-land-tx",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 20,
+      "cadence_days": 1
+    },
+    {
+      "slug": "white-plains-ny",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 20,
+      "cadence_days": 1
+    },
+    {
+      "slug": "bridgewater-nj",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 27,
+      "cadence_days": 1
+    },
+    {
+      "slug": "sacramento-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 30,
+      "cadence_days": 1
+    },
+    {
+      "slug": "winston-salem-nc",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 21,
+      "cadence_days": 1
+    },
+    {
+      "slug": "saint-paul-mn",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 18,
+      "cadence_days": 1
+    },
+    {
+      "slug": "santa-monica-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 27,
+      "cadence_days": 1
+    },
+    {
+      "slug": "alpharetta-ga",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 27,
+      "cadence_days": 1
+    },
+    {
+      "slug": "gainesville-fl",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 1
+    },
+    {
+      "slug": "memphis-tn",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 31,
+      "cadence_days": 1
+    },
+    {
+      "slug": "naperville-il",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 22,
+      "cadence_days": 1
+    },
+    {
+      "slug": "tysons-va",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 1
+    },
+    {
+      "slug": "woodbury-mn",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 9,
+      "cadence_days": 1
+    },
+    {
+      "slug": "research-triangle-park-nc",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 19,
+      "cadence_days": 1
+    },
+    {
+      "slug": "rochester-mn",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 9,
+      "cadence_days": 1
+    },
+    {
+      "slug": "buffalo-ny",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 20,
+      "cadence_days": 1
+    },
+    {
+      "slug": "peoria-il",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 7,
+      "cadence_days": 1
+    },
+    {
+      "slug": "fort-collins-co",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 24,
+      "cadence_days": 1
+    },
+    {
+      "slug": "northville-mi",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 11,
+      "cadence_days": 1
+    },
+    {
+      "slug": "tulsa-ok",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 30,
+      "cadence_days": 1
+    },
+    {
+      "slug": "jacksonville-fl",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 27,
+      "cadence_days": 1
+    },
+    {
+      "slug": "midland-mi",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 8,
+      "cadence_days": 1
+    },
+    {
+      "slug": "richardson-tx",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 20,
+      "cadence_days": 1
+    },
+    {
+      "slug": "la-jolla-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 26,
+      "cadence_days": 1
+    },
+    {
+      "slug": "los-gatos-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 21,
+      "cadence_days": 1
+    },
+    {
+      "slug": "manchester-nh",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 28,
+      "cadence_days": 1
+    },
+    {
+      "slug": "newark-nj",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 19,
+      "cadence_days": 1
+    },
+    {
+      "slug": "lexington-ma",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 21,
+      "cadence_days": 1
+    },
+    {
+      "slug": "new-haven-ct",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 20,
+      "cadence_days": 1
+    },
+    {
+      "slug": "provo-ut",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 13,
+      "cadence_days": 1
+    },
+    {
+      "slug": "reno-nv",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 23,
+      "cadence_days": 1
+    },
+    {
+      "slug": "bloomfield-hills-mi",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 22,
+      "cadence_days": 1
+    },
+    {
+      "slug": "lexington-ky",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 23,
+      "cadence_days": 1
+    },
+    {
+      "slug": "rahway-nj",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 11,
+      "cadence_days": 1
+    },
+    {
+      "slug": "toledo-oh",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 1
+    },
+    {
+      "slug": "washington-dc-dc",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 32,
+      "cadence_days": 1
+    },
+    {
+      "slug": "huntington-beach-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 1
+    },
+    {
+      "slug": "greensboro-nc",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 20,
+      "cadence_days": 1
+    },
+    {
+      "slug": "alameda-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 18,
+      "cadence_days": 1
+    },
+    {
+      "slug": "irving-tx",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 18,
+      "cadence_days": 1
+    },
+    {
+      "slug": "marietta-ga",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 21,
+      "cadence_days": 1
+    },
+    {
+      "slug": "the-woodlands-tx",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 19,
+      "cadence_days": 1
+    },
+    {
+      "slug": "westfield-nj",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 13,
+      "cadence_days": 1
+    },
+    {
+      "slug": "chesterfield-mo",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 18,
+      "cadence_days": 1
+    },
+    {
+      "slug": "davis-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 14,
+      "cadence_days": 1
+    },
+    {
+      "slug": "milpitas-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 21,
+      "cadence_days": 1
+    },
+    {
+      "slug": "parsippany-nj",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 19,
+      "cadence_days": 1
+    },
+    {
+      "slug": "spring-tx",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 13,
+      "cadence_days": 1
+    },
+    {
+      "slug": "burlington-ma",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 21,
+      "cadence_days": 1
+    },
+    {
+      "slug": "cranford-nj",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 8,
+      "cadence_days": 1
+    },
+    {
+      "slug": "golden-co",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 19,
+      "cadence_days": 1
+    },
+    {
+      "slug": "ashburn-va",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 1
+    },
+    {
+      "slug": "birmingham-mi",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 1
+    },
+    {
+      "slug": "concord-nh",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 9,
+      "cadence_days": 1
+    },
+    {
+      "slug": "kalamazoo-mi",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 14,
+      "cadence_days": 1
+    },
+    {
+      "slug": "naples-fl",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 1
+    },
+    {
+      "slug": "garden-city-ny",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 1
+    },
+    {
+      "slug": "malvern-pa",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 1
+    },
+    {
+      "slug": "mesa-az",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 14,
+      "cadence_days": 1
+    },
+    {
+      "slug": "newton-ma",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 18,
+      "cadence_days": 1
+    },
+    {
+      "slug": "evanston-il",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 11,
+      "cadence_days": 1
+    },
+    {
+      "slug": "fort-lauderdale-fl",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 23,
+      "cadence_days": 1
+    },
+    {
+      "slug": "henderson-nv",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 10,
+      "cadence_days": 1
+    },
+    {
+      "slug": "roseland-nj",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 10,
+      "cadence_days": 1
+    },
+    {
+      "slug": "san-carlos-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 1
+    },
+    {
+      "slug": "san-ramon-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 14,
+      "cadence_days": 1
+    },
+    {
+      "slug": "campbell-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 1
+    },
+    {
+      "slug": "florham-park-nj",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 11,
+      "cadence_days": 1
+    },
+    {
+      "slug": "huntsville-al",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 19,
+      "cadence_days": 1
+    },
+    {
+      "slug": "king-of-prussia-pa",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 9,
+      "cadence_days": 1
+    },
+    {
+      "slug": "vancouver-wa",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 1
+    },
+    {
+      "slug": "wayne-pa",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 12,
+      "cadence_days": 1
+    },
+    {
+      "slug": "columbia-md",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 19,
+      "cadence_days": 1
+    },
+    {
+      "slug": "littleton-co",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 1
+    },
+    {
+      "slug": "saratoga-ca",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 10,
+      "cadence_days": 1
+    },
+    {
+      "slug": "shelton-ct",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 1
+    }
+  ]
+}

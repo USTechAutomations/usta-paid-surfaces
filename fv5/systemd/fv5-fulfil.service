@@ -1,0 +1,10 @@
+[Unit]
+Description=fv5 delivery: build paid private pages for buyers who have paid
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/gmullins/code/usta-paid-surfaces
+# The Stripe library lives in this venv; fulfil.py reads paid sessions.
+ExecStart="/home/gmullins/Claude CLI/lead-outreach/venv/bin/python" /home/gmullins/code/usta-paid-surfaces/fv5/fulfil.py --live

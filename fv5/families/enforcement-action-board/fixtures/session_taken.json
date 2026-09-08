@@ -1,0 +1,40 @@
+{
+  "id": "cs_test_fv5_enforcement-action-board_002",
+  "object": "checkout.session",
+  "mode": "payment",
+  "payment_status": "paid",
+  "amount_total": 35000,
+  "currency": "usd",
+  "created": 1788791400,
+  "customer_details": {
+    "email": "second@example.com",
+    "name": "Latecomer Environmental Advisors LLC"
+  },
+  "custom_fields": [
+    {
+      "key": "business_name",
+      "type": "text",
+      "text": {
+        "value": "Latecomer Environmental Advisors LLC"
+      }
+    },
+    {
+      "key": "website",
+      "type": "text",
+      "text": {
+        "value": "https://latecomer.example"
+      }
+    },
+    {
+      "key": "state",
+      "type": "dropdown",
+      "dropdown": {
+        "value": "NY"
+      }
+    }
+  ],
+  "metadata": {
+    "family": "enforcement-action-board",
+    "private_slug": "eab-ny-002"
+  }
+}

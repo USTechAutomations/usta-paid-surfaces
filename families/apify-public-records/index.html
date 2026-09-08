@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Public-records scrapers on the Apify Store — Pay-per-run on the Apify Store</title>
+  <meta name="description" content="Three public-records scrapers on the Apify Store: OSHA severe injuries, EPA water systems, NRC spill notices. Pay per run, no subscription.">
+  <link rel="canonical" href="https://ustechautomations.com/feeds/apify-public-records">
+  <link rel="stylesheet" href="../../styles.css">
+  <meta name="theme-color" content="#7a3b12">
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="US Tech Automations — dated change feeds">
+  <meta property="og:url" content="https://ustechautomations.com/feeds/apify-public-records">
+  <meta property="og:title" content="Public-records scrapers on the Apify Store — Pay-per-run on the Apify Store">
+  <meta name="twitter:title" content="Public-records scrapers on the Apify Store — Pay-per-run on the Apify Store">
+  <meta property="og:description" content="Three public-records scrapers on the Apify Store: OSHA severe injuries, EPA water systems, NRC spill notices. Pay per run, no subscription.">
+  <meta name="twitter:description" content="Three public-records scrapers on the Apify Store: OSHA severe injuries, EPA water systems, NRC spill notices. Pay per run, no subscription.">
+  <meta name="twitter:card" content="summary">
+</head>
+<body data-family="apify-public-records">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="wordmark" href="../../">Dated change feeds <span>/ US Tech Automations</span></a>
+    <p class="crumbs"><a href="../../">Feeds</a><span class="sep">/</span>Public-records scrapers</p>
+  </div>
+</header>
+
+<!-- FABLE: layout only. Do not drop, invent, or round the sample rows. -->
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Data scrapers <span class="dot"></span> per run <span class="dot"></span> Sample ready</p>
+    <h1>Public-records scrapers on the Apify Store</h1>
+    <p class="lede">Three small scrapers on the Apify Store: OSHA severe-injury reports, EPA drinking-water systems, and National Response Center spill notices. From $0.50 per run on the Apify Store, plus a few tenths of a cent per record. The live EPA sample is below.</p>
+    <dl class="rail">
+      <div><dt>Price</dt><dd class="price">Pay-per-run on the Apify Store</dd></div>
+      <div><dt>Built for</dt><dd>analysts, journalists and compliance teams who want OSHA severe injuries, EPA drinking-water systems or NRC spill notices as a clean table, billed per run with no subscription</dd></div>
+      <div><dt>Cadence</dt><dd>billed per run on the Apify Store, not by us: a start charge plus a small charge for each record returned. Every run reads its public source live</dd></div>
+      <div><dt>Public sample</dt><dd><span class="pill pill-ready">Sample ready</span></dd></div>
+    </dl>
+    <p class="hero-cta"><a class="btn btn-ghost" href="mailto:operations@ustechautomations.com?subject=Apify%20Store%20public-records%20scrapers">Email us for the Apify Store links</a><span class="btn-note">No card needed to ask. We reply with what we hold.</span></p>
+  </div>
+</section>
+
+<main id="main">
+  <div class="wrap">
+    <section>
+      <h2>What this is<span class="seal">sold on the Apify Store</span></h2>
+      <p>This is the shop-window for three small scrapers that live on the Apify Store, a marketplace that runs a program on its own servers and bills the person who runs it. You do not pay us here. The Store charges <strong>$0.50 to start a run</strong> and <strong>$0.005 for each record the run returns</strong>, takes its cut, and pays us the rest. Each scraper reads one free public source and hands back a clean table.</p>
+      <div class="honest">
+        <p><strong>These read firms, facilities, water systems and incidents &mdash; never a private person.</strong> No operator's name, phone, email or home address is kept. Public records can lag their source, so a run is only as fresh as the agency's own file on the day you run it.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>The three scrapers</h2>
+      <ul class="spec">
+        <li><strong>OSHA severe-injury reports</strong><span class="sub">Employer, city, state, industry code, and whether a hospitalisation or amputation was reported. Source: the OSHA severe-injury page. That page returns a block (HTTP 403) to automated fetches from our test machine, so the run reads it from the buyer's Apify run and each item records which source it came from. No injured worker is named &mdash; the public file carries no such name and we keep none.</span></li>
+        <li><strong>EPA drinking-water systems</strong><span class="sub">One item per public water system: its ID, name, town, people served, connections, water source, owner type, and its count of safe-drinking-water violations. Source: EPA Envirofacts SDWIS, which we can read live and in full. This is the sample below.</span></li>
+        <li><strong>NRC spill notices</strong><span class="sub">One item per pollution incident reported to the National Response Center: date, state, town, material, medium and incident type. Source: the Coast Guard's NRC download, served through a form rather than a plain file, so the run drives that form. No caller is named.</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Sample: real EPA drinking-water systems<span class="seal">50 rows sealed 2026-09-07</span></h2>
+      <p>These are real active community water systems in Arizona, read from EPA Envirofacts SDWIS on 2026-09-07. 43 of the 50 rows carry at least one safe-drinking-water violation. The first 10 are printed here; the free sample file below carries 25 of them with every column. This is exactly the shape the EPA scraper returns.</p>
+      <div class="evidence">
+        <div class="evidence-head">
+          <span>10 of 50 real EPA water systems</span>
+          <span class="stamp">SDWIS, read 2026-09-07</span>
+        </div>
+        <div class="scroll">
+          <table>
+            <thead>
+              <tr><th>PWSID</th><th>Water system</th><th>State</th><th>City</th><th>People served</th><th>Connections</th><th>Water source</th><th>Owner</th><th>Violations</th><th>Health-based</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>090400001</td><td>Topawa Intertie</td><td>AZ</td><td>Sells</td><td>1318</td><td>292</td><td>Ground water</td><td>Native American</td><td>1</td><td>0</td></tr>
+              <tr><td>090400003</td><td>Chui Chu</td><td>AZ</td><td>Sells</td><td>420</td><td>178</td><td>Ground water</td><td>Native American</td><td>1</td><td>0</td></tr>
+              <tr><td>090400004</td><td>Fresnal</td><td>AZ</td><td>Sells</td><td>105</td><td>26</td><td>Ground water</td><td>Native American</td><td>0</td><td>0</td></tr>
+              <tr><td>090400005</td><td>Queens Well</td><td>AZ</td><td>Sells</td><td>64</td><td>17</td><td>Ground water</td><td>Native American</td><td>1</td><td>0</td></tr>
+              <tr><td>090400006</td><td>Covered Wells Regional</td><td>AZ</td><td>Sells</td><td>740</td><td>184</td><td>Ground water</td><td>Native American</td><td>1</td><td>0</td></tr>
+              <tr><td>090400008</td><td>Charco 27</td><td>AZ</td><td>Sells</td><td>70</td><td>19</td><td>Ground water</td><td>Native American</td><td>1</td><td>0</td></tr>
+              <tr><td>090400016</td><td>Kohatk</td><td>AZ</td><td>Sells</td><td>80</td><td>12</td><td>Ground water</td><td>Native American</td><td>0</td><td>0</td></tr>
+              <tr><td>090400018</td><td>Santa Rosa Ranch Intertie</td><td>AZ</td><td>Sells</td><td>165</td><td>58</td><td>Ground water</td><td>Native American</td><td>0</td><td>0</td></tr>
+              <tr><td>090400019</td><td>New Fields</td><td>AZ</td><td>Sells</td><td>67</td><td>15</td><td>Ground water</td><td>Native American</td><td>1</td><td>0</td></tr>
+              <tr><td>090400020</td><td>Vaya Chin Intertie</td><td>AZ</td><td>Sells</td><td>1151</td><td>255</td><td>Ground water</td><td>Native American</td><td>3</td><td>0</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="mail-note">Source: <a href="https://data.epa.gov/efservice/WATER_SYSTEM/STATE_CODE/AZ/PWS_TYPE_CODE/CWS/JSON">EPA Envirofacts SDWIS REST</a>. US Government public domain. No operator name, phone, email or street address is kept.</p>
+    </section>
+
+    <section>
+      <h2>What it costs and how you run it<span class="seal">Apify bills, not us</span></h2>
+      <p>Every scraper is pay-per-run on the Apify Store. You are billed <strong>$0.50 to start a run</strong> plus <strong>$0.005 for each record it returns</strong> &mdash; so a run that returns 200 records costs about a dollar and a half, billed by Apify to your Apify account, not by us. A run stops at 1,000 records unless you raise the limit, and it stops itself if it runs too long, so a run cannot quietly cost more than you meant.</p>
+      <div class="honest">
+        <p><strong>There is no button on this page.</strong> Until the three listings are live on the Apify Store this page is the sample; the direct Store links appear here the day they are published. The price above is the Store's price; we set it and Apify collects it.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>What these do not do</h2>
+      <ul class="spec">
+        <li><strong>No private people</strong><span class="sub">The subject is always a firm, a facility, a water system or an incident. A row that read as a private individual would be withheld, not renamed.</span></li>
+        <li><strong>No home addresses</strong><span class="sub">Town and state only. No street line is ever kept or returned.</span></li>
+        <li><strong>No claim to be the agency</strong><span class="sub">Not affiliated with OSHA, the EPA or the US Coast Guard. Not legal, tax or professional advice.</span></li>
+        <li><strong>Only as fresh as the source</strong><span class="sub">Each record is read live from the agency on the day of the run, and public records can lag the event they describe.</span></li>
+      </ul>
+    </section>
+
+    <section class="contact">
+      <h2>See the file we hold</h2>
+      <p>You do not have to take our word for what is in the file. Here are <strong>25 rows of the real thing</strong>, carrying all 10 of its columns, read out of EPA Envirofacts SDWIS ourselves. Real active water systems, nothing made up and nothing tidied up.</p>
+      <ul class="spec">
+        <li><a href="https://ustechautomations.com/feeds/apify-public-records/sample.csv">Open the 25 rows as a CSV</a><span class="sub">A plain spreadsheet file. It saves to your machine rather than painting itself into a browser tab, and it opens in Excel, Numbers or Google Sheets.</span></li>
+        <li><a href="https://ustechautomations.com/feeds/apify-public-records/sample.json">The same 25 rows as JSON</a><span class="sub">The same rows again, laid out for reading with code.</span></li>
+      </ul>
+      <p class="mail-note"><strong>How you get it:</strong> run the scraper on the Apify Store; it returns a table you download as CSV or JSON straight from your Apify run, the moment the run finishes.</p>
+      <p class="mail-note">These 25 rows are a slice of the file, not the whole of it. What we cannot show you here is how far back it goes: a live run returns every system in the state and system-type you ask for, up to the run's record limit.</p>
+    </section>
+    <section class="contact">
+      <h2>Ask for the Store links</h2>
+      <p><strong>No pay button on this one yet.</strong> Email <a href="mailto:operations@ustechautomations.com?subject=Apify%20Store%20public-records%20scrapers">operations@ustechautomations.com</a>. These are billed by the Apify Store, not from this page. Email us and we reply with the direct link to each scraper's listing and what a typical run returns.</p>
+      <p class="mail-note"><strong>What you would be paying for:</strong> Billed by the Apify Store, not by US Tech Automations. Running a scraper costs $0.50 to start the run plus $0.005 for each record it returns, charged by Apify to your Apify account. A run returns a table you download as CSV or JSON the moment it finishes, so delivery is instant and there is no subscription. Public records can lag the event they describe, and each record says which source and date it was read from. A run that fails or returns nothing usable is refundable on request within 14 days through Apify; we do not hold your card and cannot charge or refund it ourselves. No card is taken on this page. The direct Store link for each scraper appears here the day it is published; you run it on your own Apify account.</p>
+      <a class="mail" href="mailto:operations@ustechautomations.com?subject=Apify%20Store%20public-records%20scrapers">Email us for the Apify Store links</a>
+      <p class="mail-note">No card needed to ask. Once you run a scraper, Apify bills your Apify account per run; refunds on a bad run are handled through Apify.</p>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>The sample on this page was read out of EPA Envirofacts SDWIS on the date shown. Not affiliated with OSHA, the EPA or the US Coast Guard's National Response Center. Not legal, tax or professional advice.</p>
+    <p class="addr">US Tech Automations &middot; 3298 N Glassford Hill Rd Ste 104 PMB 1055, Prescott Valley AZ 86314</p>
+  </div>
+</footer>
+</body>
+</html>

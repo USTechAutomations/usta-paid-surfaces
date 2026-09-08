@@ -1,0 +1,16 @@
+[
+  {
+    "key": "serial",
+    "label": { "type": "custom", "custom": "USPTO serial number, 8 digits" },
+    "type": "text",
+    "optional": false,
+    "text": { "minimum_length": 7, "maximum_length": 8 }
+  },
+  {
+    "key": "mark_text",
+    "label": { "type": "custom", "custom": "Mark text (optional)" },
+    "type": "text",
+    "optional": true,
+    "text": { "maximum_length": 80 }
+  }
+]
