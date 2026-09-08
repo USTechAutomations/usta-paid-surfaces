@@ -1196,20 +1196,6 @@
    "chars": 22810,
    "status": "quoted",
    "why": ""
-  },
-  {
-   "code": "WY",
-   "name": "Wyoming",
-   "slug": "wyoming",
-   "source_url": "https://dws.wyo.gov/dws-division/unemployment-insurance/",
-   "cite": "Wyoming Department of Workforce Services, unemployment insurance",
-   "prongs": [],
-   "penalties": [],
-   "fetched": "2026-09-08",
-   "shape": "No passage in the page we fetched carried any of the words we look for.",
-   "chars": 4339,
-   "status": "no-passage",
-   "why": "the page answered, but none of the words these tests are written with are in it"
   }
  ],
  "federal": [

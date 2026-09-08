@@ -1,14 +1,14 @@
 {
  "id": "contractor-audit-file",
  "generated": "2026-09-08",
- "stamp": "2026-09-08T07:00:36",
+ "stamp": "2026-09-08T07:19:55",
  "drift": false,
  "drifted": [],
  "jurisdictions_quoted": 15,
- "jurisdictions_total": 55,
+ "jurisdictions_total": 54,
  "citations": 45,
  "by_status": {
-  "no-passage": 14,
+  "no-passage": 13,
   "quoted": 15,
   "unreachable": 15,
   "wrong-page": 11
