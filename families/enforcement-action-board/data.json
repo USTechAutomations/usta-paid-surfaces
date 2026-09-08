@@ -1,0 +1,422 @@
+{
+  "family": "enforcement-action-board",
+  "generated": "2026-09-07",
+  "slices": [
+    {
+      "slug": "biggest-penalties",
+      "newest": "2026-09-03",
+      "oldest": "2026-06-09",
+      "runs": 1,
+      "row_count": 142,
+      "cadence_days": 30
+    },
+    {
+      "slug": "alaska",
+      "newest": "2026-08-31",
+      "oldest": "2024-10-29",
+      "runs": 1,
+      "row_count": 51,
+      "cadence_days": 30
+    },
+    {
+      "slug": "alabama",
+      "newest": "2026-08-31",
+      "oldest": "2026-03-23",
+      "runs": 1,
+      "row_count": 58,
+      "cadence_days": 30
+    },
+    {
+      "slug": "arkansas",
+      "newest": "2026-09-04",
+      "oldest": "2026-07-07",
+      "runs": 1,
+      "row_count": 59,
+      "cadence_days": 30
+    },
+    {
+      "slug": "arizona",
+      "newest": "2026-08-18",
+      "oldest": "2026-05-04",
+      "runs": 1,
+      "row_count": 60,
+      "cadence_days": 30
+    },
+    {
+      "slug": "california",
+      "newest": "2026-08-20",
+      "oldest": "2026-07-13",
+      "runs": 1,
+      "row_count": 58,
+      "cadence_days": 30
+    },
+    {
+      "slug": "colorado",
+      "newest": "2026-08-27",
+      "oldest": "2026-07-14",
+      "runs": 1,
+      "row_count": 58,
+      "cadence_days": 30
+    },
+    {
+      "slug": "connecticut",
+      "newest": "2026-08-27",
+      "oldest": "2025-07-29",
+      "runs": 1,
+      "row_count": 43,
+      "cadence_days": 30
+    },
+    {
+      "slug": "district-of-columbia",
+      "newest": "2026-07-27",
+      "oldest": "2024-04-25",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 30
+    },
+    {
+      "slug": "delaware",
+      "newest": "2026-08-25",
+      "oldest": "2025-02-06",
+      "runs": 1,
+      "row_count": 57,
+      "cadence_days": 30
+    },
+    {
+      "slug": "florida",
+      "newest": "2026-09-01",
+      "oldest": "2026-08-28",
+      "runs": 1,
+      "row_count": 54,
+      "cadence_days": 30
+    },
+    {
+      "slug": "georgia",
+      "newest": "2026-08-31",
+      "oldest": "2026-07-22",
+      "runs": 1,
+      "row_count": 58,
+      "cadence_days": 30
+    },
+    {
+      "slug": "hawaii",
+      "newest": "2026-08-31",
+      "oldest": "2025-08-09",
+      "runs": 1,
+      "row_count": 59,
+      "cadence_days": 30
+    },
+    {
+      "slug": "iowa",
+      "newest": "2026-08-25",
+      "oldest": "2025-10-07",
+      "runs": 1,
+      "row_count": 58,
+      "cadence_days": 30
+    },
+    {
+      "slug": "idaho",
+      "newest": "2026-08-28",
+      "oldest": "2025-10-30",
+      "runs": 1,
+      "row_count": 60,
+      "cadence_days": 30
+    },
+    {
+      "slug": "illinois",
+      "newest": "2026-08-31",
+      "oldest": "2026-07-10",
+      "runs": 1,
+      "row_count": 59,
+      "cadence_days": 30
+    },
+    {
+      "slug": "indiana",
+      "newest": "2026-09-03",
+      "oldest": "2026-07-08",
+      "runs": 1,
+      "row_count": 57,
+      "cadence_days": 30
+    },
+    {
+      "slug": "kansas",
+      "newest": "2026-08-04",
+      "oldest": "2026-02-17",
+      "runs": 1,
+      "row_count": 60,
+      "cadence_days": 30
+    },
+    {
+      "slug": "kentucky",
+      "newest": "2026-08-31",
+      "oldest": "2026-06-03",
+      "runs": 1,
+      "row_count": 53,
+      "cadence_days": 30
+    },
+    {
+      "slug": "louisiana",
+      "newest": "2026-09-03",
+      "oldest": "2026-08-10",
+      "runs": 1,
+      "row_count": 59,
+      "cadence_days": 30
+    },
+    {
+      "slug": "massachusetts",
+      "newest": "2026-09-02",
+      "oldest": "2026-02-05",
+      "runs": 1,
+      "row_count": 52,
+      "cadence_days": 30
+    },
+    {
+      "slug": "maryland",
+      "newest": "2026-09-01",
+      "oldest": "2026-03-31",
+      "runs": 1,
+      "row_count": 54,
+      "cadence_days": 30
+    },
+    {
+      "slug": "maine",
+      "newest": "2026-07-23",
+      "oldest": "2024-06-20",
+      "runs": 1,
+      "row_count": 11,
+      "cadence_days": 30
+    },
+    {
+      "slug": "michigan",
+      "newest": "2026-09-02",
+      "oldest": "2026-05-01",
+      "runs": 1,
+      "row_count": 55,
+      "cadence_days": 30
+    },
+    {
+      "slug": "minnesota",
+      "newest": "2026-08-26",
+      "oldest": "2026-05-04",
+      "runs": 1,
+      "row_count": 58,
+      "cadence_days": 30
+    },
+    {
+      "slug": "missouri",
+      "newest": "2026-08-28",
+      "oldest": "2026-07-23",
+      "runs": 1,
+      "row_count": 60,
+      "cadence_days": 30
+    },
+    {
+      "slug": "mississippi",
+      "newest": "2026-08-31",
+      "oldest": "2025-09-08",
+      "runs": 1,
+      "row_count": 49,
+      "cadence_days": 30
+    },
+    {
+      "slug": "montana",
+      "newest": "2026-07-28",
+      "oldest": "2025-11-24",
+      "runs": 1,
+      "row_count": 54,
+      "cadence_days": 30
+    },
+    {
+      "slug": "north-carolina",
+      "newest": "2026-09-02",
+      "oldest": "2026-07-27",
+      "runs": 1,
+      "row_count": 53,
+      "cadence_days": 30
+    },
+    {
+      "slug": "north-dakota",
+      "newest": "2026-08-05",
+      "oldest": "2025-04-09",
+      "runs": 1,
+      "row_count": 56,
+      "cadence_days": 30
+    },
+    {
+      "slug": "nebraska",
+      "newest": "2026-08-24",
+      "oldest": "2025-10-17",
+      "runs": 1,
+      "row_count": 58,
+      "cadence_days": 30
+    },
+    {
+      "slug": "new-hampshire",
+      "newest": "2026-08-14",
+      "oldest": "2023-04-14",
+      "runs": 1,
+      "row_count": 37,
+      "cadence_days": 30
+    },
+    {
+      "slug": "new-jersey",
+      "newest": "2026-08-31",
+      "oldest": "2026-07-16",
+      "runs": 1,
+      "row_count": 54,
+      "cadence_days": 30
+    },
+    {
+      "slug": "new-mexico",
+      "newest": "2026-09-02",
+      "oldest": "2026-05-13",
+      "runs": 1,
+      "row_count": 48,
+      "cadence_days": 30
+    },
+    {
+      "slug": "nevada",
+      "newest": "2026-07-22",
+      "oldest": "2025-07-01",
+      "runs": 1,
+      "row_count": 49,
+      "cadence_days": 30
+    },
+    {
+      "slug": "new-york",
+      "newest": "2026-08-26",
+      "oldest": "2026-07-06",
+      "runs": 1,
+      "row_count": 55,
+      "cadence_days": 30
+    },
+    {
+      "slug": "ohio",
+      "newest": "2026-09-03",
+      "oldest": "2026-05-29",
+      "runs": 1,
+      "row_count": 59,
+      "cadence_days": 30
+    },
+    {
+      "slug": "oklahoma",
+      "newest": "2026-09-03",
+      "oldest": "2026-08-06",
+      "runs": 1,
+      "row_count": 48,
+      "cadence_days": 30
+    },
+    {
+      "slug": "oregon",
+      "newest": "2026-08-27",
+      "oldest": "2026-04-07",
+      "runs": 1,
+      "row_count": 59,
+      "cadence_days": 30
+    },
+    {
+      "slug": "pennsylvania",
+      "newest": "2026-09-02",
+      "oldest": "2026-08-05",
+      "runs": 1,
+      "row_count": 44,
+      "cadence_days": 30
+    },
+    {
+      "slug": "rhode-island",
+      "newest": "2026-08-26",
+      "oldest": "2024-07-22",
+      "runs": 1,
+      "row_count": 45,
+      "cadence_days": 30
+    },
+    {
+      "slug": "south-carolina",
+      "newest": "2026-08-31",
+      "oldest": "2026-04-10",
+      "runs": 1,
+      "row_count": 32,
+      "cadence_days": 30
+    },
+    {
+      "slug": "south-dakota",
+      "newest": "2026-08-20",
+      "oldest": "2025-12-15",
+      "runs": 1,
+      "row_count": 56,
+      "cadence_days": 30
+    },
+    {
+      "slug": "tennessee",
+      "newest": "2026-09-01",
+      "oldest": "2026-07-09",
+      "runs": 1,
+      "row_count": 55,
+      "cadence_days": 30
+    },
+    {
+      "slug": "texas",
+      "newest": "2026-09-02",
+      "oldest": "2026-08-18",
+      "runs": 1,
+      "row_count": 60,
+      "cadence_days": 30
+    },
+    {
+      "slug": "utah",
+      "newest": "2026-08-10",
+      "oldest": "2025-10-20",
+      "runs": 1,
+      "row_count": 54,
+      "cadence_days": 30
+    },
+    {
+      "slug": "virginia",
+      "newest": "2026-08-31",
+      "oldest": "2026-07-06",
+      "runs": 1,
+      "row_count": 59,
+      "cadence_days": 30
+    },
+    {
+      "slug": "vermont",
+      "newest": "2026-08-17",
+      "oldest": "2024-09-18",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 30
+    },
+    {
+      "slug": "washington",
+      "newest": "2026-09-02",
+      "oldest": "2026-07-09",
+      "runs": 1,
+      "row_count": 58,
+      "cadence_days": 30
+    },
+    {
+      "slug": "wisconsin",
+      "newest": "2026-08-31",
+      "oldest": "2026-02-18",
+      "runs": 1,
+      "row_count": 54,
+      "cadence_days": 30
+    },
+    {
+      "slug": "west-virginia",
+      "newest": "2026-09-02",
+      "oldest": "2026-02-24",
+      "runs": 1,
+      "row_count": 52,
+      "cadence_days": 30
+    },
+    {
+      "slug": "wyoming",
+      "newest": "2026-08-19",
+      "oldest": "2025-07-10",
+      "runs": 1,
+      "row_count": 51,
+      "cadence_days": 30
+    }
+  ]
+}

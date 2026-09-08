@@ -195,6 +195,20 @@ def _url_to_link_id(url: str, api_key: str, cache_path: Path) -> str:
     return cache[url]
 
 
+def _held_reason(catalog: dict, family_id: str) -> str | None:
+    """Why this family has nothing to deliver from our pages, or None.
+
+    No catalog row means the family is parked off the site; a HOLD row is
+    deliberately not on sale yet; EXTERNAL is billed elsewhere (Apify Store)."""
+    row = next((f for f in catalog.get("families", []) if f.get("id") == family_id), None)
+    if row is None:
+        return "no catalog row (parked)"
+    status = (row.get("checkout") or {}).get("status", "")
+    if status in ("HOLD", "EXTERNAL"):
+        return f"checkout status {status}"
+    return None
+
+
 def make_link_resolver(catalog: dict, cache_path: Path = LINKS_CACHE, api_key=None):
     """Turn a family's LINK_ID_ENV_OR_CATALOG into a real Stripe link id.
 
@@ -325,6 +339,10 @@ def run(*, root: Path, state_dir: Path, families_dir: Path, live: bool,
 
     total_written = 0
     for family_id, module in fams:
+        held = _held_reason(catalog, family_id)
+        if held:
+            print(f"{family_id}: held ({held}); nothing to deliver")
+            continue
         summary = process_family(family_id, module, root=root, state_dir=state_dir,
                                  live=live, session_source=session_source,
                                  link_resolver=link_resolver)

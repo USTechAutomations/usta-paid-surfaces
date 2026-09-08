@@ -57,7 +57,7 @@ Create a folder `fv5/families/<id>/` with four files:
 
 The family also needs, elsewhere in the repo: a `catalog.json` row (with a price
 and `checkout.url` set to `"TO-MINT"`), its public page at
-`families/<id>/index.html`, and a thanks page at `families/<id>/thanks/index.html`
+`families/<id>/index.html`, and a thanks page at `families/<id>/p/thanks/index.html`
 built from `ppp.thanks_page_html(id, PRODUCT_NAME, ETA_MINUTES)`.
 
 Then mint the link: `fv5/mint.py --only <id> --live`. From then on the delivery

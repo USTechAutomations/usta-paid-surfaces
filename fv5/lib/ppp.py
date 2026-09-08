@@ -139,7 +139,7 @@ _THANKS_TEMPLATE = """<!doctype html>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <title>__PRODUCT__ — preparing your file</title>
-  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../../styles.css">
   <meta name="theme-color" content="#7a3b12">
 </head>
 <body data-family="__FAMILY__">
@@ -162,6 +162,7 @@ _THANKS_TEMPLATE = """<!doctype html>
         moment it is ready. Bookmark the private address below — it is yours alone,
         so please do not share it.</p>
       <p id="addr" class="mail-note"></p>
+      <p class="mail-note">Nothing after __ETA__ minutes? Email <a href="mailto:operations@ustechautomations.com?subject=__FAMILY__%20order">operations@ustechautomations.com</a> with your receipt number and we will send the address by hand.</p>
       <p id="ready" class="hero-cta"></p>
     </section>
   </div>

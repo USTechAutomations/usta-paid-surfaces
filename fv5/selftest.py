@@ -222,10 +222,18 @@ def test_mint_body_offline() -> None:
     cf = [{"key": "site_url", "type": "text", "label": {"type": "custom", "custom": "Site"}}]
     meta = {"fv5_family": "demo", "surface": "ustechautomations.com/feeds"}
     body = mint.build_link_body("<price_id>", cf, "demo", "month", meta)
-    check("mint body carries the custom fields", body["custom_fields"] == cf)
+    got = body["custom_fields"]
+    check("mint body carries the custom fields",
+          [(f["key"], f["label"]) for f in got] == [(f["key"], f["label"]) for f in cf])
+    plain = [{"key": "state", "label": "State", "type": "dropdown", "optional": False,
+              "options": [{"label": "Arizona", "value": "AZ"}]}]
+    tr = mint._stripe_fields(plain)[0]
+    check("plain custom fields are translated to Stripe's shape",
+          tr["label"] == {"type": "custom", "custom": "State"}
+          and tr["dropdown"] == {"options": plain[0]["options"]} and "options" not in tr)
     check("mint body redirect points at the thanks page with the session id",
           body["after_completion"]["redirect"]["url"]
-          == "https://ustechautomations.com/feeds/demo/thanks/?session_id={CHECKOUT_SESSION_ID}")
+          == "https://ustechautomations.com/feeds/demo/p/thanks/?session_id={CHECKOUT_SESSION_ID}")
     check("monthly mint body carries subscription metadata", "subscription_data" in body)
     one = mint.build_link_body("<price_id>", [], "demo", "one_time", meta)
     check("one-off mint body carries payment-intent metadata", "payment_intent_data" in one)

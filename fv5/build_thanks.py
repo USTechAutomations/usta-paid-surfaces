@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Write the static thanks page for every pay family that has a fulfil.py.
 
-    python3 fv5/build_thanks.py            # writes families/<id>/thanks/index.html
+    python3 fv5/build_thanks.py            # writes families/<id>/p/thanks/index.html
     python3 fv5/build_thanks.py --check    # exit 1 if any page is missing or stale
 
 The page is noindex, carries no buyer data, and only tells the buyer where the
@@ -50,7 +50,7 @@ def main() -> int:
             skipped += 1
             continue
         html = ppp.thanks_page_html(fid, row.get("name", fid), eta_for(fam_dir))
-        out = ROOT / "families" / fid / "thanks" / "index.html"
+        out = ROOT / "families" / fid / "p" / "thanks" / "index.html"
         if args.check:
             if not out.exists() or out.read_text() != html:
                 print(f"STALE {out.relative_to(ROOT)}")

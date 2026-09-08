@@ -57,7 +57,7 @@ def price_cadence(price_str: str) -> str:
 
 def redirect_url(family_id: str) -> str:
     """Where Stripe sends the buyer after paying: the family's thanks page."""
-    return (f"https://ustechautomations.com/feeds/{family_id}/thanks/"
+    return (f"https://ustechautomations.com/feeds/{family_id}/p/thanks/"
             "?session_id={CHECKOUT_SESSION_ID}")
 
 
@@ -87,6 +87,36 @@ def build_price_data(cents: int, cadence: str) -> dict:
     return data
 
 
+def _stripe_fields(fields: list) -> list:
+    """Translate a family's plain custom_fields.json into Stripe's shape.
+
+    Families write {key, label, type, optional, options?}; Stripe wants the label
+    wrapped ({"type": "custom", "custom": ...}) and dropdown options under a
+    "dropdown" object. Stripe allows at most 3 fields and 50-character labels,
+    and refuses the whole link otherwise, so both are checked here first.
+    """
+    out = []
+    for f in fields:
+        label = f.get("label")
+        if isinstance(label, str):
+            if len(label) > 50:
+                raise SystemExit(f"custom field {f.get('key')!r}: label longer than 50 chars")
+            label = {"type": "custom", "custom": label}
+        item = {"key": f["key"], "label": label, "type": f["type"],
+                "optional": bool(f.get("optional", False))}
+        if f["type"] == "dropdown":
+            opts = f.get("options") or (f.get("dropdown") or {}).get("options") or []
+            if not 1 <= len(opts) <= 200:
+                raise SystemExit(f"custom field {f['key']!r}: dropdown needs 1-200 options")
+            item["dropdown"] = {"options": opts}
+        elif f["type"] in ("text", "numeric") and isinstance(f.get(f["type"]), dict):
+            item[f["type"]] = f[f["type"]]
+        out.append(item)
+    if len(out) > 3:
+        raise SystemExit("Stripe allows at most 3 custom fields on a payment link")
+    return out
+
+
 def build_link_body(price_id: str, custom_fields: list, family_id: str,
                     cadence: str, meta: dict) -> dict:
     """The exact PaymentLink.create body. Pure: the selftest checks this offline."""
@@ -98,7 +128,7 @@ def build_link_body(price_id: str, custom_fields: list, family_id: str,
         "after_completion": {"type": "redirect", "redirect": {"url": redirect_url(family_id)}},
     }
     if custom_fields:
-        body["custom_fields"] = custom_fields
+        body["custom_fields"] = _stripe_fields(custom_fields)
     if cadence in ("month", "year"):
         body["subscription_data"] = {"metadata": meta}
     else:
@@ -150,11 +180,40 @@ def pending(catalog: dict, only: str | None = None) -> list[dict]:
 
 
 # --------------------------------------------------------------- live mint
+def _as_dict(obj) -> dict:
+    """A Stripe object as a plain dict, whatever this library version prints."""
+    if isinstance(obj, dict) and type(obj) is dict:
+        return obj
+    for attempt in ("to_dict_recursive", "to_dict"):
+        fn = getattr(obj, attempt, None)
+        if callable(fn):
+            try:
+                return dict(fn())
+            except Exception:
+                pass
+    fn = getattr(obj, "to_json", None)
+    if callable(fn):
+        return json.loads(fn())
+    return json.loads(str(obj))
+
+
 def _find_product(stripe, family_id: str):
     for p in stripe.Product.list(limit=100, active=True).auto_paging_iter():
-        md = dict(json.loads(str(p)).get("metadata") or {})
+        md = dict(_as_dict(p).get("metadata") or {})
         if md.get("fv5_family") == family_id:
             return p
+    return None
+
+
+def _find_link(stripe, family_id: str):
+    """An ACTIVE payment link already minted for this family, or None.
+
+    Idempotency keys stop a same-day repeat, but a family re-minted a week later
+    would otherwise get a second link and a second address in the catalog."""
+    for l in stripe.PaymentLink.list(limit=100, active=True).auto_paging_iter():
+        md = dict(_as_dict(l).get("metadata") or {})
+        if md.get("fv5_family") == family_id:
+            return l
     return None
 
 
@@ -173,16 +232,19 @@ def mint_one_live(stripe, fam: dict, cents: int, cadence: str) -> dict:
         )
     price = stripe.Price.retrieve(product["default_price"])
 
-    link = stripe.PaymentLink.create(
-        idempotency_key=f"fv5-link-{fid}-{cadence}-{cents}-v1",
-        **build_link_body(price["id"], cf, fid, cadence, meta),
-    )
-    # Prove it before we ever write it into the catalog.
-    link = stripe.PaymentLink.retrieve(link["id"])
+    link = _find_link(stripe, fid)
+    if link is None:
+        link = stripe.PaymentLink.create(
+            idempotency_key=f"fv5-link-{fid}-{cadence}-{cents}-v1",
+            **build_link_body(price["id"], cf, fid, cadence, meta),
+        )
+    # Prove it before we ever write it into the catalog. Read back as a plain
+    # dict: this Stripe library's objects answer attribute lookups, not .get().
+    link = json.loads(str(stripe.PaymentLink.retrieve(link["id"])))
     items = stripe.PaymentLink.list_line_items(link["id"], limit=10).data
-    read_price = json.loads(str(items[0].price)) if items else {}
+    read_price = _as_dict(items[0].price) if items else {}
     faults = link_faults(link, read_price, cents, cadence)
-    ac = json.loads(str(link)).get("after_completion") or {}
+    ac = _as_dict(link).get("after_completion") or {}
     if (ac.get("redirect") or {}).get("url") != redirect_url(fid):
         faults.append("after-payment redirect does not point at the thanks page")
     if faults:

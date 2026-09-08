@@ -100,8 +100,11 @@ def check_family(fid: str, catalog: dict, api_key: str) -> dict:
     fails: list[str] = []
     report: dict = {"family": fid, "fails": fails}
     fam = _catalog_row(catalog, fid)
-    if fam is None:
-        fails.append("no catalog row")
+    status = ((fam or {}).get("checkout") or {}).get("status", "")
+    if fam is None or status in ("HOLD", "EXTERNAL"):
+        # Not on sale from our pages: no catalog row (parked) or a row that is
+        # deliberately held / billed elsewhere. Nothing to prove, so no fail.
+        report["held"] = "no catalog row" if fam is None else f"checkout status {status}"
         return report
 
     price = fam.get("price", "")
@@ -128,11 +131,12 @@ def check_family(fid: str, catalog: dict, api_key: str) -> dict:
             if amount is not None and amount != parsed[0]:
                 fails.append(f"Stripe charges {amount} cents, page says {parsed[0]}")
 
-    thanks = ROOT / "families" / fid / "thanks" / "index.html"
+    thanks = ROOT / "families" / fid / "p" / "thanks" / "index.html"
     if not thanks.is_file():
         fails.append("no thanks page")
 
-    report["private_pages"] = len(list((ROOT / "families" / fid / "p").glob("*/index.html")))
+    report["private_pages"] = len([q for q in (ROOT / "families" / fid / "p").glob("*/index.html")
+                                   if q.parent.name != "thanks"])
 
     data = ROOT / "families" / fid / "data.json"
     if not data.is_file():
@@ -163,7 +167,9 @@ def main() -> int:
     for fid in ids:
         rep = check_family(fid, catalog, api_key)
         reports[fid] = rep
-        if rep["fails"]:
+        if rep.get("held"):
+            print(f"held {fid}: {rep['held']}")
+        elif rep["fails"]:
             any_fail = True
             print(_redact(f"FAIL {fid}: " + "; ".join(rep["fails"])))
         else:
