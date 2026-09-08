@@ -1,0 +1,50 @@
+{
+ "name": "EU and California, a text chatbot, not obvious, over a million users",
+ "why": "The case the family is built for: a big consumer chatbot reachable from both the EU and California, where nobody has told the user it is a machine.",
+ "input": {
+  "regions": [
+   "eu",
+   "ca"
+  ],
+  "uses": [
+   "chat",
+   "genai",
+   "commerce"
+  ],
+  "obvious": false,
+  "users_over_1m": true,
+  "org": "Northgate Labs Ltd"
+ },
+ "expect": {
+  "duty_status": {
+   "eu-50-1": "matches",
+   "eu-50-1-timing": "matches",
+   "eu-50-2": "matches",
+   "eu-50-4": "matches",
+   "ca-bot-17941a": "matches",
+   "ca-bot-17941b": "matches",
+   "ca-ait-threshold": "matches",
+   "ca-ait-manifest": "matches",
+   "ca-ait-latent": "matches",
+   "eu-50-3": "does-not-match",
+   "co-notice": "does-not-match",
+   "ut-ondemand": "does-not-match",
+   "me-duty": "does-not-match",
+   "ny-1702": "does-not-match",
+   "ca-comp-22602a": "does-not-match",
+   "ut-regulated": "does-not-match"
+  },
+  "notice_keys": [
+   "chat-banner",
+   "first-message",
+   "commerce-bot",
+   "content-label",
+   "media-label"
+  ],
+  "notice_text_contains": {
+   "chat-banner": "Northgate Labs Ltd"
+  },
+  "watermark": "DRAFT — buy to remove",
+  "min_matches": 11
+ }
+}

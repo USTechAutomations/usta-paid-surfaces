@@ -1,0 +1,226 @@
+{
+ "family": "ai-disclosure-notice",
+ "stamp": "2026-09-08",
+ "drift": false,
+ "drifted": [],
+ "unchecked": [
+  "ny-notify",
+  "ny-3hr",
+  "ny-crisis",
+  "ny-referral"
+ ],
+ "cite_checks": [
+  {
+   "duty": "co-notice",
+   "region": "co",
+   "what": "the start date of the Colorado consumer-notice duty",
+   "note": "The General Assembly's summary dates the developer-documentation duty from 1 January 2027 and does not attach a date to the consumer-notice sentence. We have not fetched the section text, so the notice duty's own start date is marked CITE-CHECK rather than stated."
+  },
+  {
+   "duty": "me-duty",
+   "region": "me",
+   "what": "the effective date of 10 M.R.S. § 1500-DD",
+   "note": "The statute page names the enacting session law, PL 2025, c. 294, but does not print an effective date. We have not fetched the chapter law, so the date is marked CITE-CHECK rather than stated."
+  },
+  {
+   "duty": "ny-1702",
+   "region": "ny",
+   "what": "the effective date of New York General Business Law Article 47",
+   "note": "Our source for this section is the browser route, which does not print an effective date. The date is marked CITE-CHECK rather than stated."
+  },
+  {
+   "duty": "il-hb3773",
+   "region": "il",
+   "what": "the whole of Illinois Public Act 103-0804 (HB 3773)",
+   "note": ""
+  },
+  {
+   "duty": "",
+   "region": "",
+   "what": "source eurlex-2024-1689: EUR-Lex — Regulation (EU) 2024/1689 (the AI Act), official text",
+   "note": "blocked — 202 (AWS WAF JavaScript challenge, 0 bytes of document)"
+  },
+  {
+   "duty": "",
+   "region": "",
+   "what": "source ny-gbs-1701: New York General Business Law § 1701 (AI Companion Models)",
+   "note": "browser — 403 to this host; read through the session's browser route"
+  },
+  {
+   "duty": "",
+   "region": "",
+   "what": "source ny-gbs-1702: New York General Business Law § 1702 (AI Companion Models)",
+   "note": "browser — 403 to this host; read through the session's browser route"
+  },
+  {
+   "duty": "",
+   "region": "",
+   "what": "source il-pa-103-0804: Illinois Public Act 103-0804 (HB 3773), AI in employment decisions",
+   "note": "blocked — TLS failure from this host (“unable to get local issuer certificate”); 403 when verification is skipped; the browser route also fails on the certificate"
+  }
+ ],
+ "counts": {
+  "duties": 30,
+  "cites": 56,
+  "notices": 8,
+  "sources": 11,
+  "pages": 12
+ },
+ "fetch_log": [
+  {
+   "source": "ec-art50-faq",
+   "url": "https://digital-strategy.ec.europa.eu/en/faqs/transparency-obligations-under-article-50-ai-act",
+   "status": "200",
+   "bytes": 76267,
+   "ok": true
+  },
+  {
+   "source": "ca-bpc-17941",
+   "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17941.",
+   "status": "200",
+   "bytes": 163551,
+   "ok": true
+  },
+  {
+   "source": "ca-bpc-ch25",
+   "url": "https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=BPC&division=8.&title=&part=&chapter=25.&article=",
+   "status": "200",
+   "bytes": 153249,
+   "ok": true
+  },
+  {
+   "source": "ca-bpc-22602",
+   "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=22602.",
+   "status": "200",
+   "bytes": 164360,
+   "ok": true
+  },
+  {
+   "source": "co-sb26-189",
+   "url": "https://leg.colorado.gov/bills/sb26-189",
+   "status": "200",
+   "bytes": 121922,
+   "ok": true
+  },
+  {
+   "source": "me-10mrsa-1500dd",
+   "url": "https://legislature.maine.gov/statutes/10/title10sec1500-DD.html",
+   "status": "200",
+   "bytes": 12529,
+   "ok": true
+  },
+  {
+   "source": "ut-sb0226",
+   "url": "https://le.utah.gov/Session/2025/bills/enrolled/SB0226.pdf",
+   "status": "200",
+   "bytes": 35666,
+   "ok": true
+  }
+ ],
+ "review_dates": [
+  {
+   "date": "2019-07-01",
+   "region": "ca",
+   "region_label": "California",
+   "text": "1 July 2019",
+   "laws": [
+    "California Business and Professions Code § 17941(a) (the BOT Act)",
+    "California Business and Professions Code § 17941(b) (the BOT Act)"
+   ]
+  },
+  {
+   "date": "2025-05-07",
+   "region": "ut",
+   "region_label": "Utah",
+   "text": "7 May 2025",
+   "laws": [
+    "Utah Code 13-75-103(1) (S.B. 226, 2025)",
+    "Utah Code 13-75-103(2)–(3) (S.B. 226, 2025)",
+    "Utah Code 13-75-104 (S.B. 226, 2025)"
+   ]
+  },
+  {
+   "date": "2025-09-24",
+   "region": "me",
+   "region_label": "Maine",
+   "text": "see the date note on this row",
+   "laws": [
+    "Maine Revised Statutes, 10 M.R.S. § 1500-DD(2)",
+    "Maine Revised Statutes, 10 M.R.S. § 1500-DD(1)",
+    "Maine Revised Statutes, 10 M.R.S. § 1500-DD(3)"
+   ]
+  },
+  {
+   "date": "2025-11-05",
+   "region": "ny",
+   "region_label": "New York",
+   "text": "see the date note on this row",
+   "laws": [
+    "New York General Business Law § 1702 (Article 47, AI Companion Models)",
+    "New York General Business Law § 1701 (Article 47, AI Companion Models)"
+   ]
+  },
+  {
+   "date": "2026-01-01",
+   "region": "ca",
+   "region_label": "California",
+   "text": "1 January 2026",
+   "laws": [
+    "California Business and Professions Code § 22602(a) (SB 243)",
+    "California Business and Professions Code § 22602(c) (SB 243)",
+    "California Business and Professions Code § 22602(b) (SB 243)"
+   ]
+  },
+  {
+   "date": "2026-05-14",
+   "region": "co",
+   "region_label": "Colorado",
+   "text": "signed 14 May 2026",
+   "laws": [
+    "Colorado SB 24-205, repealed and reenacted by SB26-189"
+   ]
+  },
+  {
+   "date": "2026-08-02",
+   "region": "ca",
+   "region_label": "California",
+   "text": "2 August 2026",
+   "laws": [
+    "California AI Transparency Act, Business and Professions Code § 22757.1(d) (SB 942 as amended by AB 853)",
+    "California AI Transparency Act, Business and Professions Code § 22757.3(a)",
+    "California AI Transparency Act, Business and Professions Code § 22757.3(b)",
+    "California AI Transparency Act, Business and Professions Code § 22757.2(a)"
+   ]
+  },
+  {
+   "date": "2026-08-02",
+   "region": "eu",
+   "region_label": "the European Union",
+   "text": "2 August 2026",
+   "laws": [
+    "EU AI Act, Regulation (EU) 2024/1689, Article 50(1)",
+    "EU AI Act, Regulation (EU) 2024/1689, Article 50(2)",
+    "EU AI Act, Regulation (EU) 2024/1689, Article 50(3)",
+    "EU AI Act, Regulation (EU) 2024/1689, Article 50(4)"
+   ]
+  },
+  {
+   "date": "2026-12-02",
+   "region": "eu",
+   "region_label": "the European Union",
+   "text": "2 December 2026",
+   "laws": [
+    "EU AI Act, Regulation (EU) 2024/1689, Article 50(2)"
+   ]
+  },
+  {
+   "date": "2027-01-01",
+   "region": "co",
+   "region_label": "Colorado",
+   "text": "see the date note on this row",
+   "laws": [
+    "Colorado SB26-189, Automated Decision-Making Technology"
+   ]
+  }
+ ]
+}
