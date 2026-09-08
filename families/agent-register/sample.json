@@ -1,6 +1,6 @@
 {
   "family": "agent-register",
-  "generated": "2026-09-06",
+  "generated": "2026-09-07",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/agent-register",
   "rows_published": 25,
@@ -12,6 +12,12 @@
     "where_it_answers"
   ],
   "rows": [
+    [
+      "io.github.ZadenGG/x402-zadenworks",
+      "2026-09-07",
+      "2026-09-07",
+      "x402-zadenworks.zaden-gaming.workers.dev"
+    ],
     [
       "io.sslip.249.111.77.187/x402-mcp-tools",
       "2026-09-06",
@@ -155,12 +161,6 @@
       "2026-08-25",
       "2026-08-25",
       "tracy-collar-preview-demands.trycloudflare.com"
-    ],
-    [
-      "io.github.crypto-yannso/tryx402",
-      "2026-08-24",
-      "2026-08-24",
-      "no address in the record"
     ]
   ]
 }

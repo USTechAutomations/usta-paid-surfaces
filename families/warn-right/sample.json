@@ -1,0 +1,25 @@
+{
+  "family": "warn-right",
+  "generated": "2026-09-07",
+  "note": "Demo rows for the public page. Every row is labeled demo. Not a scan of a live store.",
+  "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/warn-right",
+  "rows_published": 8,
+  "columns": 5,
+  "headers": [
+    "title",
+    "category",
+    "risk",
+    "chemicals",
+    "rationale"
+  ],
+  "rows": [
+    ["Brass cuff bracelet", "Jewelry", "listed", "Lead", "Demo. Rule hit on brass / jewelry."],
+    ["Vinyl shower curtain", "Home", "listed", "DEHP", "Demo. Rule hit on vinyl."],
+    ["Ceramic mug with colored glaze", "Kitchen", "listed", "Lead", "Demo. Rule hit on ceramic glaze."],
+    ["Dark roast coffee beans", "Grocery", "listed", "Acrylamide", "Demo. Rule hit on coffee."],
+    ["MDF bookshelf", "Furniture", "listed", "Formaldehyde; Wood dust", "Demo. Rule hit on MDF."],
+    ["Cotton t-shirt", "Apparel", "unlikely", "", "Demo. Cotton matched the low-signal list."],
+    ["Paper notebook", "Stationery", "unlikely", "", "Demo. Paper matched the low-signal list."],
+    ["Stainless steel water bottle", "Kitchen", "unlikely", "", "Demo. Stainless steel matched the low-signal list."]
+  ]
+}

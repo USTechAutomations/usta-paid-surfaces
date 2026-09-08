@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Notice Responder letter pack</title>
+  <style>
+    body { font: 16px/1.5 Georgia, serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; color: #111; }
+    .box { border: 2px solid #7a3b12; background: #fff6ee; padding: 0.8rem 1rem; margin: 1rem 0; }
+    button { font: inherit; padding: 0.4rem 0.9rem; }
+    pre { white-space: pre-wrap; background: #fafafa; padding: 1rem; border: 1px solid #ddd; }
+    ul { padding-left: 1.2rem; }
+    .no-print { margin: 1rem 0; }
+    @media print {
+      .no-print { display: none; }
+      body { margin: 0; }
+    }
+  </style>
+</head>
+<body>
+  <p class="box"><strong>This is document preparation, not tax advice.</strong> A tax agency is not required to accept this draft.</p>
+  <h1>Letter pack</h1>
+  <p id="status">Looking up your payment…</p>
+  <div class="no-print">
+    <button type="button" id="print-btn">Print</button>
+  </div>
+  <article id="pack" hidden>
+    <h2>Draft letter</h2>
+    <pre id="letter"></pre>
+    <h2>Checklist</h2>
+    <ul id="checklist"></ul>
+    <h2>Enclosures</h2>
+    <ul id="enclosures"></ul>
+  </article>
+  <script>
+    const ENTITLEMENT_URL = (window.ENTITLEMENT_URL || "http://127.0.0.1:8781").replace(/\/$/, "");
+    const FIT_API_URL = (window.FIT_API_URL || "http://127.0.0.1:8782").replace(/\/$/, "");
+    const params = new URLSearchParams(location.search);
+    const sessionId = params.get("session_id") || "";
+    const noticeCode = params.get("code") || sessionStorage.getItem("nr_notice_code") || "CP2000";
+    const status = document.getElementById("status");
+    document.getElementById("print-btn").addEventListener("click", () => window.print());
+
+    async function sha256Hex(text) {
+      const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+      return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    async function installId() {
+      const key = "nr_install_id";
+      let hex = localStorage.getItem(key);
+      if (hex && /^[0-9a-f]{64}$/.test(hex)) return hex;
+      hex = await sha256Hex(crypto.randomUUID());
+      localStorage.setItem(key, hex);
+      return hex;
+    }
+
+    function showPack(result) {
+      document.getElementById("letter").textContent = result.letter_text || "";
+      const fill = (id, items) => {
+        const ul = document.getElementById(id);
+        ul.innerHTML = "";
+        for (const item of items || []) {
+          const li = document.createElement("li");
+          li.textContent = item;
+          ul.appendChild(li);
+        }
+      };
+      fill("checklist", result.checklist);
+      fill("enclosures", result.enclosures);
+      document.getElementById("pack").hidden = false;
+    }
+
+    function facts() {
+      try {
+        return JSON.parse(sessionStorage.getItem("nr_facts") || "{}");
+      } catch {
+        return {};
+      }
+    }
+
+    async function main() {
+      if (!sessionId) {
+        status.textContent = "Missing session_id on this page. Pay first; the thank-you link includes it.";
+        return;
+      }
+      const claimRes = await fetch(
+        `${ENTITLEMENT_URL}/v1/claim?session_id=${encodeURIComponent(sessionId)}`,
+      );
+      if (claimRes.status === 404) {
+        status.textContent = "Unknown checkout session.";
+        return;
+      }
+      const claim = await claimRes.json();
+      if (!claim.ok && claim.pending) {
+        status.textContent = "Payment is still landing. Refresh this page in a minute.";
+        return;
+      }
+      if (!claim.ok || !claim.key) {
+        status.textContent = "Could not claim a key for this session.";
+        return;
+      }
+      status.textContent = "Building the letter pack…";
+      const fitRes = await fetch(`${FIT_API_URL}/v1/fit`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          product: "notice-responder",
+          task: "notice_letter",
+          install_id: await installId(),
+          license_key: claim.key,
+          input: { notice_code: noticeCode, facts: facts() },
+        }),
+      });
+      const fit = await fitRes.json();
+      if (!fit.ok) {
+        status.textContent = "The letter pack could not be built (" + (fit.reason || "error") + ").";
+        return;
+      }
+      status.textContent = "Print this page. We do not email the pack.";
+      showPack(fit.result || {});
+    }
+
+    main().catch((err) => {
+      status.textContent = String(err);
+    });
+  </script>
+</body>
+</html>

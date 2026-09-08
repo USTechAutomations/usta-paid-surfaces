@@ -1,0 +1,16 @@
+ticket,rule,severity,message,fix_hint
+BAD-1,missing_acceptance_criteria,high,This ticket has no acceptance criteria a person could tick off.,Add an Acceptance criteria section with Given/When/Then lines a tester can run.
+BAD-2,missing_acceptance_criteria,high,This ticket has no acceptance criteria a person could tick off.,Add an Acceptance criteria section with Given/When/Then lines a tester can run.
+BAD-3,missing_acceptance_criteria,high,This ticket has no acceptance criteria a person could tick off.,Add an Acceptance criteria section with Given/When/Then lines a tester can run.
+BAD-4,vague_finish,high,Finish words are not observable: looks good.,"Replace ""works"", ""looks good"", and ""done when done"" with a check a person can pass or fail."
+BAD-5,vague_finish,high,Finish words are not observable: works.,"Replace ""works"", ""looks good"", and ""done when done"" with a check a person can pass or fail."
+BAD-6,vague_finish,high,Finish words are not observable: done when done.,"Replace ""works"", ""looks good"", and ""done when done"" with a check a person can pass or fail."
+BAD-7,missing_observable_test,high,Nothing on this ticket names a finish test a person could watch happen.,"Add a finish test such as ""Then the status equals 200"" or a Given/When/Then path."
+BAD-8,missing_observable_test,high,Nothing on this ticket names a finish test a person could watch happen.,"Add a finish test such as ""Then the status equals 200"" or a Given/When/Then path."
+BAD-9,missing_observable_test,high,Nothing on this ticket names a finish test a person could watch happen.,"Add a finish test such as ""Then the status equals 200"" or a Given/When/Then path."
+BAD-10,scope_words,high,Scope words leave the edge of the work unnamed: various.,"Delete ""etc"", ""and so on"", and ""various"". Name the exact list of things in scope."
+BAD-11,scope_words,high,Scope words leave the edge of the work unnamed: etc.,"Delete ""etc"", ""and so on"", and ""various"". Name the exact list of things in scope."
+BAD-12,scope_words,high,Scope words leave the edge of the work unnamed: and so on.,"Delete ""etc"", ""and so on"", and ""various"". Name the exact list of things in scope."
+BAD-13,short_description,high,The description has 6 word(s); it needs at least 25.,"Write at least 25 words that say what changes, where, and how a tester will see it."
+BAD-14,short_description,high,The description has 5 word(s); it needs at least 25.,"Write at least 25 words that say what changes, where, and how a tester will see it."
+BAD-15,missing_estimate,high,This ticket has no estimate (time or story points).,Set original estimate or story points before moving the ticket.

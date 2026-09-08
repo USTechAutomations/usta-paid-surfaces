@@ -1,37 +1,37 @@
 {
   "family": "agent-register",
-  "generated": "2026-09-06",
+  "generated": "2026-09-07",
   "slices": [
     {
       "slug": "newly-listed",
-      "newest": "2026-09-06",
+      "newest": "2026-09-07",
       "oldest": "2026-07-22",
-      "runs": 44,
-      "row_count": 62,
+      "runs": 45,
+      "row_count": 63,
       "cadence_days": 1
     },
     {
       "slug": "new-versions",
-      "newest": "2026-09-06",
+      "newest": "2026-09-07",
       "oldest": "2026-07-22",
-      "runs": 44,
-      "row_count": 69,
+      "runs": 45,
+      "row_count": 72,
       "cadence_days": 1
     },
     {
       "slug": "every-server",
-      "newest": "2026-09-06",
+      "newest": "2026-09-07",
       "oldest": "2026-07-22",
-      "runs": 44,
-      "row_count": 156,
+      "runs": 45,
+      "row_count": 157,
       "cadence_days": 1
     },
     {
       "slug": "coverage",
-      "newest": "2026-09-06",
+      "newest": "2026-09-07",
       "oldest": "2026-07-22",
-      "runs": 44,
-      "row_count": 5189,
+      "runs": 45,
+      "row_count": 5346,
       "cadence_days": 1
     }
   ]

@@ -29,6 +29,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import family_status  # noqa: E402
 from freshness import NEWEST_META, check_freshness  # noqa: E402
 from pipeline import build_veto  # noqa: E402
+from paid_landing import enhance_paid_landing  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
@@ -352,6 +353,19 @@ def build_page(src: Path, family: str, crumb_label: str | None, path: str | None
         out = out.replace("<meta charset=\"utf-8\">",
                           "<meta charset=\"utf-8\">\n  <meta name=\"robots\" content=\"index,follow\">", 1)
     out = out.replace("<head>", "<head>\n  " + GTM % (family, GTM_ID), 1)
+    if rel in {'permit-files/austin', 'boston', 'nyc-ll84',
+               'wp-accessibility-scan', 'pilot-logbook-digitizer'}:
+        out = enhance_paid_landing(rel, out)
+        # Only the explicitly reviewed paid destinations. Inline to avoid a new
+        # script route or a MIME-type mismatch in the static side service.
+        tracking = (ROOT / 'scripts' / 'paid_click_reference.js').read_text()
+        out = out.replace('</head>', '<script>' + tracking + '</script>\n'
+                          '<style>.purchase-visit .mast-nav{display:none}'
+                          '.purchase-visit .hero .lede{max-width:52rem}'
+                          '.ad-buyer-guide{padding:1rem;border:1px solid #9ca3af;'
+                          'border-radius:.6rem;max-width:52rem;line-height:1.6}'
+                          '.ad-buyer-guide a{font-weight:600}'
+                          ':target{scroll-margin-top:2rem}</style>\n</head>', 1)
     out = re.sub(r'<meta property="og:site_name" content="[^"]*">',
                  '<meta property="og:site_name" content="US Tech Automations">', out)
     # theme-color follows the main site, light and dark, not the old per-family accent

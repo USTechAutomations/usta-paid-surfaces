@@ -470,7 +470,7 @@ def family_spec() -> dict:
             "How it works",
             None,
             '      <ol class="steps">\n'
-            "        <li>You email us and name the calendar year or the borough.</li>\n"
+            "        <li>Choose one year or borough. After paying, reply to your receipt naming the slice.</li>\n"
             "        <li>We tell you how many rows we hold for it, and we name the date we pulled them.</li>\n"
             "        <li>After you pay, a person emails you the file as a CSV within one working day.</li>\n"
             "      </ol>",

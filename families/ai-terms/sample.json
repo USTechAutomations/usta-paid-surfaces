@@ -1,6 +1,6 @@
 {
   "family": "ai-terms",
-  "generated": "2026-09-06",
+  "generated": "2026-09-07",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/ai-terms",
   "rows_published": 25,
@@ -16,6 +16,16 @@
     "url"
   ],
   "rows": [
+    [
+      "DeepL",
+      "terms of service",
+      "",
+      "Transferability to other users - In the case of Single-User Licenses, quotas cannot be transferred to other Internal Users.",
+      "arrived on the page",
+      "2026-09-06",
+      "2026-09-07",
+      "https://www.deepl.com/en/pro-license"
+    ],
     [
       "DeepL",
       "privacy policy",
@@ -255,16 +265,6 @@
       "2026-08-12",
       "2026-08-13",
       "https://inflection.ai/privacy-policy"
-    ],
-    [
-      "NVIDIA",
-      "privacy policy",
-      "You have the right to see the data we have collected, take it with you, make corrections, withdraw consent for future uses, opt out of sales and sharing, or erase your data all together at any time.",
-      "Control your personal data You have the right to see the data we have collected, take it with you, make corrections, withdraw consent for future uses, opt out of sales and sharing, or erase your data all together at any time.",
-      "rewritten in place",
-      "2026-08-11",
-      "2026-08-12",
-      "https://www.nvidia.com/en-us/about-nvidia/privacy-policy/"
     ]
   ]
 }

@@ -1,93 +1,93 @@
 {
   "family": "dc-buildout",
-  "generated": "2026-09-06",
+  "generated": "2026-09-07",
   "slices": [
     {
       "slug": "coverage",
-      "newest": "2026-08-31",
+      "newest": "2026-09-07",
       "oldest": "2026-06-09",
-      "runs": 13,
-      "row_count": 727,
+      "runs": 14,
+      "row_count": 784,
       "cadence_days": 7
     },
     {
       "slug": "more-bare-ground",
-      "newest": "2026-08-31",
+      "newest": "2026-09-07",
       "oldest": "2026-06-09",
-      "runs": 13,
-      "row_count": 345,
+      "runs": 14,
+      "row_count": 399,
       "cadence_days": 7
     },
     {
       "slug": "less-bare-ground",
-      "newest": "2026-08-31",
+      "newest": "2026-09-07",
       "oldest": "2026-06-09",
-      "runs": 13,
-      "row_count": 383,
+      "runs": 14,
+      "row_count": 428,
       "cadence_days": 7
     },
     {
       "slug": "no-change",
-      "newest": "2026-08-31",
+      "newest": "2026-09-07",
       "oldest": "2026-06-09",
-      "runs": 13,
-      "row_count": 267,
+      "runs": 14,
+      "row_count": 260,
       "cadence_days": 7
     },
     {
       "slug": "cloud-blocked",
-      "newest": "2026-08-31",
+      "newest": "2026-09-07",
       "oldest": "2026-06-09",
-      "runs": 13,
-      "row_count": 727,
+      "runs": 14,
+      "row_count": 784,
       "cadence_days": 7
     },
     {
       "slug": "aws",
-      "newest": "2026-08-31",
+      "newest": "2026-09-07",
       "oldest": "2026-06-09",
-      "runs": 13,
-      "row_count": 65,
+      "runs": 14,
+      "row_count": 70,
       "cadence_days": 7
     },
     {
       "slug": "google",
-      "newest": "2026-08-31",
+      "newest": "2026-09-07",
       "oldest": "2026-06-09",
-      "runs": 13,
-      "row_count": 226,
+      "runs": 14,
+      "row_count": 244,
       "cadence_days": 7
     },
     {
       "slug": "meta",
-      "newest": "2026-08-31",
+      "newest": "2026-09-07",
       "oldest": "2026-06-09",
-      "runs": 13,
-      "row_count": 89,
+      "runs": 14,
+      "row_count": 96,
       "cadence_days": 7
     },
     {
       "slug": "stargate",
-      "newest": "2026-08-31",
+      "newest": "2026-09-07",
       "oldest": "2026-06-09",
-      "runs": 13,
-      "row_count": 90,
+      "runs": 14,
+      "row_count": 97,
       "cadence_days": 7
     },
     {
       "slug": "ohio",
-      "newest": "2026-08-31",
+      "newest": "2026-09-07",
       "oldest": "2026-06-09",
-      "runs": 13,
-      "row_count": 58,
+      "runs": 14,
+      "row_count": 63,
       "cadence_days": 7
     },
     {
       "slug": "texas",
-      "newest": "2026-08-31",
+      "newest": "2026-09-07",
       "oldest": "2026-06-09",
-      "runs": 13,
-      "row_count": 194,
+      "runs": 14,
+      "row_count": 209,
       "cadence_days": 7
     }
   ]

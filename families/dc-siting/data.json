@@ -1,6 +1,6 @@
 {
   "family": "dc-siting",
-  "generated": "2026-09-06",
+  "generated": "2026-09-07",
   "slices": [
     {
       "slug": "arizona",
@@ -20,10 +20,10 @@
     },
     {
       "slug": "coverage",
-      "newest": "2026-09-06",
+      "newest": "2026-09-07",
       "oldest": "2026-07-10",
-      "runs": 53,
-      "row_count": 169303,
+      "runs": 54,
+      "row_count": 169825,
       "cadence_days": 1
     }
   ]

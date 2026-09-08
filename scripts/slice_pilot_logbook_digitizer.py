@@ -215,7 +215,7 @@ def family_spec() -> dict:
         ),
         "contact_cta": "Email us about digitizing a paper logbook",
         "contact_note": (
-            "No pay button on this page yet. Check the checksum table against "
+            "Check the checksum table against "
             "the paper before you import."
         ),
         "foot": (
