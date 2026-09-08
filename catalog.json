@@ -2565,6 +2565,25 @@
       "sample_status": "pass",
       "group": "Trade records",
       "kind": "build"
+    },
+    {
+      "id": "fda-device-establishment-week",
+      "name": "FDA device establishment weekly changes",
+      "buyer": "Device distributors and initial importers who must prove a foreign manufacturer or importer is still FDA-registered; product-liability insurers; hospital supply-chain compliance desks",
+      "cadence": "weekly, after the Monday export",
+      "cadence_long": "Compare dated FDA exports after the weekly refresh; missing or invalid inputs withhold the comparison.",
+      "price": "$49/mo",
+      "sample_status": "unknown",
+      "note": "STAGED offline artifact. Only a baseline source export is supplied; historical changes UNKNOWN. Sample withheld until a genuine dated pair exists. Person-like firm names are excluded; vanished-only public CSV omits name. Checkout is TO-MINT.",
+      "group": "Other dated records",
+      "short": "Device establishment changes",
+      "who": "Device distributors and initial importers who must prove a foreign manufacturer or importer is still FDA-registered; product-liability insurers; hospital supply-chain compliance desks",
+      "checkout": {
+        "url": "TO-MINT",
+        "label": "Subscribe — $49/mo",
+        "terms": "$49/mo for a weekly CSV of eligible business establishments that appeared, vanished, or changed between dated openFDA exports. Registration listing changes are not proof of approval, compliance, or permanent closure.",
+        "after": "Checkout and automated subscriber delivery are not connected in this staged artifact."
+      }
     }
   ],
   "map": "MAP.md",
