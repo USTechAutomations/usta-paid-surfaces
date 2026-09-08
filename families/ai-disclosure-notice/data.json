@@ -1,0 +1,102 @@
+{
+  "family": "ai-disclosure-notice",
+  "generated": "2026-09-08",
+  "slices": [
+    {
+      "slug": "ai-disclosure-european-union",
+      "newest": "2026-09-08",
+      "oldest": "2026-08-02",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 90
+    },
+    {
+      "slug": "ai-disclosure-california",
+      "newest": "2026-09-08",
+      "oldest": "2019-07-01",
+      "runs": 1,
+      "row_count": 29,
+      "cadence_days": 90
+    },
+    {
+      "slug": "ai-disclosure-colorado",
+      "newest": "2026-09-08",
+      "oldest": "2026-05-14",
+      "runs": 1,
+      "row_count": 14,
+      "cadence_days": 90
+    },
+    {
+      "slug": "ai-disclosure-utah",
+      "newest": "2026-09-08",
+      "oldest": "2025-05-07",
+      "runs": 1,
+      "row_count": 11,
+      "cadence_days": 90
+    },
+    {
+      "slug": "ai-disclosure-maine",
+      "newest": "2026-09-08",
+      "oldest": "2025-09-24",
+      "runs": 1,
+      "row_count": 9,
+      "cadence_days": 90
+    },
+    {
+      "slug": "ai-disclosure-new-york",
+      "newest": "2026-09-08",
+      "oldest": "2025-11-05",
+      "runs": 1,
+      "row_count": 6,
+      "cadence_days": 90
+    },
+    {
+      "slug": "chatbot-disclosure-notice",
+      "newest": "2026-09-08",
+      "oldest": "2019-07-01",
+      "runs": 1,
+      "row_count": 39,
+      "cadence_days": 90
+    },
+    {
+      "slug": "first-message-ai-disclosure",
+      "newest": "2026-09-08",
+      "oldest": "2019-07-01",
+      "runs": 1,
+      "row_count": 28,
+      "cadence_days": 90
+    },
+    {
+      "slug": "ai-generated-content-label",
+      "newest": "2026-09-08",
+      "oldest": "2026-08-02",
+      "runs": 1,
+      "row_count": 23,
+      "cadence_days": 90
+    },
+    {
+      "slug": "synthetic-media-label",
+      "newest": "2026-09-08",
+      "oldest": "2026-08-02",
+      "runs": 1,
+      "row_count": 19,
+      "cadence_days": 90
+    },
+    {
+      "slug": "companion-chatbot-notice",
+      "newest": "2026-09-08",
+      "oldest": "2025-11-05",
+      "runs": 1,
+      "row_count": 18,
+      "cadence_days": 90
+    },
+    {
+      "slug": "automated-decision-notice",
+      "newest": "2026-09-08",
+      "oldest": "2026-05-14",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 90
+    }
+  ]
+}

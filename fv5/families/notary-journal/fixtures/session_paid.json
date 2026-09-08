@@ -1,0 +1,12 @@
+{
+ "id": "cs_test_fv6_notary-journal_001",
+ "object": "checkout.session",
+ "payment_status": "paid",
+ "amount_total": 4900,
+ "currency": "usd",
+ "created": 1757289600,
+ "custom_fields": [
+  {"key": "state", "type": "dropdown", "dropdown": {"value": "PA"}},
+  {"key": "commission", "type": "text", "text": {"value": "1234567"}}
+ ]
+}

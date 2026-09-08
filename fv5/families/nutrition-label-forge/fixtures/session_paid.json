@@ -1,0 +1,22 @@
+{
+  "id": "cs_test_fv6_nutrition-label-forge_001",
+  "object": "checkout.session",
+  "amount_total": 4900,
+  "currency": "usd",
+  "payment_status": "paid",
+  "custom_fields": [
+    {
+      "key": "product_name",
+      "type": "text",
+      "label": { "type": "custom", "custom": "Product name as it will read on the package" },
+      "text": { "value": "Harvest Oat Granola" }
+    }
+  ],
+  "customer_details": {
+    "email": "maker@example.com"
+  },
+  "created": 1757260800,
+  "metadata": {
+    "private_slug": "nlf-fixture-0001"
+  }
+}

@@ -1,0 +1,103 @@
+[
+ {
+  "id": "ec-art50-faq",
+  "label": "European Commission — Transparency obligations under Article 50 of the AI Act",
+  "url": "https://digital-strategy.ec.europa.eu/en/faqs/transparency-obligations-under-article-50-ai-act",
+  "fetch": "curl",
+  "status": "200",
+  "terms": "European Commission standard reuse notice: © European Union, 1995-2026. Reuse of Commission documents is authorised under the Commission Decision 2011/833/EU, provided the source is acknowledged.",
+  "note": "EUR-Lex itself, which carries the Regulation's own words, answers a 202 AWS WAF JavaScript challenge to this host and to the browser route. That is recorded, not evaded: the Article 50 wording quoted here is the Commission's own explanatory text, which we can fetch."
+ },
+ {
+  "id": "eurlex-2024-1689",
+  "label": "EUR-Lex — Regulation (EU) 2024/1689 (the AI Act), official text",
+  "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+  "fetch": "blocked",
+  "status": "202 (AWS WAF JavaScript challenge, 0 bytes of document)",
+  "terms": "Not read. The consolidated EUR-Lex text carries the notice “This text is meant purely as a documentation tool and has no legal effect.” We do not quote a page we could not fetch.",
+  "note": "Nothing is quoted from this source. The Article 50 rows cite the European Commission's own Article 50 FAQ instead, and say so."
+ },
+ {
+  "id": "ca-bpc-17941",
+  "label": "California Business and Professions Code § 17941 (the BOT Act, SB 1001)",
+  "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17941.",
+  "fetch": "curl",
+  "status": "200 (503 on the first attempt; 200 on retry with a cookie jar)",
+  "terms": "leginfo.legislature.ca.gov Terms of Use: the site is provided by the Legislative Counsel of California for public access to California law. California statutes are public records; no commercial-use restriction is asserted over the text of the codes.",
+  "note": ""
+ },
+ {
+  "id": "ca-bpc-ch25",
+  "label": "California Business and Professions Code ch. 25, §§ 22757–22757.6 (California AI Transparency Act, SB 942 as amended by AB 853)",
+  "url": "https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=BPC&division=8.&title=&part=&chapter=25.&article=",
+  "fetch": "curl",
+  "status": "200",
+  "terms": "leginfo.legislature.ca.gov Terms of Use: public access to California law published by the Legislative Counsel. Statute text is a public record.",
+  "note": ""
+ },
+ {
+  "id": "ca-bpc-22602",
+  "label": "California Business and Professions Code § 22602 (Companion Chatbots, SB 243)",
+  "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=22602.",
+  "fetch": "curl",
+  "status": "200",
+  "terms": "leginfo.legislature.ca.gov Terms of Use: public access to California law published by the Legislative Counsel. Statute text is a public record.",
+  "note": ""
+ },
+ {
+  "id": "co-sb26-189",
+  "label": "Colorado General Assembly — SB26-189, Automated Decision-Making Technology (bill summary as enacted)",
+  "url": "https://leg.colorado.gov/bills/sb26-189",
+  "fetch": "curl",
+  "status": "200",
+  "terms": "leg.colorado.gov publishes Colorado bills and session laws for public use. Colorado bill text and summaries are public records of the General Assembly.",
+  "note": "The quotes here are from the General Assembly's own bill summary, which the page marks “This summary applies to this bill as enacted.” They are not the section text of the act."
+ },
+ {
+  "id": "me-10mrsa-1500dd",
+  "label": "Maine Revised Statutes, 10 M.R.S. § 1500-DD",
+  "url": "https://legislature.maine.gov/statutes/10/title10sec1500-DD.html",
+  "fetch": "curl",
+  "status": "200",
+  "terms": "Office of the Revisor of Statutes: “The Revisor's Office cannot provide legal advice or interpretation of Maine law to the public.” The statutes are published by the State of Maine for public access.",
+  "note": ""
+ },
+ {
+  "id": "ut-sb0226",
+  "label": "Utah S.B. 226 (2025), Enrolled Copy — Artificial Intelligence Amendments, enacting Utah Code 13-75-102 to 13-75-104",
+  "url": "https://le.utah.gov/Session/2025/bills/enrolled/SB0226.pdf",
+  "pdf": "ut_sb0226_enrolled.pdf",
+  "strip_bill_lines": true,
+  "fetch": "curl",
+  "status": "200",
+  "terms": "le.utah.gov publishes enrolled bills of the Utah Legislature for public access. Utah statutes and enrolled bills are public records.",
+  "note": "The Utah Code viewer at le.utah.gov/xcode/ answers 200 but returns a page shell with no statute text to this host, so the enrolled bill PDF is quoted instead."
+ },
+ {
+  "id": "ny-gbs-1701",
+  "label": "New York General Business Law § 1701 (AI Companion Models)",
+  "url": "https://www.nysenate.gov/legislation/laws/GBS/1701",
+  "fetch": "browser",
+  "status": "403 to this host; read through the session's browser route",
+  "terms": "nysenate.gov publishes New York consolidated laws for public access. New York statutes are public records.",
+  "note": "nysenate.gov answers 403 to an ordinary request from this host. That is recorded here as a fact. The words were read through the browser route, so refresh.py cannot re-check them from this machine and reports them as unchecked rather than as verified."
+ },
+ {
+  "id": "ny-gbs-1702",
+  "label": "New York General Business Law § 1702 (AI Companion Models)",
+  "url": "https://www.nysenate.gov/legislation/laws/GBS/1702",
+  "fetch": "browser",
+  "status": "403 to this host; read through the session's browser route",
+  "terms": "nysenate.gov publishes New York consolidated laws for public access. New York statutes are public records.",
+  "note": "Same 403 wall as § 1701. Read through the browser route; not re-checkable from this machine."
+ },
+ {
+  "id": "il-pa-103-0804",
+  "label": "Illinois Public Act 103-0804 (HB 3773), AI in employment decisions",
+  "url": "https://www.ilga.gov/legislation/publicacts/fulltext.asp?Name=103-0804",
+  "fetch": "blocked",
+  "status": "TLS failure from this host (“unable to get local issuer certificate”); 403 when verification is skipped; the browser route also fails on the certificate",
+  "terms": "Not read. No terms quote, so nothing from this source is published.",
+  "note": "We could not read this document by any route we are allowed to use. The Illinois row therefore states that we hold no text for it and quotes nothing. It is listed as a CITE-CHECK in NOTES.md."
+ }
+]

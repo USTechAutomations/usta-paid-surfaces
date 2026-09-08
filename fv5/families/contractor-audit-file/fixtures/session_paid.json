@@ -1,0 +1,30 @@
+{
+ "id": "cs_test_fv6_contractor-audit-file_001",
+ "object": "checkout.session",
+ "amount_total": 4900,
+ "currency": "usd",
+ "payment_status": "paid",
+ "custom_fields": [
+  {
+   "key": "state",
+   "type": "dropdown",
+   "dropdown": {
+    "value": "CA"
+   }
+  },
+  {
+   "key": "role",
+   "type": "text",
+   "text": {
+    "value": "delivery driver"
+   }
+  }
+ ],
+ "customer_details": {
+  "email": "buyer@example.com"
+ },
+ "created": 1757318400,
+ "metadata": {
+  "private_slug": "caf-7d1e93b40c2a"
+ }
+}
