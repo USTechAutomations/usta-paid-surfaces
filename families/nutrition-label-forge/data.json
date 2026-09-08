@@ -1,0 +1,270 @@
+{
+  "family": "nutrition-label-forge",
+  "generated": "2026-09-08",
+  "slices": [
+    {
+      "slug": "serving-sizes-bakery-products",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 15,
+      "row_count": 23,
+      "cadence_days": 30
+    },
+    {
+      "slug": "serving-sizes-beverages-soups-and-mixed-dishes",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 15,
+      "row_count": 7,
+      "cadence_days": 30
+    },
+    {
+      "slug": "serving-sizes-cereals-and-other-grain-products",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 15,
+      "row_count": 11,
+      "cadence_days": 30
+    },
+    {
+      "slug": "serving-sizes-dairy-products-and-substitutes",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 15,
+      "row_count": 15,
+      "cadence_days": 30
+    },
+    {
+      "slug": "serving-sizes-desserts-and-dessert-toppings",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 15,
+      "row_count": 6,
+      "cadence_days": 30
+    },
+    {
+      "slug": "serving-sizes-eggs-legumes-nuts-and-seeds",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 15,
+      "row_count": 8,
+      "cadence_days": 30
+    },
+    {
+      "slug": "serving-sizes-fats-and-oils",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 15,
+      "row_count": 5,
+      "cadence_days": 30
+    },
+    {
+      "slug": "serving-sizes-fish-shellfish-game-meats-9-and-meat-or-poultry-substitutes",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 15,
+      "row_count": 8,
+      "cadence_days": 30
+    },
+    {
+      "slug": "serving-sizes-foods-for-infants-and-young-children",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 15,
+      "row_count": 11,
+      "cadence_days": 30
+    },
+    {
+      "slug": "serving-sizes-fruits-and-fruit-juices",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 15,
+      "row_count": 11,
+      "cadence_days": 30
+    },
+    {
+      "slug": "serving-sizes-miscellaneous",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 15,
+      "row_count": 15,
+      "cadence_days": 30
+    },
+    {
+      "slug": "serving-sizes-potatoes-salads-and-snacks",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 15,
+      "row_count": 7,
+      "cadence_days": 30
+    },
+    {
+      "slug": "serving-sizes-sauces-dips-gravies-and-condiments",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 15,
+      "row_count": 5,
+      "cadence_days": 30
+    },
+    {
+      "slug": "serving-sizes-sugars-and-sweets",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 15,
+      "row_count": 12,
+      "cadence_days": 30
+    },
+    {
+      "slug": "serving-sizes-vegetables",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 15,
+      "row_count": 13,
+      "cadence_days": 30
+    },
+    {
+      "slug": "how-the-panel-rounds-every-nutrient",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 18,
+      "row_count": 11,
+      "cadence_days": 30
+    },
+    {
+      "slug": "when-a-nutrition-panel-is-required",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 18,
+      "row_count": 6,
+      "cadence_days": 30
+    },
+    {
+      "slug": "how-to-set-the-serving-size",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 18,
+      "row_count": 7,
+      "cadence_days": 30
+    },
+    {
+      "slug": "discrete-units-and-the-reference-amount",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 18,
+      "row_count": 7,
+      "cadence_days": 30
+    },
+    {
+      "slug": "serving-sizes-in-household-measures",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 18,
+      "row_count": 6,
+      "cadence_days": 30
+    },
+    {
+      "slug": "how-many-servings-per-container",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 18,
+      "row_count": 6,
+      "cadence_days": 30
+    },
+    {
+      "slug": "type-size-and-the-look-of-the-panel",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 18,
+      "row_count": 10,
+      "cadence_days": 30
+    },
+    {
+      "slug": "the-order-the-panel-lists-things",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 18,
+      "row_count": 10,
+      "cadence_days": 30
+    },
+    {
+      "slug": "vitamins-and-minerals-on-the-panel",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 18,
+      "row_count": 6,
+      "cadence_days": 30
+    },
+    {
+      "slug": "the-tabular-and-linear-formats",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 18,
+      "row_count": 7,
+      "cadence_days": 30
+    },
+    {
+      "slug": "dual-column-labels",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 18,
+      "row_count": 8,
+      "cadence_days": 30
+    },
+    {
+      "slug": "the-simplified-format",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 18,
+      "row_count": 8,
+      "cadence_days": 30
+    },
+    {
+      "slug": "how-fda-checks-a-label",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 18,
+      "row_count": 10,
+      "cadence_days": 30
+    },
+    {
+      "slug": "records-you-must-keep",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 18,
+      "row_count": 9,
+      "cadence_days": 30
+    },
+    {
+      "slug": "the-small-business-exemption",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 18,
+      "row_count": 10,
+      "cadence_days": 30
+    },
+    {
+      "slug": "small-packages-and-the-12-square-inch-rule",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 18,
+      "row_count": 6,
+      "cadence_days": 30
+    },
+    {
+      "slug": "foods-that-are-exempt-or-labelled-differently",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 18,
+      "row_count": 11,
+      "cadence_days": 30
+    },
+    {
+      "slug": "the-ingredient-statement",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 18,
+      "row_count": 9,
+      "cadence_days": 30
+    }
+  ]
+}
