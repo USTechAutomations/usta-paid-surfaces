@@ -239,6 +239,7 @@ SEALED_FILE_STORES: dict[str, str] = {
     "hts-revision-seal": "/home/gmullins/.hermes/state/hts-revision-seal",
     "wp-accessibility-scan": "/home/gmullins/.hermes/state/wp-accessibility-scan",
     "pilot-logbook-digitizer": "/home/gmullins/.hermes/state/pilot-logbook-digitizer",
+    "fda-device-establishment-week": "/home/gmullins/.hermes/state/fda-device-establishment-week",
 }
 SEALED_FILE_LANES: dict[str, tuple[Lane, ...]] = {
     "ai-terms": (
@@ -302,6 +303,10 @@ SEALED_FILE_LANES: dict[str, tuple[Lane, ...]] = {
         Lane("weekly self-test runs of the logbook digitizer on fixture pages",
              "weekly snapshot files", "snapshot_date", "snapshot_*.json", 7,
              sealed_files=True),
+    ),
+    "fda-device-establishment-week": (
+        Lane("the openFDA device establishment register export", "weekly snapshot files",
+             "export_date", "snapshot_*.json", 7, sealed_files=True),
     ),
 }
 

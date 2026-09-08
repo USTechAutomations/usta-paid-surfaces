@@ -13,6 +13,7 @@ COMPARE = tuple(c for c in COLUMNS if c not in ('week_ending','fei_number','regi
 EXPORT = re.compile(r'^export_([0-9]{4}-[0-9]{2}-[0-9]{2})$')
 PART = re.compile(r'(?:part[-_]?|[-_])([0-9]+)[-_]of[-_]([0-9]+)',re.I)
 SOURCE = 'https://api.fda.gov/download.json'
+SOURCE_ID = 'openfda-device-registrationlisting'  # the name a permission note must be keyed to
 DATASET = ('device','registrationlisting')
 MAX_PART_BYTES = 400*1024*1024
 
@@ -103,7 +104,7 @@ def read_export(folder):
         row['establishment_types']=';'.join(sorted(types)); row['product_code_count']=str(len(codes))
         result[identity]=row
     if not result: raise ValueError('no eligible establishments: comparison UNKNOWN')
-    metadata={'bet_id':BET_ID,'export_date':day,'source_url':SOURCE,'input_parts':inputs,
+    metadata={'bet_id':BET_ID,'export_date':day,'source_id':SOURCE_ID,'source_url':SOURCE,'input_parts':inputs,
               'source_records':records,'missing_identity_records':missing_identity,'unsafe_listing_records':unsafe,'conflicting_identities':len(conflicts),'eligible_establishments':len(result)}
     return day,result,metadata,suppressed
 
