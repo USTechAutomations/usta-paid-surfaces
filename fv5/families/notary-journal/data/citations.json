@@ -1,0 +1,461 @@
+[
+ {
+  "code": "AL",
+  "url": "https://alison.legislature.state.al.us/code-of-alabama",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "Code of Alabama, Title 36 Chapter 20"
+ },
+ {
+  "code": "AK",
+  "url": "https://www.akleg.gov/basis/statutes.asp#44.50.045",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "Alaska Stat. 44.50.045"
+ },
+ {
+  "code": "AZ",
+  "url": "https://www.azleg.gov/ars/41/00319.htm",
+  "quote": "A notary public shall keep a paper journal to chronicle all notarial acts performed regarding tangible records.",
+  "fetched": "2026-09-08",
+  "status": "ok",
+  "http_status": 200,
+  "label": "A.R.S. 41-319"
+ },
+ {
+  "code": "AR",
+  "url": "https://www.arkleg.state.ar.us/Acts/FTPDocument?path=/ACTS/2021R/Public/&file=1004.pdf",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "Arkansas Act 1004 of 2021 (Notaries)"
+ },
+ {
+  "code": "CA",
+  "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=8206.",
+  "quote": "(d) The journal of notarial acts of a notary public is the exclusive property of that notary public, and shall not be surrendered to an employer upon termination of employment, whether or not the employer paid for the journal, or at any other time.",
+  "fetched": "2026-09-08",
+  "status": "ok",
+  "http_status": 200,
+  "label": "Cal. Gov. Code 8206"
+ },
+ {
+  "code": "CO",
+  "url": "https://www.coloradosos.gov/pubs/notary/home.html",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "Colorado Secretary of State, notary program"
+ },
+ {
+  "code": "CT",
+  "url": "https://www.cga.ct.gov/current/pub/chap_006.htm",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "unfetched",
+  "http_status": -1,
+  "label": "Conn. Gen. Stat. Chapter 6"
+ },
+ {
+  "code": "DE",
+  "url": "https://delcode.delaware.gov/title29/c043/sc02/index.html",
+  "quote": "(a) A notary public shall maintain a journal in which the notary public chronicles all notarial acts that the notary public performs.",
+  "fetched": "2026-09-08",
+  "status": "ok",
+  "http_status": 200,
+  "label": "29 Del. C. 4327"
+ },
+ {
+  "code": "DC",
+  "url": "https://os.dc.gov/service/notary-commissions",
+  "quote": "Keep an electronic journal of all IPEN and/or remote notarial transactions.",
+  "fetched": "2026-09-08",
+  "status": "ok",
+  "http_status": 200,
+  "label": "D.C. Office of the Secretary, notary commissions"
+ },
+ {
+  "code": "FL",
+  "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0100-0199/0117/0117.html",
+  "quote": "(4) The electronic journal required under subsection (1) and the recordings of audio-video communications required under subsection (2) shall be maintained for at least 10 years after the date of the notarial act.",
+  "fetched": "2026-09-08",
+  "status": "ok",
+  "http_status": 200,
+  "label": "Fla. Stat. ch. 117"
+ },
+ {
+  "code": "GA",
+  "url": "https://www.gsccca.org/notary-and-apostilles/handbook",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "Georgia Superior Court Clerks' Cooperative Authority, notary handbook"
+ },
+ {
+  "code": "HI",
+  "url": "https://www.capitol.hawaii.gov/hrscurrent/Vol10_Ch0436-0474/HRS0456/HRS_0456-0015.htm",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "unfetched",
+  "http_status": 403,
+  "label": "HRS 456-15"
+ },
+ {
+  "code": "ID",
+  "url": "https://legislature.idaho.gov/statutesrules/idstat/Title51/T51CH1/SECT51-119/",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "Idaho Code 51-119"
+ },
+ {
+  "code": "IL",
+  "url": "https://www.ilga.gov/legislation/ilcs/fulltext.asp?DocName=000503120K3-107",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "unfetched",
+  "http_status": -1,
+  "label": "5 ILCS 312/3-107"
+ },
+ {
+  "code": "IN",
+  "url": "https://iga.in.gov/laws/2024/ic/titles/33",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "Ind. Code 33-42-9"
+ },
+ {
+  "code": "IA",
+  "url": "https://www.legis.iowa.gov/docs/code/9B.pdf",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "Iowa Code ch. 9B (Revised Uniform Law on Notarial Acts)"
+ },
+ {
+  "code": "KS",
+  "url": "https://sos.ks.gov/general-services/notary.html",
+  "quote": "A journal entry shall contain the following information:",
+  "fetched": "2026-09-08",
+  "status": "ok",
+  "http_status": 200,
+  "label": "Kansas Secretary of State, notary services"
+ },
+ {
+  "code": "KY",
+  "url": "https://apps.legislature.ky.gov/law/statutes/chapter.aspx?id=38494",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "KRS Chapter 423"
+ },
+ {
+  "code": "LA",
+  "url": "https://www.legis.la.gov/legis/Law.aspx?d=98244",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "La. R.S. 35:199"
+ },
+ {
+  "code": "ME",
+  "url": "https://legislature.maine.gov/statutes/4/title4ch16sec0.html",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "unfetched",
+  "http_status": 404,
+  "label": "4 M.R.S. ch. 16 (Notaries Public)"
+ },
+ {
+  "code": "MD",
+  "url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gsg&section=18-214&enactments=false",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "Md. State Gov't 18-214 (Journal)"
+ },
+ {
+  "code": "MA",
+  "url": "https://malegislature.gov/Laws/GeneralLaws/PartI/TitleIII/Chapter222",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "unfetched",
+  "http_status": 404,
+  "label": "M.G.L. c. 222"
+ },
+ {
+  "code": "MI",
+  "url": "https://www.legislature.mi.gov/Laws/MCL?objectName=mcl-55-286",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "unfetched",
+  "http_status": -1,
+  "label": "MCL 55.286"
+ },
+ {
+  "code": "MN",
+  "url": "https://www.revisor.mn.gov/statutes/cite/359",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "Minn. Stat. ch. 359 (Notaries Public)"
+ },
+ {
+  "code": "MS",
+  "url": "https://www.sos.ms.gov/business-services/notaries",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "unfetched",
+  "http_status": 404,
+  "label": "Mississippi Secretary of State, notaries"
+ },
+ {
+  "code": "MO",
+  "url": "https://revisor.mo.gov/main/OneChapter.aspx?chapter=486",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "Mo. Rev. Stat. ch. 486 (Notaries Public)"
+ },
+ {
+  "code": "MT",
+  "url": "https://archive.legmt.gov/bills/mca/title_0010/chapter_0050/part_0060/section_0180/0010-0050-0060-0180.html",
+  "quote": "(5) (a) Except as provided in subsection (9)(b), a notary public shall keep sole control of the journal and all other notarial records and surrender or destroy them only as authorized by law or rule, by court order, or at the direction of the secretary of state.",
+  "fetched": "2026-09-08",
+  "status": "ok",
+  "http_status": 200,
+  "label": "Montana Secretary of State, notary"
+ },
+ {
+  "code": "NE",
+  "url": "https://nebraskalegislature.gov/laws/browse-chapters.php?chapter=64",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "Neb. Rev. Stat. ch. 64 (Notaries Public)"
+ },
+ {
+  "code": "NV",
+  "url": "https://www.leg.state.nv.us/nrs/nrs-240.html",
+  "quote": "If, pursuant to subsection 3, a notary public does not require a person to sign the journal, the notary public shall enter �known personally� as the description required to be entered into the journal pursuant to paragraph (e) of subsection 1.",
+  "fetched": "2026-09-08",
+  "status": "ok",
+  "http_status": 200,
+  "label": "NRS 240.120"
+ },
+ {
+  "code": "NH",
+  "url": "https://www.gencourt.state.nh.us/rsa/html/XLIII/455/455-mrg.htm",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "unfetched",
+  "http_status": 404,
+  "label": "N.H. Rev. Stat. ch. 455"
+ },
+ {
+  "code": "NJ",
+  "url": "https://pub.njleg.state.nj.us/Bills/2020/PL21/179_.PDF",
+  "quote": "A notary public shall maintain a journal of all notarial acts performed.",
+  "fetched": "2026-09-08",
+  "status": "ok",
+  "http_status": 200,
+  "label": "N.J. P.L. 2021 c.179 (Notarial Acts)"
+ },
+ {
+  "code": "NM",
+  "url": "https://www.nmlegis.gov/Sessions/21%20Regular/final/SB0012.pdf",
+  "quote": "A notary public in this state shall maintain a 4 journal in which the notary public chronicles all notarial 5 acts that the notary public performs.",
+  "fetched": "2026-09-08",
+  "status": "ok",
+  "http_status": 200,
+  "label": "N.M. Laws 2021 ch. 33 (Revised Uniform Law on Notarial Acts)"
+ },
+ {
+  "code": "NY",
+  "url": "https://dos.ny.gov/notary-public",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "New York Department of State, notary public"
+ },
+ {
+  "code": "NC",
+  "url": "https://www.ncleg.gov/EnactedLegislation/Statutes/PDF/BySection/Chapter_10B/GS_10B-134.15.pdf",
+  "quote": "10B‑38, an electronic notary who performs a remote electronic notarization shall enter information about the remote electronic notarization in an electronic journal.",
+  "fetched": "2026-09-08",
+  "status": "ok",
+  "http_status": 200,
+  "label": "North Carolina Secretary of State, notary division"
+ },
+ {
+  "code": "ND",
+  "url": "https://ndlegis.gov/cencode/t44c06-1.pdf",
+  "quote": "A notary public shall maintain a journal in which the notary public chronicles all notarial acts the notary public performs with respect to a remotely located individual under section 44-06.1-13.1.",
+  "fetched": "2026-09-08",
+  "status": "ok",
+  "http_status": 200,
+  "label": "N.D. Cent. Code 44-06.1-19"
+ },
+ {
+  "code": "OH",
+  "url": "https://codes.ohio.gov/ohio-revised-code/chapter-147",
+  "quote": "ct online notarizations, the online notary public shall transmit the electronic journal to the secretary of state or to a repository approved by the secretary of state.",
+  "fetched": "2026-09-08",
+  "status": "ok",
+  "http_status": 200,
+  "label": "Ohio Rev. Code ch. 147 (Notaries Public)"
+ },
+ {
+  "code": "OK",
+  "url": "https://oksenate.gov/sites/default/files/2019-12/os49.pdf",
+  "quote": "Maintain a backup of the journal and the audio and visual recording;",
+  "fetched": "2026-09-08",
+  "status": "ok",
+  "http_status": 200,
+  "label": "49 O.S. (Notaries Public)"
+ },
+ {
+  "code": "OR",
+  "url": "https://www.oregonlegislature.gov/bills_laws/ors/ors194.html",
+  "quote": "The notary public shall retain the journal for 10 years after the performance of the last notarial act chronicled in the journal.",
+  "fetched": "2026-09-08",
+  "status": "ok",
+  "http_status": 200,
+  "label": "ORS 194.300"
+ },
+ {
+  "code": "PA",
+  "url": "https://www.legis.state.pa.us/WU01/LI/LI/CT/HTM/57/00.003.019.000..HTM",
+  "quote": "(a) Maintenance.-- A notary public shall maintain a journal in which the notary public records in chronological order all notarial acts that the notary public performs.",
+  "fetched": "2026-09-08",
+  "status": "ok",
+  "http_status": 200,
+  "label": "57 Pa.C.S. 319"
+ },
+ {
+  "code": "RI",
+  "url": "https://webserver.rilegislature.gov/Statutes/TITLE42/42-30.1/INDEX.htm",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "R.I. Gen. Laws ch. 42-30.1 (Uniform Law on Notarial Acts)"
+ },
+ {
+  "code": "SC",
+  "url": "https://www.scstatehouse.gov/code/t26c001.php",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "S.C. Code ch. 26-1 (Notaries Public)"
+ },
+ {
+  "code": "SD",
+  "url": "https://sdlegislature.gov/Statutes/18-1",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "SDCL ch. 18-1"
+ },
+ {
+  "code": "TN",
+  "url": "https://sos.tn.gov/products/business-services/notary-public",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "unfetched",
+  "http_status": 404,
+  "label": "Tennessee Secretary of State, notary public"
+ },
+ {
+  "code": "TX",
+  "url": "https://statutes.capitol.texas.gov/Docs/GV/htm/GV.406.htm",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "Tex. Gov't Code 406.014"
+ },
+ {
+  "code": "UT",
+  "url": "https://le.utah.gov/xcode/Title46/Chapter1/46-1.html",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "Utah Code ch. 46-1 (Notaries Public Reform Act)"
+ },
+ {
+  "code": "VT",
+  "url": "http://legislature.vermont.gov/statutes/chapter/26/103",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "26 V.S.A. ch. 103 (Notaries Public)"
+ },
+ {
+  "code": "VA",
+  "url": "https://law.lis.virginia.gov/vacode/title47.1/section47.1-14/",
+  "quote": "The electronic notary shall take reasonable steps to (a) ensure the integrity, security, and authenticity of electronic notarizations, (b) maintain a backup for his electronic record of notarial acts, and (c) ensure protection of such backup records from unauthorized use.",
+  "fetched": "2026-09-08",
+  "status": "ok",
+  "http_status": 200,
+  "label": "Va. Code 47.1-14"
+ },
+ {
+  "code": "WA",
+  "url": "https://app.leg.wa.gov/RCW/default.aspx?cite=42.45.180",
+  "quote": "(1) A notary public shall maintain a journal in which the notary public chronicles all notarial acts that the notary public performs.",
+  "fetched": "2026-09-08",
+  "status": "ok",
+  "http_status": 200,
+  "label": "RCW 42.45.180"
+ },
+ {
+  "code": "WV",
+  "url": "https://code.wvlegislature.gov/39-4/",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "W. Va. Code ch. 39 art. 4 (Revised Uniform Law on Notarial Acts)"
+ },
+ {
+  "code": "WI",
+  "url": "https://docs.legis.wisconsin.gov/statutes/statutes/140",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "Wis. Stat. ch. 140 (Notarial Acts)"
+ },
+ {
+  "code": "WY",
+  "url": "https://www.wyoleg.gov/statutes/compress/title34.pdf",
+  "quote": "",
+  "fetched": "2026-09-08",
+  "status": "not-found",
+  "http_status": 200,
+  "label": "Wyo. Stat. 34-26-119"
+ }
+]

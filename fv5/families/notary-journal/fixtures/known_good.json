@@ -1,0 +1,13 @@
+{
+ "note": "Pennsylvania: the statute page answered, the journal duty is in its own words, and the same text permits an electronic format. Expect the form, a saved entry that survives a reload, and an encrypted backup file.",
+ "state_code": "PA",
+ "state_name": "Pennsylvania",
+ "expect": {
+  "electronic_allowed": "allowed",
+  "journal_required": "yes",
+  "buy_shown": true,
+  "page_contains": "A notary public shall maintain a journal",
+  "entry_survives_reload": true,
+  "backup_produced": true
+ }
+}

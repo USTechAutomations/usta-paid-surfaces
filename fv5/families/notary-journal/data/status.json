@@ -1,0 +1,9 @@
+{
+ "stamp": "2026-09-08T14:36:27+00:00",
+ "rows": 51,
+ "source_ok": 42,
+ "cites_ok": 18,
+ "drift": false,
+ "drifted": [],
+ "cadence_days": 7
+}
