@@ -150,7 +150,7 @@ for label, p in (("paid page", page), ("not-found page", bpage)):
 import privacy  # noqa: E402
 
 idx_pages = sorted(p for p in PUB.glob("*/index.html") if p.parent.name != "p")
-over_pages = sorted(PUB.glob("p/*/index.html"))
+over_pages = sorted(p for p in PUB.glob("p/*/index.html") if p.parent.name != "thanks")  # thanks page is the estate's, not a UN page
 fam_page = PUB / "index.html"
 all_pages = ([fam_page] if fam_page.is_file() else []) + idx_pages + over_pages
 
