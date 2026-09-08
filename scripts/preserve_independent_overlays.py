@@ -20,7 +20,11 @@ REGISTRY = Path.home()/'.hermes/config/surface_registry.json'
 RECEIPT = '.independent-overlay-receipt.json'
 GCLOUD_BIN = 'gcloud'
 MARKERS = {'pathlab-20260908-b': 'pathlab-independent-20260908',
-           'workshop-20260908-c': 'workshop-independent-20260908'}
+           'workshop-20260908-c': 'workshop-independent-20260908',
+           'catalog-pilot-20260908': 'catalog-pilot-independent-20260908'}
+# This component processes inputs entirely in its browser worker. The two
+# existing components still require preservation of their declared API routes.
+BROWSER_ONLY_COMPONENTS = {'catalog-pilot-20260908'}
 
 def inventory(root):
     root=Path(root); result={}
@@ -85,7 +89,7 @@ def overlay(current,candidate,rows,head):
     for row in rows:
         slugs=[p.split('/')[2] for p in row['prefixes']]
         blocks=selected_blocks(current_nginx,slugs)
-        if not any(spec=='^~ /'+slugs[0]+'/api/' for spec,_ in blocks):raise ValueError('Missing current component API route')
+        if row['id'] not in BROWSER_ONLY_COMPONENTS and not any(spec=='^~ /'+slugs[0]+'/api/' for spec,_ in blocks):raise ValueError('Missing current component API route')
         if any(any(('/'+s) in spec.split()[-1] for s in slugs) for spec,_ in location_blocks(candidate_nginx)):raise ValueError('Candidate component route collision')
         section=re.findall(r'<section id="'+re.escape(MARKERS[row['id']])+r'">.*?</section>\n?',source_hub,re.S)
         if len(section)!=1 or MARKERS[row['id']] in hub:raise ValueError('Missing current or colliding candidate component hub link')

@@ -76,5 +76,15 @@ class Preservation(unittest.TestCase):
   self.build()
   with patch.object(p,'current_head',return_value={**HEAD,'generation':2}),patch('sys.argv',['script','check-head','--candidate',str(self.dest)]):
    with self.assertRaises(ValueError):p.main()
+ def test_browser_component_preserves_its_files_without_inventing_an_api(self):
+  row={'id':'catalog-pilot-20260908','prefixes':['/feeds/catalog-migration/']}
+  folder=self.source/'site/catalog-migration';folder.mkdir();(folder/'index.html').write_text('Catalog pilot');(folder/'engine.zip').write_bytes(b'owned-engine')
+  path=self.source/'nginx.conf';path.write_text(path.read_text().replace('  location / {','  location = /catalog-migration { return 308 /feeds/catalog-migration/; }\n  location ^~ /catalog-migration/ { try_files $uri =404; }\n  location / {'))
+  path=self.source/'site/index.html';path.write_text(path.read_text().replace('</body>','<section id="catalog-pilot-independent-20260908"><a href="/feeds/catalog-migration/">Catalog</a></section></body>'))
+  path=self.source/'site/sitemap.xml';path.write_text(path.read_text().replace('</urlset>','<url><loc>https://ustechautomations.com/feeds/catalog-migration/</loc></url></urlset>'))
+  r=p.overlay(self.source,self.dest,[ROW,row],HEAD)
+  self.assertEqual(5,len(r['component_files']));self.assertEqual(b'owned-engine',(self.dest/'site/catalog-migration/engine.zip').read_bytes())
+  self.assertNotIn('/catalog-migration/api/',(self.dest/'nginx.conf').read_text())
+  p.check_candidate(self.dest,r)
 
 if __name__=='__main__':unittest.main()

@@ -13,3 +13,5 @@ Run tests with `python3 -m unittest discover -s tests -p test_preserve_independe
 New components require an explicit reviewed marker mapping in the helper and a registry declaration. Component releases remain owned by their separate repositories. Use a preserving overlay on a freshly fetched current image, pass published-byte quality and real href reachability, then add sitemap entries. Never roll back a shared service over newer families. Free publication requires no approval acknowledgment.
 
 This prevents loss through these two canonical scripts. An unrelated tool that bypasses their helper and lock can still replace the service; current page/revision checks remain necessary. Restoration evidence: /home/gmullins/reports/restore-inaccessible-pages-20260908/.
+
+The reviewed catalog-pilot-20260908 component uses browser workers exclusively. Its catalog-pilot-independent-20260908 hub marker and /feeds/catalog-migration/ prefix are explicitly mapped. It needs no invented API endpoint; the existing PathLab and Workshop API preservation requirements remain enforced. Test coverage exercises browser-only retention alongside the original components.
