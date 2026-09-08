@@ -1,0 +1,46 @@
+{
+  "family": "customs-broker-exam-bank",
+  "generated": "2026-09-07",
+  "slices": [
+    {
+      "slug": "april-2026",
+      "newest": "2026-09-07",
+      "oldest": "2024-05-01",
+      "runs": 5,
+      "row_count": 80,
+      "cadence_days": 183
+    },
+    {
+      "slug": "october-2025",
+      "newest": "2026-09-07",
+      "oldest": "2024-05-01",
+      "runs": 5,
+      "row_count": 80,
+      "cadence_days": 183
+    },
+    {
+      "slug": "april-2025",
+      "newest": "2026-09-07",
+      "oldest": "2024-05-01",
+      "runs": 5,
+      "row_count": 80,
+      "cadence_days": 183
+    },
+    {
+      "slug": "october-2024",
+      "newest": "2026-09-07",
+      "oldest": "2024-05-01",
+      "runs": 5,
+      "row_count": 80,
+      "cadence_days": 183
+    },
+    {
+      "slug": "may-2024",
+      "newest": "2026-09-07",
+      "oldest": "2024-05-01",
+      "runs": 5,
+      "row_count": 80,
+      "cadence_days": 183
+    }
+  ]
+}

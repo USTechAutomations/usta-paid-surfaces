@@ -70,7 +70,7 @@ def wrap_private_page(family: str, product_name: str, html: str,
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <title>{product_name} — your private copy</title>
-  <link rel="stylesheet" href="../../../../styles.css">
+  <link rel="stylesheet" href="https://ustechautomations.com/feeds/styles.css">
   <meta name="theme-color" content="#7a3b12">
 </head>
 <body data-family="{family}">
@@ -139,7 +139,7 @@ _THANKS_TEMPLATE = """<!doctype html>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <title>__PRODUCT__ — preparing your file</title>
-  <link rel="stylesheet" href="../../../../styles.css">
+  <link rel="stylesheet" href="https://ustechautomations.com/feeds/styles.css">
   <meta name="theme-color" content="#7a3b12">
 </head>
 <body data-family="__FAMILY__">

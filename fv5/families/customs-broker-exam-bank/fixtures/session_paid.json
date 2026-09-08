@@ -1,0 +1,15 @@
+{
+  "id": "cs_test_fv5_customs-broker-exam-bank_001",
+  "object": "checkout.session",
+  "amount_total": 4900,
+  "currency": "usd",
+  "payment_status": "paid",
+  "custom_fields": [],
+  "customer_details": {
+    "email": "candidate@example.com"
+  },
+  "created": 1757260800,
+  "metadata": {
+    "private_slug": "cble-bank-8f3a2c1d"
+  }
+}

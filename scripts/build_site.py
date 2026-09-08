@@ -853,6 +853,28 @@ def main() -> None:
                 outdir.mkdir(parents=True, exist_ok=True)
                 (outdir / "index.html").write_text(page, encoding="utf-8")
                 built.append(f"/feeds/{fid}/{d.name}")
+        # Delivery pages: families/<id>/p/<slug>/index.html. The thanks page a
+        # pay link lands on and the private page fv5/fulfil.py writes after a
+        # sale live three levels down, under a folder with no page of its own,
+        # so the slice loop above never sees them. They are copied as they are:
+        # each one is noindex, carries no data table, and is written by the
+        # family's own fulfil code from the same catalog record the button
+        # carries. A page there without the noindex line is refused, because
+        # the one thing a private address must never do is get indexed.
+        # DATED 2026-09-07: the first fv5 deploy shipped without these, so the
+        # Stripe redirect would have answered 404 to a paying buyer.
+        pdir = fam_dir / "p"
+        if fid in parents and pdir.is_dir():
+            for d in sorted(pdir.iterdir()):
+                src = d / "index.html"
+                if not (d.is_dir() and src.is_file()):
+                    continue
+                text = src.read_text(encoding="utf-8")
+                if 'name="robots" content="noindex' not in text:
+                    fail(f"{fid}/p/{d.name} has no noindex line; a delivery page must never be indexed")
+                outdir = DIST / fid / "p" / d.name
+                outdir.mkdir(parents=True, exist_ok=True)
+                (outdir / "index.html").write_text(text, encoding="utf-8")
         # Samples belong to the family, not to the child pages. A parent-only
         # pack (no slices) still owes the two sample files or its sample door 404s.
         if fid in parents:
