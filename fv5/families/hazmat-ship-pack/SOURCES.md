@@ -1,0 +1,63 @@
+# hazmat-ship-pack — sources
+
+Every page in this family is built from one publisher: the Office of the Federal
+Register's eCFR. Nothing else is fetched, and no model wrote a word of the
+regulation text.
+
+## 1. 49 CFR 172.101 — the Hazardous Materials Table
+
+* **URL (human):** https://www.ecfr.gov/current/title-49/section-172.101
+* **URL (fetched):** `https://www.ecfr.gov/api/versioner/v1/full/<date>/title-49.xml?part=172&section=172.101`
+* **Fetch method:** HTTPS GET, `Accept-Encoding: gzip` (the API refuses without
+  it), one request, cached on disk under `~/.hermes/state/fv5/hazmat-ship-pack/`.
+  Re-fetched only when the version endpoint reports a newer date.
+* **Terms quote (eCFR's own words):** "The eCFR is a continuously updated online
+  version of the CFR. It is not an official legal edition of the CFR."
+* **Licence:** the regulation itself is a work of the United States Government,
+  in the public domain under 17 U.S.C. 105.
+* **Cadence:** the table is amended through the year; we re-read weekly.
+* **Status seen:** 200. **Date:** 2026-09-08.
+
+## 2. 49 CFR 172.102 — special provisions
+
+Same host, same method, `part=172&section=172.102`. Supplies the words behind the
+codes in column 7. Public domain, same terms quote. 200 on 2026-09-08.
+
+## 3. 49 CFR 172.202 — the shipping description
+
+Same host and method. Supplies the order of the four description elements the
+paid worksheet lays out. Public domain. 200 on 2026-09-08.
+
+## 4. 49 CFR 172.407 and 172.411–172.448 — label specifications
+
+Same host and method. § 172.407 supplies every dimension the artwork proofs are
+drawn to; §§ 172.411–172.448 supply the background colour **where the section
+states it in words**. Where a section gives the colour only in its printed
+artwork, the proof is drawn white and the page says the colour is not stated in
+words. No published pictogram or artwork file is copied from anywhere.
+
+## 5. 49 CFR Part 173 — exceptions and packaging
+
+Same host and method, one section at a time, only the sections columns 8A, 8B and
+8C actually point at. We store each section's **heading and opening paragraph
+only** and link to the full text; Part 173 is not reproduced.
+
+## Sources deliberately NOT used
+
+* **IATA Dangerous Goods Regulations.** IATA's terms state you "may not …
+  distribute, reproduce … sell … any materials … for commercial or non-commercial
+  exploitation", and the DGR preview adds that it "may not be copied, published,
+  shared … or quoted without the prior written consent of IATA", with AI use
+  refused outright. Not quoted, not summarised, not paraphrased. The pages say
+  air is not covered and why.
+* **IMDG Code.** Copyright IMO, sold as a book. Same treatment.
+* **Commercial label artwork** (Labelmaster and others). Copyrighted drawings.
+  Never copied; our diamonds are drawn from the regulation's stated dimensions
+  and are marked proofs.
+* **Pantone colour references.** Pantone is Pantone's trademark and its colour
+  data is licensed. The proofs use plain colour words the regulation itself uses,
+  not Pantone numbers.
+
+## Refusals and walls seen
+
+None. No 403, no 406, no bot wall. Every fetch above answered 200 on 2026-09-08.

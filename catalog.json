@@ -2565,6 +2565,38 @@
       "sample_status": "pass",
       "group": "Trade records",
       "kind": "build"
+    },
+    {
+      "id": "hazmat-ship-pack",
+      "name": "One UN number, the federal table row and the road-shipping worksheet",
+      "short": "Hazmat road pack, one UN number",
+      "buyer": "Small shippers and e-commerce sellers who must ship one dangerous good by road in the US and need the federal table row, the exceptions explained and label artwork proofs",
+      "who": "Small shippers and e-commerce sellers who must ship one dangerous good by road in the US and need the federal table row, the exceptions explained and label artwork proofs.",
+      "cadence": "once, not a feed",
+      "cadence_long": "One payment, not a subscription. You get one private web page for the UN number you name. The federal table is amended through the year; buying again is your choice, nothing recurring.",
+      "price": "$49",
+      "coverage_what": "Every Hazardous Materials Table row for one UN number, the exceptions in column 8A explained section by section, the packaging sections in 8B and 8C with their headings, quantity limits and vessel stowage codes, and label artwork proofs drawn from the rule's own measurements",
+      "coverage_how": "We parse the Hazardous Materials Table at 49 CFR 172.101 out of the eCFR API's own XML, fetch the special provision text at 172.102 and the cited Part 173 sections the same way, and build one worksheet per UN number. Road only: the air and sea rulebooks are copyrighted and are not summarised.",
+      "price_list_note": "The free page for each UN number carries the whole federal table row and the column glossary. Read it before you pay.",
+      "contact_h2": "Buy the road-shipping worksheet",
+      "contact_p": "Tell us the UN number and we will say what the table holds for it before you pay.",
+      "contact_cta": "Email us for the $49 checkout link",
+      "contact_note": "No pay button on this page yet. A trained shipper still checks and certifies every shipment; this worksheet is not a shipping paper.",
+      "delivery": "<strong>What arrives after you pay:</strong> a single private web page for the UN number you name — every table row, the 8A exceptions explained, the 8B and 8C packaging sections, quantity limits, vessel stowage codes and label artwork proofs — within 15 minutes of payment.",
+      "note": "STAGED 2026-09-08, NOT PUBLISHED. One-off $49 road-only shipping worksheet for a single UN number. Source is the eCFR API's own XML of 49 CFR 172.101 (Hazardous Materials Table) and 172.102 (special provisions) plus the Part 173 sections the table's columns 8A/8B/8C point at; all are US Government works in the public domain (17 U.S.C. 105). Free estate: one page per UN number carrying the whole table row and the column glossary; the top 200 by a written consumer-commodity ranking are indexable, every other UN number is built at families/hazmat-ship-pack/p/un<number>/ with noindex,follow. Paid page (fulfil): the buyer names a UN number, gets the description sequence worksheet from 172.202, label artwork proofs drawn from the measurements in 172.407, the 8A exceptions explained, the 8B/8C packaging section headings, quantity limits and vessel stowage. Air (IATA) and sea (IMDG) rulebooks are copyrighted and are not summarised; carrier and state rules are not included. checkout.url is TO-MINT.",
+      "checkout": {
+        "terms": "$49 once, for one road-shipping worksheet covering the single UN number you name at checkout. Nothing recurring, nothing to cancel and no subscription behind it. You get one private web page with every Hazardous Materials Table row for that number, the exceptions in column 8A explained section by section, the packaging sections in columns 8B and 8C with their headings and first paragraph, the quantity limits and vessel stowage codes with a glossary, and label artwork proofs drawn from the measurements the rule itself states. The worksheet is for road transport in the United States only: the air and sea rulebooks are copyrighted and are not summarised here, and carrier and state rules are not included. A label artwork proof is not a compliant label, and the worksheet is not a shipping paper — a trained shipper checks and certifies the shipment. The federal table is amended through the year and the page carries the date of the text it was built from. Not legal or professional advice. Refund on request within 14 days. There is no pay button on this page yet.",
+        "after": "The private page is delivered within 15 minutes of payment. Still not here after 15 minutes? Reply to your Stripe receipt.",
+        "url": "TO-MINT",
+        "label": "Buy — $49 one-off",
+        "lands_on": "buy.stripe.com",
+        "status": "TO-MINT",
+        "checked": "",
+        "verified": ""
+      },
+      "sample_status": "pass",
+      "group": "Trade records",
+      "kind": "build"
     }
   ],
   "map": "MAP.md",
