@@ -1,23 +1,47 @@
 [
  {
   "key": "org_name",
-  "label": {"type": "custom", "custom": "Organisation name as it should appear in the notices"},
+  "label": {
+   "type": "custom",
+   "custom": "Organisation name, as it appears in the notices"
+  },
   "type": "text",
   "optional": false,
-  "text": {"maximum_length": 80, "minimum_length": 2}
+  "text": {
+   "maximum_length": 80,
+   "minimum_length": 2
+  }
  },
  {
   "key": "primary_channel",
-  "label": {"type": "custom", "custom": "Which one matters most to you?"},
+  "label": {
+   "type": "custom",
+   "custom": "Which one matters most to you?"
+  },
   "type": "dropdown",
   "optional": false,
   "dropdown": {
    "options": [
-    {"label": "A chatbot people talk to", "value": "chatbot"},
-    {"label": "Content our AI generates", "value": "generated content"},
-    {"label": "Images, audio or video our AI makes", "value": "synthetic media"},
-    {"label": "A step where software decides", "value": "decisions"},
-    {"label": "A companion or relationship chatbot", "value": "companion"}
+    {
+     "label": "A chatbot people talk to",
+     "value": "chatbot"
+    },
+    {
+     "label": "Content our AI generates",
+     "value": "generatedcontent"
+    },
+    {
+     "label": "Images, audio or video our AI makes",
+     "value": "syntheticmedia"
+    },
+    {
+     "label": "A step where software decides",
+     "value": "decisions"
+    },
+    {
+     "label": "A companion or relationship chatbot",
+     "value": "companion"
+    }
    ]
   }
  }
