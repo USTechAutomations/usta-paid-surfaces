@@ -138,7 +138,7 @@
     "id": "offers",
     "short": "Offers and evidence",
     "who": "Small businesses that want one piece of automation built.",
-    "amount": "$200 \u2013 $450",
+    "amount": "$200 – $450",
     "cadence": "fixed price, fixed window",
     "pill": "Live",
     "pill_class": "pill-ready"
@@ -168,6 +168,33 @@
     "amount": "Free",
     "cadence": "rebuilt daily",
     "pill": "Worked example",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "enforcement-action-board",
+    "short": "State-by-state EPA enforcement action boards",
+    "who": "Compliance consultants and environmental attorneys who help facilities respond to formal EPA enforcement actions and want to reach companies in one state right after an action lands.",
+    "amount": "$350 for 12 months",
+    "cadence": "The public boards refresh monthly from a sealed copy of EPA's ECHO case search. The paid part is not a feed: it is one Featured 'Get help' slot on a state's board, held for twelve months.",
+    "pill": "Live",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "patent-practitioner-directory",
+    "short": "Patent Practitioner Directory",
+    "who": "Patent law firms and solo patent practitioners who want to be found in their city.",
+    "amount": "$350/12mo",
+    "cadence": "the USPTO roster is read fresh at every site build; a Featured listing itself runs 12 months",
+    "pill": "Live",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "customs-broker-exam-bank",
+    "short": "The last five Customs Broker License Exam sittings, explained",
+    "who": "Candidates studying for the CBP Customs Broker License Exam who want the recent papers with the official answer and a plain explanation on each question.",
+    "amount": "$49",
+    "cadence": "One payment, not a subscription. You get the whole explained bank as a single page. We add each new sitting after the April and October exams; buying again is your choice, nothing recurring.",
+    "pill": "Live",
     "pill_class": "pill-ready"
   }
 ]
