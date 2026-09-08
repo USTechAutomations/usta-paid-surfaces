@@ -136,6 +136,7 @@ def gcloud(account,*args):
 
 def current_head(account):
     service=gcloud(account,'run','services','describe','usta-feeds','--region','us-central1')
+    if not any(c.get('type')=='Ready' and c.get('status')=='True' for c in service['status'].get('conditions',[])):raise ValueError('Feeds service transition incomplete; preserve after it settles')
     traffic=service['status'].get('traffic',[])
     serving=[row for row in traffic if row.get('percent',0)>0]
     if len(serving)!=1 or serving[0].get('percent')!=100:raise ValueError('Split or unknown feeds traffic; cannot choose a preservation base')

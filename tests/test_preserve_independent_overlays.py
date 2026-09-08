@@ -52,10 +52,10 @@ class Preservation(unittest.TestCase):
  def test_quoted_nested_braces_are_preserved(self):
   blocks=p.location_blocks((self.source/'nginx.conf').read_text());self.assertEqual(6,len(blocks));self.assertIn('"nested":{}',blocks[0][1])
  def test_split_traffic_refuses(self):
-  with patch.object(p,'gcloud',return_value={'status':{'traffic':[{'revisionName':'old','percent':50},{'revisionName':'new','percent':50}]}}):
+  with patch.object(p,'gcloud',return_value={'status':{'conditions':[{'type':'Ready','status':'True'}],'traffic':[{'revisionName':'old','percent':50},{'revisionName':'new','percent':50}]}}):
    with self.assertRaises(ValueError):p.current_head('account')
  def test_uses_serving_revision_not_latest_ready(self):
-  service={'status':{'latestReadyRevisionName':'unserved','traffic':[{'revisionName':'served','percent':100}]},'metadata':{'generation':2}}
+  service={'status':{'conditions':[{'type':'Ready','status':'True'}],'latestReadyRevisionName':'unserved','traffic':[{'revisionName':'served','percent':100}]},'metadata':{'generation':2}}
   with patch.object(p,'gcloud',side_effect=[service,{'status':{'imageDigest':HEAD['image']}}]) as call:
    self.assertEqual('served',p.current_head('account')['revision']);self.assertIn('served',call.call_args.args)
  def test_hub_marker_without_href_refuses(self):
@@ -68,6 +68,10 @@ class Preservation(unittest.TestCase):
  def test_explicit_gcloud_binary_needs_no_ambient_path(self):
   with patch.object(p,'GCLOUD_BIN','/opt/google/bin/gcloud'),patch.object(p.subprocess,'check_output',return_value=b'{}') as invoke:
    p.gcloud('account','run','services','list');self.assertEqual('/opt/google/bin/gcloud',invoke.call_args.args[0][0])
+ def test_pending_other_deployment_refuses(self):
+  service={'status':{'conditions':[{'type':'Ready','status':'Unknown'}],'traffic':[{'revisionName':'served','percent':100}]}}
+  with patch.object(p,'gcloud',return_value=service):
+   with self.assertRaises(ValueError):p.current_head('account')
  def test_stale_head_refuses(self):
   self.build()
   with patch.object(p,'current_head',return_value={**HEAD,'generation':2}),patch('sys.argv',['script','check-head','--candidate',str(self.dest)]):
