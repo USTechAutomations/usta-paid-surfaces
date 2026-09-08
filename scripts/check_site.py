@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
-"""Fail closed if a family grows a fake checkout, a one-off SKU, or drops its sample rules."""
+"""Fail closed if a family grows a fake checkout, a one-off SKU, or drops its sample rules.
+
+This gate is about truth. Looks are a separate gate: scripts/check_brand.py,
+whose standard is BRAND.md at the repo root. It is deliberately NOT run from
+here yet, because the estate is not conformant today -- see BRAND.md
+"Baseline 2026-09-08", 914 failing checks over 3169 pages. check_brand.py
+strict becomes mandatory here, and a page that fails it stops being
+shippable, once every number in that baseline table reaches zero.
+"""
 from __future__ import annotations
 
 import csv

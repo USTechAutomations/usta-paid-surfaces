@@ -4,28 +4,78 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>FAMILY_NAME — PRICE</title>
+  <meta name="description" content="FAMILY_NAME. PRICE. Built for BUYER.">
   <link rel="canonical" href="https://ustechautomations.com/feeds/FAMILY_ID">
+  <link rel="stylesheet" href="../../styles.css">
+  <meta name="theme-color" content="#7a3b12">
   <link rel="icon" type="image/svg+xml" href="/logo.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="stylesheet" href="../../styles.css">
 </head>
-<body>
-  <header>
-    <nav><a href="../../">Feeds</a> · <a href="./">FAMILY_NAME</a></nav>
+<body data-family="FAMILY_ID">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="wordmark" href="../../">Dated change feeds <span>/ US Tech Automations</span></a>
+    <p class="crumbs"><a href="../../">Feeds</a><span class="sep">/</span>FAMILY_NAME</p>
+  </div>
+</header>
+
+<!-- FABLE: layout only. Do not change PRICE and do not invent SAMPLE rows.
+     The look of this page is fixed by BRAND.md at the repo root. Before you
+     ship it: python3 scripts/build_site.py && python3 scripts/check_brand.py
+     Keep the shell above and below exactly as it is. One h1. One primary
+     action. No status pills. No colours outside the tokens in styles.css. -->
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Scaffold <span class="dot"></span> not for sale yet</p>
     <h1>FAMILY_NAME</h1>
-    <p class="price">PRICE</p>
-    <p>BUYER. Repeatable product. Many buyers. Not a one-job file.</p>
-    <div class="honest"><strong>Sample not ready.</strong> SAMPLE_STATUS. Do not invent rows. Do not sell hard until named dated rows are on this page.</div>
-    <div class="note"><strong>No pay button.</strong> <a href="mailto:operations@ustechautomations.com">operations@ustechautomations.com</a></div>
-  </header>
-  <main>
-    <!-- FABLE: layout only. Do not change PRICE or invent SAMPLE rows. -->
-    <h2>Public sample</h2>
-    <p>Put a dated fact here that the current public file no longer shows. If you cannot, leave SAMPLE_STATUS as fail and do not sell hard.</p>
-  </main>
-  <footer>US Tech Automations · Prescott Valley AZ</footer>
+    <p class="lede">One sentence saying what dated change this file records and
+      why BUYER needs it before anyone else has it.</p>
+    <dl class="rail">
+      <div><dt>Price</dt><dd class="price">PRICE</dd></div>
+      <div><dt>Built for</dt><dd>BUYER</dd></div>
+      <div><dt>Cadence</dt><dd>unspecified</dd></div>
+      <div><dt>Sample</dt><dd>SAMPLE_STATUS</dd></div>
+    </dl>
+    <div class="hero-note">
+      <p><strong>Sample not ready.</strong> SAMPLE_STATUS. Do not invent rows
+        and do not sell hard until named, dated rows are on this page.</p>
+    </div>
+    <div class="hero-cta">
+      <a class="btn btn-ghost" href="mailto:operations@ustechautomations.com">Ask about FAMILY_NAME</a>
+      <span class="btn-note">No pay button until a real sample is published.</span>
+    </div>
+  </div>
+</section>
+
+<main id="main">
+  <div class="wrap">
+    <section>
+      <h2>Public sample</h2>
+      <p>Put a dated fact here that the current public file no longer shows. If
+        you cannot, leave SAMPLE_STATUS as fail and do not sell hard.</p>
+    </section>
+
+    <section>
+      <h2>What you get</h2>
+      <ul class="spec">
+        <li><strong>Repeatable product.</strong> <span class="sub">Many buyers. Not a one-job file.</span></li>
+        <li><strong>Cadence.</strong> <span class="sub">State how often it lands, once you know.</span></li>
+      </ul>
+    </section>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>Scaffold page. Nothing on it is for sale until a real sample is published.</p>
+    <p class="addr">US Tech Automations &middot; 3298 N Glassford Hill Rd Ste 104 PMB 1055, Prescott Valley AZ 86314</p>
+  </div>
+</footer>
 </body>
 </html>

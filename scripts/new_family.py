@@ -1,10 +1,21 @@
 #!/usr/bin/env python3
-"""Create families/<id>/ from _template. Does not edit catalog.json prices for you."""
+"""Create families/<id>/ from _template. Does not edit catalog.json prices for you.
+
+The scaffold is not a blank page: it is the house shell, and the house shell is
+fixed by BRAND.md at the repo root. Every new family starts conformant and stays
+that way, which is cheaper than 900 pages of retrofit.
+
+So the page is checked before the catalog row is written. If scripts/check_brand.py
+refuses it, this stops and says why, and no row is added -- the half-built page is
+left on disk for you to fix rather than deleted behind your back.
+"""
 from __future__ import annotations
 
 import argparse
 import json
 import re
+import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,6 +43,20 @@ def main() -> None:
     )
     dest.mkdir(parents=True)
     (dest / "index.html").write_text(html, encoding="utf-8")
+
+    # Look before the row. A page that breaks the standard must not reach the
+    # catalog, because the catalog is what the hub and the sitemap read.
+    gate = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "check_brand.py"),
+         "--dist", str(ROOT / "families"), "--only", args.id],
+        capture_output=True, text=True,
+    )
+    if gate.returncode != 0:
+        print(gate.stdout + gate.stderr, end="")
+        print(f"new_family: {dest / 'index.html'} was written but breaks BRAND.md.")
+        print("new_family: no catalog row added. Fix the page, then add the row.")
+        raise SystemExit(1)
+
     catalog_path = ROOT / "catalog.json"
     catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
     catalog["families"].append(
@@ -47,6 +72,7 @@ def main() -> None:
     )
     catalog_path.write_text(json.dumps(catalog, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(dest / "index.html")
+    print("new_family: passes scripts/check_brand.py. The standard is BRAND.md.")
 
 
 if __name__ == "__main__":
