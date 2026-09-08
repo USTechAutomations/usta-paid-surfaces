@@ -10,6 +10,12 @@ REAL=ROOT/'raw/export_2026-09-07'
 BUSINESS=re.compile(r'\b(?:inc|incorporated|llc|ltd|limited|corp|corporation|co|company|gmbh|sa|medical|technologies)\b',re.I)
 ALLOWED={'week_ending','fei_number','registration_number','owner_operator_number','name','city','state_code','iso_country_code','establishment_types','status_code','reg_expiry_date_year','product_code_count','change','changed_fields'}
 
+def run_logged(cmd, **kwargs):
+    result=subprocess.run(cmd, **kwargs)
+    with (ROOT/'subprocess-exits.jsonl').open('a') as f:
+        f.write(json.dumps({'command':[str(x) for x in cmd],'exit':result.returncode,'stdout':result.stdout,'stderr':result.stderr})+chr(10))
+    return result
+
 def rows(path):
     with path.open(newline='') as f: return list(csv.DictReader(f))
 
@@ -24,6 +30,7 @@ class Acceptance(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         assert COLLECT.exists(), 'collector absent: implement the named artifact first'
+        (ROOT/'test-artifacts').mkdir(exist_ok=True)
         unique={}
         for file in sorted(REAL.glob('*.zip')):
             with zipfile.ZipFile(file) as z:
@@ -49,7 +56,7 @@ class Acceptance(unittest.TestCase):
         export(self.src,'2026-08-31',self.old); export(self.src,'2026-09-07',self.new)
 
     def run_collector(self,ok=True):
-        p=subprocess.run([sys.executable,'-B',str(COLLECT),'--offline',str(self.src),'--out',str(self.out)],capture_output=True,text=True)
+        p=run_logged([sys.executable,'-B',str(COLLECT),'--offline',str(self.src),'--out',str(self.out)],capture_output=True,text=True)
         with (ROOT/'acceptance-exits.jsonl').open('a') as f: f.write(json.dumps({'test':self.id(),'tool':'collector','exit':p.returncode,'stdout':p.stdout,'stderr':p.stderr})+'\n')
         if ok: self.assertEqual(p.returncode,0,p.stderr)
         else: self.assertNotEqual(p.returncode,0,p.stdout)
@@ -109,7 +116,7 @@ class Acceptance(unittest.TestCase):
     def test_slicer_sample_and_page(self):
         self.run_collector()
         page=self.tmp/'family'
-        p=subprocess.run([sys.executable,'-B',str(SLICE),'--state',str(self.out),'--out',str(page)],capture_output=True,text=True)
+        p=run_logged([sys.executable,'-B',str(SLICE),'--state',str(self.out),'--out',str(page)],capture_output=True,text=True)
         self.assertEqual(p.returncode,0,p.stderr)
         sample=rows(page/'sample.csv')
         self.assertEqual(len(sample),5)
@@ -128,7 +135,7 @@ class Acceptance(unittest.TestCase):
         self.assertIn('UNKNOWN',p.stdout)
         self.assertFalse(list(self.out.glob('what_changed_*.csv')))
         page=self.tmp/'baseline-page'
-        p=subprocess.run([sys.executable,'-B',str(SLICE),'--state',str(self.out),'--out',str(page)],capture_output=True,text=True)
+        p=run_logged([sys.executable,'-B',str(SLICE),'--state',str(self.out),'--out',str(page)],capture_output=True,text=True)
         self.assertEqual(p.returncode,0,p.stderr)
         body=(page/'index.html').read_text(); self.assertIn('UNKNOWN',body); self.assertNotIn('href="sample.csv"',body)
         self.assertEqual(rows(page/'sample.csv'),[])
@@ -151,19 +158,20 @@ class Acceptance(unittest.TestCase):
         self.assertEqual(meta['missing_identity_records'],1)
 
     def test_sample_cap_escape_and_tamper_refusal(self):
-        self.old[0]['registration']['name']='<script>alert(1)</script> Medical Inc'
+        visible=min(self.old[:30],key=lambda r:(str(r['registration']['registration_number']),str(r['registration']['fei_number'])))
+        visible['registration']['name']='<script>alert(1)</script> Medical Inc'
         export(self.src,'2026-08-31',self.old)
         export(self.src,'2026-09-07',self.selected[30:305])
         self.run_collector()
         page=self.tmp/'capped'
         cmd=[sys.executable,'-B',str(SLICE),'--state',str(self.out),'--out',str(page)]
-        p=subprocess.run(cmd,capture_output=True,text=True); self.assertEqual(p.returncode,0,p.stderr)
+        p=run_logged(cmd,capture_output=True,text=True); self.assertEqual(p.returncode,0,p.stderr)
         self.assertEqual(len(rows(page/'sample.csv')),25)
-        body=(page/'index.html').read_text(); self.assertNotIn('<script>alert',body)
+        body=(page/'index.html').read_text(); self.assertNotIn('<script>alert',body); self.assertIn('&lt;script&gt;alert(1)&lt;/script&gt; Medical Inc',body)
         delta=self.out/'what_changed_2026-08-31_2026-09-07.csv'
         delta.write_text(delta.read_text().replace('vanished','appeared',1))
         before=(page/'index.html').read_bytes()
-        p=subprocess.run(cmd,capture_output=True,text=True); self.assertNotEqual(p.returncode,0)
+        p=run_logged(cmd,capture_output=True,text=True); self.assertNotEqual(p.returncode,0)
         self.assertIn('metadata mismatch',p.stderr); self.assertEqual((page/'index.html').read_bytes(),before)
 
     def test_missing_and_invalid_json_refused(self):
