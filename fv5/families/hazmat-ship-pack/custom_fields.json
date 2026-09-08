@@ -1,6 +1,21 @@
 [
-  {"key": "un_number", "label": "UN number, e.g. UN1993", "type": "text", "optional": false,
-   "text": {"minimum_length": 4, "maximum_length": 12}},
-  {"key": "shipping_name", "label": "Shipping name or packing group if the number has several rows", "type": "text", "optional": true,
-   "text": {"minimum_length": 0, "maximum_length": 120}}
+ {
+  "key": "un_number",
+  "label": "UN number, e.g. UN1993",
+  "type": "text",
+  "optional": false,
+  "text": {
+   "minimum_length": 4,
+   "maximum_length": 12
+  }
+ },
+ {
+  "key": "shipping_name",
+  "label": "Shipping name or packing group, if several rows",
+  "type": "text",
+  "optional": true,
+  "text": {
+   "maximum_length": 120
+  }
+ }
 ]

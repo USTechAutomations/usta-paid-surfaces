@@ -43,7 +43,9 @@ ETA_MINUTES = 15
 CHANNEL_CHOICE = {
     "chatbot": "chat-banner",
     "generated content": "content-label",
+    "generatedcontent": "content-label",
     "synthetic media": "media-label",
+    "syntheticmedia": "media-label",
     "decisions": "decision-notice",
     "companion": "companion-notice",
 }

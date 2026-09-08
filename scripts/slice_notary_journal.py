@@ -347,8 +347,9 @@ def family_spec() -> dict:
                       "is, and when we last read it. Ask us and we will tell you "
                       "what your state's page says today."),
         "contact_cta": "Email us about your state",
-        "contact_note": ("No pay button on this one yet. The free tool on this "
-                         "page keeps 25 entries and is the same tool."),
+        "contact_note": ("The unlocked copy is sold only for the states the "
+                         "checkout lists. The free tool on this page keeps 25 "
+                         "entries and is the same tool."),
         "foot": DISCLAIMER,
         "delivery": ("<strong>What arrives after you pay:</strong> a single private "
                      "web page carrying the same journal with no entry limit and "

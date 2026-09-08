@@ -11,6 +11,7 @@
 # Seeded 2026-08-22 from the live sitemap plus that day's build. The build adds
 # to it and never removes from it. Deleting a line here deletes a live page, so
 # do not tidy this file.
+acacheck
 access-affidavits
 address-packet
 agent-break
@@ -96,6 +97,7 @@ boston/short-form-bldg-permit
 canary-ledger
 cannabis-tape
 carrier-register
+casepack
 changeover-atlas
 chicago
 chicago/coverage
@@ -289,6 +291,7 @@ enforcement-action-board/west-virginia
 enforcement-action-board/wisconsin
 enforcement-action-board/wyoming
 extract-custody
+fda-device-establishment-week
 fed-obligations
 fed-obligations/coverage
 fed-obligations/mix-shift
@@ -534,6 +537,7 @@ how-we-seal
 hts-revision-seal
 import-checks
 kdp-lens
+ledgermatch
 los-angeles
 los-angeles/bldg-addition
 los-angeles/bldg-alter-repair
@@ -901,6 +905,7 @@ permit-metros/seattle
 permits
 pilot-logbook-digitizer
 predictor-diet
+qrelay
 quakes
 quakes/alaska
 quakes/california
@@ -935,6 +940,7 @@ recalls/pennsylvania
 recalls/status-changes
 recalls/texas
 recalls/wisconsin
+schemahand
 scope-sheet
 sec-8k
 sec-8k/accounts-withdrawn

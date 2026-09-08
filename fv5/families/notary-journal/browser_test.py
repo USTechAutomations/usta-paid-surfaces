@@ -45,6 +45,7 @@ PORT = %d
 GOOD = json.loads(open(%r).read())
 BAD = json.loads(open(%r).read())
 LIMIT = 25
+SELLABLE = %r
 out = {"good": "fail", "bad": "fail", "limit": "fail", "why": []}
 
 def fill_entry(page, n):
@@ -137,14 +138,27 @@ with sync_playwright() as p:
     page.wait_for_timeout(120)
     rule = page.inner_text("#nj-rule")
     raw = page.content()
-    if BAD["expect"]["page_contains"].lower() in rule.lower() and "btn-buy" not in raw:
+    # The button is one static link; what keeps a paper-only state from buying is
+    # that the checkout's state list never offers it. Read that list from the
+    # same file the mint tool reads, and hold the free tool to its refusal words.
+    sellable = SELLABLE
+    if BAD["expect"]["page_contains"].lower() in rule.lower() and BAD["state_code"] not in sellable:
         out["bad"] = "ok"
     else:
-        out["why"].append("bad: a paper-only state is not refused, or a pay button is on the page")
+        out["why"].append("bad: a paper-only state is not refused, or it is offered at checkout: %%r" %% BAD["state_code"])
 
     b.close()
 print(json.dumps(out))
 '''
+
+
+def sellable_states() -> list[str]:
+    """State codes the Stripe checkout offers, read from custom_fields.json."""
+    fields = json.loads((HERE / "custom_fields.json").read_text(encoding="utf-8"))
+    for fld in fields:
+        if fld.get("type") == "dropdown":
+            return [o["value"] for o in fld["dropdown"]["options"]]
+    return []
 
 
 def main() -> int:
@@ -161,7 +175,8 @@ def main() -> int:
     try:
         time.sleep(1.2)
         driver = DRIVER % (PORT, str(HERE / "fixtures" / "known_good.json"),
-                           str(HERE / "fixtures" / "known_bad.json"))
+                           str(HERE / "fixtures" / "known_bad.json"),
+                           sellable_states())
         script = HERE / ".browser_driver.py"
         script.write_text(driver, encoding="utf-8")
         r = subprocess.run([PLAYWRIGHT, str(script)], capture_output=True,
