@@ -24,9 +24,11 @@ if ! apify info >/dev/null 2>&1; then
 fi
 echo ">> Logged in as:"; apify info | sed -n '1,6p'
 
-# 2) Push each actor as a PRIVATE actor first (build + upload). Pay-per-event
-#    pricing is declared in each actor's .actor/actor.json (pricingInfos:
-#    run-start $0.50, result-item $0.005) and a hard maxItems cap of 1000.
+# 2) Push each actor as a PRIVATE actor first (build + upload). NOTE: the
+#    pricingInfos block in .actor/actor.json is not a real Apify field and is
+#    ignored on push. Pay-per-event pricing (run-start $0.50, result-item $0.005)
+#    is set AFTER push by ~/Claude CLI/harness/browser/apify_publish.py
+#    --set-pricing (needs a dated approval file). maxItems cap of 1000 is real.
 for a in "${ACTORS[@]}"; do
   echo ">> Pushing $a ..."
   ( cd "actors/$a" && apify push )
