@@ -20,8 +20,11 @@ the rest. So:
   logged in to Apify**, so nothing was pushed; the exact publish steps are staged
   in `PUBLISH.sh`.
 - **Price:** each scraper is pay-per-event — **$0.50** to start a run plus
-  **$0.005** per record — declared in each actor's `.actor/actor.json`
-  (`pricingInfos`). A run is capped hard at **1,000 records** with a run timeout.
+  **$0.005** per record. The `pricingInfos` block in each `.actor/actor.json` is
+  NOT a real Apify field and is ignored on push; the price is set at listing time
+  by the browser hand (`~/Claude CLI/harness/browser/apify_publish.py --set-pricing`,
+  falling back to the Console wizard flow). A run is capped hard at **1,000
+  records** with a run timeout.
 
 ## The free sample is real
 
