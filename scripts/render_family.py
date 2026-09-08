@@ -147,7 +147,7 @@ PAGE = """<!doctype html>
       <div><dt>Price</dt><dd class="price">{price}</dd></div>
       <div><dt>Built for</dt><dd>{buyer}</dd></div>
       <div><dt>Cadence</dt><dd>{cadence_long}</dd></div>
-      <div><dt>{sample_dt}</dt><dd><span class="pill {pill_class}">{pill_label}</span></dd></div>
+      <div><dt>{sample_dt}</dt><dd>{sample_state}</dd></div>
     </dl>
 {hero_cta}  </div>
 </section>
@@ -206,6 +206,40 @@ def table(headers, rows, caption, stamp, moved_col=None):
 def section(h2, seal, body):
     cap = f'<span class="seal">{html.escape(seal)}</span>' if seal else ""
     return f"    <section>\n      <h2>{html.escape(h2)}{cap}</h2>\n{body}\n    </section>\n"
+
+
+# The two state icons. Drawn in currentColor so they take the muted text colour
+# of the line they sit on and nothing else: BRAND.md §7 says a state is told by
+# its words and its icon SHAPE, never by a colour, so these two differ as a tick
+# and a clock and not as green and amber. aria-hidden because the words beside
+# them say the same thing, and a screen reader that read both would say it twice.
+_ICON = {
+    "ready": '<path d="M2.5 8.4l3.6 3.6L13.5 4"/>',
+    "hold": '<circle cx="8" cy="8" r="6.1"/><path d="M8 4.3V8l2.6 1.8"/>',
+}
+
+
+def state(label: str, ready: bool = True, escape: bool = True) -> str:
+    """The muted "sample ready" / "not ready yet" line that replaced the pills.
+
+    WHY THIS IS A FUNCTION AND NOT A STRING IN FOUR TEMPLATES. This fact is drawn
+    on a family page, on every one of its child pages and twice on the hub. It
+    used to be four copies of the same span, which is how the estate ended up
+    with 895 pages carrying a badge class the standard bans: one of the four was
+    fixed on the day the rule was written and the other three were not. There is
+    one copy now, and a page that wants this line has to call it.
+
+    label is the words a reader sees; ready picks the icon. Pass escape=False
+    only when the caller has already escaped its own label.
+    """
+    key = "ready" if ready else "hold"
+    text = html.escape(label) if escape else label
+    return (
+        f'<span class="state">'
+        f'<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" fill="none" '
+        f'stroke="currentColor" stroke-width="1.6" stroke-linecap="round" '
+        f'stroke-linejoin="round">{_ICON[key]}</svg>{text}</span>'
+    )
 
 
 _SAMPLE_STATUS: dict[str, str] | None = None
@@ -630,12 +664,11 @@ def render(spec: dict) -> str:
                    or (ON_PAGE_PILL if on_page
                        else ("Sample ready" if ready else "Sample not ready"))),
         sample_dt=spec.get("sample_dt", "Public sample"),
-        # Amber is the estate's colour for "wait, this is not here yet". An
-        # on-page family is not waiting for anything, and the hub already draws
-        # its card green, so leaving this amber would say in colour the thing the
-        # words above stopped saying.
-        pill_class="pill-ready" if (ready or on_page) else "pill-hold",
-        pill_label=spec["pill_label"],
+        # The rail's state line. There is no colour in it any more, so nothing
+        # here can contradict the words: a family with no sample coming shows a
+        # tick against its own label rather than an amber "waiting" badge for a
+        # wait that is never going to end (BRAND.md §7).
+        sample_state=state(spec["pill_label"], ready=bool(ready or on_page)),
         h1=spec["h1"],
         lede=spec["lede"],
         price=price,

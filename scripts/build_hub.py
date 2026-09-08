@@ -21,7 +21,7 @@ from check_site import buy_buttons  # noqa: E402
 # The words an "on-page" family puts on its own eyebrow. Imported, not
 # retyped: the card and the page it links to are two surfaces of one fact,
 # and this repo has already shipped a day where only one of them moved.
-from render_family import ON_PAGE_PILL  # noqa: E402
+from render_family import ON_PAGE_PILL, state  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 CAT = json.loads((ROOT / "catalog.json").read_text(encoding="utf-8"))
@@ -76,9 +76,9 @@ def commas(names: list[str]) -> str:
 
 def card(f):
     if f["sample_status"] == "parked":
-        pill, price = '<span class="pill pill-hold">Not available</span>', ""
+        line, price = state("Not available", ready=False), ""
     elif f["sample_status"] == "pass":
-        pill = '<span class="pill pill-ready">Sample ready</span>'
+        line = state("Sample ready")
         price = f'<span class="amount">{esc(f["price"])}</span> '
     elif f["sample_status"] == "on-page":
         # "Not ready" tells a stranger a sample is coming. For this family none
@@ -86,15 +86,15 @@ def card(f):
         # page IS the file. Saying "not ready" here is the card promising
         # something that does not exist, which is the one thing this directory is
         # for not doing.
-        pill = f'<span class="pill pill-ready">{esc(ON_PAGE_PILL)}</span>'
+        line = state(ON_PAGE_PILL)
         price = f'<span class="amount">{esc(f["price"])}</span> '
     else:
-        pill = '<span class="pill pill-hold">Sample not ready</span>'
+        line = state("Sample not ready", ready=False)
         price = f'<span class="amount">{esc(f["price"])}</span> '
     return f"""          <a class="card" href="families/{f['id']}/">
             <h3>{esc(f['short'])}</h3>
             <p class="who">{esc(f['who'])}</p>
-            <p class="meta">{price}<span>{esc(f['cadence'])}</span> {pill}</p>
+            <p class="meta">{price}<span>{esc(f['cadence'])}</span> {line}</p>
           </a>"""
 
 
@@ -160,7 +160,7 @@ def main():
             f"""          <a class="card" href="families/{i}/">
             <h3>{esc(h)}</h3>
             <p class="who">{esc(w)}</p>
-            <p class="meta"><span>Free to read</span> <span class="pill pill-ready">Rebuilt daily</span></p>
+            <p class="meta"><span>Free to read</span> {state("Rebuilt daily")}</p>
           </a>"""
             for i, h, w in live_trust
         )
@@ -215,7 +215,7 @@ def main():
             f"""          <a class="card" href="families/{e['id']}/">
             <h3>{esc(e['short'])}</h3>
             <p class="who">{esc(e['who'])}</p>
-            <p class="meta"><span class="amount">{esc(e['amount'])}</span> <span>{esc(e['cadence'])}</span> <span class="pill {e['pill_class']}">{esc(e['pill'])}</span></p>
+            <p class="meta"><span class="amount">{esc(e['amount'])}</span> <span>{esc(e['cadence'])}</span> {state(e['pill'], ready=e.get('pill_class') != 'pill-hold')}</p>
           </a>"""
             for e in rest
         )

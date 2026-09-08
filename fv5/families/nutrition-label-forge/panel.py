@@ -81,42 +81,41 @@ BIG_NINE = ["Milk", "Eggs", "Fish", "Crustacean shellfish", "Tree nuts",
 def css() -> str:
     return """
 <style>
-.nlf{--ink:#111;--line:#c9c9c9;--soft:#f6f6f4;--warn:#8a3b00;
- font-size:15px;line-height:1.5;max-width:62rem}
+.nlf{font-size:15px;line-height:1.5;max-width:62rem}
 .nlf h3{margin:1.6rem 0 .3rem;font-size:1.15rem}
 .nlf h4{margin:1.1rem 0 .3rem;font-size:1rem}
-.nlf p.help{color:#555;margin:.2rem 0 .6rem}
-.nlf fieldset{border:1px solid var(--line);border-radius:6px;margin:0 0 .6rem;padding:.6rem .8rem}
+.nlf p.help{color:var(--muted-fg);margin:.2rem 0 .6rem}
+.nlf fieldset{border:1px solid var(--line);border-radius:var(--radius);margin:0 0 .6rem;padding:.6rem .8rem}
 .nlf legend{padding:0 .35rem;font-weight:600}
-.nlf .q{display:block;padding:.35rem 0;border-bottom:1px solid #eee}
+.nlf .q{display:block;padding:.35rem 0;border-bottom:1px solid var(--line)}
 .nlf .q:last-child{border-bottom:0}
 .nlf .q .ask{display:block;margin-bottom:.2rem}
 .nlf .q .opts label{margin-right:1rem;font-size:.92rem}
 .nlf .row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:flex-end;margin:.35rem 0}
-.nlf .row label{display:flex;flex-direction:column;font-size:.85rem;color:#444;gap:.15rem}
+.nlf .row label{display:flex;flex-direction:column;font-size:.85rem;color:var(--muted-fg);gap:.15rem}
 .nlf input[type=text],.nlf input[type=number],.nlf input[type=search],.nlf textarea,.nlf select{
- font:inherit;padding:.35rem .45rem;border:1px solid #aaa;border-radius:4px;background:#fff;color:var(--ink)}
+ font:inherit;padding:.35rem .45rem;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--fg)}
 .nlf input[type=number]{width:7rem}
 .nlf textarea{width:100%;min-height:5.5rem}
 .nlf table.ing{width:100%;border-collapse:collapse;margin:.4rem 0}
 .nlf table.ing th,.nlf table.ing td{border-bottom:1px solid var(--line);padding:.3rem .35rem;text-align:left;font-size:.9rem;vertical-align:top}
 .nlf table.ing td.g{width:6.5rem}
 .nlf table.ing td.x{width:2.5rem;text-align:right}
-.nlf button{font:inherit;padding:.4rem .7rem;border:1px solid #333;border-radius:4px;background:#fff;cursor:pointer}
-.nlf button.go{background:#111;color:#fff}
-.nlf button.lnk{border:0;background:none;text-decoration:underline;padding:.1rem .2rem;cursor:pointer}
-.nlf .out{background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:.7rem .9rem;margin:.6rem 0}
-.nlf .out blockquote{margin:.35rem 0 .6rem;padding-left:.7rem;border-left:3px solid #bbb;font-size:.9rem;color:#333}
-.nlf .err{color:var(--warn);font-weight:600}
-.nlf .hits{list-style:none;margin:.2rem 0;padding:0;max-height:13rem;overflow:auto;border:1px solid var(--line);border-radius:4px}
-.nlf .hits li{padding:.25rem .45rem;border-bottom:1px solid #eee;cursor:pointer;font-size:.88rem}
-.nlf .hits li:hover{background:#eef}
+.nlf button{font:inherit;padding:.4rem .7rem;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--fg);cursor:pointer}
+.nlf button.go{background:hsl(var(--primary));color:hsl(var(--primary-foreground));border-color:hsl(var(--primary))}
+.nlf button.lnk{border:0;background:none;color:var(--accent);text-decoration:underline;padding:.1rem .2rem;cursor:pointer}
+.nlf .out{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius);padding:.7rem .9rem;margin:.6rem 0}
+.nlf .out blockquote{margin:.35rem 0 .6rem;padding-left:.7rem;border-left:3px solid var(--line);font-size:.9rem;color:var(--muted-fg)}
+.nlf .err{color:hsl(var(--accent-rose-fg));font-weight:600}
+.nlf .hits{list-style:none;margin:.2rem 0;padding:0;max-height:13rem;overflow:auto;border:1px solid var(--line);border-radius:var(--radius)}
+.nlf .hits li{padding:.25rem .45rem;border-bottom:1px solid var(--line);cursor:pointer;font-size:.88rem}
+.nlf .hits li:hover{background:var(--surface-2)}
 .nlf .panelwrap{display:flex;gap:1.2rem;flex-wrap:wrap;align-items:flex-start}
-.nlf .panelbox{background:#fff;border:1px solid var(--line);padding:.6rem;overflow-x:auto;max-width:100%}
-.nlf .fmt button[aria-pressed=true]{background:#111;color:#fff}
-.nlf .cite{font-size:.82rem;color:#555;margin:.25rem 0}
+.nlf .panelbox{background:var(--surface);border:1px solid var(--line);padding:.6rem;overflow-x:auto;max-width:100%}
+.nlf .fmt button[aria-pressed=true]{background:hsl(var(--primary));color:hsl(var(--primary-foreground));border-color:hsl(var(--primary))}
+.nlf .cite{font-size:.82rem;color:var(--muted-fg);margin:.25rem 0}
 .nlf .cite code{font-size:.82rem}
-.nlf .warnbox{border:1px solid var(--warn);border-left-width:5px;border-radius:4px;padding:.6rem .8rem;margin:.7rem 0;background:#fff8f2}
+.nlf .warnbox{border:1px solid hsl(var(--accent-amber-fg) / .3);border-left-width:5px;border-radius:var(--radius);padding:.6rem .8rem;margin:.7rem 0;background:hsl(var(--accent-amber) / .5)}
 @media print{
  @page{size:auto;margin:12mm}
  body *{visibility:hidden}
@@ -389,7 +388,10 @@ def js() -> str:
   var hits=search(this.value), ul=$('hits');
   if(!hits.length){ul.hidden=true;ul.innerHTML='';return;}
   ul.innerHTML=hits.map(function(i){
-    return '<li data-i="'+i+'">'+esc(F.foods[i][3])+' <span style="color:#777">&middot; '+
+    /* The muted grey is .nlf .cite in the block above, a token, not a colour
+       typed here (BRAND.md §1). This is JavaScript: comment it with slash-star,
+       never with a hash -- a hash here is a syntax error and kills the search. */
+    return '<li data-i="'+i+'">'+esc(F.foods[i][3])+' <span class="cite">&middot; '+
       esc(F.cats[F.foods[i][1]])+'</span></li>';}).join('');
   ul.hidden=false;
   ul.querySelectorAll('li').forEach(function(li){

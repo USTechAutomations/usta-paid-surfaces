@@ -123,6 +123,12 @@ def sync_extras(built: list[str]) -> None:
             "who": BUYERS[slug],
             "amount": amount,
             "cadence": cadence,
+            # These two keys are named after the status badge that used to be
+            # drawn from them. The badge is gone (BRAND.md §7) and only
+            # build_hub.py reads them: "pill" is the words on the card and
+            # "pill_class" now decides nothing but which icon shape goes beside
+            # them. Do not put either value back into a class attribute -- that
+            # is what check_brand.py's no-status-badge rule refuses.
             "pill": pill,
             "pill_class": "pill-ready",
         }

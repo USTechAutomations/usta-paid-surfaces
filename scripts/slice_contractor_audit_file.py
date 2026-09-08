@@ -45,11 +45,12 @@ def _e(s) -> str:
 # the in-page tool
 # --------------------------------------------------------------------------
 
+# Tokens and the one shared radius, not this page's own greys (BRAND.md §1, §4).
 TOOL_CSS = """
       <style>
-        .caf-tool{border:1px solid #d8d8d8;border-radius:6px;padding:1rem;margin:1rem 0}
+        .caf-tool{border:1px solid var(--line);border-radius:var(--radius);padding:1rem;margin:1rem 0}
         .caf-tool h3{margin:.2rem 0 .5rem;font-size:1rem}
-        .caf-q{border-top:1px solid #eee;padding:.6rem 0}
+        .caf-q{border-top:1px solid var(--line);padding:.6rem 0}
         .caf-q:first-child{border-top:0}
         .caf-q p{margin:0 0 .35rem;font-weight:600}
         .caf-q label{display:block;margin:.15rem 0;font-weight:400}
@@ -57,11 +58,11 @@ TOOL_CSS = """
         .caf-row label{display:block;font-size:.85rem}
         .caf-out{margin-top:1rem}
         .caf-out h4{margin:.9rem 0 .2rem}
-        .caf-quote{border-left:3px solid #bbb;padding:.35rem .6rem;margin:.35rem 0;
-                   background:#fafafa;font-style:normal}
+        .caf-quote{border-left:3px solid var(--line);padding:.35rem .6rem;margin:.35rem 0;
+                   background:var(--surface-2);font-style:normal}
         .caf-ans{margin:.25rem 0 .25rem 0}
         .caf-docs{margin:.2rem 0 .6rem 1.1rem}
-        .caf-warn{font-size:.85rem;color:#555}
+        .caf-warn{font-size:.85rem;color:var(--muted-fg)}
         .caf-tool button{margin-right:.4rem}
       </style>
 """

@@ -71,7 +71,12 @@ def wrap_private_page(family: str, product_name: str, html: str,
   <meta name="robots" content="noindex,nofollow">
   <title>{product_name} — your private copy</title>
   <link rel="stylesheet" href="https://ustechautomations.com/feeds/styles.css">
-  <meta name="theme-color" content="#7a3b12">
+  <!-- The site pair, light and dark. These 2,182 private pages were the only
+       pages left painting the browser chrome brown: scripts/build_site.py
+       rewrites this tag on every public page as it builds, and it never sees
+       these, so the buyer's tab did not match the shop it was bought from. -->
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f9fafb">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d0f13">
 </head>
 <body data-family="{family}">
 <a class="skip" href="#main">Skip to content</a>
@@ -140,7 +145,12 @@ _THANKS_TEMPLATE = """<!doctype html>
   <meta name="robots" content="noindex,nofollow">
   <title>__PRODUCT__ — preparing your file</title>
   <link rel="stylesheet" href="https://ustechautomations.com/feeds/styles.css">
-  <meta name="theme-color" content="#7a3b12">
+  <!-- The site pair, light and dark. These 2,182 private pages were the only
+       pages left painting the browser chrome brown: scripts/build_site.py
+       rewrites this tag on every public page as it builds, and it never sees
+       these, so the buyer's tab did not match the shop it was bought from. -->
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f9fafb">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d0f13">
 </head>
 <body data-family="__FAMILY__">
 <a class="skip" href="#main">Skip to content</a>
@@ -152,11 +162,16 @@ _THANKS_TEMPLATE = """<!doctype html>
   </div>
 </header>
 
+<section class="hero">
+  <div class="wrap">
+    <h1>Thank you — your __PRODUCT__ is being prepared</h1>
+    <p id="status" class="lede">Working out your private address…</p>
+  </div>
+</section>
+
 <main id="main">
   <div class="wrap">
     <section>
-      <h1>Thank you — your __PRODUCT__ is being prepared</h1>
-      <p id="status" class="lede">Working out your private address…</p>
       <p class="mail-note">This can take up to about __ETA__ minutes. You can keep
         this tab open; it checks for the file on its own and shows a link the
         moment it is ready. Bookmark the private address below — it is yours alone,

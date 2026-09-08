@@ -187,37 +187,48 @@ def _payload() -> str:
     return blob.replace("</", "<\\/")
 
 
+# This block held 28 colour literals -- a warm off-white palette (#d8d4cc, #f6f4ef,
+# #1c1a17, #6b655c and the rest) that belonged to no other page on the estate and
+# went unreadable the moment a reader's machine was in dark mode. It is all tokens
+# now (BRAND.md §1) on the one shared radius (§4). var(--rule, ...) was a variable
+# that is defined nowhere, so every one of those rules was really painting its
+# fallback; they now name var(--line), which exists.
+#
+# The three matrix states keep their meaning and stop relying on colour to carry
+# it: the .st cell already prints the state as a word, and the colours behind it
+# are now the estate's own emerald / muted / amber, the same three used for the
+# same three meanings everywhere else.
 GEN_CSS = """
-      .gen{border:1px solid var(--rule,#d8d4cc);border-radius:10px;padding:1.1rem 1.2rem;margin:1rem 0;background:#fff}
+      .gen{border:1px solid var(--line);border-radius:var(--radius);padding:1.1rem 1.2rem;margin:1rem 0;background:var(--surface)}
       .gen fieldset{border:0;padding:0;margin:0 0 1.1rem}
       .gen legend{font-weight:700;font-size:.95rem;margin-bottom:.4rem;padding:0}
       .gen .opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.35rem .9rem}
       .gen label.opt{display:flex;gap:.5rem;align-items:flex-start;font-size:.9rem;line-height:1.35;padding:.25rem 0;cursor:pointer}
       .gen label.opt input{margin-top:.2rem;flex:0 0 auto}
       .gen .row{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.6rem 0}
-      .gen input[type=text]{font:inherit;padding:.45rem .6rem;border:1px solid var(--rule,#d8d4cc);border-radius:6px;min-width:16rem}
+      .gen input[type=text]{font:inherit;padding:.45rem .6rem;border:1px solid var(--line);border-radius:var(--radius);min-width:16rem;background:var(--surface);color:var(--fg)}
       .gen .btnrow{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.4rem}
-      .gen button{font:inherit;padding:.45rem .9rem;border:1px solid var(--rule,#d8d4cc);background:#f6f4ef;border-radius:6px;cursor:pointer}
-      .gen button.primary{background:#1c1a17;color:#fff;border-color:#1c1a17}
-      .gen .note{font-size:.82rem;color:#6b655c;margin:.5rem 0 0}
+      .gen button{font:inherit;padding:.45rem .9rem;border:1px solid var(--line);background:var(--surface-2);color:var(--fg);border-radius:var(--radius);cursor:pointer}
+      .gen button.primary{background:hsl(var(--primary));color:hsl(var(--primary-foreground));border-color:hsl(var(--primary))}
+      .gen .note{font-size:.82rem;color:var(--muted-fg);margin:.5rem 0 0}
       .out{margin-top:1.2rem}
       .out h3{margin:1.4rem 0 .5rem;font-size:1.05rem}
       .mx{width:100%;border-collapse:collapse;font-size:.86rem}
-      .mx th,.mx td{border:1px solid var(--rule,#e3dfd7);padding:.45rem .55rem;vertical-align:top;text-align:left}
-      .mx th{background:#f6f4ef;font-weight:700}
+      .mx th,.mx td{border:1px solid var(--line);padding:.45rem .55rem;vertical-align:top;text-align:left}
+      .mx th{background:var(--surface-2);font-weight:700}
       .mx td.st{white-space:nowrap;font-weight:700}
-      .mx tr.m td.st{color:#1d6b3a}
-      .mx tr.n td.st{color:#6b655c}
-      .mx tr.d td.st{color:#8a6100}
-      .mx blockquote{margin:.4rem 0 0;padding-left:.6rem;border-left:3px solid #e3dfd7;font-style:italic;color:#42403b}
-      .mx .why{color:#6b655c;display:block;margin-top:.3rem}
+      .mx tr.m td.st{color:hsl(var(--accent-emerald-fg))}
+      .mx tr.n td.st{color:var(--muted-fg)}
+      .mx tr.d td.st{color:hsl(var(--accent-amber-fg))}
+      .mx blockquote{margin:.4rem 0 0;padding-left:.6rem;border-left:3px solid var(--line);font-style:italic;color:var(--muted-fg)}
+      .mx .why{color:var(--muted-fg);display:block;margin-top:.3rem}
       .scrollx{overflow-x:auto}
-      .nx{border:1px solid var(--rule,#e3dfd7);border-radius:8px;margin:.9rem 0;overflow:hidden}
-      .nx>header{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:space-between;align-items:center;background:#f6f4ef;padding:.5rem .7rem;font-weight:700;font-size:.92rem}
-      .nx pre{margin:0;padding:.8rem .9rem;white-space:pre-wrap;word-wrap:break-word;font-size:.88rem;line-height:1.5;background:repeating-linear-gradient(45deg,#fff,#fff 22px,#faf7f0 22px,#faf7f0 44px)}
-      .nx .where{padding:.5rem .9rem .8rem;font-size:.82rem;color:#6b655c;border-top:1px dashed #e3dfd7}
-      .gen .warn{background:#fff8e6;border:1px solid #e8d9a8;border-radius:6px;padding:.55rem .7rem;font-size:.85rem;margin:.6rem 0}
-      @media print{.gen fieldset,.gen .btnrow{display:none}.nx pre{background:#fff}}
+      .nx{border:1px solid var(--line);border-radius:var(--radius);margin:.9rem 0;overflow:hidden}
+      .nx>header{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:space-between;align-items:center;background:var(--surface-2);padding:.5rem .7rem;font-weight:700;font-size:.92rem}
+      .nx pre{margin:0;padding:.8rem .9rem;white-space:pre-wrap;word-wrap:break-word;font-size:.88rem;line-height:1.5;background:repeating-linear-gradient(45deg,var(--surface),var(--surface) 22px,var(--surface-2) 22px,var(--surface-2) 44px)}
+      .nx .where{padding:.5rem .9rem .8rem;font-size:.82rem;color:var(--muted-fg);border-top:1px dashed var(--line)}
+      .gen .warn{background:hsl(var(--accent-amber) / .5);border:1px solid hsl(var(--accent-amber-fg) / .3);border-radius:var(--radius);padding:.55rem .7rem;font-size:.85rem;margin:.6rem 0}
+      @media print{.gen fieldset,.gen .btnrow{display:none}.nx pre{background:var(--surface)}}
 """
 
 GEN_JS = r"""

@@ -360,10 +360,15 @@ def build_page(src: Path, family: str, crumb_label: str | None, path: str | None
         # script route or a MIME-type mismatch in the static side service.
         tracking = (ROOT / 'scripts' / 'paid_click_reference.js').read_text()
         out = out.replace('</head>', '<script>' + tracking + '</script>\n'
+                          # One border weight and one radius, both from the
+                          # shared tokens (BRAND.md §4). This block used to hard
+                          # code #9ca3af and .6rem, which is why five paid landing
+                          # pages carried a grey that exists nowhere else in the
+                          # estate and a corner that matched nothing on the page.
                           '<style>.purchase-visit .mast-nav{display:none}'
                           '.purchase-visit .hero .lede{max-width:52rem}'
-                          '.ad-buyer-guide{padding:1rem;border:1px solid #9ca3af;'
-                          'border-radius:.6rem;max-width:52rem;line-height:1.6}'
+                          '.ad-buyer-guide{padding:1rem;border:1px solid var(--line);'
+                          'border-radius:var(--radius);max-width:52rem;line-height:1.6}'
                           '.ad-buyer-guide a{font-weight:600}'
                           ':target{scroll-margin-top:2rem}</style>\n</head>', 1)
     out = re.sub(r'<meta property="og:site_name" content="[^"]*">',

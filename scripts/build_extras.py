@@ -277,7 +277,7 @@ EXTRA_CARDS = [
         "amount": "Free",
         "cadence": "no login",
         "pill": "Live and free",
-        "pill_class": "pill-ready",
+        "pill_class": "pill-ready",  # legacy key name; build_hub draws an icon, not a badge
     },
     {
         "id": "offers",
@@ -292,7 +292,7 @@ EXTRA_CARDS = [
         "amount": f"{OFFERS_LOW} – {OFFERS_HIGH}",
         "cadence": "fixed price, fixed window",
         "pill": "Live",
-        "pill_class": "pill-ready",
+        "pill_class": "pill-ready",  # legacy key name; build_hub draws an icon, not a badge
     },
 ]
 

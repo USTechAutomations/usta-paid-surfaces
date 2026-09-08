@@ -588,8 +588,7 @@ def _search_block() -> str:
         whole list of {len(idx):,} identification numbers printed in the table, not
         just the ones we list in search.</p>
       <p><label for="hz-q"><strong>Find a number or a name</strong></label><br>
-        <input id="hz-q" type="search" autocomplete="off" placeholder="UN1263 or paint"
-          style="width:100%;max-width:32rem;padding:.5rem .6rem;font-size:1rem;border:1px solid #bbb;border-radius:6px">
+        <input id="hz-q" class="field" type="search" autocomplete="off" placeholder="UN1263 or paint">
       </p>
       <p id="hz-count" class="sub">Showing the full A–Z list below.</p>
       <ul id="hz-hits" class="az"></ul>

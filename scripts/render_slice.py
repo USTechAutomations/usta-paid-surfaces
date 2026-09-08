@@ -26,7 +26,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from freshness import PAUSED_PHRASE, late_after  # noqa: E402
-from render_family import offer_block, section, table  # noqa: E402
+from render_family import offer_block, section, state, table  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "https://ustechautomations.com/feeds"
@@ -79,7 +79,7 @@ PAGE = """<!doctype html>
       <div><dt>Price</dt><dd class="price">{price}</dd></div>
       <div><dt>Built for</dt><dd>{buyer}</dd></div>
       <div><dt>Read</dt><dd>{read_every}</dd></div>
-      <div><dt>Newest sealed read</dt><dd><span class="pill {pill_class}">{newest}</span></dd></div>
+      <div><dt>Newest sealed read</dt><dd>{newest_state}</dd></div>
     </dl>
 {hero_cta}  </div>
 </section>
@@ -402,7 +402,10 @@ def render(fam: dict, spec: dict, today: dt.date | None = None) -> str:
         # never asked the question, and the gate refuses it.
         withheld=int(spec.get("withheld", 0)),
         row_count=f'{spec["row_count"]:,}',
-        pill_class="pill-hold" if paused else "pill-ready",
+        # Same date, said once with an icon instead of a coloured badge. The
+        # date itself still goes out in the data-newest meta tag above, which is
+        # what the freshness gate reads, so the look here cannot move the fact.
+        newest_state=state(spec["newest"], ready=not paused),
         freshness=freshness_line(
             spec["newest"], spec["oldest"], spec["runs"], spec["cadence_days"], today,
             read_phrase=spec.get("read_phrase"),

@@ -38,25 +38,34 @@ FIELD_LABELS = {
 ALWAYS = ["date_time", "act_type", "document_type", "document_date",
           "signer_name", "id_method", "id_issuer", "id_expiry"]
 
+# Every colour here is a token from styles.css (BRAND.md §1) and every corner is
+# the one shared radius (§4). It used to carry eleven colour literals of its own
+# -- a white card, four greys of border, and its own amber, red and green -- which
+# meant the journal tool was the only thing on the estate that stayed light while
+# the page around it went dark. The three notice panels keep their meaning: they
+# differ by the token they use AND by the word that opens them, never by colour
+# alone. The print block is deliberate and stays: it hides the page so a notary
+# can print the journal entry and nothing else.
 CSS = """
 <style>
-#nj{border:1px solid #d8d8d8;border-radius:6px;padding:1rem;margin:1.5rem 0;background:#fff}
+#nj{border:1px solid var(--line);border-radius:var(--radius);padding:1rem;margin:1.5rem 0;background:var(--surface)}
 #nj h3{margin-top:0}
 #nj .row{margin:.5rem 0}
 #nj label{display:block;font-weight:600;margin-bottom:.15rem}
 #nj input,#nj select,#nj textarea{width:100%;max-width:34rem;padding:.4rem;
- border:1px solid #bbb;border-radius:4px;font:inherit}
-#nj .nj-note{background:#fff8e1;border-left:4px solid #e0a800;padding:.6rem .8rem;margin:.6rem 0}
-#nj .nj-stop{background:#fdecea;border-left:4px solid #c0392b;padding:.6rem .8rem;margin:.6rem 0}
-#nj .nj-ok{background:#eaf6ec;border-left:4px solid #2e7d32;padding:.6rem .8rem;margin:.6rem 0}
+ border:1px solid var(--line);border-radius:var(--radius);font:inherit;
+ background:var(--surface);color:var(--fg)}
+#nj .nj-note{background:hsl(var(--accent-amber) / .5);border-left:4px solid hsl(var(--accent-amber-fg));padding:.6rem .8rem;margin:.6rem 0}
+#nj .nj-stop{background:hsl(var(--accent-rose) / .5);border-left:4px solid hsl(var(--accent-rose-fg));padding:.6rem .8rem;margin:.6rem 0}
+#nj .nj-ok{background:hsl(var(--accent-emerald) / .5);border-left:4px solid hsl(var(--accent-emerald-fg));padding:.6rem .8rem;margin:.6rem 0}
 #nj button{font:inherit;padding:.45rem .9rem;margin:.2rem .3rem .2rem 0;
- border:1px solid #444;border-radius:4px;background:#f4f4f4;cursor:pointer}
+ border:1px solid var(--line);border-radius:var(--radius);background:var(--surface-2);color:var(--fg);cursor:pointer}
 #nj button:disabled{opacity:.5;cursor:not-allowed}
 #nj table{border-collapse:collapse;width:100%;font-size:.92em}
-#nj th,#nj td{border:1px solid #ddd;padding:.35rem .5rem;text-align:left;vertical-align:top}
-#nj canvas{border:1px dashed #999;border-radius:4px;touch-action:none;background:#fff}
+#nj th,#nj td{border:1px solid var(--line);padding:.35rem .5rem;text-align:left;vertical-align:top}
+#nj canvas{border:1px dashed var(--line);border-radius:var(--radius);touch-action:none;background:var(--surface)}
 #nj .nj-hide{display:none}
-#nj .nj-cite{font-size:.88em;color:#444}
+#nj .nj-cite{font-size:.88em;color:var(--muted-fg)}
 @media print{body *{visibility:hidden}#nj-print,#nj-print *{visibility:visible}
  #nj-print{position:absolute;left:0;top:0;width:100%}}
 </style>
