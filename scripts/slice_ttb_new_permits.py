@@ -120,7 +120,9 @@ def slices() -> list[dict]:
 def sample() -> tuple[list[str], list[list[str]]]:
     """The public sample: the newest week's new permits, business name left out."""
     d = data()
-    older, newer = d.latest
+    # Newest pair with at least one new permit; see slice_ttb.sample() for the
+    # 2026-09-08 identical-copies week that emptied the public sample.
+    older, newer = next((p for p in d.pairs if d.new[p]), d.latest)
     headers = ["Permit", "Town", "State", "County", "Permit type", "Earlier sealed copy", "Later sealed copy"]
     rows = []
     for permit, v in _named_first(d.new[(older, newer)])[:SAMPLE_CAP]:
@@ -137,6 +139,14 @@ def family_spec() -> dict:
     weeks = [(o, n, len(d.new[(o, n)]), len(d.gone[(o, n)])) for o, n in d.pairs]
     stamp = f"{_d(older)} to {_d(newer)}"
     head = ["Permit", "Business", "Town", "State", "County", "Permit type"]
+    # The sample file is cut from the newest week that added any permit (see
+    # sample()), so the sentence that describes it names that week, not this one.
+    s_older, s_newer = next((p for p in d.pairs if d.new[p]), d.latest)
+    sample_n = min(SAMPLE_CAP, len(d.new[(s_older, s_newer)]))
+    sample_words = (f"carries {sample_n} of them without the business name"
+                    if (s_older, s_newer) == (older, newer) else
+                    f"carries {sample_n} permits from the newest week that added any, "
+                    f"{_d(s_older)} to {_d(s_newer)}, without the business name")
 
     desc = (f"Every federal alcohol permit that first appeared on the TTB list between "
             f"{_d(older)} and {_d(newer)}: {len(new_rows)} of them. One national file a week. $49/mo.")
@@ -150,7 +160,7 @@ def family_spec() -> dict:
             f"every Tuesday and compare it with the one before. <strong>These {len(new_rows)} "
             f"permit numbers are on the {_d(newer)} copy and not on the {_d(older)} one.</strong> "
             f"The first {min(TABLE_CAP, len(new_rows))} are printed here; the sample file below "
-            f"carries {min(SAMPLE_CAP, len(new_rows))} of them without the business name, and the "
+            f"{sample_words}, and the "
             f"paid file carries all of them with it.</p>\n"
             + table(head, [_row_cells(p, v, True) for p, v in _named_first(new_rows)[:TABLE_CAP]],
                     f"{min(TABLE_CAP, len(new_rows))} of the {len(new_rows)} permits that appeared",

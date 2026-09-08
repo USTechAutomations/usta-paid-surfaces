@@ -987,7 +987,13 @@ def sample() -> tuple[list[str], list[list[str]]]:
         "Earlier sealed copy", "Later sealed copy",
     ]
     rows = []
-    for c in d.changes[d.pairs[0]][:25]:
+    # The newest pair that actually moved. On 2026-09-08 the two newest sealed
+    # copies were identical (0 changes nationwide, ~200 every week before), so
+    # the sample went out as a header line and check_site refused the whole
+    # estate. An empty week is honest on the page; an empty public sample is a
+    # file with nothing in it for a buyer to read.
+    moved = next((p for p in d.pairs if d.changes[p]), d.pairs[0])
+    for c in d.changes[moved][:25]:
         rows.append([
             c.permit,
             _name_cell(c.row[NAME]),
