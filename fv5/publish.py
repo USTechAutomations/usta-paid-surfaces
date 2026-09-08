@@ -3,15 +3,22 @@
 
 The delivery job writes buyer pages into the MAIN checkout of the site
 (`/home/gmullins/code/usta-paid-surfaces`, not this worktree). This script is
-what actually publishes them: it pulls the latest main, stages only the private
-page folders, commits, pushes, runs the site's own deploy, and then fetches the
-newest private page and refuses to call it done unless it answers 200.
+what actually publishes them:
 
-Only the `families/*/p/` folders are staged, so this can never publish anything
+  1. find which private pages are new or changed (only under `families/*/p/`),
+  2. pull, stage ONLY those page folders, commit, push (so the repo has them),
+  3. lay just those pages on top of the image that is serving the live site
+     right now, and switch traffic to that (see fv5/lib/overlay_deploy.py),
+  4. refuse to call it done unless every shipped page answers 200.
+
+It never runs the whole-site build or `scripts/refresh_and_deploy.sh`, so a
+buyer's delivery can no longer republish the rest of the site or anything
 else that happens to be sitting in the tree.
 
-Default is a DRY RUN that just prints the commands. `--live` runs them. NOTHING
-in this file runs during the scaffold build.
+Default is a DRY RUN that just prints the commands. `--live` runs them.
+`--reship <families/x/p/slug/index.html>` adds an already-committed page to the
+overlay (used to exercise the deploy path without a sale). NOTHING in this file
+runs during the scaffold build.
 """
 from __future__ import annotations
 
@@ -20,25 +27,26 @@ import subprocess
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent / "lib"))
+import overlay_deploy  # noqa: E402
+
 # The live site is served from the MAIN checkout, never from a worktree.
 REPO = Path("/home/gmullins/code/usta-paid-surfaces")
-DEPLOY = "scripts/refresh_and_deploy.sh"
 
 
-def _newest_private_url() -> str | None:
-    """The public URL of the most recently written private page, or None."""
-    pages = sorted(REPO.glob("families/*/p/*/index.html"),
-                   key=lambda p: p.stat().st_mtime, reverse=True)
-    if not pages:
-        return None
-    # families/<family>/p/<slug>/index.html
-    slug = pages[0].parent.name
-    family = pages[0].parent.parent.parent.name
-    return f"https://ustechautomations.com/feeds/{family}/p/{slug}/"
-
-
-def _count_private_pages() -> int:
-    return len(list(REPO.glob("families/*/p/*/index.html")))
+def _new_private_pages(repo: Path) -> list[Path]:
+    """Private pages that are untracked or modified, as repo-relative paths."""
+    out = subprocess.run(["git", "-C", str(repo), "status", "--porcelain", "--untracked-files=all",
+                          "--", "families/*/p/"], capture_output=True, text=True)
+    if out.returncode != 0:
+        raise SystemExit(f"git status failed: {out.stderr.strip()}")
+    pages: set[Path] = set()
+    for line in out.stdout.splitlines():
+        path = line[3:].split(" -> ")[-1].strip().strip('"')
+        p = Path(path)
+        if p.name == "index.html" and len(p.parts) == 5 and p.parts[2] == "p":
+            pages.add(p)
+    return sorted(pages)
 
 
 def _run(cmd: list[str], *, live: bool, cwd: Path | None = None) -> int:
@@ -51,41 +59,48 @@ def _run(cmd: list[str], *, live: bool, cwd: Path | None = None) -> int:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("--live", action="store_true", help="actually pull/commit/push/deploy")
+    ap.add_argument("--live", action="store_true", help="actually pull/commit/push/overlay")
+    ap.add_argument("--reship", action="append", default=[], metavar="PAGE",
+                    help="repo-relative private page to include even though it is already committed")
     args = ap.parse_args()
     live = args.live
 
-    n = _count_private_pages() if REPO.is_dir() else 0
-    steps = [
-        ["git", "-C", str(REPO), "pull", "--rebase", "--autostash"],
-        ["git", "-C", str(REPO), "add", "families/*/p/"],
-        ["git", "-C", str(REPO), "commit", "-m", f"fv5 deliveries: {n} private page(s)"],
-        ["git", "-C", str(REPO), "push", "origin", "main"],
-        ["bash", DEPLOY],
-    ]
-    for cmd in steps:
-        cwd = REPO if cmd[0] == "bash" else None
-        rc = _run(cmd, live=live, cwd=cwd)
-        if live and rc != 0:
-            print(f"STOPPED: `{' '.join(cmd)}` exited {rc}; nothing further run", file=sys.stderr)
-            return 1
-
-    url = _newest_private_url()
-    if not url:
-        print("no private pages on disk to verify")
-        return 0
-    if not live:
-        print(f"would then: curl -sI {url}  (require HTTP 200)")
-        return 0
-
-    out = subprocess.run(["curl", "-sI", "--max-time", "30", url],
-                         capture_output=True, text=True)
-    first = out.stdout.splitlines()[0] if out.stdout else ""
-    print(f"newest private page {url}\n  {first}")
-    if " 200" not in first:
-        print("STOPPED: the newest private page did not answer 200 after publish", file=sys.stderr)
+    if not REPO.is_dir():
+        print(f"STOPPED: {REPO} is not a directory", file=sys.stderr)
         return 1
-    return 0
+
+    new_pages = _new_private_pages(REPO)
+    reship = [Path(p) for p in args.reship]
+    for p in reship:
+        if not (REPO / p).is_file():
+            print(f"STOPPED: --reship {p} is not a file in the repo", file=sys.stderr)
+            return 1
+    to_ship = sorted(set(new_pages) | set(reship))
+    print(f"private pages: {len(new_pages)} new/changed, {len(reship)} reshipped, "
+          f"{len(to_ship)} to overlay")
+
+    if new_pages:
+        n = len(new_pages)
+        steps = [
+            ["git", "-C", str(REPO), "pull", "--rebase", "--autostash"],
+            ["git", "-C", str(REPO), "add", "--"] + [str(p.parent) for p in new_pages],
+            ["git", "-C", str(REPO), "commit", "-m", f"fv5 deliveries: {n} private page(s)"],
+            ["git", "-C", str(REPO), "push", "origin", "main"],
+        ]
+        for cmd in steps:
+            rc = _run(cmd, live=live)
+            if live and rc != 0:
+                print(f"STOPPED: `{' '.join(cmd[:5])}...` exited {rc}; nothing deployed",
+                      file=sys.stderr)
+                return 1
+    else:
+        print("no new private pages to commit")
+
+    try:
+        return overlay_deploy.ship(REPO, to_ship, live=live)
+    except overlay_deploy.OverlayError as e:
+        print(f"STOPPED: {e}", file=sys.stderr)
+        return 1
 
 
 if __name__ == "__main__":
