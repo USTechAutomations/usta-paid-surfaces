@@ -2661,6 +2661,38 @@
       "sample_status": "pass",
       "group": "Food and labelling",
       "kind": "build"
+    },
+    {
+      "id": "ai-disclosure-notice",
+      "name": "AI disclosure rules, quoted — and the notice texts they drive",
+      "short": "AI disclosure notice pack",
+      "buyer": "A company running an AI chatbot, AI-generated content or an AI decision step that people in the EU or a US disclosure state can reach",
+      "who": "A company running an AI chatbot, AI-generated content or an AI decision step that people in the EU or a US disclosure state can reach.",
+      "cadence": "once, not a feed",
+      "cadence_long": "One payment, not a subscription. You get the notice pack as a single private page, dated. We re-read the sources about every three months; buying again is your choice, nothing recurring.",
+      "price": "$49",
+      "coverage_what": "Every AI disclosure notice, as plain text and as an HTML snippet the buyer hosts, plus the dated matrix of 30 rule clauses from the EU and six US states with the publisher's exact words on each, a placement checklist and the list of dates those rules name",
+      "coverage_how": "We fetch each rule from the publisher's own page — the European Commission's Article 50 FAQ, leginfo.legislature.ca.gov, leg.colorado.gov, le.utah.gov, legislature.maine.gov and nysenate.gov — and check every quoted passage back against those bytes on each refresh. A quote that no longer appears in its source is marked drifted and the delivered page carries a dated banner saying so. A site that refuses our machine is recorded as refusing it; we never work around a bot wall and we never publish a quote we could not read.",
+      "price_list_note": "The generator on the page is free and shows you the whole matrix with every quote. Read it before you pay.",
+      "contact_h2": "Buy the notice pack — $49",
+      "contact_p": "Ask what is in it before you pay. We reply with the current rule count, the list of what we could not verify, and the checkout link.",
+      "contact_cta": "Email us for the $49 checkout link",
+      "contact_note": "No pay button on this page yet. The rule text is the publishers' own; the notice drafts are ours and are not legal advice.",
+      "delivery": "<strong>What arrives after you pay:</strong> a private web page with every notice as plain text and as an HTML snippet, the dated matrix, the placement checklist and a downloadable bundle — within 15 minutes of payment. If it has not arrived, email operations@ustechautomations.com and a person sends it.",
+      "note": "STAGED 2026-09-08 (fv6), NOT PUBLISHED. One-off notice pack at $49. Free estate is the in-page generator on the family page (inline JS + inline data, no external files) plus 12 sub-pages: 6 jurisdictions (EU, California, Colorado, Utah, Maine, New York) and 6 notice channels. 30 rule clauses, 56 quoted passages; 52 verified word-for-word against freshly fetched bytes on 2026-09-08. NOT SOLD: no hosted disclosure page, no badge, no public list of who bought it, no 12-month promise, no monitoring. Red-team ruling applied: every matrix row states who the rule's own words reach AND who they do not reach. Verdict gate: no page says what the buyer must do or whether anyone is compliant; rows read 'matches your answers' rather than 'applies to you'. CITE-CHECK: Illinois PA 103-0804 unfetchable (ilga.gov certificate chain fails, 403 without verification, browser route fails too) so the Illinois row quotes nothing; EUR-Lex answers a 202 AWS WAF challenge so EU duties cite the European Commission's own Article 50 FAQ instead of the OJ text; nysenate.gov 403s to this host so the two New York quotes came through the browser route and cannot be re-checked here; the Colorado consumer-notice start date, the Maine effective date and the New York Article 47 effective date are not on the pages we hold. Colorado SB 24-205 was repealed and reenacted by SB26-189 (signed 2026-05-14) and is encoded as repealed, not as a live 2024 duty. checkout.url is TO-MINT until an ai-disclosure-notice SKU at 4900 cents one-off exists in the INSTALLED permits-engine release. No timer, no cron, no mailbox reader.",
+      "checkout": {
+        "terms": "$49 once, for the AI disclosure notice pack. Nothing recurring, nothing to cancel and no subscription behind it. You get one private web page carrying each notice as copy-ready plain text and as a plain HTML snippet you paste into your own site, the dated matrix of every rule clause we hold with the publisher's exact words and a link to the page it came from, a checklist of where each notice goes and when it appears, the list of dates those rules name, and a JSON and text bundle you download and keep. You host the files; we host nothing for you. There is no badge, no public list of who bought it, no monitoring service and no promise to tell you when a rule changes. The rule text is quoted from the publishers' own pages and is dated: it is what those pages said on the day of the build, and the sources may lag. Four of the fifty-six quoted passages could not be re-checked from our machine and the pack names them. This is not legal, tax or professional advice, and nothing in it says whether your organisation complies with anything. Refund on request within 14 days. There is no pay button on this page yet.",
+        "after": "The private page is delivered within 15 minutes of payment. Still not here after 15 minutes? Reply to your Stripe receipt.",
+        "url": "TO-MINT",
+        "label": "Buy — $49 one-off",
+        "lands_on": "buy.stripe.com",
+        "status": "TO-MINT",
+        "checked": "",
+        "verified": ""
+      },
+      "sample_status": "pass",
+      "group": "Compliance paperwork",
+      "kind": "build"
     }
   ],
   "map": "MAP.md",

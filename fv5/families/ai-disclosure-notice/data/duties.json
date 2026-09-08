@@ -1,0 +1,846 @@
+{
+ "duties": [
+  {
+   "id": "eu-50-1",
+   "region": "eu",
+   "law": "EU AI Act, Regulation (EU) 2024/1689, Article 50(1)",
+   "clause": "Article 50(1)",
+   "duty": "Tell the person they are dealing with an AI system",
+   "channels": [
+    "chat-banner",
+    "first-message",
+    "companion-notice"
+   ],
+   "covered": "Providers of AI systems that interact directly with people — the Commission names chatbots, AI agents and avatars — wherever they are established, if the system is placed on the EU market, put into service in the EU, or its output is used in the EU.",
+   "not_covered": "It does not reach a system that runs only in the background, only machine to machine, or with no direct contact with people; and it does not reach a case where it is obvious to a reasonably well-informed person that they are dealing with an AI.",
+   "effective": "2026-08-02",
+   "effective_text": "2 August 2026",
+   "cites": [
+    "eu-inform",
+    "eu-timing",
+    "eu-applies"
+   ],
+   "match": {
+    "uses": [
+     "chat",
+     "companion"
+    ],
+    "obvious": "exempt"
+   }
+  },
+  {
+   "id": "eu-50-1-timing",
+   "region": "eu",
+   "law": "EU AI Act, Regulation (EU) 2024/1689, Article 50(1)",
+   "clause": "Article 50(1), timing",
+   "duty": "Show the notice from the start of the first interaction",
+   "channels": [
+    "chat-banner",
+    "first-message"
+   ],
+   "covered": "The same providers as Article 50(1). The Commission says the notice comes at the start of the first interaction, clearly and distinguishably, and in line with accessibility requirements.",
+   "not_covered": "It does not reach a system whose AI nature is obvious, and it is not satisfied by a line buried in terms of service or a privacy policy.",
+   "effective": "2026-08-02",
+   "effective_text": "2 August 2026",
+   "cites": [
+    "eu-timing",
+    "eu-obvious"
+   ],
+   "match": {
+    "uses": [
+     "chat",
+     "companion"
+    ],
+    "obvious": "exempt"
+   }
+  },
+  {
+   "id": "eu-50-2",
+   "region": "eu",
+   "law": "EU AI Act, Regulation (EU) 2024/1689, Article 50(2)",
+   "clause": "Article 50(2)",
+   "duty": "Mark generative AI output so a machine can detect it",
+   "channels": [
+    "content-label",
+    "media-label"
+   ],
+   "covered": "Providers of generative AI systems: the outputs carry effective, reliable, robust and interoperable machine-readable marks.",
+   "not_covered": "It does not reach a deployer who only uses somebody else's system — this paragraph is written at the provider — and a visible sentence on the page is not a machine-readable mark.",
+   "effective": "2026-08-02",
+   "effective_text": "2 August 2026",
+   "cites": [
+    "eu-marks",
+    "eu-applies"
+   ],
+   "match": {
+    "uses": [
+     "genai"
+    ]
+   }
+  },
+  {
+   "id": "eu-50-2-grace",
+   "region": "eu",
+   "law": "EU AI Act, Regulation (EU) 2024/1689, Article 50(2)",
+   "clause": "Article 50(2), grace period",
+   "duty": "The one grace period, and the date it ends",
+   "channels": [
+    "content-label",
+    "media-label"
+   ],
+   "covered": "Systems placed on the market before 2 August 2026, and only for the marking and detection duty: those comply from 2 December 2026.",
+   "not_covered": "It does not extend to any other Article 50 duty, and content generated before 2 August 2026 does not have to be labelled retroactively.",
+   "effective": "2026-12-02",
+   "effective_text": "2 December 2026",
+   "cites": [
+    "eu-grace",
+    "eu-grace-date"
+   ],
+   "match": {
+    "uses": [
+     "genai"
+    ]
+   }
+  },
+  {
+   "id": "eu-50-3",
+   "region": "eu",
+   "law": "EU AI Act, Regulation (EU) 2024/1689, Article 50(3)",
+   "clause": "Article 50(3)",
+   "duty": "Tell people when emotion recognition or biometric categorisation is used",
+   "channels": [
+    "emotion-notice"
+   ],
+   "covered": "Deployers of emotion recognition or biometric categorisation systems: they inform the people exposed to the system.",
+   "not_covered": "It does not reach a person using such a system in a personal, non-professional capacity, and it is a deployer duty, not a provider one.",
+   "effective": "2026-08-02",
+   "effective_text": "2 August 2026",
+   "cites": [
+    "eu-emotion",
+    "eu-applies"
+   ],
+   "match": {
+    "uses": [
+     "emotion"
+    ]
+   }
+  },
+  {
+   "id": "eu-50-4",
+   "region": "eu",
+   "law": "EU AI Act, Regulation (EU) 2024/1689, Article 50(4)",
+   "clause": "Article 50(4)",
+   "duty": "Label deepfakes, and AI text published on matters of public interest",
+   "channels": [
+    "media-label",
+    "content-label"
+   ],
+   "covered": "Deployers who generate or manipulate image, audio or video that is a deepfake, and those who publish AI-generated or manipulated text on matters of public interest without human review or editorial control. The label reaches the person on first exposure at the latest.",
+   "not_covered": "The Commission says AI generation or manipulation that does not make content falsely appear authentic or truthful — background scenes, special effects, standard pre- and post-processing — is not likely to be caught; and published text that did go through human review or editorial control is outside the text half.",
+   "effective": "2026-08-02",
+   "effective_text": "2 August 2026",
+   "cites": [
+    "eu-deepfake",
+    "eu-deepfake-when"
+   ],
+   "match": {
+    "uses": [
+     "genai"
+    ]
+   }
+  },
+  {
+   "id": "ca-bot-17941a",
+   "region": "ca",
+   "law": "California Business and Professions Code § 17941(a) (the BOT Act)",
+   "clause": "§ 17941(a)",
+   "duty": "Disclose that a bot is a bot when it sells or influences a vote",
+   "channels": [
+    "chat-banner",
+    "first-message"
+   ],
+   "covered": "A bot used to communicate or interact with a person in California online, with intent to mislead about its artificial identity, in order to incentivize a purchase or sale in a commercial transaction or to influence a vote in an election.",
+   "not_covered": "It does not reach a bot used for anything other than those two purposes — a support or FAQ bot that sells nothing and canvasses no vote is outside the section — and a person who discloses that it is a bot is not liable under it.",
+   "effective": "2019-07-01",
+   "effective_text": "1 July 2019",
+   "cites": [
+    "ca-bot-duty",
+    "ca-bot-purpose",
+    "ca-bot-safe",
+    "ca-bot-operative"
+   ],
+   "match": {
+    "uses": [
+     "commerce"
+    ]
+   }
+  },
+  {
+   "id": "ca-bot-17941b",
+   "region": "ca",
+   "law": "California Business and Professions Code § 17941(b) (the BOT Act)",
+   "clause": "§ 17941(b)",
+   "duty": "The disclosure has to be clear, conspicuous and designed to inform",
+   "channels": [
+    "chat-banner",
+    "first-message"
+   ],
+   "covered": "Any disclosure given to escape liability under § 17941(a): it is clear, conspicuous, and reasonably designed to inform the people the bot talks to that it is a bot.",
+   "not_covered": "It sets no wording and no placement, so it does not tell you where the line must sit; and it is only in play where § 17941(a) is.",
+   "effective": "2019-07-01",
+   "effective_text": "1 July 2019",
+   "cites": [
+    "ca-bot-standard"
+   ],
+   "match": {
+    "uses": [
+     "commerce"
+    ]
+   }
+  },
+  {
+   "id": "ca-comp-22602a",
+   "region": "ca",
+   "law": "California Business and Professions Code § 22602(a) (SB 243)",
+   "clause": "§ 22602(a)",
+   "duty": "Say the companion chatbot is artificially generated and not human",
+   "channels": [
+    "companion-notice",
+    "chat-banner"
+   ],
+   "covered": "Operators of companion chatbots, where a reasonable person interacting with it would be misled into believing they are interacting with a human.",
+   "not_covered": "It does not reach a chatbot no reasonable person would take for a human, and the chapter is about companion chatbots rather than ordinary customer-support bots.",
+   "effective": "2026-01-01",
+   "effective_text": "1 January 2026",
+   "cites": [
+    "ca-comp-duty",
+    "ca-comp-effective"
+   ],
+   "match": {
+    "uses": [
+     "companion"
+    ],
+    "obvious": "exempt"
+   }
+  },
+  {
+   "id": "ca-comp-22602c",
+   "region": "ca",
+   "law": "California Business and Professions Code § 22602(c) (SB 243)",
+   "clause": "§ 22602(c)(1)–(2)",
+   "duty": "For a user the operator knows is a minor: say it is AI, and repeat every three hours",
+   "channels": [
+    "companion-notice"
+   ],
+   "covered": "Operators of companion chatbots, for a user the operator knows is a minor: disclose the interaction is with artificial intelligence, and by default give a break reminder at least every three hours.",
+   "not_covered": "It is written for users the operator KNOWS are minors, so it does not reach an adult user; the three-hour cadence is a default, not an absolute.",
+   "effective": "2026-01-01",
+   "effective_text": "1 January 2026",
+   "cites": [
+    "ca-comp-minor",
+    "ca-comp-3hr"
+   ],
+   "match": {
+    "uses": [
+     "companion"
+    ],
+    "depends": "whether any of your users are people you know to be minors"
+   }
+  },
+  {
+   "id": "ca-comp-22602b",
+   "region": "ca",
+   "law": "California Business and Professions Code § 22602(b) (SB 243)",
+   "clause": "§ 22602(b)",
+   "duty": "Hold a self-harm crisis protocol and publish it",
+   "channels": [
+    "companion-notice"
+   ],
+   "covered": "Operators of companion chatbots: the bot does not engage with users at all unless the operator maintains a crisis protocol, and the details of that protocol are published on the operator's website.",
+   "not_covered": "This is a protocol and a published page, not a notice line — a disclosure sentence does not answer it.",
+   "effective": "2026-01-01",
+   "effective_text": "1 January 2026",
+   "cites": [
+    "ca-comp-crisis"
+   ],
+   "match": {
+    "uses": [
+     "companion"
+    ]
+   }
+  },
+  {
+   "id": "ca-ait-threshold",
+   "region": "ca",
+   "law": "California AI Transparency Act, Business and Professions Code § 22757.1(d) (SB 942 as amended by AB 853)",
+   "clause": "§ 22757.1(d)",
+   "duty": "The size test that decides whether this chapter reaches you at all",
+   "channels": [
+    "content-label",
+    "media-label"
+   ],
+   "covered": "A person who creates, codes or otherwise produces a generative AI system with over 1,000,000 monthly visitors or users that is publicly accessible inside California.",
+   "not_covered": "It does not reach a generative AI system under that monthly threshold, or one that is not publicly accessible in California; and the chapter does not apply at all to products offering exclusively non-user-generated video game, television, streaming, movie or interactive experiences.",
+   "effective": "2026-08-02",
+   "effective_text": "2 August 2026",
+   "cites": [
+    "ca-ait-who",
+    "ca-ait-exempt",
+    "ca-ait-operative",
+    "ca-ait-ab853"
+   ],
+   "match": {
+    "uses": [
+     "genai"
+    ],
+    "size": "over-1m"
+   }
+  },
+  {
+   "id": "ca-ait-manifest",
+   "region": "ca",
+   "law": "California AI Transparency Act, Business and Professions Code § 22757.3(a)",
+   "clause": "§ 22757.3(a)",
+   "duty": "Offer the user a visible “this is AI-generated” label",
+   "channels": [
+    "content-label",
+    "media-label"
+   ],
+   "covered": "Covered providers, for image, video or audio content their generative AI system created or altered: the user is offered the option of a manifest disclosure that identifies the content as AI-generated, is clear and conspicuous, and is permanent or extraordinarily difficult to remove.",
+   "not_covered": "This is an option offered to the user, not a label the provider must stamp on everything; and it is written about image, video and audio rather than text.",
+   "effective": "2026-08-02",
+   "effective_text": "2 August 2026",
+   "cites": [
+    "ca-ait-manifest",
+    "ca-ait-manifest-what"
+   ],
+   "match": {
+    "uses": [
+     "genai"
+    ],
+    "size": "over-1m"
+   }
+  },
+  {
+   "id": "ca-ait-latent",
+   "region": "ca",
+   "law": "California AI Transparency Act, Business and Professions Code § 22757.3(b)",
+   "clause": "§ 22757.3(b)",
+   "duty": "Embed hidden provenance data in AI-generated image, video and audio",
+   "channels": [
+    "content-label",
+    "media-label"
+   ],
+   "covered": "Covered providers: a latent disclosure carrying the provider's name, the system name and version, the time and date of creation or alteration and a unique identifier, detectable by the provider's own detection tool.",
+   "not_covered": "A visible sentence on a page does not answer this — it asks for data inside the file — and it is written about image, video and audio rather than text.",
+   "effective": "2026-08-02",
+   "effective_text": "2 August 2026",
+   "cites": [
+    "ca-ait-latent"
+   ],
+   "match": {
+    "uses": [
+     "genai"
+    ],
+    "size": "over-1m"
+   }
+  },
+  {
+   "id": "ca-ait-tool",
+   "region": "ca",
+   "law": "California AI Transparency Act, Business and Professions Code § 22757.2(a)",
+   "clause": "§ 22757.2(a)",
+   "duty": "Publish a free AI detection tool",
+   "channels": [
+    "content-label"
+   ],
+   "covered": "Covered providers: a publicly accessible detection tool, free to the user, that reports system provenance data and supports an application programming interface.",
+   "not_covered": "It is a tool to build and host, not a notice to write; nothing in a notice pack answers it.",
+   "effective": "2026-08-02",
+   "effective_text": "2 August 2026",
+   "cites": [
+    "ca-ait-tool",
+    "ca-ait-penalty",
+    "ca-ait-perday"
+   ],
+   "match": {
+    "uses": [
+     "genai"
+    ],
+    "size": "over-1m"
+   }
+  },
+  {
+   "id": "co-repealed-2024",
+   "region": "co",
+   "law": "Colorado SB 24-205, repealed and reenacted by SB26-189",
+   "clause": "SB26-189 bill summary",
+   "duty": "The 2024 Colorado AI Act is not the rule to write a notice against",
+   "channels": [
+    "decision-notice"
+   ],
+   "covered": "Nothing: the General Assembly's own summary of SB26-189 says the act repeals and reenacts the 2024 provisions with new requirements.",
+   "not_covered": "A notice written to the 2024 Colorado AI Act text is written to provisions that were repealed and reenacted.",
+   "effective": "2026-05-14",
+   "effective_text": "signed 14 May 2026",
+   "cites": [
+    "co-2024",
+    "co-repeal"
+   ],
+   "match": {
+    "uses": []
+   }
+  },
+  {
+   "id": "co-notice",
+   "region": "co",
+   "law": "Colorado SB26-189, Automated Decision-Making Technology",
+   "clause": "SB26-189 bill summary, consumer notice",
+   "duty": "Clear and conspicuous notice at the point of interaction with a covered ADMT",
+   "channels": [
+    "decision-notice"
+   ],
+   "covered": "Deployers of an automated decision-making technology used to materially influence a consequential decision — education, employment, housing, financial or lending services, insurance, health care, or essential government services and public benefits.",
+   "not_covered": "It does not reach a technology that is not used to materially influence one of those listed consequential decisions, and specified entities are exempted to the extent they comply with other legal obligations.",
+   "effective": "2027-01-01",
+   "effective_text": "see the date note on this row",
+   "date_note": "The General Assembly's summary dates the developer-documentation duty from 1 January 2027 and does not attach a date to the consumer-notice sentence. We have not fetched the section text, so the notice duty's own start date is marked CITE-CHECK rather than stated.",
+   "cite_check": "the start date of the Colorado consumer-notice duty",
+   "cites": [
+    "co-notice",
+    "co-devdoc"
+   ],
+   "match": {
+    "uses": [
+     "decision"
+    ]
+   }
+  },
+  {
+   "id": "co-adverse",
+   "region": "co",
+   "law": "Colorado SB26-189, Automated Decision-Making Technology",
+   "clause": "SB26-189 bill summary, adverse outcome",
+   "duty": "Plain-language description within 30 days of an adverse consequential decision",
+   "channels": [
+    "decision-notice"
+   ],
+   "covered": "Deployers, after a covered ADMT makes a consequential decision that results in an adverse outcome for the consumer.",
+   "not_covered": "It is not triggered by a decision with no adverse outcome, and the attorney general is directed to write rules clarifying these post-adverse-outcome disclosures by 1 January 2027.",
+   "effective": "2027-01-01",
+   "effective_text": "rules due by 1 January 2027",
+   "cites": [
+    "co-adverse"
+   ],
+   "match": {
+    "uses": [
+     "decision"
+    ]
+   }
+  },
+  {
+   "id": "co-devdoc",
+   "region": "co",
+   "law": "Colorado SB26-189, Automated Decision-Making Technology",
+   "clause": "SB26-189 bill summary, developer documentation",
+   "duty": "Give the deployer technical documentation from 1 January 2027",
+   "channels": [
+    "decision-notice"
+   ],
+   "covered": "Developers of a covered ADMT: intended uses, categories of training data, known limitations, and instructions for appropriate use and human review, plus notice of material updates.",
+   "not_covered": "It is a developer-to-deployer document, not a consumer notice; a company that only deploys somebody else's technology is on the receiving end of it.",
+   "effective": "2027-01-01",
+   "effective_text": "1 January 2027",
+   "cites": [
+    "co-devdoc"
+   ],
+   "match": {
+    "uses": [
+     "decision"
+    ]
+   }
+  },
+  {
+   "id": "co-records",
+   "region": "co",
+   "law": "Colorado SB26-189, Automated Decision-Making Technology",
+   "clause": "SB26-189 bill summary, records",
+   "duty": "Keep compliance records for at least three years",
+   "channels": [
+    "decision-notice"
+   ],
+   "covered": "Both developers and deployers of a covered ADMT.",
+   "not_covered": "It says nothing about what a consumer is shown; a notice does not answer a record-keeping duty.",
+   "effective": "2027-01-01",
+   "effective_text": "see the date note on the notice row",
+   "cites": [
+    "co-records"
+   ],
+   "match": {
+    "uses": [
+     "decision"
+    ]
+   }
+  },
+  {
+   "id": "co-review",
+   "region": "co",
+   "law": "Colorado SB26-189, Automated Decision-Making Technology",
+   "clause": "SB26-189 bill summary, human review",
+   "duty": "Consumers may request meaningful human review and reconsideration",
+   "channels": [
+    "decision-notice"
+   ],
+   "covered": "Consumers, after a covered ADMT makes a consequential decision resulting in an adverse outcome; they may also request the personal data used and correction of factually incorrect data.",
+   "not_covered": "It is a right the consumer exercises, not a line of notice text, so a notice pack can point at it but cannot satisfy it.",
+   "effective": "2027-01-01",
+   "effective_text": "see the date note on the notice row",
+   "cites": [
+    "co-review",
+    "co-enforce"
+   ],
+   "match": {
+    "uses": [
+     "decision"
+    ]
+   }
+  },
+  {
+   "id": "ut-ondemand",
+   "region": "ut",
+   "law": "Utah Code 13-75-103(1) (S.B. 226, 2025)",
+   "clause": "13-75-103(1)",
+   "duty": "Answer honestly when a consumer asks whether they are talking to AI",
+   "channels": [
+    "chat-banner",
+    "first-message"
+   ],
+   "covered": "A supplier using generative AI to interact with an individual in connection with a consumer transaction, once that individual asks or otherwise prompts about whether AI is being used.",
+   "not_covered": "It does not require an unprompted notice in a consumer transaction: the duty runs when the individual asks, and the ask has to be a clear and unambiguous request.",
+   "effective": "2025-05-07",
+   "effective_text": "7 May 2025",
+   "cites": [
+    "ut-ondemand",
+    "ut-trigger",
+    "ut-prompt",
+    "ut-effective"
+   ],
+   "match": {
+    "uses": [
+     "chat",
+     "commerce"
+    ]
+   }
+  },
+  {
+   "id": "ut-regulated",
+   "region": "ut",
+   "law": "Utah Code 13-75-103(2)–(3) (S.B. 226, 2025)",
+   "clause": "13-75-103(2)–(3)",
+   "duty": "Regulated occupations: disclose prominently, up front",
+   "channels": [
+    "chat-banner",
+    "first-message"
+   ],
+   "covered": "An individual providing services in a regulated occupation, where generative AI use in providing those services is a high-risk AI interaction: verbally at the start of a verbal interaction, and in writing before a written one.",
+   "not_covered": "It does not reach an occupation that is not regulated, or a use that is not a high-risk AI interaction.",
+   "effective": "2025-05-07",
+   "effective_text": "7 May 2025",
+   "cites": [
+    "ut-regulated",
+    "ut-when"
+   ],
+   "match": {
+    "uses": [
+     "chat",
+     "genai"
+    ],
+    "depends": "whether you provide services in a regulated occupation"
+   }
+  },
+  {
+   "id": "ut-safeharbour",
+   "region": "ut",
+   "law": "Utah Code 13-75-104 (S.B. 226, 2025)",
+   "clause": "13-75-104",
+   "duty": "The safe harbour: disclose at the outset and throughout",
+   "channels": [
+    "chat-banner",
+    "first-message"
+   ],
+   "covered": "A person whose generative AI clearly and conspicuously discloses, at the outset of the interaction and throughout it, that it is generative AI, is not human, or is an AI assistant.",
+   "not_covered": "It removes an enforcement action under 13-75-103 and nothing else; it is not a safe harbour for any other state's rule or for the EU.",
+   "effective": "2025-05-07",
+   "effective_text": "7 May 2025",
+   "cites": [
+    "ut-safeharbour",
+    "ut-safeharbour-words"
+   ],
+   "match": {
+    "uses": [
+     "chat",
+     "commerce",
+     "genai"
+    ]
+   }
+  },
+  {
+   "id": "me-duty",
+   "region": "me",
+   "law": "Maine Revised Statutes, 10 M.R.S. § 1500-DD(2)",
+   "clause": "§ 1500-DD(2)",
+   "duty": "Tell the consumer they are not engaging with a human being",
+   "channels": [
+    "chat-banner",
+    "first-message"
+   ],
+   "covered": "A person using an AI chatbot, or any other computer technology, to engage in trade and commerce with a consumer in a way that may mislead or deceive a reasonable consumer into believing they are engaging with a human being.",
+   "not_covered": "It does not reach a use that could not mislead or deceive a reasonable consumer, and the duty falls away where the consumer is notified clearly and conspicuously.",
+   "effective": "2025-09-24",
+   "effective_text": "see the date note on this row",
+   "date_note": "The statute page names the enacting session law, PL 2025, c. 294, but does not print an effective date. We have not fetched the chapter law, so the date is marked CITE-CHECK rather than stated.",
+   "cite_check": "the effective date of 10 M.R.S. § 1500-DD",
+   "cites": [
+    "me-duty",
+    "me-standard",
+    "me-history"
+   ],
+   "match": {
+    "uses": [
+     "chat",
+     "commerce",
+     "companion"
+    ],
+    "obvious": "exempt"
+   }
+  },
+  {
+   "id": "me-scope",
+   "region": "me",
+   "law": "Maine Revised Statutes, 10 M.R.S. § 1500-DD(1)",
+   "clause": "§ 1500-DD(1)",
+   "duty": "What counts as an AI chatbot here",
+   "channels": [
+    "chat-banner"
+   ],
+   "covered": "A software application, web interface or computer program that simulates human conversation and interaction through textual or aural communications.",
+   "not_covered": "Software that does not simulate human conversation is outside the definition, and the section is written about trade and commerce with a consumer.",
+   "effective": "2025-09-24",
+   "effective_text": "see the date note on the duty row",
+   "cites": [
+    "me-def",
+    "me-title"
+   ],
+   "match": {
+    "uses": [
+     "chat",
+     "companion"
+    ]
+   }
+  },
+  {
+   "id": "me-enforcement",
+   "region": "me",
+   "law": "Maine Revised Statutes, 10 M.R.S. § 1500-DD(3)",
+   "clause": "§ 1500-DD(3)",
+   "duty": "How a failure is enforced",
+   "channels": [
+    "chat-banner"
+   ],
+   "covered": "A violation of subsection 2 runs through the Maine Unfair Trade Practices Act.",
+   "not_covered": "The section names no separate penalty figure of its own, so the consequence is whatever that Act provides.",
+   "effective": "2025-09-24",
+   "effective_text": "see the date note on the duty row",
+   "cites": [
+    "me-violation"
+   ],
+   "match": {
+    "uses": [
+     "chat",
+     "commerce",
+     "companion"
+    ]
+   }
+  },
+  {
+   "id": "ny-1702",
+   "region": "ny",
+   "law": "New York General Business Law § 1702 (Article 47, AI Companion Models)",
+   "clause": "§ 1702",
+   "duty": "Say the user is not communicating with a human, at the start and every three hours",
+   "channels": [
+    "companion-notice",
+    "chat-banner"
+   ],
+   "covered": "Operators of an AI companion: a clear and conspicuous notification at the beginning of the interaction, and at least every three hours in a continuing one, verbally or in writing.",
+   "not_covered": "The start-of-interaction notification need not be given more than once per day, and Article 47 is written about AI companions rather than every chatbot.",
+   "effective": "2025-11-05",
+   "effective_text": "see the date note on this row",
+   "date_note": "Our source for this section is the browser route, which does not print an effective date. The date is marked CITE-CHECK rather than stated.",
+   "cite_check": "the effective date of New York General Business Law Article 47",
+   "cites": [
+    "ny-notify",
+    "ny-3hr"
+   ],
+   "match": {
+    "uses": [
+     "companion"
+    ]
+   }
+  },
+  {
+   "id": "ny-1701",
+   "region": "ny",
+   "law": "New York General Business Law § 1701 (Article 47, AI Companion Models)",
+   "clause": "§ 1701",
+   "duty": "Hold a self-harm protocol that refers users to crisis services",
+   "channels": [
+    "companion-notice"
+   ],
+   "covered": "Operators of an AI companion: the companion contains a protocol for detecting and addressing suicidal ideation or self-harm, including a notification referring the user to crisis service providers.",
+   "not_covered": "This is a protocol inside the product, not a line of notice text; a disclosure sentence does not answer it.",
+   "effective": "2025-11-05",
+   "effective_text": "see the date note on the § 1702 row",
+   "cites": [
+    "ny-crisis",
+    "ny-referral"
+   ],
+   "match": {
+    "uses": [
+     "companion"
+    ]
+   }
+  },
+  {
+   "id": "il-hb3773",
+   "region": "il",
+   "law": "Illinois Public Act 103-0804 (HB 3773) — text not held",
+   "clause": "not fetched",
+   "duty": "AI in employment decisions — we hold no text for this one",
+   "channels": [
+    "decision-notice"
+   ],
+   "covered": "We do not state who it covers. ilga.gov refuses this host: the certificate chain does not verify, and skipping verification answers 403. The browser route fails on the same certificate. We publish no quote and no date we could not read.",
+   "not_covered": "What we can say from the other sources on this page is that this act is written about employment decisions rather than chatbot disclosure, so a chat banner is not the thing it asks for.",
+   "effective": "",
+   "effective_text": "not stated — source unfetchable",
+   "cite_check": "the whole of Illinois Public Act 103-0804 (HB 3773)",
+   "cites": [],
+   "match": {
+    "uses": [
+     "decision"
+    ]
+   }
+  }
+ ],
+ "jurisdictions": {
+  "eu": {
+   "label": "the European Union",
+   "short": "EU",
+   "page_title": "AI disclosure requirements in the European Union"
+  },
+  "ca": {
+   "label": "California",
+   "short": "California",
+   "page_title": "AI disclosure requirements in California"
+  },
+  "co": {
+   "label": "Colorado",
+   "short": "Colorado",
+   "page_title": "AI disclosure requirements in Colorado"
+  },
+  "ut": {
+   "label": "Utah",
+   "short": "Utah",
+   "page_title": "AI disclosure requirements in Utah"
+  },
+  "me": {
+   "label": "Maine",
+   "short": "Maine",
+   "page_title": "AI disclosure requirements in Maine"
+  },
+  "ny": {
+   "label": "New York",
+   "short": "New York",
+   "page_title": "AI disclosure requirements in New York"
+  },
+  "il": {
+   "label": "Illinois",
+   "short": "Illinois",
+   "page_title": "AI disclosure requirements in Illinois"
+  }
+ },
+ "channels": {
+  "chat-banner": "Chat banner",
+  "first-message": "First-message line",
+  "content-label": "AI-generated content label",
+  "media-label": "Synthetic-media label",
+  "emotion-notice": "Emotion or biometric notice",
+  "decision-notice": "Consequential-decision notice",
+  "companion-notice": "Companion-chatbot notice"
+ },
+ "regions": [
+  {
+   "key": "eu",
+   "label": "The European Union"
+  },
+  {
+   "key": "ca",
+   "label": "California"
+  },
+  {
+   "key": "co",
+   "label": "Colorado"
+  },
+  {
+   "key": "ut",
+   "label": "Utah"
+  },
+  {
+   "key": "me",
+   "label": "Maine"
+  },
+  {
+   "key": "ny",
+   "label": "New York"
+  },
+  {
+   "key": "il",
+   "label": "Illinois"
+  },
+  {
+   "key": "us-other",
+   "label": "Somewhere else in the United States"
+  },
+  {
+   "key": "none",
+   "label": "None of these"
+  }
+ ],
+ "uses": [
+  {
+   "key": "chat",
+   "label": "It talks to people in text or voice"
+  },
+  {
+   "key": "genai",
+   "label": "It generates text, images, audio or video that people see"
+  },
+  {
+   "key": "emotion",
+   "label": "It does emotion recognition or biometric categorisation"
+  },
+  {
+   "key": "decision",
+   "label": "It makes or supports a consequential decision — employment, credit, housing, insurance, education or health"
+  },
+  {
+   "key": "companion",
+   "label": "It is a companion or relationship chatbot"
+  },
+  {
+   "key": "commerce",
+   "label": "It sells, or influences a purchase or a vote"
+  }
+ ]
+}

@@ -1,0 +1,14 @@
+{
+ "id": "cs_test_fv6_ai-disclosure-notice_001",
+ "object": "checkout.session",
+ "amount_total": 4900,
+ "currency": "usd",
+ "payment_status": "paid",
+ "custom_fields": [
+  {"key": "org_name", "type": "text", "text": {"value": "Northgate Labs Ltd"}},
+  {"key": "primary_channel", "type": "dropdown", "dropdown": {"value": "chatbot"}}
+ ],
+ "customer_details": {"email": "buyer@example.com"},
+ "created": 1757260800,
+ "metadata": {"private_slug": "ai-disclosure-4d9c2b7a"}
+}
