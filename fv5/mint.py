@@ -68,6 +68,9 @@ def label_for(price_str: str, cadence: str) -> str:
         return f"Subscribe — {amount} a month"
     if cadence == "year":
         return f"Subscribe — {amount} a year"
+    if " for " in amount:
+        # "$499 for 12 months": one payment for a stated term, not a plain one-off.
+        return f"Buy — {amount}"
     return f"Buy — {amount} one-off"
 
 

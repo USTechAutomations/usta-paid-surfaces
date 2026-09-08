@@ -47,6 +47,11 @@ HEADING = {
     "clerk-clock": "Buy the file",
     "wrong-wall": "Buy the report",
     "frozen-custody": "Pin a model",
+    "qrelay": "Subscribe to the pro plan",
+    "acacheck": "Buy the paid key",
+    "ledgermatch": "Subscribe to the pro plan",
+    "schemahand": "Buy the paid key",
+    "casepack": "Subscribe to the pro plan",
 }
 NO_BUTTON = re.compile(r'<section class="contact">(?:(?!</section>).)*?No pay button.*?</section>', re.S)
 HERO_CTA = re.compile(r'[ \t]*<p class="hero-cta">.*?</p>\n', re.S)

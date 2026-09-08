@@ -6,6 +6,8 @@ email address may ever appear on these pages). Exits 0 on pass, 1 on any
 failure, printing every failure it finds."""
 from __future__ import annotations
 
+import json
+import re
 import sys
 from pathlib import Path
 
@@ -64,9 +66,24 @@ def main() -> int:
             continue
         text = path.read_text(encoding="utf-8")
 
-        placeholder_count = text.count("{{CHECKOUT_URL}}")
-        check(placeholder_count == 1,
-              f"{family}: expected exactly one {{{{CHECKOUT_URL}}}}, found {placeholder_count}")
+        # The page is in one of two shapes. Before its pay link is minted it
+        # carries the estate's ghost "Email us for the ... checkout link" button
+        # and a "No pay button on this one yet." section, which is the exact
+        # shape scripts/arm_family_pages.py rewrites. After minting it carries
+        # a real button whose address must equal the catalog's checkout url.
+        # Nothing may ever carry a hand-typed address or a placeholder.
+        check("{{CHECKOUT_URL}}" not in text, f"{family}: a {{{{CHECKOUT_URL}}}} placeholder is still on the page")
+        row = next((f for f in json.loads((ROOT / "catalog.json").read_text(encoding="utf-8"))["families"]
+                    if f["id"] == family), {})
+        url = str((row.get("checkout") or {}).get("url") or "")
+        buy_hrefs = re.findall(r'class="btn btn-buy[^"]*" href="([^"]+)"', text)
+        if url.startswith("https://buy.stripe.com/"):
+            check(buy_hrefs and all(h == url for h in buy_hrefs),
+                  f"{family}: catalog says {url} but the page's buy buttons are {buy_hrefs}")
+        else:
+            check(not buy_hrefs, f"{family}: pay button on the page but no minted link in the catalog")
+            check("No pay button on this one yet." in text and 'class="btn btn-ghost"' in text,
+                  f"{family}: pre-mint page must carry the ghost email button and the no-button notice")
         check(spec["price"] in text, f"{family}: missing exact price string {spec['price']!r}")
         check(spec["beacon"] in text, f"{family}: missing page-view beacon {spec['beacon']!r}")
         # The site gate (scripts/check_site.py) requires the one contact line
