@@ -158,7 +158,7 @@ def _skeleton(paid: bool, product_name: str) -> str:
  <h3 id="checker">Does this product need a Nutrition Facts panel?</h3>
  <p class="help">Answer what you know. Every yes prints the paragraph of
  21 CFR 101.9(j) that your answer touches, word for word, so you can read the
- rule yourself. This tool does not tell you whether you are exempt, and it does
+ rule yourself. This tool does not tell you whether an exemption applies, and it does
  not keep your answers.</p>
  <form id="exform"></form>
  <div class="row">
@@ -898,7 +898,13 @@ def js() -> str:
  }
  $('demo').addEventListener('click',loadDemo);
  window.nlfLoadDemo=loadDemo;
- window.nlfState=function(){return {recipe:recipe,calc:last,fmt:fmt};};
+ /* The same door the granola button uses, opened to any recipe of the
+    same shape. browser_test.py drives the fixtures through here so the
+    numbers the fixtures state are produced by the page itself. */
+ window.nlfLoad=function(o){ adopt(o||{}); $('calcgo').click(); };
+ window.nlfState=function(){return {recipe:recipe,calc:last,fmt:fmt,
+   err:($('calcerr').hidden?'':$('calcerr').textContent),
+   drawn:!!$('panelbox').querySelector('svg')};};
 
  /* ---------- paid-only wiring ------------------------------------------ */
  if(PAID){

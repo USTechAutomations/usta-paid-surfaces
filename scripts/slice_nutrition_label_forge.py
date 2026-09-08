@@ -332,7 +332,7 @@ def family_spec() -> dict:
             "manufacturers. Building your label off those rows copies somebody else's "
             "label, so this uses Foundation Foods and SR Legacy only.</span></li>\n"
             "        <li><strong>Nothing here decides anything</strong>"
-            '<span class="sub">No page in this family says whether you are exempt, '
+            '<span class="sub">No page in this family says whether an exemption applies to you, '
             "or whether a panel passes. They show you the rule and your own "
             "arithmetic.</span></li>\n"
             "      </ul>",
