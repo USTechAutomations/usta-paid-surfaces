@@ -2565,6 +2565,101 @@
       "sample_status": "pass",
       "group": "Trade records",
       "kind": "build"
+    },
+    {
+      "id": "qrelay",
+      "name": "Security questionnaire relay",
+      "buyer": "B2B software companies that receive vendor security questionnaires from customers and send them to their own vendors",
+      "cadence": "monthly, cancel any time",
+      "price": "$175/mo",
+      "sample_status": "pass",
+      "note": "Hosted tool, not a dated file. Free tier is deterministic code on our own Cloud Run service (usta-loops); a paid key removes the badge and the caps. We host a vendor's own answers and never say a vendor is secure. No person data is stored: company website addresses and pasted answers only, deletable from the link.",
+      "kind": "build",
+      "cadence_long": "A monthly key. Free: three open questionnaires per 30 days and a small badge on your public answers page. Paid: no limit, no badge. Cancel any time through Stripe; the key stops working when the subscription ends.",
+      "short": "Security questionnaire relay",
+      "who": "Software companies that answer and send vendor security questionnaires.",
+      "group": "Tools",
+      "live": "https://ustechautomations.com/feeds/qrelay/",
+      "checkout": {
+        "url": "TO-MINT",
+        "terms": "$175/mo through Stripe. The private page with your key builds itself within 10 minutes of payment. No email is sent. Cancel any time; the key stops working when the subscription ends. Refunds are not offered; the free tier lets you try the whole tool first."
+      }
+    },
+    {
+      "id": "acacheck",
+      "name": "ACA e-file pre-checker (1094-C / 1095-C)",
+      "buyer": "Payroll and benefits engineers who transmit ACA Information Returns to the IRS AIR system",
+      "cadence": "once, not a feed",
+      "price": "$499 for 12 months",
+      "sample_status": "pass",
+      "note": "Hosted tool plus an open-source command-line checker, not a dated file. A pre-checker, not a filing agent: the IRS decides. Rule mappings to IRS codes are marked UNVERIFIED in the code until the operator confirms them against the published business rules. The XML a buyer submits is checked in memory and never stored.",
+      "kind": "build",
+      "cadence_long": "One payment for 12 months. The open-source checker is free forever; the paid key unlocks the hosted check with every finding and the full rejection-code decoder. Nothing recurring.",
+      "short": "ACA e-file pre-checker",
+      "who": "Payroll engineers who file 1094-C and 1095-C returns electronically.",
+      "group": "Tools",
+      "live": "https://ustechautomations.com/feeds/acacheck/",
+      "checkout": {
+        "url": "TO-MINT",
+        "terms": "$499 for 12 months through Stripe. The private page with your key builds itself within 10 minutes of payment. No email is sent. One payment; the key works for 12 months. Refunds are not offered; the free tier lets you try the whole tool first."
+      }
+    },
+    {
+      "id": "ledgermatch",
+      "name": "Supplier ledger reconciliation",
+      "buyer": "Bookkeepers and small accounting firms that reconcile open supplier invoices with the supplier's own list",
+      "cadence": "monthly, cancel any time",
+      "price": "$99/mo",
+      "sample_status": "pass",
+      "note": "Hosted tool, not a dated file. Both sides paste their invoice list into a secret link; the report shows which invoices differ and why. It never posts entries, never moves money and never says who is right. No person data: firm website addresses and pasted invoice rows only, deletable from the link.",
+      "kind": "build",
+      "cadence_long": "A monthly key. Free: two workspaces per 30 days and 200 rows a side. Paid: no limit and 2,000 rows a side. Cancel any time through Stripe.",
+      "short": "Supplier ledger reconciliation",
+      "who": "Bookkeepers who chase invoice differences with suppliers.",
+      "group": "Tools",
+      "live": "https://ustechautomations.com/feeds/ledgermatch/",
+      "checkout": {
+        "url": "TO-MINT",
+        "terms": "$99/mo through Stripe. The private page with your key builds itself within 10 minutes of payment. No email is sent. Cancel any time; the key stops working when the subscription ends. Refunds are not offered; the free tier lets you try the whole tool first."
+      }
+    },
+    {
+      "id": "schemahand",
+      "name": "Database schema handoff diagram",
+      "buyer": "Consultancies and freelance developers who hand a database over to a client and need a readable diagram of it",
+      "cadence": "once, not a feed",
+      "price": "$199 for 12 months",
+      "sample_status": "pass",
+      "note": "Browser tool plus an open-source command-line version, not a dated file. Nothing the buyer pastes leaves their browser except the one key check they click. The free export carries a one-line footer naming this page; the paid export carries none.",
+      "kind": "build",
+      "cadence_long": "One payment for 12 months. The diagram tool runs free in the browser; the paid key unlocks the handoff package export. Nothing recurring.",
+      "short": "Schema handoff diagram",
+      "who": "Developers who hand a database schema to a client.",
+      "group": "Tools",
+      "live": "https://ustechautomations.com/feeds/schemahand/",
+      "checkout": {
+        "url": "TO-MINT",
+        "terms": "$199 for 12 months through Stripe. The private page with your key builds itself within 10 minutes of payment. No email is sent. One payment; the key works for 12 months. Refunds are not offered; the free tier lets you try the whole tool first."
+      }
+    },
+    {
+      "id": "casepack",
+      "name": "Bilingual wholesale reorder sheet",
+      "buyer": "Food and beverage wholesalers whose retail customers reorder by the case, in English and Spanish",
+      "cadence": "monthly, cancel any time",
+      "price": "$49/mo",
+      "sample_status": "pass",
+      "note": "Hosted embed, not a dated file. The wholesaler pastes one script line on their own site; the sheet counts cases and units in English and Spanish and copies the order as text. Nothing is emailed or sent anywhere by the sheet. No person data: a company website address and product rows only, deletable from the link.",
+      "kind": "build",
+      "cadence_long": "A monthly key. Free: a reorder sheet with our small badge, up to 500 products. Paid: no badge, up to 5,000 products. Cancel any time through Stripe.",
+      "short": "Bilingual reorder sheet",
+      "who": "Wholesalers whose customers reorder by the case.",
+      "group": "Tools",
+      "live": "https://ustechautomations.com/feeds/casepack/",
+      "checkout": {
+        "url": "TO-MINT",
+        "terms": "$49/mo through Stripe. The private page with your key builds itself within 10 minutes of payment. No email is sent. Cancel any time; the key stops working when the subscription ends. Refunds are not offered; the free tier lets you try the whole tool first."
+      }
     }
   ],
   "map": "MAP.md",

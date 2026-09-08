@@ -1,0 +1,85 @@
+{
+  "_about": "IRS AIR (ACA Information Returns) rejection/error codes and business-rule ids, from memory, not from a current IRS publication we have on disk. Every entry is confidence: sourced-from-memory. The operator must check each one against the current IRS 'AIR Submission Composition and Reference Guide', Publication 5165, and the AIR Error/Acknowledgement schema before this decoder is sold as authoritative. Do not remove the confidence field on any entry.",
+  "codes": {
+    "AIRTN500": {
+      "meaning": "The name and taxpayer ID (SSN or EIN) on this record do not match what the IRS or Social Security Administration has on file for that number.",
+      "fix": "Check the name is entered exactly as it appears on the Social Security card or the IRS EIN confirmation letter (no nicknames, no missing suffix), and resubmit.",
+      "confidence": "sourced-from-memory"
+    },
+    "AIRSH100": {
+      "meaning": "The submission failed structural (XML schema) validation before any business rule ran -- the file itself does not match the required shape.",
+      "fix": "Run the file through schema validation first (drop the real IRS XSDs into loops/aca/schemas/), fix every structural error, then resubmit.",
+      "confidence": "sourced-from-memory"
+    },
+    "AIRSH1000": {
+      "meaning": "A problem at the transmission envelope level -- e.g. a bad namespace, an unexpected root element, or a character-encoding issue.",
+      "fix": "Confirm the file is UTF-8 with no byte-order-mark, and that the outer envelope elements match the current transmission schema.",
+      "confidence": "sourced-from-memory"
+    },
+    "1094C-001-01": {
+      "meaning": "The employer's EIN on Form 1094-C is missing or not in a valid 9-digit shape.",
+      "fix": "Enter the EIN as exactly 9 digits, no dashes or spaces.",
+      "confidence": "sourced-from-memory"
+    },
+    "1094C-004-01": {
+      "meaning": "The ALE Member EIN does not match the EIN on the authoritative transmittal.",
+      "fix": "Use the same EIN for the employer and the ALE Member on the authoritative Form 1094-C.",
+      "confidence": "sourced-from-memory"
+    },
+    "1094C-032-01": {
+      "meaning": "The count of Form 1095-C records the filer claims to have filed does not match the number actually present in the transmission.",
+      "fix": "Make the claimed count on Form 1094-C equal the number of Form 1095-C records included.",
+      "confidence": "sourced-from-memory"
+    },
+    "1095C-001-01": {
+      "meaning": "The employee's SSN and name combination on Form 1095-C could not be validated.",
+      "fix": "Double-check the employee's SSN and legal name, and resubmit.",
+      "confidence": "sourced-from-memory"
+    },
+    "1095C-006-01": {
+      "meaning": "An offer-of-coverage code reported for a month is not one of the codes the IRS defines for that box (1A-1U).",
+      "fix": "Use a valid offer-of-coverage code for every month reported.",
+      "confidence": "sourced-from-memory"
+    },
+    "1095C-010-01": {
+      "meaning": "A Section 4980H safe-harbor code is not one of the defined codes (2A-2I), or conflicts with the offer code reported for the same month.",
+      "fix": "Use a valid safe-harbor code, or leave the box blank if no safe harbor applies.",
+      "confidence": "sourced-from-memory"
+    },
+    "1095C-020-01": {
+      "meaning": "The covered-individuals section is empty on a self-insured return, where at least one covered individual is expected.",
+      "fix": "List every covered individual (the employee and any dependents), or correct the self-insured indicator if the plan is not self-insured.",
+      "confidence": "sourced-from-memory"
+    },
+    "AIRBR-DUP": {
+      "meaning": "This record's identifier has already been used elsewhere in the same transmission, or the transmission itself looks like a duplicate of one already accepted.",
+      "fix": "Give every record a unique id, and confirm this transmission has not already been sent and accepted.",
+      "confidence": "sourced-from-memory"
+    },
+    "AIRBR-CORR": {
+      "meaning": "A record is marked as a correction but does not clearly identify the original accepted record it corrects.",
+      "fix": "Include the original record's identifier (Receipt ID / Record ID) on every corrected record.",
+      "confidence": "sourced-from-memory"
+    },
+    "AIRSH-DATE": {
+      "meaning": "A date field could not be parsed, or falls outside a plausible range for the tax year reported.",
+      "fix": "Use YYYY-MM-DD for every date, and check the date makes sense for the tax year of this return.",
+      "confidence": "sourced-from-memory"
+    },
+    "AIRSH-ZIP": {
+      "meaning": "A ZIP code is not a valid 5-digit or 9-digit (ZIP+4) US postal code.",
+      "fix": "Enter a 5-digit ZIP, or 9 digits with no dash for ZIP+4.",
+      "confidence": "sourced-from-memory"
+    },
+    "AIRSH-STATE": {
+      "meaning": "A state code is not one of the standard 2-letter USPS state, territory or military codes.",
+      "fix": "Use a standard 2-letter state code such as AZ, CA or NY.",
+      "confidence": "sourced-from-memory"
+    },
+    "TCC-MISMATCH": {
+      "meaning": "The Transmitter Control Code (TCC) used to send this file does not match the TCC the filer is authorized to use for this form type.",
+      "fix": "Confirm the correct AIR-registered TCC is being used for 1094-C/1095-C transmissions before resending.",
+      "confidence": "sourced-from-memory"
+    }
+  }
+}

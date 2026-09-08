@@ -1,0 +1,5 @@
+# What the loops service needs to run. Pinned on 2026-09-08.
+# Nothing else is allowed in here. Test-only packages live in requirements-dev.txt.
+fastapi==0.141.1
+uvicorn==0.52.4
+google-cloud-firestore==2.30.0

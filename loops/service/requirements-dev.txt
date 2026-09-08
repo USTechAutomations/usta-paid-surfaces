@@ -1,0 +1,4 @@
+# Extra package needed only to run the tests, never shipped in the container.
+# fastapi's TestClient drives the app through httpx instead of a real network.
+-r requirements.txt
+httpx==0.28.1

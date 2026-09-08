@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Schema handoff package — $199 for 12 months</title>
+  <meta name="description" content="Paste a database schema, get a diagram you can hand to a client. Free to use in your browser. Pay once to export the full handoff package.">
+  <meta property="og:description" content="Paste a database schema, get a diagram you can hand to a client. Free to use in your browser. Pay once to export the full handoff package.">
+  <meta name="twitter:description" content="Paste a database schema, get a diagram you can hand to a client. Free to use in your browser. Pay once to export the full handoff package.">
+  <link rel="canonical" href="https://ustechautomations.com/feeds/schemahand">
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="../../styles.css">
+  <style>
+    /* Layout for the tool itself. Colors and type come from styles.css;
+       this only positions the parts that are specific to this page. */
+    .sh-app { display: grid; grid-template-columns: 1fr; gap: 1rem; margin: 1.5rem 0; }
+    .sh-input-row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+    #sh-input { width: 100%; min-height: 9rem; font-family: var(--mono, monospace); font-size: 0.85rem; }
+    .sh-workspace { display: grid; grid-template-columns: 3fr 1fr; gap: 1rem; min-height: 28rem; }
+    #sh-canvas { border: 1px solid hsl(var(--border)); border-radius: 8px; min-height: 28rem; overflow: hidden; }
+    #sh-side { border: 1px solid hsl(var(--border)); border-radius: 8px; padding: 0.75rem; overflow-y: auto; max-height: 30rem; }
+    .sh-side-table { margin-bottom: 1rem; }
+    .sh-side-table h3 { margin: 0 0 0.25rem; font-size: 0.95rem; }
+    .sh-side-table textarea { width: 100%; min-height: 2.5rem; font-size: 0.8rem; }
+    .sh-side-table ul { list-style: none; margin: 0.4rem 0 0; padding: 0; font-size: 0.8rem; }
+    .sh-side-table li { display: flex; justify-content: space-between; gap: 0.4rem; margin: 0.15rem 0; }
+    .sh-side-table li input { width: 8rem; font-size: 0.75rem; }
+    #sh-error { color: #b42318; font-weight: 600; margin: 0.5rem 0; }
+    #sh-error[hidden] { display: none; }
+    .sh-pro-box { border: 1px solid hsl(var(--border)); border-radius: 8px; padding: 1rem; margin: 1.5rem 0; }
+    .sh-pro-box input[type="text"] { width: 18rem; max-width: 100%; }
+    @media (max-width: 720px) {
+      .sh-workspace { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body data-family="schemahand">
+  <header>
+    <nav><a href="../../">Feeds</a> · <a href="./">Schema handoff package</a></nav>
+    <h1>Schema handoff package</h1>
+    <p class="price">$199 for 12 months</p>
+    <p>Paste your database's table definitions. Get a diagram you can hand to a client, with plain notes on every table
+      and column. Made for database consultancies who send this to clients again and again.</p>
+    <p>You pay once through Stripe; the private page with your key builds itself within 10 minutes.
+      No email is sent.</p>
+  </header>
+
+  <main>
+    <h2>Try it now — free, and it never leaves your browser</h2>
+    <p>Paste a <code>CREATE TABLE</code> script below (PostgreSQL or MySQL). Nothing you paste is
+      sent anywhere. The diagram is drawn on your screen only.</p>
+
+    <div class="sh-app">
+      <div class="sh-input-row">
+        <textarea id="sh-input" placeholder="Paste your CREATE TABLE script here…" spellcheck="false"></textarea>
+      </div>
+      <div class="sh-input-row">
+        <button type="button" id="sh-parse">Draw diagram</button>
+        <button type="button" id="sh-demo">Try a sample schema</button>
+        <input type="search" id="sh-search" placeholder="Search tables and columns…">
+        <button type="button" id="sh-export-free">Download diagram HTML</button>
+      </div>
+      <p id="sh-error" role="alert" hidden></p>
+      <div class="sh-workspace">
+        <div id="sh-canvas"></div>
+        <div id="sh-side"><p>Draw a diagram to see its tables here. Click a table to jump to it,
+          and add notes for the person you are handing this to.</p></div>
+      </div>
+    </div>
+
+    <div class="sh-pro-box">
+      <h2>Already paid? Unlock the handoff package</h2>
+      <p>Your key came on the private page Stripe sent you to after payment. Paste it below to
+        turn on the editable export, the printable one-page-per-table view, and a CSV list of
+        every table and column.</p>
+      <p>
+        <input type="text" id="sh-pro-key" placeholder="Paste your key (starts with lp1.schemahand.)">
+        <button type="button" id="sh-pro-unlock">Unlock handoff package</button>
+      </p>
+      <p id="sh-pro-status"></p>
+      <button type="button" id="sh-export-pro" hidden>Download handoff package</button>
+    </div>
+
+    <h2>What you get for $199</h2>
+    <ul>
+      <li>The free diagram tool, for as long as this page is up. Anyone on your team can use it.</li>
+      <li>A key that unlocks, for 12 months, one extra export: an editable copy of the diagram with
+        your notes baked in, a printable page for every table, and a CSV list of every column —
+        ready to drop into a handoff document.</li>
+    </ul>
+
+    <p><a class="btn-buy" href="{{CHECKOUT_URL}}">Buy — $199 for 12 months</a></p>
+  <p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=Schema%20hand-over%20diagram">Email operations@ustechautomations.com</a>. We reply within one working day.</p>
+</main>
+
+  <footer>US Tech Automations · Prescott Valley AZ</footer>
+
+  <script id="sh-demo-sql" type="text/plain">-- Synthetic PostgreSQL schema for testing the schemahand parser.
+-- 12 tables, 15 foreign keys, 2 schemas (app, audit), table + column comments.
+-- Every value below is made up. No real business appears here.
+
+CREATE SCHEMA app;
+CREATE SCHEMA audit;
+
+CREATE TABLE app.customers (
+    id            INTEGER PRIMARY KEY,
+    "full_name"   VARCHAR(120) NOT NULL,
+    email         TEXT UNIQUE NOT NULL,
+    status        VARCHAR(20) NOT NULL DEFAULT 'active',
+    created_at    TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT now()
+);
+
+COMMENT ON TABLE app.customers IS 'People and companies who buy from us.';
+COMMENT ON COLUMN app.customers.email IS 'Unique email address used for login.';
+
+CREATE TABLE app.addresses (
+    id            INTEGER PRIMARY KEY,
+    customer_id   INTEGER NOT NULL REFERENCES app.customers(id),
+    line1         VARCHAR(200) NOT NULL,
+    city          VARCHAR(80) NOT NULL,
+    postal_code   VARCHAR(20)
+);
+
+CREATE TABLE app.categories (
+    id                  INTEGER PRIMARY KEY,
+    name                VARCHAR(80) NOT NULL,
+    parent_category_id  INTEGER,
+    CONSTRAINT fk_categories_parent FOREIGN KEY (parent_category_id)
+        REFERENCES app.categories (id)
+);
+
+CREATE TABLE app.suppliers (
+    id       INTEGER PRIMARY KEY,
+    name     VARCHAR(120) NOT NULL,
+    active   BOOLEAN NOT NULL DEFAULT true
+);
+
+CREATE TABLE app.products (
+    id            INTEGER PRIMARY KEY,
+    sku           VARCHAR(40) NOT NULL UNIQUE,
+    name          VARCHAR(150) NOT NULL,
+    price         NUMERIC(10,2) NOT NULL DEFAULT 0,
+    category_id   INTEGER,
+    supplier_id   INTEGER REFERENCES app.suppliers(id),
+    CHECK (price >= 0),
+    CONSTRAINT fk_products_category FOREIGN KEY (category_id)
+        REFERENCES app.categories (id)
+);
+
+COMMENT ON TABLE app.products IS 'Items we sell to customers.';
+
+CREATE TABLE app.orders (
+    id                   INTEGER PRIMARY KEY,
+    customer_id          INTEGER NOT NULL,
+    billing_address_id   INTEGER REFERENCES app.addresses(id),
+    shipping_address_id  INTEGER REFERENCES app.addresses(id),
+    order_date           DATE NOT NULL DEFAULT now(),
+    total_amount         NUMERIC(12,2) NOT NULL DEFAULT 0,
+    CHECK (total_amount >= 0),
+    FOREIGN KEY (customer_id) REFERENCES app.customers (id)
+);
+
+CREATE TABLE app.order_items (
+    order_id     INTEGER NOT NULL,
+    product_id   INTEGER NOT NULL REFERENCES app.products(id),
+    quantity     INTEGER NOT NULL DEFAULT 1,
+    unit_price   NUMERIC(10,2) NOT NULL,
+    PRIMARY KEY (order_id, product_id),
+    FOREIGN KEY (order_id) REFERENCES app.orders (id)
+);
+
+CREATE TABLE app.payments (
+    id           INTEGER PRIMARY KEY,
+    order_id     INTEGER NOT NULL REFERENCES app.orders(id),
+    amount       NUMERIC(12,2) NOT NULL,
+    method       VARCHAR(30) NOT NULL DEFAULT 'card',
+    paid_at      TIMESTAMP WITHOUT TIME ZONE
+);
+
+CREATE TABLE app.invoices (
+    id            INTEGER PRIMARY KEY,
+    order_id      INTEGER NOT NULL,
+    customer_id   INTEGER NOT NULL,
+    issued_at     TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT now(),
+    total_amount  NUMERIC(12,2) NOT NULL
+);
+
+ALTER TABLE app.invoices
+    ADD CONSTRAINT fk_invoices_order FOREIGN KEY (order_id)
+        REFERENCES app.orders (id) ON DELETE CASCADE;
+
+ALTER TABLE app.invoices
+    ADD CONSTRAINT fk_invoices_customer FOREIGN KEY (customer_id)
+        REFERENCES app.customers (id);
+
+CREATE TABLE app.inventory (
+    id            INTEGER PRIMARY KEY,
+    product_id    INTEGER NOT NULL REFERENCES app.products(id),
+    warehouse     VARCHAR(60) NOT NULL,
+    quantity_on_hand INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE "audit"."login_events" (
+    id             INTEGER PRIMARY KEY,
+    customer_id    INTEGER NOT NULL,
+    "user_agent"   TEXT,
+    happened_at    TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT now()
+);
+
+COMMENT ON COLUMN audit.login_events.user_agent IS 'Raw browser string, kept only for fraud checks.';
+
+CREATE TABLE audit.change_log (
+    id            INTEGER PRIMARY KEY,
+    customer_id   INTEGER NOT NULL,
+    table_name    VARCHAR(60) NOT NULL,
+    changed_at    TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT now()
+);
+
+ALTER TABLE audit.login_events
+    ADD CONSTRAINT fk_login_events_customer FOREIGN KEY (customer_id)
+        REFERENCES app.customers (id);
+
+ALTER TABLE audit.change_log
+    ADD CONSTRAINT fk_change_log_customer FOREIGN KEY (customer_id)
+        REFERENCES app.customers (id);
+
+CREATE INDEX idx_orders_customer ON app.orders (customer_id);
+</script>
+
+  <img src="https://usta-loops-260481739341.us-central1.run.app/t?f=schemahand&e=page" alt="" width="1" height="1" style="position:absolute;left:-9999px;">
+
+  <script src="tool.js"></script>
+</body>
+</html>

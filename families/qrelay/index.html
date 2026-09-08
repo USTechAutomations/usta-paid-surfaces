@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Security questionnaire relay — $175/mo</title>
+  <meta name="description" content="Send a security questionnaire to your vendor, get a reusable answer page, and pass the same questionnaire down to your own vendors. $175/mo.">
+  <meta property="og:description" content="Send a security questionnaire to your vendor, get a reusable answer page, and pass the same questionnaire down to your own vendors. $175/mo.">
+  <meta name="twitter:description" content="Send a security questionnaire to your vendor, get a reusable answer page, and pass the same questionnaire down to your own vendors. $175/mo.">
+  <link rel="canonical" href="https://ustechautomations.com/feeds/qrelay">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <style>.cp-hide{display:none}.cp-form input,.cp-form textarea,.cp-form select{width:100%;max-width:32em;box-sizing:border-box;margin-bottom:.5em}.cp-form label{font-weight:600}code{word-break:break-all}</style>
+</head>
+<body data-family="qrelay">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="wordmark" href="../../">Dated change feeds <span>/ US Tech Automations</span></a>
+    <p class="crumbs"><a href="../../">Feeds</a><span class="sep">/</span>Security questionnaire relay</p>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Tools you paste on your own site <span class="dot"></span> loop-shaped</p>
+    <h1>Security questionnaire relay</h1>
+    <p class="lede">Send a security questionnaire to a vendor. They answer once and get a page they can reuse the next time someone asks. Then they can send the same questionnaire down to their own vendors. <strong>$175/mo.</strong></p>
+    <dl class="rail">
+      <div><dt>Price</dt><dd class="price">$175/mo</dd></div>
+      <div><dt>Built for</dt><dd>Software companies that get security forms from customers and need to send those same forms to the companies they buy from</dd></div>
+      <div><dt>How it arrives</dt><dd>A link you send. No account and no password for either side.</dd></div>
+    </dl>
+    <p class="hero-cta"><a class="btn btn-buy" href="{{CHECKOUT_URL}}" rel="noopener">Buy the pro plan — $175/mo</a><span class="btn-note">You pay through Stripe; the private page with your key builds itself within 10 minutes. No email is sent.</span></p>
+  </div>
+</section>
+
+<main id="main">
+  <div class="wrap">
+    <section>
+      <h2>What it does</h2>
+      <p>You send a link to a vendor. They fill in the questionnaire once. Their answers turn into a page anyone can check later, so the next customer who asks them the same questions gets pointed at the same page instead of a new form. The honest line is simple: <strong>we host your vendor's own answers. We never say a vendor is secure.</strong> We just hold what they told you and make it easy to find again.</p>
+    </section>
+
+    <section>
+      <h2>Send a questionnaire</h2>
+      <p>Fill in the form below to send your first one for free.</p>
+      <form id="qr-form" class="cp-form">
+        <p>
+          <label for="qr-sender">Your company website (example.com)</label><br>
+          <input id="qr-sender" name="sender_domain" type="text" required maxlength="80" placeholder="yourcompany.com">
+        </p>
+        <p>
+          <label for="qr-receiver">Your vendor's website (example.com)</label><br>
+          <input id="qr-receiver" name="receiver_domain" type="text" required maxlength="80" placeholder="vendor.com">
+        </p>
+        <p>
+          <label for="qr-template">Questionnaire type</label><br>
+          <input id="qr-template" name="template" type="text" maxlength="60" value="general" placeholder="general">
+        </p>
+        <p>
+          <label for="qr-key">Pro key (leave blank on the free plan)</label><br>
+          <input id="qr-key" name="key" type="text" placeholder="lp1.qrelay....">
+        </p>
+        <button type="submit" class="btn">Send the questionnaire</button>
+      </form>
+      <p id="qr-error" class="honest cp-hide" role="alert"></p>
+
+      <div id="qr-result" class="cp-hide">
+        <h3>Your links are ready</h3>
+        <p><strong>Send this link to your vendor:</strong> <code id="qr-receiver-link"></code></p>
+        <p><strong>Your own link, to check answers as they come in:</strong> <code id="qr-sender-link"></code></p>
+        <p>Save both links. We do not email either one to you.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>The free plan, honestly</h2>
+      <p>The free plan lets you keep <strong>3 open questionnaires at a time in any 30 days</strong>. A small badge shows on the vendor's trust page saying the sheet runs on the free plan. That's the whole limit; there is no trick cap hiding underneath it.</p>
+    </section>
+
+    <section>
+      <h2>What the pro plan unlocks</h2>
+      <ul class="spec">
+        <li><strong>No 3-open-questionnaire limit</strong><span class="sub">Send as many as you need in a 30-day window.</span></li>
+        <li><strong>No badge on the trust page</strong><span class="sub">Your vendor's answer page shows no free-plan marking.</span></li>
+        <li><strong>Send the same relay down your own vendor chain</strong><span class="sub">Your vendors can pass the questionnaire to their own vendors the same way you did.</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>What this is not</h2>
+      <div class="honest">
+        <p><strong>We host your vendor's own answers. We never say a vendor is secure.</strong> Nothing on this page is our judgment of anyone's security.</p>
+        <p><strong>It is not an audit.</strong> No one from us reviews or checks the answers. It only holds what your vendor typed and shows it back.</p>
+        <p><strong>There is no account or password.</strong> Each side gets a private link instead. Anyone who has the link can see that side's page.</p>
+        <p>Data you paste stays in your link. Delete it any time.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>More from this feed</h2>
+      <ul class="spec">
+        <li><a href="https://ustechautomations.com/feeds/">See everything for sale</a><span class="sub">The full list of pages like this one.</span></li>
+      </ul>
+    </section>
+  </div>
+<p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=Security%20questionnaire%20relay">Email operations@ustechautomations.com</a>. We reply within one working day.</p>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p class="addr">US Tech Automations · 3298 N Glassford Hill Rd Ste 104 PMB 1055, Prescott Valley AZ 86314</p>
+  </div>
+</footer>
+
+<img src="https://usta-loops-260481739341.us-central1.run.app/t?f=qrelay&e=page" alt="" width="1" height="1" style="position:absolute;left:-9999px;height:1px;width:1px" loading="eager">
+
+<script>
+(function () {
+  'use strict';
+  var SERVICE_BASE = 'https://usta-loops-260481739341.us-central1.run.app';
+  var form = document.getElementById('qr-form');
+  var errorBox = document.getElementById('qr-error');
+  var resultBox = document.getElementById('qr-result');
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    errorBox.classList.add('cp-hide');
+    var body = {
+      sender_domain: document.getElementById('qr-sender').value.trim(),
+      receiver_domain: document.getElementById('qr-receiver').value.trim(),
+      template: document.getElementById('qr-template').value.trim() || 'general',
+      key: document.getElementById('qr-key').value.trim() || undefined
+    };
+    fetch(SERVICE_BASE + '/q/new', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    }).then(function (r) {
+      if (!r.ok) throw new Error('bad response');
+      return r.json();
+    }).then(function (data) {
+      document.getElementById('qr-receiver-link').textContent = data.receiver_link || '';
+      document.getElementById('qr-sender-link').textContent =
+        SERVICE_BASE + '/q/r/' + (data.sender_view_id || '');
+      resultBox.classList.remove('cp-hide');
+    })['catch'](function () {
+      errorBox.textContent = 'Could not reach the questionnaire service right now. Try again in a minute.';
+      errorBox.classList.remove('cp-hide');
+    });
+  });
+})();
+</script>
+</body>
+</html>

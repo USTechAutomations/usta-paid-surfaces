@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Security questionnaire relay — preparing your file</title>
+  <link rel="stylesheet" href="https://ustechautomations.com/feeds/styles.css">
+  <meta name="theme-color" content="#7a3b12">
+</head>
+<body data-family="qrelay">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="wordmark" href="https://ustechautomations.com/feeds/">Dated change feeds <span>/ US Tech Automations</span></a>
+    <p class="crumbs">Thank you — preparing your file</p>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+    <section>
+      <h1>Thank you — your Security questionnaire relay is being prepared</h1>
+      <p id="status" class="lede">Working out your private address…</p>
+      <p class="mail-note">This can take up to about 10 minutes. You can keep
+        this tab open; it checks for the file on its own and shows a link the
+        moment it is ready. Bookmark the private address below — it is yours alone,
+        so please do not share it.</p>
+      <p id="addr" class="mail-note"></p>
+      <p class="mail-note">Nothing after 10 minutes? Email <a href="mailto:operations@ustechautomations.com?subject=qrelay%20order">operations@ustechautomations.com</a> with your receipt number and we will send the address by hand.</p>
+      <p id="ready" class="hero-cta"></p>
+    </section>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>US Tech Automations &middot; the file is built after payment and is not listed in search.</p>
+    <p class="addr">US Tech Automations &middot; 3298 N Glassford Hill Rd Ste 104 PMB 1055, Prescott Valley AZ 86314</p>
+  </div>
+</footer>
+
+<script>
+(async function () {
+  var params = new URLSearchParams(location.search);
+  var sid = params.get("session_id");
+  var statusEl = document.getElementById("status");
+  var addrEl = document.getElementById("addr");
+  var readyEl = document.getElementById("ready");
+  if (!sid) {
+    statusEl.textContent = "Open this page from the link Stripe sends you after paying";
+    return;
+  }
+  // SHA-256 of the checkout id, first 20 hex chars -- identical to the Python
+  // private_slug() so the address computed here is exactly where the delivery
+  // job writes the file.
+  var bytes = new TextEncoder().encode(sid);
+  var digest = await crypto.subtle.digest("SHA-256", bytes);
+  var hex = Array.from(new Uint8Array(digest))
+    .map(function (b) { return b.toString(16).padStart(2, "0"); })
+    .join("");
+  var slug = hex.slice(0, 20);
+  var url = "https://ustechautomations.com/feeds/qrelay/p/" + slug + "/";
+  addrEl.innerHTML = "Your private address: <code>" + url + "</code>";
+  statusEl.textContent = "Preparing your file…";
+
+  async function check() {
+    try {
+      var r = await fetch(url, { method: "HEAD" });
+      if (r.status === 200) {
+        statusEl.textContent = "Your file is ready.";
+        readyEl.innerHTML = '<a class="btn btn-buy" href="' + url + '">Open your file</a>';
+        return true;
+      }
+    } catch (e) { /* not ready yet; try again on the next tick */ }
+    return false;
+  }
+
+  if (!(await check())) {
+    var timer = setInterval(async function () {
+      if (await check()) { clearInterval(timer); }
+    }, 30000);
+  }
+})();
+</script>
+</body>
+</html>

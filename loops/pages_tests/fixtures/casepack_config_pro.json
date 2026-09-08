@@ -1,0 +1,10 @@
+{
+  "title": "Sample wholesaler reorder sheet",
+  "lang": "en",
+  "pro": true,
+  "rows": [
+    { "sku": "A100", "name": "Blue nitrile gloves", "unit": "box", "per_case": 12, "note": "" },
+    { "sku": "A200", "name": "Paper towel rolls", "unit": "case", "per_case": 24, "note": "" },
+    { "sku": "A300", "name": "Hand soap", "unit": "bottle", "per_case": 6, "note": "" }
+  ]
+}

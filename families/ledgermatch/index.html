@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Supplier statement match — $99/mo</title>
+  <meta name="description" content="Paste your side of a supplier statement, get a link, and see exactly which invoices disagree once the other side pastes theirs. $99/mo.">
+  <meta property="og:description" content="Paste your side of a supplier statement, get a link, and see exactly which invoices disagree once the other side pastes theirs. $99/mo.">
+  <meta name="twitter:description" content="Paste your side of a supplier statement, get a link, and see exactly which invoices disagree once the other side pastes theirs. $99/mo.">
+  <link rel="canonical" href="https://ustechautomations.com/feeds/ledgermatch">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <style>.cp-hide{display:none}.cp-form input,.cp-form textarea,.cp-form select{width:100%;max-width:32em;box-sizing:border-box;margin-bottom:.5em}.cp-form label{font-weight:600}code{word-break:break-all}</style>
+</head>
+<body data-family="ledgermatch">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="wordmark" href="../../">Dated change feeds <span>/ US Tech Automations</span></a>
+    <p class="crumbs"><a href="../../">Feeds</a><span class="sep">/</span>Supplier statement match</p>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Tools you paste on your own site <span class="dot"></span> loop-shaped</p>
+    <h1>Supplier statement match</h1>
+    <p class="lede">Paste your side of a supplier statement. Send a link to the other business so they can paste their side. The tool shows exactly which invoices do not match. <strong>$99/mo.</strong></p>
+    <dl class="rail">
+      <div><dt>Price</dt><dd class="price">$99/mo</dd></div>
+      <div><dt>Built for</dt><dd>Accounting firms checking whether a client's records match the supplier's statement</dd></div>
+      <div><dt>How it arrives</dt><dd>Two private links, one for each side. No account and no password.</dd></div>
+    </dl>
+    <p class="hero-cta"><a class="btn btn-buy" href="{{CHECKOUT_URL}}" rel="noopener">Buy the pro plan — $99/mo</a><span class="btn-note">You pay through Stripe; the private page with your key builds itself within 10 minutes. No email is sent.</span></p>
+  </div>
+</section>
+
+<main id="main">
+  <div class="wrap">
+    <section>
+      <h2>What it does</h2>
+      <p>You paste your rows from a supplier statement, in whatever rough form you have them. You get a link back for yourself, and a second link to send to the other business. Once they paste their rows too, the tool lines the two sides up and shows exactly which invoices do not match. <strong>The report shows differences. It never posts entries or moves money.</strong> It only compares two lists you both typed in.</p>
+    </section>
+
+    <section>
+      <h2>Start a comparison</h2>
+      <p>Fill in the form below to start your first one for free.</p>
+      <form id="cm-form" class="cp-form">
+        <p>
+          <label for="cm-domain">Your firm's website (example.com)</label><br>
+          <input id="cm-domain" name="firm_domain" type="text" required maxlength="80" placeholder="yourfirm.com">
+        </p>
+        <p>
+          <label for="cm-label-a">What to call your side</label><br>
+          <input id="cm-label-a" name="label_a" type="text" required maxlength="40" placeholder="Our ledger">
+        </p>
+        <p>
+          <label for="cm-label-b">What to call the other side</label><br>
+          <input id="cm-label-b" name="label_b" type="text" required maxlength="40" placeholder="Supplier statement">
+        </p>
+        <p>
+          <label for="cm-rows">Paste your rows (one invoice per line, in any order)</label><br>
+          <textarea id="cm-rows" name="rows_text" rows="6" required placeholder="INV-1001, 2026-08-01, 420.00&#10;INV-1002, 2026-08-04, 118.50"></textarea>
+        </p>
+        <p>
+          <label for="cm-key">Pro key (leave blank on the free plan)</label><br>
+          <input id="cm-key" name="key" type="text" placeholder="lp1.ledgermatch....">
+        </p>
+        <button type="submit" class="btn">Start the comparison</button>
+      </form>
+      <p id="cm-error" class="honest cp-hide" role="alert"></p>
+
+      <div id="cm-result" class="cp-hide">
+        <h3>Your links are ready</h3>
+        <p><strong>Send this link to the other business, so they can paste their side:</strong> <code id="cm-b-link"></code></p>
+        <p><strong>Your own link, to see the report as it fills in:</strong> <code id="cm-a-link"></code></p>
+        <p>Save both links. We do not email either one to you.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>The free plan, honestly</h2>
+      <p>The free plan lets you run <strong>2 workspaces in any 30 days</strong>, each holding up to <strong>200 rows a side</strong>. That is the whole limit; a workspace over that size or a third one in the same 30 days needs the pro plan.</p>
+    </section>
+
+    <section>
+      <h2>What the pro plan unlocks</h2>
+      <ul class="spec">
+        <li><strong>No 2-workspace limit</strong><span class="sub">Run as many comparisons as you need in a 30-day window.</span></li>
+        <li><strong>More than 200 rows a side</strong><span class="sub">Room for a full statement, not just a short one.</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>What this is not</h2>
+      <div class="honest">
+        <p><strong>The report shows differences. It never posts entries or moves money.</strong> Nothing you do here touches any accounting system or bank.</p>
+        <p><strong>It does not check either side's numbers against the real world.</strong> It only compares the two lists you both typed in.</p>
+        <p><strong>There is no account or password.</strong> Each side gets a private link instead. Anyone who has the link can see that side's rows.</p>
+        <p>Data you paste stays in your link. Delete it any time.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>More from this feed</h2>
+      <ul class="spec">
+        <li><a href="https://ustechautomations.com/feeds/">See everything for sale</a><span class="sub">The full list of pages like this one.</span></li>
+      </ul>
+    </section>
+  </div>
+<p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=Supplier%20statement%20match">Email operations@ustechautomations.com</a>. We reply within one working day.</p>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p class="addr">US Tech Automations · 3298 N Glassford Hill Rd Ste 104 PMB 1055, Prescott Valley AZ 86314</p>
+  </div>
+</footer>
+
+<img src="https://usta-loops-260481739341.us-central1.run.app/t?f=ledgermatch&e=page" alt="" width="1" height="1" style="position:absolute;left:-9999px;height:1px;width:1px" loading="eager">
+
+<script>
+(function () {
+  'use strict';
+  var SERVICE_BASE = 'https://usta-loops-260481739341.us-central1.run.app';
+  var form = document.getElementById('cm-form');
+  var errorBox = document.getElementById('cm-error');
+  var resultBox = document.getElementById('cm-result');
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    errorBox.classList.add('cp-hide');
+    var body = {
+      firm_domain: document.getElementById('cm-domain').value.trim(),
+      rows_text: document.getElementById('cm-rows').value,
+      label_a: document.getElementById('cm-label-a').value.trim(),
+      label_b: document.getElementById('cm-label-b').value.trim(),
+      key: document.getElementById('cm-key').value.trim() || undefined
+    };
+    fetch(SERVICE_BASE + '/cm/new', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    }).then(function (r) {
+      if (!r.ok) throw new Error('bad response');
+      return r.json();
+    }).then(function (data) {
+      document.getElementById('cm-b-link').textContent = data.b_link || '';
+      document.getElementById('cm-a-link').textContent =
+        SERVICE_BASE + '/cm/r/' + (data.ws_id || '') + '?e=' + (data.a_edit_id || '');
+      resultBox.classList.remove('cp-hide');
+    })['catch'](function () {
+      errorBox.textContent = 'Could not reach the comparison service right now. Try again in a minute.';
+      errorBox.classList.remove('cp-hide');
+    });
+  });
+})();
+</script>
+</body>
+</html>

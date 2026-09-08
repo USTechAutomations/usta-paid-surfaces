@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Same transmission as good_1094c_1095c.xml with exactly 6 seeded faults.
+  Each fault is designed to trip exactly one rule (see tests/test_fixtures.py):
+    1. R011 employer ein format:        Form1094C/EmployerEIN is 7 digits, not 9
+    2. R022 form count mismatch:        TotalNumberOf1095CFormsFiledCnt says 4, only 3 present
+    3. R027 employee ssn format:        Test Beta's EmployeeSSN is 6 digits, not 9
+    4. R033 offer code invalid:         Test Gamma's OfferCode is 9Z, not 1A-1U
+    5. R030 state code invalid:         Test Alpha's EmployeeAddress/State is ZZ
+    6. R008 record id duplicate:        Test Gamma's RecordId reuses Test Beta's (R1095C-2)
+-->
+<ACATransmissionUpstream>
+  <Manifest>
+    <TransmissionId>T-0002</TransmissionId>
+    <TaxYr>2025</TaxYr>
+    <TotalPayeeRecordCnt>4</TotalPayeeRecordCnt>
+    <SoftwareId>25A0000000</SoftwareId>
+  </Manifest>
+  <Form1094C RecordId="R1094C-1">
+    <EmployerEIN>4738271</EmployerEIN>
+    <EmployerName>Example Employer LLC</EmployerName>
+    <EmployerAddress>
+      <Line1>1 Example Way</Line1>
+      <City>Prescott Valley</City>
+      <State>AZ</State>
+      <ZipCd>86314</ZipCd>
+    </EmployerAddress>
+    <TaxYr>2025</TaxYr>
+    <TotalNumberOf1095CFormsFiledCnt>4</TotalNumberOf1095CFormsFiledCnt>
+    <AleMemberInformationGrp>
+      <AleMemberEIN>473827160</AleMemberEIN>
+      <MinimumEssentialCoverageOfferInd>1</MinimumEssentialCoverageOfferInd>
+      <SelfInsuredHealthCoverageInd>1</SelfInsuredHealthCoverageInd>
+      <FullTimeEmployeeCnt>3</FullTimeEmployeeCnt>
+      <TotalEmployeeCnt>3</TotalEmployeeCnt>
+      <AggregatedGroupInd>0</AggregatedGroupInd>
+    </AleMemberInformationGrp>
+    <AuthoritativeTransmittalInd>1</AuthoritativeTransmittalInd>
+    <CorrectedInd>0</CorrectedInd>
+  </Form1094C>
+  <Form1095CRecords>
+    <Form1095C RecordId="R1095C-1">
+      <EmployeeName>
+        <FirstNm>Test</FirstNm>
+        <LastNm>Alpha</LastNm>
+      </EmployeeName>
+      <EmployeeSSN>219873456</EmployeeSSN>
+      <EmployeeAddress>
+        <Line1>2 Example Way</Line1>
+        <City>Prescott Valley</City>
+        <State>ZZ</State>
+        <ZipCd>86314</ZipCd>
+      </EmployeeAddress>
+      <ApplicableAleMemberEIN>473827160</ApplicableAleMemberEIN>
+      <PlanStartMonth>01</PlanStartMonth>
+      <OfferAndCoverageGrp>
+        <MonthlyDetail Month="All12">
+          <OfferCode>1A</OfferCode>
+          <SafeHarborCode>2C</SafeHarborCode>
+        </MonthlyDetail>
+      </OfferAndCoverageGrp>
+      <CoveredIndividualsGrp>
+        <CoveredIndividual>
+          <Name>Test Alpha</Name>
+          <SSN>219873456</SSN>
+          <DOB>1990-05-14</DOB>
+          <CoveredAll12Ind>1</CoveredAll12Ind>
+        </CoveredIndividual>
+      </CoveredIndividualsGrp>
+      <CorrectedInd>0</CorrectedInd>
+    </Form1095C>
+    <Form1095C RecordId="R1095C-2">
+      <EmployeeName>
+        <FirstNm>Test</FirstNm>
+        <LastNm>Beta</LastNm>
+      </EmployeeName>
+      <EmployeeSSN>123456</EmployeeSSN>
+      <EmployeeAddress>
+        <Line1>3 Example Way</Line1>
+        <City>Prescott Valley</City>
+        <State>AZ</State>
+        <ZipCd>86314</ZipCd>
+      </EmployeeAddress>
+      <ApplicableAleMemberEIN>473827160</ApplicableAleMemberEIN>
+      <PlanStartMonth>01</PlanStartMonth>
+      <OfferAndCoverageGrp>
+        <MonthlyDetail Month="All12">
+          <OfferCode>1A</OfferCode>
+          <SafeHarborCode>2C</SafeHarborCode>
+        </MonthlyDetail>
+      </OfferAndCoverageGrp>
+      <CoveredIndividualsGrp>
+        <CoveredIndividual>
+          <Name>Test Beta</Name>
+          <SSN>219873457</SSN>
+          <DOB>1988-11-02</DOB>
+          <CoveredAll12Ind>1</CoveredAll12Ind>
+        </CoveredIndividual>
+      </CoveredIndividualsGrp>
+      <CorrectedInd>0</CorrectedInd>
+    </Form1095C>
+    <Form1095C RecordId="R1095C-2">
+      <EmployeeName>
+        <FirstNm>Test</FirstNm>
+        <LastNm>Gamma</LastNm>
+      </EmployeeName>
+      <EmployeeSSN>219873458</EmployeeSSN>
+      <EmployeeAddress>
+        <Line1>4 Example Way</Line1>
+        <City>Prescott Valley</City>
+        <State>AZ</State>
+        <ZipCd>86314</ZipCd>
+      </EmployeeAddress>
+      <ApplicableAleMemberEIN>473827160</ApplicableAleMemberEIN>
+      <PlanStartMonth>01</PlanStartMonth>
+      <OfferAndCoverageGrp>
+        <MonthlyDetail Month="All12">
+          <OfferCode>9Z</OfferCode>
+          <SafeHarborCode>2C</SafeHarborCode>
+        </MonthlyDetail>
+      </OfferAndCoverageGrp>
+      <CoveredIndividualsGrp>
+        <CoveredIndividual>
+          <Name>Test Gamma</Name>
+          <SSN>219873458</SSN>
+          <DOB>1995-07-23</DOB>
+          <CoveredAll12Ind>1</CoveredAll12Ind>
+        </CoveredIndividual>
+      </CoveredIndividualsGrp>
+      <CorrectedInd>0</CorrectedInd>
+    </Form1095C>
+  </Form1095CRecords>
+</ACATransmissionUpstream>

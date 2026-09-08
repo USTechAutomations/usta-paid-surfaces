@@ -1,0 +1,9 @@
+[Unit]
+Description=loops: switch off pro keys whose payment stopped
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/gmullins/code/usta-paid-surfaces
+ExecStart="/home/gmullins/Claude CLI/lead-outreach/venv/bin/python" /home/gmullins/code/usta-paid-surfaces/loops/revoke.py --live

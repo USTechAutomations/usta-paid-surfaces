@@ -1,0 +1,105 @@
+{
+ "template": "standard",
+ "answers": {
+  "GV-01": {
+   "choice": "yes",
+   "text": "Our head of engineering owns this and reports to the board."
+  },
+  "GV-02": {
+   "choice": "yes",
+   "text": ""
+  },
+  "GV-03": {
+   "choice": "yes",
+   "text": ""
+  },
+  "GV-04": {
+   "choice": "partial",
+   "text": ""
+  },
+  "ID-01": {
+   "choice": "yes",
+   "text": ""
+  },
+  "ID-02": {
+   "choice": "no",
+   "text": ""
+  },
+  "ID-03": {
+   "choice": "yes",
+   "text": ""
+  },
+  "ID-04": {
+   "choice": "yes",
+   "text": ""
+  },
+  "PR-01": {
+   "choice": "yes",
+   "text": ""
+  },
+  "PR-02": {
+   "choice": "partial",
+   "text": "Every staff login needs a code from an app, with no exceptions."
+  },
+  "PR-03": {
+   "choice": "yes",
+   "text": ""
+  },
+  "PR-04": {
+   "choice": "no",
+   "text": ""
+  },
+  "PR-05": {
+   "choice": "yes",
+   "text": ""
+  },
+  "PR-06": {
+   "choice": "yes",
+   "text": ""
+  },
+  "DE-01": {
+   "choice": "yes",
+   "text": ""
+  },
+  "DE-02": {
+   "choice": "partial",
+   "text": ""
+  },
+  "DE-03": {
+   "choice": "yes",
+   "text": ""
+  },
+  "DE-04": {
+   "choice": "no",
+   "text": "Alerts fire on any export over 500 records."
+  },
+  "RS-01": {
+   "choice": "yes",
+   "text": ""
+  },
+  "RS-02": {
+   "choice": "yes",
+   "text": ""
+  },
+  "RS-03": {
+   "choice": "yes",
+   "text": ""
+  },
+  "RC-01": {
+   "choice": "partial",
+   "text": ""
+  },
+  "RC-02": {
+   "choice": "yes",
+   "text": ""
+  },
+  "RC-03": {
+   "choice": "no",
+   "text": "Last restore test was in March and took 40 minutes."
+  },
+  "RC-04": {
+   "choice": "yes",
+   "text": ""
+  }
+ }
+}

@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Wholesale reorder sheet — $49/mo</title>
+  <meta name="description" content="A reorder sheet you paste on your own site. Your customers pick cases or units and see the total either way. $49/mo.">
+  <meta property="og:description" content="A reorder sheet you paste on your own site. Your customers pick cases or units and see the total either way. $49/mo.">
+  <meta name="twitter:description" content="A reorder sheet you paste on your own site. Your customers pick cases or units and see the total either way. $49/mo.">
+  <link rel="canonical" href="https://ustechautomations.com/feeds/casepack">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <style>.cp-hide{display:none}.cp-form input,.cp-form textarea,.cp-form select{width:100%;max-width:32em;box-sizing:border-box;margin-bottom:.5em}.cp-form label{font-weight:600}pre{white-space:pre-wrap;word-break:break-all}</style>
+</head>
+<body data-family="casepack">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="wordmark" href="../../">Dated change feeds <span>/ US Tech Automations</span></a>
+    <p class="crumbs"><a href="../../">Feeds</a><span class="sep">/</span>Wholesale reorder sheet</p>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Tools you paste on your own site <span class="dot"></span> loop-shaped</p>
+    <h1>Wholesale reorder sheet</h1>
+    <p class="lede">Put a reorder sheet on your own site. Your customers type how many cases or units they want, and the sheet does the math both ways for them. <strong>$49/mo.</strong></p>
+    <dl class="rail">
+      <div><dt>Price</dt><dd class="price">$49/mo</dd></div>
+      <div><dt>Built for</dt><dd>Industrial consumables wholesalers whose customers reorder by the case</dd></div>
+      <div><dt>How it arrives</dt><dd>One line of code you paste on your own page. Nothing to install.</dd></div>
+    </dl>
+    <p class="hero-cta"><a class="btn btn-buy" href="{{CHECKOUT_URL}}" rel="noopener">Buy the pro plan — $49/mo</a><span class="btn-note">You pay through Stripe; the private page with your key builds itself within 10 minutes. No email is sent.</span></p>
+  </div>
+</section>
+
+<main id="main">
+  <div class="wrap">
+    <section>
+      <h2>What it does</h2>
+      <p>Your customers already reorder the same products every time. This sheet lets them type a number of cases or a number of units for each product, and it shows the total both ways right away. They can copy the order as plain text, or download it as a spreadsheet file. Nothing is sent anywhere when they do that; it all happens on the page.</p>
+    </section>
+
+    <section>
+      <h2>Build your reorder sheet</h2>
+      <p>Fill in the form below. It builds a free sheet you can paste on your site today.</p>
+      <form id="cp-builder" class="cp-form">
+        <p>
+          <label for="cp-domain">Your website (example.com)</label><br>
+          <input id="cp-domain" name="domain" type="text" required maxlength="80" placeholder="example.com">
+        </p>
+        <p>
+          <label for="cp-title">Sheet title</label><br>
+          <input id="cp-title" name="title" type="text" required maxlength="120" placeholder="Reorder your usual products">
+        </p>
+        <p>
+          <label for="cp-lang">Language</label><br>
+          <select id="cp-lang" name="lang">
+            <option value="en">English only</option>
+            <option value="es">Spanish only</option>
+            <option value="both" selected>English and Spanish</option>
+          </select>
+        </p>
+        <p>
+          <label for="cp-rows">Your products, one line each: SKU, product, unit, units per case</label><br>
+          <textarea id="cp-rows" name="rows" rows="6" required placeholder="A100, Blue nitrile gloves, box, 12&#10;A200, Paper towel rolls, case, 24&#10;A300, Hand soap, bottle, 6"></textarea>
+        </p>
+        <button type="submit" class="btn">Build my reorder sheet</button>
+      </form>
+      <p id="cp-build-error" class="honest cp-hide" role="alert"></p>
+
+      <div id="cp-build-result" class="cp-hide">
+        <h3>Your sheet is ready</h3>
+        <p>Paste this one line onto your own site, wherever you want the sheet to show up:</p>
+        <pre><code id="cp-snippet"></code></pre>
+        <p><strong>Save your edit code somewhere safe:</strong> <code id="cp-edit-id"></code>. You need it to change your sheet later and to turn on the pro plan below. We do not store it for you.</p>
+        <h3>Live preview</h3>
+        <p>This is the same sheet your customers will see, running right here on this page.</p>
+        <div id="cp-preview"></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Turn on the pro plan</h2>
+      <p>Already built a sheet above and bought the pro plan? Paste your key here to turn off the free badge and raise the row limit.</p>
+      <form id="cp-pro-form" class="cp-form">
+        <p>
+          <label for="cp-pro-cfg">Your sheet's ID (shown after you build it)</label><br>
+          <input id="cp-pro-cfg" name="cfg_id" type="text" required placeholder="cfg id">
+        </p>
+        <p>
+          <label for="cp-pro-edit">Your edit code</label><br>
+          <input id="cp-pro-edit" name="edit_id" type="text" required placeholder="edit id">
+        </p>
+        <p>
+          <label for="cp-pro-key">Your pro key</label><br>
+          <input id="cp-pro-key" name="key" type="text" required placeholder="lp1.casepack....">
+        </p>
+        <button type="submit" class="btn">Unlock pro</button>
+      </form>
+      <p id="cp-pro-msg" class="cp-hide"></p>
+    </section>
+
+    <section>
+      <h2>What the pro plan unlocks</h2>
+      <ul class="spec">
+        <li><strong>No badge on your sheet</strong><span class="sub">The free plan shows a small link back to this page. The pro plan removes it.</span></li>
+        <li><strong>Up to 5,000 rows</strong><span class="sub">Room for a full catalog, not just a short list.</span></li>
+        <li><strong>Resellers keep your catalog</strong><span class="sub">If a reseller of yours builds their own sheet, it can start from your rows instead of them typing your whole catalog again.</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>What this is not</h2>
+      <div class="honest">
+        <p><strong>It does not take payment.</strong> It only builds an order list your customer can copy or download.</p>
+        <p><strong>It does not email anyone.</strong> Nothing is sent anywhere when your customer uses it.</p>
+        <p><strong>It is not a shopping cart.</strong> It is a reorder sheet for people who already know what they buy.</p>
+        <p>Data you paste stays in your link. Delete it any time.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>En español</h2>
+      <p>Esta hoja de reorden se pega en tu propio sitio web. Tus clientes escriben cuántas cajas o unidades quieren de cada producto, y la hoja calcula el total de las dos formas al instante. Pueden copiar el pedido como texto o descargarlo como una hoja de cálculo. Nada se envía a ningún lugar. Cuesta $49 al mes, y el plan pagado quita la insignia y permite hasta 5,000 filas.</p>
+    </section>
+
+    <section>
+      <h2>More from this feed</h2>
+      <ul class="spec">
+        <li><a href="https://ustechautomations.com/feeds/">See everything for sale</a><span class="sub">The full list of pages like this one.</span></li>
+      </ul>
+    </section>
+  </div>
+<p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=Wholesale%20reorder%20sheet">Email operations@ustechautomations.com</a>. We reply within one working day.</p>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p class="addr">US Tech Automations · 3298 N Glassford Hill Rd Ste 104 PMB 1055, Prescott Valley AZ 86314</p>
+  </div>
+</footer>
+
+<img src="https://usta-loops-260481739341.us-central1.run.app/t?f=casepack&e=page" alt="" width="1" height="1" style="position:absolute;left:-9999px;height:1px;width:1px" loading="eager">
+
+<script>
+(function () {
+  'use strict';
+  var SERVICE_BASE = 'https://usta-loops-260481739341.us-central1.run.app';
+  var form = document.getElementById('cp-builder');
+  var errorBox = document.getElementById('cp-build-error');
+  var resultBox = document.getElementById('cp-build-result');
+  var snippetBox = document.getElementById('cp-snippet');
+  var editIdBox = document.getElementById('cp-edit-id');
+  var preview = document.getElementById('cp-preview');
+  var lastCfgId = '';
+
+  function parseRows(text) {
+    return text.split('\n').map(function (line) { return line.trim(); }).filter(Boolean).map(function (line) {
+      var parts = line.split(',').map(function (p) { return p.trim(); });
+      return {
+        sku: parts[0] || '',
+        name: parts[1] || '',
+        unit: parts[2] || '',
+        per_case: Number(parts[3]) || 0,
+        note: parts[4] || ''
+      };
+    });
+  }
+
+  function showError(msg) {
+    errorBox.textContent = msg;
+    errorBox.classList.remove('cp-hide');
+  }
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    errorBox.classList.add('cp-hide');
+    var body = {
+      domain: document.getElementById('cp-domain').value.trim(),
+      title: document.getElementById('cp-title').value.trim(),
+      lang: document.getElementById('cp-lang').value,
+      rows: parseRows(document.getElementById('cp-rows').value)
+    };
+    if (!body.rows.length) {
+      showError('Add at least one product line before building your sheet.');
+      return;
+    }
+    fetch(SERVICE_BASE + '/cp/config', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    }).then(function (r) {
+      if (!r.ok) throw new Error('bad response');
+      return r.json();
+    }).then(function (data) {
+      lastCfgId = data.cfg_id || '';
+      var openTag = '<' + 'script src="' + SERVICE_BASE + '/embed/casepack.js" data-cfg="' + lastCfgId + '">';
+      var closeTag = '<' + '/script' + '>';
+      snippetBox.textContent = data.embed_snippet || (openTag + closeTag);
+      editIdBox.textContent = data.edit_id || '';
+      document.getElementById('cp-pro-cfg').value = lastCfgId;
+      document.getElementById('cp-pro-edit').value = data.edit_id || '';
+      resultBox.classList.remove('cp-hide');
+      preview.innerHTML = '';
+      var s = document.createElement('script');
+      s.src = SERVICE_BASE + '/embed/casepack.js';
+      s.setAttribute('data-cfg', lastCfgId);
+      s.async = false;
+      preview.appendChild(s);
+    })['catch'](function () {
+      showError('Could not reach the sheet builder right now. Try again in a minute.');
+    });
+  });
+
+  var proForm = document.getElementById('cp-pro-form');
+  var proMsg = document.getElementById('cp-pro-msg');
+  proForm.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var cfgId = document.getElementById('cp-pro-cfg').value.trim();
+    var body = {
+      edit_id: document.getElementById('cp-pro-edit').value.trim(),
+      key: document.getElementById('cp-pro-key').value.trim()
+    };
+    fetch(SERVICE_BASE + '/cp/config/' + encodeURIComponent(cfgId) + '/pro', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    }).then(function (r) {
+      proMsg.textContent = r.ok ? 'Pro plan turned on for this sheet.' : 'That key or edit code did not work.';
+      proMsg.classList.remove('cp-hide');
+    })['catch'](function () {
+      proMsg.textContent = 'Could not reach the service right now. Try again in a minute.';
+      proMsg.classList.remove('cp-hide');
+    });
+  });
+})();
+</script>
+</body>
+</html>

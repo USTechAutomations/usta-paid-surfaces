@@ -1,0 +1,8 @@
+{
+  "table": "customers",
+  "columns": [
+    {"name": "id", "type": "integer"},
+    {"name": "email", "type": "text"}
+  ],
+  "note": "This is a JSON export of a table, not a SQL script."
+}

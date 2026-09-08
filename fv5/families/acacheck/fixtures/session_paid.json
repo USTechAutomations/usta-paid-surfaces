@@ -1,0 +1,22 @@
+{
+  "id": "cs_test_fv5_acacheck_001",
+  "session_id": "cs_test_fv5_acacheck_001",
+  "object": "checkout.session",
+  "mode": "payment",
+  "payment_status": "paid",
+  "status": "complete",
+  "created": "2026-09-08T12:00:00Z",
+  "amount_total": 49900,
+  "currency": "usd",
+  "custom_fields": [
+    {
+      "key": "domain",
+      "label": { "type": "custom", "custom": "Your company website (example.com)" },
+      "text": { "value": "example-employer.com" }
+    }
+  ],
+  "email_hash": "deadbeefcafefeed0000000000000000000000000000000000000000000002",
+  "metadata": {
+    "family": "acacheck"
+  }
+}

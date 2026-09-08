@@ -1,0 +1,9 @@
+[
+  {
+    "key": "domain",
+    "label": { "type": "custom", "custom": "Your company website (example.com)" },
+    "type": "text",
+    "optional": false,
+    "text": { "maximum_length": 80 }
+  }
+]

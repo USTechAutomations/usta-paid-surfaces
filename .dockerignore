@@ -1,0 +1,14 @@
+# Keep the loops service image small: only loops/ code is copied by its Dockerfile,
+# but the build context is the repo root, so exclude the heavy folders.
+**/.venv
+**/node_modules
+**/__pycache__
+**/*.pyc
+dist
+.git
+.github
+families
+fv5
+scripts
+data
+reports

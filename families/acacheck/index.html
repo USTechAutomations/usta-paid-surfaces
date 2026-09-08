@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ACA e-file pre-check — $499 for 12 months</title>
+  <meta name="description" content="Paste your 1094-C/1095-C XML and see what the IRS may reject, free in your browser. $499 for 12 months unlocks the hosted check.">
+  <meta property="og:description" content="Paste your 1094-C/1095-C XML and see what the IRS may reject, free in your browser. $499 for 12 months unlocks the hosted check.">
+  <meta name="twitter:description" content="Paste your 1094-C/1095-C XML and see what the IRS may reject, free in your browser. $499 for 12 months unlocks the hosted check.">
+  <link rel="canonical" href="https://ustechautomations.com/feeds/acacheck">
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="../../styles.css">
+  <style>
+    /* Layout for the checker box only. Colors and type come from styles.css. */
+    .ac-app { display: grid; gap: 0.75rem; margin: 1.5rem 0; }
+    #ac-input { width: 100%; min-height: 12rem; font-family: var(--mono, monospace); font-size: 0.85rem; }
+    .ac-row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+    #ac-results { border: 1px solid hsl(var(--border)); border-radius: 8px; padding: 0.9rem 1rem; min-height: 3rem; }
+    .ac-ok { font-weight: 600; }
+    .ac-summary { font-weight: 600; margin-top: 0; }
+    .ac-findings { list-style: none; margin: 0; padding: 0; }
+    .ac-findings li { border-top: 1px solid hsl(var(--border)); padding: 0.6rem 0; }
+    .ac-findings li:first-child { border-top: none; padding-top: 0; }
+    .ac-msg { margin: 0 0 0.2rem; }
+    .ac-fix { margin: 0; color: var(--muted-fg, #555); font-size: 0.9rem; }
+  </style>
+</head>
+<body data-family="acacheck">
+  <header>
+    <nav><a href="../../">Feeds</a> · <a href="./">ACA e-file pre-check</a></nav>
+    <h1>ACA e-file pre-check</h1>
+    <p class="price">$499 for 12 months</p>
+    <p>Paste your 1094-C/1095-C file below and this page tells you, in plain English, what is likely to get rejected and how to fix it, before you send it to the IRS.</p>
+  </header>
+
+  <main>
+    <h2>Try it now — free, and it never leaves your browser</h2>
+    <p>Copy the XML text of your IRS health-coverage e-file (the 1094-C and 1095-C forms together) and paste it into the box below. Nothing you paste is sent anywhere. The check runs on your own screen only.</p>
+
+    <div class="ac-app">
+      <textarea id="ac-input" placeholder="Paste your 1094-C/1095-C XML here…" spellcheck="false"></textarea>
+      <div class="ac-row">
+        <button type="button" id="ac-check">Check my file</button>
+        <button type="button" id="ac-demo">Try a sample file</button>
+      </div>
+      <div id="ac-results"><p>Paste a file and press "Check my file" to see what it finds.</p></div>
+    </div>
+
+    <div class="honest">
+      <p><strong>This is a pre-checker, not a filing agent: the IRS decides.</strong> Passing every check here does not mean the IRS will accept your file. It means these particular checks did not find a problem.</p>
+      <p>The box above runs 15 quick checks. The full open-source tool behind this page runs 46, covers far more of the form, and can validate your file against the real IRS schema if you add it yourself. <a href="https://github.com/USTechAutomations/acacheck">Get the full tool on GitHub</a> and run it from your own computer, free, any time.</p>
+    </div>
+
+    <h2>What the paid key unlocks</h2>
+    <p>The free tool above and the free download on GitHub already do the checking. Paying for a key does not unlock a better check. It unlocks a faster way to run it, for a team that checks files often:</p>
+    <ul>
+      <li>A hosted version of the same check: send your file to a private web address tied to your key instead of installing anything, and get the same findings back.</li>
+      <li>The full list of what each IRS rejection code means and how to fix it, kept up to date, instead of the smaller sample list in the free GitHub download.</li>
+    </ul>
+    <p>You pay once through Stripe; the private page with your key builds itself within 10 minutes. No email is sent.</p>
+
+    <p><a class="btn-buy" href="{{CHECKOUT_URL}}">Buy — $499 for 12 months</a></p>
+  <p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=ACA%20e-file%20pre-check">Email operations@ustechautomations.com</a>. We reply within one working day.</p>
+</main>
+
+  <footer>
+    US Tech Automations · Prescott Valley AZ ·
+    <a href="https://github.com/USTechAutomations/acacheck">acacheck on GitHub</a>
+  </footer>
+
+  <script id="ac-demo-xml" type="text/plain">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;ACATransmissionUpstream&gt;
+  &lt;Manifest&gt;
+    &lt;TransmissionId&gt;T-0001&lt;/TransmissionId&gt;
+    &lt;TaxYr&gt;2025&lt;/TaxYr&gt;
+    &lt;TotalPayeeRecordCnt&gt;4&lt;/TotalPayeeRecordCnt&gt;
+    &lt;SoftwareId&gt;25A0000000&lt;/SoftwareId&gt;
+  &lt;/Manifest&gt;
+  &lt;Form1094C RecordId="R1094C-1"&gt;
+    &lt;EmployerEIN&gt;473827160&lt;/EmployerEIN&gt;
+    &lt;EmployerName&gt;Example Employer LLC&lt;/EmployerName&gt;
+    &lt;EmployerAddress&gt;
+      &lt;Line1&gt;1 Example Way&lt;/Line1&gt;
+      &lt;City&gt;Prescott Valley&lt;/City&gt;
+      &lt;State&gt;AZ&lt;/State&gt;
+      &lt;ZipCd&gt;86314&lt;/ZipCd&gt;
+    &lt;/EmployerAddress&gt;
+    &lt;TaxYr&gt;2025&lt;/TaxYr&gt;
+    &lt;TotalNumberOf1095CFormsFiledCnt&gt;3&lt;/TotalNumberOf1095CFormsFiledCnt&gt;
+    &lt;AleMemberInformationGrp&gt;
+      &lt;AleMemberEIN&gt;473827160&lt;/AleMemberEIN&gt;
+      &lt;MinimumEssentialCoverageOfferInd&gt;1&lt;/MinimumEssentialCoverageOfferInd&gt;
+      &lt;SelfInsuredHealthCoverageInd&gt;1&lt;/SelfInsuredHealthCoverageInd&gt;
+      &lt;FullTimeEmployeeCnt&gt;3&lt;/FullTimeEmployeeCnt&gt;
+      &lt;TotalEmployeeCnt&gt;3&lt;/TotalEmployeeCnt&gt;
+      &lt;AggregatedGroupInd&gt;0&lt;/AggregatedGroupInd&gt;
+    &lt;/AleMemberInformationGrp&gt;
+    &lt;AuthoritativeTransmittalInd&gt;1&lt;/AuthoritativeTransmittalInd&gt;
+    &lt;CorrectedInd&gt;0&lt;/CorrectedInd&gt;
+  &lt;/Form1094C&gt;
+  &lt;Form1095CRecords&gt;
+    &lt;Form1095C RecordId="R1095C-1"&gt;
+      &lt;EmployeeName&gt;
+        &lt;FirstNm&gt;Test&lt;/FirstNm&gt;
+        &lt;LastNm&gt;Alpha&lt;/LastNm&gt;
+      &lt;/EmployeeName&gt;
+      &lt;EmployeeSSN&gt;219873456&lt;/EmployeeSSN&gt;
+      &lt;EmployeeAddress&gt;
+        &lt;Line1&gt;2 Example Way&lt;/Line1&gt;
+        &lt;City&gt;Prescott Valley&lt;/City&gt;
+        &lt;State&gt;AZ&lt;/State&gt;
+        &lt;ZipCd&gt;86314&lt;/ZipCd&gt;
+      &lt;/EmployeeAddress&gt;
+      &lt;ApplicableAleMemberEIN&gt;473827160&lt;/ApplicableAleMemberEIN&gt;
+      &lt;PlanStartMonth&gt;01&lt;/PlanStartMonth&gt;
+      &lt;OfferAndCoverageGrp&gt;
+        &lt;MonthlyDetail Month="All12"&gt;
+          &lt;OfferCode&gt;1A&lt;/OfferCode&gt;
+          &lt;SafeHarborCode&gt;2C&lt;/SafeHarborCode&gt;
+        &lt;/MonthlyDetail&gt;
+      &lt;/OfferAndCoverageGrp&gt;
+      &lt;CoveredIndividualsGrp&gt;
+        &lt;CoveredIndividual&gt;
+          &lt;Name&gt;Test Alpha&lt;/Name&gt;
+          &lt;SSN&gt;219873456&lt;/SSN&gt;
+          &lt;DOB&gt;1990-05-14&lt;/DOB&gt;
+          &lt;CoveredAll12Ind&gt;1&lt;/CoveredAll12Ind&gt;
+        &lt;/CoveredIndividual&gt;
+      &lt;/CoveredIndividualsGrp&gt;
+      &lt;CorrectedInd&gt;0&lt;/CorrectedInd&gt;
+    &lt;/Form1095C&gt;
+    &lt;Form1095C RecordId="R1095C-2"&gt;
+      &lt;EmployeeName&gt;
+        &lt;FirstNm&gt;Test&lt;/FirstNm&gt;
+        &lt;LastNm&gt;Beta&lt;/LastNm&gt;
+      &lt;/EmployeeName&gt;
+      &lt;EmployeeSSN&gt;219873457&lt;/EmployeeSSN&gt;
+      &lt;EmployeeAddress&gt;
+        &lt;Line1&gt;3 Example Way&lt;/Line1&gt;
+        &lt;City&gt;Prescott Valley&lt;/City&gt;
+        &lt;State&gt;AZ&lt;/State&gt;
+        &lt;ZipCd&gt;86314&lt;/ZipCd&gt;
+      &lt;/EmployeeAddress&gt;
+      &lt;ApplicableAleMemberEIN&gt;473827160&lt;/ApplicableAleMemberEIN&gt;
+      &lt;PlanStartMonth&gt;01&lt;/PlanStartMonth&gt;
+      &lt;OfferAndCoverageGrp&gt;
+        &lt;MonthlyDetail Month="All12"&gt;
+          &lt;OfferCode&gt;1A&lt;/OfferCode&gt;
+          &lt;SafeHarborCode&gt;2C&lt;/SafeHarborCode&gt;
+        &lt;/MonthlyDetail&gt;
+      &lt;/OfferAndCoverageGrp&gt;
+      &lt;CoveredIndividualsGrp&gt;
+        &lt;CoveredIndividual&gt;
+          &lt;Name&gt;Test Beta&lt;/Name&gt;
+          &lt;SSN&gt;219873457&lt;/SSN&gt;
+          &lt;DOB&gt;1988-11-02&lt;/DOB&gt;
+          &lt;CoveredAll12Ind&gt;1&lt;/CoveredAll12Ind&gt;
+        &lt;/CoveredIndividual&gt;
+      &lt;/CoveredIndividualsGrp&gt;
+      &lt;CorrectedInd&gt;0&lt;/CorrectedInd&gt;
+    &lt;/Form1095C&gt;
+    &lt;Form1095C RecordId="R1095C-3"&gt;
+      &lt;EmployeeName&gt;
+        &lt;FirstNm&gt;Test&lt;/FirstNm&gt;
+        &lt;LastNm&gt;Gamma&lt;/LastNm&gt;
+      &lt;/EmployeeName&gt;
+      &lt;EmployeeSSN&gt;219873458&lt;/EmployeeSSN&gt;
+      &lt;EmployeeAddress&gt;
+        &lt;Line1&gt;4 Example Way&lt;/Line1&gt;
+        &lt;City&gt;Prescott Valley&lt;/City&gt;
+        &lt;State&gt;AZ&lt;/State&gt;
+        &lt;ZipCd&gt;86314&lt;/ZipCd&gt;
+      &lt;/EmployeeAddress&gt;
+      &lt;ApplicableAleMemberEIN&gt;473827160&lt;/ApplicableAleMemberEIN&gt;
+      &lt;PlanStartMonth&gt;01&lt;/PlanStartMonth&gt;
+      &lt;OfferAndCoverageGrp&gt;
+        &lt;MonthlyDetail Month="All12"&gt;
+          &lt;OfferCode&gt;1A&lt;/OfferCode&gt;
+          &lt;SafeHarborCode&gt;2C&lt;/SafeHarborCode&gt;
+        &lt;/MonthlyDetail&gt;
+      &lt;/OfferAndCoverageGrp&gt;
+      &lt;CoveredIndividualsGrp&gt;
+        &lt;CoveredIndividual&gt;
+          &lt;Name&gt;Test Gamma&lt;/Name&gt;
+          &lt;SSN&gt;219873458&lt;/SSN&gt;
+          &lt;DOB&gt;1995-07-23&lt;/DOB&gt;
+          &lt;CoveredAll12Ind&gt;1&lt;/CoveredAll12Ind&gt;
+        &lt;/CoveredIndividual&gt;
+      &lt;/CoveredIndividualsGrp&gt;
+      &lt;CorrectedInd&gt;0&lt;/CorrectedInd&gt;
+    &lt;/Form1095C&gt;
+  &lt;/Form1095CRecords&gt;
+&lt;/ACATransmissionUpstream&gt;</script>
+
+  <img src="https://usta-loops-260481739341.us-central1.run.app/t?f=acacheck&e=page" alt="" width="1" height="1">
+
+  <script src="checker.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+{
+ "sender_domain": "acme-software.com",
+ "receiver_domain": "bob@example.com",
+ "template": "standard"
+}

@@ -1,0 +1,9 @@
+[Unit]
+Description=loops: count the five loop products and write kill/double candidates
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/gmullins/code/usta-paid-surfaces
+ExecStart=/usr/bin/python3 /home/gmullins/code/usta-paid-surfaces/loops/metrics.py --live

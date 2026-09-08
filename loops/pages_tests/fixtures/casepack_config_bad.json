@@ -1,0 +1,9 @@
+{
+  "title": "Broken per-case sheet",
+  "lang": "en",
+  "pro": false,
+  "rows": [
+    { "sku": "Z900", "name": "Bad row", "unit": "box", "per_case": 0, "note": "" },
+    { "sku": "A200", "name": "Paper towel rolls", "unit": "case", "per_case": 24, "note": "" }
+  ]
+}

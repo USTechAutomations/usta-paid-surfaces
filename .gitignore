@@ -6,3 +6,7 @@ __pycache__/
 # GitHub refuses files over 100 MB; this 177 MB input stays on disk only (rewrite of 2026-09-06).
 # The pre-commit hook in .git/hooks refuses anything staged over 95 MB.
 var/board-rows/washington-dc.json
+
+# Throwaway Python environments and Node modules the loops workers create for their tests (2026-09-08).
+.venv/
+node_modules/

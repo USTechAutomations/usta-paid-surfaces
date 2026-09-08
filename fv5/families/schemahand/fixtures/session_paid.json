@@ -1,0 +1,17 @@
+{
+  "id": "cs_test_fv5_schemahand_001",
+  "session_id": "cs_test_fv5_schemahand_001",
+  "object": "checkout.session",
+  "mode": "payment",
+  "payment_status": "paid",
+  "status": "complete",
+  "amount_total": 19900,
+  "currency": "usd",
+  "customer_details": {
+    "email": "buyer@example.com"
+  },
+  "custom_fields": [],
+  "metadata": {
+    "family": "schemahand"
+  }
+}
