@@ -811,6 +811,11 @@ def main() -> None:
         thanks = ROOT / "families" / fid / "thanks.html"
         if thanks.is_file():
             shutil.copy2(thanks, outdir / "thanks.html")
+        # A browser add-on family carries its store privacy policy at
+        # families/<fid>/privacy.html (the address the store listing points at).
+        privacy = ROOT / "families" / fid / "privacy.html"
+        if privacy.is_file():
+            shutil.copy2(privacy, outdir / "privacy.html")
 
     # The two bridge pages carry no sample and no catalog row, but they ship in
     # the same folder and go in the same sitemap.
