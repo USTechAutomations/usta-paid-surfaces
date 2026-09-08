@@ -29,7 +29,7 @@ from pathlib import Path
 
 FAMILY = "hazmat-ship-pack"
 PRODUCT_NAME = "Hazmat road shipping pack"
-LINK_ID_ENV_OR_CATALOG = "FV5_LINK_HAZMAT_SHIP_PACK"
+LINK_ID_ENV_OR_CATALOG = "hazmat-ship-pack"
 ETA_MINUTES = 15
 
 HERE = Path(__file__).resolve().parent

@@ -36,7 +36,7 @@ FAMILY = nb.FAMILY
 HERE = nb.HERE
 DATA = nb.DATA
 
-LINK_ID_ENV_OR_CATALOG = "FV5_LINK_ai_disclosure_notice"
+LINK_ID_ENV_OR_CATALOG = "ai-disclosure-notice"
 PRODUCT_NAME = "AI disclosure notice pack"
 ETA_MINUTES = 15
 

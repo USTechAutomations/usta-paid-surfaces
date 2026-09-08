@@ -32,7 +32,7 @@ sys.path.insert(0, str(HERE))
 
 import pagedata as P  # noqa: E402
 
-LINK_ID_ENV_OR_CATALOG = "FV5_LINK_CONTRACTOR_AUDIT_FILE"
+LINK_ID_ENV_OR_CATALOG = "contractor-audit-file"
 PRODUCT_NAME = "The contractor audit file"
 ETA_MINUTES = 15
 

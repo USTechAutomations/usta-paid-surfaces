@@ -30,7 +30,7 @@ FAMILY = "notary-journal"
 DATA = HERE / "data"
 STATE = Path(os.path.expanduser(f"~/.hermes/state/fv5/{FAMILY}"))
 PRODUCT_NAME = "Notary journal — unlocked copy"
-LINK_ID_ENV_OR_CATALOG = "FV6_NOTARY_JOURNAL_LINK_ID"
+LINK_ID_ENV_OR_CATALOG = "notary-journal"
 ETA_MINUTES = 15
 
 
