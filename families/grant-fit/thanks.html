@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Thank you — Grant Fit key</title>
+  <meta name="description" content="Payment thank-you page. The Grant Fit key is printed here. No email is sent.">
+  <link rel="canonical" href="https://ustechautomations.com/feeds/grant-fit/thanks">
+  <link rel="stylesheet" href="../../styles.css">
+  <meta name="theme-color" content="#7a3b12">
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="US Tech Automations — dated change feeds">
+  <meta property="og:url" content="https://ustechautomations.com/feeds/grant-fit/thanks">
+  <meta property="og:title" content="Thank you — Grant Fit key">
+  <meta name="twitter:title" content="Thank you — Grant Fit key">
+  <meta property="og:description" content="Payment thank-you page. The Grant Fit key is printed here. No email is sent.">
+  <meta name="twitter:description" content="Payment thank-you page. The Grant Fit key is printed here. No email is sent.">
+  <meta name="twitter:card" content="summary">
+  <style>
+    button.btn { font: inherit; cursor: pointer; }
+    #license-key {
+      font-family: var(--mono);
+      font-size: .95rem;
+      word-break: break-all;
+      margin: 0;
+      padding: 1.125rem;
+    }
+    #paid { margin: 0 0 2rem; }
+  </style>
+</head>
+<body data-family="grant-fit">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="wordmark" href="../../">Dated change feeds <span>/ US Tech Automations</span></a>
+    <p class="crumbs"><a href="../../">Feeds</a><span class="sep">/</span><a href="./">Grant Fit</a><span class="sep">/</span>Thank you</p>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Grant Fit <span class="dot"></span> thank you</p>
+    <h1>Your Grant Fit key</h1>
+    <p class="lede" id="status">Looking up your payment…</p>
+  </div>
+</section>
+
+<main id="main">
+  <div class="wrap">
+    <div id="paid" hidden>
+      <section>
+        <h2>Your key</h2>
+        <p>Copy it now. It is not emailed.</p>
+        <div class="evidence">
+          <div class="evidence-head">
+            <span>License key</span>
+            <span class="stamp">paste into the add-on</span>
+          </div>
+          <pre id="license-key"></pre>
+        </div>
+        <p class="hero-cta"><button type="button" class="btn btn-buy" id="copy-btn">Copy</button></p>
+      </section>
+      <section>
+        <h2>Paste it into Grant Fit</h2>
+        <ol class="steps">
+          <li>Click the Grant Fit icon on the Chrome or Edge toolbar.</li>
+          <li>Paste the key into the field labeled Paid license key.</li>
+          <li>Click Save key.</li>
+        </ol>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>The key is printed on this page. No email is sent.</p>
+    <p class="addr">US Tech Automations &middot; 3298 N Glassford Hill Rd Ste 104 PMB 1055, Prescott Valley AZ 86314</p>
+  </div>
+</footer>
+<!-- ENTITLEMENT_BASE: swap to the hosted address before buttons go live -->
+<script>
+var ENTITLEMENT_BASE = "https://usta-entitlements-jursznftva-uc.a.run.app";
+(function () {
+  var params = new URLSearchParams(location.search);
+  var host = (location.hostname || "").toLowerCase();
+  var local = location.protocol === "file:" || host === "127.0.0.1" || host === "localhost";
+  if (local) {
+    var ent = params.get("ent");
+    if (ent) ENTITLEMENT_BASE = String(ent).replace(/\/$/, "");
+  }
+  var sessionId = params.get("session_id") || "";
+  var status = document.getElementById("status");
+  var paid = document.getElementById("paid");
+  var keyEl = document.getElementById("license-key");
+  var copyBtn = document.getElementById("copy-btn");
+  var POLL_MS = 5000;
+  var MAX_MS = 3 * 60 * 1000;
+  var FAIL_TEXT = "The key was not found yet. Reload this page later. We do not email the key.";
+
+  function sleep(ms) {
+    return new Promise(function (resolve) { setTimeout(resolve, ms); });
+  }
+
+  function showKey(key) {
+    status.textContent = "Payment received";
+    keyEl.textContent = key;
+    paid.hidden = false;
+  }
+
+  async function claimOnce() {
+    var url = ENTITLEMENT_BASE.replace(/\/$/, "") + "/v1/claim?session_id=" + encodeURIComponent(sessionId);
+    var res = await fetch(url);
+    if (res.status === 404) return { kind: "unknown" };
+    var body = await res.json();
+    if (body && body.ok && body.key) return { kind: "ok", key: body.key };
+    if (body && body.pending) return { kind: "pending" };
+    return { kind: "fail" };
+  }
+
+  async function loop() {
+    if (!sessionId) {
+      status.textContent = "Missing session_id on this page. Pay first; the thank-you link includes it.";
+      return;
+    }
+    var started = Date.now();
+    while (true) {
+      var result;
+      try {
+        result = await claimOnce();
+      } catch (err) {
+        result = { kind: "pending" };
+      }
+      if (result.kind === "ok") {
+        showKey(result.key);
+        return;
+      }
+      if (result.kind === "unknown") {
+        status.textContent = FAIL_TEXT;
+        return;
+      }
+      if (Date.now() - started >= MAX_MS) {
+        status.textContent = FAIL_TEXT;
+        return;
+      }
+      status.textContent = "Payment is still processing. Checking again…";
+      await sleep(POLL_MS);
+    }
+  }
+
+  copyBtn.addEventListener("click", function () {
+    var t = keyEl.textContent || "";
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(t).then(function () {
+        copyBtn.textContent = "Copied";
+      }).catch(function () {
+        copyBtn.textContent = "Copy";
+      });
+    }
+  });
+
+  loop().catch(function () {
+    status.textContent = FAIL_TEXT;
+  });
+})();
+</script>
+</body>
+</html>

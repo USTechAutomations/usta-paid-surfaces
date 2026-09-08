@@ -21,6 +21,11 @@
   <p class="box"><strong>This is document preparation, not tax advice.</strong> A tax agency is not required to accept this draft.</p>
   <h1>Letter pack</h1>
   <p id="status">Looking up your payment…</p>
+  <div id="key-box" class="box" hidden>
+    <p><strong>Your key</strong></p>
+    <pre id="license-key"></pre>
+    <p class="no-print"><button type="button" id="copy-btn">Copy</button></p>
+  </div>
   <div class="no-print">
     <button type="button" id="print-btn">Print</button>
   </div>
@@ -32,14 +37,41 @@
     <h2>Enclosures</h2>
     <ul id="enclosures"></ul>
   </article>
-  <script>
-    const ENTITLEMENT_URL = (window.ENTITLEMENT_URL || "http://127.0.0.1:8781").replace(/\/$/, "");
+<!-- ENTITLEMENT_BASE: swap to the hosted address before buttons go live -->
+<script>
+var ENTITLEMENT_BASE = "https://usta-entitlements-jursznftva-uc.a.run.app";
     const FIT_API_URL = (window.FIT_API_URL || "http://127.0.0.1:8782").replace(/\/$/, "");
     const params = new URLSearchParams(location.search);
+    (function applyLocalEnt() {
+      var host = (location.hostname || "").toLowerCase();
+      var local = location.protocol === "file:" || host === "127.0.0.1" || host === "localhost";
+      if (local) {
+        var ent = params.get("ent");
+        if (ent) ENTITLEMENT_BASE = String(ent).replace(/\/$/, "");
+      }
+    })();
     const sessionId = params.get("session_id") || "";
     const noticeCode = params.get("code") || sessionStorage.getItem("nr_notice_code") || "CP2000";
     const status = document.getElementById("status");
+    const keyEl = document.getElementById("license-key");
+    const keyBox = document.getElementById("key-box");
+    const copyBtn = document.getElementById("copy-btn");
+    const POLL_MS = 5000;
+    const MAX_MS = 3 * 60 * 1000;
+    const FAIL_TEXT = "The key was not found yet. Reload this page later. We do not email the key.";
     document.getElementById("print-btn").addEventListener("click", () => window.print());
+    if (copyBtn) {
+      copyBtn.addEventListener("click", function () {
+        var t = (keyEl && keyEl.textContent) || "";
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(t).then(function () {
+            copyBtn.textContent = "Copied";
+          }).catch(function () {
+            copyBtn.textContent = "Copy";
+          });
+        }
+      });
+    }
 
     async function sha256Hex(text) {
       const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
@@ -79,27 +111,42 @@
       }
     }
 
+    function sleep(ms) {
+      return new Promise(function (resolve) { setTimeout(resolve, ms); });
+    }
+
+    async function waitForKey() {
+      var started = Date.now();
+      while (true) {
+        try {
+          const claimRes = await fetch(
+            ENTITLEMENT_BASE.replace(/\/$/, "") + "/v1/claim?session_id=" + encodeURIComponent(sessionId),
+          );
+          if (claimRes.status === 404) return { fail: "unknown" };
+          const claim = await claimRes.json();
+          if (claim && claim.ok && claim.key) return { key: claim.key };
+        } catch (err) {
+          /* still processing */
+        }
+        if (Date.now() - started >= MAX_MS) return { fail: "timeout" };
+        status.textContent = "Payment is still processing. Checking again…";
+        await sleep(POLL_MS);
+      }
+    }
+
     async function main() {
       if (!sessionId) {
         status.textContent = "Missing session_id on this page. Pay first; the thank-you link includes it.";
         return;
       }
-      const claimRes = await fetch(
-        `${ENTITLEMENT_URL}/v1/claim?session_id=${encodeURIComponent(sessionId)}`,
-      );
-      if (claimRes.status === 404) {
-        status.textContent = "Unknown checkout session.";
+      const got = await waitForKey();
+      if (!got.key) {
+        status.textContent = FAIL_TEXT;
         return;
       }
-      const claim = await claimRes.json();
-      if (!claim.ok && claim.pending) {
-        status.textContent = "Payment is still landing. Refresh this page in a minute.";
-        return;
-      }
-      if (!claim.ok || !claim.key) {
-        status.textContent = "Could not claim a key for this session.";
-        return;
-      }
+      status.textContent = "Payment received";
+      if (keyEl) keyEl.textContent = got.key;
+      if (keyBox) keyBox.hidden = false;
       status.textContent = "Building the letter pack…";
       const fitRes = await fetch(`${FIT_API_URL}/v1/fit`, {
         method: "POST",
@@ -108,7 +155,7 @@
           product: "notice-responder",
           task: "notice_letter",
           install_id: await installId(),
-          license_key: claim.key,
+          license_key: got.key,
           input: { notice_code: noticeCode, facts: facts() },
         }),
       });
@@ -122,7 +169,7 @@
     }
 
     main().catch((err) => {
-      status.textContent = String(err);
+      status.textContent = FAIL_TEXT;
     });
   </script>
 </body>

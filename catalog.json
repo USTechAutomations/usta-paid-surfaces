@@ -2332,12 +2332,12 @@
       "checkout": {
         "terms": "$19 a month, billed monthly, for unlimited Grant Fit reports plus a letter-of-inquiry outline. Five reports a month stay free with no key. Cancel any month by email, with no account to close and no notice period. This is a fit score against the profile you saved, not a promise a funder will pay, and not legal advice.",
         "after": "The license key is printed on the thank-you page after payment. No email is sent. Paste the key into the extension.",
-        "url": "TO-MINT",
+        "url": "https://buy.stripe.com/eVq3cofZI4qmfA8cPw0sU2z",
         "label": "Subscribe — $19 a month",
-        "lands_on": "TO-MINT",
-        "status": "pending",
-        "checked": "",
-        "verified": ""
+        "lands_on": "buy.stripe.com",
+        "status": "live",
+        "checked": "2026-09-07",
+        "verified": "2026-09-07"
       }
     },
     {
@@ -2410,11 +2410,12 @@
       "checkout": {
         "terms": "$49 once for a lifetime KDP Lens license key. The key is printed on the thank-you page after payment. Paste it into the extension popup. Free use is 10 Amazon pages a day without a key. The extension never touches your KDP account and never sends page text off your machine. Estimated sales are a guessed curve, not a receipt. It is not a subscription. Cancel is not needed. Email operations@ustechautomations.com with questions.",
         "after": "The lifetime key is printed on the thank-you page after payment.",
-        "url": "TO-MINT",
-        "label": "Unlock lifetime — $49 once",
-        "lands_on": "pending",
-        "status": "pending",
-        "checked": "2026-09-07"
+        "url": "https://buy.stripe.com/3cI4gs6p8g9487GdTA0sU2A",
+        "label": "Buy the lifetime key — $49 once",
+        "lands_on": "buy.stripe.com",
+        "status": "live",
+        "checked": "2026-09-07",
+        "verified": "2026-09-07"
       }
     },
     {
@@ -2435,8 +2436,12 @@
       "checkout": {
         "terms": "$29 once for one response-letter pack for one notice. Nothing recurring. The pack is a draft letter, a checklist, and a list of enclosures. It appears on the thank-you page. Print it. We do not email it. This is document preparation, not tax advice. We do not claim a tax agency will accept the letter. Cancel is not needed because nothing renews.",
         "after": "The letter pack appears on the thank-you page. Print it. We do not email it.",
-        "url": "TO-MINT",
-        "label": "Buy the letter pack — $29 once"
+        "url": "https://buy.stripe.com/8x2fZadRA1eabjS8zg0sU2B",
+        "label": "Buy the letter pack — $29 once",
+        "lands_on": "buy.stripe.com",
+        "checked": "2026-09-07",
+        "status": "live",
+        "verified": "2026-09-07"
       }
     },
     {

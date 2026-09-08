@@ -804,6 +804,13 @@ def main() -> None:
         (outdir / "index.html").write_text(page, encoding="utf-8")
         built.append(f"/feeds/{fid}")
         parents[fid] = crumb
+        # A family that sells a licence key or a letter pack sends its buyer
+        # back from Stripe to families/<fid>/thanks.html (the address the pay
+        # link redirects to). Carry it next to the page. Before 2026-09-08 the
+        # builder never copied it and three live redirect addresses were 404s.
+        thanks = ROOT / "families" / fid / "thanks.html"
+        if thanks.is_file():
+            shutil.copy2(thanks, outdir / "thanks.html")
 
     # The two bridge pages carry no sample and no catalog row, but they ship in
     # the same folder and go in the same sitemap.
