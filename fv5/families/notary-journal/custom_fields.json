@@ -1,15 +1,68 @@
 [
  {
   "key": "state",
-  "label": {"type": "custom", "custom": "Which state's rule should the journal follow?"},
+  "label": {
+   "type": "custom",
+   "custom": "Which state's rule should the journal follow?"
+  },
   "type": "dropdown",
   "optional": false,
-  "note": "The options are built at mint time from data/states.json: only the states whose own text we read and whose text permits an electronic journal. A state we could not read, or whose text points at a state-approved provider, is not on this list and its page shows no pay button.",
-  "dropdown": {"options": []}
+  "note": "The options are filled by the integrator on 2026-09-08 and refreshed with refresh.py from data/states.json: only the states whose own text we read and whose text permits an electronic journal. A state we could not read, or whose text points at a state-approved provider, is not on this list and its page shows no pay button.",
+  "dropdown": {
+   "options": [
+    {
+     "label": "Arizona",
+     "value": "AZ"
+    },
+    {
+     "label": "Delaware",
+     "value": "DE"
+    },
+    {
+     "label": "District of Columbia",
+     "value": "DC"
+    },
+    {
+     "label": "Florida",
+     "value": "FL"
+    },
+    {
+     "label": "Kansas",
+     "value": "KS"
+    },
+    {
+     "label": "New Jersey",
+     "value": "NJ"
+    },
+    {
+     "label": "New Mexico",
+     "value": "NM"
+    },
+    {
+     "label": "North Dakota",
+     "value": "ND"
+    },
+    {
+     "label": "Oregon",
+     "value": "OR"
+    },
+    {
+     "label": "Pennsylvania",
+     "value": "PA"
+    },
+    {
+     "label": "Washington",
+     "value": "WA"
+    }
+   ]
+  }
  },
  {
   "key": "commission",
-  "label": {"type": "custom", "custom": "Commission number (optional, printed on your copy)"},
+  "label": {
+   "type": "custom",
+   "custom": "Commission number (optional, printed on your copy)"
+  },
   "type": "text",
   "optional": true
  }
