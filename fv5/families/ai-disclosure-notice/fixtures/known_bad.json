@@ -1,0 +1,18 @@
+{
+ "name": "None of those places, and it is obvious it is an AI",
+ "why": "The case where the honest answer is that none of the rows we hold line up. The page has to say that without telling anybody they are in the clear.",
+ "input": {
+  "regions": ["none"],
+  "uses": ["chat"],
+  "obvious": true,
+  "users_over_1m": false,
+  "org": ""
+ },
+ "expect": {
+  "no_row_matches": true,
+  "every_row_has_reason": true,
+  "min_matches": 0,
+  "max_matches": 0,
+  "notice_keys": []
+ }
+}

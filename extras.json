@@ -171,6 +171,51 @@
     "pill_class": "pill-ready"
   },
   {
+    "id": "hazmat-ship-pack",
+    "short": "Hazmat road pack, one UN number",
+    "who": "Small shippers and e-commerce sellers who must ship one dangerous good by road in the US and need the federal table row, the exceptions explained and label artwork proofs.",
+    "amount": "$49",
+    "cadence": "One payment, not a subscription. You get one private web page for the UN number you name. The federal table is amended through the year; buying again is your choice, nothing recurring.",
+    "pill": "Live",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "contractor-audit-file",
+    "short": "Contractor audit file",
+    "who": "A founder or small business paying people on 1099 who wants one organised file ready for a state audit, a 1099 mismatch letter or a lawyer's questionnaire.",
+    "amount": "$49",
+    "cadence": "One payment, not a subscription. You get one private page you can print or save. We re-read the cited statute pages and re-check every quote; buying again is your choice, nothing recurring.",
+    "pill": "Live",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "nutrition-label-forge",
+    "short": "Nutrition Facts panel builder",
+    "who": "Small US food makers putting a first product on a shelf, who need a Nutrition Facts panel and the reasoning behind every number on it.",
+    "amount": "$49",
+    "cadence": "One payment for one product, not a subscription. We re-read 21 CFR 101.9, 101.12 and 101.4 from the eCFR every month and rebuild the food table when USDA publishes a new release, so the free pages stay current; buying again for a second product is your choice, nothing recurring.",
+    "pill": "Live",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "ai-disclosure-notice",
+    "short": "AI disclosure notice pack",
+    "who": "A company running an AI chatbot, AI-generated content or an AI decision step that people in the EU or a US disclosure state can reach.",
+    "amount": "$49",
+    "cadence": "One payment, not a subscription. You get the notice pack as a single private page, dated. We re-read the sources about every three months; buying again is your choice, nothing recurring.",
+    "pill": "Live",
+    "pill_class": "pill-ready"
+  },
+  {
+    "id": "notary-journal",
+    "short": "Notary journal, unlocked copy",
+    "who": "A notary public or loan-signing agent who wants their own state's words about a journal and a journal that keeps entries on their own device.",
+    "amount": "$49",
+    "cadence": "One payment, not a subscription. You get one private page carrying the same journal with no entry limit. The free state pages are re-read every week; buying again is never needed and nothing recurs.",
+    "pill": "Live",
+    "pill_class": "pill-ready"
+  },
+  {
     "id": "coverage",
     "short": "Everything we hold",
     "who": "Anyone deciding whether we hold the record they need, before they ask about price",

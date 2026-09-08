@@ -1,0 +1,23 @@
+{
+  "what": "A number the federal table does not hold. The page must say so, never render None.",
+  "input": {
+    "query": "UN0000",
+    "un_number": "UN0000",
+    "shipping_name": ""
+  },
+  "expect": {
+    "search_count_contains": "No identification number",
+    "search_hits": 0,
+    "fulfil_title": "Hazmat road shipping pack \u2014 no such identification number",
+    "fulfil_html_contains": [
+      "No identification number UN0000 in the federal table",
+      "Refund on request within 14 days"
+    ],
+    "fulfil_html_excludes": [
+      ">None<",
+      "None</",
+      "Traceback",
+      "KeyError"
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "what": "The family page search box, driven by browser_test.py, and the fulfil worksheet.",
+  "input": {"query": "UN1263", "un_number": "UN1993", "shipping_name": ""},
+  "expect": {
+    "search_hit_href": "un1263/",
+    "search_hit_text_contains": "Paint",
+    "search_count_contains": "match",
+    "fulfil_title": "UN1993 — road shipping worksheet",
+    "fulfil_html_contains": [
+      "Flammable liquid",
+      "Part 1 of 6",
+      "Artwork proof, not a compliant label",
+      "not a shipping paper"
+    ]
+  }
+}

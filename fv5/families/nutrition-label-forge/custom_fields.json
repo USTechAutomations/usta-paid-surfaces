@@ -1,0 +1,15 @@
+[
+  {
+    "key": "product_name",
+    "label": {
+      "type": "custom",
+      "custom": "Product name as it will read on the package"
+    },
+    "type": "text",
+    "optional": false,
+    "text": {
+      "minimum_length": 2,
+      "maximum_length": 60
+    }
+  }
+]

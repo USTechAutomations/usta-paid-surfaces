@@ -1,0 +1,15 @@
+{
+ "note": "Nevada: the text we read describes a bound paper journal and we found no words in it permitting an electronic one. The tool must say so and the page must show no pay button. Texas would have been the brief's known_good; its statute site serves an application shell with no text, so Texas is unsettled and is here as a second bad case rather than a good one.",
+ "state_code": "NV",
+ "state_name": "Nevada",
+ "expect": {
+  "electronic_allowed": "not_allowed",
+  "buy_shown": false,
+  "page_contains": "no words permitting an electronic one"
+ },
+ "second_case": {
+  "state_code": "TX",
+  "state_name": "Texas",
+  "expect": {"electronic_allowed": "unclear", "buy_shown": false}
+ }
+}

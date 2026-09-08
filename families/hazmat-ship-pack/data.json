@@ -1,0 +1,1606 @@
+{
+  "family": "hazmat-ship-pack",
+  "generated": "2026-09-08",
+  "slices": [
+    {
+      "slug": "un1263",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 20,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3469",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 20,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3470",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3528",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3529",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "na1993",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 23,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3166",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3475",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1950",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 19,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1219",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3091",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3481",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3090",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3480",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1845",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3473",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "na1760",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 22,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1202",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1266",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3171",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1471",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1170",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1210",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1863",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1274",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3316",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1203",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3476",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3477",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3478",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3479",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3536",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3530",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2796",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1133",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1011",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1969",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1978",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2623",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1748",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1987",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1774",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2679",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "id8000",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3485",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1415",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1417",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1472",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2680",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2722",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2805",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2830",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3066",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3274",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1072",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1601",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1903",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2797",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3028",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3142",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3149",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1986",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1268",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "na1987",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1057",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1148",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1289",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3065",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1139",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1230",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3264",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3265",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1204",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1212",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1992",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1993",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2614",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2874",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2924",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2937",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3438",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1866",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2051",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2491",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2686",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2873",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3055",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2014",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2344",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2872",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2794",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2922",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3286",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3077",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3082",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "na1270",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1267",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3494",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1851",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3248",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3249",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "na1057",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un0340",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un0342",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un0395",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un0396",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1027",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1126",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1127",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1278",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1279",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1511",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1649",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1976",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2044",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2339",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2341",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2342",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2346",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2356",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2390",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2391",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2392",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2402",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2424",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2457",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2556",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2601",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2608",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2688",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2750",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2752",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2849",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2984",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3092",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3241",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3296",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3483",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2920",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3093",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1954",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1964",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3156",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3175",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3496",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1044",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1313",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1314",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1318",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1330",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2714",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2715",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1791",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2880",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3487",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1325",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2925",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2926",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3176",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3178",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3179",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3180",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3244",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2059",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un0219",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un0394",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1012",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1055",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1075",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1077",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1223",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2208",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2741",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3212",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3268",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3486",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3206",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1788",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 18,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2031",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 18,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1760",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3266",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3267",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3292",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1410",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1411",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1413",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1414",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un2806",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3260",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3261",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3345",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3347",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3348",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 17,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un3301",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 16,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1002",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1006",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1046",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1049",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1056",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    },
+    {
+      "slug": "un1065",
+      "newest": "2026-09-03",
+      "oldest": "2026-09-03",
+      "runs": 1,
+      "row_count": 15,
+      "cadence_days": 7
+    }
+  ]
+}

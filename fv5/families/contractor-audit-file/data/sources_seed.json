@@ -1,0 +1,554 @@
+{
+  "note": "Candidate official addresses, one per jurisdiction. refresh.py fetches each, checks that the page really carries the cited section number, and only then keeps a quote. Nothing here is treated as true until the bytes come back and match.",
+  "federal": [
+    {
+      "code": "US-DOL",
+      "name": "Federal wage law (economic reality)",
+      "kind": "ecfr",
+      "url": "https://www.ecfr.gov/api/versioner/v1/full/{date}/title-29.xml?part=795",
+      "cite": "29 CFR part 795",
+      "must": [
+        "795.105",
+        "economic reality"
+      ],
+      "prong_set": "dol"
+    },
+    {
+      "code": "US-DOL-NEWS",
+      "name": "Federal wage law rulemaking",
+      "kind": "agency",
+      "url": "https://www.dol.gov/newsroom/releases/whd/whd20260226",
+      "cite": "US Department of Labor news release, 26 February 2026",
+      "must": [
+        "independent contractor"
+      ]
+    },
+    {
+      "code": "US-IRS",
+      "name": "Federal employment tax (common-law control)",
+      "kind": "agency",
+      "url": "https://www.irs.gov/businesses/small-businesses-self-employed/independent-contractor-self-employed-or-employee",
+      "cite": "IRS: Independent contractor (self-employed) or employee?",
+      "must": [
+        "behavioral",
+        "financial"
+      ],
+      "prong_set": "irs"
+    },
+    {
+      "code": "US-IRS-SS8",
+      "name": "Form SS-8 determination",
+      "kind": "agency",
+      "url": "https://www.irs.gov/businesses/small-businesses-self-employed/completing-form-ss-8",
+      "cite": "IRS: Completing Form SS-8",
+      "must": [
+        "SS-8"
+      ]
+    }
+  ],
+  "states": [
+    {
+      "code": "AK",
+      "name": "Alaska",
+      "url": "https://www.akleg.gov/basis/statutes.asp#23.20.525",
+      "cite": "AS 23.20.525",
+      "must": [
+        "23.20.525"
+      ]
+    },
+    {
+      "code": "AL",
+      "name": "Alabama",
+      "url": "https://labor.alabama.gov/uc/employer/",
+      "cite": "Alabama Department of Labor, unemployment compensation for employers",
+      "must": [
+        "employ"
+      ]
+    },
+    {
+      "code": "AR",
+      "name": "Arkansas",
+      "url": "https://www.dws.arkansas.gov/employers/unemployment-insurance/",
+      "cite": "Arkansas Division of Workforce Services, unemployment insurance for employers",
+      "must": [
+        "employ"
+      ]
+    },
+    {
+      "code": "AZ",
+      "name": "Arizona",
+      "url": "https://www.azleg.gov/ars/23/00902.htm",
+      "cite": "A.R.S. 23-902",
+      "must": [
+        "23-902"
+      ]
+    },
+    {
+      "code": "CA",
+      "name": "California",
+      "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=2775.&lawCode=LAB",
+      "cite": "Cal. Lab. Code 2775",
+      "must": [
+        "2775",
+        "independent contractor"
+      ]
+    },
+    {
+      "code": "CO",
+      "name": "Colorado",
+      "url": "https://cdle.colorado.gov/employers/employer-services/independent-contractors",
+      "cite": "Colorado Department of Labor and Employment, independent contractors",
+      "must": [
+        "independent contractor"
+      ]
+    },
+    {
+      "code": "CT",
+      "name": "Connecticut",
+      "url": "https://www.cga.ct.gov/current/pub/chap_567.htm",
+      "cite": "Conn. Gen. Stat. 31-222",
+      "must": [
+        "31-222"
+      ]
+    },
+    {
+      "code": "DC",
+      "name": "District of Columbia",
+      "url": "https://code.dccouncil.gov/us/dc/council/code/sections/51-101",
+      "cite": "D.C. Code 51-101",
+      "must": [
+        "51-101"
+      ]
+    },
+    {
+      "code": "DE",
+      "name": "Delaware",
+      "url": "https://delcode.delaware.gov/title19/c033/index.html",
+      "cite": "19 Del. C. 3302",
+      "must": [
+        "3302"
+      ]
+    },
+    {
+      "code": "FL",
+      "name": "Florida",
+      "url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0400-0499/0443/Sections/0443.1216.html",
+      "cite": "Fla. Stat. 443.1216",
+      "must": [
+        "443.1216"
+      ]
+    },
+    {
+      "code": "GA",
+      "name": "Georgia",
+      "url": "https://dol.georgia.gov/employer-portal",
+      "cite": "Georgia Department of Labor, employer portal",
+      "must": [
+        "employ"
+      ]
+    },
+    {
+      "code": "HI",
+      "name": "Hawaii",
+      "url": "https://www.capitol.hawaii.gov/hrscurrent/Vol07_Ch0346-0398/HRS0383/HRS_0383-0006.htm",
+      "cite": "HRS 383-6",
+      "must": [
+        "383-6"
+      ]
+    },
+    {
+      "code": "IA",
+      "name": "Iowa",
+      "url": "https://www.legis.iowa.gov/docs/code/96.19.pdf",
+      "cite": "Iowa Code 96.19",
+      "must": [
+        "96.19"
+      ]
+    },
+    {
+      "code": "ID",
+      "name": "Idaho",
+      "url": "https://legislature.idaho.gov/statutesrules/idstat/Title72/T72CH13/SECT72-1316/",
+      "cite": "Idaho Code 72-1316",
+      "must": [
+        "72-1316"
+      ]
+    },
+    {
+      "code": "IL",
+      "name": "Illinois",
+      "url": "https://www.ilga.gov/legislation/ilcs/ilcs3.asp?ActID=2789&ChapterID=68",
+      "cite": "820 ILCS 185 (Employee Classification Act)",
+      "must": [
+        "185/"
+      ]
+    },
+    {
+      "code": "IN",
+      "name": "Indiana",
+      "url": "https://iga.in.gov/laws/2024/ic/titles/22",
+      "cite": "Ind. Code 22-4-8-1",
+      "must": [
+        "22-4-8"
+      ]
+    },
+    {
+      "code": "KS",
+      "name": "Kansas",
+      "url": "https://www.ksrevisor.gov/statutes/chapters/ch44/044_007_0003.html",
+      "cite": "K.S.A. 44-703",
+      "must": [
+        "44-703"
+      ]
+    },
+    {
+      "code": "KY",
+      "name": "Kentucky",
+      "url": "https://apps.legislature.ky.gov/law/statutes/statute.aspx?id=48929",
+      "cite": "KRS 341.050",
+      "must": [
+        "341.050"
+      ]
+    },
+    {
+      "code": "LA",
+      "name": "Louisiana",
+      "url": "https://www.legis.la.gov/legis/Law.aspx?d=85383",
+      "cite": "La. R.S. 23:1472",
+      "must": [
+        "1472"
+      ]
+    },
+    {
+      "code": "MA",
+      "name": "Massachusetts",
+      "url": "https://malegislature.gov/laws/generallaws/parti/titlexxi/chapter149/section148B",
+      "cite": "Mass. Gen. Laws c.149 148B",
+      "must": [
+        "148B",
+        "independent"
+      ]
+    },
+    {
+      "code": "MD",
+      "name": "Maryland",
+      "url": "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gle&section=8-205",
+      "cite": "Md. Code, Lab. & Empl. 8-205",
+      "must": [
+        "8-205"
+      ]
+    },
+    {
+      "code": "ME",
+      "name": "Maine",
+      "url": "https://legislature.maine.gov/statutes/26/title26sec1043.html",
+      "cite": "26 M.R.S. 1043",
+      "must": [
+        "1043"
+      ]
+    },
+    {
+      "code": "MI",
+      "name": "Michigan",
+      "url": "https://www.michigan.gov/leo/bureaus-agencies/uia/employers",
+      "cite": "Michigan Unemployment Insurance Agency, employers",
+      "must": [
+        "employ"
+      ]
+    },
+    {
+      "code": "MN",
+      "name": "Minnesota",
+      "url": "https://www.revisor.mn.gov/statutes/cite/268.035",
+      "cite": "Minn. Stat. 268.035",
+      "must": [
+        "268.035"
+      ]
+    },
+    {
+      "code": "MO",
+      "name": "Missouri",
+      "url": "https://revisor.mo.gov/main/OneSection.aspx?section=288.034",
+      "cite": "Mo. Rev. Stat. 288.034",
+      "must": [
+        "288.034"
+      ]
+    },
+    {
+      "code": "MS",
+      "name": "Mississippi",
+      "url": "https://mdes.ms.gov/employers/",
+      "cite": "Mississippi Department of Employment Security, employers",
+      "must": [
+        "employ"
+      ]
+    },
+    {
+      "code": "MT",
+      "name": "Montana",
+      "url": "https://erd.dli.mt.gov/work-comp-regulations/independent-contractor-central-unit/",
+      "cite": "Montana Department of Labor and Industry, independent contractor central unit",
+      "must": [
+        "independent contractor"
+      ]
+    },
+    {
+      "code": "NC",
+      "name": "North Carolina",
+      "url": "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_96/GS_96-1.html",
+      "cite": "N.C.G.S. 96-1",
+      "must": [
+        "96-1"
+      ]
+    },
+    {
+      "code": "ND",
+      "name": "North Dakota",
+      "url": "https://www.jobsnd.com/unemployment-individuals/employer-liability",
+      "cite": "Job Service North Dakota, employer liability",
+      "must": [
+        "employ"
+      ]
+    },
+    {
+      "code": "NE",
+      "name": "Nebraska",
+      "url": "https://nebraskalegislature.gov/laws/statutes.php?statute=48-604",
+      "cite": "Neb. Rev. Stat. 48-604",
+      "must": [
+        "48-604"
+      ]
+    },
+    {
+      "code": "NH",
+      "name": "New Hampshire",
+      "url": "https://www.gencourt.state.nh.us/rsa/html/XXIII/282-A/282-A-9.htm",
+      "cite": "RSA 282-A:9",
+      "must": [
+        "282-A:9"
+      ]
+    },
+    {
+      "code": "NJ",
+      "name": "New Jersey",
+      "url": "https://www.nj.gov/labor/myworkrights/worker-protections/independent_contractors/",
+      "cite": "New Jersey Department of Labor, independent contractors (N.J.S.A. 43:21-19(i)(6))",
+      "must": [
+        "43:21-19"
+      ]
+    },
+    {
+      "code": "NM",
+      "name": "New Mexico",
+      "url": "https://www.dws.state.nm.us/Unemployment-Insurance-Tax",
+      "cite": "New Mexico Department of Workforce Solutions, unemployment insurance tax",
+      "must": [
+        "employ"
+      ]
+    },
+    {
+      "code": "NV",
+      "name": "Nevada",
+      "url": "https://www.leg.state.nv.us/nrs/nrs-612.html",
+      "cite": "NRS 612",
+      "must": [
+        "612.085"
+      ]
+    },
+    {
+      "code": "NY",
+      "name": "New York",
+      "url": "https://dol.ny.gov/independent-contractors",
+      "cite": "New York State Department of Labor, independent contractors",
+      "must": [
+        "independent contractor"
+      ]
+    },
+    {
+      "code": "OH",
+      "name": "Ohio",
+      "url": "https://codes.ohio.gov/ohio-revised-code/section-4141.01",
+      "cite": "Ohio Rev. Code 4141.01",
+      "must": [
+        "4141.01"
+      ]
+    },
+    {
+      "code": "OK",
+      "name": "Oklahoma",
+      "url": "https://oklahoma.gov/oesc/businesses.html",
+      "cite": "Oklahoma Employment Security Commission, businesses",
+      "must": [
+        "employ"
+      ]
+    },
+    {
+      "code": "OR",
+      "name": "Oregon",
+      "url": "https://www.oregon.gov/boli/employers/pages/independent-contractors.aspx",
+      "cite": "Oregon Bureau of Labor and Industries, independent contractors",
+      "must": [
+        "independent contractor"
+      ]
+    },
+    {
+      "code": "PA",
+      "name": "Pennsylvania",
+      "url": "https://www.pa.gov/agencies/dli/programs-services/unemployment-benefits.html",
+      "cite": "Pennsylvania Department of Labor and Industry, unemployment benefits",
+      "must": [
+        "employ"
+      ]
+    },
+    {
+      "code": "RI",
+      "name": "Rhode Island",
+      "url": "https://webserver.rilegislature.gov/Statutes/TITLE28/28-42/28-42-8.HTM",
+      "cite": "R.I. Gen. Laws 28-42-8",
+      "must": [
+        "28-42-8"
+      ]
+    },
+    {
+      "code": "SC",
+      "name": "South Carolina",
+      "url": "https://www.scstatehouse.gov/code/t41c027.php",
+      "cite": "S.C. Code 41-27-260",
+      "must": [
+        "41-27-260"
+      ]
+    },
+    {
+      "code": "SD",
+      "name": "South Dakota",
+      "url": "https://sdlegislature.gov/Statutes/61-1-11",
+      "cite": "SDCL 61-1-11",
+      "must": [
+        "61-1-11"
+      ]
+    },
+    {
+      "code": "TN",
+      "name": "Tennessee",
+      "url": "https://www.tn.gov/workforce/employers/tax-and-insurance-redirect/unemployment-insurance-tax.html",
+      "cite": "Tennessee Department of Labor and Workforce Development, unemployment insurance tax",
+      "must": [
+        "employ"
+      ]
+    },
+    {
+      "code": "TX",
+      "name": "Texas",
+      "url": "https://www.twc.texas.gov/programs/unemployment-tax/independent-contractor-test",
+      "cite": "Texas Workforce Commission, independent contractor test",
+      "must": [
+        "independent contractor"
+      ]
+    },
+    {
+      "code": "UT",
+      "name": "Utah",
+      "url": "https://le.utah.gov/xcode/Title35A/Chapter4/35A-4-S204.html",
+      "cite": "Utah Code 35A-4-204",
+      "must": [
+        "35A-4-204"
+      ]
+    },
+    {
+      "code": "VA",
+      "name": "Virginia",
+      "url": "https://law.lis.virginia.gov/vacode/title60.2/chapter2/section60.2-212/",
+      "cite": "Va. Code 60.2-212",
+      "must": [
+        "60.2-212"
+      ]
+    },
+    {
+      "code": "VT",
+      "name": "Vermont",
+      "url": "https://legislature.vermont.gov/statutes/section/21/017/01301",
+      "cite": "21 V.S.A. 1301",
+      "must": [
+        "1301"
+      ]
+    },
+    {
+      "code": "WA",
+      "name": "Washington",
+      "url": "https://app.leg.wa.gov/RCW/default.aspx?cite=51.08.195",
+      "cite": "RCW 51.08.195",
+      "must": [
+        "51.08.195"
+      ]
+    },
+    {
+      "code": "WI",
+      "name": "Wisconsin",
+      "url": "https://docs.legis.wisconsin.gov/statutes/statutes/108/02/12",
+      "cite": "Wis. Stat. 108.02(12)",
+      "must": [
+        "108.02"
+      ]
+    },
+    {
+      "code": "WV",
+      "name": "West Virginia",
+      "url": "https://code.wvlegislature.gov/21A-1-3/",
+      "cite": "W. Va. Code 21A-1-3",
+      "must": [
+        "21A-1-3"
+      ]
+    },
+    {
+      "code": "WY",
+      "name": "Wyoming",
+      "url": "https://dws.wyo.gov/dws-division/unemployment-insurance/",
+      "cite": "Wyoming Department of Workforce Services, unemployment insurance",
+      "must": [
+        "employ"
+      ]
+    }
+  ],
+  "penalties": [
+    {
+      "code": "CA-PEN",
+      "for": "CA",
+      "name": "California willful misclassification penalty",
+      "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=LAB&sectionNum=226.8",
+      "cite": "Cal. Lab. Code 226.8",
+      "must": [
+        "226.8"
+      ]
+    },
+    {
+      "code": "MA-PEN",
+      "for": "MA",
+      "name": "Massachusetts enforcement and penalties",
+      "url": "https://malegislature.gov/laws/generallaws/parti/titlexxi/chapter149/section27C",
+      "cite": "Mass. Gen. Laws c.149 27C",
+      "must": [
+        "27C"
+      ]
+    },
+    {
+      "code": "NJ-PEN",
+      "for": "NJ",
+      "name": "New Jersey penalties",
+      "url": "https://www.nj.gov/labor/myworkrights/worker-protections/independent_contractors/",
+      "cite": "New Jersey Department of Labor, independent contractors",
+      "must": [
+        "43:21-19"
+      ]
+    },
+    {
+      "code": "WA-PEN",
+      "for": "WA",
+      "name": "Washington industrial insurance requirement",
+      "url": "https://www.lni.wa.gov/insurance/insurance-requirements/independent-contractors/",
+      "cite": "Washington State Department of Labor & Industries, independent contractors",
+      "must": [
+        "independent contractor"
+      ]
+    }
+  ]
+}

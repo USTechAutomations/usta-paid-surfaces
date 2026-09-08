@@ -1,0 +1,14 @@
+{
+  "id": "cs_test_fv6_hazmat-ship-pack_001",
+  "object": "checkout.session",
+  "amount_total": 4900,
+  "currency": "usd",
+  "payment_status": "paid",
+  "custom_fields": [
+    {"key": "un_number", "type": "text", "text": {"value": "UN1993"}},
+    {"key": "shipping_name", "type": "text", "text": {"value": ""}}
+  ],
+  "customer_details": {"email": "shipper@example.com"},
+  "created": 1757260800,
+  "metadata": {"private_slug": "hazmat-1993-4c7b9a2e"}
+}
