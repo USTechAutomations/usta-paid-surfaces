@@ -52,6 +52,16 @@ def _e(s) -> str:
     return html.escape(str(s or ""))
 
 
+def price_str() -> str:
+    """The price, read from catalog.json. It is never typed into a page."""
+    cat = json.loads((ROOT / "catalog.json").read_text(encoding="utf-8"))
+    fams = cat["families"] if isinstance(cat, dict) else cat
+    for f in fams:
+        if f["id"] == FAMILY:
+            return f.get("price", "")
+    return ""
+
+
 _CACHE: dict[str, dict] = {}
 
 
@@ -149,6 +159,12 @@ def _racc_slices() -> list[dict]:
                 f"for the edition of {edition()}. Nothing here is retyped.",
                 "The reference amounts are for food as it is eaten, so a mix or a "
                 "concentrate is measured prepared, not as sold.",
+                f'Read the table yourself: <a href="{ECFR_12}" '
+                f'data-source-url="{ECFR_12}">21 CFR 101.12 on the eCFR</a>, and '
+                f'<a href="{ECFR_9}" data-source-url="{ECFR_9}">101.9(b)</a> for '
+                "the step from the reference amount to the printed serving. The "
+                f"{price_str()} pack is the panel files for one product; these "
+                "pages are free.",
             ],
             "limits": [
                 "Table 2 covers the general food supply. Foods for infants and for "
@@ -176,6 +192,7 @@ def _rule_slices() -> list[dict]:
         if len(rows) < 5:
             continue
         sec = page["section"]
+        url = ECFR_4 if sec == "101.4" else (ECFR_12 if sec == "101.12" else ECFR_9)
         desc = f"{page['title']}: the paragraphs of 21 CFR {sec}, quoted. $49 panel builder."
         if len(desc) > MAX_DESC:
             desc = f"{page['title']}: 21 CFR {sec} quoted in full."[:MAX_DESC]
@@ -210,6 +227,10 @@ def _rule_slices() -> list[dict]:
                 "question a food maker actually asks.",
                 "The panel builder on the family page applies these paragraphs to "
                 "your own numbers and shows its working.",
+                f'Read the section yourself: <a href="{url}" '
+                f'data-source-url="{url}">21 CFR {sec} on the eCFR</a>. The '
+                f"{price_str()} pack is the panel files for one product; these "
+                "pages are free.",
             ],
             "limits": [
                 "Quoted text is trimmed for length, so read the source before you "

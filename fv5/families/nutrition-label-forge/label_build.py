@@ -763,7 +763,7 @@ RULE_PAGES = [
     },
     {
         "slug": "dual-column-labels",
-        "title": "Dual-column labels",
+        "title": "When a panel needs two columns",
         "section": "101.9",
         "lede": "Packages holding between two and three reference amounts carry two "
                 "columns of figures. 21 CFR 101.9(b)(12) and (e).",
