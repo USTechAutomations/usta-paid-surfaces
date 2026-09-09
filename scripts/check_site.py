@@ -2,11 +2,9 @@
 """Fail closed if a family grows a fake checkout, a one-off SKU, or drops its sample rules.
 
 This gate is about truth. Looks are a separate gate: scripts/check_brand.py,
-whose standard is BRAND.md at the repo root. It is deliberately NOT run from
-here yet, because the estate is not conformant today -- see BRAND.md
-"Baseline 2026-09-08", 914 failing checks over 3169 pages. check_brand.py
-strict becomes mandatory here, and a page that fails it stops being
-shippable, once every number in that baseline table reaches zero.
+whose standard is BRAND.md at the repo root. Since 2026-09-08 (baseline 0 of
+3169 pages) strict check_brand.py runs right after build_site.py in
+scripts/refresh_and_deploy.sh and a page that fails it is not shippable.
 """
 from __future__ import annotations
 

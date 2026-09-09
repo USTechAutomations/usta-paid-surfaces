@@ -146,8 +146,11 @@ decorative icons are hidden from assistive technology.
 ## 10. Baseline 2026-09-08
 
 `python3 scripts/build_site.py && python3 scripts/check_brand.py --report` over
-**3169** built pages, on commit-time `dist/`. Strict mode is **not** wired into
-`check_site.py` yet; it becomes mandatory when every number below is zero.
+**3169** built pages, on commit-time `dist/`. The table is the morning count. By
+the afternoon of 2026-09-08 every number reached **0** (commit `615b92da`, live
+revision 90), and strict `check_brand.py --dist dist` now runs in
+`scripts/refresh_and_deploy.sh` right after the build: a failing page stops the
+publish. The numbers below are kept as the record of what was fixed.
 
 | Check | Pages failing |
 | :-- | --: |
