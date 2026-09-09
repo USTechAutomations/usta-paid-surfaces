@@ -106,8 +106,15 @@ def refuse(reason: str, status: int = 400) -> JSONResponse:
 
 
 def refuse_html(family: str, title: str, reason: str, status: int = 400,
-                event: str = "refused") -> HTMLResponse:
-    body = f'<div class="err">{T.esc(reason)}</div>'
+                event: str = "refused", tone: str = "alert") -> HTMLResponse:
+    """A dead end a person can read, in the house shell.
+
+    tone "alert" is the rose panel for a link that will never work again; tone
+    "note" is an ordinary card for a page that is simply waiting on somebody
+    else, which is not a failure and should not be painted as one.
+    """
+    css = "lp-alert" if tone == "alert" else "card"
+    body = T.section(f'<div class="{css}"><p>{T.esc(reason)}</p></div>')
     return HTMLResponse(T.page(title=title, family=family, event=event, body=body,
                                heading=title), status_code=status)
 

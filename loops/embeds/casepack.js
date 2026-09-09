@@ -243,20 +243,55 @@
   // only runs when this file is actually loaded as a <script> tag.
   // -------------------------------------------------------------------
 
+  // The brand, carried as six of the embed's own custom properties.
+  //
+  // This embed runs inside somebody else's website. Loading the feeds
+  // stylesheet here would restyle their whole page, so it is never loaded.
+  // Instead the sheet's channels (BRAND.md section 1) are written once as
+  // --cp-* properties on .cp-embed itself: they are set on our own element,
+  // so they cannot leak out, and every rule below reads them rather than
+  // naming a colour. Light and dark are both defined. Signal Blue appears
+  // exactly once, on the link in the credit line; nothing else is coloured,
+  // which is why the row error is muted text rather than red -- the words
+  // already say what is wrong.
+  var EMBED_CSS =
+    '.cp-embed{' +
+      '--cp-fg:hsl(220 20% 10%);--cp-muted:hsl(220 10% 42%);' +
+      '--cp-line:hsl(220 13% 94%);--cp-surface:hsl(0 0% 100%);' +
+      '--cp-surface-2:hsl(220 12% 97%);--cp-link:hsl(207 100% 50%);' +
+      'font:500 14px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;' +
+      'color:var(--cp-fg)}' +
+    '@media (prefers-color-scheme:dark){.cp-embed{' +
+      '--cp-fg:hsl(220 15% 96%);--cp-muted:hsl(220 8% 62%);' +
+      '--cp-line:hsl(220 10% 18%);--cp-surface:hsl(220 12% 10%);' +
+      '--cp-surface-2:hsl(220 10% 16%)}}' +
+    '.cp-hidden{display:none}' +
+    '.cp-scroll{overflow-x:auto}' +
+    '.cp-title{font-size:18px;font-weight:650;margin:0 0 .625rem}' +
+    '.cp-table{border-collapse:collapse;width:100%;min-width:520px;' +
+      'background:var(--cp-surface);font-size:14px}' +
+    '.cp-table th,.cp-table td{border:1px solid var(--cp-line);' +
+      'padding:.5rem .625rem;text-align:left}' +
+    '.cp-table th{background:var(--cp-surface-2);font-size:12px;font-weight:650;' +
+      'letter-spacing:.05em;text-transform:uppercase;color:var(--cp-muted)}' +
+    '.cp-qty,.cp-mode{min-height:44px;font:inherit;color:var(--cp-fg);' +
+      'background:var(--cp-surface);border:1px solid var(--cp-line);border-radius:.5rem;' +
+      'padding:.25rem .5rem}' +
+    '.cp-qty{width:5em}' +
+    '.cp-note,.cp-error,.cp-empty{color:var(--cp-muted)}' +
+    '.cp-grand{font-weight:650}' +
+    '.cp-actions,.cp-switch-wrap{display:flex;flex-wrap:wrap;gap:.5rem;margin:.75rem 0 0}' +
+    '.cp-actions button,.cp-switch-wrap button{min-height:44px;font:inherit;' +
+      'padding:.5rem .875rem;color:var(--cp-fg);background:var(--cp-surface);' +
+      'border:1px solid var(--cp-line);border-radius:.5rem;cursor:pointer}' +
+    '.cp-badge{font-size:12px;color:var(--cp-muted);margin:.75rem 0 0}' +
+    '.cp-badge a{color:var(--cp-link)}';
+
   function injectStyles() {
     if (document.getElementById('cp-embed-style')) return;
     var style = document.createElement('style');
     style.id = 'cp-embed-style';
-    style.textContent =
-      '.cp-embed{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:14px;color:#111}' +
-      '.cp-hidden{display:none}' +
-      '.cp-scroll{overflow-x:auto}' +
-      '.cp-table{border-collapse:collapse;width:100%;min-width:520px}' +
-      '.cp-table th,.cp-table td{border:1px solid #ddd;padding:6px 8px;text-align:left}' +
-      '.cp-qty{width:5em}' +
-      '.cp-error{color:#a33}' +
-      '.cp-badge{font-size:12px;opacity:.75;margin-top:.5em}' +
-      '.cp-actions button{margin-right:.5em}';
+    style.textContent = EMBED_CSS;
     document.head.appendChild(style);
   }
 
