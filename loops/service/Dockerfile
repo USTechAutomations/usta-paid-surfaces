@@ -20,6 +20,8 @@ COPY loops/service/requirements.txt /app/loops/service/requirements.txt
 RUN pip install --no-cache-dir -r /app/loops/service/requirements.txt
 
 COPY loops /app/loops
+# The shared stylesheet, so the pages can fingerprint the link they emit.
+COPY styles.css /app/styles.css
 # The virtual environment and the tests are for the build machine only.
 RUN rm -rf /app/loops/service/.venv /app/loops/service/tests /app/loops/lib/test_prokey.py \
  && find /app -name '__pycache__' -type d -prune -exec rm -rf {} + \

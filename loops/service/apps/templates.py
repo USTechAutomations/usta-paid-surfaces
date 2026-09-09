@@ -20,8 +20,10 @@ only, and they never touch a bare element selector or a shared class -- BRAND.md
 """
 from __future__ import annotations
 
+import hashlib
 import html
 import ipaddress
+from pathlib import Path
 from urllib.parse import urlsplit
 
 # The Cloud Run service these pages are served from. Links people paste into an
@@ -31,7 +33,19 @@ PUBLIC_BASE = "https://ustechautomations.com/feeds"
 
 # The one shared sheet. Absolute, because these pages are served from another
 # host and a relative path would resolve against Cloud Run and find nothing.
-STYLESHEET = PUBLIC_BASE + "/styles.css"
+# The link carries a fingerprint of the sheet's contents (BRAND.md §5) so a
+# restyle reaches these pages at once instead of after the one-hour edge cache.
+# The sheet is copied into the image next to loops/ (see loops/service/Dockerfile);
+# on a build machine it is the repo's own copy.
+def _stylesheet() -> str:
+    sheet = Path(__file__).resolve().parents[3] / "styles.css"
+    if sheet.is_file():
+        ver = hashlib.sha256(sheet.read_bytes()).hexdigest()[:10]
+        return f"{PUBLIC_BASE}/styles.css?v={ver}"
+    return PUBLIC_BASE + "/styles.css"
+
+
+STYLESHEET = _stylesheet()
 
 PRIVACY_LINE = "Data you paste stays in your link. Delete it any time."
 ADDRESS = ("US Tech Automations &middot; 3298 N Glassford Hill Rd Ste 104 PMB 1055, "
