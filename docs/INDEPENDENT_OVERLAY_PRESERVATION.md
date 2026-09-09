@@ -15,3 +15,5 @@ New components require an explicit reviewed marker mapping in the helper and a r
 This prevents loss through these two canonical scripts. An unrelated tool that bypasses their helper and lock can still replace the service; current page/revision checks remain necessary. Restoration evidence: /home/gmullins/reports/restore-inaccessible-pages-20260908/.
 
 The reviewed catalog-pilot-20260908 component uses browser workers exclusively. Its catalog-pilot-independent-20260908 hub marker and /feeds/catalog-migration/ prefix are explicitly mapped. It needs no invented API endpoint; the existing PathLab and Workshop API preservation requirements remain enforced. Test coverage exercises browser-only retention alongside the original components.
+
+The specialist-20260909 component owns `/feeds/specialist/` and its nested five product pages. The mapping retains its complete folder and explicit child sitemap paths; unrecognized child paths fail closed. Its browser workflow does not require a private API. The component's own publication still requires fetched page quality and a real hub link before sitemap admission. Source: `/home/gmullins/code/usta-specialist-five-20260909`.

@@ -87,4 +87,21 @@ class Preservation(unittest.TestCase):
   self.assertNotIn('/catalog-migration/api/',(self.dest/'nginx.conf').read_text())
   p.check_candidate(self.dest,r)
 
+ def test_specialist_preserves_nested_product_sitemaps(self):
+  children=['/feeds/specialist/'+s+'/' for s in ('cablekit','labelbatch','rulewitness','tourpatch','matchbench')]
+  row={'id':'specialist-20260909','prefixes':['/feeds/specialist/'],'sitemap_paths':children}
+  p.components({'side_surfaces':[{'prefix':'/feeds','components':[row]}]})
+  root=self.source/'site/specialist';root.mkdir();(root/'index.html').write_text('Specialist')
+  for child in children:
+   folder=root/child.split('/')[-2];folder.mkdir();(folder/'index.html').write_text('tool')
+  path=self.source/'nginx.conf';path.write_text(path.read_text().replace('  location / {','  location = /specialist { return 308 /feeds/specialist/; }\n  location ^~ /specialist/ { try_files $uri =404; }\n  location / {'))
+  path=self.source/'site/index.html';path.write_text(path.read_text().replace('</body>','<section id="specialist-independent-20260909"><a href="/feeds/specialist/">Tools</a></section></body>'))
+  path=self.source/'site/sitemap.xml';path.write_text(path.read_text().replace('</urlset>',''.join('<url><loc>https://ustechautomations.com'+url+'</loc></url>'for url in row['prefixes']+children)+'</urlset>'))
+  result=p.overlay(self.source,self.dest,[ROW,row],HEAD)
+  for child in children:self.assertIn('https://ustechautomations.com'+child,p.sitemap_urls((self.dest/'site/sitemap.xml').read_text()))
+  p.check_candidate(self.dest,result)
+ def test_specialist_rejects_unowned_child_sitemaps(self):
+  row={'id':'specialist-20260909','prefixes':['/feeds/specialist/'],'sitemap_paths':['https://example.invalid/']}
+  with self.assertRaises(ValueError):p.components({'side_surfaces':[{'prefix':'/feeds','components':[row]}]})
+
 if __name__=='__main__':unittest.main()

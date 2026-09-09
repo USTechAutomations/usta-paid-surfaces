@@ -21,10 +21,11 @@ RECEIPT = '.independent-overlay-receipt.json'
 GCLOUD_BIN = 'gcloud'
 MARKERS = {'pathlab-20260908-b': 'pathlab-independent-20260908',
            'workshop-20260908-c': 'workshop-independent-20260908',
-           'catalog-pilot-20260908': 'catalog-pilot-independent-20260908'}
+           'catalog-pilot-20260908': 'catalog-pilot-independent-20260908',
+           'specialist-20260909': 'specialist-independent-20260909'}
 # This component processes inputs entirely in its browser worker. The two
 # existing components still require preservation of their declared API routes.
-BROWSER_ONLY_COMPONENTS = {'catalog-pilot-20260908'}
+BROWSER_ONLY_COMPONENTS = {'catalog-pilot-20260908', 'specialist-20260909'}
 
 def inventory(root):
     root=Path(root); result={}
@@ -44,6 +45,10 @@ def components(registry):
     for row in rows:
         if row['id'] not in MARKERS: raise ValueError('New component needs explicit preservation mapping')
         if not row.get('prefixes') or any(not re.fullmatch(r'/feeds/[a-z0-9-]+/',p) for p in row['prefixes']): raise ValueError('Invalid component prefixes')
+        children=row.get('sitemap_paths',[])
+        if children and (row['id']!='specialist-20260909' or children!=[
+                '/feeds/specialist/'+s+'/' for s in ('cablekit','labelbatch','rulewitness','tourpatch','matchbench')]):
+            raise ValueError('Unknown component child sitemap paths')
     if len({p for r in rows for p in r['prefixes']})!=sum(len(r['prefixes']) for r in rows): raise ValueError('Overlapping component routes')
     return rows
 
@@ -97,6 +102,10 @@ def overlay(current,candidate,rows,head):
         for prefix in row['prefixes']:
             url='https://ustechautomations.com'+prefix
             if source_urls.count(url)!=1:raise ValueError('Current component lacks unique admitted sitemap entry')
+            retained.append(url)
+        for prefix in row.get('sitemap_paths',[]):
+            url='https://ustechautomations.com'+prefix
+            if source_urls.count(url)!=1:raise ValueError('Current component lacks unique child sitemap entry')
             retained.append(url)
         for slug in slugs:
             facts=inventory(current/'site'/slug)
