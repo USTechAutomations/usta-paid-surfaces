@@ -97,7 +97,10 @@ Every public page is exactly this, in this order. `scripts/render_family.py` emi
 copy from there, do not retype it.
 
 1. `<html lang="en">`, `<meta charset>`, `<meta name="viewport">`, `<title>`,
-   canonical link, `<link rel="stylesheet" href="…/styles.css">`.
+   canonical link, `<link rel="stylesheet" href="…/styles.css">`. The site
+   build rewrites that link to `…/feeds/styles.css?v=<fingerprint>` (first ten
+   characters of the sheet's SHA-256), so a restyle is seen at once instead of
+   after the one-hour edge cache. Server-rendered pages should do the same.
 2. `<body data-family="…">`
 3. `<a class="skip" href="#main">Skip to content</a>`
 4. `<header class="masthead">` — sticky, 64px, 1px bottom border, translucent +

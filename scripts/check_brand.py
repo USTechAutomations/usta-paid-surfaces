@@ -99,7 +99,7 @@ def c_one_h1(t: str) -> str:
 
 
 def c_stylesheet(t: str) -> str:
-    ok = re.search(r'<link[^>]+rel="stylesheet"[^>]+href="[^"]*styles\.css"', t)
+    ok = re.search(r'<link[^>]+rel="stylesheet"[^>]+href="[^"]*styles\.css(\?v=[0-9a-f]+)?"', t)
     return "" if ok else "does not link the shared styles.css (BRAND.md §1)"
 
 

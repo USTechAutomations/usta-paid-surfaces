@@ -19,6 +19,7 @@ allowed to go missing.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import shutil
@@ -43,6 +44,11 @@ RETIRED_REASONS = ROOT / "retired-reasons.json"
 
 BASE = "https://ustechautomations.com/feeds"
 GTM_ID = "GTM-KTB2LC8C"
+# The shared stylesheet is cached at the edge for an hour. Putting a fingerprint
+# of its contents in the link means a restyle shows up the moment it deploys,
+# instead of pages wearing the old sheet until the cache runs out (BRAND.md §1).
+CSS_VER = hashlib.sha256((ROOT / "styles.css").read_bytes()).hexdigest()[:10]
+CSS_HREF = f"{BASE}/styles.css?v={CSS_VER}"
 
 GTM = (
     "<script>window.dataLayer=window.dataLayer||[];"
@@ -348,7 +354,7 @@ def build_page(src: Path, family: str, crumb_label: str | None, path: str | None
     canon = f"{BASE}{slug}"
     out = re.sub(r'<link rel="canonical" href="[^"]*">', f'<link rel="canonical" href="{canon}">', out)
     out = re.sub(r'<meta property="og:url" content="[^"]*">', f'<meta property="og:url" content="{canon}">', out)
-    out = re.sub(r'<link rel="stylesheet" href="[^"]*">', f'<link rel="stylesheet" href="{BASE}/styles.css">', out)
+    out = re.sub(r'<link rel="stylesheet" href="[^"]*">', f'<link rel="stylesheet" href="{CSS_HREF}">', out)
     if 'name="robots"' not in out:
         out = out.replace("<meta charset=\"utf-8\">",
                           "<meta charset=\"utf-8\">\n  <meta name=\"robots\" content=\"index,follow\">", 1)
@@ -450,7 +456,7 @@ RETIRED_HTML = """<!doctype html>
   <title>This page is retired &mdash; US Tech Automations feeds</title>
   <meta name="description" content="This address used to hold a page in the {crumb} feed. It has nothing to show now, and nothing is for sale on it.">
   <link rel="canonical" href="{base}/{addr}">
-  <link rel="stylesheet" href="{base}/styles.css">
+  <link rel="stylesheet" href="{css_href}">
   <meta name="theme-color" content="#0d0f13">
   <link rel="icon" type="image/svg+xml" href="/logo.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -605,7 +611,7 @@ def write_retired(built: list[str]) -> list[str]:
             parent_line = (f'<a href="{BASE}/{family}">{crumb_name}</a> is the page this one '
                            f'belonged to, and it says what we hold today.')
         page = RETIRED_HTML.format(
-            base=BASE, addr=addr, family=family, crumb=crumb_name,
+            base=BASE, css_href=CSS_HREF, addr=addr, family=family, crumb=crumb_name,
             reason=_retired_reason(addr, reasons), parent_line=parent_line,
         )
         outdir = DIST / addr
@@ -889,6 +895,10 @@ def main() -> None:
                 text = src.read_text(encoding="utf-8")
                 if 'name="robots" content="noindex' not in text:
                     fail(f"{fid}/p/{d.name} has no noindex line; a delivery page must never be indexed")
+                # Only the stylesheet link is touched, so it carries the same
+                # content fingerprint as every public page (see CSS_HREF).
+                text = re.sub(r'<link rel="stylesheet" href="[^"]*styles\.css(\?v=[0-9a-f]+)?">',
+                              f'<link rel="stylesheet" href="{CSS_HREF}">', text, count=1)
                 outdir = DIST / fid / "p" / d.name
                 outdir.mkdir(parents=True, exist_ok=True)
                 (outdir / "index.html").write_text(text, encoding="utf-8")

@@ -45,6 +45,18 @@ def private_url(family: str, session_id: str) -> str:
     return f"{PUBLIC_BASE}/{family}/p/{private_slug(session_id)}/"
 
 
+_REPO = Path(__file__).resolve().parents[2]
+
+
+def css_href() -> str:
+    """The shared stylesheet link with a fingerprint of its current contents,
+    so a restyle reaches buyer pages at once instead of after the edge cache
+    (one hour) lets go of the old sheet. Same rule scripts/build_site.py uses."""
+    sheet = _REPO / "styles.css"
+    ver = hashlib.sha256(sheet.read_bytes()).hexdigest()[:10] if sheet.is_file() else "0"
+    return f"https://ustechautomations.com/feeds/styles.css?v={ver}"
+
+
 def _purchase_date(purchased_ts: int | None) -> str:
     """The date shown on the page, in UTC. Falls back to today when unknown."""
     if purchased_ts:
@@ -70,7 +82,7 @@ def wrap_private_page(family: str, product_name: str, html: str,
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <title>{product_name} — your private copy</title>
-  <link rel="stylesheet" href="https://ustechautomations.com/feeds/styles.css">
+  <link rel="stylesheet" href="{css_href()}">
   <!-- The site pair, light and dark. These 2,182 private pages were the only
        pages left painting the browser chrome brown: scripts/build_site.py
        rewrites this tag on every public page as it builds, and it never sees
@@ -144,7 +156,7 @@ _THANKS_TEMPLATE = """<!doctype html>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <title>__PRODUCT__ — preparing your file</title>
-  <link rel="stylesheet" href="https://ustechautomations.com/feeds/styles.css">
+  <link rel="stylesheet" href="__CSS_HREF__">
   <!-- The site pair, light and dark. These 2,182 private pages were the only
        pages left painting the browser chrome brown: scripts/build_site.py
        rewrites this tag on every public page as it builds, and it never sees
@@ -243,4 +255,5 @@ def thanks_page_html(family: str, product_name: str, eta_minutes: int) -> str:
     return (_THANKS_TEMPLATE
             .replace("__FAMILY__", family)
             .replace("__PRODUCT__", product_name)
+            .replace("__CSS_HREF__", css_href())
             .replace("__ETA__", str(eta_minutes)))
