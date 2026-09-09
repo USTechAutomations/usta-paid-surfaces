@@ -26,6 +26,8 @@ import ipaddress
 from pathlib import Path
 from urllib.parse import urlsplit
 
+from brand import shell  # the one site header and footer, shared with scripts/build_site.py
+
 # The Cloud Run service these pages are served from. Links people paste into an
 # email have to be absolute, so they are built from this.
 SERVICE_BASE = "https://usta-loops-260481739341.us-central1.run.app"
@@ -205,6 +207,10 @@ def page(*, title: str, family: str, event: str, body: str, heading: str,
     if eyebrow:
         brow += f' <span class="dot"></span> {esc(eyebrow)}'
     lede_html = f'<p class="lede">{esc(lede)}</p>' if lede else ""
+    crumb = f'<span class="sep">/</span><a href="{landing}">{esc(label)}</a>'
+    honest = (f'      <p class="foot-honest">{esc(PRIVACY_LINE)} '
+              f'<a href="{landing}">About {esc(TOOL_NAME.get(family, family))}</a></p>\n'
+              f'      <p class="addr">{ADDRESS}</p>')
     return (
         "<!doctype html>\n<html lang=\"en\">\n<head>\n"
         '  <meta charset="utf-8">\n'
@@ -218,12 +224,8 @@ def page(*, title: str, family: str, event: str, body: str, heading: str,
         "</head>\n"
         f'<body data-family="{esc(family)}">\n'
         '<a class="skip" href="#main">Skip to content</a>\n\n'
-        '<header class="masthead">\n  <div class="wrap">\n'
-        f'    <a class="wordmark" href="{PUBLIC_BASE}/">Dated change feeds '
-        "<span>/ US Tech Automations</span></a>\n"
-        f'    <p class="crumbs"><a href="{PUBLIC_BASE}/">Feeds</a><span class="sep">/</span>'
-        f'<a href="{landing}">{esc(label)}</a></p>\n'
-        "  </div>\n</header>\n\n"
+        # The same header and breadcrumb bar every built page carries (brand/shell.py).
+        f"{shell.masthead(crumb, base=PUBLIC_BASE)}\n"
         '<section class="hero">\n  <div class="wrap">\n'
         f'    <p class="eyebrow">{brow}</p>\n'
         f'    <h1 class="lp-h1">{esc(heading)}</h1>\n'
@@ -233,11 +235,9 @@ def page(*, title: str, family: str, event: str, body: str, heading: str,
         '<main id="main">\n  <div class="wrap">\n'
         f"{body}"
         "  </div>\n</main>\n\n"
-        '<footer class="site">\n  <div class="wrap">\n'
-        f'    <p class="foot-honest">{esc(PRIVACY_LINE)} '
-        f'<a href="{landing}">About {esc(TOOL_NAME.get(family, family))}</a></p>\n'
-        f'    <p class="addr">{ADDRESS}</p>\n'
-        "  </div>\n</footer>\n\n"
+        # The same footer every built page carries; the honesty line sits in its
+        # bottom row the way scripts/build_site.py places a family's.
+        f"{shell.footer(honest, base=PUBLIC_BASE)}\n"
         f"{beacon(family, event)}\n"
         "</body>\n</html>\n"
     )
