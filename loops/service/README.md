@@ -10,9 +10,11 @@ It runs on Google Cloud Run at:
 https://usta-loops-260481739341.us-central1.run.app
 ```
 
-**It never stores a person.** No names, no email addresses, no phone numbers, no
-network addresses. What it keeps is website names, pasted business rows, and
-counts.
+The counter routes keep website names and aggregate counts. Private paid-file
+delivery also stores buyer artifacts, which may contain licensed credentials or
+customer-specific content. Those bytes require a checkout capability to retrieve;
+they are not public static pages. The delivery store keeps session hashes, never
+raw checkout session IDs.
 
 ## What each address does
 
@@ -56,6 +58,24 @@ machine at home reaches in; nobody else can.
 `GET /metrics/<product>?since=YYYY-MM-DD` — hands back the counts for one
 product. The `X-Loops-Sig` header has to hold a signature of the text
 `<product>|<since>`, so a stranger cannot read our numbers.
+
+### Private paid files
+
+`POST /admin/delivery` accepts exactly `family`, `session_hash`, `html`,
+`html_sha256` and integer `ts`. `X-Loops-Sig` is HMAC-SHA256 over the exact request
+body with the existing signing secret. Timestamps must be within ten minutes;
+HTML is limited to 800000 UTF-8 bytes. The existing Firestore store atomically
+creates an immutable artifact in `fv5_deliveries`. An identical retry returns 200
+and the stored digest; a different artifact for the same purchase returns 409.
+Store errors return 503. Production Cloud Run memory storage refuses uploads.
+
+`POST /delivery/<family>` accepts only `{"session_id":"..."}`. It hashes the full
+checkout capability and returns the matching HTML and digest. Wrong or absent
+identities reveal no artifact. GET never returns buyer HTML. Responses are
+`no-store`, `no-referrer` and `nosniff`; CORS uses the existing owned-origin list.
+There is no raw session ID in a storage key, server-generated URL or response.
+Artifact retrieval does not change the separate paid-tool expiry/revocation rules.
+The producer and recovery instructions are in `fv5/DELIVERY_RECOVERY.md`.
 
 ### The reorder sheet (casepack)
 

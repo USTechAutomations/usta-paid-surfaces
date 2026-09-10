@@ -172,6 +172,11 @@ def create_app(env: dict | None = None, store=None) -> FastAPI:
     app.state.apps = mounted
     app.state.apps_missing = missing
 
+    # -- private paid-artifact delivery (fv5) ------------------------------
+    from loops.service.private_delivery import router as private_delivery_router
+
+    app.include_router(private_delivery_router)
+
     # -- middleware --------------------------------------------------------
     # Added first, so it sits INSIDE the guard below and cannot overwrite the
     # wildcard the beacon and the embed script need.

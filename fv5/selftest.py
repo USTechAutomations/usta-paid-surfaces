@@ -126,11 +126,11 @@ def test_js_python_hash_equal() -> None:
 
 def test_thanks_page_has_poll() -> None:
     html = ppp.thanks_page_html("demo", "Demo product", 7)
-    check("thanks page polls with a HEAD fetch", 'method: "HEAD"' in html and "fetch(url" in html)
+    check("thanks page requests private bytes through POST", 'method: "POST"' in html and "/delivery/" in html)
     check("thanks page polls every 30s", "30000" in html and "setInterval" in html)
     check("thanks page reads session_id", "session_id" in html)
     check("thanks page handles a missing session_id",
-          "Open this page from the link Stripe sends you after paying" in html)
+          "Open this page from the Stripe checkout confirmation" in html)
     check("thanks page substitutes family/product/eta",
           'data-family="demo"' in html and "Demo product" in html and "7 minutes" in html)
 

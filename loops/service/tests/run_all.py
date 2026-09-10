@@ -11,11 +11,12 @@ from loops.service.tests.harness import report  # sets sys.path to the repo root
 
 warnings.filterwarnings("ignore")
 
-from loops.service.tests import test_app, test_firestore_store  # noqa: E402
+from loops.service.tests import test_app, test_firestore_store, test_private_delivery  # noqa: E402
 
 MODULES = (
     ("service", test_app),
     ("firestore store", test_firestore_store),
+    ("private delivery", test_private_delivery),
 )
 
 

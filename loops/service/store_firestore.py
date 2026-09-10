@@ -112,6 +112,26 @@ class FirestoreStore(Store):
     def put(self, coll, doc_id, doc):
         self._doc(coll, _safe_id(str(doc_id))).set(dict(doc))
 
+    def create_if_absent(self, coll, doc_id, doc):
+        """Atomic create. Firestore's document.create() writes only when the
+        document is absent and raises AlreadyExists otherwise, which is exactly
+        the race-safe "exactly-once upload" primitive we need.
+        """
+        try:
+            from google.api_core.exceptions import AlreadyExists
+        except Exception:  # noqa: BLE001 -- older/stand-in clients
+            AlreadyExists = None
+        try:
+            self._doc(coll, _safe_id(str(doc_id))).create(dict(doc))
+            return True
+        except Exception as exc:  # noqa: BLE001
+            if AlreadyExists is not None and isinstance(exc, AlreadyExists):
+                return False
+            # A stand-in client may signal an existing document by name only.
+            if exc.__class__.__name__ == "AlreadyExists":
+                return False
+            raise
+
     def delete(self, coll, doc_id):
         self._doc(coll, _safe_id(str(doc_id))).delete()
 

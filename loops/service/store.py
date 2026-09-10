@@ -37,6 +37,15 @@ class Store:
     def put(self, coll: str, doc_id: str, doc: dict) -> None:
         raise NotImplementedError
 
+    def create_if_absent(self, coll: str, doc_id: str, doc: dict) -> bool:
+        """Create the document only if it does not exist yet.
+
+        Returns True when this call created it, False when a document was
+        already there. Must be atomic against other callers racing on the same
+        id: an idempotent upload relies on exactly one caller winning.
+        """
+        raise NotImplementedError
+
     def delete(self, coll: str, doc_id: str) -> None:
         raise NotImplementedError
 
@@ -74,6 +83,13 @@ class MemoryStore(Store):
     def put(self, coll, doc_id, doc):
         with self._lock:
             self._docs[coll][doc_id] = dict(doc)
+
+    def create_if_absent(self, coll, doc_id, doc):
+        with self._lock:
+            if doc_id in self._docs[coll]:
+                return False
+            self._docs[coll][doc_id] = dict(doc)
+            return True
 
     def delete(self, coll, doc_id):
         with self._lock:
