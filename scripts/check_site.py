@@ -656,8 +656,24 @@ def check_price_list_page() -> None:
                  f"Rebuild it with scripts/slice_about.py.")
 
 
+def check_no_permits_live_pointers() -> None:
+    """No catalog live pointer may name /permits/."""
+    if isinstance(CATALOG, dict):
+        rows = CATALOG.get("families") or CATALOG.get("rows") or []
+    else:
+        rows = CATALOG
+    bad = [
+        str(row.get("id"))
+        for row in rows
+        if str(row.get("live", "")).startswith("https://ustechautomations.com/permits")
+    ]
+    if bad:
+        fail("no catalog live pointer may name /permits/: " + ", ".join(bad))
+
+
 def main() -> None:
     # The rule before the pages: a broken classifier makes a clean sweep.
+    check_no_permits_live_pointers()
     check_privacy_rule()
     # Then the pages-to-catalog direction, before the catalog-to-pages loop
     # below, because a page in no catalog is invisible to everything after this.
@@ -1256,4 +1272,12 @@ def check_sample_rows() -> None:
 
 
 if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--catalog", type=Path, default=None)
+    args = parser.parse_args()
+    if args.catalog is not None:
+        loaded = json.loads(Path(args.catalog).read_text(encoding="utf-8"))
+        CATALOG.clear()
+        CATALOG.update(loaded)
     main()
