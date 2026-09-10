@@ -3,10 +3,49 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Dated change feeds — directory</title>
-  <meta name="description" content="Directory of repeatable change feeds. Different buyers. Not a bundle. Email operations@.">
+  <title>Dated public-record feeds — directory | US Tech Automations</title>
+  <meta name="description" content="Browse dated public-record and change feeds, one-off files, checks and tools. Product pages explain the intended buyer, sample, price and available next step — there is no bundle. Pick the job you have, read the exact terms on its page, then follow its available next step.">
   <link rel="canonical" href="https://ustechautomations.com/feeds">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Scoped to this page: the directory jump-nav. Tokens only, no colour
+       literals, no bare or shared selectors — see BRAND.md §1, §7. */
+    body[data-family="hub"] .group-nav { display: flex; flex-wrap: wrap; gap: .5rem .625rem; margin: 0 0 2.25rem; padding: 0; list-style: none; font-size: .875rem; }
+    body[data-family="hub"] .group-nav a { display: inline-flex; align-items: center; gap: .4rem; color: var(--muted-fg); text-decoration: none; border: 1px solid var(--line); border-radius: var(--radius); padding: .4rem .75rem; }
+    body[data-family="hub"] .group-nav a:hover { color: var(--fg); border-color: var(--line-strong); text-decoration: none; }
+    body[data-family="hub"] .group-nav .n { color: var(--muted-fg); font-variant-numeric: tabular-nums; }
+    body[data-family="hub"] .card .meta .state { color: var(--muted-fg); }
+
+    /* Official primary-surface tokens from the archived v1.3 brand reference.
+       Scoped to the directory; the independently served shared CSS is retained. */
+    body[data-family="hub"] { --primary-surface: 207 100% 42%; --primary-surface-hover: 207 100% 36%; --directory-link: hsl(var(--primary-surface-hover)); overflow-wrap: anywhere; }
+    body[data-family="hub"] a:not(.card):not(.wordmark):not(.mast-cta) { color: var(--directory-link); }
+    body[data-family="hub"] .group-nav a { min-height: 44px; }
+    body[data-family="hub"] .hero-cta .mast-cta { min-height: 44px; background: hsl(var(--primary-surface)); }
+    body[data-family="hub"] .hero-cta .mast-cta:hover { background: hsl(var(--primary-surface-hover)); }
+    body[data-family="hub"] .masthead .mast-cta { background: transparent; color: var(--fg); border: 1px solid var(--fg); min-height: 44px; }
+    body[data-family="hub"] a:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+    body[data-family="hub"] .card { min-width: 0; }
+    body[data-family="hub"] .masthead .wordmark { min-width: 0; white-space: normal; }
+    @media (max-width: 1279px) {
+      body[data-family="hub"] .masthead .wrap { flex-wrap: wrap; }
+      body[data-family="hub"] .mast-nav { display: none; }
+    }
+    @media (max-width: 639px) {
+      body[data-family="hub"] .masthead .wordmark { font-size: .875rem; }
+      body[data-family="hub"] .masthead .mast-cta { margin-left: 0; }
+    }
+    @media (prefers-color-scheme: dark) {
+      body[data-family="hub"] { --directory-link: var(--accent); }
+    }
+    body[data-family="hub"][data-theme="dark"] { --directory-link: var(--accent); }
+    body[data-family="hub"] .directory-search { margin-bottom: 2rem; max-width: 48rem; }
+    body[data-family="hub"] .directory-search label { display: block; margin-bottom: .5rem; }
+    body[data-family="hub"] .directory-search input { width: 100%; min-height: 44px; padding: .75rem; color: var(--fg); background: var(--surface); border: 1px solid var(--fg); border-radius: var(--radius); font: inherit; }
+    body[data-family="hub"] .directory-search input::placeholder { color: var(--muted-fg); opacity: 1; }
+    body[data-family="hub"] .directory-search input:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+    body[data-family="hub"] [hidden] { display: none; }
+  </style>
   <meta name="theme-color" content="#7a3b12">
   <link rel="icon" type="image/svg+xml" href="/logo.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -16,13 +55,13 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="US Tech Automations — dated change feeds">
   <meta property="og:url" content="https://ustechautomations.com/feeds">
-  <meta property="og:title" content="Dated change feeds — directory">
-  <meta name="twitter:title" content="Dated change feeds — directory">
-  <meta property="og:description" content="Directory of repeatable change feeds. Different buyers. Not a bundle. Email operations@.">
-  <meta name="twitter:description" content="Directory of repeatable change feeds. Different buyers. Not a bundle. Email operations@.">
+  <meta property="og:title" content="Dated public-record feeds — directory">
+  <meta name="twitter:title" content="Dated public-record feeds — directory">
+  <meta property="og:description" content="Browse dated public-record and change feeds, one-off files, checks and tools. Product pages explain the intended buyer, sample, price and available next step — there is no bundle.">
+  <meta name="twitter:description" content="Browse dated public-record and change feeds, one-off files, checks and tools. Product pages explain the intended buyer, sample, price and available next step — there is no bundle.">
   <meta name="twitter:card" content="summary">
 </head>
-<body>
+<body data-family="hub">
 <a class="skip" href="#main">Skip to content</a>
 
 <!-- FABLE: visual only. Do not turn this into a mall that sells a bundle. -->
@@ -35,11 +74,14 @@
 
 <section class="hero">
   <div class="wrap">
-    <p class="eyebrow">Directory <span class="dot"></span> 65 feeds <span class="dot"></span> 40 for sale</p>
+    <p class="eyebrow">Directory <span class="dot"></span> 65 feeds <span class="dot"></span> 40 with a listed price</p>
     <h1>Public records get overwritten. We keep the dated copy.</h1>
-    <p class="lede">This is a directory, not a store that sells everything at once. <strong>Each product is a different buyer.</strong> Pick one feed. Our other public records work lives in the <a href="https://ustechautomations.com/permits">permits library</a> and the <a href="https://ustechautomations.com/offers">offers and evidence</a> pages.</p>
+    <p class="lede">This is a directory, not a store that sells everything at once. <strong>Product pages explain the intended buyer, sample, price and available next step.</strong> Find the job you have — a record you need kept dated, a check you want run, or a one-off file or tool — open its page to read the exact terms, then follow its available next step. Our other public-records work lives in the <a href="https://ustechautomations.com/permits">permits library</a> and the <a href="https://ustechautomations.com/offers">offers and evidence</a> pages.</p>
+    <div class="hero-cta">
+      <a class="mast-cta" href="#directory">Browse the directory</a>
+    </div>
     <div class="note">
-      <p><strong>34 feeds take a card today.</strong> Queue changes, TTB appear / disappear list, Machine-buyable storefront files, Pending air permits, Arizona trustee sale postponements, Chicago permit file, Los Angeles permit file, Baton Rouge permit file, Washington DC permit file, Boston permit file, NYC LL84 energy file, Metro File, Stamper Evidence Appendix, Predictor Diet Report, Machine Visitor Ledger, Clean-Room Corpus Packs, Address Record Packet, Access Surface Affidavits, Texas Medicaid formulary, Phoenix hospital prices, Lab system-card claims, Weekly changeover schedule atlas, New carrier authority, weekly, Clerk Clock Packs, Cannabis licence tape, weekly, Texas construction stormwater NOIs, weekly, HTS revision seal, weekly, New prime awards, weekly, Storm-warned counties, weekly, Paper logbook digitizer, WP accessibility scan, weekly, Grant Fit, in the page, KDP Lens and Notice Responder letter pack each have a pay button on their own page. City permit board files, New alcohol permits, weekly, Device establishment changes, Texas dealer-licence week, WarnRight Prop 65, monthly and Jira done-means-done linter are priced and sold through an email thread instead: email <a href="mailto:operations@ustechautomations.com?subject=Change%20feed">operations@ustechautomations.com</a> and we send a checkout link in that thread. The other 25 feeds are not for sale today. Ask about one and we will tell you that, rather than send you a link.</p>
+      <p><strong>There is no bundle.</strong> Each product has its own terms. Open a product page to see its sample, available purchase route and delivery details. Of the 65 feeds listed here, 34 have a card checkout on their own page, and 6 have a listed price without a checkout button. Contact <a href="mailto:operations@ustechautomations.com?subject=Change%20feed">operations@ustechautomations.com</a> to confirm scope and availability before planning a purchase. The other 25 feeds are free to read or not for sale yet, and each page says which. The reports, letters and tools listed further down are not feeds; each has its own page with its own price and terms. To scope a feed to your own list, region or cadence, tell us at <a href="mailto:operations@ustechautomations.com?subject=Data%20task%20scope">Describe your data task</a>.</p>
     </div>
   </div>
 </section>
@@ -50,590 +92,626 @@
     <p>57 of 65 feeds show a named, dated sample on their page today; 3 do not and say so; 4 have no sample file because the whole of what we hold is printed on the page itself. 40 carry a price. 24 are holding pages: we are not charging for those, and each one says what would have to change before we would. 1 is parked because we cannot collect it at all. We would rather tell you that here than after you have paid.</p>
 
     <div class="hub-groups">
+      <nav id="directory" aria-label="Jump to a directory section">
+        <ul class="group-nav">
+          <li><a href="#start-here">Start here <span class="n">3</span></a></li>
+          <li><a href="#energy-and-siting">Energy and siting <span class="n">6</span></a></li>
+          <li><a href="#software-and-ai-pages">Software and AI pages <span class="n">12</span></a></li>
+          <li><a href="#local-government-records">Local government records <span class="n">3</span></a></li>
+          <li><a href="#public-records">Public records <span class="n">6</span></a></li>
+          <li><a href="#checks-we-run-for-you">Checks we run for you <span class="n">2</span></a></li>
+          <li><a href="#comparison-tables">Comparison tables <span class="n">1</span></a></li>
+          <li><a href="#construction-records">Construction records <span class="n">14</span></a></li>
+          <li><a href="#weather-records">Weather records <span class="n">1</span></a></li>
+          <li><a href="#federal-contract-records">Federal contract records <span class="n">1</span></a></li>
+          <li><a href="#trade-records">Trade records <span class="n">1</span></a></li>
+          <li><a href="#website-services">Website services <span class="n">2</span></a></li>
+          <li><a href="#aviation-services">Aviation services <span class="n">1</span></a></li>
+          <li><a href="#other-dated-records">Other dated records <span class="n">15</span></a></li>
+          <li><a href="#more">Reports, letters and tools <span class="n">29</span></a></li>
+        </ul>
+      </nav>
+      <div class="directory-search" hidden>
+        <label for="directory-query">Search by product, task or buyer</label>
+        <input id="directory-query" type="search" placeholder="For example: supplier, permits, bookkeeper" autocomplete="off" aria-describedby="directory-results">
+        <p id="directory-results" role="status" aria-live="polite"></p>
+      </div>
 
-      <section class="group">
+      <section class="group" id="start-here">
         <h2>Start here</h2>
         <div class="cards">
-          <a class="card" href="families/coverage/">
+          <a class="card" href="families/coverage/" data-ref="feeds-directory">
             <h3>Everything we hold</h3>
             <p class="who">Every feed, how many dated copies we keep, and how fresh each one is.</p>
-            <p class="meta"><span>Free to read</span> <span class="pill pill-ready">Rebuilt daily</span></p>
+            <p class="meta"><span>Free to read</span> <span class="state">Scope and methods</span></p>
           </a>
-          <a class="card" href="families/what-we-dont-collect/">
+          <a class="card" href="families/what-we-dont-collect/" data-ref="feeds-directory">
             <h3>What we refuse to collect</h3>
             <p class="who">The sources we will not take, and the rule behind each refusal.</p>
-            <p class="meta"><span>Free to read</span> <span class="pill pill-ready">Rebuilt daily</span></p>
+            <p class="meta"><span>Free to read</span> <span class="state">Scope and methods</span></p>
           </a>
-          <a class="card" href="families/how-we-seal/">
+          <a class="card" href="families/how-we-seal/" data-ref="feeds-directory">
             <h3>How a sealed copy works</h3>
             <p class="who">What we actually do on the day we read a source, and what it proves later.</p>
-            <p class="meta"><span>Free to read</span> <span class="pill pill-ready">Rebuilt daily</span></p>
+            <p class="meta"><span>Free to read</span> <span class="state">Scope and methods</span></p>
           </a>
         </div>
       </section>
 
-      <section class="group">
+      <section class="group" id="energy-and-siting">
         <h2>Energy and siting</h2>
         <div class="cards">
-          <a class="card" href="families/grid/">
+          <a class="card" href="families/grid/" data-ref="feeds-directory">
             <h3>Queue changes</h3>
             <p class="who">Energy researchers, journalists, and interconnection-software vendors.</p>
-            <p class="meta"><span class="amount">$49/mo</span> <span>daily seals</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$49/mo</span> <span>daily seals</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/dc-siting/">
+          <a class="card" href="families/dc-siting/" data-ref="feeds-directory">
             <h3>Datacenter siting watch</h3>
             <p class="who">Grid and siting analysts.</p>
-            <p class="meta"><span class="amount">Not for sale yet</span> <span>daily seals</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">Not for sale yet</span> <span>daily seals</span> <span class="state">Dated sample on the page</span></p>
           </a>
-          <a class="card" href="families/air-permits/">
+          <a class="card" href="families/air-permits/" data-ref="feeds-directory">
             <h3>Pending air permits</h3>
             <p class="who">People siting heavy industry and data centres, and the lawyers and consultants who file for them.</p>
-            <p class="meta"><span class="amount">$79/mo</span> <span>Texas most days, Arizona stopped</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$79/mo</span> <span>Texas most days, Arizona stopped</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/dc-buildout/">
+          <a class="card" href="families/dc-buildout/" data-ref="feeds-directory">
             <h3>Datacenter ground changes</h3>
             <p class="who">People who decide where a data center goes.</p>
-            <p class="meta"><span class="amount">Not for sale yet</span> <span>weekly seals</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">Not for sale yet</span> <span>weekly seals</span> <span class="state">Dated sample on the page</span></p>
           </a>
-          <a class="card" href="families/peak-call/">
+          <a class="card" href="families/peak-call/" data-ref="feeds-directory">
             <h3>Grid peak calls, scored</h3>
             <p class="who">Factories and data centres whose grid bill is set by their load during a few peak hours.</p>
-            <p class="meta"><span class="amount">Not for sale yet</span> <span>a call a day</span> <span class="pill pill-ready">All of it, free</span></p>
+            <p class="meta"><span class="amount">Not for sale yet</span> <span>a call a day</span> <span class="state">All of it, free</span></p>
           </a>
-          <a class="card" href="families/nyc-ll84/">
+          <a class="card" href="families/nyc-ll84/" data-ref="feeds-directory">
             <h3>NYC LL84 energy file</h3>
             <p class="who">LL97 and energy-compliance teams who need one dated NYC energy-and-water disclosure slice, not a permit board.</p>
-            <p class="meta"><span class="amount">$349</span> <span>one-time file, pulled 26 Aug 2026</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$349</span> <span>one-time file, pulled 26 Aug 2026</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
         </div>
       </section>
 
-      <section class="group">
+      <section class="group" id="software-and-ai-pages">
         <h2>Software and AI pages</h2>
         <div class="cards">
-          <a class="card" href="families/crawler/">
+          <a class="card" href="families/crawler/" data-ref="feeds-directory">
             <h3>AI-crawler policy changes</h3>
             <p class="who">Publishers and SEO/AI teams watching who got blocked.</p>
-            <p class="meta"><span class="amount">Not for sale</span> <span>daily seals, paused 24 Aug 2026</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">Not for sale</span> <span>daily seals, paused 24 Aug 2026</span> <span class="state">Dated sample on the page</span></p>
           </a>
-          <a class="card" href="families/vendor-prices/">
+          <a class="card" href="families/vendor-prices/" data-ref="feeds-directory">
             <h3>B2B price-page changes</h3>
             <p class="who">Software vendors watching competitors’ public price pages.</p>
-            <p class="meta"><span class="amount">Not for sale yet</span> <span>daily seals</span> <span class="pill pill-hold">Sample not ready</span></p>
+            <p class="meta"><span class="amount">Not for sale yet</span> <span>daily seals</span> <span class="state">Sample not ready</span></p>
           </a>
-          <a class="card" href="families/ai-terms/">
+          <a class="card" href="families/ai-terms/" data-ref="feeds-directory">
             <h3>AI policy and terms changes</h3>
             <p class="who">Counsel and procurement teams buying from AI vendors.</p>
-            <p class="meta"><span class="amount">Not for sale yet</span> <span>daily seals</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">Not for sale yet</span> <span>daily seals</span> <span class="state">Dated sample on the page</span></p>
           </a>
-          <a class="card" href="families/agent-incidents/">
+          <a class="card" href="families/agent-incidents/" data-ref="feeds-directory">
             <h3>AI court case record</h3>
             <p class="who">Lawyers, risk teams and reporters tracking US federal court cases about AI systems.</p>
-            <p class="meta"><span class="amount">Not for sale yet</span> <span>daily copies, paused</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">Not for sale yet</span> <span>daily copies, paused</span> <span class="state">Dated sample on the page</span></p>
           </a>
-          <a class="card" href="families/agent-register/">
+          <a class="card" href="families/agent-register/" data-ref="feeds-directory">
             <h3>Agent server register archive</h3>
             <p class="who">AI vendors watching who else has shipped an agent server.</p>
-            <p class="meta"><span class="amount">Not for sale</span> <span>per archive copy</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">Not for sale</span> <span>per archive copy</span> <span class="state">Dated sample on the page</span></p>
           </a>
-          <a class="card" href="families/agentic-commerce/">
+          <a class="card" href="families/agentic-commerce/" data-ref="feeds-directory">
             <h3>Machine-buyable storefront files</h3>
             <p class="who">Software and AI product teams tracking which shops opened a door to an automated buyer.</p>
-            <p class="meta"><span class="amount">$59/mo</span> <span>daily seals</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$59/mo</span> <span>daily seals</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/hiring-watch/">
+          <a class="card" href="families/hiring-watch/" data-ref="feeds-directory">
             <h3>Named-role changes</h3>
             <p class="who">Sales and competitive-intelligence teams watching what a rival builds next.</p>
-            <p class="meta"><span class="amount">Not for sale yet</span> <span>daily copies</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">Not for sale yet</span> <span>daily copies</span> <span class="state">Dated sample on the page</span></p>
           </a>
-          <a class="card" href="families/access-affidavits/">
+          <a class="card" href="families/access-affidavits/" data-ref="feeds-directory">
             <h3>Access Surface Affidavits</h3>
             <p class="who">In-house legal teams at AI model companies, cyber insurance carriers, and outside counsel who need a dated record of what a named tool fetched.</p>
-            <p class="meta"><span class="amount">$499</span> <span>once, not a feed</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$499</span> <span>once, not a feed</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/grant-fit/">
+          <a class="card" href="families/grant-fit/" data-ref="feeds-directory">
             <h3>Grant Fit, in the page</h3>
             <p class="who">nonprofit staff and grant consultants who score a funding page against a saved org profile before writing a letter of inquiry.</p>
-            <p class="meta"><span class="amount">$19/mo</span> <span>monthly</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$19/mo</span> <span>monthly</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/done-means-done/">
+          <a class="card" href="families/done-means-done/" data-ref="feeds-directory">
             <h3>Jira done-means-done linter</h3>
             <p class="who">engineering managers and Jira admins.</p>
-            <p class="meta"><span class="amount">$10/mo</span> <span>on every ticket</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$10/mo</span> <span>on every ticket</span> <span class="state">Dated sample on the page</span> <span class="state">Contact to confirm availability</span></p>
           </a>
-          <a class="card" href="families/kdp-lens/">
+          <a class="card" href="families/kdp-lens/" data-ref="feeds-directory">
             <h3>KDP Lens</h3>
             <p class="who">Amazon KDP self-publishers who want rank, depth, and competition on the page they already have open.</p>
-            <p class="meta"><span class="amount">$49 once</span> <span>once</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$49 once</span> <span>once</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/notice-responder/">
+          <a class="card" href="families/notice-responder/" data-ref="feeds-directory">
             <h3>Notice Responder letter pack</h3>
             <p class="who">People holding an IRS or state tax notice who want a plain-English explanation and a draft reply letter.</p>
-            <p class="meta"><span class="amount">$29 once</span> <span>once</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$29 once</span> <span>once</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
         </div>
       </section>
 
-      <section class="group">
+      <section class="group" id="local-government-records">
         <h2>Local government records</h2>
         <div class="cards">
-          <a class="card" href="families/mesa-code/">
+          <a class="card" href="families/mesa-code/" data-ref="feeds-directory">
             <h3>Mesa code-compliance changes</h3>
             <p class="who">Mesa contractors, property managers, and local-government software.</p>
-            <p class="meta"><span class="amount">Not for sale yet</span> <span>daily seals</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">Not for sale yet</span> <span>daily seals</span> <span class="state">Dated sample on the page</span></p>
           </a>
-          <a class="card" href="families/new-entities/">
+          <a class="card" href="families/new-entities/" data-ref="feeds-directory">
             <h3>New business filings</h3>
             <p class="who">Lenders, B2B onboarding teams, and local software.</p>
-            <p class="meta"><span class="amount">Not for sale yet</span> <span>daily, first sight only</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">Not for sale yet</span> <span>daily, first sight only</span> <span class="state">Dated sample on the page</span></p>
           </a>
-          <a class="card" href="families/civic-agenda/">
+          <a class="card" href="families/civic-agenda/" data-ref="feeds-directory">
             <h3>City and county agenda changes</h3>
             <p class="who">Lobbying and government-affairs teams, land-use lawyers, construction bidders, and local reporters.</p>
-            <p class="meta"><span class="amount">Not for sale yet</span> <span>sealed some days</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">Not for sale yet</span> <span>sealed some days</span> <span class="state">Dated sample on the page</span></p>
           </a>
         </div>
       </section>
 
-      <section class="group">
+      <section class="group" id="public-records">
         <h2>Public records</h2>
         <div class="cards">
-          <a class="card" href="families/trustee-sales/">
+          <a class="card" href="families/trustee-sales/" data-ref="feeds-directory">
             <h3>Arizona trustee sale postponements</h3>
             <p class="who">Arizona foreclosure bidders, title and escrow desks, and lenders who need to know what a posted sale date was before it moved, not only what it says today.</p>
-            <p class="meta"><span class="amount">$349</span> <span>one dated pack</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$349</span> <span>one dated pack</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/free-time/">
+          <a class="card" href="families/free-time/" data-ref="feeds-directory">
             <h3>What a US container storage bill has to carry</h3>
             <p class="who">Importers and customs brokers holding a demurrage or detention bill.</p>
-            <p class="meta"><span class="amount">Not for sale yet</span> <span>read once, 24 Aug 2026</span> <span class="pill pill-ready">All of it, free</span></p>
+            <p class="meta"><span class="amount">Not for sale yet</span> <span>read once, 24 Aug 2026</span> <span class="state">All of it, free</span></p>
           </a>
-          <a class="card" href="families/import-checks/">
+          <a class="card" href="families/import-checks/" data-ref="feeds-directory">
             <h3>Import list self-checks</h3>
             <p class="who">Importers and their in-house compliance people, before they take anything to a broker</p>
-            <p class="meta"><span class="amount">Not for sale yet</span> <span>read once, 24 Aug 2026</span> <span class="pill pill-hold">Sample not ready</span></p>
+            <p class="meta"><span class="amount">Not for sale yet</span> <span>read once, 24 Aug 2026</span> <span class="state">Sample not ready</span></p>
           </a>
-          <a class="card" href="families/manual-ready/">
+          <a class="card" href="families/manual-ready/" data-ref="feeds-directory">
             <h3>The dates and article numbers behind Europe&#x27;s new machinery manual rules</h3>
             <p class="who">US machine builders shipping into Europe, and the people who translate their manuals.</p>
-            <p class="meta"><span class="amount">Not for sale yet</span> <span>read once, 24 Aug 2026</span> <span class="pill pill-ready">All of it, free</span></p>
+            <p class="meta"><span class="amount">Not for sale yet</span> <span>read once, 24 Aug 2026</span> <span class="state">All of it, free</span></p>
           </a>
-          <a class="card" href="families/clean-room-corpus/">
+          <a class="card" href="families/clean-room-corpus/" data-ref="feeds-directory">
             <h3>Clean-Room Corpus Packs</h3>
             <p class="who">AI data teams, eval labs, and vendor legal teams who need training and eval material they can show a licence line for.</p>
-            <p class="meta"><span class="amount">$499</span> <span>once, not a feed</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$499</span> <span>once, not a feed</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/apify-public-records/">
+          <a class="card" href="families/apify-public-records/" data-ref="feeds-directory">
             <h3>Public-records scrapers</h3>
             <p class="who">analysts, journalists and compliance teams who want OSHA severe injuries, EPA drinking-water systems or NRC spill notices as a clean table, billed per run with no subscription.</p>
-            <p class="meta"><span class="amount">Pay-per-run on the Apify Store</span> <span>per run</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">Pay-per-run on the Apify Store</span> <span>per run</span> <span class="state">Dated sample on the page</span></p>
           </a>
         </div>
       </section>
 
-      <section class="group">
+      <section class="group" id="checks-we-run-for-you">
         <h2>Checks we run for you</h2>
         <div class="cards">
-          <a class="card" href="families/predictor-diet/">
+          <a class="card" href="families/predictor-diet/" data-ref="feeds-directory">
             <h3>Predictor Diet Report</h3>
             <p class="who">In-house counsel, privacy and AI-governance teams who need a dated quote of their own public pages, not a score of anyone else.</p>
-            <p class="meta"><span class="amount">$499</span> <span>once a year, per company</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$499</span> <span>once a year, per company</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/machine-visitor-ledger/">
+          <a class="card" href="families/machine-visitor-ledger/" data-ref="feeds-directory">
             <h3>Machine Visitor Ledger</h3>
             <p class="who">Small hosting companies, independent publishers, and documentation sites that need a dated file of named-machine share and bytes from their own log.</p>
-            <p class="meta"><span class="amount">$199</span> <span>once, not a feed</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$199</span> <span>once, not a feed</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
         </div>
       </section>
 
-      <section class="group">
+      <section class="group" id="comparison-tables">
         <h2>Comparison tables</h2>
         <div class="cards">
-          <a class="card" href="families/verified-record/">
+          <a class="card" href="families/verified-record/" data-ref="feeds-directory">
             <h3>What we may say about a person</h3>
             <p class="who">Expert witnesses and fractional executives who want their own claims checked, and anybody wondering what we would ever publish about them.</p>
-            <p class="meta"><span class="amount">Not for sale yet</span> <span>opt-in only, nobody listed yet</span> <span class="pill pill-ready">All of it, free</span></p>
+            <p class="meta"><span class="amount">Not for sale yet</span> <span>opt-in only, nobody listed yet</span> <span class="state">All of it, free</span></p>
           </a>
         </div>
       </section>
 
-      <section class="group">
+      <section class="group" id="construction-records">
         <h2>Construction records</h2>
         <div class="cards">
-          <a class="card" href="families/permit-metros/">
+          <a class="card" href="families/permit-metros/" data-ref="feeds-directory">
             <h3>Metro issued-permit changes</h3>
             <p class="who">Contractor software, proptech, suppliers and lenders.</p>
-            <p class="meta"><span class="amount">Not for sale</span> <span>daily seals</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">Not for sale</span> <span>daily seals</span> <span class="state">Dated sample on the page</span></p>
           </a>
-          <a class="card" href="families/permit-files/">
+          <a class="card" href="families/permit-files/" data-ref="feeds-directory">
             <h3>City permit board files</h3>
             <p class="who">Contractors, expediters, lenders and data teams who want one city&#x27;s published permit table as a single CSV.</p>
-            <p class="meta"><span class="amount">$349</span> <span>once, not a feed</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$349</span> <span>once, not a feed</span> <span class="state">Dated sample on the page</span> <span class="state">Contact to confirm availability</span></p>
           </a>
-          <a class="card" href="families/az-contractors/">
+          <a class="card" href="families/az-contractors/" data-ref="feeds-directory">
             <h3>AZ ROC roster changes</h3>
             <p class="who">Arizona GCs and insurers.</p>
-            <p class="meta"><span>not available</span> <span class="pill pill-hold">Not available</span></p>
+            <p class="meta"><span>not available</span> <span class="state">Not available</span></p>
           </a>
-          <a class="card" href="families/scope-sheet/">
+          <a class="card" href="families/scope-sheet/" data-ref="feeds-directory">
             <h3>Bid package scope check</h3>
             <p class="who">Subcontractors pricing a bid package over a weekend, before they commit a number</p>
-            <p class="meta"><span class="amount">Not for sale yet</span> <span>read once, 24 Aug 2026</span> <span class="pill pill-hold">Sample not ready</span></p>
+            <p class="meta"><span class="amount">Not for sale yet</span> <span>read once, 24 Aug 2026</span> <span class="state">Sample not ready</span></p>
           </a>
-          <a class="card" href="families/chicago/">
+          <a class="card" href="families/chicago/" data-ref="feeds-directory">
             <h3>Chicago permit file</h3>
             <p class="who">General contractors, lenders, and data teams who need Chicago&#x27;s published permits on one sheet.</p>
-            <p class="meta"><span class="amount">$349</span> <span>one-time file, pulled 25 Aug 2026</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$349</span> <span>one-time file, pulled 25 Aug 2026</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/los-angeles/">
+          <a class="card" href="families/los-angeles/" data-ref="feeds-directory">
             <h3>Los Angeles permit file</h3>
             <p class="who">ADU builders, general contractors, and lenders who need Los Angeles permits from 2020 onward on one sheet.</p>
-            <p class="meta"><span class="amount">$349</span> <span>one-time file, pulled 25 Aug 2026</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$349</span> <span>one-time file, pulled 25 Aug 2026</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/baton-rouge/">
+          <a class="card" href="families/baton-rouge/" data-ref="feeds-directory">
             <h3>Baton Rouge permit file</h3>
             <p class="who">Residential builders and lenders in East Baton Rouge who need stored permit rows without person-name columns.</p>
-            <p class="meta"><span class="amount">$349</span> <span>one-time file, pulled 25 Aug 2026</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$349</span> <span>one-time file, pulled 25 Aug 2026</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/washington-dc/">
+          <a class="card" href="families/washington-dc/" data-ref="feeds-directory">
             <h3>Washington DC permit file</h3>
             <p class="who">DC general contractors, expediters, and lenders who need the District&#x27;s published building permits on one sheet.</p>
-            <p class="meta"><span class="amount">$349</span> <span>one-time file, pulled 26 Aug 2026</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$349</span> <span>one-time file, pulled 26 Aug 2026</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/boston/">
+          <a class="card" href="families/boston/" data-ref="feeds-directory">
             <h3>Boston permit file</h3>
             <p class="who">General contractors, lenders, and data teams who need Boston&#x27;s published approved building permits on one sheet, without applicant names.</p>
-            <p class="meta"><span class="amount">$349</span> <span>one-time file, pulled 26 Aug 2026</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$349</span> <span>one-time file, pulled 26 Aug 2026</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/metro-file/">
+          <a class="card" href="families/metro-file/" data-ref="feeds-directory">
             <h3>Metro File</h3>
             <p class="who">Expediters, lenders and data teams who need every status change on a named metro&#x27;s permits, not the full board dump and not a ranking.</p>
-            <p class="meta"><span class="amount">$349</span> <span>once, not a feed</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$349</span> <span>once, not a feed</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/stamper-appendix/">
+          <a class="card" href="families/stamper-appendix/" data-ref="feeds-directory">
             <h3>Stamper Evidence Appendix</h3>
             <p class="who">Licensed engineers and architects who attach public-record permit quotes to their own filing.</p>
-            <p class="meta"><span class="amount">$249</span> <span>once, not a feed</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$249</span> <span>once, not a feed</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/address-packet/">
+          <a class="card" href="families/address-packet/" data-ref="feeds-directory">
             <h3>Address Record Packet</h3>
             <p class="who">A title shop, lender, or closing desk that needs a dated public-record quote on one property for a closing table.</p>
-            <p class="meta"><span class="amount">$249</span> <span>once, not a feed</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$249</span> <span>once, not a feed</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/clerk-clock/">
+          <a class="card" href="families/clerk-clock/" data-ref="feeds-directory">
             <h3>Clerk Clock Packs</h3>
             <p class="who">Expediters, remodel contractors and lenders who need how many days one named office took to move one class of paperwork this quarter, plus that office&#x27;s walk-in hours.</p>
-            <p class="meta"><span class="amount">$349</span> <span>once, not a feed</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$349</span> <span>once, not a feed</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/stormwater-noi/">
+          <a class="card" href="families/stormwater-noi/" data-ref="feeds-directory">
             <h3>Texas construction stormwater NOIs, weekly</h3>
             <p class="who">Erosion-control, portable-sanitation and equipment-rental branch managers watching large sites in their county.</p>
-            <p class="meta"><span class="amount">$49/mo</span> <span>weekly</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$49/mo</span> <span>weekly</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
         </div>
       </section>
 
-      <section class="group">
+      <section class="group" id="weather-records">
         <h2>Weather records</h2>
         <div class="cards">
-          <a class="card" href="families/storm-warned-counties/">
+          <a class="card" href="families/storm-warned-counties/" data-ref="feeds-directory">
             <h3>Storm-warned counties, weekly</h3>
             <p class="who">Roofing, storm-restoration and public-adjuster firms that decide which counties to canvass each week after storms.</p>
-            <p class="meta"><span class="amount">$49/mo</span> <span>weekly</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$49/mo</span> <span>weekly</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
         </div>
       </section>
 
-      <section class="group">
+      <section class="group" id="federal-contract-records">
         <h2>Federal contract records</h2>
         <div class="cards">
-          <a class="card" href="families/new-prime-awards/">
+          <a class="card" href="families/new-prime-awards/" data-ref="feeds-directory">
             <h3>New prime awards, weekly</h3>
             <p class="who">Subcontractors and suppliers pitching companies that just won a federal prime contract.</p>
-            <p class="meta"><span class="amount">$49/mo</span> <span>weekly</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$49/mo</span> <span>weekly</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
         </div>
       </section>
 
-      <section class="group">
+      <section class="group" id="trade-records">
         <h2>Trade records</h2>
         <div class="cards">
-          <a class="card" href="families/hts-revision-seal/">
+          <a class="card" href="families/hts-revision-seal/" data-ref="feeds-directory">
             <h3>HTS revision seal, weekly</h3>
             <p class="who">Customs brokers, importer compliance desks, trade lawyers and auditors who must prove which tariff text and duty rate applied on an entry date.</p>
-            <p class="meta"><span class="amount">$49/mo</span> <span>weekly</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$49/mo</span> <span>weekly</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
         </div>
       </section>
 
-      <section class="group">
+      <section class="group" id="website-services">
         <h2>Website services</h2>
         <div class="cards">
-          <a class="card" href="families/wp-accessibility-scan/">
+          <a class="card" href="families/wp-accessibility-scan/" data-ref="feeds-directory">
             <h3>WP accessibility scan, weekly</h3>
             <p class="who">WordPress site owners and small web shops who must answer accessibility complaints and want a downloadable audit file, not an overlay widget.</p>
-            <p class="meta"><span class="amount">$49/mo</span> <span>monthly</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$49/mo</span> <span>monthly</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/warn-right/">
+          <a class="card" href="families/warn-right/" data-ref="feeds-directory">
             <h3>WarnRight Prop 65, monthly</h3>
             <p class="who">Shopify merchants who sell physical goods into California and need product-page Prop 65 warning text they can confirm.</p>
-            <p class="meta"><span class="amount">$19/mo</span> <span>monthly</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$19/mo</span> <span>monthly</span> <span class="state">Dated sample on the page</span> <span class="state">Contact to confirm availability</span></p>
           </a>
         </div>
       </section>
 
-      <section class="group">
+      <section class="group" id="aviation-services">
         <h2>Aviation services</h2>
         <div class="cards">
-          <a class="card" href="families/pilot-logbook-digitizer/">
+          <a class="card" href="families/pilot-logbook-digitizer/" data-ref="feeds-directory">
             <h3>Paper logbook digitizer</h3>
             <p class="who">Private and career pilots moving from paper to a digital logbook, and pilots rebuilding totals before a checkride or airline application.</p>
-            <p class="meta"><span class="amount">$175</span> <span>once, not a feed</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$175</span> <span>once, not a feed</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
         </div>
       </section>
 
-      <section class="group">
+      <section class="group" id="other-dated-records">
         <h2>Other dated records</h2>
         <div class="cards">
-          <a class="card" href="families/quakes/">
+          <a class="card" href="families/quakes/" data-ref="feeds-directory">
             <h3>Earthquake record archive</h3>
             <p class="who">Researchers and reporters who need what USGS said on a past day.</p>
-            <p class="meta"><span class="amount">Not for sale</span> <span>per named event</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">Not for sale</span> <span>per named event</span> <span class="state">Dated sample on the page</span></p>
           </a>
-          <a class="card" href="families/ttb/">
+          <a class="card" href="families/ttb/" data-ref="feeds-directory">
             <h3>TTB appear / disappear list</h3>
             <p class="who">Beverage compliance and wholesaler ops.</p>
-            <p class="meta"><span class="amount">$99/mo</span> <span>4 reads so far, 3, 8 and 6 days apart</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$99/mo</span> <span>4 reads so far, 3, 8 and 6 days apart</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/sec-8k/">
+          <a class="card" href="families/sec-8k/" data-ref="feeds-directory">
             <h3>8-K auditor and officer changes</h3>
             <p class="who">Audit, IR, and software vendors.</p>
-            <p class="meta"><span class="amount">Not for sale yet</span> <span>daily seals, now closed</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">Not for sale yet</span> <span>daily seals, now closed</span> <span class="state">Dated sample on the page</span></p>
           </a>
-          <a class="card" href="families/markets-resolved/">
+          <a class="card" href="families/markets-resolved/" data-ref="feeds-directory">
             <h3>Resolved prediction markets</h3>
             <p class="who">Quantitative researchers, sports and finance data teams, and reporters who need proof of what a market said before it was edited.</p>
-            <p class="meta"><span class="amount">Not for sale yet</span> <span>daily seals, stopped 25 Aug 2026</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">Not for sale yet</span> <span>daily seals, stopped 25 Aug 2026</span> <span class="state">Dated sample on the page</span></p>
           </a>
-          <a class="card" href="families/recalls/">
+          <a class="card" href="families/recalls/" data-ref="feeds-directory">
             <h3>Product recall changes</h3>
             <p class="who">Food and drug compliance teams, retail and distribution risk teams, and reporters who need what a recall said on a date, not what it says today.</p>
-            <p class="meta"><span class="amount">Not for sale yet</span> <span>daily seals, now stopped</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">Not for sale yet</span> <span>daily seals, now stopped</span> <span class="state">Dated sample on the page</span></p>
           </a>
-          <a class="card" href="families/fed-obligations/">
+          <a class="card" href="families/fed-obligations/" data-ref="feeds-directory">
             <h3>Federal agency obligation changes</h3>
             <p class="who">Federal contractor capture teams, grant offices, and budget reporters who need what an agency&#x27;s figure said on a date, not only what it says today.</p>
-            <p class="meta"><span class="amount">Not for sale yet</span> <span>daily seals, now stopped</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">Not for sale yet</span> <span>daily seals, now stopped</span> <span class="state">Dated sample on the page</span></p>
           </a>
-          <a class="card" href="families/texas-formulary/">
+          <a class="card" href="families/texas-formulary/" data-ref="feeds-directory">
             <h3>Texas Medicaid formulary</h3>
             <p class="who">Pharma market-access and Medicaid pharmacy leads who need yesterday&#x27;s Texas drug list after the official file is replaced.</p>
-            <p class="meta"><span class="amount">$349</span> <span>one dated pack</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$349</span> <span>one dated pack</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/hospital-mrf/">
+          <a class="card" href="families/hospital-mrf/" data-ref="feeds-directory">
             <h3>Phoenix hospital prices</h3>
             <p class="who">Health-plan actuaries and cash-pay brokers who need HonorHealth&#x27;s public charge file as it stood on a named day.</p>
-            <p class="meta"><span class="amount">$349</span> <span>one dated pack</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$349</span> <span>one dated pack</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/model-cards/">
+          <a class="card" href="families/model-cards/" data-ref="feeds-directory">
             <h3>Lab system-card claims</h3>
             <p class="who">AI procurement counsel and insurers who need what a public lab system card said on a named day, after the PDF is rewritten.</p>
-            <p class="meta"><span class="amount">$349</span> <span>one dated pack</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$349</span> <span>one dated pack</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/changeover-atlas/">
+          <a class="card" href="families/changeover-atlas/" data-ref="feeds-directory">
             <h3>Weekly changeover schedule atlas</h3>
             <p class="who">Planners and owner-operators at small manufacturers who want production-scheduling templates and changeover-reduction spreadsheets.</p>
-            <p class="meta"><span class="amount">$49/mo</span> <span>weekly, every Monday</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$49/mo</span> <span>weekly, every Monday</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/ttb-new-permits/">
+          <a class="card" href="families/ttb-new-permits/" data-ref="feeds-directory">
             <h3>New alcohol permits, weekly</h3>
             <p class="who">Vendors who sell to newly permitted alcohol businesses.</p>
-            <p class="meta"><span class="amount">$49/mo</span> <span>weekly, every Tuesday</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$49/mo</span> <span>weekly, every Tuesday</span> <span class="state">Dated sample on the page</span> <span class="state">Contact to confirm availability</span></p>
           </a>
-          <a class="card" href="families/fda-device-establishment-week/">
+          <a class="card" href="families/fda-device-establishment-week/" data-ref="feeds-directory">
             <h3>Device establishment changes</h3>
             <p class="who">Device distributors and initial importers who must prove a foreign manufacturer or importer is still FDA-registered; product-liability insurers; hospital supply-chain compliance desks</p>
-            <p class="meta"><span class="amount">$49/mo</span> <span>weekly, every Wednesday</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$49/mo</span> <span>weekly, every Wednesday</span> <span class="state">Dated sample on the page</span> <span class="state">Contact to confirm availability</span></p>
           </a>
-          <a class="card" href="families/carrier-register/">
+          <a class="card" href="families/carrier-register/" data-ref="feeds-directory">
             <h3>New carrier authority, weekly</h3>
             <p class="who">Trucking insurance agents and freight-factoring underwriters.</p>
-            <p class="meta"><span class="amount">$49/mo</span> <span>weekly</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$49/mo</span> <span>weekly</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/cannabis-tape/">
+          <a class="card" href="families/cannabis-tape/" data-ref="feeds-directory">
             <h3>Cannabis licence tape, weekly</h3>
             <p class="who">Cannabis insurance brokers and packaging suppliers who need a dated record of which licences appeared or lapsed in a given week.</p>
-            <p class="meta"><span class="amount">$49/mo</span> <span>weekly</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$49/mo</span> <span>weekly</span> <span class="state">Dated sample on the page</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/dealer-licence/">
+          <a class="card" href="families/dealer-licence/" data-ref="feeds-directory">
             <h3>Texas dealer-licence week</h3>
             <p class="who">Floor-plan lenders, dealer-software vendors and auto-auction account managers.</p>
-            <p class="meta"><span class="amount">$49/mo</span> <span>weekly</span> <span class="pill pill-ready">Sample ready</span></p>
+            <p class="meta"><span class="amount">$49/mo</span> <span>weekly</span> <span class="state">Dated sample on the page</span> <span class="state">Contact to confirm availability</span></p>
           </a>
         </div>
       </section>
 
-      <section class="group">
-        <h2>The rest of our public-records work</h2>
+      <section class="group" id="more">
+        <h2>Reports, letters and tools</h2>
         <div class="cards">
-          <a class="card" href="families/mn-pfas/">
+          <a class="card" href="families/mn-pfas/" data-ref="feeds-directory">
             <h3>Minnesota PFAS filer check</h3>
             <p class="who">Compliance managers at companies that make, brand, or import a product that may be sold into Minnesota.</p>
-            <p class="meta"><span class="amount">$450</span> <span>one named product line, once</span> <span class="pill pill-ready">Letter, not a feed</span></p>
+            <p class="meta"><span class="amount">$450</span> <span>one named product line, once</span> <span class="state">Letter, not a feed</span></p>
           </a>
-          <a class="card" href="families/claim-check/">
+          <a class="card" href="families/claim-check/" data-ref="feeds-directory">
             <h3>Claim-check receipt</h3>
             <p class="who">A developer shipping an AI feature that shows citations.</p>
-            <p class="meta"><span class="amount">$19</span> <span>per check, credits</span> <span class="pill pill-ready">Example receipt</span></p>
+            <p class="meta"><span class="amount">$19</span> <span>per check, credits</span> <span class="state">Example receipt</span></p>
           </a>
-          <a class="card" href="families/agent-break/">
+          <a class="card" href="families/agent-break/" data-ref="feeds-directory">
             <h3>Agent break report</h3>
             <p class="who">An engineer who owns a customer-facing AI bot.</p>
-            <p class="meta"><span class="amount">$450</span> <span>one audit, then monthly</span> <span class="pill pill-ready">Example report</span></p>
+            <p class="meta"><span class="amount">$450</span> <span>one audit, then monthly</span> <span class="state">Example report</span></p>
           </a>
-          <a class="card" href="families/raise-prep/">
+          <a class="card" href="families/raise-prep/" data-ref="feeds-directory">
             <h3>Raise-talk prep pack</h3>
             <p class="who">Someone with a pay-raise talk booked in 14 days or less.</p>
-            <p class="meta"><span class="amount">$179</span> <span>one pack</span> <span class="pill pill-ready">Example pack</span></p>
+            <p class="meta"><span class="amount">$179</span> <span>one pack</span> <span class="state">Example pack</span></p>
           </a>
-          <a class="card" href="families/deprecation-weather/">
+          <a class="card" href="families/deprecation-weather/" data-ref="feeds-directory">
             <h3>Deprecation weather board</h3>
             <p class="who">An engineer who owns the third-party-integration layer at a 5 to 50 person company.</p>
-            <p class="meta"><span class="amount">$199/mo</span> <span>monthly per repo</span> <span class="pill pill-ready">Example board</span></p>
+            <p class="meta"><span class="amount">$199/mo</span> <span>monthly per repo</span> <span class="state">Example board</span></p>
           </a>
-          <a class="card" href="families/terms-ledger/">
+          <a class="card" href="families/terms-ledger/" data-ref="feeds-directory">
             <h3>Terms-versions evidence pack</h3>
             <p class="who">A data lead at a small or mid-size AI company who has to show where training data was allowed to come from.</p>
-            <p class="meta"><span class="amount">$179</span> <span>dated reads</span> <span class="pill pill-ready">Example quotes</span></p>
+            <p class="meta"><span class="amount">$179</span> <span>dated reads</span> <span class="state">Example quotes</span></p>
           </a>
-          <a class="card" href="families/cutoff-proof/">
+          <a class="card" href="families/cutoff-proof/" data-ref="feeds-directory">
             <h3>Post-cutoff certificate</h3>
             <p class="who">A founder or head of engineering whose product&#x27;s answers must be current after the model&#x27;s training cutoff.</p>
-            <p class="meta"><span class="amount">$195</span> <span>certified run</span> <span class="pill pill-ready">Example certificate</span></p>
+            <p class="meta"><span class="amount">$195</span> <span>certified run</span> <span class="state">Example certificate</span></p>
           </a>
-          <a class="card" href="families/extract-custody/">
+          <a class="card" href="families/extract-custody/" data-ref="feeds-directory">
             <h3>Document custody vault</h3>
             <p class="who">A 1 to 5 person AI consultancy handling clients&#x27; documents.</p>
-            <p class="meta"><span class="amount">$9/mo</span> <span>monthly vault</span> <span class="pill pill-ready">Example log</span></p>
+            <p class="meta"><span class="amount">$9/mo</span> <span>monthly vault</span> <span class="state">Example log</span></p>
           </a>
-          <a class="card" href="families/outcome-registry/">
+          <a class="card" href="families/outcome-registry/" data-ref="feeds-directory">
             <h3>Outcome registry filing</h3>
             <p class="who">Someone who publicly committed to a dated prediction and wants a neutral sealed record of it.</p>
-            <p class="meta"><span class="amount">$25</span> <span>per filing</span> <span class="pill pill-ready">Example filing</span></p>
+            <p class="meta"><span class="amount">$25</span> <span>per filing</span> <span class="state">Example filing</span></p>
           </a>
-          <a class="card" href="families/canary-ledger/">
+          <a class="card" href="families/canary-ledger/" data-ref="feeds-directory">
             <h3>Canary marker evidence pack</h3>
             <p class="who">The owner of a small paid-content business being copied.</p>
-            <p class="meta"><span class="amount">$175</span> <span>founding pack, then monthly</span> <span class="pill pill-ready">Example marker</span></p>
+            <p class="meta"><span class="amount">$175</span> <span>founding pack, then monthly</span> <span class="state">Example marker</span></p>
           </a>
-          <a class="card" href="families/gathering-host/">
+          <a class="card" href="families/gathering-host/" data-ref="feeds-directory">
             <h3>Gathering host run sheet</h3>
             <p class="who">A person running a recurring, capacity-limited gathering.</p>
-            <p class="meta"><span class="amount">$348/yr</span> <span>yearly host plan</span> <span class="pill pill-ready">Example run sheet</span></p>
+            <p class="meta"><span class="amount">$348/yr</span> <span>yearly host plan</span> <span class="state">Example run sheet</span></p>
           </a>
-          <a class="card" href="families/city-trade/">
+          <a class="card" href="families/city-trade/" data-ref="feeds-directory">
             <h3>City trade pages</h3>
             <p class="who">Owners of local trade firms who want one page about their trade in their city with only their name on it.</p>
-            <p class="meta"><span class="amount">$249/mo</span> <span>monthly, cancel at month end</span> <span class="pill pill-ready">Live</span></p>
+            <p class="meta"><span class="amount">$249/mo</span> <span>monthly, cancel at month end</span> <span class="state">Read the product page for availability</span></p>
           </a>
-          <a class="card" href="families/frozen-custody/">
+          <a class="card" href="families/frozen-custody/" data-ref="feeds-directory">
             <h3>Frozen Model Custody</h3>
             <p class="who">Teams whose audit must re-run a model exactly as it ran before: same model, same settings, same bytes, next year.</p>
-            <p class="meta"><span class="amount">$300/mo</span> <span>monthly per pin</span> <span class="pill pill-ready">Live</span></p>
+            <p class="meta"><span class="amount">$300/mo</span> <span>monthly per pin</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/wrong-wall/">
+          <a class="card" href="families/wrong-wall/" data-ref="feeds-directory">
             <h3>Wrong Wall Report</h3>
             <p class="who">Shop owners whose bot rules block the AI shopping agents and let the scrapers in; one dated report for one named site.</p>
-            <p class="meta"><span class="amount">$249</span> <span>once, not a feed</span> <span class="pill pill-ready">Live</span></p>
+            <p class="meta"><span class="amount">$249</span> <span>once, not a feed</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/permits/">
+          <a class="card" href="families/permits/" data-ref="feeds-directory">
             <h3>The permits library</h3>
             <p class="who">Contractors, homeowners and anyone filing in the Phoenix metro.</p>
-            <p class="meta"><span class="amount">Free</span> <span>no login</span> <span class="pill pill-ready">Live and free</span></p>
+            <p class="meta"><span class="amount">Free</span> <span>no login</span> <span class="state">Live and free</span></p>
           </a>
-          <a class="card" href="families/offers/">
+          <a class="card" href="families/offers/" data-ref="feeds-directory">
             <h3>Offers and evidence</h3>
             <p class="who">Small businesses that want one piece of automation built.</p>
-            <p class="meta"><span class="amount">$200 – $450</span> <span>fixed price, fixed window</span> <span class="pill pill-ready">Live</span></p>
+            <p class="meta"><span class="amount">$200 – $450</span> <span>fixed price, fixed window</span> <span class="state">Read the product page for availability</span></p>
           </a>
-          <a class="card" href="families/enforcement-action-board/">
+          <a class="card" href="families/enforcement-action-board/" data-ref="feeds-directory">
             <h3>State-by-state EPA enforcement action boards</h3>
             <p class="who">Compliance consultants and environmental attorneys who help facilities respond to formal EPA enforcement actions and want to reach companies in one state right after an action lands.</p>
-            <p class="meta"><span class="amount">$350 for 12 months</span> <span>The public boards refresh monthly from a sealed copy of EPA&#x27;s ECHO case search. The paid part is not a feed: it is one Featured &#x27;Get help&#x27; slot on a state&#x27;s board, held for twelve months.</span> <span class="pill pill-ready">Live</span></p>
+            <p class="meta"><span class="amount">$350 for 12 months</span> <span>The public boards refresh monthly from a sealed copy of EPA&#x27;s ECHO case search. The paid part is not a feed: it is one Featured &#x27;Get help&#x27; slot on a state&#x27;s board, held for twelve months.</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/patent-practitioner-directory/">
+          <a class="card" href="families/patent-practitioner-directory/" data-ref="feeds-directory">
             <h3>Patent Practitioner Directory</h3>
             <p class="who">Patent law firms and solo patent practitioners who want to be found in their city.</p>
-            <p class="meta"><span class="amount">$350/12mo</span> <span>the USPTO roster is read fresh at every site build; a Featured listing itself runs 12 months</span> <span class="pill pill-ready">Live</span></p>
+            <p class="meta"><span class="amount">$350/12mo</span> <span>the USPTO roster is read fresh at every site build; a Featured listing itself runs 12 months</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/customs-broker-exam-bank/">
+          <a class="card" href="families/customs-broker-exam-bank/" data-ref="feeds-directory">
             <h3>The last five Customs Broker License Exam sittings, explained</h3>
             <p class="who">Candidates studying for the CBP Customs Broker License Exam who want the recent papers with the official answer and a plain explanation on each question.</p>
-            <p class="meta"><span class="amount">$49</span> <span>One payment, not a subscription. You get the whole explained bank as a single page. We add each new sitting after the April and October exams; buying again is your choice, nothing recurring.</span> <span class="pill pill-ready">Live</span></p>
+            <p class="meta"><span class="amount">$49</span> <span>One payment, not a subscription. You get the whole explained bank as a single page. We add each new sitting after the April and October exams; buying again is your choice, nothing recurring.</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/hazmat-ship-pack/">
+          <a class="card" href="families/hazmat-ship-pack/" data-ref="feeds-directory">
             <h3>Hazmat road pack, one UN number</h3>
             <p class="who">Small shippers and e-commerce sellers who must ship one dangerous good by road in the US and need the federal table row, the exceptions explained and label artwork proofs.</p>
-            <p class="meta"><span class="amount">$49</span> <span>One payment, not a subscription. You get one private web page for the UN number you name. The federal table is amended through the year; buying again is your choice, nothing recurring.</span> <span class="pill pill-ready">Live</span></p>
+            <p class="meta"><span class="amount">$49</span> <span>One payment, not a subscription. You get one private web page for the UN number you name. The federal table is amended through the year; buying again is your choice, nothing recurring.</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/contractor-audit-file/">
+          <a class="card" href="families/contractor-audit-file/" data-ref="feeds-directory">
             <h3>Contractor audit file</h3>
             <p class="who">A founder or small business paying people on 1099 who wants one organised file ready for a state audit, a 1099 mismatch letter or a lawyer&#x27;s questionnaire.</p>
-            <p class="meta"><span class="amount">$49</span> <span>One payment, not a subscription. You get one private page you can print or save. We re-read the cited statute pages and re-check every quote; buying again is your choice, nothing recurring.</span> <span class="pill pill-ready">Live</span></p>
+            <p class="meta"><span class="amount">$49</span> <span>One payment, not a subscription. You get one private page you can print or save. We re-read the cited statute pages and re-check every quote; buying again is your choice, nothing recurring.</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/nutrition-label-forge/">
+          <a class="card" href="families/nutrition-label-forge/" data-ref="feeds-directory">
             <h3>Nutrition Facts panel builder</h3>
             <p class="who">Small US food makers putting a first product on a shelf, who need a Nutrition Facts panel and the reasoning behind every number on it.</p>
-            <p class="meta"><span class="amount">$49</span> <span>One payment for one product, not a subscription. We re-read 21 CFR 101.9, 101.12 and 101.4 from the eCFR every month and rebuild the food table when USDA publishes a new release, so the free pages stay current; buying again for a second product is your choice, nothing recurring.</span> <span class="pill pill-ready">Live</span></p>
+            <p class="meta"><span class="amount">$49</span> <span>One payment for one product, not a subscription. We re-read 21 CFR 101.9, 101.12 and 101.4 from the eCFR every month and rebuild the food table when USDA publishes a new release, so the free pages stay current; buying again for a second product is your choice, nothing recurring.</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/ai-disclosure-notice/">
+          <a class="card" href="families/ai-disclosure-notice/" data-ref="feeds-directory">
             <h3>AI disclosure notice pack</h3>
             <p class="who">A company running an AI chatbot, AI-generated content or an AI decision step that people in the EU or a US disclosure state can reach.</p>
-            <p class="meta"><span class="amount">$49</span> <span>One payment, not a subscription. You get the notice pack as a single private page, dated. We re-read the sources about every three months; buying again is your choice, nothing recurring.</span> <span class="pill pill-ready">Live</span></p>
+            <p class="meta"><span class="amount">$49</span> <span>One payment, not a subscription. You get the notice pack as a single private page, dated. We re-read the sources about every three months; buying again is your choice, nothing recurring.</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/notary-journal/">
+          <a class="card" href="families/notary-journal/" data-ref="feeds-directory">
             <h3>Notary journal, unlocked copy</h3>
             <p class="who">A notary public or loan-signing agent who wants their own state&#x27;s words about a journal and a journal that keeps entries on their own device.</p>
-            <p class="meta"><span class="amount">$49</span> <span>One payment, not a subscription. You get one private page carrying the same journal with no entry limit. The free state pages are re-read every week; buying again is never needed and nothing recurs.</span> <span class="pill pill-ready">Live</span></p>
+            <p class="meta"><span class="amount">$49</span> <span>One payment, not a subscription. You get one private page carrying the same journal with no entry limit. The free state pages are re-read every week; buying again is never needed and nothing recurs.</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/qrelay/">
+          <a class="card" href="families/qrelay/" data-ref="feeds-directory">
             <h3>Security questionnaire relay</h3>
             <p class="who">Software companies that answer and send vendor security questionnaires.</p>
-            <p class="meta"><span class="amount">$175/mo</span> <span>A monthly key. Free: three open questionnaires per 30 days and a small badge on your public answers page. Paid: no limit, no badge. Cancel any time through Stripe; the key stops working when the subscription ends.</span> <span class="pill pill-ready">Live</span></p>
+            <p class="meta"><span class="amount">$175/mo</span> <span>A monthly key. Free: three open questionnaires per 30 days and a small badge on your public answers page. Paid: no limit, no badge. Cancel any time through Stripe; the key stops working when the subscription ends.</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/acacheck/">
+          <a class="card" href="families/acacheck/" data-ref="feeds-directory">
             <h3>ACA e-file pre-checker</h3>
             <p class="who">Payroll engineers who file 1094-C and 1095-C returns electronically.</p>
-            <p class="meta"><span class="amount">$499 for 12 months</span> <span>One payment for 12 months. The open-source checker is free forever; the paid key unlocks the hosted check with every finding and the full rejection-code decoder. Nothing recurring.</span> <span class="pill pill-ready">Live</span></p>
+            <p class="meta"><span class="amount">$499 for 12 months</span> <span>One payment for 12 months. The open-source checker is free forever; the paid key unlocks the hosted check with every finding and the full rejection-code decoder. Nothing recurring.</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/ledgermatch/">
+          <a class="card" href="families/ledgermatch/" data-ref="feeds-directory">
             <h3>Supplier ledger reconciliation</h3>
             <p class="who">Bookkeepers who chase invoice differences with suppliers.</p>
-            <p class="meta"><span class="amount">$99/mo</span> <span>A monthly key. Free: two workspaces per 30 days and 200 rows a side. Paid: no limit and 2,000 rows a side. Cancel any time through Stripe.</span> <span class="pill pill-ready">Live</span></p>
+            <p class="meta"><span class="amount">$99/mo</span> <span>A monthly key. Free: two workspaces per 30 days and 200 rows a side. Paid: no limit and 2,000 rows a side. Cancel any time through Stripe.</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/schemahand/">
+          <a class="card" href="families/schemahand/" data-ref="feeds-directory">
             <h3>Schema handoff diagram</h3>
             <p class="who">Developers who hand a database schema to a client.</p>
-            <p class="meta"><span class="amount">$199 for 12 months</span> <span>One payment for 12 months. The diagram tool runs free in the browser; the paid key unlocks the handoff package export. Nothing recurring.</span> <span class="pill pill-ready">Live</span></p>
+            <p class="meta"><span class="amount">$199 for 12 months</span> <span>One payment for 12 months. The diagram tool runs free in the browser; the paid key unlocks the handoff package export. Nothing recurring.</span> <span class="state">Card checkout on its page</span></p>
           </a>
-          <a class="card" href="families/casepack/">
+          <a class="card" href="families/casepack/" data-ref="feeds-directory">
             <h3>Bilingual reorder sheet</h3>
             <p class="who">Wholesalers whose customers reorder by the case.</p>
-            <p class="meta"><span class="amount">$49/mo</span> <span>A monthly key. Free: a reorder sheet with our small badge, up to 500 products. Paid: no badge, up to 5,000 products. Cancel any time through Stripe.</span> <span class="pill pill-ready">Live</span></p>
+            <p class="meta"><span class="amount">$49/mo</span> <span>A monthly key. Free: a reorder sheet with our small badge, up to 500 products. Paid: no badge, up to 5,000 products. Cancel any time through Stripe.</span> <span class="state">Card checkout on its page</span></p>
           </a>
         </div>
       </section>
     </div>
 
     <section class="contact">
-      <h2>Elsewhere on our site</h2>
+      <h2>How to buy, and where else to look</h2>
+      <p>Open a product page to read its exact scope, price and delivery terms. Where a checkout button is available, it opens that product’s payment page. For a product without a checkout, contact us to confirm availability. This directory has no combined checkout.</p>
+      <p>To scope a feed to your own list, region or cadence, tell us what you need at <a href="mailto:operations@ustechautomations.com?subject=Data%20task%20scope">Describe your data task</a>.</p>
+      <a class="btn btn-ghost" href="mailto:operations@ustechautomations.com?subject=Change%20feed">Email operations@ustechautomations.com</a>
+      <p class="mail-note">Name the product, your intended use, required coverage and deadline so we can assess the fit.</p>
       <p>Blog listings stay at <a href="https://ustechautomations.com/blog-sponsorship">/blog-sponsorship</a>. The permits library stays at <a href="https://ustechautomations.com/permits">/permits</a>. Those are different products for different buyers, and they are not sold from this page.</p>
-      <a class="mail" href="mailto:operations@ustechautomations.com?subject=Change%20feed">Email operations@ustechautomations.com</a>
-      <p class="mail-note">Name the feed you want. We reply with what we can and cannot collect, and a checkout link if that feed is one we sell today.</p>
     </section>
 
+
+    <section class="group" id="file-tools">
+      <h2>Explore file tools</h2>
+      <p>These tools have their own input limits and availability. Read the tool page before using a business file.</p>
+      <ul>
+        <li><a href="https://ustechautomations.com/feeds/catalog-migration/">Catalog migration</a> — prepare a draft product CSV from supported source files; review warnings before importing.</li>
+        <li><a href="https://ustechautomations.com/feeds/workshop/">Workshop</a> — try the browser tools and inspect their example outputs.</li>
+        <li><a href="https://ustechautomations.com/feeds/pathlab/">PathLab</a> — preview processing workflows and their scope. Job submission is unavailable.</li>
+      </ul>
+    </section>
   </div>
 </main>
 
@@ -643,5 +721,34 @@
     <p class="addr">US Tech Automations · 3298 N Glassford Hill Rd Ste 104 PMB 1055, Prescott Valley AZ 86314</p>
   </div>
 </footer>
+<script>
+(function () {
+  var input = document.getElementById('directory-query');
+  if (!input) return;
+  var cards = Array.from(document.querySelectorAll('.hub-groups a.card'));
+  var sections = Array.from(document.querySelectorAll('.hub-groups section.group'));
+  var status = document.getElementById('directory-results');
+  input.parentElement.hidden = false;
+  function filter() {
+    var words = input.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+    var shown = 0;
+    cards.forEach(function (card) {
+      var text = card.textContent.toLowerCase();
+      card.hidden = !words.every(function (word) { return text.indexOf(word) !== -1; });
+      if (!card.hidden) shown += 1;
+    });
+    sections.forEach(function (section) {
+      section.hidden = !Array.from(section.querySelectorAll('a.card')).some(function (card) { return !card.hidden; });
+    });
+    status.textContent = shown ? 'Showing ' + shown + ' of ' + cards.length + ' directory entries.' : 'No matching entries. Try a broader task or clear the search.';
+  }
+  input.addEventListener('input', filter);
+  input.addEventListener('search', filter);
+  document.querySelectorAll('.group-nav a').forEach(function (link) {
+    link.addEventListener('click', function () { input.value = ''; filter(); });
+  });
+  filter();
+})();
+</script>
 </body>
 </html>

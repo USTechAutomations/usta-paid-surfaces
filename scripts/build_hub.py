@@ -67,35 +67,89 @@ TRUST = [
 ]
 
 
-def commas(names: list[str]) -> str:
-    """Join names the way a person would say them out loud."""
-    if len(names) == 1:
-        return names[0]
-    return ", ".join(names[:-1]) + " and " + names[-1]
+# The one referral label put on every hub-to-product anchor. It is a static
+# data attribute, not a URL parameter: it carries no person, no session and no
+# utm, so it cannot follow a buyer off this page or into a checkout URL. GTM
+# already stamps every page with page_surface='feeds' and page_family (see
+# build_site.GTM); this lets a click trigger read "the click came from the
+# directory grid" without inventing a new tracking scheme or claiming that a
+# later payment is attributable to it.
+HUB_REF = 'data-ref="feeds-directory"'
+
+# The heading over the non-feed products. They are letters, one-off reports and
+# tools, not change feeds, so the section must not call them feeds -- the count
+# above the directory is a count of feeds, and folding these in was one of the
+# ways the old hub overstated what it runs.
+EXTRA_TITLE = "Reports, letters and tools"
 
 
-def card(f):
+def slug(name: str) -> str:
+    """A stable #anchor for a section heading."""
+    return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
+
+
+def sample_state(f) -> str:
+    """What the page shows about a sample, in muted words rather than a badge."""
+    st = f["sample_status"]
+    if st == "parked":
+        return "Not available"
+    if st == "pass":
+        return "Dated sample on the page"
+    if st == "on-page":
+        # No sample file is coming and none ever will: the page IS the whole of
+        # what we hold. "Not ready" would promise a file that does not exist,
+        # which is the one thing this directory is for not doing.
+        return ON_PAGE_PILL
+    return "Sample not ready"
+
+
+def checkout_state(f, card_ids) -> str:
+    """The next step a buyer takes, read from the family page -- never catalog.live.
+
+    A card that prints "buy" or "checkout" over a page with no pay button is the
+    exact defect this rebuild removes, so "takes a card" comes only from the
+    button parsed off the page itself. A page that is priced but carries no
+    button requires scope and availability confirmation; the price alone does
+    not establish an available purchase route.
+    """
     if f["sample_status"] == "parked":
-        pill, price = '<span class="pill pill-hold">Not available</span>', ""
-    elif f["sample_status"] == "pass":
-        pill = '<span class="pill pill-ready">Sample ready</span>'
-        price = f'<span class="amount">{esc(f["price"])}</span> '
-    elif f["sample_status"] == "on-page":
-        # "Not ready" tells a stranger a sample is coming. For this family none
-        # is coming and none ever will: there is no file behind the page, so the
-        # page IS the file. Saying "not ready" here is the card promising
-        # something that does not exist, which is the one thing this directory is
-        # for not doing.
-        pill = f'<span class="pill pill-ready">{esc(ON_PAGE_PILL)}</span>'
-        price = f'<span class="amount">{esc(f["price"])}</span> '
-    else:
-        pill = '<span class="pill pill-hold">Sample not ready</span>'
-        price = f'<span class="amount">{esc(f["price"])}</span> '
-    return f"""          <a class="card" href="families/{f['id']}/">
+        return ""
+    if f["id"] in card_ids:
+        return "Card checkout on its page"
+    if "$" in f.get("price", ""):
+        return "Contact to confirm availability"
+    return ""
+
+
+def meta_spans(f, card_ids) -> str:
+    spans = []
+    if f["sample_status"] != "parked":
+        spans.append(f'<span class="amount">{esc(f["price"])}</span>')
+    spans.append(f'<span>{esc(f["cadence"])}</span>')
+    spans.append(f'<span class="state">{esc(sample_state(f))}</span>')
+    co = checkout_state(f, card_ids)
+    if co:
+        spans.append(f'<span class="state">{esc(co)}</span>')
+    return " ".join(spans)
+
+
+def card(f, card_ids):
+    return f"""          <a class="card" href="families/{f['id']}/" {HUB_REF}>
             <h3>{esc(f['short'])}</h3>
             <p class="who">{esc(f['who'])}</p>
-            <p class="meta">{price}<span>{esc(f['cadence'])}</span> {pill}</p>
+            <p class="meta">{meta_spans(f, card_ids)}</p>
           </a>"""
+
+
+def section(anchor: str, title: str, cards: str) -> str:
+    return f"""
+      <section class="group" id="{anchor}">
+        <h2>{esc(title)}</h2>
+        <div class="cards">
+{cards}
+        </div>
+      </section>
+"""
 
 
 def main():
@@ -151,29 +205,26 @@ def main():
     by_mail = [f for f in priced if f["id"] not in card_ids]
     not_for_sale = len(fams) - len(priced)
 
+    # Collect every drawn section as (anchor, title, count, html) so the jump-nav
+    # and the sections under it come from one list and can never disagree about
+    # what exists or how many a group holds.
+    sections: list[tuple[str, str, int, str]] = []
+
     # Only advertise a trust page that actually exists on disk. A hub link to a
     # page we never built is the same defect as a pay link to a dead checkout.
-    trust = ""
     live_trust = [(i, h, w) for i, h, w in TRUST if (ROOT / "families" / i / "index.html").is_file()]
     if live_trust:
         cards = "\n".join(
-            f"""          <a class="card" href="families/{i}/">
+            f"""          <a class="card" href="families/{i}/" {HUB_REF}>
             <h3>{esc(h)}</h3>
             <p class="who">{esc(w)}</p>
-            <p class="meta"><span>Free to read</span> <span class="pill pill-ready">Rebuilt daily</span></p>
+            <p class="meta"><span>Free to read</span> <span class="state">Scope and methods</span></p>
           </a>"""
             for i, h, w in live_trust
         )
-        trust = f"""
-      <section class="group">
-        <h2>Start here</h2>
-        <div class="cards">
-{cards}
-        </div>
-      </section>
-"""
+        sections.append(("start-here", "Start here", len(live_trust),
+                         section("start-here", "Start here", cards)))
 
-    groups = ""
     # Refuse before drawing anything, rather than drawing a directory that is
     # quietly short. A hub that leaves a feed out is the same defect as a feed
     # page that leaves a gap out, and this one is harder to see because the
@@ -194,46 +245,63 @@ def main():
         rows = [f for f in fams if f["group"] == g]
         if not rows:
             continue
-        cards = "\n".join(card(f) for f in rows)
-        groups += f"""
-      <section class="group">
-        <h2>{esc(g)}</h2>
-        <div class="cards">
-{cards}
-        </div>
-      </section>
-"""
+        cards = "\n".join(card(f, card_ids) for f in rows)
+        sections.append((slug(g), g, len(rows), section(slug(g), g, cards)))
+
+    # Extra entries retain their declared price; availability is read from the
+    # actual product page instead of a decorative catalog "Live" label.
+    def extra_state(e):
+        path = ROOT / "families" / e["id"] / "index.html"
+        if path.is_file() and buy_buttons(path.read_text(encoding="utf-8")):
+            return "Card checkout on its page"
+        if e.get("pill", "").lower() in {"live", "ready", "published"}:
+            return "Read the product page for availability"
+        return e.get("pill", "")
 
     # The trust pages are listed in extras.json so the build and the link gate
     # treat them like any other published page, but they are shown at the top in
-    # "Start here", not down here among the public-records work.
+    # "Start here". The rest are letters, one-off reports and tools -- not feeds,
+    # so their section is titled and counted apart from the feed directory.
     trust_ids = {i for i, _, _ in TRUST}
     rest = [e for e in EXTRA if e["id"] not in trust_ids]
-    extra = ""
     if rest:
         cards = "\n".join(
-            f"""          <a class="card" href="families/{e['id']}/">
+            f"""          <a class="card" href="families/{e['id']}/" {HUB_REF}>
             <h3>{esc(e['short'])}</h3>
             <p class="who">{esc(e['who'])}</p>
-            <p class="meta"><span class="amount">{esc(e['amount'])}</span> <span>{esc(e['cadence'])}</span> <span class="pill {e['pill_class']}">{esc(e['pill'])}</span></p>
+            <p class="meta"><span class="amount">{esc(e['amount'])}</span> <span>{esc(e['cadence'])}</span> <span class="state">{esc(extra_state(e))}</span></p>
           </a>"""
             for e in rest
         )
-        extra = f"""
-      <section class="group">
-        <h2>The rest of our public-records work</h2>
-        <div class="cards">
-{cards}
-        </div>
-      </section>
-"""
+        sections.append(("more", EXTRA_TITLE, len(rest),
+                         section("more", EXTRA_TITLE, cards)))
+
+    # A visible, no-JS jump list: every section drawn below has one entry here
+    # and no more, because both are walked off `sections`. id="directory" is the
+    # target the hero's one primary action scrolls to.
+    nav_items = "\n".join(
+        f'          <li><a href="#{a}">{esc(t)} <span class="n">{n}</span></a></li>'
+        for a, t, n, _ in sections
+    )
+    nav = (
+        '      <nav id="directory" aria-label="Jump to a directory section">\n'
+        f'        <ul class="group-nav">\n{nav_items}\n        </ul>\n'
+        '      </nav>\n'
+    )
+    search = ('      <div class="directory-search" hidden>\n'
+              '        <label for="directory-query">Search by product, task or buyer</label>\n'
+              '        <input id="directory-query" type="search" placeholder="For example: supplier, permits, bookkeeper" autocomplete="off" aria-describedby="directory-results">\n'
+              '        <p id="directory-results" role="status" aria-live="polite"></p>\n'
+              '      </div>\n')
+    nav += search
+    groups_html = "".join(h for _, _, _, h in sections)
 
     page = (ROOT / "index.html").read_text(encoding="utf-8")
     # Splice only between the groups marker and the contact block, so hand-written
     # copy above and below the directory survives every rebuild.
     start = page.index('    <div class="hub-groups">')
     end = page.index('    <section class="contact">')
-    body = f'    <div class="hub-groups">\n{trust}{groups}{extra}    </div>\n\n'
+    body = f'    <div class="hub-groups">\n{nav}{groups_html}    </div>\n\n'
     page = page[:start] + body + page[end:]
 
     def one(n, singular, plural):
@@ -241,7 +309,7 @@ def main():
 
     eyebrow = (
         f'Directory <span class="dot"></span> {len(fams)} feeds '
-        f'<span class="dot"></span> {len(priced)} for sale'
+        f'<span class="dot"></span> {len(priced)} with a listed price'
     )
     page, hit = re.subn(
         r'<p class="eyebrow">Directory.*?</p>', f'<p class="eyebrow">{eyebrow}</p>', page, count=1
@@ -275,36 +343,42 @@ def main():
             "than letting the hub print a number nothing recounted."
         )
 
-    # The money line. Every clause of it is counted from the pages themselves on
-    # this run: which feeds carry a pay button, which are priced without one, and
-    # how many are not for sale at all. A buyer who reads "email us for a link"
-    # about a feed that already has a button wastes a day, and a buyer told to
-    # email about a feed we do not sell is being promised something that will not
-    # arrive. Both were live here until 2026-08-24.
+    # The money line, made of counts rather than a wall of names. Each clause is
+    # counted from the pages on this run: which feeds carry a pay button
+    # (takes_card), which are priced without one and so sold by email (by_mail),
+    # and which are not priced at all. The old version listed all thirty-odd
+    # card-taking feeds by name in one comma sentence nobody could read, and it
+    # also leaned on the catalog's price alone to decide "sold", which said "buy"
+    # over pages that had no button. Per-card states below now come from the
+    # button itself; this line only totals them and points at the two routes.
     mail = "mailto:operations@ustechautomations.com?subject=Change%20feed"
     inbox = f'<a href="{mail}">operations@ustechautomations.com</a>'
+    partner = ('<a href="mailto:operations@ustechautomations.com?subject=Data%20task%20scope">'
+               'Describe your data task</a>')
+    parts = ["<strong>There is no bundle.</strong> Each product has its "
+             "own terms. Open a product page to see its sample, available purchase route and delivery details."]
     if takes_card:
-        names = commas([esc(f["short"]) for f in takes_card])
-        note = (
-            f'<strong>{one(len(takes_card), "feed takes", "feeds take")} a card today.</strong> '
-            + (f"{names} has a pay button on its own page."
-               if len(takes_card) == 1 else
-               f"{names} each have a pay button on their own page.")
-        )
+        parts.append(
+            f' Of the {len(fams)} feeds listed here, {len(takes_card)} '
+            f'{"has" if len(takes_card) == 1 else "have"} a card checkout on '
+            f'{"its" if len(takes_card) == 1 else "their"} own page')
     else:
-        note = ("<strong>No feed takes a card today.</strong> Every feed we sell is sold "
-                "through an email thread.")
+        parts.append(f' None of the {len(fams)} feeds listed here takes a card today')
     if by_mail:
-        names = commas([esc(f["short"]) for f in by_mail])
-        note += (
-            f' {names} {"is" if len(by_mail) == 1 else "are"} priced and sold through an email '
-            f'thread instead: email {inbox} and we send a checkout link in that thread.'
-        )
+        parts.append(
+            f', and {len(by_mail)} {"has" if len(by_mail) == 1 else "have"} a listed price without a checkout button. '
+            f'Contact {inbox} to confirm scope and availability before planning a purchase')
+    parts.append(".")
     if not_for_sale:
-        note += (
-            f' The other {one(not_for_sale, "feed is", "feeds are")} not for sale today. Ask '
-            'about one and we will tell you that, rather than send you a link.'
-        )
+        lead_in = "The other " if (takes_card or by_mail) else "The "
+        parts.append(
+            f' {lead_in}{one(not_for_sale, "feed is", "feeds are")} free to read or not for sale '
+            "yet, and each page says which.")
+    parts.append(
+        " The reports, letters and tools listed further down are not feeds; each has its own "
+        "page with its own price and terms. "
+        f"To scope a feed to your own list, region or cadence, tell us at {partner}.")
+    note = "".join(parts)
     block = f'<div class="note">\n      <p>{note}</p>\n    </div>'
     page, hit = re.subn(r'<div class="note">.*?</div>', lambda _m: block, page, count=1, flags=re.S)
     if hit != 1:
@@ -317,8 +391,8 @@ def main():
         )
 
     (ROOT / "index.html").write_text(page, encoding="utf-8")
-    print(f"hub rebuilt: {len(fams)} feeds, {len(priced)} for sale, "
-          f"{len(takes_card)} taking a card, {len(by_mail)} priced by email, "
+    print(f"hub rebuilt: {len(fams)} feeds, {len(priced)} priced, "
+          f"{len(takes_card)} taking a card, {len(by_mail)} priced without checkout, "
           f"{holding} holding, {parked} parked, {ready} with a sample, {no_sample} without, "
           f"{on_page} whole on the page, "
           f"{len(EXTRA)} extra, {len(live_trust)} trust pages")
