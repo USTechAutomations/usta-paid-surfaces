@@ -4,8 +4,8 @@
 Reads (never writes to) three places:
   * the live service's signed /metrics/<family> route  -- page views, tool use,
     embedding hosts, by event and by referring host (no person data exists there)
-  * ~/.hermes/state/fv5/<family>/sessions.jsonl          -- payments the delivery
-    timer has already served
+  * canonical revenue attribution is currently unconnected for these products;
+    local delivery records are not counted as payments
   * GitHub clone counts for the two open-source seeds (gh api), when the repos exist
 
 Writes:
@@ -54,7 +54,7 @@ KILL_RULES = {
 DOUBLE_RULE = ("paid_30d", 2)   # two payments in 30 days = propose doubling the seed effort
 
 
-def http_json(url: str, headers: dict | None = None, timeout: int = 20) -> tuple[int, dict]:
+def http_json(url: str, headers: dict | None = None, timeout: int = 20) -> tuple[int | None, dict]:
     req = urllib.request.Request(url, headers=headers or {})
     try:
         with urllib.request.urlopen(req, timeout=timeout) as r:
@@ -62,16 +62,18 @@ def http_json(url: str, headers: dict | None = None, timeout: int = 20) -> tuple
     except urllib.error.HTTPError as e:
         return e.code, {}
     except (urllib.error.URLError, TimeoutError, ValueError):
-        return 0, {}
+        return None, {}
 
 
-def page_live(fid: str) -> bool:
+def page_live(fid: str) -> bool | None:
     try:
         req = urllib.request.Request(f"{PUBLIC}/{fid}/", method="HEAD")
         with urllib.request.urlopen(req, timeout=15) as r:
             return r.status == 200
+    except urllib.error.HTTPError as exc:
+        return False if exc.code == 404 else None
     except Exception:
-        return False
+        return None
 
 
 def service_counts(fid: str, since: str, secret: str) -> dict:
@@ -83,22 +85,13 @@ def service_counts(fid: str, since: str, secret: str) -> dict:
     return body
 
 
-def payments(fid: str, days: int | None = None) -> int:
-    p = STATE / "fv5" / fid / "sessions.jsonl"
-    if not p.is_file():
-        return 0
-    floor = 0
-    if days:
-        floor = int((dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=days)).timestamp())
-    n = 0
-    for line in p.read_text(encoding="utf-8").splitlines():
-        try:
-            row = json.loads(line)
-        except ValueError:
-            continue
-        if row.get("outcome") == "written" and int(row.get("created", 0) or 0) >= floor:
-            n += 1
-    return n
+def payments(fid: str, days: int | None = None) -> None:
+    """UNKNOWN until a canonical, complete per-product receipt mapping exists.
+
+    A generated delivery page is neither a payment nor proof that it reached its
+    purchaser. Do not infer zero sales from an absent delivery file either.
+    """
+    return None
 
 
 def cloners(repo: str) -> int | None:
@@ -110,8 +103,9 @@ def cloners(repo: str) -> int | None:
     if out.returncode != 0:
         return None
     try:
-        return int(json.loads(out.stdout).get("uniques", 0))
-    except ValueError:
+        value = json.loads(out.stdout).get("uniques")
+        return value if type(value) is int and value >= 0 else None
+    except (TypeError, ValueError):
         return None
 
 
@@ -131,9 +125,10 @@ def evaluate(fid: str, day: int | None, m: dict) -> list[str]:
     out = []
     for at_day, metric, minimum in KILL_RULES[fid]:
         val = m.get(metric)
-        if day >= at_day and (val is None or val < minimum):
-            shown = "unknown" if val is None else val
-            out.append(f"KILL-CANDIDATE {fid}: day {day}, {metric} = {shown}, rule wants >= {minimum} by day {at_day}")
+        if day >= at_day and val is None:
+            out.append(f"UNKNOWN {fid}: {metric} unavailable; no investment verdict")
+        elif day >= at_day and val < minimum:
+            out.append(f"KILL-CANDIDATE {fid}: day {day}, {metric} = {val}, rule wants >= {minimum} by day {at_day}")
     if (m.get("paid_30d") or 0) >= DOUBLE_RULE[1]:
         out.append(f"DOUBLE-CANDIDATE {fid}: {m['paid_30d']} payments in 30 days")
     return out
@@ -161,17 +156,22 @@ def main() -> int:
             launched[fid] = today.isoformat()
         day = (today - dt.date.fromisoformat(launched[fid])).days if fid in launched else None
         since = launched.get(fid, today.isoformat())
-        counts = service_counts(fid, since, secret) if secret else {"events": None, "by_event": {}, "ref_hosts": None, "http": 0}
+        counts = service_counts(fid, since, secret) if secret else {"events": None, "by_event": {}, "ref_hosts": None, "http": None}
         by = counts.get("by_event") or {}
+        counts_known = counts.get("http") == 200 and isinstance(counts.get("events"), int)
+        def event(name):
+            return by.get(name, 0) if counts_known else None
         m = {
             "live": live, "day": day, "http": counts.get("http"),
             "events": counts.get("events"),
             "ref_hosts": counts.get("ref_hosts"),
-            "page": by.get("page", 0), "answered": by.get("answered", 0),
-            "b_pasted": by.get("b_pasted", 0),
+            "page": event("page"), "answered": event("answered"),
+            "b_pasted": event("b_pasted"),
             "embed_hosts": counts.get("ref_hosts") if fid == "casepack" else None,
-            "export_free": by.get("export_free", 0), "export_pro": by.get("export_pro", 0),
+            "export_free": event("export_free"), "export_pro": event("export_pro"),
             "paid": payments(fid), "paid_30d": payments(fid, 30),
+            "paid_state": "UNKNOWN: canonical per-product receipt attribution not connected",
+            "demand_state": "UNKNOWN: service events include unqualified and synthetic activity",
             "cloners": cloners(REPOS[fid]) if fid in REPOS else None,
         }
         report["families"][fid] = m
@@ -191,7 +191,7 @@ def main() -> int:
     OUT.write_text(json.dumps(report, indent=1, sort_keys=True) + "\n", encoding="utf-8")
     ALERT.parent.mkdir(parents=True, exist_ok=True)
     body = [f"# loops — {today.isoformat()}", "",
-            "Counts from the live service, payments from the delivery timer's own records.",
+            "Service events are not qualified demand. Payment attribution is UNKNOWN; delivery logs are not revenue.",
             "Nothing here takes a page down: a KILL-CANDIDATE is a proposal for the operator.", ""]
     body += [f"- {a}" for a in alerts] or ["- no rule fired today"]
     body += ["", f"Detail: `{OUT}`"]

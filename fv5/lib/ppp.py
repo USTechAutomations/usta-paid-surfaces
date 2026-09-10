@@ -252,6 +252,9 @@ _THANKS_TEMPLATE = """<!doctype html>
 
 def thanks_page_html(family: str, product_name: str, eta_minutes: int) -> str:
     """The static thanks/ page for a family. See _THANKS_TEMPLATE above."""
+    if family in {"qrelay", "ledgermatch", "casepack", "schemahand", "acacheck"}:
+        from loops.key_delivery import thanks_page
+        return thanks_page(family, product_name)
     return (_THANKS_TEMPLATE
             .replace("__FAMILY__", family)
             .replace("__PRODUCT__", product_name)

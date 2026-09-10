@@ -34,9 +34,10 @@ def main() -> int:
     check(len(metrics.evaluate("casepack", 21, dead)) == 1, "casepack did not fire on day 21")
     check(len(metrics.evaluate("acacheck", 14, {**dead, "cloners": 19})) == 1, "acacheck 19 cloners must fire")
     check(metrics.evaluate("acacheck", 14, {**dead, "cloners": 20}) == [], "acacheck 20 cloners must pass")
-    # unknown counts fire (never round unknown up to fine)
-    check(len(metrics.evaluate("schemahand", 14, {"cloners": None, "paid": 0, "paid_30d": 0})) == 1,
-          "unknown cloners must count as failing")
+    unknown = metrics.evaluate("schemahand", 14, {"cloners": None, "paid": None, "paid_30d": None})
+    check(len(unknown) == 1 and unknown[0].startswith("UNKNOWN "),
+          "unavailable data must not trigger a kill verdict")
+    check(metrics.payments("schemahand") is None, "delivery rows must not be payment counts")
     # not-live family never fires
     check(metrics.evaluate("ledgermatch", None, dead) == [], "not-live family fired")
     # double rule
@@ -48,6 +49,9 @@ def main() -> int:
     check(ledger.allowance(now) >= ledger.FLOOR_USD, "allowance below the floor")
     check(ledger.SHARE == 0.30, "share is not 30%")
     check(ledger.spend_7d(now) >= 0, "spend went negative")
+    check(ledger.allowance(now) == 0 and ledger.allowed(now) is False,
+          "revenue or a floor must never authorize spending")
+    check(ledger.revenue_30d(now) is None, "unconnected payment attribution must remain unknown")
 
     if FAILS:
         for f in FAILS:
