@@ -14,7 +14,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="US Tech Automations">
+  <meta property="og:site_name" content="US Tech Automations — dated change feeds">
   <meta property="og:url" content="https://ustechautomations.com/feeds/la-appeal-packet">
   <meta property="og:title" content="Los Angeles property-tax appeal evidence packet — $49 once">
   <meta name="twitter:title" content="Los Angeles property-tax appeal evidence packet — $49 once">
@@ -25,11 +25,12 @@
     /* Layout for the free address check only. Colours and type come from styles.css. */
     .la-check { display: grid; gap: 0.75rem; margin: 1rem 0 1.5rem; }
     .la-row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
-    #la-addr { flex: 1 1 18rem; max-width: 34rem; min-height: 44px; padding: 0.55rem 0.75rem; font: inherit; border: 1px solid hsl(var(--border)); border-radius: 8px; }
+    #la-addr { flex: 1 1 18rem; max-width: 34rem; min-height: 44px; padding: 0.55rem 0.75rem; font: inherit; border: 1px solid var(--line); border-radius: var(--radius); }
     #la-result { min-height: 2rem; }
     #la-result table { margin-top: 0.75rem; }
     .la-status { margin: 0; }
   </style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "Los Angeles property-tax appeal evidence packet", "description": "Type one Los Angeles County home address. Get your 2026 roll value, up to 10 nearby re-valued parcels and the RP-87 and AAB-100 fields filled in. $49 once.", "url": "https://ustechautomations.com/feeds/la-appeal-packet", "creator": {"@type": "Organization", "name": "US Tech Automations", "url": "https://ustechautomations.com/"}, "isAccessibleForFree": false, "license": "https://ustechautomations.com/terms", "distribution": [{"@type": "DataDownload", "contentUrl": "https://ustechautomations.com/feeds/la-appeal-packet/sample.json", "encodingFormat": "application/json", "isAccessibleForFree": true}, {"@type": "DataDownload", "contentUrl": "https://ustechautomations.com/feeds/la-appeal-packet/sample.csv", "encodingFormat": "text/csv", "isAccessibleForFree": true}]}</script>
 </head>
 <body data-family="la-appeal-packet">
 <a class="skip" href="#main">Skip to content</a>
@@ -41,6 +42,7 @@
   </div>
 </header>
 
+<!-- FABLE: layout only. Do not drop, invent, or round the sample rows. -->
 <section class="hero">
   <div class="wrap">
     <p class="eyebrow">Public records <span class="dot"></span> once <span class="dot"></span> Sample ready</p>
@@ -50,7 +52,7 @@
       <div><dt>Price</dt><dd class="price">$49 once</dd></div>
       <div><dt>Built for</dt><dd>Los Angeles County homeowners filing a decline-in-value review or appeal</dd></div>
       <div><dt>Cadence</dt><dd>one packet for one address, paid once, on a private page the thank-you page opens</dd></div>
-      <div><dt>Public sample</dt><dd>Sample ready: one real address, ten real rows, below</dd></div>
+      <div><dt>Public sample</dt><dd><span class="state"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8.4l3.6 3.6L13.5 4"/></svg>Sample ready</span></dd></div>
     </dl>
     <p class="hero-cta"><a class="btn btn-ghost" href="#check">Check your address first, free</a><span class="btn-note">The check tells you whether the county roll holds at least three support rows for your home before you pay.</span></p>
   </div>
