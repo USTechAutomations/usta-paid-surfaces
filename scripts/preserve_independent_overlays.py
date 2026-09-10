@@ -22,7 +22,8 @@ GCLOUD_BIN = 'gcloud'
 MARKERS = {'pathlab-20260908-b': 'pathlab-independent-20260908',
            'workshop-20260908-c': 'workshop-independent-20260908',
            'catalog-pilot-20260908': 'catalog-pilot-independent-20260908',
-           'specialist-20260909': 'specialist-independent-20260909'}
+           'specialist-20260909': 'specialist-independent-20260909',
+           'domain-tools-20260909-a': 'domain-tools-independent-20260909-a'}
 # This component processes inputs entirely in its browser worker. The two
 # existing components still require preservation of their declared API routes.
 BROWSER_ONLY_COMPONENTS = {'catalog-pilot-20260908', 'specialist-20260909'}
@@ -46,8 +47,13 @@ def components(registry):
         if row['id'] not in MARKERS: raise ValueError('New component needs explicit preservation mapping')
         if not row.get('prefixes') or any(not re.fullmatch(r'/feeds/[a-z0-9-]+/',p) for p in row['prefixes']): raise ValueError('Invalid component prefixes')
         children=row.get('sitemap_paths',[])
-        if children and (row['id']!='specialist-20260909' or children!=[
-                '/feeds/specialist/'+s+'/' for s in ('cablekit','labelbatch','rulewitness','tourpatch','matchbench')]):
+        declared_children = {
+            'specialist-20260909': ['/feeds/specialist/'+s+'/' for s in ('cablekit','labelbatch','rulewitness','tourpatch','matchbench')],
+            'domain-tools-20260909-a': [
+                '/feeds/domain-tools/'+s+suffix for suffix in ('/', '/offline/')
+                for s in ('linenbalance','tilemosaic','corecomposite','royaltywaterfall','testlotreplay')],
+        }
+        if children and children != declared_children.get(row['id']):
             raise ValueError('Unknown component child sitemap paths')
     if len({p for r in rows for p in r['prefixes']})!=sum(len(r['prefixes']) for r in rows): raise ValueError('Overlapping component routes')
     return rows
