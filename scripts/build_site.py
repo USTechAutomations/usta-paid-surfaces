@@ -53,6 +53,7 @@ GTM_ID = "GTM-KTB2LC8C"
 # instead of pages wearing the old sheet until the cache runs out (BRAND.md §1).
 CSS_VER = hashlib.sha256((ROOT / "styles.css").read_bytes()).hexdigest()[:10]
 CSS_HREF = f"{BASE}/styles.css?v={CSS_VER}"
+CLICK_BEACON = (ROOT / "scripts" / "click_beacon.js").read_text(encoding="utf-8")
 
 GTM = (
     "<script>window.dataLayer=window.dataLayer||[];"
@@ -345,6 +346,8 @@ def build_page(src: Path, family: str, crumb_label: str | None, path: str | None
         out = out.replace("<meta charset=\"utf-8\">",
                           "<meta charset=\"utf-8\">\n  <meta name=\"robots\" content=\"index,follow\">", 1)
     out = out.replace("<head>", "<head>\n  " + GTM % (family, GTM_ID), 1)
+    if family != "hub" and "thanks" not in (path or "") and "data-checkout=" in out:
+        out = out.replace("</head>", "<script>" + CLICK_BEACON + "</script>\n</head>", 1)
     if rel in {'permit-files/austin', 'boston', 'nyc-ll84',
                'wp-accessibility-scan', 'pilot-logbook-digitizer'}:
         out = enhance_paid_landing(rel, out)
@@ -685,6 +688,12 @@ def main() -> None:
     DIST.mkdir(parents=True)
 
     shutil.copy2(ROOT / "styles.css", DIST / "styles.css")
+    click_src = ROOT / "site" / "click"
+    if click_src.is_dir():
+        click_dst = DIST / "click"
+        click_dst.mkdir(parents=True)
+        for gif in click_src.glob("*.gif"):
+            shutil.copy2(gif, click_dst / gif.name)
     # No robots.txt in dist: the pages now live under the main domain, whose
     # root robots.txt is the only one crawlers read. A /feeds/robots.txt would
     # be dead weight that still named the old github.io host.

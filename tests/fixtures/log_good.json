@@ -1,0 +1,277 @@
+[
+  {
+    "timestamp": "2026-09-08T10:00:00Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/grid/",
+      "status": 200,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15",
+      "remoteIp": "198.51.100.10",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-09T10:00:00Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/feeds/grid/",
+      "status": 200,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15",
+      "remoteIp": "198.51.100.10",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T10:00:00Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/grid/",
+      "status": 200,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15",
+      "remoteIp": "198.51.100.11",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T10:01:00Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/click/grid.gif?f=grid",
+      "status": 200,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15",
+      "remoteIp": "198.51.100.11",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T10:02:00Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/click/grid.gif",
+      "status": 200,
+      "userAgent": "curl/8.0",
+      "remoteIp": "198.51.100.99",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T21:35:40.290533Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/coverage/",
+      "status": 200,
+      "userAgent": "USTA-final-route-trace/20260910",
+      "remoteIp": "203.0.113.0",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T21:35:40.126013Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/model-cards/",
+      "status": 200,
+      "userAgent": "USTA-final-route-trace/20260910",
+      "remoteIp": "203.0.113.1",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T21:35:39.914258Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/hospital-mrf/",
+      "status": 200,
+      "userAgent": "USTA-final-route-trace/20260910",
+      "remoteIp": "203.0.113.2",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T21:34:35.687374Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/coverage/",
+      "status": 200,
+      "userAgent": "USTA-readback/20260910",
+      "remoteIp": "203.0.113.3",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T21:34:26.611487Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/coverage/",
+      "status": 200,
+      "userAgent": "USTA-readback/20260910",
+      "remoteIp": "203.0.113.5",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T21:34:25.779580Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/",
+      "status": 200,
+      "userAgent": "USTA-readback/20260910",
+      "remoteIp": "203.0.113.6",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T21:33:53.222507Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/model-cards/",
+      "status": 200,
+      "userAgent": "USTA-readback/20260910",
+      "remoteIp": "203.0.113.9",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T21:33:53.069215Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/hospital-mrf/",
+      "status": 200,
+      "userAgent": "USTA-readback/20260910",
+      "remoteIp": "203.0.113.10",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T21:32:36.600016Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/wrong-wall/sample.json",
+      "status": 200,
+      "userAgent": "USTA-surface-sweep/1.0 (internal check)",
+      "remoteIp": "203.0.113.11",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T21:32:36.094146Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/wrong-wall/sample.csv",
+      "status": 200,
+      "userAgent": "USTA-surface-sweep/1.0 (internal check)",
+      "remoteIp": "203.0.113.12",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T21:32:35.600878Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/wrong-wall",
+      "status": 200,
+      "userAgent": "USTA-surface-sweep/1.0 (internal check)",
+      "remoteIp": "203.0.113.13",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T21:32:35.079309Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/wp-accessibility-scan/sample.json",
+      "status": 200,
+      "userAgent": "USTA-surface-sweep/1.0 (internal check)",
+      "remoteIp": "203.0.113.14",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T21:32:34.712495Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/wp-accessibility-scan/sample.csv",
+      "status": 200,
+      "userAgent": "USTA-surface-sweep/1.0 (internal check)",
+      "remoteIp": "203.0.113.15",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T21:32:34.087430Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/wp-accessibility-scan",
+      "status": 200,
+      "userAgent": "USTA-surface-sweep/1.0 (internal check)",
+      "remoteIp": "203.0.113.16",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T21:32:33.594191Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/what-we-dont-collect",
+      "status": 200,
+      "userAgent": "USTA-surface-sweep/1.0 (internal check)",
+      "remoteIp": "203.0.113.17",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T21:32:33.078420Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/washington-dc/year-2026",
+      "status": 200,
+      "userAgent": "USTA-surface-sweep/1.0 (internal check)",
+      "remoteIp": "203.0.113.18",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T21:32:32.598886Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/washington-dc/year-2025",
+      "status": 200,
+      "userAgent": "USTA-surface-sweep/1.0 (internal check)",
+      "remoteIp": "203.0.113.19",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T21:32:32.094388Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/washington-dc/year-2024",
+      "status": 200,
+      "userAgent": "USTA-surface-sweep/1.0 (internal check)",
+      "remoteIp": "203.0.113.20",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T21:32:31.591718Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/washington-dc/year-2023",
+      "status": 200,
+      "userAgent": "USTA-surface-sweep/1.0 (internal check)",
+      "remoteIp": "203.0.113.21",
+      "referer": null
+    }
+  },
+  {
+    "timestamp": "2026-09-10T21:32:31.075952Z",
+    "httpRequest": {
+      "requestMethod": "GET",
+      "requestUrl": "https://ustechautomations.com/washington-dc/coverage",
+      "status": 200,
+      "userAgent": "USTA-surface-sweep/1.0 (internal check)",
+      "remoteIp": "203.0.113.22",
+      "referer": null
+    }
+  }
+]
