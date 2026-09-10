@@ -2867,6 +2867,30 @@
         "checked": "2026-09-08",
         "verified": "2026-09-08"
       }
+    },
+    {
+      "id": "la-appeal-packet",
+      "name": "Los Angeles property-tax appeal evidence packet",
+      "buyer": "Los Angeles County homeowners filing a decline-in-value review or appeal",
+      "cadence": "once",
+      "price": "$49 once",
+      "sample_status": "pass",
+      "note": "Free preview runs in the browser from the county's public parcel map. The paid packet is built from the same map for the address the buyer types at checkout. Document preparation, not legal or tax advice, not a valuation.",
+      "cadence_long": "one evidence packet for one Los Angeles County address, paid once. It appears on the private page the thank-you page opens. We do not email it.",
+      "group": "Public records",
+      "short": "LA appeal evidence packet",
+      "who": "Los Angeles County homeowners who think their home is worth less than the value on their 2026 tax bill and want the county's own numbers for nearby homes before they file.",
+      "coverage_what": "One address: its 2026 roll record, up to 10 nearby single-family parcels the assessor re-enrolled after a 2024 or 2025 change of ownership, and the RP-87 and AAB-100 fields those numbers go in",
+      "coverage_how": "The free preview asks the county's public parcel map in your browser and shows how many usable nearby parcels exist. The packet is built the same way after payment and appears on the private page the thank-you page opens.",
+      "price_list_note": "Run the free preview first. The pay button only shows when at least three usable nearby parcels exist for the address you typed.",
+      "checkout": {
+        "terms": "$49 once for one evidence packet for one Los Angeles County address. Nothing recurring. The packet is the county's own current-roll figures for your parcel and nearby re-enrolled parcels, with the RP-87 and AAB-100 fields filled in from them. It appears on the private page the thank-you page opens, usually within 15 minutes. We do not email it. This is document preparation, not legal or tax advice, not a valuation and not representation. We do not claim the assessor or the Appeals Board will lower your value.",
+        "after": "The packet appears on the private page the thank-you page opens, usually within 15 minutes. We do not email it.",
+        "url": "TO-MINT",
+        "lands_on": "buy.stripe.com",
+        "label": "Buy the packet — $49 once",
+        "status": "TO-MINT"
+      }
     }
   ],
   "map": "MAP.md",
