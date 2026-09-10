@@ -11,7 +11,7 @@ place and any step can import it.
   log_tokens("listing_copy", prompt_tokens + completion_tokens)
 
 Writes one JSON line per call to:
-  ~/.hermes/state/fv5/apify-public-records/tokens.jsonl
+  ~/.local/state/fv5/apify-public-records/tokens.jsonl
 
 Raises RuntimeError once a single run crosses the cap, so a runaway model step
 stops instead of spending without limit.
@@ -21,11 +21,15 @@ from __future__ import annotations
 import datetime as dt
 import json
 import os
+import sys
 from pathlib import Path
 
 FID = "apify-public-records"
 CAP_PER_RUN = 2_000_000
-LOG = Path.home() / ".hermes" / "state" / "fv5" / FID / "tokens.jsonl"
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "lib"))
+from state_root import family_state  # noqa: E402
+
+LOG = family_state(FID) / "tokens.jsonl"
 
 
 def _run_total(run_id: str) -> int:

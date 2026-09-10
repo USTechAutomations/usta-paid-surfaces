@@ -26,12 +26,16 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
+import sys
 from pathlib import Path
 
 FAMILY = "hazmat-ship-pack"
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[2]
-STATE = Path(os.path.expanduser(f"~/.hermes/state/fv5/{FAMILY}"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "lib"))
+from state_root import family_state  # noqa: E402
+
+STATE = family_state(FAMILY)
 RAW_DIR = STATE / "raw"
 CACHE = STATE / "ecfr"
 DATA = HERE / "data"

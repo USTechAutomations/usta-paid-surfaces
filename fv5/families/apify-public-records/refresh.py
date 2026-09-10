@@ -11,7 +11,7 @@ See SOURCES.md for the exact status codes and dates.
 
 Idempotent: running it twice with the same limit writes the same file. The
 committed data file stays small (25 rows); a bigger raw pull, if ever taken,
-goes under ~/.hermes/state/fv5/apify-public-records/raw/ and is not committed.
+goes under ~/.local/state/fv5/apify-public-records/raw/ and is not committed.
 
 Prints one line:
   REFRESH id=apify-public-records rows=<n> pages=<n> source_ok=<n>/<m> stamp=<ISO>
@@ -30,7 +30,10 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 FID = "apify-public-records"
 DATA = HERE / "data" / "epa_water_systems.json"
-RAW = Path.home() / ".hermes" / "state" / "fv5" / FID / "raw"
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "lib"))
+from state_root import family_state  # noqa: E402
+
+RAW = family_state(FID) / "raw"
 SCRIPTS = HERE.parents[2] / "scripts"
 
 UA = "USTechAutomations-apify-actor/1.0 (+https://ustechautomations.com/feeds)"

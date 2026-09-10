@@ -55,7 +55,10 @@ FAMILY = "enforcement-action-board"
 HERE = Path(__file__).resolve().parent
 DATA = HERE / "data"
 BOARD = DATA / "board.json"
-STATE_DIR = Path.home() / ".hermes" / "state" / "fv5" / FAMILY
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "lib"))
+from state_root import family_state  # noqa: E402
+
+STATE_DIR = family_state(FAMILY)
 TOKENS = STATE_DIR / "tokens.jsonl"
 
 UA = "USTechAutomations-fv5/1.0 (enforcement-action-board; operations@ustechautomations.com)"

@@ -42,7 +42,10 @@ FAMILY = marks.FAMILY
 DATA = HERE / "data" / "marks.json"
 FIXTURE = HERE / "fixtures" / "sample_daily.xml"
 FAM_DIR = ROOT / "families" / FAMILY
-STATE = Path(os.path.expanduser(f"~/.hermes/state/fv5/{FAMILY}"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "lib"))
+from state_root import family_state  # noqa: E402
+
+STATE = family_state(FAMILY)
 WATCHES = STATE / "watches.jsonl"
 SOURCES_MD = HERE / "SOURCES.md"
 

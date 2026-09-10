@@ -8,7 +8,7 @@ build already uses for that city's page (`families/<id>/<slug>/`). If the two
 callers ever built that slug differently, a buyer could pay for a city and the
 page would never learn it was sold.
 
-The store itself lives outside the repo, under ~/.hermes/state/fv5/, because it
+The store itself lives outside the repo, under ~/.local/state/fv5/, because it
 changes every time someone pays and a git-tracked file cannot be written by a
 checkout job without a commit. `fv5/publish.py` (built elsewhere) is the thing
 that will eventually copy a sale's effect onto the public page by re-running the
@@ -24,11 +24,13 @@ import json
 import os
 import re
 import tempfile
+import sys
 from pathlib import Path
 
-DEFAULT_PATH = Path(os.path.expanduser(
-    "~/.hermes/state/fv5/patent-practitioner-directory/featured.json"
-))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "lib"))
+from state_root import family_state  # noqa: E402
+
+DEFAULT_PATH = family_state("patent-practitioner-directory") / "featured.json"
 
 FEATURED_MONTHS = 12
 

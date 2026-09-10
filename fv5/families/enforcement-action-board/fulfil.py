@@ -38,7 +38,10 @@ FAMILY = "enforcement-action-board"
 AGENCY = "EPA"
 HERE = Path(__file__).resolve().parent
 FIXTURES = HERE / "fixtures"
-RUNTIME_FEATURED = Path.home() / ".hermes" / "state" / "fv5" / FAMILY / "featured.json"
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "lib"))
+from state_root import family_state  # noqa: E402
+
+RUNTIME_FEATURED = family_state(FAMILY) / "featured.json"
 FIXTURE_FEATURED = FIXTURES / "featured.json"
 PUBLIC_BASE = "https://ustechautomations.com/feeds/" + FAMILY
 

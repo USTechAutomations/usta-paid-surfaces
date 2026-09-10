@@ -2,7 +2,7 @@
 """Fetch an official page, keep the raw bytes, and pull plain words out of it.
 
 Nothing in this file decides what a rule means. It fetches, it caches the raw
-answer under ~/.hermes/state/fv5/contractor-audit-file/raw/, and it turns markup
+answer under ~/.local/state/fv5/contractor-audit-file/raw/, and it turns markup
 into readable text so the caller can look for the words a statute actually uses.
 A page that answers anything but 200, or that comes back without the section
 number we asked for, is reported as a fact and never guessed around.
@@ -19,10 +19,14 @@ import re
 import urllib.error
 import urllib.request
 import zlib
+import sys
 from pathlib import Path
 
 FAMILY = "contractor-audit-file"
-STATE = Path(os.path.expanduser(f"~/.hermes/state/fv5/{FAMILY}"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "lib"))
+from state_root import family_state  # noqa: E402
+
+STATE = family_state(FAMILY)
 RAW = STATE / "raw"
 UA = "USTechAutomations-fv6/1.0 (+https://ustechautomations.com; audit-evidence file)"
 TIMEOUT = 40

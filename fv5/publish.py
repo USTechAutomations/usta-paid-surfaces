@@ -26,9 +26,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent / "lib"))
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # loops.* for the signer
 
 import private_delivery as pd  # noqa: E402
+from state_root import STATE_ROOT  # noqa: E402
 
 # Same outside-repo state directory the delivery job spools into.
-STATE = Path.home() / ".hermes" / "state" / "fv5"
+STATE = STATE_ROOT
 
 
 def flush(spool: "pd.PrivateSpool", uploader: "pd.SignedUploader | None",

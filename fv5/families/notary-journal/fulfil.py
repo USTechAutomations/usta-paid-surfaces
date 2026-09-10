@@ -28,7 +28,10 @@ import states_build as sb  # noqa: E402
 
 FAMILY = "notary-journal"
 DATA = HERE / "data"
-STATE = Path(os.path.expanduser(f"~/.hermes/state/fv5/{FAMILY}"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "lib"))
+from state_root import family_state  # noqa: E402
+
+STATE = family_state(FAMILY)
 PRODUCT_NAME = "Notary journal — unlocked copy"
 LINK_ID_ENV_OR_CATALOG = "notary-journal"
 ETA_MINUTES = 15

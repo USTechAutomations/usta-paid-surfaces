@@ -34,11 +34,12 @@ sys.path.insert(0, str(FV5 / "lib"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import stripe_read  # noqa: E402
+from state_root import STATE_ROOT  # noqa: E402
 from mint_feed_links import _read_key, _redact, parse_price  # noqa: E402
 
 FAMILIES_DIR = FV5 / "families"
 CATALOG = ROOT / "catalog.json"
-STATE = Path.home() / ".hermes" / "state" / "fv5"
+STATE = STATE_ROOT
 HEALTH = STATE / "health.json"
 ALERT = Path.home() / ".hermes" / "state" / "alerts" / "fv5.md"
 

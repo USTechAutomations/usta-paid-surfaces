@@ -42,11 +42,12 @@ sys.path.insert(0, str(ROOT))  # so the private-delivery signer can import loops
 import ppp  # noqa: E402
 import private_delivery as pd  # noqa: E402  (fv5/lib/private_delivery.py)
 import stripe_read  # noqa: E402
+from state_root import STATE_ROOT  # noqa: E402
 from mint_feed_links import _read_key, _redact  # noqa: E402
 
 FAMILIES_DIR = FV5 / "families"
 CATALOG = ROOT / "catalog.json"
-STATE = Path.home() / ".hermes" / "state" / "fv5"
+STATE = STATE_ROOT
 LOCK = STATE / "fulfil.lock"
 LINKS_CACHE = STATE / "links.json"
 

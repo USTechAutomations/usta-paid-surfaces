@@ -37,12 +37,16 @@ import ssl
 import urllib.error
 import urllib.request
 import zipfile
+import sys
 from pathlib import Path
 
 FAMILY = "nutrition-label-forge"
 HERE = Path(__file__).resolve().parent
 DATA = HERE / "data"
-STATE = Path(os.path.expanduser(f"~/.hermes/state/fv5/{FAMILY}"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "lib"))
+from state_root import family_state  # noqa: E402
+
+STATE = family_state(FAMILY)
 RAW = STATE / "raw"
 ECFR_DIR = RAW / "ecfr"
 
@@ -184,7 +188,7 @@ def fetch_section(sec: str, date: str = ECFR_DATE, *, offline: bool = False) -> 
 
 
 def fetch_zip(kind: str, *, offline: bool = False) -> Path:
-    """The FoodData Central download, from ~/.hermes/state raw or the web."""
+    """The FoodData Central download, from the private state raw dir or the web."""
     name, url = FDC_ZIPS[kind]
     RAW.mkdir(parents=True, exist_ok=True)
     dest = RAW / name

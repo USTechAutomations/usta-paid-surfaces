@@ -34,12 +34,16 @@ import ssl
 import subprocess
 import urllib.error
 import urllib.request
+import sys
 from pathlib import Path
 
 FAMILY = "notary-journal"
 HERE = Path(__file__).resolve().parent
 DATA = HERE / "data"
-STATE = Path(os.path.expanduser(f"~/.hermes/state/fv5/{FAMILY}"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "lib"))
+from state_root import family_state  # noqa: E402
+
+STATE = family_state(FAMILY)
 RAW = STATE / "raw"
 
 UA = ("Mozilla/5.0 (compatible; USTechAutomations-notary-journal/1.0; "
