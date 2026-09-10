@@ -61,6 +61,11 @@ PACKS = {
     },
 }
 
+# These two dated packs remain unavailable while their source-use permission is
+# unresolved. This guard belongs in the generator as well as the rendered page:
+# a stale catalog writer must not recreate a sample or offer from held seals.
+OFF_SALE_FAMILIES = frozenset({"hospital-mrf", "model-cards"})
+
 
 def esc(s: object) -> str:
     return html.escape(str(s or ""))
@@ -149,6 +154,9 @@ def row_cells(family: str, row: dict) -> list[str]:
 
 
 def sample_rows(family: str) -> tuple[list[str], list[list[str]]]:
+    fam = family_rows().get(family) or {}
+    if _off_sale_catalog_state(family, fam):
+        return PACKS[family]["headers"], []
     h = held(family)
     cap = SAMPLE_CAP[family]
     headers = PACKS[family]["headers"]
@@ -164,10 +172,76 @@ def slices() -> list:
     return []
 
 
+def _off_sale_catalog_state(family: str, fam: dict) -> bool:
+    """Require an internally consistent hold before rendering either target."""
+    if family not in OFF_SALE_FAMILIES:
+        return False
+    checkout = fam.get("checkout") or {}
+    if str(checkout.get("status") or "").strip() != "off_sale":
+        raise SystemExit(
+            f"{family}: catalog checkout.status must be 'off_sale' before the "
+            "held dated page can be rebuilt; nothing was written"
+        )
+    if str(checkout.get("url") or "").strip():
+        raise SystemExit(
+            f"{family}: off-sale catalog row still carries a checkout URL; "
+            "nothing was written"
+        )
+    if "$" in str(fam.get("price") or ""):
+        raise SystemExit(
+            f"{family}: off-sale catalog row still carries a dollar price; "
+            "nothing was written"
+        )
+    return True
+
+
+def _off_sale_spec(family: str, fam: dict) -> dict:
+    """A plain customer-facing hold with no seal rows or purchase promise."""
+    cfg = PACKS[family]
+    return {
+        "sections": [
+            section(
+                "Availability",
+                None,
+                "      <p>This dated pack is unavailable while we review source-use "
+                "permission. No purchase or public sample is available.</p>",
+            ),
+        ],
+        "id": family,
+        "source_use_hold": True,
+        "off_sale": True,
+        "ready": False,
+        "plain_status": True,
+        "group": fam.get("group") or "Other dated records",
+        "cadence": fam.get("cadence") or "unavailable",
+        "cadence_long": fam.get("cadence_long") or "Purchases unavailable",
+        "crumb": cfg["crumb"],
+        "h1": cfg["h1"],
+        "price": fam.get("price") or "Not for sale",
+        "buyer": fam.get("buyer") or cfg["buyer"],
+        "desc": "This dated pack and its public sample are unavailable while source-use permission is reviewed.",
+        "lede": (
+            "This dated pack is not on sale while we review whether its source "
+            "can be offered. <strong>The public sample is unavailable.</strong>"
+        ),
+        "pill_text": "Sample not ready",
+        "pill_label": "Sample not ready",
+        "subj": cfg["subj"],
+        "contact_h2": "Ask about availability",
+        "contact_p": "Purchases and public samples are unavailable while source use is reviewed.",
+        "contact_cta": "Ask about availability",
+        "contact_note": "No file or purchase is available from this page.",
+        "foot": "Availability reviewed 10 September 2026.",
+        "delivery": "No public delivery is offered while source use is reviewed.",
+    }
+
+
 def family_spec(family: str) -> dict:
+    fam = family_rows().get(family) or {}
+    if _off_sale_catalog_state(family, fam):
+        return _off_sale_spec(family, fam)
     h = held(family)
     cfg = h["cfg"]
-    fam = family_rows().get(family) or {}
     price = fam.get("price") or "$349"
     n = h["n_rows"]
     shown = min(SAMPLE_CAP[family], n)
