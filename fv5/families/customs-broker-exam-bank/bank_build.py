@@ -28,6 +28,7 @@ import subprocess
 import urllib.error
 import urllib.parse
 import urllib.request
+import sys
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
@@ -38,7 +39,10 @@ HERE = Path(__file__).resolve().parent
 # The repo root is .../<repo>/fv5/families/<id>/ -> parents[2]
 REPO = HERE.parents[2]
 PDF_DIR = REPO / "fv5_data_cble"
-STATE = Path(os.path.expanduser(f"~/.hermes/state/fv5/{FAMILY}"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "lib"))
+from state_root import family_state  # noqa: E402
+
+STATE = family_state(FAMILY)
 ECFR_CACHE = STATE / "ecfr"
 TOKENS_LOG = STATE / "tokens.jsonl"
 RAW_DIR = STATE / "raw"

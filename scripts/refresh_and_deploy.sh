@@ -127,8 +127,9 @@ python3 scripts/check_site.py || die "the page rules gate said no"
 python3 scripts/build_site.py || die "the build gate said no"
 
 # 3b. One brand on every page (BRAND.md). Strict: a page that fails stops the
-#     whole publish. Baseline reached zero on 2026-09-08, so this is mandatory.
-python3 scripts/check_brand.py --dist dist || die "the brand gate said no"
+#     whole publish. Reads the built folder, so it runs after build_site.py.
+#     Baseline reached zero on 2026-09-08, so this is mandatory.
+python3 scripts/check_brand.py --strict --dist dist || die "the brand gate said no"
 
 # 4. Nothing to publish is a success, not a failure.
 #

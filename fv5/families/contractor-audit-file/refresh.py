@@ -4,7 +4,7 @@
 What this does, in order:
 
   1. fetches every address in data/sources_seed.json (raw bytes cached under
-     ~/.hermes/state/fv5/contractor-audit-file/raw/);
+     ~/.local/state/fv5/contractor-audit-file/raw/);
   2. checks each page really carries the section number we asked for, so a
      redirect to a search box can never be quoted as if it were the law;
   3. lifts, word for word, the passages about control, about the hiring firm's

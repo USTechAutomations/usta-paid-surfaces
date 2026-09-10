@@ -11,7 +11,7 @@ On a paid session we:
   2. find that serial in the dated store refresh.py keeps,
   3. render a private watch page (never indexed) under
      families/trademark-watch/p/<private_slug>/,
-  4. append the watch to ~/.hermes/state/fv5/trademark-watch/watches.jsonl so
+  4. append the watch to ~/.local/state/fv5/trademark-watch/watches.jsonl so
      refresh.py keeps the page current for 12 months,
   5. print a JSON report (and the state_update the fulfilment system stores).
 
@@ -39,7 +39,10 @@ import marks  # noqa: E402
 FAMILY = marks.FAMILY
 DATA = HERE / "data" / "marks.json"
 FAM_DIR = ROOT / "families" / FAMILY
-STATE = Path(os.path.expanduser(f"~/.hermes/state/fv5/{FAMILY}"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "lib"))
+from state_root import family_state  # noqa: E402
+
+STATE = family_state(FAMILY)
 WATCHES = STATE / "watches.jsonl"
 WATCH_MONTHS_DAYS = 365
 

@@ -21,10 +21,12 @@ can tell a live checkout from a dead one.
 So this walks the whole chain the buyer walks and then reads the money back from
 the record that page renders:
 
-  1. follow every redirect from the address on the page and require the buyer to
-     land on a Stripe checkout host with a 200. For the two-hop buttons this is
-     the step that proves WHICH Stripe link our own /buy address sends them to --
-     the queue sentinel had a stale $175 link alongside its $99 one.
+  1. follow every redirect from the address on the page and require the chain to
+     end on a Stripe checkout host. For the two-hop buttons this is the step that
+     proves WHICH Stripe link our own /buy address sends them to -- the queue
+     sentinel had a stale $175 link alongside its $99 one. The Stripe address
+     itself is NEVER fetched: loading one opens a Checkout Session that later
+     shows up as a buyer who walked away. See scripts/stripe_link_read.py.
   2. look that landed-on link up in Stripe by its URL, and require exactly one
      line item, the catalog's amount in cents, and the catalog's billing basis.
 
@@ -33,11 +35,16 @@ Read-only: it creates nothing and changes nothing.
 """
 from __future__ import annotations
 
+import html
 import json
 import re
-import subprocess
 import sys
 from pathlib import Path
+from urllib.parse import urlparse
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+import stripe_link_read as SL  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 CAT = ROOT / "catalog.json"
@@ -61,6 +68,63 @@ def _read_key() -> str:
     raise SystemExit(f"{KEY_VAR} not found in the lead-outreach env file")
 
 
+def _dns_labels(name: str) -> bool:
+    """True for a dotted ASCII DNS name with no empty labels."""
+    if not name or not name.isascii() or len(name) > 253:
+        return False
+    labels = name.split(".")
+    if len(labels) < 2:
+        return False
+    for lab in labels:
+        if not lab or len(lab) > 63 or lab.startswith("-") or lab.endswith("-"):
+            return False
+        if not all(c.isalnum() or c == "-" for c in lab):
+            return False
+    return True
+
+
+def _https_host_matches(url: str, intended: str) -> bool:
+    """HTTPS host equals intended, or is a dot-separated subdomain of it.
+
+    Userinfo, any port, and malformed URLs fail closed.
+    """
+    if not isinstance(url, str) or not isinstance(intended, str):
+        return False
+    want = intended.strip().lower().rstrip(".")
+    if not _dns_labels(want):
+        return False
+    try:
+        parsed = urlparse(url.strip())
+    except ValueError:
+        return False
+    if parsed.scheme.lower() != "https":
+        return False
+    if parsed.username is not None or parsed.password is not None:
+        return False
+    netloc = parsed.netloc or ""
+    if "@" in netloc or ":" in netloc:
+        return False
+    try:
+        host = parsed.hostname
+        port = parsed.port
+    except ValueError:
+        return False
+    if port is not None or not host:
+        return False
+    host = host.rstrip(".").lower()
+    if not _dns_labels(host):
+        return False
+    return host == want or host.endswith("." + want)
+
+
+def _host_for_message(url: str) -> str:
+    try:
+        parsed = urlparse(url)
+        return parsed.hostname or parsed.netloc or ""
+    except ValueError:
+        return ""
+
+
 def parse_price(price: str):
     amounts = re.findall(r"\$(\d[\d,]*)", price)
     if len(amounts) != 1:
@@ -70,23 +134,66 @@ def parse_price(price: str):
 
 
 def _md(obj) -> dict:
-    """Metadata as a plain dict. StripeObject has no .get and no dict()."""
-    return dict(json.loads(str(obj)).get("metadata") or {})
+    """Metadata as a plain dict, from the API's own JSON."""
+    if not isinstance(obj, dict):
+        obj = json.loads(str(obj))
+    return dict(obj.get("metadata") or {})
+
+
+# What counts as "the buyer got there". A Stripe address is never fetched, so
+# it never answers 200; SL.STOPPED means the chain arrived at one. "200" stays
+# accepted so that a fake walker written before this change still means what it
+# said, and because a Stripe 200 was never proof of anything anyway -- the money
+# is read from the API below either way.
+REACHED = ("200", SL.STOPPED)
+_CLICKABLE = re.compile(r"<(a|button)\b([^>]*)>((?:(?!</\1>).)*)</\1>", re.S | re.I)
+_TAGS = re.compile(r"<[^>]+>")
+_BTN_BUY = re.compile(r"\bbtn-buy\b")
+_BUY_WORDS = re.compile(r"^(?:buy|subscribe|pay|checkout|order|get instant access)\b", re.I)
+
+
+def _attr(attrs: str, name: str) -> str:
+    m = re.search(rf"""\b{name}\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))""", attrs, re.I)
+    return (m.group(1) or m.group(2) or m.group(3) or "").strip() if m else ""
+
+
+def money_clicks(raw: str) -> list[tuple[str, str]]:
+    """Pay controls a buyer could use. A <button> with no address is not one.
+
+    Thanks pages reuse the buy-button class on a 'Checking purchase' status
+    line and a 'Copy' control. Those have no href, take no card, and must not
+    be proved as checkouts. A genuine empty <a class="btn-buy"> still counts.
+    """
+    out = []
+    for tag, attrs, inner in _CLICKABLE.findall(raw):
+        href = _attr(attrs, "href") or _attr(attrs, "formaction")
+        cls = _attr(attrs, "class")
+        label = " ".join(html.unescape(_TAGS.sub(" ", inner)).split())
+        if tag.lower() == "button" and not href:
+            continue
+        if not _BTN_BUY.search(cls):
+            if not _BUY_WORDS.match(label) or href.lower().startswith("mailto:"):
+                continue
+        out.append((href, label))
+    return out
+
+
+def declared_external_host(checkout: dict) -> str:
+    """Non-Stripe host the catalog says a click should end on, else ''."""
+    host = str((checkout or {}).get("lands_on") or "").strip().lower().rstrip(".")
+    if not host or "stripe.com" in host:
+        return ""
+    return host
 
 
 def walk(url: str):
-    """Return (final_url, http_code) after following every redirect, or (None, why)."""
-    try:
-        out = subprocess.run(
-            ["curl", "-sS", "-L", "-o", "/dev/null", "-w", "%{http_code} %{url_effective}",
-             "--max-time", "25", url],
-            capture_output=True, text=True, timeout=40)
-    except subprocess.TimeoutExpired:
-        return None, "the request timed out"
-    if out.returncode != 0:
-        return None, f"curl could not complete: {out.stderr.strip()[:100]}"
-    code, _, final = out.stdout.partition(" ")
-    return final.strip(), code
+    """Return (final_url, code) after following every redirect, or (None, why).
+
+    The chain stops AT the Stripe address and does not ask for it. Fetching one
+    opens a Checkout Session in our own account, and that is the whole bug this
+    replaced: our proving was inventing abandoned buyers.
+    """
+    return SL.resolve(url)
 
 
 _WALKED: dict[str, tuple] = {}
@@ -109,22 +216,20 @@ def page_addresses(root: Path) -> dict[str, list[str]]:
     second, private idea of "button" living in here would be a rule that passes
     while the estate is broken.
     """
-    sys.path.insert(0, str(ROOT / "scripts"))
-    import check_site as gate
-
     # Pages, not buttons. Most of these pages carry the same button twice, once
     # at the top and once at the bottom, and counting those as two would put a
-    # true number next to a false word.
+    # true number next to a false word. Thanks-page status/copy controls are
+    # dropped in money_clicks, by markup, not by the folder they live in.
     found: dict[str, set[str]] = {}
     for page in sorted(root.rglob("index.html")):
         who = str(page.parent.relative_to(root)) or "."
-        for href, _label in gate.buy_buttons(page.read_text(encoding="utf-8")):
+        for href, _label in money_clicks(page.read_text(encoding="utf-8")):
             found.setdefault(href, set()).add(who)
     return {a: sorted(w) for a, w in found.items()}
 
 
 def reach_report(on_pages: dict[str, list[str]], declared: dict[str, str],
-                 ours: dict[str, str], walker) -> dict:
+                 ours: dict[str, str], walker, external_by_url: dict[str, str] | None = None) -> dict:
     """Who can actually reach what. Pure, so it can be proved without a network.
 
     Reachability is counted from the pages in families/ and from nothing else,
@@ -146,6 +251,7 @@ def reach_report(on_pages: dict[str, list[str]], declared: dict[str, str],
     following the address a page really shows answers it. A hand-written page is
     the test case for every rule in this repo.
     """
+    external_by_url = external_by_url or {}
     reached: dict[str, list[str]] = {}
     broken: dict[str, str] = {}
     for addr, pages in sorted(on_pages.items()):
@@ -153,8 +259,15 @@ def reach_report(on_pages: dict[str, list[str]], declared: dict[str, str],
         if final is None:
             broken[addr] = code
             continue
-        host = final.split("/")[2] if "://" in final else ""
-        if code != "200" or not host.endswith("stripe.com"):
+        host = _host_for_message(final)
+        want = external_by_url.get(addr) or ""
+        if want:
+            if code not in REACHED or not _https_host_matches(final, want):
+                broken[addr] = f"answered {code} and ended on {host or final!r}"
+                continue
+            reached.setdefault(final.split("?")[0], []).extend(pages)
+            continue
+        if code not in REACHED or not _https_host_matches(final, "stripe.com"):
             broken[addr] = f"answered {code} and ended on {host or final!r}"
             continue
         reached.setdefault(final.split("?")[0], []).extend(pages)
@@ -173,6 +286,26 @@ def reach_report(on_pages: dict[str, list[str]], declared: dict[str, str],
     }
 
 
+def money_verdict(price_text: str, items: list) -> tuple[str, str]:
+    """("proved"|"BROKEN", the sentence) for one link's line items. Pure, so the
+    money rule can be proved against a fixture with no network at all."""
+    want = parse_price(price_text)
+    first = (items[0].get("price") or None) if items else None
+    if len(items) != 1 or first is None:
+        return "BROKEN", f"{len(items)} line items, expected exactly 1"
+    rec = first.get("recurring") or None
+    got = (first.get("unit_amount"),
+           "monthly" if rec and rec.get("interval") == "month" else "one_time")
+    if want is None:
+        return "BROKEN", (f"the page price {price_text!r} is not a single amount, "
+                          f"so a card must not be taken on it at all")
+    if got != want:
+        return "BROKEN", (f"the page says {want[0]} cents {want[1]} and a buyer "
+                          f"clicking it is charged {got[0]} cents {got[1]}")
+    basis = "a month" if got[1] == "monthly" else "once"
+    return "proved", f"{price_text} -> ${got[0] / 100:.2f} {basis}"
+
+
 def main() -> int:
     cat = json.loads(CAT.read_text(encoding="utf-8"))
     rows = [(f, (f.get("checkout") or {})) for f in cat["families"]]
@@ -181,39 +314,41 @@ def main() -> int:
         print("no checkout URLs declared")
         return 0
 
-    # The Stripe library is not installed against the system python. Run this
-    # with the interpreter that has it:
-    #   "/home/gmullins/Claude CLI/lead-outreach/venv/bin/python"
+    # Stripe is read over its API with urllib -- no library to install, and, more
+    # to the point, no checkout page is ever opened. See stripe_link_read.py.
     try:
-        import stripe
-    except ModuleNotFoundError:
-        raise SystemExit(
-            "the Stripe library is not installed for this python. Run this with\n"
-            '  "/home/gmullins/Claude CLI/lead-outreach/venv/bin/python" '
-            "scripts/prove_checkouts.py") from None
-    stripe.api_key = _read_key()
-    stripe.max_network_retries = 2
-
-    by_url = {}
-    try:
-        for l in stripe.PaymentLink.list(limit=100, active=True).auto_paging_iter():
-            by_url[l["url"]] = l
-    except Exception:  # noqa: BLE001
-        import traceback
-        print(f"could not list payment links:\n{_redact(traceback.format_exc())}")
+        by_url = SL.active_links_by_url()
+    except (SL.StripeUnreadable, SystemExit) as exc:
+        print(f"could not list payment links: {_redact(exc)}")
         return 1
 
     bad = unknown = 0
     reached: set[str] = set()
+    external_by_url: dict[str, str] = {}
     for fam, c in armed:
-        fid, want = fam["id"], parse_price(fam["price"])
+        host = declared_external_host(c)
+        if host:
+            external_by_url[c["url"]] = host
+    for fam, c in armed:
+        fid = fam["id"]
         final, code = walked(c["url"])
         if final is None:
             print(f"{fid:17} unknown  {code}")
             unknown += 1
             continue
-        host = final.split("/")[2] if "://" in final else ""
-        if code != "200" or not host.endswith("stripe.com"):
+        host = _host_for_message(final)
+        want = declared_external_host(c)
+        if want:
+            # External store: the chain ending on the declared host is the proof.
+            # Stripe is not read, and a stripe.com page is never loaded.
+            if code in REACHED and _https_host_matches(final, want):
+                print(f"{fid:17} proved   landed on {host} as catalog lands_on {want}")
+                reached.add(final.split("?")[0])
+            else:
+                print(f"{fid:17} BROKEN   answered {code} and ended on {host or final!r}")
+                bad += 1
+            continue
+        if code not in REACHED or not _https_host_matches(final, "stripe.com"):
             print(f"{fid:17} BROKEN   answered {code} and ended on {host or final!r}")
             bad += 1
             continue
@@ -226,30 +361,17 @@ def main() -> int:
             unknown += 1
             continue
         try:
-            items = stripe.PaymentLink.list_line_items(link["id"], limit=10).data
-        except Exception:  # noqa: BLE001
+            items = SL.line_items(SL.link_with_line_items(link["id"]))
+        except (SL.StripeUnreadable, SystemExit):
             print(f"{fid:17} unknown  could not read the line items back")
             unknown += 1
             continue
-        if len(items) != 1 or items[0].price is None:
-            print(f"{fid:17} BROKEN   {len(items)} line items, expected exactly 1")
+        verdict, said = money_verdict(fam["price"], items)
+        if verdict != "proved":
+            print(f"{fid:17} BROKEN   {said}")
             bad += 1
             continue
-        price = items[0].price
-        rec = price.recurring
-        got = (price.unit_amount, "monthly" if rec and rec.interval == "month" else "one_time")
-        if want is None:
-            print(f"{fid:17} BROKEN   the page price {fam['price']!r} is not a single amount, "
-                  f"so a card must not be taken on it at all")
-            bad += 1
-            continue
-        if got != want:
-            print(f"{fid:17} BROKEN   the page says {want[0]} cents {want[1]} and a buyer "
-                  f"clicking it is charged {got[0]} cents {got[1]}")
-            bad += 1
-            continue
-        basis = "a month" if got[1] == "monthly" else "once"
-        print(f"{fid:17} proved   {fam['price']} -> ${got[0] / 100:.2f} {basis} at {base}")
+        print(f"{fid:17} proved   {said} at {base}")
 
     # --- money nobody can reach ----------------------------------------------
     # Counted from the pages in families/, not from dist/, which is not the same
@@ -263,7 +385,7 @@ def main() -> int:
             if _md(l).get("feeds_family")}
     declared = {f["id"]: c["url"] for f, c in armed}
     on_pages = page_addresses(ROOT / "families")
-    r = reach_report(on_pages, declared, ours, walked)
+    r = reach_report(on_pages, declared, ours, walked, external_by_url)
 
     shown = {w for pages in on_pages.values() for w in pages}
     # Say where the number came from.

@@ -1,0 +1,27 @@
+{
+  "casepack": {
+    "payment_link": "plink_1UDVGf1W0OJClv3V91zNCl46",
+    "plan": "monthly",
+    "mode": "subscription"
+  },
+  "schemahand": {
+    "payment_link": "plink_1UDVGV1W0OJClv3V9mlAWdjt",
+    "plan": "annual",
+    "mode": "payment"
+  },
+  "ledgermatch": {
+    "payment_link": "plink_1UDVGN1W0OJClv3VPpcl7oYO",
+    "plan": "monthly",
+    "mode": "subscription"
+  },
+  "acacheck": {
+    "payment_link": "plink_1UDVGD1W0OJClv3VrUcye0eB",
+    "plan": "annual",
+    "mode": "payment"
+  },
+  "qrelay": {
+    "payment_link": "plink_1UDVFs1W0OJClv3VvrkM4B5n",
+    "plan": "monthly",
+    "mode": "subscription"
+  }
+}

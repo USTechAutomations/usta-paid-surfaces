@@ -374,6 +374,57 @@ def test_casepack_limits(c: Checks) -> None:
            "a paid sheet takes more than 500 rows")
 
 
+def test_casepack_external_embed_cors(c: Checks) -> None:
+    """An embed's public GET crosses origins; editing remains independently protected."""
+    client, _ = build()
+    external = "https://customer-fixture.example"
+    origin = {"Origin": external}
+    made = client.post("/cp/config", json=SHEET).json()
+    cfg_id, edit_id = made["cfg_id"], made["edit_id"]
+    path = f"/cp/config/{cfg_id}"
+    client.post(path + "/pro", json={"edit_id": edit_id, "key": KEY_GOOD})
+
+    for headers in (origin, {"Origin": "https://ustechautomations.com"}):
+        read = client.get(path, headers=headers)
+        c.same(read.status_code, 200, "a public config remains readable")
+        c.same(read.headers.get("access-control-allow-origin"), "*", "external embeds may read public config")
+        c.ok("access-control-allow-credentials" not in read.headers, "public config never enables credentials")
+        c.ok("edit_id" not in read.json() and "pro_ref" not in read.json(), "public config excludes both private fields")
+
+    missing = client.get("/cp/config/unknown_fixture", headers=origin)
+    c.same(missing.status_code, 404, "unknown public config remains 404")
+    c.same(missing.headers.get("access-control-allow-origin"), "*", "external embed can read unavailable state")
+
+    for path_ in ("/cp/config", "/cp/config/short", path + "/edit", path + "/delete",
+                  path + "/pro", path + "/extra", "/cp/configuration/unknown_fixture",
+                  "/metrics/casepack?since=2020-01-01", "/admin/revoke"):
+        result = client.get(path_, headers=origin)
+        c.ok("access-control-allow-origin" not in result.headers, f"public read CORS does not cover {path_}")
+
+    preflight = client.options(path, headers={**origin, "Access-Control-Request-Method": "GET",
+                                             "Access-Control-Request-Headers": "content-type"})
+    c.same(preflight.status_code, 204, "public read preflight accepted")
+    c.same(preflight.headers.get("access-control-allow-origin"), "*", "read preflight allows the embed origin")
+    c.same(preflight.headers.get("access-control-allow-methods"), "GET", "read preflight enables GET only")
+    for path_, method in ((path, "POST"), (path, "DELETE"), ("/cp/config", "POST"),
+                          (path + "/edit", "POST"), (path + "/delete", "POST"),
+                          (path + "/pro", "POST"), ("/admin/revoke", "POST")):
+        denied = client.options(path_, headers={**origin, "Access-Control-Request-Method": method,
+                                                "Access-Control-Request-Headers": "content-type"})
+        c.same(denied.status_code, 400, f"external mutation preflight refused: {path_} {method}")
+        c.ok("access-control-allow-origin" not in denied.headers, "denied preflight adds no wildcard")
+
+    for method in ("POST", "HEAD", "DELETE"):
+        response = client.request(method, path, headers=origin)
+        c.ok("access-control-allow-origin" not in response.headers, "non-GET public-path methods are not widened")
+    for operation in ("edit", "delete", "pro"):
+        body = dict(SHEET, edit_id="wrong-fixture-code", key=KEY_GOOD)
+        denied = client.post(path + "/" + operation, json=body, headers=origin)
+        c.same(denied.status_code, 403, "wrong edit code is rejected independently of CORS")
+        c.ok("access-control-allow-origin" not in denied.headers, "mutation reply stays origin-restricted")
+    c.same(client.get(path).json()["title"], SHEET["title"], "unauthorized requests did not mutate the sheet")
+
+
 # ---------------------------------------------------------------- body cap
 def test_body_cap(c: Checks) -> None:
     client, _ = build()
@@ -593,6 +644,7 @@ def run() -> tuple[int, int]:
         test_revoke_stale_timestamp, test_revoke_keyless,
         test_metrics_auth, test_metrics_keyless,
         test_casepack_life_cycle, test_casepack_pro, test_casepack_limits,
+        test_casepack_external_embed_cors,
         test_body_cap, test_body_cap_without_a_length,
         test_embed_paths,
         test_aca_check_missing, test_aca_check_free_and_paid,

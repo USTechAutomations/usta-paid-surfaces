@@ -12,7 +12,7 @@ Families whose catalog row is HOLD or EXTERNAL get no thanks page.
 from __future__ import annotations
 
 import argparse
-import importlib.util
+import ast
 import json
 import sys
 from pathlib import Path
@@ -27,13 +27,14 @@ CATALOG = ROOT / "catalog.json"
 
 def eta_for(fam_dir: Path) -> int:
     src = fam_dir / "fulfil.py"
-    try:
-        spec = importlib.util.spec_from_file_location(f"fv5_thanks_{fam_dir.name}", src)
-        mod = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(mod)  # type: ignore[union-attr]
-        return int(getattr(mod, "ETA_MINUTES", 15))
-    except Exception:
-        return 15
+    tree = ast.parse(src.read_text())
+    for node in tree.body:
+        if isinstance(node, ast.Assign) and any(isinstance(target, ast.Name) and target.id == "ETA_MINUTES" for target in node.targets):
+            value = ast.literal_eval(node.value)
+            if type(value) is not int or not 1 <= value <= 1440:
+                raise ValueError("Invalid declared fulfillment ETA")
+            return value
+    return 15
 
 
 def main() -> int:

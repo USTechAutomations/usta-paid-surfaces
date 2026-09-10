@@ -37,14 +37,17 @@ FV5 = Path(__file__).resolve().parent
 ROOT = FV5.parent
 sys.path.insert(0, str(FV5 / "lib"))
 sys.path.insert(0, str(ROOT / "scripts"))
+sys.path.insert(0, str(ROOT))  # so the private-delivery signer can import loops.*
 
 import ppp  # noqa: E402
+import private_delivery as pd  # noqa: E402  (fv5/lib/private_delivery.py)
 import stripe_read  # noqa: E402
+from state_root import STATE_ROOT  # noqa: E402
 from mint_feed_links import _read_key, _redact  # noqa: E402
 
 FAMILIES_DIR = FV5 / "families"
 CATALOG = ROOT / "catalog.json"
-STATE = Path.home() / ".hermes" / "state" / "fv5"
+STATE = STATE_ROOT
 LOCK = STATE / "fulfil.lock"
 LINKS_CACHE = STATE / "links.json"
 
@@ -111,36 +114,39 @@ class SessionView(dict):
             raise AttributeError(name) from None
 
 
+def _read_rows(path: Path) -> list[dict]:
+    if path.is_symlink(): raise ValueError('state symlink refused')
+    if not path.exists(): return []
+    rows=[json.loads(line) for line in pd.read_private(path).splitlines() if line.strip()]
+    if any(not isinstance(row,dict) for row in rows): raise ValueError('invalid state row')
+    return rows
+
+
+def _write_rows(path: Path, rows: list[dict]) -> None:
+    pd.atomic_bytes(path, ''.join(json.dumps(row,allow_nan=False)+'\n' for row in rows).encode())
+
+
 def _apply_state_update(state_dir: Path, family_id: str, update: dict, slug: str,
                         created: int) -> None:
-    """Persist what a family asked to remember about this sale (live only).
-
-    `{"watch": {...}}`   -> appended to <family>/watches.jsonl
-    `{"featured": {...}}` -> appended to the list in <family>/featured.json
-    anything else        -> appended to <family>/state_updates.jsonl
-    """
-    fam_dir = state_dir / family_id
-    fam_dir.mkdir(parents=True, exist_ok=True)
-    stamp = {"slug": slug, "created": created}
-    for kind, payload in (update or {}).items():
-        row = dict(payload or {})
-        row.update(stamp)
-        if kind == "watch":
-            with (fam_dir / "watches.jsonl").open("a") as fh:
-                fh.write(json.dumps(row, sort_keys=True) + "\n")
-        elif kind == "featured":
-            p = fam_dir / "featured.json"
-            try:
-                cur = json.loads(p.read_text()) if p.is_file() else []
-            except Exception:  # noqa: BLE001
-                cur = []
-            if not isinstance(cur, list):
-                cur = []
-            cur.append(row)
-            p.write_text(json.dumps(cur, indent=1, sort_keys=True))
+    """Atomic per-kind updates under the caller's process lock; retry is harmless."""
+    if not isinstance(update,dict): raise ValueError('invalid state update')
+    fam_dir=state_dir/family_id
+    pd.secure_dir(fam_dir)
+    for kind,payload in update.items():
+        if not isinstance(payload,dict): raise ValueError('invalid update payload')
+        row=dict(payload,slug=slug,created=created)
+        if kind=='featured':
+            path=fam_dir/'featured.json'
+            cur=json.loads(pd.read_private(path)) if path.exists() or path.is_symlink() else []
+            if not isinstance(cur,list) or any(not isinstance(r,dict) for r in cur): raise ValueError('invalid featured state')
+            if any(r.get('slug')==slug for r in cur): continue
+            pd.atomic_json(path,cur+[row])
         else:
-            with (fam_dir / "state_updates.jsonl").open("a") as fh:
-                fh.write(json.dumps({"kind": kind, **row}, sort_keys=True) + "\n")
+            path=fam_dir/('watches.jsonl' if kind=='watch' else 'state_updates.jsonl')
+            cur=_read_rows(path)
+            if any(r.get('slug')==slug and (kind=='watch' or r.get('kind')==kind) for r in cur): continue
+            if kind!='watch': row={'kind':kind,**row}
+            _write_rows(path,cur+[row])
 
 
 def _normalise_result(result):
@@ -231,99 +237,137 @@ def default_session_source(link_id: str, since_ts: int):
 
 
 # --------------------------------------------------------------- state log
+# Outcomes that mean a sale needs no more work. Everything else (an error, a
+# retryable error, a bare 'pending', or a legacy 'written' that was never proved
+# delivered) is UNRESOLVED and must be reprocessed on the next run.
+TERMINAL_OUTCOMES = frozenset({"delivered", "skipped"})
+
+
 def load_state(sess_path: Path) -> tuple[set[str], int]:
-    """(slugs already handled, newest created time seen) from a family's log."""
-    handled: set[str] = set()
-    watermark = 0
+    """(slugs that need no more work, safe lower-bound created time).
+
+    The last row wins per slug, so a sale that errored and later delivered is
+    read as delivered. The watermark is a lower bound for the Stripe read: it is
+    never advanced past the earliest UNRESOLVED sale, so a transient failure is
+    always re-fetched and retried instead of being skipped forever.
+    """
+    latest: dict[str, tuple[int, str]] = {}
     if not sess_path.is_file():
-        return handled, watermark
-    for line in sess_path.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line:
-            continue
-        try:
-            row = json.loads(line)
-        except json.JSONDecodeError:
-            continue
-        if row.get("slug"):
-            handled.add(row["slug"])
-        watermark = max(watermark, int(row.get("created", 0) or 0))
+        return set(), 0
+    for row in _read_rows(sess_path):
+        slug = row.get("slug")
+        if not isinstance(slug,str) or not slug or type(row.get("created")) is not int or row["created"]<0:
+            raise ValueError("invalid session state")
+        latest[slug] = (row["created"], row.get("outcome", ""))
+
+    handled = {slug for slug, (_c, outcome) in latest.items() if outcome in TERMINAL_OUTCOMES}
+    terminal_created = [c for slug, (c, o) in latest.items() if o in TERMINAL_OUTCOMES]
+    unresolved_created = [c for slug, (c, o) in latest.items() if o not in TERMINAL_OUTCOMES]
+    if unresolved_created:
+        # Hold the lower bound just below the oldest unresolved sale so it is
+        # fetched again. Delivered sales past that point are filtered by `handled`.
+        watermark = max(0, min(unresolved_created) - 1)
+    else:
+        watermark = max(terminal_created) if terminal_created else 0
     return handled, watermark
 
 
 def append_row(sess_path: Path, row: dict) -> None:
-    sess_path.parent.mkdir(parents=True, exist_ok=True)
-    with sess_path.open("a", encoding="utf-8") as fh:
-        fh.write(json.dumps(row, ensure_ascii=False) + "\n")
+    rows=_read_rows(sess_path)
+    row=dict(row)
+    if "amount" in row and any(r.get("slug")==row.get("slug") and "amount" in r for r in rows):
+        row.pop("amount")
+    if rows and rows[-1]==row: return
+    _write_rows(sess_path,rows+[row])
 
 
 # --------------------------------------------------------------- one family
 def process_family(family_id: str, module, *, root: Path, state_dir: Path,
-                   live: bool, session_source, link_resolver) -> dict:
-    """Handle every new paid checkout for one family. Never raises for a buyer.
-
-    Returns a summary: how many were written, skipped, errored or already done,
-    plus a per-checkout list of (slug, outcome). Side effects (writing the page,
-    appending to the log) happen only when `live` is True; a dry run computes the
-    same outcomes and writes nothing.
-    """
-    summary = {"family": family_id, "written": 0, "skipped": 0, "errors": 0,
-               "already": 0, "outcomes": []}
-    sess_path = state_dir / family_id / "sessions.jsonl"
-    handled, watermark = load_state(sess_path)
-
+                   live: bool, session_source, link_resolver,
+                   spool=None, uploader=None) -> dict:
+    """Resume durable output before scanning Stripe; never rerender spooled bytes."""
+    summary={'family':family_id,'delivered':0,'built':0,'pending':0,'skipped':0,'errors':0,'already':0,'outcomes':[]}
+    sess_path=state_dir/family_id/'sessions.jsonl'
+    def failure(exc):
+        summary['errors']+=1
+        summary['outcomes'].append(('-', 'error '+type(exc).__name__))
+    def finish(record):
+        if record['finalized']:
+            summary['already']+=1;return
+        if record['state']!=pd.DELIVERED:
+            if uploader is None:
+                summary['pending']+=1;return
+            outcome=pd.deliver(spool,record,uploader)['outcome']
+            if outcome!=pd.DELIVERED:
+                summary['pending']+=1;return
+            record=spool.load(record['id'])
+        slug=record['session_hash'][:20]
+        if not record['state_applied']:
+            _apply_state_update(state_dir,family_id,record['state_update'],slug,record['ts'])
+            record['state_applied']=True;spool.save(record)
+        append_row(sess_path,{'slug':slug,'created':record['ts'],'outcome':'delivered'})
+        record['finalized']=True;spool.save(record)
+        summary['delivered']+=1
     try:
-        link_id = link_resolver(module.LINK_ID_ENV_OR_CATALOG)
-        sessions = session_source(link_id, watermark)
-    except Exception as exc:  # noqa: BLE001 -- one family's link problem is not fatal
-        summary["errors"] += 1
-        summary["outcomes"].append(("-", f"error resolving link: {_redact(exc)}"))
-        return summary
-
-    for s in sessions:
-        slug = ppp.private_slug(s.session_id)
-        if slug in handled:
-            summary["already"] += 1
-            continue
-        try:
-            html, state_update = _normalise_result(module.fulfil(SessionView(s)))
-        except Exception as exc:  # noqa: BLE001 -- never crash the batch on one buyer
-            outcome = f"error: {_redact(exc)}"
-            summary["errors"] += 1
-            summary["outcomes"].append((slug, outcome))
-            if live:
-                append_row(sess_path, {"slug": slug, "created": s.created,
-                                       "amount": s.amount_total, "outcome": outcome})
-            continue
-        if html is None:
-            summary["skipped"] += 1
-            summary["outcomes"].append((slug, "skipped (nothing to deliver)"))
-            if live:
-                append_row(sess_path, {"slug": slug, "created": s.created,
-                                       "amount": s.amount_total, "outcome": "skipped"})
-            continue
-        summary["written"] += 1
-        summary["outcomes"].append((slug, "written"))
         if live:
-            ppp.write_private_page(root, family_id, s.session_id, html, s.created)
-            if state_update:
-                _apply_state_update(state_dir, family_id, state_update, slug, s.created)
-            append_row(sess_path, {"slug": slug, "created": s.created,
-                                   "amount": s.amount_total, "outcome": "written"})
+            spool=spool or pd.PrivateSpool(state_dir)
+            for record in spool.records():
+                if record['family']==family_id and not record['finalized']:
+                    try:finish(record)
+                    except Exception as exc:failure(exc)
+        handled,watermark=load_state(sess_path)
+        sessions=list(session_source(link_resolver(module.LINK_ID_ENV_OR_CATALOG),watermark))
+    except Exception as exc:
+        failure(exc);return summary
+    product_name=getattr(module,'PRODUCT_NAME',family_id.replace('-',' '))
+    for session in sessions:
+        slug=ppp.private_slug(session.session_id)
+        if slug in handled:
+            summary['already']+=1;continue
+        try:
+            rec_id=pd.doc_id(family_id,pd.session_hash(session.session_id))
+            existing=spool.load(rec_id) if live else None
+            if existing:
+                # The recovery sweep already attempted this record once this run.
+                continue
+            if live:
+                append_row(sess_path,{'slug':slug,'created':session.created,'amount':session.amount_total,'outcome':'pending'})
+            body,update=_normalise_result(module.fulfil(SessionView(session)))
+            if body is None:
+                summary['skipped']+=1
+                if live:append_row(sess_path,{'slug':slug,'created':session.created,'outcome':'skipped'})
+                continue
+            wrapped=ppp.wrap_private_page(family_id,product_name,body,session.created)
+            if live:
+                record=spool.spool(family_id,session.session_id,wrapped,session.created,state_update=update)
+                summary['built']+=1
+                finish(record)
+            else:summary['built']+=1
+        except Exception as exc:
+            failure(exc)
+            if live:
+                try:append_row(sess_path,{'slug':slug,'created':session.created,'outcome':'retryable_error'})
+                except Exception as state_exc:failure(state_exc)
     return summary
-
-
-# --------------------------------------------------------------- publish hop
-def _run_publish() -> int:
-    import subprocess
-    return subprocess.run([sys.executable, str(FV5 / "publish.py"), "--live"]).returncode
 
 
 # ------------------------------------------------------------------- driver
 def run(*, root: Path, state_dir: Path, families_dir: Path, live: bool,
         only: str | None = None, session_source=None, link_resolver=None,
-        do_publish: bool = True) -> int:
-    """Fulfil across families. Callable directly by the selftest with fakes."""
+        do_publish: bool = True, spool=None, uploader=None) -> int:
+    """Fulfil across families. Callable directly by the selftest with fakes.
+
+    Exit code:
+      * a successful dry run returns 0; errors remain nonzero;
+      * a live run that delivers everything returns 0;
+      * a live run that leaves ANY sale unresolved (a failed delivery still in
+        the spool) returns non-zero, and keeps returning non-zero on later runs
+        until the sale is delivered — a failed publication is never reported as
+        success;
+      * `do_publish=False` builds and spools but does NOT deliver, and returns 0:
+        a deliberate build step, told apart from a failed live publish by the
+        fact that no delivery was attempted.
+    """
     fams = discover_families(families_dir)
     if only:
         fams = [(fid, m) for fid, m in fams if fid == only]
@@ -337,7 +381,13 @@ def run(*, root: Path, state_dir: Path, families_dir: Path, live: bool,
     if link_resolver is None:
         link_resolver = make_link_resolver(catalog)
 
-    total_written = 0
+    # A live run that means to deliver signs uploads with the shared loops secret.
+    if live and spool is None:
+        spool = pd.PrivateSpool(state_dir)
+    if live and do_publish and uploader is None:
+        uploader = pd.SignedUploader()
+
+    total_built = total_delivered = total_pending = total_errors = 0
     for family_id, module in fams:
         held = _held_reason(catalog, family_id)
         if held:
@@ -345,26 +395,48 @@ def run(*, root: Path, state_dir: Path, families_dir: Path, live: bool,
             continue
         summary = process_family(family_id, module, root=root, state_dir=state_dir,
                                  live=live, session_source=session_source,
-                                 link_resolver=link_resolver)
-        total_written += summary["written"]
-        verb = "wrote" if live else "would write"
-        print(f"{family_id}: {verb} {summary['written']}, skipped {summary['skipped']}, "
-              f"errors {summary['errors']}, already done {summary['already']}")
+                                 link_resolver=link_resolver,
+                                 spool=spool, uploader=uploader if do_publish else None)
+        total_built += summary["built"]
+        total_delivered += summary["delivered"]
+        total_pending += summary["pending"]
+        total_errors += summary["errors"]
+        if live:
+            print(f"{family_id}: delivered {summary['delivered']}, pending {summary['pending']}, "
+                  f"skipped {summary['skipped']}, errors {summary['errors']}, "
+                  f"already done {summary['already']}")
+        else:
+            print(f"{family_id}: would build {summary['built']}, skipped {summary['skipped']}, "
+                  f"errors {summary['errors']}, already done {summary['already']}")
         for slug, outcome in summary["outcomes"]:
             print(f"    {slug[:20]:20} {outcome}")
 
-    if total_written and live and do_publish:
-        print(f"\n{total_written} page(s) written; running fv5/publish.py --live")
-        return _run_publish()
-    if total_written and not live:
-        print(f"\ndry run: {total_written} page(s) would be written. Re-run with --live.")
+    if not live:
+        if total_built:
+            print(f"\ndry run: {total_built} file(s) would be built. Re-run with --live.")
+        return int(total_errors>0)
+
+    if not do_publish:
+        print(f"\nbuild-only live run: {total_built} file(s) spooled, none delivered.")
+        return int(total_errors>0)
+
+    # A failed publication is anything still sitting in the spool undelivered.
+    remaining = len([r for r in spool.records() if not r["finalized"]]) if spool is not None else total_pending
+    if total_errors:
+        print(f"\n{total_errors} processing error(s); retry required.")
+        return 1
+    if remaining:
+        print(f"\n{total_delivered} delivered; {remaining} delivery(ies) still pending — "
+              f"returning non-zero so this is retried.")
+        return 1
+    print(f"\n{total_delivered} delivered; nothing pending.")
     return 0
 
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--family", help="only this family id")
-    ap.add_argument("--live", action="store_true", help="write pages and publish (default: dry run)")
+    ap.add_argument("--live", action="store_true", help="build and privately deliver (default: dry run)")
     args = ap.parse_args()
 
     STATE.mkdir(parents=True, exist_ok=True)

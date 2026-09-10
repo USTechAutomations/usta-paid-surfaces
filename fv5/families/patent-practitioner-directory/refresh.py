@@ -62,7 +62,10 @@ import featured_store  # noqa: E402
 FAMILY_ID = "patent-practitioner-directory"
 SOURCE_URL = "https://oedci.uspto.gov/OEDCI/practitionerRoster?hid_action=download"
 FIXTURE_CSV = HERE / "fixtures" / "roster_sample.csv"
-RAW_CACHE = Path.home() / ".hermes" / "state" / "fv5" / FAMILY_ID / "raw" / "WebRoster.txt"
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "lib"))
+from state_root import family_state  # noqa: E402
+
+RAW_CACHE = family_state(FAMILY_ID) / "raw" / "WebRoster.txt"
 OUT_JSON = HERE / "data" / "roster_summary.json"
 
 MIN_PRACTITIONERS_PER_CITY = 25

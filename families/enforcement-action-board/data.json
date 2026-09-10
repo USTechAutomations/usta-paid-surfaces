@@ -1,6 +1,6 @@
 {
   "family": "enforcement-action-board",
-  "generated": "2026-09-08",
+  "generated": "2026-09-10",
   "slices": [
     {
       "slug": "biggest-penalties",
@@ -416,6 +416,14 @@
       "oldest": "2025-07-10",
       "runs": 1,
       "row_count": 51,
+      "cadence_days": 30
+    },
+    {
+      "slug": "coverage",
+      "newest": "2026-09-04",
+      "oldest": "2021-04-07",
+      "runs": 52,
+      "row_count": 2641,
       "cadence_days": 30
     }
   ]

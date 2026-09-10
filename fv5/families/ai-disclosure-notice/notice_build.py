@@ -34,12 +34,16 @@ import re
 import ssl
 import urllib.error
 import urllib.request
+import sys
 from pathlib import Path
 
 FAMILY = "ai-disclosure-notice"
 HERE = Path(__file__).resolve().parent
 DATA = HERE / "data"
-STATE = Path(os.path.expanduser(f"~/.hermes/state/fv5/{FAMILY}"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "lib"))
+from state_root import family_state  # noqa: E402
+
+STATE = family_state(FAMILY)
 RAW_DIR = STATE / "raw"
 
 UA = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "

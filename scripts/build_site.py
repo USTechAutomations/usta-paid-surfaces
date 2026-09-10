@@ -335,6 +335,33 @@ def build_page(src: Path, family: str, crumb_label: str | None, path: str | None
             fail(f"{family}: expected exactly one </main> to put the page list before")
         out = out.replace("</main>", extra_main + "</main>", 1)
 
+    # Keyboard/screen-reader shell. Two extras pages (acacheck, schemahand)
+    # shipped with a bare <header> and a <main> with no id, so a skip link
+    # and a screen reader had nothing to land on. If a source already has
+    # the shared shell this is a no-op.
+    if not re.search(r'<a[^>]*class="[^"]*\bskip\b', out):
+        out = re.sub(
+            r"(<body[^>]*>)",
+            r'\1\n<a class="skip" href="#main">Skip to content</a>',
+            out,
+            count=1,
+        )
+    if not re.search(r'<header[^>]*class="[^"]*\bmasthead\b', out):
+        crumb = "" if crumb_label is None else f'<span class="sep">/</span>{crumb_label}'
+        mast = MASTHEAD.format(base=BASE, crumb=crumb, logo_mast=logo("ustaMarkMast"))
+        if re.search(r"(?s)<header\b.*?</header>", out):
+            out = re.sub(r"(?s)<header\b.*?</header>", mast, out, count=1)
+        else:
+            out = re.sub(
+                r'(<a class="skip"[^>]*>.*?</a>)',
+                r"\1\n" + mast,
+                out,
+                count=1,
+            )
+    if re.search(r"<main\b", out) and not re.search(r'<main[^>]*id="main"', out):
+        out = re.sub(r"<main\b", '<main id="main"', out, count=1)
+    out = re.sub(r'(<(?:a|button)\b[^>]*)\s+tabindex="-1"', r"\1", out)
+
     # --- head: canonical, og:url, stylesheet, robots, GTM ---
     rel = "" if family == "hub" else (path or family)
     slug = f"/{rel}" if rel else ""
@@ -659,6 +686,35 @@ def check_one_home() -> None:
              f'kind: "build" and the family loop will skip it.')
 
 
+def copy_public_delivery_pages(pdir: Path, destination: Path) -> None:
+    """Copy public return/catalog pages; legacy buyer HTML never enters dist."""
+    for parent in (pdir, *pdir.parents):
+        if parent.is_symlink():
+            raise ValueError("public delivery source has a symlink ancestor")
+    if not pdir.is_dir():
+        return
+    for child in sorted(pdir.iterdir()):
+        # Classify by directory name before opening any potential buyer bytes.
+        if re.fullmatch(r"[0-9a-fA-F]{20}", child.name):
+            continue
+        src = child / "index.html"
+        if child.is_symlink() or src.is_symlink():
+            raise ValueError("public delivery source cannot follow a symlink")
+        if not (child.is_dir() and src.is_file()):
+            continue
+        text = src.read_text(encoding="utf-8")
+        if 'name="robots" content="noindex' not in text:
+            raise ValueError("public return/catalog page lacks its existing indexing marker")
+        # Only the stylesheet link is touched, so a return page carries the same
+        # content fingerprint as every public page (see CSS_HREF). Without this
+        # the buyer's page keeps the old sheet until the edge cache lets go.
+        text = re.sub(r'<link rel="stylesheet" href="[^"]*styles\.css(\?v=[0-9a-f]+)?">',
+                      f'<link rel="stylesheet" href="{CSS_HREF}">', text, count=1)
+        target = destination / child.name
+        target.mkdir(parents=True, exist_ok=True)
+        (target / "index.html").write_text(text, encoding="utf-8")
+
+
 def main() -> None:
     check_one_home()
     # What we may not PUBLISH today, asked once, before anything is written.
@@ -882,31 +938,14 @@ def main() -> None:
                 (outdir / "index.html").write_text(page, encoding="utf-8")
                 built.append(f"/feeds/{fid}/{d.name}")
         # Delivery pages: families/<id>/p/<slug>/index.html. The thanks page a
-        # pay link lands on and the private page fv5/fulfil.py writes after a
-        # sale live three levels down, under a folder with no page of its own,
-        # so the slice loop above never sees them. They are copied as they are:
-        # each one is noindex, carries no data table, and is written by the
-        # family's own fulfil code from the same catalog record the button
-        # carries. A page there without the noindex line is refused, because
-        # the one thing a private address must never do is get indexed.
+        # pay link lands on lives three levels down, under a folder with no page
+        # of its own, so the slice loop above never sees it. Buyer artifacts are
+        # retrieved through authenticated delivery: only public return pages and
+        # public product catalogs belong in the static image, each one noindex.
         # DATED 2026-09-07: the first fv5 deploy shipped without these, so the
         # Stripe redirect would have answered 404 to a paying buyer.
-        pdir = fam_dir / "p"
-        if fid in parents and pdir.is_dir():
-            for d in sorted(pdir.iterdir()):
-                src = d / "index.html"
-                if not (d.is_dir() and src.is_file()):
-                    continue
-                text = src.read_text(encoding="utf-8")
-                if 'name="robots" content="noindex' not in text:
-                    fail(f"{fid}/p/{d.name} has no noindex line; a delivery page must never be indexed")
-                # Only the stylesheet link is touched, so it carries the same
-                # content fingerprint as every public page (see CSS_HREF).
-                text = re.sub(r'<link rel="stylesheet" href="[^"]*styles\.css(\?v=[0-9a-f]+)?">',
-                              f'<link rel="stylesheet" href="{CSS_HREF}">', text, count=1)
-                outdir = DIST / fid / "p" / d.name
-                outdir.mkdir(parents=True, exist_ok=True)
-                (outdir / "index.html").write_text(text, encoding="utf-8")
+        if fid in parents:
+            copy_public_delivery_pages(fam_dir / "p", DIST / fid / "p")
         # Samples belong to the family, not to the child pages. A parent-only
         # pack (no slices) still owes the two sample files or its sample door 404s.
         if fid in parents:

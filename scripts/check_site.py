@@ -954,10 +954,15 @@ def buy_buttons(raw: str) -> list[tuple[str, str]]:
     quietly going to email, so that one is still caught.
     """
     out = []
-    for _tag, attrs, inner in CLICKABLE.findall(raw):
+    for tag, attrs, inner in CLICKABLE.findall(raw):
         cls = _attr(attrs, "class")
         href = _attr(attrs, "href") or _attr(attrs, "formaction")
         label = " ".join(html.unescape(TAGS.sub(" ", inner)).split())
+        # A thanks-page status line or Copy control is a <button> with the buy
+        # class and no address. It takes no card. Skip it. An <a> with an empty
+        # href still counts: that is a dead buy link.
+        if tag.lower() == "button" and not href:
+            continue
         if not BTN_BUY.search(cls):
             if not BUY_WORDS.match(label) or href.lower().startswith("mailto:"):
                 continue

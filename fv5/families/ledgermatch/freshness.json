@@ -1,0 +1,6 @@
+{
+  "family": "ledgermatch",
+  "kind": "hosted-tool",
+  "dated_feed": false,
+  "note": "No public dated sample store. Health must not require families/<id>/data.json."
+}

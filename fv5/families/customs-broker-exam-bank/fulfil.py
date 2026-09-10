@@ -25,7 +25,10 @@ FAMILY = "customs-broker-exam-bank"
 HERE = Path(__file__).resolve().parent
 DATA = HERE / "data"
 BANK_JSON = DATA / "bank.json"
-STATE = Path(os.path.expanduser(f"~/.hermes/state/fv5/{FAMILY}"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "lib"))
+from state_root import family_state  # noqa: E402
+
+STATE = family_state(FAMILY)
 FULL_BANK = STATE / "raw" / "bank.full.json"
 
 CBP_PAGE = ("https://www.cbp.gov/document/publications/"

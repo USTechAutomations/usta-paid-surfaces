@@ -388,7 +388,100 @@ def slices() -> list[dict]:
             "limits": limits,
             "foot": DISCLAIMER,
         })
+    if out:
+        out.append(_coverage())
     return out
+
+
+def _coverage() -> dict:
+    """One page that names every place we could not read, and why.
+
+    The family page already carries this table, but a reader who landed on a
+    state page has no way back to it and no way to see that 38 other states are
+    missing on purpose. Every row is read out of the same file the state pages
+    are built from, so a state that starts answering drops off this page by
+    itself.
+    """
+    gen = P.generated()
+    places = P.all_states() + P.federal_all()
+    rows = []
+    for j in places:
+        st = j.get("status", "not-cached")
+        if st == "quoted":
+            held = (f'{len(j.get("prongs", []))} prong passages, '
+                    f'{len(j.get("penalties", []))} penalty passages')
+            what = "yes — it has its own free page"
+        else:
+            held = "nothing"
+            what = "no — " + (j.get("why") or P.STATUS_WORDS.get(st, st))
+        rows.append([_e(j["name"]), _e(j["cite"]), _e(what), _e(held)])
+
+    counts: dict[str, int] = {}
+    for j in places:
+        st = j.get("status", "not-cached")
+        counts[st] = counts.get(st, 0) + 1
+    reason_rows = [[_e(P.STATUS_WORDS.get(k, k)), f"{n}"]
+                   for k, n in sorted(counts.items(), key=lambda kv: -kv[1])]
+
+    quoted = P.quoted_states()
+    fed = P.federal()
+    n_prong = sum(len(j.get("prongs", [])) for j in quoted + fed)
+    n_pen = sum(len(j.get("penalties", [])) for j in quoted + fed)
+    unread = len(places) - len(quoted) - len(fed)
+    return {
+        "slug": "coverage",
+        "name": "What is and is not in this feed",
+        "h1": "Which places we can quote, and which we cannot",
+        "lede": (f"We asked {len(places)} official pages for the section that carries "
+                 f"the worker-status test. {len(quoted) + len(fed)} of them gave it to "
+                 f"us. This page names the other {unread} and says exactly what came "
+                 f"back instead."),
+        "desc": (f"{len(quoted)} states and {len(fed)} federal tests quoted; the other "
+                 f"{unread} official pages and what each returned instead.")[:MAX_DESC],
+        "newest": gen,
+        "oldest": gen,
+        "runs": 1,
+        "cadence_days": 30,
+        "row_count": len(rows),
+        "read_label": "Re-read monthly",
+        "read_phrase": "We ask every official page again each month, gap or not.",
+        "rows_intro": (f"{DISCLAIMER} Read {gen}. Both tables are counted out of the "
+                       "same file the state pages are built from."),
+        "tables": [
+            {"caption": (f"All {len(rows)} official pages we ask for, and what each "
+                         "one gave back"),
+             "stamp": f"read {gen}",
+             "headers": ["Jurisdiction", "Section we asked for",
+                         "Do we have a page for it?", "What we hold"],
+             "rows": rows},
+            {"caption": "Why the missing ones are missing",
+             "stamp": f"read {gen}",
+             "headers": ["What happened when we asked", "Places"],
+             "rows": reason_rows,
+             "moved_col": 1},
+        ],
+        "facts": [
+            (f"{len(quoted)} states and {len(fed)} federal factor sets answered with "
+             f"the section we asked for, and only those have a page here."),
+            (f"{unread} of the {len(places)} pages we ask for did not give us the "
+             f"section. Each is listed above with the answer it actually returned."),
+            (f"Across the places we can quote we hold {n_prong} prong passages and "
+             f"{n_pen} penalty passages, all word for word from the official page."),
+            ("A page that answers but does not carry the section number we asked for "
+             "counts as a miss. We would rather show a gap than quote the wrong text."),
+            P.NO_VERDICT,
+        ],
+        "limits": [
+            ("A miss is about one address on one day. A state whose site refused this "
+             "host may publish the same test somewhere we have not asked for."),
+            ("We ask for one section per place. A test split across a statute, a "
+             "regulation and an agency handbook may say more than the section we hold."),
+            ("This page counts pages and passages. It does not say which test applies "
+             "to anybody, and no page in this family does."),
+            DISCLAIMER,
+        ],
+        "foot": DISCLAIMER,
+    }
 
 
 def sample() -> tuple[list[str], list[list[str]]]:

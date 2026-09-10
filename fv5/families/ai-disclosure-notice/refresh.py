@@ -4,7 +4,7 @@
     python3 refresh.py [--dry-run] [--limit N]
 
 Ordinary run: fetch each source we are allowed to fetch, keep the bytes under
-~/.hermes/state/fv5/ai-disclosure-notice/raw/, check every quoted passage back
+~/.local/state/fv5/ai-disclosure-notice/raw/, check every quoted passage back
 against the words that came down the wire, and write the four data files the
 pages read. A quote that no longer appears in its own source is marked
 "drifted" and sets the drift flag, which puts a dated banner on the delivered

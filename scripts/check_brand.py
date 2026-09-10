@@ -3,6 +3,7 @@
 
     python3 scripts/check_brand.py --report        # counts only, never fails
     python3 scripts/check_brand.py                 # strict: exit 1 on any failure
+    python3 scripts/check_brand.py --strict        # same as default (explicit)
     python3 scripts/check_brand.py --only quakes   # scope to one family
     python3 scripts/check_brand.py --dist /tmp/x   # check a different built tree
 
@@ -35,6 +36,8 @@ from __future__ import annotations
 
 import argparse
 import re
+from html.parser import HTMLParser
+from urllib.parse import urlsplit
 import sys
 from pathlib import Path
 
@@ -99,8 +102,31 @@ def c_one_h1(t: str) -> str:
 
 
 def c_stylesheet(t: str) -> str:
-    ok = re.search(r'<link[^>]+rel="stylesheet"[^>]+href="[^"]*styles\.css(\?v=[0-9a-f]+)?"', t)
-    return "" if ok else "does not link the shared styles.css (BRAND.md §1)"
+    class Stylesheets(HTMLParser):
+        found = False
+
+        def handle_starttag(self, tag, attrs):
+            if tag != "link":
+                return
+            attrs = dict(attrs)
+            if "stylesheet" not in attrs.get("rel", "").lower().split():
+                return
+            try:
+                url = urlsplit(attrs.get("href", ""))
+                owned = not url.netloc or (
+                    url.hostname == "ustechautomations.com"
+                    and url.port in (None, 443) and not url.username
+                    and not url.password
+                )
+                if (url.scheme in ("", "https") and owned
+                        and url.path.rsplit("/", 1)[-1] == "styles.css"):
+                    self.found = True
+            except ValueError:
+                pass
+
+    parser = Stylesheets()
+    parser.feed(t)
+    return "" if parser.found else "does not link the shared styles.css (BRAND.md §1)"
 
 
 def c_viewport(t: str) -> str:
@@ -205,10 +231,16 @@ def pages(dist: Path, only: str | None) -> list[Path]:
 def main() -> int:
     ap = argparse.ArgumentParser(description="Check built pages against BRAND.md.")
     ap.add_argument("--report", action="store_true", help="print counts, never fail")
+    ap.add_argument("--strict", action="store_true",
+                    help="exit 1 on any failure (default unless --report)")
     ap.add_argument("--only", metavar="FAMILY", help="scope to dist/<FAMILY>/")
     ap.add_argument("--dist", default=str(ROOT / "dist"), help="built tree to read")
     ap.add_argument("--css", default=str(ROOT / "styles.css"), help="shared stylesheet")
     args = ap.parse_args()
+    # --strict wins if both are passed, so a deploy script cannot be talked
+    # into report-mode by an extra flag.
+    if args.strict:
+        args.report = False
 
     dist = Path(args.dist).resolve()
     files = pages(dist, args.only)

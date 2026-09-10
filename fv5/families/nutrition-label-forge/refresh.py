@@ -9,7 +9,7 @@
 Two sources. The eCFR versioner API gives the XML of 21 CFR 101.9, 101.12 and
 101.4 for a pinned edition; USDA FoodData Central gives the Foundation Foods and
 SR Legacy JSON releases. Raw downloads live under
-~/.hermes/state/fv5/nutrition-label-forge/raw/ and are never edited.
+~/.local/state/fv5/nutrition-label-forge/raw/ and are never edited.
 
 Every quoted rule in data/citations.json is then re-read against TODAY'S eCFR,
 not against the pinned edition it was taken from, and compared word for word.

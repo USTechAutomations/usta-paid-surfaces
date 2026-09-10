@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Per-family money in vs money spent over the last 30 days, with a budget line.
 
-Revenue is read from the delivery job's own logs (`state/fv5/<family>/
+Revenue is read from the delivery job's own logs (`<state root>/<family>/
 sessions.jsonl`), where every row is one paid checkout with its amount and date.
 Spend is read from the harness delegation log, counting only rows tagged for
 that family (`fv5-<family>`).
@@ -20,9 +20,13 @@ from __future__ import annotations
 
 import datetime as dt
 import json
+import sys
 from pathlib import Path
 
-STATE = Path.home() / ".hermes" / "state" / "fv5"
+sys.path.insert(0, str(Path(__file__).resolve().parent / "lib"))
+from state_root import STATE_ROOT  # noqa: E402
+
+STATE = STATE_ROOT
 DELEGATION = Path.home() / ".hermes" / "state" / "harness" / "delegation_log.jsonl"
 FAMILIES_DIR = Path(__file__).resolve().parent / "families"
 LEDGER = STATE / "ledger.json"

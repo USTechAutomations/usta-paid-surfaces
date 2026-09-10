@@ -1,6 +1,6 @@
 {
   "family": "notary-journal",
-  "generated": "2026-09-08",
+  "generated": "2026-09-10",
   "slices": [
     {
       "slug": "alabama",
@@ -408,6 +408,14 @@
       "oldest": "2026-09-08",
       "runs": 1,
       "row_count": 9,
+      "cadence_days": 7
+    },
+    {
+      "slug": "coverage",
+      "newest": "2026-09-08",
+      "oldest": "2026-09-08",
+      "runs": 1,
+      "row_count": 51,
       "cadence_days": 7
     }
   ]

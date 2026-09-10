@@ -13,6 +13,7 @@ for the disclosed trade-off in that check.
 from __future__ import annotations
 
 import html
+import importlib.util
 import json
 import sys
 import urllib.parse
@@ -176,7 +177,162 @@ def slices() -> list[dict]:
             ],
             "withheld": 0,
         })
+    if out:
+        out.append(_coverage())
     return out
+
+
+# The floor and the cap the family's own refresh.py applies. Read from that
+# module rather than typed here, so a page can never quote a threshold the
+# builder is no longer using.
+def _thresholds() -> tuple[int, int]:
+    try:
+        spec = importlib.util.spec_from_file_location(
+            "ppd_refresh", ROOT / "fv5" / "families" / FAMILY / "refresh.py")
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        return int(mod.MIN_PRACTITIONERS_PER_CITY), int(mod.MAX_CITIES)
+    except Exception:
+        return 0, 0
+
+
+def _coverage() -> dict:
+    """Where the other 17,000 practitioners went.
+
+    Every city page answers "who is registered here". The question none of them
+    can answer is what happened to the roster rows that are on no page at all --
+    the ones outside the US, the ones in a town too small for a page, and the
+    ones whose only listed "firm" is their own name, which we count and never
+    print. This page is that arithmetic, counted off the same summary file the
+    city pages are built from, so the four numbers always add up on screen.
+    """
+    d = data()
+    stamp = _stamp(d)
+    cities = d["cities"]
+    floor, cap = _thresholds()
+
+    by_state: dict[str, dict] = {}
+    for c in cities:
+        acc = by_state.setdefault(c["state"], {"cities": 0, "prac": 0, "firms": 0, "ind": 0})
+        acc["cities"] += 1
+        acc["prac"] += c["practitioner_count"]
+        acc["firms"] += len(c["firms"])
+        acc["ind"] += c.get("individual_practitioners", 0)
+    state_rows = [[
+        _e(st),
+        f'{v["cities"]:,}',
+        f'{v["prac"]:,}',
+        f'{v["firms"]:,}',
+        f'{v["ind"]:,}' if v["ind"] else "none",
+    ] for st, v in sorted(by_state.items(), key=lambda kv: (-kv[1]["prac"], kv[0]))]
+
+    on_pages = sum(c["practitioner_count"] for c in cities)
+    pooled = sum(c.get("individual_practitioners", 0) for c in cities)
+    source_rows = int(d.get("source_rows") or 0)
+    kept = int(d.get("kept_rows") or 0)
+    folded = int(d.get("personal_names_folded") or 0)
+    smallest = min(c["practitioner_count"] for c in cities)
+
+    funnel = [
+        ["Rows in the USPTO roster download we read", f"{source_rows:,}",
+         "everything the Office of Enrollment and Discipline publishes in that file"],
+        ["Of those, rows with a US city and a two-letter state", f"{kept:,}",
+         "the rest list an address outside the US, or no city and state we could read, "
+         "and they appear nowhere on this site"],
+        [f"Of those, rows in one of the {len(cities)} cities that has a page",
+         f"{on_pages:,}", "these are the people counted on the city pages"],
+        ["Of those, rows in a US city with no page", f"{kept - on_pages:,}",
+         (f"the city has fewer than {floor} registered practitioners, or it did not make "
+          f"the {cap} largest" if floor and cap else
+          "the city did not qualify for a page")],
+        ["Counted on a city page but never named", f"{pooled:,}",
+         "they list no firm, or list only their own name, so they are pooled into one "
+         "Individual practitioners line"],
+        ["Firm names pooled because the name reads as a person's own", f"{folded:,}",
+         "counted across every city that cleared the floor, whether it got a page or not"],
+    ]
+
+    return {
+        "slug": "coverage",
+        "name": "What is and is not in this directory",
+        "h1": "What is and is not in the patent practitioner directory",
+        "lede": (f"{source_rows:,} rows in the USPTO roster, {on_pages:,} of them on a "
+                 f"page here. This page follows every row that did not make it, and says "
+                 f"which names we count without ever printing them."),
+        "desc": (f"{source_rows:,} USPTO roster rows, {len(cities)} city pages, and what "
+                 f"happened to every practitioner who is on none of "
+                 f"them.")[:MAX_DESC],
+        "newest": stamp,
+        "oldest": stamp,
+        "runs": 1,
+        "cadence_days": 1,
+        "row_count": on_pages,
+        "withheld": 0,
+        "rows_intro": ("Both tables are counted off the same summary of the USPTO roster "
+                       "that every city page is built from."),
+        "tables": [
+            {"headers": ["Row in the roster", "How many", "What happens to it"],
+             "rows": funnel,
+             "caption": (f"Every one of the {source_rows:,} roster rows, and where it "
+                         f"ends up"),
+             "stamp": f"USPTO roster read {stamp}",
+             "moved_col": 1},
+            {"headers": ["State", "Cities with a page", "Registered practitioners",
+                         "Firms listed", "Counted without a name"],
+             "rows": state_rows,
+             "caption": (f"The {len(by_state)} states and territories that have at least "
+                         f"one city page, largest first"),
+             "stamp": f"USPTO roster read {stamp}",
+             "moved_col": 2},
+        ],
+        "facts": [
+            (f"{len(cities)} cities have a page. A city needs at least {floor} registered "
+             f"practitioners to qualify and we publish the {cap} largest that do, so the "
+             f"smallest page here holds {smallest:,}." if floor and cap else
+             f"{len(cities)} cities have a page, the smallest holding {smallest:,} "
+             f"registered practitioners."),
+            (f"{on_pages:,} registered practitioners are counted on those pages, out of "
+             f"{kept:,} roster rows with a readable US address. The difference, "
+             f"{kept - on_pages:,}, is on no page here."),
+            (f"{pooled:,} of the practitioners on these pages are counted without being "
+             f"named, because they list no firm or list only their own name. We publish "
+             f"organizations, never a private person."),
+            (f"{sum(len(c['firms']) for c in cities):,} firm listings appear across the "
+             f"{len(cities)} pages. A firm is grouped by the spelling of its name, not by "
+             f"any legal-entity check."),
+            (f'Every number here is counted off the '
+             f'<a href="{SOURCE_URL}" data-source-url="{SOURCE_URL}" rel="nofollow">USPTO '
+             f'bulk roster download</a>, read on {stamp}. Nothing on this page is typed '
+             f'in by hand.'),
+        ],
+        "limits": [
+            "We show organizations only. We never publish a registered practitioner's own "
+            "name, home address, or phone number, even when the roster lists one.",
+            (f"A city with fewer than {floor} registered practitioners gets no page, and "
+             f"neither does one that qualifies but falls outside the {cap} largest. Those "
+             f"practitioners are counted in the table above and named nowhere."
+             if floor and cap else
+             "A city too small to qualify gets no page, and its practitioners are counted "
+             "in the table above and named nowhere."),
+            "Our automatic test for “this reads as a person's own name, not a firm” is "
+            "imperfect. It correctly protects solo practitioners, and it also mistakenly "
+            "withholds a small number of real company names; those counts are folded into "
+            "Individual practitioners.",
+            "Firm names are grouped by spelling after light punctuation cleanup, so two "
+            "unrelated firms that share a name are not told apart.",
+            "The USPTO updates its roster on its own schedule; our copy is only as current "
+            "as the date stamped on this page.",
+            "Registration to practice before the USPTO is not the same as being licensed "
+            "to practice law in any state, and a listing here is not a recommendation.",
+            DISCLOSURE_TMPL.format(stamp=stamp),
+        ],
+        "credit": [
+            f'Practitioner roster: <a href="{SOURCE_URL}" data-source-url="{SOURCE_URL}" '
+            'rel="nofollow">USPTO Office of Enrollment and Discipline bulk roster '
+            "download</a>, read fresh at each site build. See SOURCES.md for the licence "
+            "terms quoted from that page."
+        ],
+    }
 
 
 def sample() -> tuple[list[str], list[list[str]]]:

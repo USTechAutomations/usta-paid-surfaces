@@ -1,98 +1,145 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
-  <title>Security questionnaire relay — preparing your file</title>
-  <link rel="stylesheet" href="https://ustechautomations.com/feeds/styles.css?v=20c6fb0529">
-  <!-- The site pair, light and dark. These 2,182 private pages were the only
-       pages left painting the browser chrome brown: scripts/build_site.py
-       rewrites this tag on every public page as it builds, and it never sees
-       these, so the buyer's tab did not match the shop it was bought from. -->
-  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f9fafb">
-  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d0f13">
-</head>
-<body data-family="qrelay">
-<a class="skip" href="#main">Skip to content</a>
-
-<header class="masthead">
-  <div class="wrap">
-    <a class="wordmark" href="https://ustechautomations.com/feeds/">Dated change feeds <span>/ US Tech Automations</span></a>
-    <p class="crumbs">Thank you — preparing your file</p>
-  </div>
-</header>
-
-<section class="hero">
-  <div class="wrap">
-    <h1>Thank you — your Security questionnaire relay is being prepared</h1>
-    <p id="status" class="lede">Working out your private address…</p>
-  </div>
-</section>
-
-<main id="main">
-  <div class="wrap">
-    <section>
-      <p class="mail-note">This can take up to about 10 minutes. You can keep
-        this tab open; it checks for the file on its own and shows a link the
-        moment it is ready. Bookmark the private address below — it is yours alone,
-        so please do not share it.</p>
-      <p id="addr" class="mail-note"></p>
-      <p class="mail-note">Nothing after 10 minutes? Email <a href="mailto:operations@ustechautomations.com?subject=qrelay%20order">operations@ustechautomations.com</a> with your receipt number and we will send the address by hand.</p>
-      <p id="ready" class="hero-cta"></p>
-    </section>
-  </div>
-</main>
-
-<footer class="site">
-  <div class="wrap">
-    <p>US Tech Automations &middot; the file is built after payment and is not listed in search.</p>
-    <p class="addr">US Tech Automations &middot; 3298 N Glassford Hill Rd Ste 104 PMB 1055, Prescott Valley AZ 86314</p>
-  </div>
-</footer>
-
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">
 <script>
-(async function () {
-  var params = new URLSearchParams(location.search);
-  var sid = params.get("session_id");
-  var statusEl = document.getElementById("status");
-  var addrEl = document.getElementById("addr");
-  var readyEl = document.getElementById("ready");
-  if (!sid) {
-    statusEl.textContent = "Open this page from the link Stripe sends you after paying";
-    return;
-  }
-  // SHA-256 of the checkout id, first 20 hex chars -- identical to the Python
-  // private_slug() so the address computed here is exactly where the delivery
-  // job writes the file.
-  var bytes = new TextEncoder().encode(sid);
-  var digest = await crypto.subtle.digest("SHA-256", bytes);
-  var hex = Array.from(new Uint8Array(digest))
-    .map(function (b) { return b.toString(16).padStart(2, "0"); })
-    .join("");
-  var slug = hex.slice(0, 20);
-  var url = "https://ustechautomations.com/feeds/qrelay/p/" + slug + "/";
-  addrEl.innerHTML = "Your private address: <code>" + url + "</code>";
-  statusEl.textContent = "Preparing your file…";
-
-  async function check() {
-    try {
-      var r = await fetch(url, { method: "HEAD" });
-      if (r.status === 200) {
-        statusEl.textContent = "Your file is ready.";
-        readyEl.innerHTML = '<a class="btn btn-buy" href="' + url + '">Open your file</a>';
-        return true;
-      }
-    } catch (e) { /* not ready yet; try again on the next tick */ }
-    return false;
-  }
-
-  if (!(await check())) {
-    var timer = setInterval(async function () {
-      if (await check()) { clearInterval(timer); }
-    }, 30000);
-  }
+(function(){
+  "use strict";
+  const key="fv5_sid_"+"qrelay";
+  const values=[...new URLSearchParams(location.search).getAll("session_id"),...new URLSearchParams(location.hash.slice(1)).getAll("session_id")];
+  let sid=values.length===1?values[0]:null;
+  history.replaceState(null,"",location.pathname);
+  const valid=value=>typeof value==="string"&&/^cs_(?:live|test)_[A-Za-z0-9]{16,80}$/.test(value);
+  try{
+    if(values.length){if(valid(sid))sessionStorage.setItem(key,sid);else sessionStorage.removeItem(key);}
+    else sid=sessionStorage.getItem(key);
+  }catch(error){}
+  window.__fv5DeliverySession=valid(sid)?sid:null;
 })();
 </script>
-</body>
-</html>
+<title>Security questionnaire relay — your key</title><link rel="stylesheet" href="https://ustechautomations.com/feeds/styles.css?v=customer20260909">
+<meta name="description" content="Retrieve the paid key for your confirmed Security questionnaire relay purchase.">
+<style>
+body[data-page="purchase-return"] main a, body[data-page="purchase-return"] footer a { color: var(--fg); text-decoration: underline; }
+body[data-page="purchase-return"] .hero h1 { overflow-wrap: anywhere; }
+body[data-page="purchase-return"] textarea { color: var(--fg); background: var(--bg); border: 1px solid var(--line); padding: .75rem; font: inherit; border-radius: var(--radius); width: 100%; box-sizing: border-box; overflow-wrap: anywhere; }
+body[data-page="purchase-return"] .btn, body[data-page="purchase-return"] .mast-cta { min-height: 44px; white-space: normal; font-family: inherit; font-size: 1.1875rem; font-weight: 700; }
+body[data-page="purchase-return"] :focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+@media (min-width: 1024px) and (max-width: 1279px) { body[data-page="purchase-return"] .mast-nav { display: none; } }
+</style>
+</head><body data-family="qrelay" data-page="purchase-return"><a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap">
+    <a class="wordmark" href="https://ustechautomations.com/"><svg class="usta-logo" viewBox="110 140 292 292" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="US Tech Automations logo" focusable="false"><defs><mask id="ustaMarkMast"><rect x="110" y="140" width="292" height="270" fill="white"></rect><ellipse cx="250" cy="240" rx="16" ry="24" fill="black"></ellipse><ellipse cx="330" cy="240" rx="16" ry="24" fill="black"></ellipse></mask></defs><path d="M 200 160 C 160 160, 130 190, 130 230 L 130 260 C 110 260, 110 290, 130 290 L 130 320 C 130 360, 160 390, 200 390 L 210 390 C 210 410, 240 410, 240 390 L 272 390 C 272 410, 302 410, 302 390 L 312 390 C 352 390, 382 360, 382 320 L 382 290 C 402 290, 402 260, 382 260 L 382 230 C 382 190, 352 160, 312 160 L 270 160 C 270 140, 240 140, 240 160 L 200 160 Z" fill="#0391FE" mask="url(#ustaMarkMast)"></path></svg>US Tech Automations</a>
+    <nav class="mast-nav" aria-label="Main">
+      <a href="https://ustechautomations.com/ai-agents/data-extraction">AI Agents</a>
+      <a href="https://ustechautomations.com/solutions/enterprise">Solutions</a>
+      <a href="https://ustechautomations.com/platform/integrations-info">Platform</a>
+      <a href="https://ustechautomations.com/resources/research">Resources</a>
+      <a href="https://ustechautomations.com/about">Company</a>
+      <a href="https://ustechautomations.com/pricing">Pricing</a>
+      <a href="https://app.ustechautomations.com/login">Login</a>
+      <a class="mast-cta" href="https://ustechautomations.com/partner">Talk to Our Team</a>
+    </nav>
+  </div>
+</header>
+<nav class="crumbbar" aria-label="Breadcrumb">
+  <div class="wrap">
+    <p class="crumbs"><a href="https://ustechautomations.com/feeds">Dated change feeds</a> / Security questionnaire relay / Your key</p>
+  </div>
+</nav>
+<section class="hero"><div class="wrap"><p class="eyebrow">Your purchase</p><h1>Your key</h1><p class="lede">Security questionnaire relay</p>
+<p class="lede">Retrieve your key from your confirmed Stripe purchase. This tab retains access when refreshed. If you close it or lose access, contact us with your receipt number.</p></div></section>
+<main id="main"><div class="wrap"><section class="contact">
+<p id="status" class="lede" role="status" aria-live="polite">Checking your purchase…</p>
+<div id="key-panel" hidden><label for="paid-key">Your key</label><textarea id="paid-key" readonly rows="3" style="width:100%;box-sizing:border-box;overflow-wrap:anywhere"></textarea>
+<p>Paste this key into the key box in the tool. Keep your key private.</p></div>
+<p><button id="action" class="btn btn-buy" type="button" disabled>Checking purchase</button></p>
+<p><a href="https://ustechautomations.com/feeds/qrelay/">Open Security questionnaire relay</a></p>
+<p>Need help with this purchase? <a href="mailto:operations@ustechautomations.com?subject=qrelay%20purchase">Contact us</a> with your receipt number.</p>
+<noscript><p>Enable JavaScript to retrieve your key from this purchase return page.</p></noscript>
+</section></div></main>
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="wordmark" href="https://ustechautomations.com/"><svg class="usta-logo" viewBox="110 140 292 292" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="US Tech Automations logo" focusable="false"><defs><mask id="ustaMarkFoot"><rect x="110" y="140" width="292" height="270" fill="white"></rect><ellipse cx="250" cy="240" rx="16" ry="24" fill="black"></ellipse><ellipse cx="330" cy="240" rx="16" ry="24" fill="black"></ellipse></mask></defs><path d="M 200 160 C 160 160, 130 190, 130 230 L 130 260 C 110 260, 110 290, 130 290 L 130 320 C 130 360, 160 390, 200 390 L 210 390 C 210 410, 240 410, 240 390 L 272 390 C 272 410, 302 410, 302 390 L 312 390 C 352 390, 382 360, 382 320 L 382 290 C 402 290, 402 260, 382 260 L 382 230 C 382 190, 352 160, 312 160 L 270 160 C 270 140, 240 140, 240 160 L 200 160 Z" fill="#0391FE" mask="url(#ustaMarkFoot)"></path></svg>US Tech Automations</a>
+        <p>We build, run, and support custom AI automation workflows for businesses that need results. Not another tool to manage.</p>
+        <p><a href="mailto:operations@ustechautomations.com">operations@ustechautomations.com</a><br>
+           <a href="tel:+15186847631">(518) 684-7631</a></p>
+      </div>
+      <div class="foot-col">
+        <h4>AI Agents</h4>
+        <ul>
+          <li><a href="https://ustechautomations.com/ai-agents/data-extraction">Data Extraction</a></li>
+          <li><a href="https://ustechautomations.com/ai-agents/customer-service">Customer Service</a></li>
+          <li><a href="https://ustechautomations.com/ai-agents/sales">Sales</a></li>
+          <li><a href="https://ustechautomations.com/ai-agents/human-resources">Human Resources</a></li>
+          <li><a href="https://ustechautomations.com/ai-agents/recruitment">Recruitment</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Solutions</h4>
+        <ul>
+          <li><a href="https://ustechautomations.com/solutions/startup">Startup</a></li>
+          <li><a href="https://ustechautomations.com/solutions/midsized">Midsized</a></li>
+          <li><a href="https://ustechautomations.com/solutions/enterprise">Enterprise</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="https://ustechautomations.com/platform/integrations-info">Integrations</a></li>
+          <li><a href="https://ustechautomations.com/templates">Templates</a></li>
+          <li><a href="https://ustechautomations.com/resources/research">Research</a></li>
+          <li><a href="https://ustechautomations.com/resources/changelogs">Updates</a></li>
+          <li><a href="https://ustechautomations.com/partner">Contact</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Free Data</h4>
+        <ul>
+          <li><a href="https://ustechautomations.com/feeds">Dated change feeds</a></li>
+          <li><a href="https://ustechautomations.com/permits/grid">Interconnection Queue</a></li>
+          <li><a href="https://ustechautomations.com/permits/terminal-change-ledger">Terminal SAR Signals</a></li>
+          <li><a href="https://ustechautomations.com/permits/cost">Permit Costs</a></li>
+          <li><a href="https://ustechautomations.com/permits/rankings">Contractor Rankings</a></li>
+          <li><a href="https://ustechautomations.com/offers">Offers &amp; Evidence</a></li>
+          <li><a href="https://ustechautomations.com/offers/catalog/">Signed Offer Catalog</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+
+      <p>&copy; 2026 US Tech Automations &middot; <a href="https://ustechautomations.com/privacy">Privacy Policy</a> &middot; <a href="https://ustechautomations.com/terms">Terms of Service</a></p>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  "use strict";
+  const sid=window.__fv5DeliverySession || null;
+  delete window.__fv5DeliverySession;
+  const status=document.getElementById("status"),action=document.getElementById("action"),field=document.getElementById("paid-key");
+  let key="";
+  async function retrieve(){
+    action.disabled=true;status.textContent="Checking your purchase…";
+    const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),25000);
+    try{
+      const response=await fetch("https://usta-loops-260481739341.us-central1.run.app/pro/claim",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({family:"qrelay",session_id:sid}),cache:"no-store",credentials:"omit",referrerPolicy:"no-referrer",signal:controller.signal});
+      const data=await response.json();
+      if(response.ok&&data.ok&&data.family==="qrelay"&&typeof data.key==="string"&&data.key.length>0&&data.key.length<=4096){
+        key=data.key;field.value=key;document.getElementById("key-panel").hidden=false;
+        status.textContent="Your key is available. Copy it into the tool.";action.textContent="Copy key";
+      }else{status.textContent=data.reason||"We could not verify the purchase. Please retry.";action.textContent="Try again";}
+    }catch(error){status.textContent="We could not reach payment verification. Please retry.";action.textContent="Try again";}
+    finally{clearTimeout(timeout);action.disabled=false;}
+  }
+  action.addEventListener("click",async()=>{
+    if(!key){await retrieve();return;}
+    try{await navigator.clipboard.writeText(key);status.textContent="Key copied. Paste it into the tool.";}
+    catch(error){field.focus();field.select();status.textContent="Select and copy the key above.";}
+  });
+  if(!sid){status.textContent="Open this page from your Stripe purchase return link.";action.textContent="Purchase return link required";return;}
+  retrieve();
+})();
+</script></body></html>
