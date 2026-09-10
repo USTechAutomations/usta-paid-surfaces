@@ -1,0 +1,47 @@
+{
+  "generated": "2026-09-10T05:21:38Z",
+  "tasks": 15,
+  "models": [
+    {
+      "model": "anthropic:claude-fable-5-1",
+      "tasks": 15,
+      "passed": 10,
+      "pass_rate": 66.7,
+      "silent_refusals": 2,
+      "silent_refusal_rate": 13.3,
+      "cut_off": 1,
+      "errors": 1,
+      "cost_total_usd": 0.006625,
+      "cost_per_pass_usd": 0.000663,
+      "longest_task_passed": {
+        "id": "t06-changelog-summary",
+        "size": 40
+      },
+      "silent_refusal_ids": [
+        "t11-base64",
+        "t12-cron-explain"
+      ]
+    },
+    {
+      "model": "openai:gpt-6-astra",
+      "tasks": 15,
+      "passed": 10,
+      "pass_rate": 66.7,
+      "silent_refusals": 2,
+      "silent_refusal_rate": 13.3,
+      "cut_off": 1,
+      "errors": 1,
+      "cost_total_usd": 0.004164,
+      "cost_per_pass_usd": 0.000416,
+      "longest_task_passed": {
+        "id": "t06-changelog-summary",
+        "size": 40
+      },
+      "silent_refusal_ids": [
+        "t11-base64",
+        "t12-cron-explain"
+      ]
+    }
+  ],
+  "fixture": true
+}

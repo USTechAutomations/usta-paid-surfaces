@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Model silent-failure report kit — $199 once</title>
+  <meta name="description" content="Run your own tasks through Claude and GPT models with your own keys. One page: pass rate, silent-refusal rate, cost per pass, longest task. $199 once.">
+  <link rel="canonical" href="https://ustechautomations.com/feeds/silent-refusal-kit">
+  <link rel="stylesheet" href="../../styles.css">
+  <meta name="theme-color" content="#7a3b12">
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="US Tech Automations — dated change feeds">
+  <meta property="og:url" content="https://ustechautomations.com/feeds/silent-refusal-kit">
+  <meta property="og:title" content="Model silent-failure report kit — $199 once">
+  <meta name="twitter:title" content="Model silent-failure report kit — $199 once">
+  <meta property="og:description" content="Run your own tasks through Claude and GPT models with your own keys. One page: pass rate, silent-refusal rate, cost per pass, longest task. $199 once.">
+  <meta name="twitter:description" content="Run your own tasks through Claude and GPT models with your own keys. One page: pass rate, silent-refusal rate, cost per pass, longest task. $199 once.">
+  <meta name="twitter:card" content="summary">
+  <style>
+    /* Layout only. Colours and type come from styles.css. */
+    .kit-files dt { font-weight: 700; margin-top: 0.75rem; }
+    .kit-files dd { margin: 0.15rem 0 0; }
+    .kit-cmd { overflow-x: auto; }
+  </style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "Model silent-failure report kit", "description": "Run your own tasks through Claude and GPT models with your own keys. One page: pass rate, silent-refusal rate, cost per pass, longest task. $199 once.", "url": "https://ustechautomations.com/feeds/silent-refusal-kit", "creator": {"@type": "Organization", "name": "US Tech Automations", "url": "https://ustechautomations.com/"}, "isAccessibleForFree": false, "license": "https://ustechautomations.com/terms", "distribution": [{"@type": "DataDownload", "contentUrl": "https://ustechautomations.com/feeds/silent-refusal-kit/sample.json", "encodingFormat": "application/json", "isAccessibleForFree": true}, {"@type": "DataDownload", "contentUrl": "https://ustechautomations.com/feeds/silent-refusal-kit/sample.csv", "encodingFormat": "text/csv", "isAccessibleForFree": true}]}</script>
+</head>
+<body data-family="silent-refusal-kit">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="wordmark" href="../../">Dated change feeds <span>/ US Tech Automations</span></a>
+    <p class="crumbs"><a href="../../">Feeds</a><span class="sep">/</span>Model silent-failure report kit</p>
+  </div>
+</header>
+
+<!-- FABLE: layout only. Do not drop, invent, or round the sample rows. -->
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Software and AI pages <span class="dot"></span> once <span class="dot"></span> Sample ready</p>
+    <h1>Does your model quietly fail on your work?</h1>
+    <p class="lede">A refusal from a frontier model now arrives as a normal-looking reply: status 200, polite text, no error. A pipeline that checks only the status code logs it as a success. This kit runs your own tasks, with your own keys, on your own machine, and counts those quiet failures for each model you point it at.</p>
+    <dl class="rail">
+      <div><dt>Price</dt><dd class="price">$199 once</dd></div>
+      <div><dt>Built for</dt><dd>engineering leads who run unattended pipelines on Claude or GPT models and need a number for their own tasks, not a public benchmark</dd></div>
+      <div><dt>Cadence</dt><dd>one download, paid once; run it as often as you like, on every new model release</dd></div>
+      <div><dt>Public sample</dt><dd><span class="state"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8.4l3.6 3.6L13.5 4"/></svg>Sample ready</span></dd></div>
+    </dl>
+    <p class="hero-cta"><a class="btn btn-ghost" href="#sample">See the sample report</a><span class="btn-note">The sample shows every number the kit prints. Your run prints the same numbers for your tasks.</span></p>
+  </div>
+</section>
+
+<main id="main">
+  <div class="wrap">
+
+    <section>
+      <h2>What you get</h2>
+      <p>Six files on a private page the thank-you page opens. Nothing is emailed and nothing of yours is sent to us, then or later.</p>
+      <dl class="kit-files">
+        <dt>silent_check.py</dt><dd>The runner. One file, Python 3.10 or newer, nothing to install. It reads your task file, calls each model you name with the key in your own shell, checks every reply against the expected output you wrote, and writes one report.</dd>
+        <dt>README.md</dt><dd>How to run it, what each number means, and what it does not measure.</dd>
+        <dt>tasks.example.jsonl</dt><dd>Example task rows: an input, the check a reply must pass, and an optional size. Replace them with 20 to 50 of your own.</dd>
+        <dt>prices.example.json</dt><dd>Example price table. Edit it to your contract prices so cost per pass is your cost.</dd>
+        <dt>sample_report.md</dt><dd>A report produced from recorded replies, so you can see the shape before you run anything.</dd>
+      </dl>
+      <p>The report prints, per model: pass rate, silent-refusal rate (replies that came back as a success but were a refusal, a content filter, a deflection or a cut-off), cost per pass from your price table, and the longest task that passed.</p>
+    </section>
+
+    <section id="sample">
+      <h2>Public sample</h2>
+      <p>This is the report the runner wrote from a recorded set of replies. It shows the shape and every column. It is not a ranking of models and the numbers say nothing about your tasks.</p>
+      <div class="evidence">
+        <div class="evidence-head">
+          <span>Report shape from a recorded run</span>
+          <span class="stamp">recorded fixture · not a ranking</span>
+        </div>
+        <div class="scroll">
+      <table>
+        <thead><tr><th>Model</th><th>Tasks</th><th>Passed</th><th>Pass rate</th><th>Silent refusals</th><th>Silent-refusal rate</th><th>Cost per pass</th><th>Longest task passed</th></tr></thead>
+        <tbody>
+<!-- SAMPLE_TABLE_START -->
+              <tr><td>anthropic:claude-fable-5-1</td><td>15</td><td>10</td><td>66.7%</td><td>2</td><td>13.3%</td><td>$0.0007</td><td>t06-changelog-summary (size 40)</td></tr>
+              <tr><td>openai:gpt-6-astra</td><td>15</td><td>10</td><td>66.7%</td><td>2</td><td>13.3%</td><td>$0.0004</td><td>t06-changelog-summary (size 40)</td></tr>
+<!-- SAMPLE_TABLE_END -->
+        </tbody>
+      </table>
+        </div>
+      </div>
+      <p class="note" id="sample-note"><!-- SAMPLE_NOTE_START -->Recorded run on 2026-09-10 over 15 example tasks shipped with the kit, replies from a recorded fixture, not live model calls. Your report uses your tasks and your keys.<!-- SAMPLE_NOTE_END --></p>
+      <p>Whole sample: <a href="https://ustechautomations.com/feeds/silent-refusal-kit/sample.csv">sample.csv</a> · <a href="https://ustechautomations.com/feeds/silent-refusal-kit/sample.json">sample.json</a></p>
+    </section>
+
+    <section>
+      <h2>How it works</h2>
+      <ol>
+        <li>Write your tasks in one file, one row per task: the input you send, and the check a good reply must pass (a phrase it must contain, a phrase it must not contain, or a regular expression).</li>
+        <li>Put your own model keys in your shell. The README names the variable for each provider. The runner reads them from your shell and never writes them anywhere.</li>
+        <li>Run one command. The runner calls each model you name, one task at a time, and records the reply, the stop reason, the token counts and the time taken.</li>
+        <li>Read the report. A reply counts as a silent refusal when the provider marks it as a refusal or a content filter, when it was cut off before the answer, or when it is a refusal in plain words that fails your check.</li>
+      </ol>
+      <div class="kit-cmd"><pre><code>python3 silent_check.py --tasks tasks.jsonl --prices prices.json --out report.md</code></pre></div>
+    </section>
+
+    <section>
+      <h2>What this is not</h2>
+      <ul>
+        <li>Not a benchmark. It measures the tasks you give it, on the day you run it, with the checks you wrote.</li>
+        <li>Not a service. We never run your tasks, never hold your keys and never see your results. If you want someone to run it for you, this is not that.</li>
+        <li>Not a guarantee. A model that passes today can be changed by its vendor tomorrow. Run the kit again after every release.</li>
+        <li>Not free to run. Each run spends your own model credit at your own prices. The sample task set is small on purpose.</li>
+      </ul>
+    </section>
+
+    <section class="contact buy" id="buy-block">
+      <h2>Buy the kit</h2>
+      <p class="buy-price"><strong>$199 once</strong> &middot; one download, no subscription. The thank-you page opens your private page; the files are on it within about 15 minutes. We do not email them.</p>
+      <!-- BUY_BUTTON_START -->
+      <a class="btn btn-buy btn-lg" href="https://buy.stripe.com/fZu9AM6p80a64VucPw0sU2U" data-checkout="silent-refusal-kit" rel="noopener">Buy the kit — $199 once</a>
+      <!-- BUY_BUTTON_END -->
+      <p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=Silent-failure%20report%20kit">Email operations@ustechautomations.com</a> with what you run and which models. We answer in plain terms.</p>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>A measurement you run yourself. Nothing here is a benchmark, a ranking or a guarantee.</p>
+    <p class="addr">US Tech Automations &middot; 3298 N Glassford Hill Rd Ste 104 PMB 1055, Prescott Valley AZ 86314</p>
+  </div>
+</footer>
+</body>
+</html>
