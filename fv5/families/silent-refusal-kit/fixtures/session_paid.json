@@ -1,0 +1,10 @@
+{
+  "id": "cs_test_fv5_silent_refusal_kit_001",
+  "session_id": "cs_test_fv5_silent_refusal_kit_001",
+  "payment_status": "paid",
+  "status": "complete",
+  "amount_total": 19900,
+  "currency": "usd",
+  "custom_fields": [],
+  "metadata": {"family": "silent-refusal-kit", "private_slug": "silent-refusal-kit"}
+}

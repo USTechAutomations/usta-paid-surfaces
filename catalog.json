@@ -2893,6 +2893,33 @@
         "checked": "2026-09-09",
         "verified": "2026-09-09"
       }
+    },
+    {
+      "id": "silent-refusal-kit",
+      "name": "Model silent-failure report kit",
+      "buyer": "engineering leads who run unattended pipelines on Claude or GPT models",
+      "cadence": "once",
+      "price": "$199 once",
+      "sample_status": "pass",
+      "note": "A downloadable runner the buyer runs on their own machine with their own model keys. It counts replies that arrive as a success but are a refusal, a content filter, a deflection or a cut-off. We never run the buyer's tasks or hold their keys. Not a benchmark, not a guarantee.",
+      "cadence_long": "one download, paid once. The six files appear on the private page the thank-you page opens. We do not email them.",
+      "group": "Software and AI pages",
+      "short": "Silent-failure report kit",
+      "who": "engineering leads choosing between frontier models for unattended work who need a number for their own tasks rather than a public benchmark.",
+      "coverage_what": "One runner (single Python file, no packages), a README, an example task file, an example price table, a sample report from a recorded run and the recorded replies behind it",
+      "coverage_how": "The buyer writes 20 to 50 tasks with the check each reply must pass, sets their own keys, runs one command, and reads one report: pass rate, silent-refusal rate, cost per pass and longest task passed, per model.",
+      "price_list_note": "Read the public sample first. Each run spends the buyer's own model credit.",
+      "checkout": {
+        "terms": "$199 once for one download of the report kit: a single-file Python runner, a README, an example task file, an example price table, a sample report and the recorded example replies behind it. Nothing recurring. The files appear on the private page the thank-you page opens, usually within 15 minutes. We do not email them. You run the kit on your own machine with your own model keys; each run spends your own model credit. We never run your tasks, hold your keys or see your results. The report is a measurement of the tasks you give it on the day you run it: not a benchmark, not a ranking and not a guarantee of any model's future behaviour.",
+        "after": "The six files appear on the private page the thank-you page opens, usually within 15 minutes. We do not email them.",
+        "url": "https://buy.stripe.com/fZu9AM6p80a64VucPw0sU2U",
+        "lands_on": "buy.stripe.com",
+        "label": "Buy the kit — $199 once",
+        "status": "live",
+        "checked": "2026-09-09",
+        "verified": "2026-09-09"
+      },
+      "kind": "generated"
     }
   ],
   "map": "MAP.md",
