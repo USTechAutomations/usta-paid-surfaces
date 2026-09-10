@@ -81,6 +81,7 @@ HUB_REF = 'data-ref="feeds-directory"'
 # above the directory is a count of feeds, and folding these in was one of the
 # ways the old hub overstated what it runs.
 EXTRA_TITLE = "Reports, letters and tools"
+SOURCE_USE_HOLDS = frozenset({"hospital-mrf", "model-cards"})
 
 
 def slug(name: str) -> str:
@@ -122,6 +123,12 @@ def checkout_state(f, card_ids) -> str:
 
 
 def meta_spans(f, card_ids) -> str:
+    off_sale = str((f.get("checkout") or {}).get("status") or "").lower() == "off_sale"
+    if off_sale and f.get("id") in SOURCE_USE_HOLDS:
+        return (
+            '<span>Purchases unavailable</span> '
+            f'<span class="state">{esc(sample_state(f))}</span>'
+        )
     spans = []
     if f["sample_status"] != "parked":
         spans.append(f'<span class="amount">{esc(f["price"])}</span>')
@@ -322,20 +329,17 @@ def main():
         )
 
     lead = (
-        f"<p>{ready} of {len(fams)} feeds show a named, dated sample on their page today"
-        + (f"; {one(no_sample, 'does not and says', 'do not and say')} so" if no_sample else "")
-        + (f"; {one(on_page, 'has', 'have')} no sample file because the whole of what we hold "
-           "is printed on the page itself" if on_page else "")
-        + ". "
-        + f"{one(len(priced), 'carries', 'carry')} a price. "
-        + f"{one(holding, 'is a holding page', 'are holding pages')}: we are not charging for those, "
-        + "and each one says what would have to change before we would. "
-        + f"{one(parked, 'is', 'are')} parked because we cannot collect it at all. "
-        + "We would rather tell you that here than after you have paid.</p>"
+        f"<p>{ready} of {len(fams)} feed cards say “Dated sample on the page” today. "
+        f"The remaining {len(fams) - ready} use a different availability label. "
+        f"{len(priced)} cards print a dollar price. "
+        "Each product page describes its available material and limits.</p>"
     )
     # [^<] keeps this matching the sentence whatever numbers it currently holds,
     # and whichever of the two shapes it was last written in.
-    page, hit = re.subn(r"<p>[^<]*?feeds show a named, dated sample[^<]*?</p>", lead, page, count=1)
+    page, hit = re.subn(
+        r"<p>[^<]*?(?:feeds show a named, dated sample|feed cards say “Dated sample on the page”)[^<]*?</p>",
+        lead, page, count=1,
+    )
     if hit != 1:
         raise SystemExit(
             "build_hub: the 'feeds show a named, dated sample' sentence is not in index.html, so "
@@ -356,7 +360,7 @@ def main():
     partner = ('<a href="mailto:operations@ustechautomations.com?subject=Data%20task%20scope">'
                'Describe your data task</a>')
     parts = ["<strong>There is no bundle.</strong> Each product has its "
-             "own terms. Open a product page to see its sample, available purchase route and delivery details."]
+             "own terms. Open a product page to see its available material, purchase route and delivery details."]
     if takes_card:
         parts.append(
             f' Of the {len(fams)} feeds listed here, {len(takes_card)} '
@@ -372,8 +376,7 @@ def main():
     if not_for_sale:
         lead_in = "The other " if (takes_card or by_mail) else "The "
         parts.append(
-            f' {lead_in}{one(not_for_sale, "feed is", "feeds are")} free to read or not for sale '
-            "yet, and each page says which.")
+            f' {lead_in}{not_for_sale} do not print a dollar price.')
     parts.append(
         " The reports, letters and tools listed further down are not feeds; each has its own "
         "page with its own price and terms. "

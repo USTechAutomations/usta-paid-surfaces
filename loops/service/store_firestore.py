@@ -186,6 +186,12 @@ class FirestoreStore(Store):
                 with self._lock:
                     self._revoked_cache[ref] = (time.monotonic(), True)
 
+    def is_revoked_fresh(self, ref):
+        if not isinstance(ref, str) or not ref:
+            raise ValueError("invalid revocation reference")
+        snap = self._doc(REVOKED, _safe_id(ref)).get()
+        return bool(snap.exists)
+
     def is_revoked(self, ref):
         if not isinstance(ref, str) or not ref:
             return False

@@ -2,17 +2,32 @@
   "casepack": {
     "payment_link": "plink_1UDVGf1W0OJClv3V91zNCl46",
     "plan": "monthly",
-    "mode": "subscription"
+    "mode": "subscription",
+    "price_id": "price_1UDVGd1W0OJClv3VUGzConVo",
+    "product_id": "prod_VDxA8J6JQGHPqR",
+    "amount_cents": 4900,
+    "currency": "usd",
+    "recurring": {"interval": "month", "interval_count": 1, "usage_type": "licensed"}
   },
   "schemahand": {
     "payment_link": "plink_1UDVGV1W0OJClv3V9mlAWdjt",
     "plan": "annual",
-    "mode": "payment"
+    "mode": "payment",
+    "price_id": "price_1UDVGU1W0OJClv3V3zt675HW",
+    "product_id": "prod_VDxAmAfkPKEY2G",
+    "amount_cents": 19900,
+    "currency": "usd",
+    "term_seconds": 31536000
   },
   "ledgermatch": {
     "payment_link": "plink_1UDVGN1W0OJClv3VPpcl7oYO",
     "plan": "monthly",
-    "mode": "subscription"
+    "mode": "subscription",
+    "price_id": "price_1UDVGL1W0OJClv3VBm4Kv7lu",
+    "product_id": "prod_VDxAVQbdbXLAYP",
+    "amount_cents": 9900,
+    "currency": "usd",
+    "recurring": {"interval": "month", "interval_count": 1, "usage_type": "licensed"}
   },
   "acacheck": {
     "payment_link": "plink_1UDVGD1W0OJClv3VrUcye0eB",
@@ -22,6 +37,11 @@
   "qrelay": {
     "payment_link": "plink_1UDVFs1W0OJClv3VvrkM4B5n",
     "plan": "monthly",
-    "mode": "subscription"
+    "mode": "subscription",
+    "price_id": "price_1UDVFq1W0OJClv3V0Mb6k0Cv",
+    "product_id": "prod_VDxAiq32woJrBk",
+    "amount_cents": 17500,
+    "currency": "usd",
+    "recurring": {"interval": "month", "interval_count": 1, "usage_type": "licensed"}
   }
 }

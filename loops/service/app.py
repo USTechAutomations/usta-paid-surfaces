@@ -39,6 +39,12 @@ from starlette.concurrency import run_in_threadpool
 from loops.lib import prokey
 from loops.service.store import MemoryStore, new_id, today
 from loops.service.payment_claim import ClaimError, StripeReader, claim_key
+from loops.service.payment_authority import authorize_ref, claim_schemahand
+from loops.service.subscription_access import (
+    authorize_subscription,
+    claim_subscription,
+    is_monthly_family,
+)
 
 # ---------------------------------------------------------------- constants
 
@@ -190,6 +196,7 @@ def create_app(env: dict | None = None, store=None, stripe_reader=None) -> FastA
         allow_origins=app.state.cors_origins,
         allow_methods=["GET", "POST", "OPTIONS"],
         allow_headers=["*"],
+        expose_headers=["X-Artifact-SHA256", "Content-Disposition"],
         max_age=3600,
     )
 
@@ -279,6 +286,10 @@ def create_app(env: dict | None = None, store=None, stripe_reader=None) -> FastA
         sig = request.headers.get("x-loops-sig") or ""
         return bool(secret) and prokey.body_ok(secret, message.encode("utf-8"), sig)
 
+    def require_durable_payment_store(family: str):
+        if (family == "schemahand" or is_monthly_family(family)) and (env.get("K_SERVICE") or os.environ.get("K_SERVICE")) and store_name != "firestore":
+            raise ClaimError(503, "Durable purchase verification is unavailable. Please retry.")
+
     def good_key(key, family: str | None = None) -> dict | None:
         """A key that we signed, is for the right product, and is still switched on."""
         if not secret or not isinstance(key, str):
@@ -288,6 +299,20 @@ def create_app(env: dict | None = None, store=None, stripe_reader=None) -> FastA
             return None
         if family and found["family"] != family:
             return None
+        if found["family"] == "schemahand":
+            try:
+                require_durable_payment_store(found["family"])
+                authorize_ref(app.state.stripe_reader, store, secret, found)
+                return found
+            except ClaimError as exc:
+                raise _err(exc.status, exc.reason) from None
+        if is_monthly_family(found["family"]):
+            try:
+                require_durable_payment_store(found["family"])
+                authorize_subscription(app.state.stripe_reader, store, secret, found)
+                return found
+            except ClaimError as exc:
+                raise _err(exc.status, exc.reason) from None
         try:
             if store.is_revoked(found["ref"]):
                 return None
@@ -351,9 +376,19 @@ def create_app(env: dict | None = None, store=None, stripe_reader=None) -> FastA
             return JSONResponse({"ok": False, "reason": "Key retrieval is busy. Please retry."},
                                 status_code=429, headers={**NO_CACHE, "Retry-After": "5"})
         try:
-            result = await run_in_threadpool(
-                claim_key, app.state.stripe_reader, store, secret,
-                data.get("family"), data.get("session_id"))
+            if data.get("family") == "schemahand":
+                require_durable_payment_store("schemahand")
+                result = await run_in_threadpool(
+                    claim_schemahand, app.state.stripe_reader, store, secret, data.get("session_id"))
+            elif is_monthly_family(data.get("family")):
+                require_durable_payment_store(data["family"])
+                result = await run_in_threadpool(
+                    claim_subscription, app.state.stripe_reader, store, secret,
+                    data["family"], data.get("session_id"))
+            else:
+                result = await run_in_threadpool(
+                    claim_key, app.state.stripe_reader, store, secret,
+                    data.get("family"), data.get("session_id"))
             return JSONResponse(result, headers={**NO_CACHE, "Referrer-Policy": "no-referrer"})
         except ClaimError as exc:
             return JSONResponse({"ok": False, "reason": exc.reason}, status_code=exc.status,
@@ -370,6 +405,27 @@ def create_app(env: dict | None = None, store=None, stripe_reader=None) -> FastA
         found = prokey.verify(secret, key) if isinstance(key, str) else None
         if not found:
             return {"ok": False, "reason": "that key is not one of ours"}
+        if data.get("family") and data["family"] != found["family"]:
+            return {"ok": False, "reason": "that key is for a different product"}
+        if found["family"] == "schemahand":
+            try:
+                require_durable_payment_store(found["family"])
+                await run_in_threadpool(authorize_ref, app.state.stripe_reader, store, secret, found)
+            except ClaimError as exc:
+                return JSONResponse({"ok": False, "reason": exc.reason}, status_code=exc.status,
+                                    headers={**NO_CACHE, "Referrer-Policy": "no-referrer"})
+            return JSONResponse({"ok": True, "family": found["family"], "plan": found["plan"]},
+                                headers={**NO_CACHE, "Referrer-Policy": "no-referrer"})
+        if is_monthly_family(found["family"]):
+            try:
+                require_durable_payment_store(found["family"])
+                await run_in_threadpool(
+                    authorize_subscription, app.state.stripe_reader, store, secret, found)
+            except ClaimError as exc:
+                return JSONResponse({"ok": False, "reason": exc.reason}, status_code=exc.status,
+                                    headers={**NO_CACHE, "Referrer-Policy": "no-referrer"})
+            return JSONResponse({"ok": True, "family": found["family"], "plan": found["plan"]},
+                                headers={**NO_CACHE, "Referrer-Policy": "no-referrer"})
         if store.is_revoked(found["ref"]):
             return {"ok": False, "reason": "that key has been switched off"}
         return {"ok": True, "family": found["family"], "plan": found["plan"]}
@@ -506,14 +562,16 @@ def create_app(env: dict | None = None, store=None, stripe_reader=None) -> FastA
         if flag is not True or not isinstance(ref, str) or not REF_RE.fullmatch(ref):
             raise _err(503, "Paid access verification is unavailable. Your sheet is retained; please retry.")
         try:
-            revoked = store.is_revoked(ref)
-        except Exception:
-            raise _err(503, "Paid access verification is unavailable. Your sheet is retained; please retry.") from None
-        if revoked is True:
-            return False
-        if revoked is False:
+            require_durable_payment_store("casepack")
+            authorize_subscription(
+                app.state.stripe_reader, store, secret,
+                {"family": "casepack", "plan": "monthly", "ref": ref},
+            )
             return True
-        raise _err(503, "Paid access verification is unavailable. Your sheet is retained; please retry.")
+        except ClaimError as exc:
+            if exc.status == 403:
+                return False
+            raise _err(503, "Paid access verification is unavailable. Your sheet is retained; please retry.") from None
 
     def check_edit_id(doc: dict, data: dict) -> None:
         import hmac as _hmac
@@ -557,9 +615,9 @@ def create_app(env: dict | None = None, store=None, stripe_reader=None) -> FastA
         data = await read_json(request)
         doc = load_cfg(cfg_id)
         check_edit_id(doc, data)
-        pro = effective_pro(doc)
+        pro = await run_in_threadpool(effective_pro, doc)
         sheet = clean_sheet(data, PRO_ROW_LIMIT if pro else FREE_ROW_LIMIT)
-        new_doc = {**doc, **sheet, "pro": pro, "updated": today()}
+        new_doc = {**doc, **sheet, "updated": today()}
         store.put(CFG_COLL, cfg_id, new_doc)
         return {
             "ok": True,
@@ -584,7 +642,7 @@ def create_app(env: dict | None = None, store=None, stripe_reader=None) -> FastA
         check_edit_id(doc, data)
         if not secret:
             return JSONResponse({"ok": False, "reason": "no signing secret"}, status_code=503)
-        found = good_key(data.get("key"), family="casepack")
+        found = await run_in_threadpool(good_key, data.get("key"), "casepack")
         if not found:
             return JSONResponse(
                 {

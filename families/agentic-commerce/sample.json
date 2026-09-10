@@ -1,9 +1,9 @@
 {
   "family": "agentic-commerce",
-  "generated": "2026-09-07",
+  "generated": "2026-09-10",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/agentic-commerce",
-  "rows_published": 13,
+  "rows_published": 15,
   "columns": 8,
   "headers": [
     "company",
@@ -13,7 +13,7 @@
     "status_that_day",
     "first_read_it_was_there",
     "first_line_of_the_file",
-    "state_on_2026-09-07"
+    "state_on_2026-09-10"
   ],
   "rows": [
     [
@@ -54,7 +54,7 @@
       "404",
       "2026-07-17",
       "# Agent Instructions \u2014 Peak Design",
-      "there"
+      "taken down again"
     ],
     [
       "zennioptical.com",
@@ -144,6 +144,26 @@
       "404",
       "2026-09-03",
       "# Traeger Grills",
+      "there"
+    ],
+    [
+      "shopmoment.com",
+      "Checkout manifest",
+      "/.well-known/ucp",
+      "2026-09-07",
+      "404",
+      "2026-09-08",
+      "version 2026-08-25",
+      "there"
+    ],
+    [
+      "saatva.com",
+      "Agent-instructions file",
+      "/llms.txt",
+      "2026-09-09",
+      "404",
+      "2026-09-10",
+      "# Saatva",
       "there"
     ]
   ]

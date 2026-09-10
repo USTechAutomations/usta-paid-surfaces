@@ -1,6 +1,6 @@
 {
   "family": "patent-practitioner-directory",
-  "generated": "2026-09-07",
+  "generated": "2026-09-10",
   "slices": [
     {
       "slug": "washington-dc",
@@ -1600,6 +1600,14 @@
       "oldest": "2026-09-07",
       "runs": 1,
       "row_count": 16,
+      "cadence_days": 1
+    },
+    {
+      "slug": "coverage",
+      "newest": "2026-09-07",
+      "oldest": "2026-09-07",
+      "runs": 1,
+      "row_count": 35208,
       "cadence_days": 1
     }
   ]

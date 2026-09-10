@@ -17,18 +17,20 @@ from fastapi.testclient import TestClient
 from loops.lib import prokey
 from loops.service.app import MAX_BODY, NOTICE, create_app
 from loops.service.store import MemoryStore
+from loops.service.subscription_access import claim_subscription
+from loops.service.tests.test_subscription_access import NOW, Reader, SID
 
 # A fake secret. 64 hex characters, never a real one.
 SECRET = "0123456789abcdef" * 4
 
 # ---- fixtures the brief names -------------------------------------------
-REF_GOOD = prokey.ref_for_session("cs_test_casepack_good")
+REF_GOOD = prokey.ref_for_session(SID)
 KEY_GOOD = prokey.mint(SECRET, "casepack", REF_GOOD, "monthly")          # must PASS
 KEY_FLIPPED = KEY_GOOD[:-1] + ("0" if KEY_GOOD[-1] != "0" else "1")      # must FAIL
 REF_QRELAY = prokey.ref_for_session("cs_test_qrelay_1")
 KEY_QRELAY = prokey.mint(SECRET, "qrelay", REF_QRELAY, "monthly")        # must FAIL on /cp
 REF_LAPSED = prokey.ref_for_session("cs_test_lapsed_1")
-KEY_LAPSED = prokey.mint(SECRET, "casepack", REF_LAPSED, "annual")
+KEY_LAPSED = prokey.mint(SECRET, "acacheck", REF_LAPSED, "annual")
 
 ROWS = [
     {"sku": "BX-100", "name": "Blue nitrile gloves, large", "unit": "box", "per_case": "10"},
@@ -48,7 +50,10 @@ def build(secretless: bool = False, embed_dir: str | None = None):
     if embed_dir:
         env["LOOPS_EMBED_DIR"] = embed_dir
     store = MemoryStore()
-    return TestClient(create_app(env=env, store=store)), store
+    reader = Reader("casepack")
+    if not secretless:
+        claim_subscription(reader, store, SECRET, "casepack", SID, now=NOW)
+    return TestClient(create_app(env=env, store=store, stripe_reader=reader)), store
 
 
 def signed(client, path: str, body: dict, sig_over: bytes | None = None):

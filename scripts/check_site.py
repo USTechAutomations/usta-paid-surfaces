@@ -659,6 +659,9 @@ def check_price_list_page() -> None:
 
 
 def main() -> None:
+    from availability_truth import off_sale_errors
+    for error in off_sale_errors(ROOT, CATALOG):
+        fail(error)
     # The rule before the pages: a broken classifier makes a clean sweep.
     check_privacy_rule()
     # Then the pages-to-catalog direction, before the catalog-to-pages loop

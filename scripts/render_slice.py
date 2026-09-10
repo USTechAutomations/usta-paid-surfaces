@@ -230,6 +230,23 @@ def offer_spec(fam: dict, spec: dict) -> dict:
     # buyer for a city they did not pick. Every other family has no spec-level
     # record and behaves exactly as before.
     checkout = spec.get("checkout") or fam.get("checkout")
+    # TTB child pages use the same paid state-selection and receipt delivery
+    # contract as the parent page. Keep the catalog URL, label and cancellation
+    # terms, but replace the stale email/file promise for this family only.
+    if fam["id"] == "ttb" and checkout:
+        checkout = dict(checkout)
+        checkout["after"] = (
+            "At checkout, choose one state or territory in the required Which state field. "
+            "After your active payment is confirmed, the receipt page shows a dated CSV for "
+            "that state. New source comparisons add dated files when available. Missing or "
+            "invalid state input remains unassigned; email operations@ustechautomations.com "
+            "to correct it."
+        )
+    ttb_contact = (
+        "Select the state or territory at checkout; the receipt page carries that selection "
+        "and the dated state CSV. Email operations@ustechautomations.com to correct missing "
+        "or invalid input."
+    )
     return {
         "id": fam["id"],
         "price": price,
@@ -244,7 +261,7 @@ def offer_spec(fam: dict, spec: dict) -> dict:
         "contact_h2": fam.get("contact_h2") or (
             "Subscribe to this feed" if checkout else "Start the thread"
         ),
-        "contact_p": fam.get("contact_p") or (
+        "contact_p": ttb_contact if fam["id"] == "ttb" else fam.get("contact_p") or (
             "We reply with what we hold for this one, and with what we do not hold, "
             "before you spend anything."
         ),
@@ -267,10 +284,11 @@ def offer_spec(fam: dict, spec: dict) -> dict:
         # hand-typed version went stale twice in two days because the collector
         # seals a new read every night. The key is deliberately its own name, so
         # turning it on for one family cannot move any other family's page.
-        "contact_note": spec.get("contact_note_counted") or fam.get("contact_note") or (
+        "contact_note": (ttb_contact if fam["id"] == "ttb" else
+                          spec.get("contact_note_counted") or fam.get("contact_note") or (
             f'Say that you want {spec["name"]} and we will tell you which weeks we hold for it '
             + ("before you pay." if "$" in price else "and since when.")
-        ),
+        )),
     }
 
 
@@ -378,6 +396,14 @@ def render(fam: dict, spec: dict, today: dt.date | None = None) -> str:
     # tab title and price rail must not quote a price the page refuses to take.
     page_price = "Not sold from this page" if spec.get("no_offer") else fam["price"]
     title_tail = "not for sale" if spec.get("no_offer") else fam["price"]
+    # A slice whose own checkout is not a chargeable address must not print
+    # the catalog dollar amount: that is a price with no button.
+    if "$" in str(page_price):
+        ck = spec.get("checkout") or fam.get("checkout") or {}
+        href = str(ck.get("url") or "").strip()
+        if not href.startswith("https://"):
+            page_price = "No pay button yet"
+            title_tail = "No pay button yet"
     return PAGE.format(
         base=BASE,
         fid=fam["id"],

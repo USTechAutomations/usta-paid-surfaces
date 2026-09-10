@@ -18,7 +18,7 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from render_family import section, table  # noqa: E402
+from render_family import fam_row, section, table  # noqa: E402
 
 FAMILY = "dealer-licence"
 STORE = Path(os.path.expanduser("~/.hermes/state/dealer-licence"))
@@ -108,6 +108,19 @@ def _change_cells(row: dict) -> list[str]:
     ]
 
 
+def _offer_checkout() -> dict:
+    """Checkout this page may show. Drop dollar terms when we cannot take a card."""
+    ck = dict(fam_row(FAMILY).get("checkout") or {})
+    url = str(ck.get("url") or "").strip()
+    if url.startswith("https://"):
+        return ck
+    ck["url"] = ""
+    ck["terms"] = ""
+    ck["after"] = ""
+    ck["label"] = ""
+    return ck
+
+
 def family_spec() -> dict:
     r = rows()
     older, newer = copies()
@@ -117,9 +130,12 @@ def family_spec() -> dict:
     two_copies = "set-diff" in how
     stamp = f"{_d(older)} to {_d(newer)}"
     head = ["Licence", "City", "County", "Licence type", "Dealer type", "Status on the copy"]
+    ck = _offer_checkout()
+    on_sale = str(ck.get("url") or "").startswith("https://")
     desc = (
         f"Texas motor-vehicle dealers that became active or expired {_d(older)}–{_d(newer)}: "
-        f"{len(new_rows)} added, {len(gone_rows)} expired. $49/mo."
+        f"{len(new_rows)} added, {len(gone_rows)} expired."
+        + (" $49/mo." if on_sale else "")
     )
     assert len(desc) <= MAX_DESC, len(desc)
 
@@ -235,23 +251,33 @@ def family_spec() -> dict:
             f"{_d(older)} and {_d(newer)}, and {len(gone_rows)} expired. Every one is "
             f"printed or counted below, with the two copy dates it came from."
         ),
-        "pill_label": "Sample ready",
+        "pill_label": ("Prepared, not yet on sale" if not on_sale else "Sample ready"),
         "sections": secs,
         "sample_dt": "Public sample",
         "subj": urllib.parse.quote("Texas dealer-licence weekly file"),
         "contact_h2": "Start the thread",
         "contact_p": (
+            "The file is prepared and not yet on sale. Ask which dated copies we hold. "
+            "We reply with the added and expired counts for the newest week."
+            if not on_sale else
             "Ask which dated copies we hold. We reply with the added and expired "
             "counts for the newest week before you spend anything."
         ),
-        "contact_cta": "Email us for the $49/mo checkout link",
-        "contact_note": "We tell you the row counts and the two copy dates before you pay.",
+        "contact_cta": "Ask about this file" if not on_sale else "Email us about this file",
+        "contact_note": (
+            "The file is prepared and not yet on sale."
+            if not on_sale else
+            "We tell you the row counts and the two copy dates before you pay."
+        ),
         "foot": (
             "Every count and date on this page was read out of the sealed TxDMV "
             "licensee copies named above. Where a column names a person, it is not "
             "in the free sample."
         ),
+        "checkout": ck,
         "delivery": (
+            "The file is prepared and not yet on sale."
+            if not on_sale else
             "<strong>What arrives after you pay:</strong> After paying you land on a "
             "page keyed to your payment. That week’s file appears there, and a new "
             "one appears every week while the subscription runs. No message from us "

@@ -178,7 +178,7 @@ class TestPaidKeys(Base):
     def test_a_key_that_has_been_switched_off_is_refused(self):
         self.store.add_revoked(["0123456789ab"])
         r = self.new_ws(key=pro_key("ledgermatch", "0123456789ab"))
-        self.assertEqual(r.status_code, 400)
+        self.assertEqual(r.status_code, 403)
         self.assertIn("switched off", r.json()["error"])
 
     def test_a_made_up_key_is_refused(self):

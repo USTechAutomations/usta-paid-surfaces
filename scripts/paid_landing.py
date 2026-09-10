@@ -1,7 +1,7 @@
 """Stable purchase instructions and anchors for the five reviewed destinations."""
 import re
 scopes={
-'permit-files/austin':'One assembled Austin permit CSV, $349 once. This is a dated file, not a permit application or a current contact list. A person emails the CSV within one working day.',
+'permit-files/austin':'One assembled Austin permit CSV, $349 once. This is a dated file, not a permit application or a current contact list. The board file is delivered as a CSV.',
 'boston':'Choose one Boston work-type slice for $349 once. After payment, reply to your receipt naming Short form building, Electrical, Plumbing, Gas, or Electrical low voltage. A person emails that slice within one working day.',
 'nyc-ll84':'Choose one year (2022, 2023 or 2024) or one borough for $349 once. After payment, reply to your receipt naming the slice. A person emails that CSV within one working day. This is data, not a compliance filing service.',
 'wp-accessibility-scan':'$49 a month for weekly automated checks of one site. Enter your website address at checkout. The first report arrives within 7 days. Automated checks find some accessibility issues, not all. Cancel any month by email.',

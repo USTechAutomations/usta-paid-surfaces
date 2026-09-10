@@ -24,16 +24,21 @@ import re
 import shutil
 import sys
 from pathlib import Path
+from urllib.parse import urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import family_status  # noqa: E402
 from freshness import NEWEST_META, check_freshness  # noqa: E402
 from pipeline import build_veto  # noqa: E402
 from paid_landing import enhance_paid_landing  # noqa: E402
+from family_script_assets import copy_local_scripts  # noqa: E402
+from sitemap_quality_gate import (admission as sitemap_admission,
+                                 require_available as sitemap_gate_preflight)  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
 CATALOG = json.loads((ROOT / "catalog.json").read_text(encoding="utf-8"))
+FAMILY_BY_ID = {row["id"]: row for row in CATALOG["families"]}
 # Every address we have ever published. See the comment at the top of the file
 # itself. Nothing is ever taken out of it.
 PUBLISHED = ROOT / "published-addresses.txt"
@@ -375,11 +380,16 @@ def build_page(src: Path, family: str, crumb_label: str | None, path: str | None
     canon = f"{BASE}{slug}"
     out = re.sub(r'<link rel="canonical" href="[^"]*">', f'<link rel="canonical" href="{canon}">', out)
     out = re.sub(r'<meta property="og:url" content="[^"]*">', f'<meta property="og:url" content="{canon}">', out)
-    out = re.sub(r'<link rel="stylesheet" href="[^"]*">', f'<link rel="stylesheet" href="{BASE}/styles.css">', out)
+    def stylesheet_link(match):
+        previous = urlsplit(match.group(1))
+        suffix = ("?" + previous.query if previous.query else "") + ("#" + previous.fragment if previous.fragment else "")
+        return f'<link rel="stylesheet" href="{BASE}/styles.css{suffix}">'
+    out = re.sub(r'<link rel="stylesheet" href="([^"]*)">', stylesheet_link, out)
     if 'name="robots"' not in out:
         out = out.replace("<meta charset=\"utf-8\">",
                           "<meta charset=\"utf-8\">\n  <meta name=\"robots\" content=\"index,follow\">", 1)
-    out = out.replace("<head>", "<head>\n  " + GTM % (family, GTM_ID), 1)
+    if "gtm.start" not in out:
+        out = out.replace("<head>", "<head>\n  " + GTM % (family, GTM_ID), 1)
     if rel in {'permit-files/austin', 'boston', 'nyc-ll84',
                'wp-accessibility-scan', 'pilot-logbook-digitizer'}:
         out = enhance_paid_landing(rel, out)
@@ -405,25 +415,31 @@ def build_page(src: Path, family: str, crumb_label: str | None, path: str | None
 
     # --- masthead ---
     crumb = "" if crumb_label is None else f'<span class="sep">/</span>{crumb_label}'
-    out = re.sub(r"(?s)<header class=\"masthead\">.*?</header>",
-                 lambda _m: MASTHEAD.format(base=BASE, crumb=crumb,
-                                           logo_mast=logo("ustaMarkMast")), out, count=1)
+    # Already branded source pages carry their complete shared navigation.
+    # Replacing only their header would append a second breadcrumb bar.
+    if not re.search(r'<nav\b[^>]*class="[^"]*\bcrumbbar\b', out):
+        out = re.sub(r"(?s)<header class=\"masthead\">.*?</header>",
+                     lambda _m: MASTHEAD.format(base=BASE, crumb=crumb,
+                                               logo_mast=logo("ustaMarkMast")), out, count=1)
 
     # --- footer: keep the page's own honesty paragraphs, wrap the site footer around them ---
-    m = re.search(r"(?s)<footer class=\"site\">.*?<div class=\"wrap\">(.*?)</div>\s*</footer>", out)
-    if not m:
-        fail(f"{family}: could not find the footer to replace")
-    inner = m.group(1).strip()
-    inner = re.sub(r'<p class="addr">.*?</p>', "", inner, flags=re.S).strip()
-    honest_block = "\n".join("      " + ln.strip() for ln in inner.splitlines() if ln.strip())
-    honest_block += (
-        '\n      <p class="addr">US Tech Automations &middot; '
-        "3298 N Glassford Hill Rd Ste 104 PMB 1055, Prescott Valley AZ 86314</p>"
-    )
-    honest_block = honest_block.replace('<p>', '<p class="foot-honest">', 1)
-    out = re.sub(r"(?s)<footer class=\"site\">.*?</footer>",
-                 lambda _m: FOOTER.format(base=BASE, honest=honest_block,
-                                         logo_foot=logo("ustaMarkFoot")), out, count=1)
+    # Keep an existing canonical footer instead of treating its nested grid as
+    # an honesty paragraph and wrapping the whole footer inside itself.
+    if not re.search(r'<div\b[^>]*class="[^"]*\bfoot-grid\b', out):
+        m = re.search(r"(?s)<footer class=\"site\">.*?<div class=\"wrap\">(.*?)</div>\s*</footer>", out)
+        if not m:
+            fail(f"{family}: could not find the footer to replace")
+        inner = m.group(1).strip()
+        inner = re.sub(r'<p class="addr">.*?</p>', "", inner, flags=re.S).strip()
+        honest_block = "\n".join("      " + ln.strip() for ln in inner.splitlines() if ln.strip())
+        honest_block += (
+            '\n      <p class="addr">US Tech Automations &middot; '
+            "3298 N Glassford Hill Rd Ste 104 PMB 1055, Prescott Valley AZ 86314</p>"
+        )
+        honest_block = honest_block.replace('<p>', '<p class="foot-honest">', 1)
+        out = re.sub(r"(?s)<footer class=\"site\">.*?</footer>",
+                     lambda _m: FOOTER.format(base=BASE, honest=honest_block,
+                                             logo_foot=logo("ustaMarkFoot")), out, count=1)
 
     # --- internal links: relative hub links become absolute /feeds/ links ---
     if "/" in rel:
@@ -710,7 +726,44 @@ def copy_public_delivery_pages(pdir: Path, destination: Path) -> None:
         (target / "index.html").write_text(text, encoding="utf-8")
 
 
+def write_sitemap(built: list[str]) -> tuple[int, int, dict[str, str]]:
+    """Write promotion URLs while leaving every built route in place."""
+    urls = ""
+    dated = 0
+    promoted = 0
+    promotion_holds: dict[str, str] = {}
+    for p in built:
+        rel = p[len("/feeds/"):].strip("/") if p.startswith("/feeds/") else p.strip("/")
+        family_id = rel.split("/", 1)[0] if rel else ""
+        family = FAMILY_BY_ID.get(family_id)
+        if family is not None:
+            admitted, quality_state = sitemap_admission(
+                family_id, source_use_hold=family.get("source_use_hold") is True,
+            )
+            if not admitted:
+                promotion_holds[family_id] = quality_state
+                continue
+        loc = BASE if not rel else f"{BASE}/{rel}"
+        promoted += 1
+        page_file = (DIST / "index.html") if not rel else (DIST / rel / "index.html")
+        m = NEWEST_META.search(page_file.read_text(encoding="utf-8"))
+        if m:
+            dated += 1
+            urls += f"<url><loc>{loc}</loc><lastmod>{m.group(1)}</lastmod></url>"
+        else:
+            urls += f"<url><loc>{loc}</loc></url>"
+    (DIST / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + urls + "</urlset>",
+        encoding="utf-8",
+    )
+    return promoted, dated, promotion_holds
+
+
 def main() -> None:
+    # Refuse before touching dist when the canonical persisted promotion state
+    # cannot be read. UNKNOWN cannot create a newly permissive sitemap.
+    sitemap_gate_preflight()
     check_one_home()
     # What we may not PUBLISH today, asked once, before anything is written.
     #
@@ -853,6 +906,7 @@ def main() -> None:
         outdir = DIST / fid
         outdir.mkdir(parents=True)
         (outdir / "index.html").write_text(page, encoding="utf-8")
+        copy_local_scripts(src, outdir)
         built.append(f"/feeds/{fid}")
         parents[fid] = crumb
         # A family that sells a licence key or a letter pack sends its buyer
@@ -881,6 +935,7 @@ def main() -> None:
             outdir = DIST / eid
             outdir.mkdir(parents=True)
             (outdir / "index.html").write_text(page, encoding="utf-8")
+            copy_local_scripts(src, outdir)
             built.append(f"/feeds/{eid}")
             parents[eid] = e["short"]
 
@@ -962,29 +1017,17 @@ def main() -> None:
     # two bridge pages, a family we cannot collect at all -- gets NO lastmod.
     # The sitemap spec allows the field to be absent. A missing date is honest;
     # a guessed one would be the freshness lie in a new file.
-    urls = ""
-    dated = 0
-    for p in built:
-        rel = p[len("/feeds/"):].strip("/") if p.startswith("/feeds/") else p.strip("/")
-        loc = BASE if not rel else f"{BASE}/{rel}"
-        page_file = (DIST / "index.html") if not rel else (DIST / rel / "index.html")
-        m = NEWEST_META.search(page_file.read_text(encoding="utf-8"))
-        if m:
-            dated += 1
-            urls += f"<url><loc>{loc}</loc><lastmod>{m.group(1)}</lastmod></url>"
-        else:
-            urls += f"<url><loc>{loc}</loc></url>"
-    (DIST / "sitemap.xml").write_text(
-        '<?xml version="1.0" encoding="UTF-8"?>'
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + urls + "</urlset>",
-        encoding="utf-8",
-    )
+    promoted, dated, promotion_holds = write_sitemap(built)
     print(f"built {len(built)} pages into {DIST}")
     if retired:
         print(f"retired {len(retired)} address(es) kept answering, out of the sitemap: "
               + ", ".join(retired))
-    print(f"sitemap: {len(built)} addresses, {dated} carrying a real lastmod, "
-          f"{len(built) - dated} deliberately without one")
+    print(f"sitemap: {promoted} promoted addresses, {dated} carrying a real lastmod, "
+          f"{promoted - dated} deliberately without one")
+    if promotion_holds:
+        print("sitemap promotion held: " + ", ".join(
+            f"{family} ({state})" for family, state in sorted(promotion_holds.items())
+        ))
     if refused:
         # Loud, and last, so it cannot be scrolled past. These families are not
         # on the site tonight and their old addresses are answering as retired.

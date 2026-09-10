@@ -39,12 +39,20 @@
   --border: 220 13% 94%;
   --primary: 207 100% 50%;
   --primary-foreground: 0 0% 100%;
+  --primary-surface: 207 100% 42%;
+  --primary-surface-hover: 207 100% 36%;
   --primary-hover: 207 100% 44%;
   --accent-blue: 207 100% 50%;
   --accent-emerald: 149 80% 90%;
   --accent-emerald-fg: 161 94% 30%;
   --accent-amber: 48 96% 89%;
   --accent-amber-fg: 26 90% 37%;
+  /* The estate's one "this is wrong / do not do this" colour, added 2026-09-08.
+     Four in-page tools were each carrying their own red -- #b42318, #c0392b and
+     two more -- because there was no token to reach for. One red, defined here
+     in both themes, is the whole reason this token exists: see BRAND.md §1. */
+  --accent-rose: 0 86% 94%;
+  --accent-rose-fg: 0 72% 41%;
   --radius: .5rem;
   --shadow-color: 220 15% 60%;
 
@@ -74,12 +82,16 @@
     --border: 220 10% 18%;
     --primary: 207 100% 50%;
     --primary-foreground: 0 0% 100%;
+  --primary-surface: 207 100% 42%;
+  --primary-surface-hover: 207 100% 36%;
     --primary-hover: 207 100% 44%;
     --accent-blue: 207 100% 60%;
     --accent-emerald: 164 86% 16%;
     --accent-emerald-fg: 158 64% 52%;
     --accent-amber: 22 78% 26%;
     --accent-amber-fg: 45.9 96.7% 64.5%;
+    --accent-rose: 0 63% 18%;
+    --accent-rose-fg: 0 91% 71%;
     --shadow-color: 220 20% 4%;
   }
 }
@@ -94,12 +106,16 @@
   --border: 220 10% 18%;
   --primary: 207 100% 50%;
   --primary-foreground: 0 0% 100%;
+  --primary-surface: 207 100% 42%;
+  --primary-surface-hover: 207 100% 36%;
   --primary-hover: 207 100% 44%;
   --accent-blue: 207 100% 60%;
   --accent-emerald: 164 86% 16%;
   --accent-emerald-fg: 158 64% 52%;
   --accent-amber: 22 78% 26%;
   --accent-amber-fg: 45.9 96.7% 64.5%;
+  --accent-rose: 0 63% 18%;
+  --accent-rose-fg: 0 91% 71%;
   --shadow-color: 220 20% 4%;
 }
 
@@ -133,6 +149,37 @@ a:hover { text-decoration: underline; }
 }
 .skip:focus { left: 1rem; top: 1rem; }
 
+/* One visible focus ring for everything keyboard-reachable. BRAND.md §5 and §9
+   ask for visible focus and never removing an outline; until now the estate
+   relied on whatever ring the browser drew, which on the filled blue buttons and
+   the dark surfaces was close to invisible. Nothing here removes an outline. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+  border-radius: var(--radius);
+}
+
+/* ---------- text inputs in the in-page tools ---------- */
+/* The pre-check, the diagram tool, the hazmat search and the label forge each
+   drew their own box: four borders, four greys, four corner radii, and one of
+   them was written into a style="" attribute. This is that box, once. */
+.field {
+  width: 100%; max-width: 32rem;
+  font: inherit;
+  padding: .5rem .6rem;
+  color: var(--fg);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.field::placeholder { color: var(--muted-fg); opacity: 1; }
+
 /* ---------- masthead: mirrors the main-site sticky header ---------- */
 .masthead {
   position: sticky; top: 0; z-index: 40;
@@ -151,9 +198,12 @@ a:hover { text-decoration: underline; }
   display: inline-flex; align-items: center; gap: .5rem;
   font-weight: 900; font-size: 1rem; letter-spacing: normal;
   text-transform: uppercase;
-  color: var(--fg); text-decoration: none; white-space: nowrap;
+  color: var(--fg); text-decoration: none;
+  /* On a phone the family name and the "/ US Tech Automations" part may sit on
+     two lines; from 640px up they stay on one. Found on a 375px screenshot. */
+  flex-wrap: wrap; white-space: normal; row-gap: 0;
 }
-@media (min-width: 640px) { .wordmark { font-size: 1.25rem; letter-spacing: .025em; } }
+@media (min-width: 640px) { .wordmark { font-size: 1.25rem; letter-spacing: .025em; white-space: nowrap; } }
 .usta-logo { width: 24px; height: 24px; display: block; flex: none; }
 .wordmark:hover { text-decoration: none; opacity: .8; }
 .wordmark span { font-weight: 500; color: var(--muted-fg); }
@@ -201,7 +251,7 @@ a:hover { text-decoration: underline; }
   font-size: .8125rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
   color: var(--muted-fg);
 }
-.dot { width: 3px; height: 3px; border-radius: 999px; background: currentColor; opacity: .55; display: inline-block; }
+.dot { width: 3px; height: 3px; border-radius: 50%; background: currentColor; opacity: .55; display: inline-block; }
 .lede {
   font-size: clamp(1.0625rem, 1rem + .35vw, 1.25rem);
   line-height: 1.6; color: var(--muted-fg); max-width: 68ch; margin: 0 0 2rem;
@@ -256,20 +306,29 @@ p { margin: 0 0 1rem; line-height: 1.625; }
 main p { color: hsl(var(--foreground) / .86); }
 strong { font-weight: 650; color: var(--fg); }
 
-/* ---------- pills ---------- */
-.pill {
-  display: inline-flex; align-items: center; gap: .375rem;
-  font-size: .75rem; font-weight: 650; letter-spacing: .01em;
-  padding: .25rem .625rem; border-radius: 999px;
-  border: 1px solid transparent; white-space: nowrap;
+/* ---------- state line ---------- */
+/* What replaced the status pills on 2026-09-08 (BRAND.md §7). The old
+   .pill/.pill-ready/.pill-hold trio was a filled, 999px-radius badge in amber or
+   emerald: a second radius, a second border weight and two accent colours that
+   existed nowhere else on the page, carrying a fact that the words beside it
+   already carried. It is now muted text with a muted icon and no container.
+
+   The two states are told apart by the SHAPE of the icon and by the words, never
+   by colour -- both draw in currentColor, which is --muted-fg here. A reader who
+   cannot see the difference between amber and emerald loses nothing, because
+   there is no longer any difference to see.
+
+   align-items: baseline, not center, so a long label that wraps onto a second
+   line keeps its icon on the first line next to the words rather than floating
+   in the middle of the block. The nudge puts the icon's optical centre on the
+   x-height. */
+.state {
+  display: inline-flex; align-items: baseline; gap: .375rem;
+  color: var(--muted-fg); font-weight: 500;
 }
-.pill-hold {
-  background: hsl(var(--accent-amber)); color: hsl(var(--accent-amber-fg));
-  border-color: hsl(var(--accent-amber-fg) / .22);
-}
-.pill-ready {
-  background: hsl(var(--accent-emerald)); color: hsl(var(--accent-emerald-fg));
-  border-color: hsl(var(--accent-emerald-fg) / .22);
+.state > svg {
+  width: .8125rem; height: .8125rem; flex: none;
+  transform: translateY(.09em);
 }
 
 /* ---------- honesty panel ---------- */
@@ -429,6 +488,13 @@ footer.site .addr { font-size: .8125rem; }
    A page shows btn-buy only when catalog.json carries a checkout that was
    fetched and found working. btn-ghost is the email fallback. Both are the
    same shape so a page does not look broken when the pay link is missing. */
+/* The browser's own "hidden means display:none" is an author-weight rule of the
+   same specificity as a class, so any class that sets display -- .btn does, and
+   .state does -- silently beats it and shows the element. schemahand's paid
+   download button carries hidden until the key is entered, so that would have
+   put a paid file on screen for everyone. Say it once, loudly, for the sheet. */
+[hidden] { display: none !important; }
+
 .hero-cta {
   display: flex; flex-wrap: wrap; align-items: center; gap: .875rem;
   margin: 1.5rem 0 0;

@@ -21,6 +21,6 @@ week_ending,fei_number,registration_number,owner_operator_number,name,city,state
 2026-09-07,3001237338,1225492,9026654,NextPhase Medical Devices LLC,ROCHESTER,NH,US,Manufacture Medical Device for Another Party (Contract Manufacturer);Repack or Relabel Medical Device,1,2026,18,appeared,
 2026-09-07,1000121056,1000121056,9912058,Boston Scientific Corporation,Coventry,RI,US,Develop Specifications But Do Not Manufacture At This Facility;Manufacture Device in the United States for Export Only;Manufacture Medical Device,1,2026,124,changed,establishment_types;product_code_count
 2026-09-07,3004393730,1000150646,9924008,Wyeth Pharmaceuticals LLC,Collegeville,PA,US,Complaint File Establishment per 21 CFR 820.198,1,2026,3,changed,product_code_count
-2026-09-07,1000165971,1000165971,9059364,MicroPort CRM S.r.l.,Saluggia (VC)      Vercelli,,IT,Export Device to the United States But Perform No Other Operation on Device;Manufacture Medical Device;Repack or Relabel Medical Device,1,2026,12,changed,city
-2026-09-07,1000172127,1000172127,9027281,DELTA S.R.L.,DOMEGGE Di CADORE      Belluno,,IT,Manufacture Medical Device,1,2026,2,changed,city
-2026-09-07,1000181154,1000181154,9031117,BARCO S.R.L.,Saronno      Varese,,IT,Manufacture Medical Device;Manufacture Medical Device for Another Party (Contract Manufacturer),1,2026,6,changed,city
+2026-09-07,1000165971,1000165971,9059364,MicroPort CRM S.r.l.,Saluggia (VC) Vercelli,,IT,Export Device to the United States But Perform No Other Operation on Device;Manufacture Medical Device;Repack or Relabel Medical Device,1,2026,12,changed,city
+2026-09-07,1000172127,1000172127,9027281,DELTA S.R.L.,DOMEGGE Di CADORE Belluno,,IT,Manufacture Medical Device,1,2026,2,changed,city
+2026-09-07,1000181154,1000181154,9031117,BARCO S.R.L.,Saronno Varese,,IT,Manufacture Medical Device;Manufacture Medical Device for Another Party (Contract Manufacturer),1,2026,6,changed,city

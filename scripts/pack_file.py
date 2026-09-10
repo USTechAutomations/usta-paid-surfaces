@@ -8,7 +8,9 @@ writes the file; nobody emails the buyer.
 from __future__ import annotations
 
 import html
+import importlib.util
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -17,6 +19,12 @@ from merge_catalog_adds import family_rows  # noqa: E402
 from render_family import section, table  # noqa: E402
 
 SEAL_ROOT = Path("/home/gmullins/code/usta-autonomous-packs/var/seals")
+OFFER_ROOT = Path(os.environ.get(
+    "USTA_DATED_OFFER_ROOT", "/home/gmullins/code/usta-autonomous-packs"))
+TEXAS_OFFER_ID = (
+    "texas-formulary-2026-09-08-"
+    "aa991d931ee2120aa771db5996237f3bf5242bc81750a7c9e97d3f2eb2a57bf5"
+)
 MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun",
           "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 SAMPLE_CAP = {
@@ -60,6 +68,11 @@ PACKS = {
         "limit_cap": "We keep numbered claims we could pull out of the PDF, not the whole document and not a forecast.",
     },
 }
+
+# These two dated pack pages are held while their current source acceptance is
+# pending. The catalog is authoritative; the builder refuses to recreate a
+# chargeable page if that row drifts back to a live state.
+OFF_SALE_FAMILIES = frozenset({"hospital-mrf", "model-cards"})
 
 
 def esc(s: object) -> str:
@@ -110,7 +123,71 @@ def load_diff(day_dir: Path) -> dict:
         return {}
 
 
+def _texas_offer_watch():
+    watcher_path = OFFER_ROOT / "scripts/feed_subscription_watch.py"
+    if not watcher_path.is_file():
+        raise SystemExit("texas-formulary: dated-offer watcher unavailable")
+    scripts = str(OFFER_ROOT / "scripts")
+    if scripts not in sys.path:
+        sys.path.insert(0, scripts)
+    spec = importlib.util.spec_from_file_location("pack_file_dated_offer_watch", watcher_path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def _held_texas_offer() -> dict:
+    """Read the one accepted edition; no newest-seal fallback is permitted."""
+    watcher = _texas_offer_watch()
+    manifest_path = OFFER_ROOT / "config/one_off_offer_manifests.json"
+    try:
+        offers = watcher.load_offer_manifests(manifest_path)
+    except (OSError, ValueError) as exc:
+        raise SystemExit("texas-formulary: dated-offer manifest invalid") from exc
+    texas = [offer for offer in offers.values()
+             if offer.get("family") == "texas-formulary"]
+    if len(texas) != 1 or texas[0].get("offer_id") != TEXAS_OFFER_ID:
+        raise SystemExit("texas-formulary: accepted edition is missing or ambiguous")
+    artifact = watcher.delivery_map.artifact_spec(
+        "texas-formulary", seals_root=SEAL_ROOT)
+    week, reason = watcher.bound_offer_week(
+        {"feed": "texas-formulary", "offer_id": TEXAS_OFFER_ID,
+         "offer_binding_error": None}, artifact, offers)
+    if reason or week is None:
+        raise SystemExit("texas-formulary: accepted edition unavailable: " + str(reason))
+    parts = {part["role"]: part for part in week["parts"]}
+    if set(parts) != {"rows", "provenance", "changes_since_last_build"}:
+        raise SystemExit("texas-formulary: accepted edition parts are incomplete")
+    try:
+        rows = json.loads(parts["rows"]["captured_bytes"].decode("utf-8"))
+        meta = json.loads(parts["provenance"]["captured_bytes"].decode("utf-8"))
+        diff = json.loads(parts["changes_since_last_build"]["captured_bytes"].decode("utf-8"))
+    except (UnicodeError, json.JSONDecodeError) as exc:
+        raise SystemExit("texas-formulary: accepted edition JSON invalid") from exc
+    if not isinstance(rows, list) or not isinstance(meta, dict) or not isinstance(diff, dict):
+        raise SystemExit("texas-formulary: accepted edition JSON shape invalid")
+    seals = [entry for entry in days_for("texas-formulary")
+             if entry[0] <= week["week"]]
+    if not seals or seals[-1][0] != week["week"]:
+        raise SystemExit("texas-formulary: accepted comparison range unavailable")
+    cfg = PACKS["texas-formulary"]
+    return {
+        "family": "texas-formulary", "cfg": cfg,
+        "days": [entry[0] for entry in seals], "oldest": seals[0][0],
+        "newest": week["week"], "n_days": len(seals), "rows": rows,
+        "n_rows": len(rows), "n_bytes": int(meta.get("n_bytes") or 0),
+        "sha256": str(meta.get("sha256") or ""),
+        "source_url": str(meta.get("source_url") or ""),
+        "appeared": int(diff.get("appeared_count") or 0),
+        "disappeared": int(diff.get("disappeared_count") or 0),
+        "old_n": diff.get("old_n"), "new_n": diff.get("new_n"),
+        "has_pair": len(seals) >= 2, "offer_id": TEXAS_OFFER_ID,
+    }
+
+
 def held(family: str) -> dict:
+    if family == "texas-formulary":
+        return _held_texas_offer()
     cfg = PACKS[family]
     seals = days_for(family)
     day, day_dir, meta = seals[-1]
@@ -149,6 +226,11 @@ def row_cells(family: str, row: dict) -> list[str]:
 
 
 def sample_rows(family: str) -> tuple[list[str], list[list[str]]]:
+    fam = family_rows().get(family) or {}
+    if _off_sale_catalog_state(family, fam):
+        # Keep the seal internal. In particular, do not read it merely to
+        # recreate a public sample that the catalog has put on hold.
+        return PACKS[family]["headers"], []
     h = held(family)
     cap = SAMPLE_CAP[family]
     headers = PACKS[family]["headers"]
@@ -164,10 +246,76 @@ def slices() -> list:
     return []
 
 
+def _off_sale_catalog_state(family: str, fam: dict) -> bool:
+    if family not in OFF_SALE_FAMILIES:
+        return False
+    checkout = fam.get("checkout") or {}
+    if str(checkout.get("status") or "").strip() != "off_sale":
+        raise SystemExit(
+            f"{family}: catalog checkout.status must be 'off_sale' before the "
+            "held dated page can be rebuilt; nothing was written"
+        )
+    url = str(checkout.get("url") or "").strip()
+    if url:
+        raise SystemExit(
+            f"{family}: off-sale catalog row still carries a checkout URL; "
+            "nothing was written"
+        )
+    if "$" in str(fam.get("price") or ""):
+        raise SystemExit(
+            f"{family}: off-sale catalog row still carries a dollar price; "
+            "nothing was written"
+        )
+    return True
+
+
+def _off_sale_spec(family: str, fam: dict) -> dict:
+    cfg = PACKS[family]
+    return {
+        "sections": [
+            section(
+                "Availability",
+                None,
+                "      <p>This dated pack is unavailable while we review source-use "
+                "permission. No purchase or public sample is available.</p>",
+            ),
+        ],
+        "id": family,
+        "source_use_hold": True,
+        "off_sale": True,
+        "ready": False,
+        "plain_status": True,
+        "group": fam.get("group") or "Other dated records",
+        "cadence": fam.get("cadence") or "unavailable",
+        "cadence_long": fam.get("cadence_long") or "Purchases unavailable",
+        "crumb": cfg["crumb"],
+        "h1": cfg["h1"],
+        "price": fam.get("price") or "Not for sale",
+        "buyer": fam.get("buyer") or cfg["buyer"],
+        "desc": "This dated pack and its public sample are unavailable while source-use permission is reviewed.",
+        "lede": (
+            "This dated pack is not on sale while we review whether its source "
+            "can be offered. <strong>The public sample is unavailable.</strong>"
+        ),
+        "pill_text": "Sample not ready",
+        "pill_label": "Sample not ready",
+        "subj": cfg["subj"],
+        "contact_h2": "Ask about availability",
+        "contact_p": "Purchases and public samples are unavailable while source use is reviewed.",
+        "contact_cta": "Ask about availability",
+        "contact_note": "No file or purchase is available from this page.",
+        "foot": "Availability reviewed 10 September 2026.",
+        "delivery": "No public delivery is offered while source use is reviewed.",
+    }
+
+
 def family_spec(family: str) -> dict:
+    fam = family_rows().get(family) or {}
+    off_sale = _off_sale_catalog_state(family, fam)
+    if off_sale:
+        return _off_sale_spec(family, fam)
     h = held(family)
     cfg = h["cfg"]
-    fam = family_rows().get(family) or {}
     price = fam.get("price") or "$349"
     n = h["n_rows"]
     shown = min(SAMPLE_CAP[family], n)
@@ -194,8 +342,12 @@ def family_spec(family: str) -> dict:
             + '\n      <div class="honest">\n'
             f"        <p><strong>{esc(cfg['limit_cap'])}</strong></p>\n"
             f"        <p><strong>The official page still shows today's file for free.</strong> "
-            "You are paying for a dated copy of what it said, because the live file "
-            "will not show you yesterday once it has been replaced.</p>\n"
+            + ("Purchases are unavailable while this source pack is under review; "
+               "the held rows and provenance are available to inspect."
+               if off_sale else
+               "You are paying for a dated copy of what it said, because the live file "
+               "will not show you yesterday once it has been replaced.")
+            + "</p>\n"
             "      </div>",
         ),
         section(
@@ -227,18 +379,22 @@ def family_spec(family: str) -> dict:
             f'<span class="sub">{n:,} rows from {esc(cfg["source_words"])}.</span></li>\n'
             "        <li><strong>The hash of that day's file</strong>"
             '<span class="sub">So you can prove which bytes we sealed.</span></li>\n'
-            "        <li><strong>No new file next month unless you buy again</strong>"
+            f"        <li><strong>{'No purchase is available while this source pack is under review' if off_sale else 'No new file next month unless you buy again'}</strong>"
             '<span class="sub">This is one dated pack, not a subscription.</span></li>\n'
             "      </ul>",
         ),
         section(
-            "How it works",
+            "Availability" if off_sale else "How it works",
             None,
-            '      <ol class="steps">\n'
-            "        <li>You pay $349 once on this page.</li>\n"
-            "        <li>Stripe sends you to a page with your payment id in the address bar.</li>\n"
-            "        <li>The dated pack appears on that page. Nobody emails you.</li>\n"
-            "      </ol>",
+            (
+                '      <p>Purchases are currently unavailable while this dated source pack remains under source review. The held sample and its source provenance remain available to inspect.</p>\n'
+                if off_sale else
+                '      <ol class="steps">\n'
+                "        <li>You pay $349 once on this page.</li>\n"
+                "        <li>Stripe sends you to a page with your payment id in the address bar.</li>\n"
+                "        <li>The dated pack appears on that page. Nobody emails you.</li>\n"
+                "      </ol>"
+            ),
         ),
         section(
             "What this cannot tell you",
@@ -258,7 +414,10 @@ def family_spec(family: str) -> dict:
         "ready": True,
         "group": fam.get("group") or "Other dated records",
         "cadence": fam.get("cadence") or "one dated pack",
-        "cadence_long": fam.get("cadence_long") or "One dated pack. Official file overwrites.",
+        "cadence_long": (
+            "One dated pack. The source is under review; purchases are unavailable."
+            if off_sale else fam.get("cadence_long") or "One dated pack. Official file overwrites."
+        ),
         "crumb": cfg["crumb"],
         "h1": cfg["h1"],
         "price": price,
@@ -266,18 +425,24 @@ def family_spec(family: str) -> dict:
         "desc": (
             f"Dated copy of {cfg['source_words']}. Official file overwrites. "
             f"{n:,} rows sealed {d(h['newest'])}."
+            + (" Purchases unavailable while source acceptance is pending."
+               if off_sale else "")
         ),
         "lede": (
             f"{esc(cfg['source_words'])} is public today and gets replaced. "
             f"<strong>We sealed {n:,} rows on {d(h['newest'])}.</strong> "
             f"The sample below is {shown} of those rows."
+            + (" Purchases are currently unavailable while this source pack remains under review."
+               if off_sale else "")
         ),
-        "pill_label": "Dated copy on this page",
+        "pill_label": "Purchases unavailable" if off_sale else "Dated copy on this page",
+        "pill_text": "Purchases unavailable" if off_sale else None,
         "subj": cfg["subj"],
-        "contact_h2": fam.get("contact_h2") or "Buy this dated pack",
-        "contact_p": fam.get("contact_p") or (
+        "contact_h2": "Availability" if off_sale else fam.get("contact_h2") or "Buy this dated pack",
+        "contact_p": ("Purchases are currently unavailable while this dated source pack remains under source review."
+                      if off_sale else fam.get("contact_p") or (
             "This is one dated pack. After you pay, the file appears on the paid-file page. Nobody emails you."
-        ),
+        )),
         "contact_cta": fam.get("contact_cta") or "Ask what we hold for this pack",
         "contact_note": fam.get("contact_note") or (
             f"Newest copy {d(h['newest'])}. {n:,} rows. Sample is {shown} of them."
@@ -287,9 +452,11 @@ def family_spec(family: str) -> dict:
             "copy at the moment the page was built. Where two copies match, the "
             "page says 0 rather than filling in a move."
         ),
-        "delivery": (
+        "delivery": ("Purchases are unavailable while this dated source pack remains under source review."
+                     if off_sale else (
             "<strong>What arrives after you pay:</strong> Stripe sends you to a "
             "page with your payment id. The dated pack appears there. Nobody "
             "emails you."
-        ),
+        )),
+        "off_sale": off_sale,
     }

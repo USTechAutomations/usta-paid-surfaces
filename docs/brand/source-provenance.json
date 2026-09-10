@@ -1,0 +1,15 @@
+{
+  "source_path": "/home/gmullins/Downloads/USTA_Website_UI_UX_Design_Rules.docx",
+  "source_sha256": "4647e3f218b90f24e342c7914d42fc398bd082f5e24f392682032fb61d593f64",
+  "source_bytes": 49772,
+  "source_modified_utc": "2026-09-08T21:50:55.816785+00:00",
+  "document_version": "1.3",
+  "document_date": "2026-09-08",
+  "reviewed_repo_baseline": "8273f3a7911a8a7dfd88ec10d6098fc34109cefe",
+  "archive_docx": "docs/brand/USTA_Website_UI_UX_Design_Rules.docx",
+  "archive_markdown": "docs/brand/USTA_Website_UI_UX_Design_Rules.docx.md",
+  "markdown_sha256": "cc9ec101e46939484af641343f49fd46d71b70934b51a5bc9ada4aa7038c7189",
+  "rendered_pdf": "/home/gmullins/reports/usta-brand-standard-20260908/rendered/USTA_Website_UI_UX_Design_Rules.pdf",
+  "inspection": "Read original DOCX paragraphs and all seven tables; rendered DOCX to PDF and visually inspected pages 1, 3, 4. No embedded media in source DOCX.",
+  "scope": "Source describes public website. Operator expands common brand criteria to every fleet-created customer surface; app/platform remains a separate deployment and not authorized for edits."
+}

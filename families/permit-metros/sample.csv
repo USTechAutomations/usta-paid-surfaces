@@ -1,16 +1,16 @@
 City,Permit,Address,Contractor on the permit,What the permit is for,City issue date,First in our copy
-Austin,2026-050237 BP,2607 S 4TH ST,Green Falmingo Properties LLC,R- 649 Demolition All Other Bldgs Res / Demolition,5 Sep 2026,7 Sep 2026
-Austin,2025-155434 BP,1101 MINDA DR,not given,R- 434 Addition & Alterations / Addition and Remodel,4 Sep 2026,6 Sep 2026
-Austin,2026-100655 BP,5902 NORTH WEST PL,"CG&S Construction, Inc. dba: CG&S Design-Build",R- 434 Addition & Alterations / Addition and Remodel,4 Sep 2026,6 Sep 2026
-Austin,2026-104659 BP,6132 PERLITA DR,Renewal by Andersen,R- 435 Renovations/Remodel / Repair,4 Sep 2026,6 Sep 2026
-Chicago,101079509,1356 N STATE PKWY,not given,PERMIT - RENOVATION/ALTERATION,4 Sep 2026,6 Sep 2026
-Chicago,101083863,625 N HAMLIN AVE,not given,PERMIT - NEW CONSTRUCTION,4 Sep 2026,6 Sep 2026
-Chicago,101084451,6822 S CLAREMONT AVE,not given,PERMIT - RENOVATION/ALTERATION,4 Sep 2026,6 Sep 2026
-Chicago,101084472,1621 W BRYN MAWR AVE,not given,PERMIT - NEW CONSTRUCTION,4 Sep 2026,6 Sep 2026
-New York City,B01187876-I1-GC,996 BERGEN STREET,MCKENNEY CONSTRUCTION LLC,General Construction / Renewal Permit with Changes,3 Sep 2026,5 Sep 2026
-New York City,B01188198-I1-GC,1995 EAST 14 STREET,RHY CONSTRUCTION LLC,General Construction / Initial Permit,3 Sep 2026,5 Sep 2026
-New York City,B01221050-I1-GC,96 ROEBLING STREET,BELL CONTRACTING NY 1 INC,General Construction / Initial Permit,3 Sep 2026,5 Sep 2026
-New York City,B01264461-I1-GC-CX,2156 EAST 74 STREET,BELL CONSTRUCTION OF NY,Foundation / No Work Permit,3 Sep 2026,5 Sep 2026
+Austin,2026-016857 BP,5204 GLISSMAN RD BLDG 1,Austin 787 Properties,R- 329 Res Structures Other Than Bldg / New,8 Sep 2026,10 Sep 2026
+Austin,2026-098907 BP,5905 BURLINGTON CT BLDG 2,5311 Bull Run,R- 101 Single Family Houses / New,8 Sep 2026,10 Sep 2026
+Austin,2026-099373 BP,2604 CLARKDALE LN,not given,R- 434 Addition & Alterations / Addition and Remodel,8 Sep 2026,10 Sep 2026
+Austin,2026-105261 BP,4115 AVENUE,MDG Construction LLC,R- 435 Renovations/Remodel / Remodel,8 Sep 2026,10 Sep 2026
+Chicago,101055968,2031 S CANALPORT AVE,not given,PERMIT - RENOVATION/ALTERATION,8 Sep 2026,10 Sep 2026
+Chicago,101076034,5617 S NOTTINGHAM AVE,not given,PERMIT - NEW CONSTRUCTION,8 Sep 2026,10 Sep 2026
+Chicago,101079784,5233 S JUSTINE ST,not given,PERMIT - RENOVATION/ALTERATION,8 Sep 2026,10 Sep 2026
+Chicago,101080292,5357 N WAYNE AVE,not given,PERMIT - RENOVATION/ALTERATION,8 Sep 2026,10 Sep 2026
+New York City,B01309053-I1-GC,920 LORIMER STREET,MARK BRADY CONTRACTING,General Construction / Initial Permit,8 Sep 2026,10 Sep 2026
+New York City,B01322521-I1-GC,8 HOWARD AVENUE,PREFERRED GC GROUP INC,General Construction / Initial Permit,8 Sep 2026,10 Sep 2026
+New York City,B01392238-I1-GC,59 BAY 29 STREET,WATSON'S PLUMBING HEATING,General Construction / Initial Permit,8 Sep 2026,10 Sep 2026
+New York City,B01444701-I1-GC,2250 EAST 24 STREET,MERCURY BUILDING ASSO INC,General Construction / Initial Permit,8 Sep 2026,10 Sep 2026
 San Francisco,202203180317,4642 19th St,not given,additions alterations or repairs,4 Sep 2026,6 Sep 2026
 San Francisco,202602176022,112 Sussex St,not given,additions alterations or repairs,4 Sep 2026,6 Sep 2026
 San Francisco,202606163277,487 15th Av,not given,otc alterations permit,4 Sep 2026,6 Sep 2026
@@ -19,7 +19,7 @@ Scottsdale,324379,10441 E PINNACLE PEAK RD,COMMUNITY DEVELOPMENT LLC,FENCE,4 Sep
 Scottsdale,324380,9980 E CHARTER OAK RD,SC Homes,SFR-ADDITION,4 Sep 2026,7 Sep 2026
 Scottsdale,324381,9701 E HAPPY VALLEY RD,OWNER BUILDER,SFR-CUSTOM IN SUBDIVISION,4 Sep 2026,7 Sep 2026
 Scottsdale,324374,11319 E DREYFUS AV,MORGAN TAYLOR HOMES,SFR-CUSTOM IN SUBDIVISION,2 Sep 2026,7 Sep 2026
-Seattle,7161153-CN,11218 35TH AVE SW,not given,Building / Addition/Alteration,5 Sep 2026,7 Sep 2026
-Seattle,6988569-DM,933 N NORTHLAKE WAY,not given,Demolition / Relocation,4 Sep 2026,7 Sep 2026
-Seattle,7152435-CN,610 W HALLADAY ST,not given,Building / Addition/Alteration,4 Sep 2026,7 Sep 2026
-Seattle,6988568-CN,933 N NORTHLAKE WAY,not given,Building / New,4 Sep 2026,6 Sep 2026
+Seattle,7102931-CN,5946 A 47TH AVE SW,not given,Building / New,8 Sep 2026,10 Sep 2026
+Seattle,7121548-CN,616 NW 47TH ST,not given,Building / Addition/Alteration,8 Sep 2026,10 Sep 2026
+Seattle,7121925-CN,5029 45TH AVE S,not given,Building / New,8 Sep 2026,10 Sep 2026
+Seattle,7129372-CN,9201 1ST AVE NW,not given,Building / Addition/Alteration,8 Sep 2026,10 Sep 2026

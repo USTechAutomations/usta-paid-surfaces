@@ -5,6 +5,8 @@ Read 2026-09-06. Do not guess. Quotes are from the pages named.
 ## Pages opened
 
 - Source named in the idea: https://www.tceq.texas.gov/permitting/stormwater/construction (HTTP 200, 2026-09-06)
+- Retained primary EPA data dictionary: https://echo.epa.gov/tools/data-downloads/icis-npdes-download-summary (fetched 2026-09-10; `real-inputs/rights-evidence/epa-icis-npdes-download-summary.html`)
+- Retained primary EPA data-licensing page: https://edg.epa.gov/epa_data_license.html (fetched 2026-09-10; `real-inputs/rights-evidence/epa-data-license.html`)
 - Robots: https://www.tceq.texas.gov/robots.txt (HTTP 200, 2026-09-06)
 - Website policies index: https://www.tceq.texas.gov/help/policies (HTTP 200, 2026-09-06)
 - Public Domain and TCEQ Linking Policy: https://www.tceq.texas.gov/help/policies/linking_policy.html (HTTP 200, 2026-09-06)
@@ -14,7 +16,7 @@ Read 2026-09-06. Do not guess. Quotes are from the pages named.
 - EPA ECHO file host robots: https://echo.epa.gov/robots.txt (HTTP 200, 2026-09-06)
 - EPA ECHO API host robots: https://echodata.epa.gov/robots.txt (HTTP 200, 2026-09-06)
 
-The construction page itself is a how-to. It names STEERS for filing and the water-quality general-permit query for looking up authorizations. It does not print a table of notices.
+The construction page itself is a how-to. It names STEERS for filing and the water-quality general-permit query for looking up authorizations. It does not print a table of notices. The retained EPA ICIS data dictionary defines `PERMIT_NAME` as the name of the facility having the NPDES permit and `ISSUE_DATE` as the date the permit was issued.
 
 ## robots.txt on www.tceq.texas.gov (quoted)
 
@@ -32,7 +34,7 @@ www2.tceq.texas.gov (the general-permit query) did not return a robots file from
 
 permit-search.tceq.texas.gov has no robots.txt (the path returns the HTML app). Its `/psp-webservices/v1/search/permitsWithPages` endpoint answered 400: `Required header 'Authorization' is not present.` The collector does not call it.
 
-## Written terms on TCEQ (quoted)
+## Written terms on TCEQ (context only)
 
 From https://www.tceq.texas.gov/help/policies/linking_policy.html, heading "Public Domain and Linking to Our Website":
 
@@ -54,6 +56,36 @@ echo.epa.gov robots.txt (quoted): `User-agent: *` / `Crawl-delay: 10`. Disallow 
 
 echodata.epa.gov robots.txt (quoted): `User-agent: *` / `Disallow: *`. The collector does not call that host.
 
-## Verdict
+## EPA source-rights evidence
 
-PERMITTED — “Unless otherwise noted, content of our site is considered “public domain.”” (TCEQ Public Domain and Linking Policy, https://www.tceq.texas.gov/help/policies/linking_policy.html, read 2026-09-06). The weekly file credits TCEQ as the issuer and EPA ECHO as the dated copy we could actually read. TCEQ’s own search endpoints did not answer from this box.
+The retained EPA licensing page says: “Unless otherwise specified, all data
+produced by the U.S EPA is by default in the public domain.” The retained EPA
+ICIS download summary supplies the field definitions used by this candidate.
+The candidate uses the EPA download as the source and does not rely on TCEQ's
+separate linking policy to establish rights for an EPA file. No dataset-specific
+contrary terms were present on the retained EPA download-summary page.
+
+**Verdict: PERMITTED for this candidate, subject to the cited EPA standard
+license and any dataset-specific terms that may be added by EPA later.** The
+source URL, fetched timestamp, and both primary evidence pages are retained in
+`real-inputs/rights-evidence/`.
+
+## Schema correction (2026-09-10)
+
+This candidate corrects the two published column names to the EPA ICIS fields
+they actually come from:
+
+- `operator` → `permit_name`. The value is `ICIS_PERMITS.PERMIT_NAME`, EPA's
+  facility-name field for an NPDES permit. EPA publishes no operator field and
+  none is inferred.
+- `filing_date` → `permit_issue_date`. The value is `ICIS_PERMITS.ISSUE_DATE`,
+  falling back only to `ORIGINAL_ISSUE_DATE`. It is the date EPA records the
+  coverage as issued — not a filing date, and not a construction-start date.
+
+Retained files written under the old `operator`/`filing_date` header are read by
+`collect_stormwater_noi.read_rows()` and migrated through the retained EPA ICIS
+source rows; no date is ever blanked, and the raw retained files in
+`real-inputs/` are left unchanged. The source observation time recorded for a
+cached copy is used as-is (`2026-09-06T16:28:21Z` for this seal) and is never
+redated to the transformation time; it stays unknown when no fetch time was
+recorded for a source artifact.

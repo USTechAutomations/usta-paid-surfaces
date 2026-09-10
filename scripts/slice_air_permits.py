@@ -1614,12 +1614,9 @@ def family_spec() -> dict:
             "How it works",
             None,
             '      <ol class="steps">\n'
-            "        <li>You email us and say which Texas counties or applicants you "
-            "follow.</li>\n"
-            "        <li>We reply with exactly which weeks we hold for them and which days "
-            "have no sealed copy, then send a checkout link in that thread.</li>\n"
-            "        <li>A person emails you the file, with the sealed copy date on every "
-            "row.</li>\n"
+            "        <li>Subscribe to the Texas-only air-permit feed.</li>\n"
+            "        <li>After payment, Stripe sends you to the receipt page; its delivery check confirms the paid subscription before showing a file.</li>\n"
+            "        <li>The dated Texas weekly CSV appears on that page as the subscription is updated. Nobody emails you.</li>\n"
             "      </ol>",
         ),
     ]
@@ -1631,6 +1628,7 @@ def family_spec() -> dict:
         "pill_text": ("Sample ready" if fam["sample_status"] == "pass"
                       else "Sample not ready"),
         "pill_label": f"{len(shop['rows'])} named rows on this page",
+        "plain_status": True,
         "sample_dt": "Public sample",
         "group": fam["group"],
         "cadence": fam["cadence"],

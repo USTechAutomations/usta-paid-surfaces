@@ -16,11 +16,13 @@ from pathlib import Path
 
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse, JSONResponse
+from starlette.concurrency import run_in_threadpool
 
-from . import (FREE_QRELAY_SENDS, check_key, clean_domain, clean_text, get_secret,
-               get_store, note_event, now_iso, over_free_limit, quota_add, quota_drop,
+from . import (FREE_QRELAY_SENDS, check_key, check_ref, clean_domain, clean_text, get_secret,
+               get_store, get_stripe_reader, note_event, now_iso, over_free_limit, quota_add, quota_drop,
                read_payload, refuse, refuse_html, service_base, today_words)
 from . import templates as T
+from ...lib import prokey
 from ..store import new_id
 
 FAMILY = "qrelay"
@@ -28,7 +30,10 @@ router = APIRouter(prefix="/q", tags=["qrelay"])
 
 CHOICES = ("yes", "no", "partial")
 CHOICE_WORDS = {"yes": "Yes", "no": "No", "partial": "Partly"}
-CHOICE_TAG = {"yes": "t-ok", "no": "t-warn", "partial": "t-info"}
+# Which icon shape stands beside each answer. Shapes, not colours: the coloured
+# chips these replaced said the same thing twice, and said it in a way a
+# colour-blind reader could not read at all (BRAND.md §7).
+CHOICE_SHAPE = {"yes": "yes", "no": "no", "partial": "partial"}
 
 _BANK_PATH = Path(__file__).with_name("qrelay_bank.json")
 
@@ -87,22 +92,37 @@ def _owned_answer_set(store, answer_set_id, receiver_edit_id):
 
 # ------------------------------------------------------------------ pages ---
 
+NOTE_LABEL = ("Add a note if it helps (up to 500 characters). Please do not put "
+              "anyone's email or phone number here.")
+
+
 def _question_block(q, answer):
+    """One question: the area it covers, the question, why it is asked, the
+    three answers and a note box.
+
+    The three radios are a real group -- role="group" pointing at the question
+    text -- so a screen reader says the question before it says "Yes". Each
+    radio carries its own <label> and each note box carries a visible one; the
+    old page leaned on a placeholder, which disappears the moment somebody
+    starts typing.
+    """
     chosen = (answer or {}).get("choice", "")
     text = (answer or {}).get("text", "")
     qid = q["id"]
+    ask_id = "ask-" + T.esc(qid)
+    note_id = "note-" + T.esc(qid)
     radios = "".join(
         f'<label><input type="radio" name="a_{T.esc(qid)}" value="{c}"'
         f'{" checked" if chosen == c else ""}> {CHOICE_WORDS[c]}</label>'
         for c in CHOICES)
     return (
-        f'<div class="q"><span class="fn">{T.esc(q["function"])}</span>'
-        f'<p><b>{T.esc(q["question"])}</b></p>'
-        f'<p class="why">Why a customer asks: {T.esc(q["why"])}</p>'
-        f"<p>{radios}</p>"
-        f'<textarea name="t_{T.esc(qid)}" maxlength="500" '
-        f'placeholder="Add a note if it helps (up to 500 characters). Please do not put anyone\'s email or phone number here.">'
-        f"{T.esc(text)}</textarea></div>")
+        f'<div class="lp-q"><span class="lp-fn">{T.esc(q["function"])}</span>'
+        f'<p class="lp-ask" id="{ask_id}">{T.esc(q["question"])}</p>'
+        f'<p class="lp-why">Why a customer asks: {T.esc(q["why"])}</p>'
+        f'<div class="lp-choices" role="group" aria-labelledby="{ask_id}">{radios}</div>'
+        f'<div class="lp-row"><label for="{note_id}">{T.esc(NOTE_LABEL)}</label>'
+        f'<textarea class="field lp-note" id="{note_id}" name="t_{T.esc(qid)}" '
+        f'maxlength="500">{T.esc(text)}</textarea></div></div>')
 
 
 _FORM_JS = """
@@ -120,7 +140,7 @@ _FORM_JS = """
   .then(function(res){
    b.disabled=false; b.textContent='Send my answers';
    if(res.s>=400||res.j.ok===false){
-    out.className='err'; out.textContent=res.j.error||'Something went wrong. Try again.';
+    out.className='lp-alert'; out.textContent=res.j.error||'Something went wrong. Try again.';
     out.scrollIntoView({block:'center'}); return;}
    out.className='card';
    out.innerHTML='<h2>Sent. Keep these two lines.</h2>'
@@ -133,7 +153,7 @@ _FORM_JS = """
    f.style.display='none'; out.scrollIntoView({block:'start'});
   })
   .catch(function(){b.disabled=false; b.textContent='Send my answers';
-   out.className='err'; out.textContent='We could not reach the server. Try again.';});
+   out.className='lp-alert'; out.textContent='We could not reach the server. Try again.';});
  });
  var r=document.getElementById('rform');
  if(r){r.addEventListener('submit',function(ev){
@@ -143,13 +163,36 @@ _FORM_JS = """
   fetch('/q/reuse',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)})
   .then(function(x){return x.json().then(function(j){return {s:x.status,j:j};});})
   .then(function(res){ if(res.s>=400||res.j.ok===false){
-    var e=document.getElementById('rout'); e.className='err';
+    var e=document.getElementById('rout'); e.className='lp-alert';
     e.textContent=res.j.error||'That did not work.'; return;}
    window.location.reload();});
  });}
 })();
 </script>
 """
+
+
+def _said(choice: str) -> str:
+    """One answer, as muted words with a muted icon. Never a coloured chip."""
+    if choice in CHOICE_WORDS:
+        return T.state(CHOICE_WORDS[choice], CHOICE_SHAPE[choice])
+    return T.state("Not answered", "none")
+
+
+def _answer_table(ids, answers) -> str:
+    """The answers table used by both the sender's page and the public one."""
+    rows = []
+    for qid in ids:
+        q = BY_ID.get(qid)
+        if not q:
+            continue
+        a = answers.get(qid) or {}
+        rows.append(f"<tr><td>{T.esc(q['function'])}</td><td>{T.esc(q['question'])}</td>"
+                    f"<td>{_said(a.get('choice', ''))}</td>"
+                    f"<td>{T.esc(a.get('text', ''))}</td></tr>")
+    return ('<table class="lp-wide"><thead><tr><th>Area</th><th>Question</th>'
+            "<th>Answer</th><th>Their note</th></tr></thead><tbody>"
+            + "".join(rows) + "</tbody></table>")
 
 
 @router.get("/a/{send_id}", response_class=HTMLResponse)
@@ -163,31 +206,42 @@ async def form_page(send_id: str, request: Request):
     ids = template_ids(send["template"])
     prefill = send.get("prefill") or {}
     blocks = "".join(_question_block(BY_ID[qid], prefill.get(qid)) for qid in ids if qid in BY_ID)
-    reuse = (
-        '<div class="card"><h2>Answered one of these before?</h2>'
+    # The one primary action on this page is "Send my answers" (BRAND.md §5).
+    # Filling in an old set is the secondary path, so it takes the ghost button.
+    reuse = T.section(
+        '<div class="card">'
         "<p>Paste your saved answer set and your edit link id, and every answer you gave "
         "last time fills itself in. You only change what has moved on.</p>"
         f'<form id="rform" data-send="{T.esc(send_id)}">'
-        '<p><input type="text" name="answer_set_id" placeholder="Answer set" autocomplete="off"></p>'
-        '<p><input type="text" name="receiver_edit_id" placeholder="Edit link id" autocomplete="off"></p>'
-        "<p><button>Fill in my old answers</button></p></form>"
-        '<div id="rout"></div></div>')
-    body = (
-        '<div class="card"><p><b>' + T.esc(send["sender_domain"]) + "</b> asked <b>"
-        + T.esc(send["receiver_domain"]) + "</b> to answer "
+        '<div class="lp-row"><label for="r-set">Answer set</label>'
+        '<input class="field" id="r-set" type="text" name="answer_set_id" autocomplete="off"></div>'
+        '<div class="lp-row"><label for="r-edit">Edit link id</label>'
+        '<input class="field" id="r-edit" type="text" name="receiver_edit_id" '
+        'autocomplete="off"></div>'
+        '<p class="lp-actions"><button class="btn btn-ghost lp-go">'
+        "Fill in my old answers</button></p></form>"
+        '<div id="rout"></div></div>',
+        heading="Answered one of these before?")
+    intro = T.section(
+        "<p><strong>" + T.esc(send["sender_domain"]) + "</strong> asked <strong>"
+        + T.esc(send["receiver_domain"]) + "</strong> to answer "
         + str(len(ids)) + " questions about how you look after data.</p>"
         "<p>Answer once. You get the answers back as a set you can reuse on the next one, "
-        "and you can put them on a page of your own if you want to.</p></div>"
-        + reuse
-        + f'<form id="qform" method="post" action="/q/a/{T.esc(send_id)}">'
-        + '<div class="card">' + blocks + "</div>"
-        + "<p><button>Send my answers</button></p></form>"
-        + '<div id="out"></div>' + _FORM_JS)
+        "and you can put them on a page of your own if you want to.</p>")
+    form = T.section(
+        f'<form id="qform" method="post" action="/q/a/{T.esc(send_id)}">'
+        '<div class="card">' + blocks + "</div>"
+        '<p class="lp-actions"><button class="btn btn-buy lp-go">Send my answers</button></p>'
+        "</form>"
+        '<div id="out"></div>' + _FORM_JS,
+        heading="The questions")
+    body = intro + reuse + form
     return HTMLResponse(T.page(
         title="Security questions from " + send["sender_domain"],
         family=FAMILY, event="form_open", body=body,
         heading="Questions from " + send["sender_domain"],
-        lede="Answer these once. Reuse them for ever."))
+        lede="Answer these once. Reuse them for ever.",
+        eyebrow="Answer once"))
 
 
 @router.get("/r/{sender_view_id}", response_class=HTMLResponse)
@@ -206,50 +260,42 @@ async def results_page(sender_view_id: str, request: Request):
         if doc:
             answers = doc.get("answers") or {}
         else:
-            deleted_note = ('<div class="err">The supplier has deleted their answers. '
-                            "Nothing is kept here any more.</div>")
+            deleted_note = ('<div class="lp-alert"><p>The supplier has deleted their answers. '
+                            "Nothing is kept here any more.</p></div>")
     tally = {"yes": 0, "no": 0, "partial": 0, "unanswered": 0}
     for qid in ids:
         choice = (answers.get(qid) or {}).get("choice", "")
         tally[choice if choice in tally else "unanswered"] += 1
     counts = (
-        '<div class="counts">'
+        '<div class="lp-tally">'
         f'<div><b>{tally["yes"]}</b><span>Yes</span></div>'
         f'<div><b>{tally["partial"]}</b><span>Partly</span></div>'
         f'<div><b>{tally["no"]}</b><span>No</span></div>'
         f'<div><b>{tally["unanswered"]}</b><span>Not answered</span></div></div>')
-    rows = []
-    for qid in ids:
-        q = BY_ID.get(qid)
-        if not q:
-            continue
-        a = answers.get(qid) or {}
-        choice = a.get("choice", "")
-        tag = (f'<span class="tag {CHOICE_TAG[choice]}">{CHOICE_WORDS[choice]}</span>'
-               if choice in CHOICE_WORDS else '<span class="tag">Not answered</span>')
-        note = T.esc(a.get("text", ""))
-        rows.append(f"<tr><td>{T.esc(q['function'])}</td><td>{T.esc(q['question'])}</td>"
-                    f"<td>{tag}</td><td>{note}</td></tr>")
-    table = ('<div class="scroll"><table><tr><th>Area</th><th>Question</th><th>Answer</th>'
-             "<th>Their note</th></tr>" + "".join(rows) + "</table></div>")
+    table = _answer_table(ids, answers)
     if send.get("answers_deleted"):
-        head = ('<div class="card"><p>The supplier has deleted their answers, so there is '
-                "nothing to show. Send them a new link if you still need them.</p></div>")
+        head = ("<p>The supplier has deleted their answers, so there is "
+                "nothing to show. Send them a new link if you still need them.</p>")
         deleted_note = ""
     elif not send.get("answer_set_id"):
-        head = ('<div class="card"><p>Nothing has come back yet. Send them the link again if '
-                "it has been a while.</p></div>")
+        head = ("<p>Nothing has come back yet. Send them the link again if "
+                "it has been a while.</p>")
     else:
-        head = (f'<div class="card"><p><b>{T.esc(send["receiver_domain"])}</b> answered the '
+        head = (f'<p><strong>{T.esc(send["receiver_domain"])}</strong> answered the '
                 f'{T.esc(TEMPLATES[send["template"]]["label"]).lower()} set of questions you sent'
                 + (f' on {T.esc(send.get("answered_on", ""))}.'
                    if send.get("answered_on") else ".")
-                + "</p><p>These are their own words. Nobody has checked them.</p></div>")
-    body = head + deleted_note + counts + table
+                + "</p><p>These are their own words. Nobody has checked them.</p>")
+    body = (T.section(head + deleted_note)
+            + T.section(counts, heading="How many of each")
+            + T.section(T.evidence("Every question, and what they said", table,
+                                   send.get("answered_on", "")),
+                        heading="Their answers"))
     return HTMLResponse(T.page(title="Answers from " + send["receiver_domain"],
                                family=FAMILY, event="results_open", body=body,
                                heading="Answers from " + send["receiver_domain"],
-                               lede="What they said, and how many of each."))
+                               lede="What they said, and how many of each.",
+                               eyebrow="Their own words"))
 
 
 @router.get("/trust/{domain}", response_class=HTMLResponse)
@@ -267,29 +313,36 @@ async def trust_page(domain: str, request: Request):
         c = (answers.get(qid) or {}).get("choice", "")
         if c in tally:
             tally[c] += 1
-    rows = []
-    for qid in ids:
-        q = BY_ID[qid]
-        a = answers.get(qid) or {}
-        choice = a.get("choice", "")
-        tag = (f'<span class="tag {CHOICE_TAG[choice]}">{CHOICE_WORDS[choice]}</span>'
-               if choice in CHOICE_WORDS else '<span class="tag">Not answered</span>')
-        rows.append(f"<tr><td>{T.esc(q['function'])}</td><td>{T.esc(q['question'])}</td>"
-                    f"<td>{tag}</td><td>{T.esc(a.get('text', ''))}</td></tr>")
-    body = (
-        f'<div class="card"><p>These are the answers <b>{T.esc(doc["domain"])}</b> published '
-        f'on {T.esc(doc.get("published_words", ""))}. They wrote them themselves. '
-        "We have not checked them, and this page is not a pass mark.</p></div>"
-        f'<div class="counts"><div><b>{tally["yes"]}</b><span>Yes</span></div>'
+    pro = bool(doc.get("pro"))
+    if pro:
+        pro, key_reason, key_status = await run_in_threadpool(
+            check_ref, store, get_secret(request), doc.get("pro_ref"), FAMILY,
+            get_stripe_reader(request))
+        if key_status == 503:
+            return refuse_html(FAMILY, "Paid page unavailable", key_reason, 503, "trust_open")
+    table = _answer_table(ids, answers)
+    counts = (
+        '<div class="lp-tally">'
+        f'<div><b>{tally["yes"]}</b><span>Yes</span></div>'
         f'<div><b>{tally["partial"]}</b><span>Partly</span></div>'
-        f'<div><b>{tally["no"]}</b><span>No</span></div></div>'
-        '<div class="scroll"><table><tr><th>Area</th><th>Question</th><th>Answer</th>'
-        "<th>Their note</th></tr>" + "".join(rows) + "</table></div>"
-        + T.trust_badge(bool(doc.get("pro"))))
+        f'<div><b>{tally["no"]}</b><span>No</span></div></div>')
+    body = (
+        T.section(
+            f'<p>These are the answers <b>{T.esc(doc["domain"])}</b> published on '
+            f'{T.esc(doc.get("published_words", ""))}. They wrote them themselves. '
+            "We have not checked them, and this page is not a pass mark.</p>")
+        + T.section(counts, heading="How many of each")
+        + T.section(T.evidence("Every question, and what they said", table,
+                               doc.get("published_words", "")),
+                    heading="What they said"))
+    credit = T.trust_badge(pro)
+    if credit:
+        body += T.section(credit)
     return HTMLResponse(T.page(title="How " + doc["domain"] + " looks after data",
                                family=FAMILY, event="trust_open", body=body,
                                heading="How " + doc["domain"] + " looks after data",
-                               lede="Published by them. Not checked by us."))
+                               lede="Published by them. Not checked by us.",
+                               eyebrow="Their own words"))
 
 
 # ------------------------------------------------------------------ writes ---
@@ -309,9 +362,10 @@ async def new_send(request: Request):
     template, reason = template_ok(data.get("template"))
     if reason:
         return refuse(reason)
-    pro, key_reason = check_key(store, secret, data.get("key"), FAMILY)
+    pro, key_reason, key_status = await run_in_threadpool(
+        check_key, store, secret, data.get("key"), FAMILY, get_stripe_reader(request))
     if key_reason:
-        return refuse(key_reason)
+        return refuse(key_reason, key_status or 400)
     if not pro and over_free_limit(store, "q_quota", sender, FREE_QRELAY_SENDS):
         return refuse(
             f"The free plan covers {FREE_QRELAY_SENDS} open questionnaires at a time for "
@@ -462,15 +516,18 @@ async def trust_publish(request: Request):
     if domain != doc.get("receiver_domain"):
         return refuse("Those answers were filled in for a different company website, so we "
                       "cannot publish them under this one.")
-    pro, key_reason = check_key(store, secret, data.get("key"), FAMILY)
+    pro, key_reason, key_status = await run_in_threadpool(
+        check_key, store, secret, data.get("key"), FAMILY, get_stripe_reader(request))
     if key_reason:
-        return refuse(key_reason)
+        return refuse(key_reason, key_status or 400)
     answers = doc.get("answers") or {}
+    claim = prokey.verify(secret, data.get("key")) if pro else None
     store.put("q_trust", domain, {
         "domain": domain, "answer_set_id": doc["answer_set_id"],
         "receiver_edit_id": doc["receiver_edit_id"], "answers": answers,
         "question_ids": [q["id"] for q in BANK["questions"] if q["id"] in answers],
-        "pro": pro, "published": now_iso(), "published_words": today_words()})
+        "pro": pro, "pro_ref": claim["ref"] if claim else None,
+        "published": now_iso(), "published_words": today_words()})
     base = service_base(request)
     return JSONResponse({
         "ok": True, "trust_link": T.link(f"/q/trust/{domain}", base),

@@ -96,13 +96,19 @@ def _cells(rows):
 def family_spec():
     d=data(); row=house.fam_row(FAMILY)
     if not row: raise ValueError('family missing from catalog')
-    if row.get('checkout',{}).get('url')!='TO-MINT': raise ValueError('staged family requires TO-MINT checkout')
+    ck=dict(row.get('checkout') or {})
+    url=str(ck.get('url') or '').strip(); state=str(ck.get('state') or '').strip()
+    if not (state=='TO-MINT' or url==''): raise ValueError('staged family requires TO-MINT checkout')
+    on_sale=url.startswith('https://')
+    if not on_sale:
+        ck['url']=''; ck['terms']=''; ck['after']=''; ck['label']=''
     if d.latest:
         old,new=d.latest; stamp=f'{_d(old)} to {_d(new)}'
         gone=d.kind('vanished'); came=d.kind('appeared'); moved=d.kind('changed')
         days=(date.fromisoformat(new)-date.fromisoformat(old)).days
         desc=(f'{len(gone)} FDA device establishments stopped being registered and {len(came)} appeared '
-              f'between {_d(old)} and {_d(new)}. One national file a week. $49/mo.')
+              f'between {_d(old)} and {_d(new)}. One national file a week.'
+              +(' $49/mo.' if on_sale else ''))
         lede=(f'Between {_d(old)} and {_d(new)}, {len(came):,} device establishments appeared on the FDA register, '
               f'{len(gone):,} stopped being listed, and {len(moved):,} changed a detail. Every one is in the file; '
               f'the first rows of each kind are printed below with the two export dates they came from.')
@@ -144,7 +150,8 @@ def family_spec():
         sizes=f'{d.sizes.get(old,0):,} and {d.sizes.get(new,0):,} establishments in the two copies'
     else:
         if row.get('sample_status')=='pass': raise ValueError('catalog clears a sample this state cannot produce: one copy held, no comparison; set sample_status to unknown or seal a second copy')
-        desc='FDA device establishment weekly changes: which manufacturers and importers appeared, stopped being listed, or changed. $49/mo.'
+        desc=('FDA device establishment weekly changes: which manufacturers and importers appeared, stopped being listed, or changed.'
+              +(' $49/mo.' if on_sale else ''))
         lede='We hold one dated copy of the FDA device establishment register. Until a second copy is sealed there is nothing to compare, so no sample is shown yet.'
         secs=[house.section('Sample not ready',None,'<p>One dated copy is not a comparison. This page grows its tables the week a second copy is sealed. '
               'That is not evidence that nothing changed.</p>'+('<p>Copy held: '+html.escape(_d(d.newest))+'.</p>' if d.newest else ''))]
@@ -152,10 +159,14 @@ def family_spec():
     if len(desc)>house.MAX_DESC: raise ValueError('description exceeds house limit')
     return dict(id=FAMILY,ready=ready,group=row['group'],cadence=row['cadence'],cadence_long=row['cadence_long'],
         crumb='Device establishment changes',h1='FDA device establishment changes, one national file a week',buyer=html.escape(row['buyer']),
-        desc=desc,lede=lede,pill_label=status,pill_text=status,sections=secs,sample_dt='Public sample',
+        desc=desc,lede=lede,pill_label=('Prepared, not yet on sale' if not on_sale else status),pill_text=status,sections=secs,sample_dt='Public sample',
         subj=urllib.parse.quote('FDA device establishment weekly file'),contact_h2='Start the thread',
-        contact_p='Ask which dated copies we hold. We reply with the count of appeared, gone and changed rows for the newest pair before you spend anything.',
-        contact_cta='Email us for the $49/mo checkout link',contact_note='We tell you the row counts and the two export dates before you pay.',
+        contact_p=('The file is prepared and not yet on sale. Ask which dated copies we hold. We reply with the count of appeared, gone and changed rows for the newest pair.'
+                   if not on_sale else
+                   'Ask which dated copies we hold. We reply with the count of appeared, gone and changed rows for the newest pair before you spend anything.'),
+        contact_cta='Ask about this file' if not on_sale else 'Email us about this file',
+        contact_note='The file is prepared and not yet on sale.' if not on_sale else 'We tell you the row counts and the two export dates before you pay.',
+        checkout=ck,delivery=('The file is prepared and not yet on sale.' if not on_sale else None),
         foot=f'Every count and date on this page was read out of the sealed copies named above: {sizes}. '
              'Nothing in the file is a person&#39;s name, street address or phone number.')
 

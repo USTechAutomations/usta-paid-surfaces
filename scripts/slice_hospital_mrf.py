@@ -21,7 +21,14 @@ def sample():
 
 
 def family_spec() -> dict:
-    return pf.family_spec(FAMILY)
+    spec = pf.family_spec(FAMILY)
+    # pack_file appends an off-sale suffix that runs the search line over 155.
+    if len(spec.get("desc") or "") > 155:
+        spec["desc"] = (
+            "HonorHealth charge-file copy we sealed. Official zip overwrites. "
+            "Not for sale; source under review."
+        )
+    return spec
 
 
 if __name__ == "__main__":

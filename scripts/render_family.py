@@ -103,6 +103,129 @@ def check_withheld(fid: str, headers: list[str], rows: list[list[str]]) -> None:
                 )
 
 
+ACCESSIBLE_FEED_HEAD_STYLES = """  <style>
+    /* AIR/GRID only: approved semantic tokens, measured in both themes. */
+    body[data-family="air-permits"] .btn-buy,
+    body[data-family="grid"] .btn-buy,
+    body[data-family="air-permits"] .mast-cta,
+    body[data-family="grid"] .mast-cta { background: hsl(var(--primary-surface-hover)); color: hsl(var(--primary-foreground)); }
+    body[data-family="air-permits"] .btn-buy:hover,
+    body[data-family="grid"] .btn-buy:hover,
+    body[data-family="air-permits"] .mast-cta:hover,
+    body[data-family="grid"] .mast-cta:hover { background: hsl(var(--primary-surface-hover)); }
+    body[data-family="air-permits"] a:not(.btn-buy):not(.mast-cta):not(.wordmark),
+    body[data-family="grid"] a:not(.btn-buy):not(.mast-cta):not(.wordmark) { color: hsl(var(--primary-surface-hover)); }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) body[data-family="air-permits"] a:not(.btn-buy):not(.mast-cta):not(.wordmark),
+      :root:not([data-theme="light"]) body[data-family="grid"] a:not(.btn-buy):not(.mast-cta):not(.wordmark) { color: hsl(var(--accent-blue)); }
+    }
+    :root[data-theme="dark"] body[data-family="air-permits"] a:not(.btn-buy):not(.mast-cta):not(.wordmark),
+    :root[data-theme="dark"] body[data-family="grid"] a:not(.btn-buy):not(.mast-cta):not(.wordmark) { color: hsl(var(--accent-blue)); }
+    @media (min-width: 64rem) and (max-width: 68.75rem) {
+      body[data-family="air-permits"] .masthead .wrap,
+      body[data-family="grid"] .masthead .wrap { flex-wrap: wrap; }
+      body[data-family="air-permits"] .mast-nav,
+      body[data-family="grid"] .mast-nav { flex-basis: 100%; margin-left: 0; justify-content: flex-end; gap: 1rem; flex-wrap: wrap; }
+    }
+    @media (max-width: 40rem) {
+      body[data-family="air-permits"] .wrap,
+      body[data-family="grid"] .wrap,
+      body[data-family="air-permits"] section,
+      body[data-family="grid"] section,
+      body[data-family="air-permits"] p,
+      body[data-family="grid"] p,
+      body[data-family="air-permits"] li,
+      body[data-family="grid"] li { min-width: 0; overflow-wrap: anywhere; }
+      body[data-family="air-permits"] .evidence,
+      body[data-family="grid"] .evidence { max-width: 100%; overflow: hidden; }
+      body[data-family="air-permits"] .scroll,
+      body[data-family="grid"] .scroll { max-width: 100%; overflow-x: auto; }
+    }
+  </style>
+"""
+# TTB uses the same approved accessibility declarations as the feed families,
+# generalized to one body marker so this candidate cannot change peer pages.
+COVERAGE_HEAD_STYLES = """  <style>
+    /* Coverage only: approved semantic tokens, measured in both themes. */
+    body[data-family="coverage"] .mast-cta,
+    body[data-family="coverage"] .mail {
+      background: hsl(var(--primary-surface-hover)); color: hsl(var(--primary-foreground));
+    }
+    body[data-family="coverage"] .mast-cta:hover,
+    body[data-family="coverage"] .mail:hover { background: hsl(var(--primary-surface-hover)); }
+    body[data-family="coverage"] .hero-cta .btn-ghost {
+      color: hsl(var(--foreground)); border-color: hsl(var(--foreground) / .35);
+    }
+    body[data-family="coverage"] a:not(.btn-buy):not(.mast-cta):not(.wordmark):not(.btn-ghost):not(.mail) { color: hsl(var(--primary-surface-hover)); }
+    body[data-family="coverage"] .scroll table { min-width: 48rem; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) body[data-family="coverage"] a:not(.btn-buy):not(.mast-cta):not(.wordmark):not(.btn-ghost):not(.mail) { color: hsl(var(--accent-blue)); }
+    }
+    :root[data-theme="dark"] body[data-family="coverage"] a:not(.btn-buy):not(.mast-cta):not(.wordmark):not(.btn-ghost):not(.mail) { color: hsl(var(--accent-blue)); }
+    body[data-family="coverage"] .wrap,
+    body[data-family="coverage"] p,
+    body[data-family="coverage"] a { min-width: 0; overflow-wrap: anywhere; }
+  </style>
+"""
+TTB_ACCESSIBLE_FEED_HEAD_STYLES = """  <style>
+    /* TTB only: approved semantic tokens, measured in both themes. */
+    body[data-family="ttb"] .btn-buy,
+    body[data-family="ttb"] .mast-cta { background: hsl(var(--primary-surface-hover)); color: hsl(var(--primary-foreground)); }
+    body[data-family="ttb"] .btn-buy:hover,
+    body[data-family="ttb"] .mast-cta:hover { background: hsl(var(--primary-surface-hover)); }
+    body[data-family="ttb"] a:not(.btn-buy):not(.mast-cta):not(.wordmark) { color: hsl(var(--primary-surface-hover)); }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) body[data-family="ttb"] a:not(.btn-buy):not(.mast-cta):not(.wordmark) { color: hsl(var(--accent-blue)); }
+    }
+    :root[data-theme="dark"] body[data-family="ttb"] a:not(.btn-buy):not(.mast-cta):not(.wordmark) { color: hsl(var(--accent-blue)); }
+    @media (min-width: 64rem) and (max-width: 68.75rem) {
+      body[data-family="ttb"] .masthead .wrap { flex-wrap: wrap; }
+      body[data-family="ttb"] .mast-nav { flex-basis: 100%; margin-left: 0; justify-content: flex-end; gap: 1rem; flex-wrap: wrap; }
+    }
+    @media (max-width: 40rem) {
+      body[data-family="ttb"] .wrap,
+      body[data-family="ttb"] section,
+      body[data-family="ttb"] p,
+      body[data-family="ttb"] li { min-width: 0; overflow-wrap: anywhere; }
+      body[data-family="ttb"] .evidence { max-width: 100%; overflow: hidden; }
+      body[data-family="ttb"] .scroll { max-width: 100%; overflow-x: auto; }
+    }
+  </style>
+"""
+STORMWATER_HEAD_STYLES = """  <style>
+    body[data-family="stormwater-noi"] .btn-buy,
+    body[data-family="stormwater-noi"] .mast-cta { background: hsl(var(--primary-surface)); color: hsl(var(--primary-foreground)); }
+    @media (prefers-color-scheme: light) {
+      body[data-family="stormwater-noi"] a:not(.btn-buy):not(.mast-cta) { color: hsl(var(--primary-surface-hover)); }
+    }
+    @media (max-width: 640px) {
+      body[data-family="stormwater-noi"] .wrap,
+      body[data-family="stormwater-noi"] section,
+      body[data-family="stormwater-noi"] p,
+      body[data-family="stormwater-noi"] li { min-width: 0; overflow-wrap: anywhere; }
+      body[data-family="stormwater-noi"] .evidence { max-width: 100%; overflow: hidden; }
+      body[data-family="stormwater-noi"] .scroll { max-width: 100%; overflow-x: auto; }
+      body[data-family="stormwater-noi"] .btn-buy:hover,
+      body[data-family="stormwater-noi"] .mast-cta:hover { background: hsl(var(--primary-surface-hover)); }
+    }
+    @media (min-width: 1024px) and (max-width: 1100px) {
+      body[data-family="stormwater-noi"] .masthead .wrap { flex-wrap: wrap; }
+      body[data-family="stormwater-noi"] .mast-nav { flex-basis: 100%; margin-left: 0; justify-content: flex-end; gap: 1rem; }
+    }
+  </style>
+"""
+
+OFF_SALE_HEAD_STYLES = """  <style>
+    /* Held dated packs: the availability action is normal-sized text. */
+    body[data-family="hospital-mrf"] .hero-cta .btn-ghost,
+    body[data-family="model-cards"] .hero-cta .btn-ghost {
+      color: hsl(var(--foreground));
+      border-color: hsl(var(--foreground) / .35);
+    }
+  </style>
+"""
+
+
 PAGE = """<!doctype html>
 <html lang="en">
 <head>
@@ -111,8 +234,8 @@ PAGE = """<!doctype html>
   <title>{title}</title>
   <meta name="description" content="{desc}">
   <link rel="canonical" href="https://ustechautomations.com/feeds/{id}">
-  <link rel="stylesheet" href="../../styles.css">
-  <meta name="theme-color" content="#7a3b12">
+  <link rel="stylesheet" href="{stylesheet_href}">
+{family_head_styles}  <meta name="theme-color" content="#7a3b12">
   <link rel="icon" type="image/svg+xml" href="/logo.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -147,7 +270,7 @@ PAGE = """<!doctype html>
       <div><dt>Price</dt><dd class="price">{price}</dd></div>
       <div><dt>Built for</dt><dd>{buyer}</dd></div>
       <div><dt>Cadence</dt><dd>{cadence_long}</dd></div>
-      <div><dt>{sample_dt}</dt><dd><span class="pill {pill_class}">{pill_label}</span></dd></div>
+      <div><dt>{sample_dt}</dt><dd>{status_cell}</dd></div>
     </dl>
 {hero_cta}  </div>
 </section>
@@ -211,6 +334,11 @@ def section(h2, seal, body):
 _SAMPLE_STATUS: dict[str, str] | None = None
 _FAM_ROWS: dict[str, dict] | None = None
 
+# These two dated pack pages are held while their current source acceptance is
+# pending. Keep the rule scoped here: other families continue to use the
+# ordinary catalog checkout branches unchanged.
+OFF_SALE_FAMILIES = frozenset({"hospital-mrf", "model-cards"})
+
 
 def fam_row(fid: str) -> dict:
     """This family's whole catalog row, read fresh off disk, or an empty dict.
@@ -233,6 +361,37 @@ def fam_row(fid: str) -> dict:
             if isinstance(row, dict) and row.get("id"):
                 _FAM_ROWS[row["id"]] = row
     return _FAM_ROWS.get(fid, {})
+
+
+def catalog_off_sale(spec: dict) -> bool:
+    """Return the guarded off-sale state for the two held dated packs.
+
+    The catalog is authoritative. A stale live status or a chargeable URL is
+    a build error, rather than a reason to silently render a page that says
+    purchases are unavailable.
+    """
+    fid = str(spec.get("id") or "")
+    if fid not in OFF_SALE_FAMILIES:
+        return False
+    row = fam_row(fid)
+    checkout = row.get("checkout") or {}
+    if str(checkout.get("status") or "").strip() != "off_sale":
+        raise ValueError(
+            f"{fid}: held dated pack requires catalog checkout.status='off_sale' "
+            "before its page can be rebuilt; nothing was written"
+        )
+    url = str(checkout.get("url") or "").strip()
+    if url and url != "TO-MINT":
+        raise ValueError(
+            f"{fid}: off-sale catalog row still carries a checkout URL; "
+            "nothing was written"
+        )
+    if "$" in str(row.get("price") or ""):
+        raise ValueError(
+            f"{fid}: off-sale catalog row still carries a dollar price; "
+            "nothing was written"
+        )
+    return True
 
 
 def price_of(spec: dict) -> str:
@@ -381,13 +540,13 @@ def delivery_sentence(spec: dict) -> str:
         )
     what = "the whole file" if "/mo" in price else "what you asked for"
     return (
-        f"<strong>What arrives after you pay:</strong> a person emails you {what} as a CSV "
+        f"<strong>What arrives after you pay:</strong> the buyer receives {what} as a CSV "
         # "the sample above" is one phrase pointing at two different files: the
         # worked example printed on the page, and the sample file the door hands
         # over. On /feeds/new-entities that ambiguity turned three true sentences
         # about the table into three false ones about the file. Say which.
         "&mdash; the same plain spreadsheet as the sample file above, not a login and not a web "
-        "page &mdash; within one working day of your payment."
+        "page &mdash;."
     )
 
 
@@ -523,6 +682,19 @@ def offer_block(spec: dict) -> tuple[str, str]:
     door = sample_door(spec)
     subj = spec["subj"]
     mail = f"mailto:operations@ustechautomations.com?subject={subj}"
+    if catalog_off_sale(spec):
+        hero = (
+            f'    <p class="hero-cta"><a class="btn btn-ghost btn-lg" href="{mail}">'
+            f'{html.escape(spec["contact_cta"])}</a>'
+            '<span class="btn-note">Purchases and public samples are unavailable.</span></p>\n'
+        )
+        sec = f'''    <section class="contact">
+      <h2>{html.escape(spec["contact_h2"])}</h2>
+      <p>{html.escape(spec["contact_p"])}</p>
+      <p class="mail-note">{html.escape(spec["contact_note"])}</p>
+    </section>
+'''
+        return hero, sec
     # TO-MINT is a catalog placeholder, not a chargeable address. Drawing it as
     # a button would send a stranger nowhere.
     checkout_href = str(c.get("url") or "").strip()
@@ -537,14 +709,8 @@ def offer_block(spec: dict) -> tuple[str, str]:
         # email first, and we should not be able to change it without changing
         # the record this comes out of.
         written = ""
-        if c.get("terms"):
-            after = c.get("after")
-            written = (
-                '      <p class="mail-note"><strong>What you would be paying for:</strong> '
-                + html.escape(c["terms"])
-                + (" " + html.escape(after) if after else "")
-                + "</p>\n"
-            )
+        # This branch has no chargeable address. Catalog terms name a dollar
+        # amount the page cannot take, so they stay off the page.
         # A family that sells per board carries no url of its own, and until
         # 2026-08-25 this branch then told the buyer "No pay button on this one
         # yet" -- which went false the day the six permit-file boards were
@@ -581,7 +747,7 @@ def offer_block(spec: dict) -> tuple[str, str]:
     label = c.get("label") or f'Subscribe — {price_of(spec)}'
     terms = c.get("terms") or "Cancel any time by email."
     after = c.get("after") or (
-        "After you pay we email you within one working day to confirm exactly what you get and when."
+        "After you pay, the buyer receives confirmation of exactly what you get and when."
     )
     hero = (
         f'    <p class="hero-cta"><a class="btn btn-buy" href="{url}" '
@@ -597,6 +763,36 @@ def offer_block(spec: dict) -> tuple[str, str]:
     </section>
 """
     return hero, door + sec
+
+
+# BRAND.md §7 bans the decorative status badge (.pill / .pill-ready / .pill-hold)
+# and replaces it with muted text plus a muted icon in no container: the .state
+# span the stylesheet already defines. Every family page uses this. The icon
+# differs by SHAPE and by the words beside it, never by colour: it draws in
+# currentColor (--muted-fg here). A ready sample gets a check; anything not
+# ready gets a hollow ring. aria-hidden because the words already carry the fact.
+_STATE_ICON_READY = (
+    '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">'
+    '<path fill="currentColor" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zm3.03 '
+    '4.72a.75.75 0 010 1.06l-3.9 3.9a.75.75 0 01-1.06 0L4.97 9.13a.75.75 0 '
+    '011.06-1.06l1.57 1.57 3.37-3.37a.75.75 0 011.06 0z"/></svg>'
+)
+_STATE_ICON_HOLD = (
+    '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">'
+    '<path fill="currentColor" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zm0 '
+    '1.5a5 5 0 110 10 5 5 0 010-10z"/></svg>'
+)
+
+
+def muted_state(label: str, *, ready: bool) -> str:
+    """Plain muted status text plus a muted icon. Same fact, no badge."""
+    icon = _STATE_ICON_READY if ready else _STATE_ICON_HOLD
+    return f'<span class="state">{icon}{html.escape(label)}</span>'
+
+
+def status_cell(spec: dict, *, ready: bool, on_page: bool, pill_class: str) -> str:
+    """The hero-rail status. Plain muted state text, never a decorative badge."""
+    return muted_state(spec["pill_label"], ready=ready or on_page)
 
 
 def render(spec: dict) -> str:
@@ -621,6 +817,7 @@ def render(spec: dict) -> str:
     # take it straight back off new-entities without anything noticing.
     if spec.get("hero_note"):
         hero_cta = f'    <p class="hero-note">{spec["hero_note"]}</p>\n' + hero_cta
+    family_head = bool(spec.get("plain_status") or spec.get("id") == "stormwater-noi")
     out = PAGE.format(
         hero_cta=hero_cta,
         offer=offer,
@@ -642,6 +839,10 @@ def render(spec: dict) -> str:
         # words above stopped saying.
         pill_class="pill-ready" if (ready or on_page) else "pill-hold",
         pill_label=spec["pill_label"],
+        status_cell=status_cell(
+            spec, ready=ready, on_page=on_page,
+            pill_class="pill-ready" if (ready or on_page) else "pill-hold",
+        ),
         h1=spec["h1"],
         lede=spec["lede"],
         price=price,
@@ -653,6 +854,12 @@ def render(spec: dict) -> str:
         contact_cta=spec["contact_cta"],
         contact_note=spec["contact_note"],
         foot=spec["foot"],
+        stylesheet_href="../../styles.css?v=20c6fb0529" if family_head else "../../styles.css",
+        family_head_styles=(TTB_ACCESSIBLE_FEED_HEAD_STYLES if spec.get("id") == "ttb"
+                            else ACCESSIBLE_FEED_HEAD_STYLES if spec.get("id") in {"air-permits", "grid"}
+                            else COVERAGE_HEAD_STYLES if spec.get("id") == "coverage"
+                            else OFF_SALE_HEAD_STYLES if spec.get("off_sale")
+                            else STORMWATER_HEAD_STYLES if family_head else ""),
     )
     return out
 

@@ -15,13 +15,15 @@ from decimal import Decimal
 
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse, JSONResponse
+from starlette.concurrency import run_in_threadpool
 
 from . import (FREE_LEDGERMATCH_ROWS, FREE_LEDGERMATCH_WORKSPACES, PRO_LEDGERMATCH_ROWS,
-               check_key, clean_domain, clean_label, get_secret, get_store, note_event,
-               now_iso, over_free_limit, quota_add, quota_drop, read_payload, refuse,
+               check_key, check_ref, clean_domain, clean_label, get_secret, get_store,
+               get_stripe_reader, note_event, now_iso, over_free_limit, quota_add, quota_drop, read_payload, refuse,
                refuse_html, service_base, today_words)
 from . import matching as M
 from . import templates as T
+from ...lib import prokey
 from ..store import new_id
 
 FAMILY = "ledgermatch"
@@ -35,13 +37,18 @@ KIND_LABEL = {
     "missing_on_b": "Only on one list",
     "missing_on_a": "Only on one list",
 }
-KIND_TAG = {
-    "matched": "t-ok",
-    "amount_differs": "t-warn",
-    "ref_written_differently": "t-info",
-    "split_payment_candidate": "t-info",
-    "missing_on_b": "t-warn",
-    "missing_on_a": "t-warn",
+# Which icon shape stands beside each finding. BRAND.md §7 bans the coloured
+# `t-ok / t-warn / t-info` chips these replaced: a state is told apart by its
+# words and by the SHAPE of its icon, never by a colour, so "amount differs"
+# gets two unequal bars, "written differently" an arrow, "looks split" a fork
+# and "only on one list" a single stroke.
+KIND_SHAPE = {
+    "matched": "yes",
+    "amount_differs": "differs",
+    "ref_written_differently": "renamed",
+    "split_payment_candidate": "split",
+    "missing_on_b": "one_side",
+    "missing_on_a": "one_side",
 }
 
 EXAMPLE = "INV-1001, 2026-03-04, 1,250.00\nINV-1002, 480.00\nCR-77, (45.00)"
@@ -108,11 +115,11 @@ _PASTE_JS = """
   .then(function(r){return r.json().then(function(j){return {s:r.status,j:j};});})
   .then(function(res){
    b.disabled=false; b.textContent='Compare the two lists';
-   if(res.s>=400||res.j.ok===false){out.className='err';
+   if(res.s>=400||res.j.ok===false){out.className='lp-alert';
     out.textContent=res.j.error||'Something went wrong. Try again.'; return;}
    window.location.href=res.j.report_link;})
   .catch(function(){b.disabled=false; b.textContent='Compare the two lists';
-   out.className='err'; out.textContent='We could not reach the server. Try again.';});
+   out.className='lp-alert'; out.textContent='We could not reach the server. Try again.';});
  });
 })();
 </script>
@@ -131,22 +138,30 @@ async def paste_page(ws_id: str, request: Request):
     if ws.get("rows_b"):
         already = ('<div class="card"><p>Someone has already pasted a list here. If you paste '
                    "again, the new list replaces the old one.</p></div>")
-    body = (
-        f'<div class="card"><p><b>{T.esc(ws["label_a"])}</b> wants to check their record of '
-        f"your account against yours.</p>"
+    intro = T.section(
+        f'<p><b>{T.esc(ws["label_a"])}</b> wants to check their record of your account '
+        "against yours.</p>"
         "<p>Paste your list of the invoices that are still open between you. One row per line: "
         "the invoice reference, the date if you have it, and the amount. A comma, a tab or two "
         "spaces between them all work.</p>"
-        f"<p>Like this:</p><pre><code>{T.esc(EXAMPLE)}</code></pre></div>"
-        + already +
+        f'<p>Like this:</p><pre class="lp-sample"><code>{T.esc(EXAMPLE)}</code></pre>')
+    # One primary action on this page, and it is the compare button (BRAND.md §5).
+    form = T.section(
+        already +
         '<form id="pform" method="post">'
-        '<textarea class="big" name="rows_text" placeholder="Paste your rows here"></textarea>'
-        "<p><button>Compare the two lists</button></p></form>"
-        '<div id="out"></div>' + _PASTE_JS)
+        '<div class="lp-row"><label for="rows">Your open invoices, one to a line</label>'
+        '<textarea class="field lp-paste" id="rows" name="rows_text" '
+        'placeholder="Paste your rows here"></textarea></div>'
+        '<p class="lp-actions"><button class="btn btn-buy lp-go">'
+        "Compare the two lists</button></p></form>"
+        '<div id="out"></div>' + _PASTE_JS,
+        heading="Your list")
+    body = intro + form
     return HTMLResponse(T.page(title="Paste your list of open invoices",
                                family=FAMILY, event="b_open", body=body,
                                heading="Paste your list of open invoices",
-                               lede=f"So you and {ws['label_a']} can see where the two lists differ."))
+                               lede=f"So you and {ws['label_a']} can see where the two lists differ.",
+                               eyebrow="Both sides, side by side"))
 
 
 def _report_html(ws, report, base):
@@ -161,7 +176,7 @@ def _report_html(ws, report, base):
         (c["ref_written_differently"], "Written differently"),
         (c["split_payment_candidate"], "Looks split"),
     ]
-    counts = '<div class="counts">' + "".join(
+    counts = '<div class="lp-tally">' + "".join(
         f"<div><b>{n}</b><span>{T.esc(label)}</span></div>" for n, label in tiles) + "</div>"
     rows = []
     for f in report["findings"]:
@@ -172,22 +187,26 @@ def _report_html(ws, report, base):
         elif kind == "missing_on_a":
             label = f"Only on {label_b}"
         rows.append(
-            f'<tr><td><span class="tag {KIND_TAG.get(kind, "")}">{T.esc(label)}</span></td>'
-            f'<td>{T.esc(f["ref_a"])}</td><td class="num">{T.esc(f["amount_a"])}</td>'
-            f'<td>{T.esc(f["ref_b"])}</td><td class="num">{T.esc(f["amount_b"])}</td>'
+            f'<tr><td>{T.state(label, KIND_SHAPE.get(kind, "none"))}</td>'
+            f'<td>{T.esc(f["ref_a"])}</td><td class="num lp-num">{T.esc(f["amount_a"])}</td>'
+            f'<td>{T.esc(f["ref_b"])}</td><td class="num lp-num">{T.esc(f["amount_b"])}</td>'
             f'<td>{T.esc(f["note"])}</td></tr>')
-    table = ('<div class="scroll"><table><tr><th>What we found</th>'
+    table = ('<table class="lp-wide"><thead><tr><th>What we found</th>'
              f"<th>{T.esc(label_a)} reference</th><th>{T.esc(label_a)} amount</th>"
              f"<th>{T.esc(label_b)} reference</th><th>{T.esc(label_b)} amount</th>"
-             "<th>Note</th></tr>" + "".join(rows) + "</table></div>")
-    totals = (f'<div class="card"><p>{T.esc(label_a)} listed {t["rows_a"]} rows adding up to '
+             "<th>Note</th></tr></thead><tbody>" + "".join(rows) + "</tbody></table>")
+    totals = (f'<p>{T.esc(label_a)} listed {t["rows_a"]} rows adding up to '
               f'{T.esc(t["total_a"])}. {T.esc(label_b)} listed {t["rows_b"]} rows adding up to '
-              f'{T.esc(t["total_b"])}. The gap is {T.esc(t["total_difference"])}.</p></div>')
-    body = (f'<div class="card"><p>{T.esc(report["summary"])}</p></div>' + counts
-            + totals + table)
+              f'{T.esc(t["total_b"])}. The gap is {T.esc(t["total_difference"])}.</p>')
+    body = (T.section(f'<p>{T.esc(report["summary"])}</p>' + totals)
+            + T.section(counts, heading="How many of each")
+            + T.section(T.evidence("Every row, on both lists",
+                                   table, f"{t['rows_a']} and {t['rows_b']} rows"),
+                        heading="Line by line"))
     return T.page(title="Where the two lists differ", family=FAMILY, event="report_open",
                   body=body, heading="Where the two lists differ",
-                  lede=f"{T.esc(label_a)} and {T.esc(label_b)}, compared line by line.")
+                  lede=f"{label_a} and {label_b}, compared line by line.",
+                  eyebrow="Nobody is called wrong")
 
 
 @router.get("/r/{ws_id}")
@@ -207,6 +226,12 @@ async def report_page(ws_id: str, request: Request, e: str = ""):
         if wants_json:
             return refuse(reason, 403)
         return refuse_html(FAMILY, "We need the whole link", reason, 403, "report_open")
+    if ws.get("pro"):
+        pro, key_reason, key_status = await run_in_threadpool(
+            check_ref, store, get_secret(request), ws.get("pro_ref"), FAMILY,
+            get_stripe_reader(request))
+        if not pro:
+            return refuse(key_reason or "This compare no longer has paid access.", key_status or 403)
     rows_a = rows_from_store(ws.get("rows_a"))
     rows_b = rows_from_store(ws.get("rows_b"))
     if not rows_b:
@@ -214,7 +239,8 @@ async def report_page(ws_id: str, request: Request, e: str = ""):
                   "if it has been a while.")
         if wants_json:
             return JSONResponse({"ok": True, "waiting_for": "b", "note": reason})
-        return refuse_html(FAMILY, "Nothing to compare yet", reason, 200, "report_open")
+        return refuse_html(FAMILY, "Nothing to compare yet", reason, 200, "report_open",
+                           tone="note")
     report = M.compare(rows_a, rows_b, ws["label_a"], ws["label_b"],
                        ws.get("date_style_a", "none"), ws.get("date_style_b", "none"))
     if wants_json:
@@ -240,9 +266,10 @@ async def new_workspace(request: Request):
     label_b, reason = clean_label(data.get("label_b"), "Their list")
     if reason:
         return refuse(reason)
-    pro, key_reason = check_key(store, secret, data.get("key"), FAMILY)
+    pro, key_reason, key_status = await run_in_threadpool(
+        check_key, store, secret, data.get("key"), FAMILY, get_stripe_reader(request))
     if key_reason:
-        return refuse(key_reason)
+        return refuse(key_reason, key_status or 400)
     if not pro and over_free_limit(store, "cm_quota", firm, FREE_LEDGERMATCH_WORKSPACES):
         return refuse(
             f"The free plan covers {FREE_LEDGERMATCH_WORKSPACES} open compares at a time for "
@@ -252,9 +279,11 @@ async def new_workspace(request: Request):
     if reason:
         return refuse(reason, 402 if "free plan" in reason else 400)
     ws_id, a_edit_id, b_edit_id = new_id(), new_id(), new_id()
+    claim = prokey.verify(secret, data.get("key")) if pro else None
     store.put("cm_workspaces", ws_id, {
         "ws_id": ws_id, "firm_domain": firm, "label_a": label_a, "label_b": label_b,
         "a_edit_id": a_edit_id, "b_edit_id": b_edit_id, "pro": pro,
+        "pro_ref": claim["ref"] if claim else None,
         "rows_a": rows_to_store(rows), "rows_b": [], "date_style_a": date_style,
         "date_style_b": "none", "created": now_iso(), "created_words": today_words()})
     store.put("cm_edits", a_edit_id, {"ws_id": ws_id})
@@ -279,7 +308,14 @@ async def paste_b(ws_id: str, request: Request):
     data = await read_payload(request)
     if "__refused__" in data:
         return refuse(data["__refused__"])
-    rows, date_style, reason = _parse_side(data.get("rows_text"), bool(ws.get("pro")))
+    pro = bool(ws.get("pro"))
+    if pro:
+        pro, key_reason, key_status = await run_in_threadpool(
+            check_ref, store, get_secret(request), ws.get("pro_ref"), FAMILY,
+            get_stripe_reader(request))
+        if not pro:
+            return refuse(key_reason or "This compare no longer has paid access.", key_status or 403)
+    rows, date_style, reason = _parse_side(data.get("rows_text"), pro)
     if reason:
         return refuse(reason, 402 if "free plan" in reason else 400)
     ws["rows_b"] = rows_to_store(rows)

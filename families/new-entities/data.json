@@ -1,21 +1,29 @@
 {
   "family": "new-entities",
-  "generated": "2026-09-07",
+  "generated": "2026-09-10",
   "slices": [
     {
-      "slug": "chicago",
-      "newest": "2026-09-07",
+      "slug": "san-francisco",
+      "newest": "2026-09-09",
       "oldest": "2026-06-26",
-      "runs": 63,
-      "row_count": 3544,
+      "runs": 65,
+      "row_count": 4805,
+      "cadence_days": 1
+    },
+    {
+      "slug": "chicago",
+      "newest": "2026-09-10",
+      "oldest": "2026-06-26",
+      "runs": 66,
+      "row_count": 3626,
       "cadence_days": 1
     },
     {
       "slug": "coverage",
-      "newest": "2026-09-07",
+      "newest": "2026-09-10",
       "oldest": "2026-06-26",
-      "runs": 63,
-      "row_count": 19225,
+      "runs": 66,
+      "row_count": 19363,
       "cadence_days": 1
     }
   ]

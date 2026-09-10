@@ -1,60 +1,60 @@
 {
   "family": "ai-terms",
-  "generated": "2026-09-07",
+  "generated": "2026-09-10",
   "slices": [
     {
       "slug": "privacy-policies",
-      "newest": "2026-09-07",
+      "newest": "2026-09-10",
       "oldest": "2026-07-10",
-      "runs": 59,
+      "runs": 62,
       "row_count": 747,
       "cadence_days": 1
     },
     {
       "slug": "terms-of-service",
-      "newest": "2026-09-07",
+      "newest": "2026-09-10",
       "oldest": "2026-07-10",
-      "runs": 59,
-      "row_count": 734,
+      "runs": 62,
+      "row_count": 744,
       "cadence_days": 1
     },
     {
       "slug": "data-use-and-limits",
-      "newest": "2026-09-07",
+      "newest": "2026-09-10",
       "oldest": "2026-07-10",
-      "runs": 59,
+      "runs": 62,
       "row_count": 59,
       "cadence_days": 1
     },
     {
       "slug": "model-retirements",
-      "newest": "2026-09-07",
+      "newest": "2026-09-10",
       "oldest": "2026-07-10",
-      "runs": 59,
+      "runs": 62,
       "row_count": 11,
       "cadence_days": 1
     },
     {
       "slug": "whole-page-rewrites",
-      "newest": "2026-09-07",
+      "newest": "2026-09-10",
       "oldest": "2026-07-10",
-      "runs": 59,
+      "runs": 62,
       "row_count": 15,
       "cadence_days": 1
     },
     {
       "slug": "by-vendor",
-      "newest": "2026-09-07",
+      "newest": "2026-09-10",
       "oldest": "2026-07-10",
-      "runs": 59,
-      "row_count": 1558,
+      "runs": 62,
+      "row_count": 1568,
       "cadence_days": 1
     },
     {
       "slug": "coverage",
-      "newest": "2026-09-07",
+      "newest": "2026-09-10",
       "oldest": "2026-07-10",
-      "runs": 59,
+      "runs": 62,
       "row_count": 186,
       "cadence_days": 1
     }

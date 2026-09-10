@@ -22,11 +22,12 @@ def check(cond: bool, msg: str) -> None:
 
 def main() -> int:
     # --- kill rules: known-good (a healthy family fires nothing) --------------
-    healthy = {"answered": 3, "paid": 1, "paid_30d": 1, "b_pasted": 9, "cloners": 40, "embed_hosts": 2}
+    evidence = {"answered":"QUALIFIED", "b_pasted":"QUALIFIED", "cloners":"QUALIFIED", "embed_hosts":"QUALIFIED", "paid":"OBSERVED", "paid_30d":"OBSERVED"}
+    healthy = {"metric_evidence": evidence, "answered": 3, "paid": 1, "paid_30d": 1, "b_pasted": 9, "cloners": 40, "embed_hosts": 2}
     for fid in metrics.FAMILIES:
         check(metrics.evaluate(fid, 60, healthy) == [], f"{fid}: healthy family fired a rule")
     # --- known-bad (a dead family fires on the right day, not before) ---------
-    dead = {"answered": 0, "paid": 0, "paid_30d": 0, "b_pasted": 0, "cloners": 0, "embed_hosts": 0}
+    dead = {"metric_evidence": evidence, "answered": 0, "paid": 0, "paid_30d": 0, "b_pasted": 0, "cloners": 0, "embed_hosts": 0}
     check(metrics.evaluate("qrelay", 13, dead) == [], "qrelay fired before day 14")
     check(len(metrics.evaluate("qrelay", 14, dead)) == 1, "qrelay did not fire on day 14")
     check(len(metrics.evaluate("qrelay", 45, dead)) == 2, "qrelay did not fire both rules on day 45")
@@ -34,9 +35,10 @@ def main() -> int:
     check(len(metrics.evaluate("casepack", 21, dead)) == 1, "casepack did not fire on day 21")
     check(len(metrics.evaluate("acacheck", 14, {**dead, "cloners": 19})) == 1, "acacheck 19 cloners must fire")
     check(metrics.evaluate("acacheck", 14, {**dead, "cloners": 20}) == [], "acacheck 20 cloners must pass")
-    # unknown counts fire (never round unknown up to fine)
-    check(len(metrics.evaluate("schemahand", 14, {"cloners": None, "paid": 0, "paid_30d": 0})) == 1,
-          "unknown cloners must count as failing")
+    unknown = metrics.evaluate("schemahand", 14, {"cloners": None, "paid": None, "paid_30d": None})
+    check(len(unknown) == 1 and unknown[0].startswith("UNKNOWN "),
+          "unavailable data must not trigger a kill verdict")
+    check(metrics.payments("schemahand") is None, "delivery rows must not be payment counts")
     # not-live family never fires
     check(metrics.evaluate("ledgermatch", None, dead) == [], "not-live family fired")
     # double rule
@@ -45,9 +47,10 @@ def main() -> int:
 
     # --- ledger: floor and share -----------------------------------------------
     now = dt.datetime.now(dt.timezone.utc)
-    check(ledger.allowance(now) >= ledger.FLOOR_USD, "allowance below the floor")
-    check(ledger.SHARE == 0.30, "share is not 30%")
-    check(ledger.spend_7d(now) >= 0, "spend went negative")
+    check(ledger.spend_7d(now) is None, "unobserved billing must remain unknown")
+    check(ledger.allowance(now) == 0 and ledger.allowed(now) is False,
+          "revenue or a floor must never authorize spending")
+    check(ledger.revenue_30d(now) is None, "unconnected payment attribution must remain unknown")
 
     if FAILS:
         for f in FAILS:

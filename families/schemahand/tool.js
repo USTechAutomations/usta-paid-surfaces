@@ -790,6 +790,26 @@
 
   // --- layered layout, no library ------------------------------------------
 
+  // SVG has no reliable text measurement before it is attached to a document.
+  // Reserve conservative widths for 14px mono columns and the wider 600-weight
+  // Satoshi titles so an identity never gets clipped; the rendered-text
+  // regression covers this approximation in the editor and both saved HTML forms.
+  function labelExtent(text, title) {
+    var units = 0;
+    Array.prototype.forEach.call(String(text), function (ch) {
+      // Satoshi's 600-weight title W is wider than a 14px mono column glyph.
+      units += ch.charCodeAt(0) > 0x7f ? 15 : (title ? 15 : 9);
+    });
+    return units;
+  }
+
+  function columnLabel(t, c) {
+    var marks = [];
+    if (c.pk || t.pk.indexOf(c.name) !== -1) marks.push("PK");
+    if (c.fk) marks.push("FK");
+    return (marks.length ? marks.join("/") + " " : "") + c.name + " : " + (c.type || "");
+  }
+
   function layoutTables(model) {
     var byKey = {};
     model.tables.forEach(function (t) { byKey[(t.schema || "") + " " + t.name] = t; });
@@ -821,16 +841,37 @@
       var l = layerOf[k];
       (byLayer[l] = byLayer[l] || []).push(k);
     });
-    var COL_W = 260, ROW_GAP = 24, PAD = 24, HEADER_H = 26, ROW_H = 18;
+    var ROW_GAP = 24, LAYER_GAP = 48, PAD = 24, HEADER_H = 30, ROW_H = 22, MIN_W = 260;
+    var sizes = {};
+    keys.forEach(function (k) {
+      var t = byKey[k];
+      var widest = labelExtent(tableLabel(t), true);
+      t.columns.forEach(function (c) { widest = Math.max(widest, labelExtent(columnLabel(t, c))); });
+      sizes[k] = {
+        w: Math.max(MIN_W, widest + 24),
+        h: HEADER_H + Math.max(1, t.columns.length) * ROW_H + 10
+      };
+    });
+    var layerWidths = {};
+    Object.keys(byLayer).forEach(function (lStr) {
+      layerWidths[lStr] = byLayer[lStr].reduce(function (width, k) {
+        return Math.max(width, sizes[k].w);
+      }, MIN_W);
+    });
+    var layerX = {}, nextX = PAD;
+    Object.keys(byLayer).sort(function (a, b) { return a - b; }).forEach(function (lStr) {
+      layerX[lStr] = nextX;
+      nextX += layerWidths[lStr] + LAYER_GAP;
+    });
     var pos = {};
     Object.keys(byLayer).sort(function (a, b) { return a - b; }).forEach(function (lStr) {
       var l = Number(lStr);
       var y = PAD;
       byLayer[l].forEach(function (k) {
         var t = byKey[k];
-        var h = HEADER_H + Math.max(1, t.columns.length) * ROW_H + 10;
-        pos[k] = { x: PAD + l * COL_W, y: y, w: COL_W - 40, h: h };
-        y += h + ROW_GAP;
+        var size = sizes[k];
+        pos[k] = { x: layerX[lStr], y: y, w: size.w, h: size.h };
+        y += size.h + ROW_GAP;
       });
     });
     return pos;
@@ -868,9 +909,9 @@
     });
 
     var svg = svgEl("svg", {
-      viewBox: "0 0 " + Math.max(maxX, 600) + " " + Math.max(maxY, 400),
-      width: "100%", height: "100%",
-      "font-family": "system-ui, sans-serif", "font-size": "12",
+      viewBox: "0 0 " + Math.max(maxX, opts.exported ? 320 : 600) + " " + Math.max(maxY, opts.exported ? 180 : 400),
+      width: opts.exported ? Math.max(maxX, 320) : Math.max(maxX, 600), height: opts.exported ? Math.max(maxY, 180) : Math.max(maxY, 400),
+      "font-family": "var(--sans, system-ui, sans-serif)", "font-size": "14",
       class: "sh-svg",
     });
     var g = svgEl("g", { class: "sh-pan-zoom" });
@@ -907,16 +948,13 @@
       var box = svgEl("g", { class: "sh-table", "data-table": key, transform: "translate(" + p.x + "," + p.y + ")" });
       box.appendChild(svgEl("rect", { class: "sh-table-bg", width: p.w, height: p.h, rx: 6 }));
       box.appendChild(svgEl("rect", { class: "sh-table-head", width: p.w, height: 24, rx: 6 }));
-      var title = svgEl("text", { class: "sh-table-title", x: 8, y: 16 });
+      var title = svgEl("text", { class: "sh-table-title", x: 8, y: 20 });
       title.textContent = tableLabel(t);
       box.appendChild(title);
       t.columns.forEach(function (c, idx) {
-        var y = 24 + idx * 18 + 13;
-        var marks = [];
-        if (c.pk || t.pk.indexOf(c.name) !== -1) marks.push("PK");
-        if (c.fk) marks.push("FK");
+        var y = 30 + idx * 22 + 16;
         var row = svgEl("text", { class: "sh-col", x: 10, y: y, "data-col": c.name });
-        row.textContent = (marks.length ? marks.join("/") + " " : "") + c.name + " : " + (c.type || "");
+        row.textContent = columnLabel(t, c);
         box.appendChild(row);
       });
       boxesLayer.appendChild(box);
@@ -928,7 +966,7 @@
     });
 
     root.appendChild(svg);
-    attachPanZoom(svg, g);
+    if (!opts.exported) attachPanZoom(svg, g);
     return svg;
   }
 
@@ -946,70 +984,162 @@
 
   function attachPanZoom(svg, g) {
     var scale = 1, tx = 0, ty = 0;
-    var dragging = false, lastX = 0, lastY = 0;
+    var dragging = false, panning = false, pointerId = null, lastX = 0, lastY = 0;
     function apply() {
       g.setAttribute("transform", "translate(" + tx + "," + ty + ") scale(" + scale + ")");
     }
     svg.addEventListener("wheel", function (ev) {
+      // Leave ordinary mouse and trackpad scrolling to the scroll container.
+      // Zoom is deliberate and requires the platform's usual modifier.
+      if (!ev.ctrlKey && !ev.metaKey) return;
       ev.preventDefault();
       var delta = ev.deltaY > 0 ? 0.9 : 1.1;
       scale = Math.min(4, Math.max(0.2, scale * delta));
       apply();
     }, { passive: false });
-    svg.addEventListener("mousedown", function (ev) {
-      dragging = true; lastX = ev.clientX; lastY = ev.clientY;
+    svg.addEventListener("pointerdown", function (ev) {
+      if (ev.button !== 0) return;
+      dragging = true; panning = false; pointerId = ev.pointerId; lastX = ev.clientX; lastY = ev.clientY;
     });
-    window.addEventListener("mouseup", function () { dragging = false; });
-    window.addEventListener("mousemove", function (ev) {
+    function stopDragging() {
+      if (pointerId !== null && svg.hasPointerCapture(pointerId)) svg.releasePointerCapture(pointerId);
+      dragging = false; panning = false; pointerId = null;
+    }
+    svg.addEventListener("pointerup", stopDragging);
+    svg.addEventListener("pointercancel", stopDragging);
+    svg.addEventListener("pointermove", function (ev) {
       if (!dragging) return;
-      tx += ev.clientX - lastX; ty += ev.clientY - lastY;
+      // If a press was released outside before capture began, the SVG misses
+      // pointerup. A later hover must never resume that old drag.
+      if ((ev.buttons & 1) === 0) { stopDragging(); return; }
+      var dx = ev.clientX - lastX, dy = ev.clientY - lastY;
+      if (!panning && Math.abs(dx) + Math.abs(dy) < 4) return;
+      if (!panning) { panning = true; svg.setPointerCapture(ev.pointerId); }
+      ev.preventDefault();
+      tx += dx; ty += dy;
       lastX = ev.clientX; lastY = ev.clientY;
       apply();
     });
     apply();
   }
 
+  // Downloaded notes use the same table/column annotation keys as the tool.
+  function renderNotesEditor(root, model, annotations) {
+    root.textContent = "";
+    function field(group, labelText, key) {
+      var label = document.createElement("label");
+      label.textContent = labelText;
+      var input = document.createElement("textarea");
+      input.value = annotations[key] && annotations[key].note || "";
+      input.addEventListener("input", function () {
+        annotations[key] = {note: input.value};
+        document.getElementById("sh-print").innerHTML = printablePages(model, annotations);
+      });
+      label.appendChild(input);
+      group.appendChild(label);
+    }
+    model.tables.forEach(function (table) {
+      var key = keyOf(table);
+      var group = document.createElement("details");
+      var summary = document.createElement("summary");
+      summary.textContent = tableLabel(table);
+      group.appendChild(summary);
+      root.appendChild(group);
+      field(group, "Table notes", key);
+      table.columns.forEach(function (column) {
+        field(group, column.name + " — column notes", key + ":" + column.name);
+      });
+    });
+  }
+
+  function saveNotesCopy() {
+    // Serialize the data object, not stale textarea attributes in the DOM clone.
+    var copy = document.documentElement.cloneNode(true);
+    copy.querySelector("#schemahand-data").textContent = JSON.stringify(data).replace(/</g, "\\u003c");
+    copy.querySelector("#sh-notes").textContent = "";
+    copy.querySelector("#sh-print").innerHTML = printablePages(data.model, data.annotations);
+    var started = downloadFile("schema-handoff-package.html", "<!doctype html>\n" + copy.outerHTML, "text/html");
+    document.getElementById("sh-save-status").textContent = started
+      ? "Download requested. Check your browser downloads for the edited copy."
+      : "The download could not start. Your edited notes are still here; try saving again.";
+  }
+
   // --- HTML export (free + pro) ---------------------------------------------
 
   var VIEWER_RUNTIME = [
-    "(" + buildDiagram.toString() + ")",
-    "(" + layoutTables.toString() + ")",
-    "(" + highlightTable.toString() + ")",
-    "(" + attachPanZoom.toString() + ")",
-    "(" + svgEl.toString() + ")",
-    "(" + tableLabel.toString() + ")",
-    "(" + keyOf.toString() + ")",
-  ].join(";\n");
+    buildDiagram.toString(),
+    layoutTables.toString(),
+    labelExtent.toString(),
+    columnLabel.toString(),
+    highlightTable.toString(),
+    attachPanZoom.toString(),
+    svgEl.toString(),
+    tableLabel.toString(),
+    keyOf.toString(),
+    renderNotesEditor.toString(),
+    saveNotesCopy.toString(),
+    downloadFile.toString(),
+    printablePages.toString(),
+    escapeHtml.toString(),
+  ].join(";\n").replace(/\u0000/g, "\\u0000");
 
   function exportHtml(model, annotations, opts) {
     opts = opts || {};
     var editable = !!opts.editable;
-    var footer = editable ? "" : ('<footer class="sh-footer">' + FOOTER_LINE + "</footer>");
-    var dataBlock = JSON.stringify({ model: model, annotations: annotations || {} });
-    var html = "<!doctype html>\n<html lang=\"en\"><head><meta charset=\"utf-8\">" +
-      "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">" +
-      "<title>Schema diagram</title>" +
-      "<style>" + EXPORT_CSS + "</style></head><body>" +
-      "<div id=\"sh-root\" class=\"sh-root\"></div>" +
-      footer +
-      "<script type=\"application/json\" id=\"schemahand-data\">" + dataBlock + "</" + "script>" +
-      "<script>var SVG_NS=\"http://www.w3.org/2000/svg\";" + VIEWER_RUNTIME +
-      ";var data=JSON.parse(document.getElementById('schemahand-data').textContent);" +
-      "buildDiagram(document.getElementById('sh-root'), data.model, data.annotations, {editable:" + (editable ? "true" : "false") + "});" +
-      "</" + "script></body></html>";
-    return html;
+    var dataBlock = JSON.stringify({ model: model, annotations: annotations || {} }).replace(/</g, "\\u003c");
+    var title = editable ? "Schema diagram with editable notes" : "Schema diagram";
+    return '<!doctype html>\n<html lang="en"><head><meta charset="utf-8">' +
+      '<meta name="viewport" content="width=device-width,initial-scale=1"><title>' + title + '</title>' +
+      '<link rel="stylesheet" href="https://ustechautomations.com/feeds/styles.css">' +
+      '<style>' + EXPORT_CSS + '</style></head><body class="sh-document" data-family="schemahand">' +
+      '<a class="skip" href="#main">Skip to content</a>' +
+      '<header class="masthead"><div class="sh-doc-wrap">SchemaHand · schema handoff</div></header>' +
+      '<main id="main" class="sh-doc-wrap" tabindex="-1"><section class="hero"><h1>' + title + '</h1>' +
+      '<p>Tables and relationships from your SQL. Scroll inside the diagram to explore a large schema.</p>' +
+      (editable ? '<p>Edit table and column notes below, then save a new copy. Names, columns and relationships stay unchanged.</p><button class="btn btn-buy" type="button" id="sh-save-notes">Save edited copy</button><p id="sh-save-status" role="status"></p>' : '') +
+      '</section><section class="sh-diagram-section"><h2>Relationships</h2><div id="sh-root" class="sh-root" role="region" aria-label="Schema relationship diagram, scroll to explore" tabindex="0"></div></section>' +
+      (editable ? '<section class="sh-notes-editor"><h2>Editable notes</h2><p>Open a table to edit its notes. Changes stay in this browser until you save a new copy.</p><div id="sh-notes"></div></section><section id="sh-print" class="sh-print">' + printablePages(model, annotations) + '</section>' : '') +
+      '</main><footer class="site"><div class="sh-doc-wrap">' + (editable ? 'Schema snapshot with your local notes.' : FOOTER_LINE) + '</div></footer>' +
+      '<script type="application/json" id="schemahand-data">' + dataBlock + '</' + 'script>' +
+      '<script>var SVG_NS="http://www.w3.org/2000/svg";' + VIEWER_RUNTIME +
+      ';var data=JSON.parse(document.getElementById("schemahand-data").textContent);' +
+      'buildDiagram(document.getElementById("sh-root"),data.model,data.annotations,{exported:true});' +
+      (editable ? 'renderNotesEditor(document.getElementById("sh-notes"),data.model,data.annotations);document.getElementById("sh-save-notes").addEventListener("click",saveNotesCopy);' : '') +
+      '</' + 'script></body></html>';
   }
 
-  var EXPORT_CSS = ".sh-root{width:100%;height:100vh;}" +
-    ".sh-svg{width:100%;height:100%;background:#fafafa;}" +
-    ".sh-table-bg{fill:#fff;stroke:#c9c9c9;}" +
-    ".sh-table-head{fill:#eef2ff;stroke:#c9c9c9;}" +
-    ".sh-table-title{font-weight:600;}" +
-    ".sh-col{fill:#333;}" +
-    ".sh-edge{stroke:#8a8fa3;stroke-width:1.5;}" +
-    ".sh-edge-active{stroke:#2b6cb0;stroke-width:2.5;}" +
-    ".sh-selected .sh-table-bg{stroke:#2b6cb0;stroke-width:2;}" +
-    ".sh-footer{font:12px system-ui,sans-serif;color:#666;text-align:center;padding:8px;}";
+  // The online stylesheet supplies the shared brand and Satoshi. Canvas colors
+  // and system-ui are deliberate browser-native fallbacks for an offline file.
+  var EXPORT_CSS = '.sh-document{margin:0;color-scheme:light dark;background:var(--bg,Canvas);color:var(--fg,CanvasText);font:500 16px/1.65 var(--sans,system-ui,sans-serif);}' +
+    '.sh-document .sh-doc-wrap{max-width:1280px;margin:auto;padding:24px;box-sizing:border-box;}' +
+    '.sh-document .masthead{min-height:64px;position:static;border-bottom:1px solid var(--line,GrayText);}' +
+    '.sh-document .hero{padding:0;margin:1rem 0 2rem;}' +
+    '.sh-document h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:500;line-height:1.15;letter-spacing:-.025em;overflow-wrap:anywhere;margin:0 0 1rem;}' +
+    '.sh-document h2{font-size:1.5rem;font-weight:500;line-height:1.3;overflow-wrap:anywhere;margin:0 0 1rem;}' +
+    '.sh-document main section{max-width:none;margin-bottom:2.75rem;}' +
+    '.sh-document p{max-width:76ch;}' +
+    '.sh-document .sh-root{max-width:100%;overflow:auto;border:1px solid var(--line,GrayText);border-radius:var(--radius,.5rem);}' +
+    '.sh-document .sh-svg{display:block;max-width:none;background:var(--surface,Canvas);}' +
+    '.sh-document .sh-table-bg{fill:var(--surface,Canvas);stroke:var(--line,GrayText);}' +
+    '.sh-document .sh-table-head{fill:var(--surface-2,Canvas);stroke:var(--line,GrayText);}' +
+    '.sh-document .sh-table-title{font-weight:500;fill:var(--fg,CanvasText);}' +
+    '.sh-document .sh-col{fill:var(--fg,CanvasText);}' +
+    '.sh-document .sh-edge{stroke:var(--muted-fg,GrayText);stroke-width:1.5;}' +
+    '.sh-document .sh-edge-active{stroke:var(--accent,Highlight);stroke-width:2.5;}' +
+    '.sh-document .sh-selected .sh-table-bg{stroke:var(--accent,Highlight);stroke-width:2;}' +
+    '.sh-document .sh-notes-editor details{border-bottom:1px solid var(--line,GrayText);padding:.5rem 0;}' +
+    '.sh-document summary{min-height:44px;cursor:pointer;overflow-wrap:anywhere;}' +
+    '.sh-document label{display:block;max-width:76ch;margin:1rem 0;overflow-wrap:anywhere;}' +
+    '.sh-document textarea{display:block;width:100%;box-sizing:border-box;min-height:5rem;font:inherit;color:var(--fg,CanvasText);background:var(--surface,Canvas);border:1px solid var(--line,GrayText);border-radius:var(--radius,.5rem);padding:.75rem;}' +
+    '.sh-document button{min-height:44px;font:inherit;font-size:24px;line-height:1.2;padding:.5rem 1rem;transition:none;background:var(--surface,Canvas);background:hsl(var(--primary-surface));color:var(--fg,CanvasText);color:hsl(var(--primary-foreground));}' +
+    '.sh-document :focus-visible{outline:2px solid var(--accent,Highlight);outline-offset:3px;}' +
+    '.sh-document .sh-print-page{break-inside:avoid;}' +
+    '.sh-document table{width:100%;border-collapse:collapse;table-layout:fixed;font:inherit;}' +
+    '.sh-document th,.sh-document td{padding:.65rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--line,GrayText);overflow-wrap:anywhere;}' +
+    '.sh-document .site{border-top:1px solid var(--line,GrayText);font-size:.875rem;}' +
+    '@media(min-width:768px){.sh-document .sh-doc-wrap{padding:32px;}}' +
+    '@media(max-width:34rem){.sh-document button{width:100%;}}' +
+    '@media print{.sh-document .masthead,.sh-document .skip,.sh-document button,.sh-document .sh-notes-editor,.sh-document .sh-diagram-section{display:none;}.sh-document .sh-doc-wrap{padding:0;}.sh-document .sh-print-page{break-before:page;}.sh-document th,.sh-document td{font-size:10pt;}.sh-document{color-scheme:light;background:Canvas;color:CanvasText;}.sh-document th,.sh-document td,.sh-document .site{background:Canvas;color:CanvasText;border-color:GrayText;}}';
 
   function toCsvDataDictionary(model) {
     var rows = [["schema", "table", "column", "type", "primary_key", "foreign_key", "not_null", "default", "notes"]];
@@ -1025,41 +1155,65 @@
         ]);
       });
     });
+    if (rows.some(function (r) { return r.some(function (v) {
+      return /^(?:\s*[=+@-]|[\u0000-\u001f])/.test(String(v == null ? "" : v));
+    }); })) {
+      var error = new Error("CSV unavailable: a cell starts with a spreadsheet formula or control character. The HTML preserves your schema.");
+      error.code = "SCHEMAHAND_UNSAFE_CSV";
+      throw error;
+    }
     return rows.map(function (r) {
       return r.map(function (v) {
         var s = String(v == null ? "" : v);
-        if (/[",\n]/.test(s)) s = '"' + s.replace(/"/g, '""') + '"';
+        if (/[",\r\n]/.test(s)) s = '"' + s.replace(/"/g, '""') + '"';
         return s;
       }).join(",");
     }).join("\r\n");
   }
 
   function downloadFile(name, content, mime) {
+    var url = null, a = null;
     try {
       var blob = new Blob([content], { type: mime || "text/plain" });
-      var url = URL.createObjectURL(blob);
-      var a = document.createElement("a");
+      url = URL.createObjectURL(blob);
+      a = document.createElement("a");
       a.href = url;
       a.download = name;
       document.body.appendChild(a);
       a.click();
-      document.body.removeChild(a);
-      setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
-    } catch (e) { /* download is best-effort */ }
+      // A request was initiated; browser/OS save completion is not observable.
+      return true;
+    } catch (e) {
+      return false;
+    } finally {
+      if (a && a.parentNode) a.parentNode.removeChild(a);
+      if (url) setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+    }
   }
 
-  function printablePages(model) {
+  function escapeHtml(value) {
+    return String(value == null ? "" : value).replace(/[&<>"\']/g, function (c) {
+      return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "\'": "&#39;"}[c];
+    });
+  }
+
+  function printablePages(model, annotations) {
+    annotations = annotations || {};
     var parts = [];
     model.tables.forEach(function (t) {
-      parts.push('<section class="sh-print-page"><h2>' + tableLabel(t) + "</h2>");
-      if (t.comment) parts.push("<p>" + t.comment + "</p>");
+      parts.push('<section class="sh-print-page"><h2>' + escapeHtml(tableLabel(t)) + "</h2>");
+      if (t.comment) parts.push("<p>" + escapeHtml(t.comment) + "</p>");
+      var tableNote = annotations[keyOf(t)] && annotations[keyOf(t)].note;
+      if (tableNote) parts.push("<p>" + escapeHtml(tableNote) + "</p>");
       parts.push("<table><thead><tr><th>Column</th><th>Type</th><th>Notes</th></tr></thead><tbody>");
       t.columns.forEach(function (c) {
         var tags = [];
         if (c.pk || t.pk.indexOf(c.name) !== -1) tags.push("primary key");
         if (c.fk) tags.push("links to " + (c.fk.ref_table || ""));
         var note = (t.column_comments && t.column_comments[c.name]) || tags.join(", ");
-        parts.push("<tr><td>" + c.name + "</td><td>" + (c.type || "") + "</td><td>" + note + "</td></tr>");
+        var edited = annotations[keyOf(t) + ":" + c.name];
+        if (edited && edited.note) note += (note ? " — " : "") + edited.note;
+        parts.push("<tr><td>" + escapeHtml(c.name) + "</td><td>" + escapeHtml(c.type || "") + "</td><td>" + escapeHtml(note) + "</td></tr>");
       });
       parts.push("</tbody></table></section>");
     });
@@ -1074,8 +1228,21 @@
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ family: "schemahand", key: key }),
     }).then(function (res) {
-      if (!res.ok) throw new Error("verify failed");
-      return res.json();
+      return res.json().catch(function () { throw { code: "unavailable" }; }).then(function (result) {
+        if (res.status === 200 && result && result.ok === true && result.family === "schemahand" && result.plan === "annual") return result;
+        // A real service explicitly calls an unknown key "not one of ours".
+        // Other 200 bodies (including a missing signing secret or wrong product)
+        // cannot truthfully distinguish an unavailable authority from a denial.
+        if (res.status === 200 && result && result.ok === false && result.reason === "that key is not one of ours") {
+          throw { code: "denied" };
+        }
+        // SchemaHand's fresh refund, dispute, expiry and revocation authority
+        // returns a structured 403. It is a denial, but never unlocks anything.
+        if (res.status === 403 && result && result.ok === false && typeof result.reason === "string" && result.reason) {
+          throw { code: "denied" };
+        }
+        throw { code: "unavailable" };
+      });
     });
   }
 
@@ -1197,28 +1364,36 @@
       freeExportBtn.addEventListener("click", function () {
         if (!currentModel) { showError("Paste a schema and click Draw diagram first."); return; }
         var html = exportHtml(currentModel, annotations, { editable: false });
-        downloadFile("schema-diagram.html", html, "text/html");
-        beacon("export_free");
+        if (downloadFile("schema-diagram.html", html, "text/html")) beacon("export_free");
+        else showError("The download could not start. Your schema is retained; try again.");
       });
     }
 
+    var keyCheckSequence = 0;
     if (proUnlockBtn) {
       proUnlockBtn.addEventListener("click", function () {
         var key = proKeyInput ? proKeyInput.value.trim() : "";
+        var sequence = ++keyCheckSequence;
+        proKey = null;
+        if (proExportBtn) proExportBtn.hidden = true;
         if (!key) { if (proStatus) proStatus.textContent = "Paste your key first."; return; }
         if (proStatus) proStatus.textContent = "Checking your key…";
         verifyProKey(key).then(function () {
+          if (sequence !== keyCheckSequence) return;
           proKey = key;
           if (proStatus) proStatus.textContent = "Key accepted. The handoff package is unlocked below.";
           if (proExportBtn) proExportBtn.hidden = false;
-        }).catch(function () {
+        }).catch(function (error) {
+          if (sequence !== keyCheckSequence) return;
           if (proStatus) {
-            proStatus.textContent = "We could not check that key just now. Here is the free version instead.";
+            proStatus.textContent = error && error.code === "denied"
+              ? "That key is not active for SchemaHand. The free diagram remains available."
+              : "We could not check that key just now. The free diagram remains available.";
           }
           if (currentModel) {
             var html = exportHtml(currentModel, annotations, { editable: false });
-            downloadFile("schema-diagram.html", html, "text/html");
-            beacon("export_free");
+            if (downloadFile("schema-diagram.html", html, "text/html")) beacon("export_free");
+            else showError("The free download could not start. Your schema is retained.");
           }
         });
       });
@@ -1227,14 +1402,36 @@
     if (proExportBtn) {
       proExportBtn.addEventListener("click", function () {
         if (!currentModel || !proKey) return;
-        var html = exportHtml(currentModel, annotations, { editable: true });
-        var printPages = printablePages(currentModel);
-        html = html.replace("</body></html>",
-          '<section class="sh-print">' + printPages + "</section></body></html>");
-        downloadFile("schema-handoff-package.html", html, "text/html");
-        var csv = toCsvDataDictionary(currentModel);
-        downloadFile("schema-data-dictionary.csv", csv, "text/csv");
-        beacon("export_pro");
+        // Authority can expire or be refunded after unlocking; check this export.
+        var checkedKey = proKey;
+        proExportBtn.disabled = true;
+        if (proStatus) proStatus.textContent = "Checking access before export…";
+        verifyProKey(checkedKey).then(function () {
+          if (proKey !== checkedKey || !currentModel) return;
+          try {
+          var html = exportHtml(currentModel, annotations, { editable: true });
+          var csv = null;
+          try { csv = toCsvDataDictionary(currentModel); } catch (e) {
+            if (!e || e.code !== "SCHEMAHAND_UNSAFE_CSV") throw e;
+          }
+          var htmlStarted = downloadFile("schema-handoff-package.html", html, "text/html");
+          var csvStarted = csv !== null && downloadFile("schema-data-dictionary.csv", csv, "text/csv");
+          if (htmlStarted && csvStarted) {
+            if (proStatus) proStatus.textContent = "HTML and CSV download requests started. Check your browser downloads.";
+            beacon("export_pro");
+          } else if (htmlStarted && csv === null) {
+            if (proStatus) proStatus.textContent = "HTML download requested. CSV is unavailable because a cell could be interpreted as a spreadsheet formula. Your schema stays unchanged in the HTML.";
+          } else {
+            if (proStatus) proStatus.textContent = "One or more downloads could not start. Your schema is retained; check browser downloads and try again.";
+          }
+          } catch (exportError) {
+            if (proStatus) proStatus.textContent = "The export could not be prepared. Your schema and checked key are retained; try again.";
+          }
+        }, function () {
+          proKey = null;
+          proExportBtn.hidden = true;
+          if (proStatus) proStatus.textContent = "Paid access could not be confirmed. Your schema is retained; check your key again.";
+        }).finally(function () { proExportBtn.disabled = false; });
       });
     }
   }
@@ -1257,6 +1454,7 @@
       layoutTables: layoutTables,
       exportHtml: exportHtml,
       toCsvDataDictionary: toCsvDataDictionary,
+      printablePages: printablePages,
     };
   }
   if (typeof window !== "undefined") {

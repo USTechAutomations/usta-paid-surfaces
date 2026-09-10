@@ -23,7 +23,7 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from render_family import section, table  # noqa: E402
+from render_family import fam_row, section, table  # noqa: E402
 
 FAMILY = "ttb-new-permits"
 DB_PATH = Path("/home/gmullins/Claude CLI/clocks/ttb_permits/data/ttb_permits.db")
@@ -130,6 +130,19 @@ def sample() -> tuple[list[str], list[list[str]]]:
     return headers, rows
 
 
+def _offer_checkout() -> dict:
+    """Checkout this page may show. Drop dollar terms when we cannot take a card."""
+    ck = dict(fam_row(FAMILY).get("checkout") or {})
+    url = str(ck.get("url") or "").strip()
+    if url.startswith("https://"):
+        return ck
+    ck["url"] = ""
+    ck["terms"] = ""
+    ck["after"] = ""
+    ck["label"] = ""
+    return ck
+
+
 def family_spec() -> dict:
     d = data()
     older, newer = d.latest
@@ -148,8 +161,11 @@ def family_spec() -> dict:
                     f"carries {sample_n} permits from the newest week that added any, "
                     f"{_d(s_older)} to {_d(s_newer)}, without the business name")
 
+    ck = _offer_checkout()
+    on_sale = str(ck.get("url") or "").startswith("https://")
     desc = (f"Every federal alcohol permit that first appeared on the TTB list between "
-            f"{_d(older)} and {_d(newer)}: {len(new_rows)} of them. One national file a week. $49/mo.")
+            f"{_d(older)} and {_d(newer)}: {len(new_rows)} of them. One national file a week."
+            + (" $49/mo." if on_sale else ""))
     assert len(desc) <= MAX_DESC, len(desc)
 
     secs = [
@@ -215,8 +231,11 @@ def family_spec() -> dict:
             "      </ul>\n"
             '      <div class="honest">\n'
             "        <p><strong>One state at a time, with every field change, is the sibling feed "
-            'at <a href="../ttb/">/feeds/ttb</a> for $99 a month.</strong> This page is the cheaper, '
-            "wider, narrower one: the whole country, appeared and gone only.</p>\n"
+            'at <a href="../ttb/">/feeds/ttb</a>'
+            + (" for $99 a month" if on_sale else "")
+            + ".</strong> This page is the "
+            + ("cheaper, wider, narrower" if on_sale else "wider, narrower")
+            + " one: the whole country, appeared and gone only.</p>\n"
             f"        <p><strong>Newest copy read {_d(d.newest)}, {d.days_since_newest()} days ago.</strong> "
             "If the next Tuesday copy does not arrive, the next file says so.</p>\n"
             "      </div>",
@@ -237,17 +256,24 @@ def family_spec() -> dict:
         "lede": (f"{len(new_rows)} federal alcohol permits appeared on the TTB list between {_d(older)} "
                  f"and {_d(newer)}, and {len(gone_rows)} stopped being listed. Every one is printed or "
                  "counted below, with the two copy dates it came from."),
-        "pill_label": "Sample ready",
+        "pill_label": ("Prepared, not yet on sale" if not on_sale else "Sample ready"),
         "sections": secs,
         "sample_dt": "Public sample",
         "subj": urllib.parse.quote("New alcohol permits weekly file"),
         "contact_h2": "Start the thread",
-        "contact_p": ("Ask which dated copies we hold. We reply with the count of appeared and "
+        "contact_p": ("The file is prepared and not yet on sale. Ask which dated copies we hold. "
+                      "We reply with the count of appeared and gone rows for the newest week."
+                      if not on_sale else
+                      "Ask which dated copies we hold. We reply with the count of appeared and "
                       "gone rows for the newest week before you spend anything."),
-        "contact_cta": "Email us for the $49/mo checkout link",
-        "contact_note": "We tell you the row counts and the two copy dates before you pay.",
+        "contact_cta": "Ask about this file" if not on_sale else "Email us about this file",
+        "contact_note": ("The file is prepared and not yet on sale."
+                         if not on_sale else
+                         "We tell you the row counts and the two copy dates before you pay."),
         "foot": ("Every count and date on this page was read out of the sealed copies named above. "
                  "Where a column names a person, it is not in the file you buy."),
+        "checkout": ck,
+        "delivery": ("The file is prepared and not yet on sale." if not on_sale else None),
     }
 
 

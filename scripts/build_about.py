@@ -43,10 +43,7 @@ HUB_CARDS = {
     "what-we-dont-collect": ("What we refuse to collect", "Free", "rebuilt daily", "Counted today"),
     "how-we-seal": ("How a sealed copy works", "Free", "rebuilt daily", "Worked example"),
 }
-FOOT = (
-    "Every number on this page was counted out of our own databases while the page was "
-    "being built. Nothing here is typed in by hand, so it cannot quietly go out of date."
-)
+FOOT = 'Every number on this page was counted from our retained databases when the page was built. The date above identifies that snapshot; this page may lag later source updates.'
 
 
 def spec_for(s: dict) -> dict:
@@ -91,6 +88,7 @@ def spec_for(s: dict) -> dict:
         "price": "Free to read",
         "buyer": BUYERS[slug],
         "ready": True,
+        "plain_status": slug == "coverage",
         "pill_text": "Counted, not written",
         "sample_dt": "These numbers",
         "pill_label": "Read from the databases",

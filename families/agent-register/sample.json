@@ -1,6 +1,6 @@
 {
   "family": "agent-register",
-  "generated": "2026-09-07",
+  "generated": "2026-09-10",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/agent-register",
   "rows_published": 25,
@@ -12,6 +12,54 @@
     "where_it_answers"
   ],
   "rows": [
+    [
+      "io.github.mike-lblc/x402-bazaar-rank",
+      "2026-09-10",
+      "2026-09-10",
+      "x402-bazaar-rank.x402-bazaar-rank-worker.workers.dev"
+    ],
+    [
+      "io.github.lspain1994/x402-datasets-mcp",
+      "2026-09-10",
+      "2026-09-09",
+      "no address in the record"
+    ],
+    [
+      "io.github.imnotamob/solmachina-x402",
+      "2026-09-10",
+      "2026-09-09",
+      "api.solmachina.com"
+    ],
+    [
+      "dev.workers.kikoribera03.flat-rate-llm/x402-tools",
+      "2026-09-10",
+      "2026-09-10",
+      "flat-rate-llm.kikoribera03.workers.dev"
+    ],
+    [
+      "dev.workers.desk-x402-gh.desk-x402/desk-x402",
+      "2026-09-10",
+      "2026-09-10",
+      "desk-x402.desk-x402-gh.workers.dev"
+    ],
+    [
+      "com.ogenalabs/signals-edge-x402",
+      "2026-09-10",
+      "2026-09-09",
+      "api.ogenalabs.com"
+    ],
+    [
+      "com.ogenalabs/gate402-x402",
+      "2026-09-10",
+      "2026-09-09",
+      "api.ogenalabs.com"
+    ],
+    [
+      "com.ogenalabs/token-risk-x402",
+      "2026-09-08",
+      "2026-09-08",
+      "api.ogenalabs.com"
+    ],
     [
       "io.github.ZadenGG/x402-zadenworks",
       "2026-09-07",
@@ -113,54 +161,6 @@
       "2026-08-29",
       "2026-08-29",
       "no address in the record"
-    ],
-    [
-      "io.github.ffboers/x402-rpc-gateway",
-      "2026-08-29",
-      "2026-08-29",
-      "no address in the record"
-    ],
-    [
-      "tech.autonomylabsweb.www/autonomy-x402-tools",
-      "2026-08-27",
-      "2026-08-27",
-      "www.autonomylabsweb.tech"
-    ],
-    [
-      "us.inversolabs/x402-compatibility-intelligence",
-      "2026-08-26",
-      "2026-08-26",
-      "intelligence.inversolabs.us"
-    ],
-    [
-      "io.github.devmster/x402-trinity",
-      "2026-08-26",
-      "2026-08-26",
-      "no address in the record"
-    ],
-    [
-      "net.tunnelmole.imkl13-ip-209-115-177-214/x402-text-tools",
-      "2026-08-25",
-      "2026-08-25",
-      "imkl13-ip-209-115-177-214.tunnelmole.net"
-    ],
-    [
-      "net.tunnelmole.heiekc-ip-209-115-177-214/x402-text-tools",
-      "2026-08-25",
-      "2026-08-25",
-      "heiekc-ip-209-115-177-214.tunnelmole.net"
-    ],
-    [
-      "io.github.stevemilton/x402-payagent-mcp",
-      "2026-08-25",
-      "2026-08-25",
-      "no address in the record"
-    ],
-    [
-      "io.github.Hasned-spec/ox402-utils",
-      "2026-08-25",
-      "2026-08-25",
-      "tracy-collar-preview-demands.trycloudflare.com"
     ]
   ]
 }

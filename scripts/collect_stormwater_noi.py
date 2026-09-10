@@ -1,12 +1,29 @@
 #!/usr/bin/env python3
-"""Seal a dated copy of Texas construction stormwater notices of intent (TXR15).
+"""Seal a dated copy of Texas construction stormwater general-permit coverages (TXR15).
 
-TCEQ issues each notice before ground is broken on a site that disturbs an acre
-or more. TCEQ's own general-permit query (www2) did not answer from this box on
-2026-09-06. The construction how-to page has no NOI table. The working public
-copy is EPA's ICIS NPDES download (echo.epa.gov/files/echodownloads), which
-robots.txt on that host does not disallow. We do not call echodata.epa.gov
-(robots: Disallow: *).
+TCEQ authorizes each construction stormwater coverage under general permit
+TXR150000 for a site that disturbs an acre or more. TCEQ's own general-permit
+query (www2) did not answer from this box on 2026-09-06. The construction how-to
+page has no coverage table. The working public copy is EPA's ICIS NPDES download
+(echo.epa.gov/files/echodownloads), which robots.txt on that host does not
+disallow. We do not call echodata.epa.gov (robots: Disallow: *).
+
+SOURCE CONTRACT (corrected 2026-09-10)
+--------------------------------------
+The two columns this feed publishes are named for the EPA ICIS fields they come
+out of, and for nothing they do not:
+
+  * ``permit_name``        <- ICIS_PERMITS.PERMIT_NAME. EPA's data dictionary
+    defines this as the facility name having the NPDES permit. It is NOT an
+    "operator": EPA does not publish an operator field here and we do not infer one.
+  * ``permit_issue_date``  <- ICIS_PERMITS.ISSUE_DATE, falling back only to
+    ORIGINAL_ISSUE_DATE. This is the date EPA records the coverage as issued. It
+    is NOT a "filing date" and it does not say a site has broken ground.
+
+An earlier version of this collector called PERMIT_NAME ``operator`` and
+ISSUE_DATE ``filing_date``. Both names claimed a meaning the source does not
+carry, so both are corrected here. ``read_rows()`` still reads the old header off
+retained files and migrates it through the source, so no sealed copy is lost.
 
 One GET per URL. User-Agent names us. No street column is written.
 """
@@ -15,9 +32,10 @@ from __future__ import annotations
 import csv
 import io
 import json
-import shutil
+import os
 import ssl
 import sys
+import tempfile
 import time
 import urllib.error
 import urllib.request
@@ -41,7 +59,7 @@ MASTER = "TXR150000"
 TIMEOUT = 60
 ZIP_TIMEOUT = 480
 
-# Texas county FIPS (state 48) → name. Public FIPS table, not invented rows.
+# Texas county FIPS (state 48) -> name. Public FIPS table, not invented rows.
 TX_COUNTY = {
     "001": "Anderson", "003": "Andrews", "005": "Angelina", "007": "Aransas",
     "009": "Archer", "011": "Armstrong", "013": "Atascosa", "015": "Austin",
@@ -109,10 +127,18 @@ TX_COUNTY = {
     "505": "Zapata", "507": "Zavala",
 }
 
+# The corrected published contract. permit_name / permit_issue_date replace the
+# old operator / filing_date pair; every other column is unchanged.
 SNAP_FIELDS = (
-    "permit_id", "site_name", "county", "city", "operator", "filing_date", "status",
+    "permit_id", "site_name", "county", "city", "permit_name", "permit_issue_date", "status",
 )
 CHANGE_FIELDS = SNAP_FIELDS + ("earlier_copy", "later_copy", "change")
+
+# The retired header, kept only so read_rows() can recognise a legacy file.
+LEGACY_NAME_COL = "operator"
+LEGACY_DATE_COL = "filing_date"
+NAME_COL = "permit_name"
+DATE_COL = "permit_issue_date"
 
 
 def _ctx() -> ssl.SSLContext:
@@ -135,6 +161,11 @@ def fetch(url: str, dest: Path | None = None, timeout: int = TIMEOUT) -> tuple[i
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_bytes(body)
     return code, body, final
+
+
+def status_label(code: int) -> str:
+    """Render a failed network probe as UNKNOWN rather than HTTP 0."""
+    return "UNKNOWN" if code == 0 else f"HTTP {code}"
 
 
 def robots_allows(robots_text: str, path: str) -> bool:
@@ -191,24 +222,104 @@ def is_txr15(pid: str) -> bool:
     return p.startswith("TXR15") and p != MASTER
 
 
-def ensure_zip(today: date) -> tuple[Path, str]:
+# ---------------------------------------------------------------------------
+# Source provenance. A cached copy keeps the time it was actually fetched; it is
+# NEVER redated to the current transformation time, and stays unknown when no
+# fetch time was ever recorded for the artifact.
+# ---------------------------------------------------------------------------
+def _sidecar_paths(zpath: Path) -> list[Path]:
+    return [zpath.with_name(zpath.name + ".fetched_at"),
+            zpath.with_suffix(zpath.suffix + ".meta.json")]
+
+
+def recorded_fetch_time(zpath: Path) -> str:
+    """The fetch time recorded for a cached ZIP, or "" (unknown) if none exists.
+
+    The download path writes this sidecar the moment it seals the file. A later
+    run that reuses the cached file reads the sidecar instead of stamping "now",
+    so a cached source can never be presented as freshly observed.
+    """
+    for cand in _sidecar_paths(zpath):
+        if not cand.is_file():
+            continue
+        try:
+            text = cand.read_text(encoding="utf-8").strip()
+        except OSError:
+            continue
+        if not text:
+            continue
+        if cand.suffix == ".json":
+            try:
+                got = json.loads(text)
+            except ValueError:
+                continue
+            stamp = str((got or {}).get("fetched_at") or "").strip()
+            if stamp:
+                return stamp
+        else:
+            return text
+    return ""
+
+
+def source_fetched_at(zpath: Path, *, freshly_fetched: bool,
+                      now: datetime | None = None) -> str:
+    """Observation time for the sealed source copy.
+
+    freshly_fetched is True only when this run downloaded the ZIP over the wire;
+    then, and only then, the time is "now". A cached artifact keeps its recorded
+    fetch time and is never redated.
+    """
+    if freshly_fetched:
+        now = now or datetime.now(timezone.utc)
+        return now.strftime("%Y-%m-%dT%H:%M:%SZ")
+    return recorded_fetch_time(zpath)
+
+
+def _write_fetch_sidecar(zpath: Path, stamp: str) -> None:
+    zpath.with_name(zpath.name + ".fetched_at").write_text(stamp + "\n", encoding="utf-8")
+
+
+def ensure_zip(today: date) -> tuple[Path, str, str, bool]:
+    """Return (path, source_url, fetched_at, freshly_fetched).
+
+    A cached ZIP carries its recorded fetch time. Only a fresh download stamps
+    the current time, and it also writes the sidecar so the next run stays honest.
+    """
     RAW.mkdir(parents=True, exist_ok=True)
     dest = RAW / f"npdes_downloads_{today.isoformat()}.zip"
     if dest.exists() and dest.stat().st_size > 1_000_000:
-        return dest, EPA_ZIP
-    tmp = Path("/tmp/npdes_dl/npdes_downloads.zip")
-    if tmp.exists() and tmp.stat().st_size > 1_000_000:
-        shutil.copy2(tmp, dest)
-        print(f"zip copied {dest} ({dest.stat().st_size} bytes)")
-        return dest, EPA_ZIP
+        recorded = source_fetched_at(dest, freshly_fetched=False)
+        if recorded:
+            return dest, EPA_ZIP, recorded, False
+        # A same-date file without a recorded fetch time is not evidence of a
+        # source observation. Preserve it and return UNKNOWN: replacing it
+        # would destroy raw history if the attempted refetch failed.
+        print(f"cached ZIP has no recorded fetch time; source observation UNKNOWN; preserving {dest}")
+        return dest, EPA_ZIP, "", False
+    if dest.exists() and not recorded_fetch_time(dest):
+        # Preserve even a short/partial same-date artifact. It is unproven raw
+        # history and must not be overwritten by an unverified retry.
+        print(f"same-date ZIP has no recorded fetch time; source observation UNKNOWN; preserving {dest}")
+        return dest, EPA_ZIP, "", False
     print(f"GET {EPA_ZIP}")
-    code, body, final = fetch(EPA_ZIP, dest, timeout=ZIP_TIMEOUT)
-    if code != 200 or not dest.exists() or dest.stat().st_size < 1_000_000:
-        if dest.exists():
-            dest.unlink()
-        raise SystemExit(f"EPA zip failed: HTTP {code} bytes={len(body)}")
+    # Download beside the destination and publish atomically only after the
+    # response has the expected status and minimum sealed size. A failed or
+    # short response must never delete or replace a dated raw artifact.
+    fd, stage_name = tempfile.mkstemp(prefix=f".{dest.name}.", suffix=".part", dir=RAW)
+    os.close(fd)
+    stage = Path(stage_name)
+    try:
+        code, body, final = fetch(EPA_ZIP, stage, timeout=ZIP_TIMEOUT)
+        if code != 200 or not stage.exists() or stage.stat().st_size < 1_000_000:
+            label = status_label(code)
+            raise SystemExit(f"EPA zip failed: {label}; bytes={len(body)}; source observation UNKNOWN")
+        stage.replace(dest)
+    finally:
+        stage.unlink(missing_ok=True)
+    stamp = source_fetched_at(dest, freshly_fetched=True)
+    _write_fetch_sidecar(dest, stamp)
     print(f"zip saved {dest} ({dest.stat().st_size} bytes)")
-    return dest, (final or EPA_ZIP)
+    return dest, (final or EPA_ZIP), stamp, True
 
 
 def write_day_record(path: Path, payload: dict) -> None:
@@ -226,47 +337,179 @@ def write_day_record(path: Path, payload: dict) -> None:
     path.write_text(json.dumps(rec, indent=2) + "\n", encoding="utf-8")
 
 
-def load_permits(zpath: Path) -> dict[str, dict]:
+# ---------------------------------------------------------------------------
+# Reading the EPA source. The pure readers take a csv.DictReader so the same
+# code serves a zip member and a plain retained CSV.
+# ---------------------------------------------------------------------------
+def _permits_from_reader(reader: "csv.DictReader") -> dict[str, dict]:
     """Latest version of each effective TXR15 coverage, keyed by permit_id."""
     out: dict[str, dict] = {}
-    with zipfile.ZipFile(zpath) as z:
-        with z.open("ICIS_PERMITS.csv") as raw:
-            f = io.TextIOWrapper(raw, encoding="utf-8", errors="replace", newline="")
-            for row in csv.DictReader(f):
-                pid = (row.get("EXTERNAL_PERMIT_NMBR") or "").strip().upper()
-                if not is_txr15(pid):
-                    continue
-                if (row.get("PERMIT_STATUS_CODE") or "").strip() != "EFF":
-                    continue
-                ver = int(row.get("VERSION_NMBR") or "0" or 0)
-                prev = out.get(pid)
-                if prev and int(prev.get("_ver") or 0) >= ver:
-                    continue
-                out[pid] = {
-                    "permit_id": pid,
-                    "operator": (row.get("PERMIT_NAME") or "").strip(),
-                    "filing_date": iso(parse_day(row.get("ISSUE_DATE") or row.get("ORIGINAL_ISSUE_DATE") or "")),
-                    "status": "EFF",
-                    "_ver": ver,
-                }
+    for row in reader:
+        pid = (row.get("EXTERNAL_PERMIT_NMBR") or "").strip().upper()
+        if not is_txr15(pid):
+            continue
+        if (row.get("PERMIT_STATUS_CODE") or "").strip() != "EFF":
+            continue
+        ver = int(row.get("VERSION_NMBR") or "0" or 0)
+        prev = out.get(pid)
+        if prev and int(prev.get("_ver") or 0) >= ver:
+            continue
+        out[pid] = {
+            "permit_id": pid,
+            # PERMIT_NAME is EPA's facility-name field for the NPDES permit, not
+            # an operator field.
+            "permit_name": (row.get("PERMIT_NAME") or "").strip(),
+            # ISSUE_DATE (then ORIGINAL_ISSUE_DATE) is when EPA records the
+            # coverage issued, not a filing date and not a ground-breaking date.
+            "permit_issue_date": iso(parse_day(row.get("ISSUE_DATE") or row.get("ORIGINAL_ISSUE_DATE") or "")),
+            "status": "EFF",
+            "_ver": ver,
+        }
     return out
 
 
-def load_sites(zpath: Path, wanted: set[str]) -> dict[str, dict]:
+def _sites_from_reader(reader: "csv.DictReader", wanted: set[str]) -> dict[str, dict]:
     sites: dict[str, dict] = {}
-    with zipfile.ZipFile(zpath) as z:
-        with z.open("ICIS_FACILITIES.csv") as raw:
-            f = io.TextIOWrapper(raw, encoding="utf-8", errors="replace", newline="")
-            for row in csv.DictReader(f):
-                pid = (row.get("NPDES_ID") or "").strip().upper()
-                if pid not in wanted:
-                    continue
-                sites[pid] = {
-                    "site_name": (row.get("FACILITY_NAME") or "").strip(),
-                    "county": county_name(row.get("COUNTY_CODE") or ""),
-                    "city": (row.get("CITY") or "").strip(),
-                }
+    for row in reader:
+        pid = (row.get("NPDES_ID") or "").strip().upper()
+        if pid not in wanted:
+            continue
+        sites[pid] = {
+            "site_name": (row.get("FACILITY_NAME") or "").strip(),
+            "county": county_name(row.get("COUNTY_CODE") or ""),
+            "city": (row.get("CITY") or "").strip(),
+        }
     return sites
+
+
+def _open_member(zpath: Path, member: str):
+    z = zipfile.ZipFile(zpath)
+    raw = z.open(member)
+    f = io.TextIOWrapper(raw, encoding="utf-8", errors="replace", newline="")
+    return z, f
+
+
+def load_permits(zpath: Path) -> dict[str, dict]:
+    z, f = _open_member(zpath, "ICIS_PERMITS.csv")
+    try:
+        return _permits_from_reader(csv.DictReader(f))
+    finally:
+        f.close(); z.close()
+
+
+def load_sites(zpath: Path, wanted: set[str]) -> dict[str, dict]:
+    z, f = _open_member(zpath, "ICIS_FACILITIES.csv")
+    try:
+        return _sites_from_reader(csv.DictReader(f), wanted)
+    finally:
+        f.close(); z.close()
+
+
+def permits_from_csv(path: Path) -> dict[str, dict]:
+    with path.open(encoding="utf-8", errors="replace", newline="") as f:
+        return _permits_from_reader(csv.DictReader(f))
+
+
+def sites_from_csv(path: Path, wanted: set[str]) -> dict[str, dict]:
+    with path.open(encoding="utf-8", errors="replace", newline="") as f:
+        return _sites_from_reader(csv.DictReader(f), wanted)
+
+
+def build_snapshot_rows(permits: dict[str, dict], sites: dict[str, dict]) -> list[dict]:
+    rows = []
+    for pid, rec in sorted(permits.items()):
+        site = sites.get(pid, {})
+        rows.append({
+            "permit_id": pid,
+            "site_name": site.get("site_name", ""),
+            "county": site.get("county", ""),
+            "city": site.get("city", ""),
+            "permit_name": rec.get("permit_name", ""),
+            "permit_issue_date": rec.get("permit_issue_date", ""),
+            "status": rec.get("status", "EFF"),
+        })
+    return rows
+
+
+def source_lookup_from_rows(permits: dict[str, dict], sites: dict[str, dict]) -> dict[str, dict]:
+    """{permit_id: corrected fields} for migrating a legacy retained row."""
+    out: dict[str, dict] = {}
+    for pid, rec in permits.items():
+        site = sites.get(pid, {})
+        out[pid] = {
+            "permit_name": rec.get("permit_name", ""),
+            "permit_issue_date": rec.get("permit_issue_date", ""),
+            "site_name": site.get("site_name", ""),
+            "county": site.get("county", ""),
+            "city": site.get("city", ""),
+        }
+    return out
+
+
+# ---------------------------------------------------------------------------
+# Guarded reader compatibility for retained files written under the old header.
+# ---------------------------------------------------------------------------
+def is_legacy_schema(fieldnames) -> bool:
+    fn = {(f or "").strip().lower() for f in (fieldnames or [])}
+    return LEGACY_NAME_COL in fn or LEGACY_DATE_COL in fn
+
+
+def migrate_legacy_row(row: dict, source_lookup: dict[str, dict]) -> dict:
+    """One legacy row -> corrected row, re-derived through the ICIS source.
+
+    Never silently blanks the date: the corrected value comes from the source,
+    and if the source has no issue date the legacy value is carried rather than
+    dropped. A row with no source match is refused, not blanked.
+    """
+    pid = (row.get("permit_id") or "").strip().upper()
+    src = source_lookup.get(pid)
+    if src is None:
+        raise ValueError(
+            f"legacy row {pid!r} has no matching EPA ICIS source row to migrate "
+            f"through; refusing to blank permit_name/permit_issue_date"
+        )
+    out = {
+        "permit_id": pid,
+        "site_name": row.get("site_name", "") or src.get("site_name", ""),
+        "county": row.get("county", "") or src.get("county", ""),
+        "city": row.get("city", "") or src.get("city", ""),
+        "permit_name": src.get("permit_name", ""),
+        "permit_issue_date": src.get("permit_issue_date", "")
+                             or (row.get(LEGACY_DATE_COL, "") or "").strip(),
+        "status": row.get("status", "") or "EFF",
+    }
+    for k in ("earlier_copy", "later_copy", "change"):
+        if k in row:
+            out[k] = row.get(k, "")
+    return out
+
+
+def read_rows(path: Path, source_lookup: dict[str, dict] | None = None) -> tuple[list[dict], str | None]:
+    """Read a retained snapshot/changed CSV. Corrected files pass straight
+    through; legacy (operator/filing_date) files are migrated through the ICIS
+    source. Returns (rows, schema_correction_note). The raw file is never
+    modified here.
+    """
+    with path.open(encoding="utf-8", newline="") as fh:
+        reader = csv.DictReader(fh)
+        fields = reader.fieldnames or []
+        legacy = is_legacy_schema(fields)
+        raw_rows = list(reader)
+    if not legacy:
+        return raw_rows, None
+    if source_lookup is None:
+        raise ValueError(
+            f"{path.name} uses the old operator/filing_date header; migrating it "
+            f"needs the EPA ICIS source rows, but none were supplied"
+        )
+    out = [migrate_legacy_row(r, source_lookup) for r in raw_rows]
+    note = (
+        f"schema-correction: {path.name} was written under the retired "
+        f"operator/filing_date header; {len(out)} rows were read and migrated "
+        f"through the retained EPA ICIS source to permit_name/permit_issue_date. "
+        f"No date was blanked and the raw file was left unchanged."
+    )
+    return out, note
 
 
 def write_csv(path: Path, fields: tuple[str, ...], rows: list[dict]) -> None:
@@ -283,6 +526,21 @@ def keyset(path: Path) -> dict[str, dict]:
         return {r["permit_id"]: r for r in csv.DictReader(fh) if r.get("permit_id")}
 
 
+def weekly_first_copy(rows: list[dict], today: date, later_day: str) -> list[dict]:
+    """First-copy weekly file: coverages whose permit issue date on this copy
+    falls in the seven days before the copy date."""
+    start = today - timedelta(days=7)
+    changed = []
+    for rec in rows:
+        d = parse_day(rec.get("permit_issue_date", ""))
+        if d and start < d <= today:
+            r = dict(rec)
+            r.update(earlier_copy="", later_copy=later_day, change="issued_on_this_copy")
+            changed.append(r)
+    changed.sort(key=lambda r: (r.get("permit_issue_date", ""), r.get("permit_id", "")))
+    return changed
+
+
 def main() -> int:
     today = date.today()
     STORE.mkdir(parents=True, exist_ok=True)
@@ -291,43 +549,32 @@ def main() -> int:
     code, body, _ = fetch(TCEQ_ROBOTS)
     robots = body.decode("utf-8", "replace") if code == 200 else ""
     if code != 200:
-        notes.append(f"TCEQ robots HTTP {code}")
+        notes.append(f"TCEQ robots {status_label(code)}")
     elif not robots_allows(robots, "/permitting/stormwater/construction"):
         raise SystemExit("TCEQ robots.txt disallows the construction page; refusing to fetch it")
     else:
         notes.append("TCEQ robots allow /permitting/stormwater/construction")
 
     code, page, _ = fetch(TCEQ_PAGE)
-    notes.append(f"TCEQ construction page HTTP {code} bytes={len(page)}")
+    notes.append(f"TCEQ construction page {status_label(code)} bytes={len(page)}")
     if code == 200 and b"TXR15" in page and b"<table" in page.lower():
-        notes.append("construction page has a table; it is still the how-to, not the NOI list")
+        notes.append("construction page has a table; it is still the how-to, not the coverage list")
 
     time.sleep(1)
     code, err, _ = fetch(TCEQ_QUERY, timeout=20)
-    notes.append(f"TCEQ wq_dpa query HTTP {code} ({err.decode('utf-8', 'replace')[:120] if code == 0 else 'no NOI rows'})")
+    notes.append(f"TCEQ wq_dpa query {status_label(code)} ({err.decode('utf-8', 'replace')[:120] if code == 0 else 'no coverage rows'})")
 
     code, erobots, _ = fetch(EPA_ROBOTS)
     if code != 200:
-        raise SystemExit(f"EPA robots HTTP {code}")
+        raise SystemExit(f"EPA robots {status_label(code)}")
     if not robots_allows(erobots.decode("utf-8", "replace"), "/files/echodownloads/npdes_downloads.zip"):
         raise SystemExit("echo.epa.gov robots.txt disallows the NPDES zip; refusing")
     notes.append("EPA echo.epa.gov robots allow /files/echodownloads/")
 
-    zpath, source_url = ensure_zip(today)
+    zpath, source_url, fetched_at, fresh = ensure_zip(today)
     permits = load_permits(zpath)
     sites = load_sites(zpath, set(permits))
-    rows = []
-    for pid, rec in sorted(permits.items()):
-        site = sites.get(pid, {})
-        rows.append({
-            "permit_id": pid,
-            "site_name": site.get("site_name", ""),
-            "county": site.get("county", ""),
-            "city": site.get("city", ""),
-            "operator": rec.get("operator", ""),
-            "filing_date": rec.get("filing_date", ""),
-            "status": rec.get("status", "EFF"),
-        })
+    rows = build_snapshot_rows(permits, sites)
     snap = STORE / f"snapshot_{today.isoformat()}.csv"
     write_csv(snap, SNAP_FIELDS, rows)
     print(f"snapshot {len(rows)} rows {snap}")
@@ -339,10 +586,12 @@ def main() -> int:
             "source_id": SOURCE_ID,
             "source_url": source_url,
             "row_count": len(rows),
-            "fetched_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            # The source observation time, not the transformation time. A cached
+            # ZIP keeps the time it was actually fetched; unknown stays "".
+            "fetched_at": fetched_at,
         },
     )
-    print(f"day record {day_rec}")
+    print(f"day record {day_rec} (fetched_at={fetched_at or 'unknown'})")
 
     snaps = sorted(STORE.glob("snapshot_*.csv"))
     later = snaps[-1]
@@ -365,20 +614,11 @@ def main() -> int:
             changed.append(rec)
         notes.append(f"diff {earlier_day} -> {later_day}: appeared {len(appeared)} gone {len(gone)}")
     else:
-        # One copy so far. The week file is notices whose filing date on THIS
-        # copy falls in the seven days before the copy date, not a set difference.
+        changed = weekly_first_copy(list(later_rows.values()), today, later_day)
         start = today - timedelta(days=7)
-        changed = []
-        for rec in later_rows.values():
-            d = parse_day(rec.get("filing_date", ""))
-            if d and start < d <= today:
-                row = dict(rec)
-                row.update(earlier_copy="", later_copy=later_day, change="issued_on_this_copy")
-                changed.append(row)
-        changed.sort(key=lambda r: (r.get("filing_date", ""), r.get("permit_id", "")))
         notes.append(
-            f"first copy; weekly file is filing_date {start.isoformat()} < d <= {today.isoformat()}: "
-            f"{len(changed)} rows"
+            f"first copy; weekly file is permit_issue_date {start.isoformat()} < d <= "
+            f"{today.isoformat()}: {len(changed)} rows"
         )
 
     chg = STORE / f"changed_{today.isoformat()}.csv"

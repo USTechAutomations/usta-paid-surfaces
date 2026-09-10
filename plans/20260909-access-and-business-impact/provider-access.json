@@ -1,0 +1,159 @@
+[
+  {
+    "platform": "gumroad",
+    "checked_at": "2026-09-09T21:00:47.349346+00:00",
+    "state": "CONNECTED",
+    "products": [
+      {
+        "id": "KCIatt9eUyfzQJP3XhzRUQ==",
+        "name": "Customs Broker Exam Bank \u2014 400 questions, official answers",
+        "status": "draft",
+        "slug": "customs-broker-exam-bank"
+      },
+      {
+        "id": "AKECvGNZduDeqSZWahTSkw==",
+        "name": "WarnRight",
+        "status": "draft",
+        "slug": "warn-right"
+      },
+      {
+        "id": "ujSimssbDlPdCaSl9AwgeA==",
+        "name": "Done Means Done",
+        "status": "draft",
+        "slug": "done-means-done"
+      },
+      {
+        "id": "Cl40xDwdgZXnPtAjnj39CQ==",
+        "name": "Notice Responder",
+        "status": "draft",
+        "slug": "notice-responder"
+      },
+      {
+        "id": "sDmo3F4-SfT5HHzLwidP-Q==",
+        "name": "Grant Fit",
+        "status": "draft",
+        "slug": "grant-fit"
+      },
+      {
+        "id": "sUfF7m3lkpPdSKgFEJbULQ==",
+        "name": "KDP Lens \u2014 Amazon book sales estimates on the page",
+        "status": "draft",
+        "slug": "kdp-lens"
+      }
+    ],
+    "sale_count": 0,
+    "sales_complete": true
+  },
+  {
+    "platform": "apify",
+    "checked_at": "2026-09-09T21:00:47.349480+00:00",
+    "state": "CONNECTED",
+    "products": [
+      {
+        "id": "nwua9Gu5YrADL7ZDj",
+        "name": "crawler-google-places",
+        "status": "private"
+      },
+      {
+        "id": "hMvNSpz3JnHgl5jkh",
+        "name": "indeed-scraper",
+        "status": "private"
+      },
+      {
+        "id": "RIGGeqD6RqKmlVoQU",
+        "name": "linkedin-jobs-scraper",
+        "status": "private"
+      },
+      {
+        "id": "VtPWGWVXRVTNvdoo7",
+        "name": "upwork-jobs-scraper",
+        "status": "private"
+      },
+      {
+        "id": "bTrifrQ2s7Hm0wTWH",
+        "name": "osha-severe-injury-reports",
+        "status": "private"
+      },
+      {
+        "id": "e3oDHVvlGp63sgmy3",
+        "name": "epa-sdwis-water-systems",
+        "status": "private"
+      },
+      {
+        "id": "gbVczPhpoCEDPIfKY",
+        "name": "nrc-spill-notices",
+        "status": "private"
+      }
+    ]
+  },
+  {
+    "platform": "collaborator",
+    "checked_at": "2026-09-09T21:00:47.349619+00:00",
+    "state": "CONNECTED",
+    "products": null,
+    "deal_count": 0,
+    "note": "No owned-website inventory endpoint is exposed; missing product inventory is UNKNOWN, not zero."
+  },
+  {
+    "platform": "chrome_web_store",
+    "checked_at": "2026-09-09T21:00:47.350523+00:00",
+    "state": "CONNECTED",
+    "products": [
+      {
+        "id": "ckcdjimdlamhbclfkjnglnpaoadiamfm",
+        "name": "kdp-lens",
+        "status": "PUBLISHED"
+      },
+      {
+        "id": "iijdblhmmnahjcconlcmfmfcmhdfjbeb",
+        "name": "grant-fit",
+        "status": "PUBLISHED"
+      }
+    ],
+    "note": "Inventory covers registered item IDs; API does not list all publisher items."
+  },
+  {
+    "platform": "aws",
+    "checked_at": "2026-09-09T21:00:48.510680+00:00",
+    "state": "CONNECTED",
+    "products": [
+      {
+        "id": "prod-cledn2ndzad46",
+        "name": "Open Permit Fees - US Building-Permit Fee Schedules (Cited)",
+        "status": "Draft"
+      }
+    ],
+    "dataset_count": 1
+  },
+  {
+    "platform": "huggingface",
+    "checked_at": "2026-09-09T21:00:48.631432+00:00",
+    "state": "CONNECTED",
+    "products": [
+      {
+        "id": "gmreincglm/graded-task-environment-pack-sample",
+        "name": "gmreincglm/graded-task-environment-pack-sample",
+        "status": "public"
+      },
+      {
+        "id": "gmreincglm/usta-feeds-samples",
+        "name": "gmreincglm/usta-feeds-samples",
+        "status": "public"
+      }
+    ],
+    "inventory_complete": true
+  },
+  {
+    "platform": "github",
+    "checked_at": "2026-09-09T21:00:49.005177+00:00",
+    "state": "CONNECTED",
+    "products": [
+      {
+        "id": "USTechAutomations/usta-data-samples",
+        "name": "usta-data-samples",
+        "status": "private"
+      }
+    ],
+    "note": "Distribution repository only, not an inventory of every company repository."
+  }
+]

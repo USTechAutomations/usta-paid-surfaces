@@ -420,20 +420,13 @@ def person_columns(body: str) -> list[str]:
 
 
 # --- HUNK: family-label leak checks, headers/metadata only (2026-08-26) ---
-def label_haystack(body: str) -> str:
-    """Text the family-label matcher may see.
+def _linewise_label_haystack(body: str, width: int) -> str:
+    """Conservative fallback for malformed CSV.
 
-    NARROW FIX, 2026-08-26. The matcher used to scan the whole file as one
-    lowercased string, so a DC street named CHICAGO ST SE inside a data cell
-    was treated as the Chicago family. Person-column checks are unchanged
-    and still read headers only. Identifier checks still read the whole
-    file. This function is only the haystack for source LABELS.
-
-    Kept: the header line, and any line that is not a data row of the table
-    (credit lines, required notices, blank separators). Dropped: cells.
+    Keep the pre-existing physical-line behavior when the CSV parser cannot
+    establish records.  In particular, malformed input must not become easier
+    to clear merely because this helper was added.
     """
-    headers = header_row(body)
-    width = len(headers)
     parts: list[str] = []
     seen_header = False
     for line in body.splitlines():
@@ -450,8 +443,68 @@ def label_haystack(body: str) -> str:
             seen_header = True
             continue
         if width and len(fields) == width:
-            continue  # a data cell row; do not match family labels here
+            continue
         parts.append(line)
+    return "\n".join(parts).lower()
+
+
+def _header_delimiter(body: str) -> str:
+    """Return the delimiter chosen by the existing header heuristic."""
+    first = ""
+    for line in body.splitlines():
+        if line.strip():
+            first = line
+            break
+    best_delim = ","
+    best_width = 0
+    for delim in DELIMITERS:
+        try:
+            fields = next(csv.reader(io.StringIO(first), delimiter=delim))
+        except (csv.Error, StopIteration):
+            continue
+        if len(fields) > best_width:
+            best_width, best_delim = len(fields), delim
+    return best_delim
+
+
+def label_haystack(body: str) -> str:
+    """Text the family-label matcher may see.
+
+    NARROW FIX, 2026-08-26. The matcher used to scan the whole file as one
+    lowercased string, so a DC street named CHICAGO ST SE inside a data cell
+    was treated as the Chicago family. Person-column checks are unchanged
+    and still read headers only. Identifier checks still read the whole
+    file. This function is only the haystack for source LABELS.
+
+    Kept: the header line, and any line that is not a data row of the table
+    (credit lines, required notices, blank separators). Dropped: cells.
+    """
+    headers = header_row(body)
+    width = len(headers)
+    # csv.reader must receive the whole body: splitlines() breaks a legitimate
+    # quoted address/building field into fragments which then look like freeform
+    # metadata and leak place names into the family-label matcher.
+    parts: list[str] = []
+    delimiter = _header_delimiter(body)
+    try:
+        reader = csv.reader(io.StringIO(body), delimiter=delimiter, strict=True)
+        seen_header = False
+        for fields in reader:
+            if not seen_header and not any(field.strip() for field in fields):
+                parts.append(delimiter.join(fields))
+                continue
+            if not seen_header:
+                parts.append(delimiter.join(fields))
+                seen_header = True
+                continue
+            if width and len(fields) == width:
+                continue  # a logical data record; do not match cells here
+            # One-field footer/credit lines remain visible to the matcher.  The
+            # values are sufficient for label matching; required wording still
+            # uses the original body character-for-character below in scan().
+            parts.append(delimiter.join(fields))
+    except (csv.Error, UnicodeError):
+        return _linewise_label_haystack(body, width)
     return "\n".join(parts).lower()
 # --- end hunk: family-label leak checks, headers/metadata only ---
 

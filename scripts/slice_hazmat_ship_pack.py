@@ -483,6 +483,9 @@ def slices() -> list[dict]:
     """The indexable UN pages: the top of the ranking, budget-capped."""
     if not hmt().get("entries"):
         return []
+    # Overflow pages live outside the slice writer. Rebuild them here so they
+    # carry the same catalog pay button as the family index, every run.
+    write_overflow()
     return [spec_for(i) for i in indexable()] + [_coverage()]
 
 
@@ -591,15 +594,15 @@ def _cta_block() -> str:
     for an email instead and says plainly that there is no pay button yet.
     """
     ck = _catalog_checkout()
-    url = str(ck.get("url") or "")
+    url = str(ck.get("url") or "").strip()
     label = _e(ck.get("label") or f"Buy — {PRICE} one-off")
     if url.startswith("https://"):
-        return (f'      <p class="hero-cta"><a class="btn btn-buy" href="{_e(url)}" '
+        return (f'      <p class="hero-cta"><a class="btn btn-buy btn-lg" href="{_e(url)}" '
                 f'data-checkout="{FAMILY}" rel="noopener">{label}</a></p>\n')
-    return ('      <p class="hero-cta"><a class="mail" '
+    return ('      <p class="mail-note">The file is prepared and not yet on sale.</p>\n'
+            '      <p class="hero-cta"><a class="mail" '
             'href="mailto:operations@ustechautomations.com?subject=Hazmat%20road%20pack">'
-            f'Email us for the {PRICE} checkout link</a></p>\n'
-            '      <p class="mail-note">There is no pay button on this page yet.</p>\n')
+            'Ask about this file</a></p>\n')
 
 
 def _terms() -> str:

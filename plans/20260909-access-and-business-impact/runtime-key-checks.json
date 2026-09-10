@@ -1,0 +1,14 @@
+[
+  {
+    "project": "new-five-20260907",
+    "file": "/home/gmullins/grok-playground/worktrees/new-five-20260907/state/runtime.env",
+    "stripe_key_matches_canonical": false,
+    "checkout_enabled": false
+  },
+  {
+    "project": "new-five-20260908-b",
+    "file": "/home/gmullins/grok-playground/worktrees/new-five-20260908-b/state/runtime.env",
+    "stripe_key_matches_canonical": false,
+    "checkout_enabled": false
+  }
+]
