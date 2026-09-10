@@ -203,9 +203,10 @@ def family_spec() -> dict:
                         "here; these are the real pack rows, not a tidied demo."),
         "sample_rest": ("the growing library. Every past week's 24 solved shapes stay yours, so over time "
                         "you build a bank of orders to match against"),
-        "delivery": ("<strong>What arrives after you pay:</strong> a person emails you that week's file as a CSV "
-                     "&mdash; the same plain spreadsheet as the sample file above, not a login and not a web page "
-                     "&mdash; within one working day of your payment, and a fresh file by email each week after."),
+        "delivery": ("<strong>What arrives after you pay:</strong> After you pay, Stripe sends you to a page "
+                     "carrying your own payment reference. That week's file appears at that address, and a new "
+                     "one each week for as long as the subscription runs. A week we could not build says so "
+                     "rather than repeating the last one. Nobody emails you."),
     }
 
 

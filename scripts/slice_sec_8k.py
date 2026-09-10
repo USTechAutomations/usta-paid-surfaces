@@ -1000,7 +1000,7 @@ def family_spec() -> dict:
             "dates you are after.</li>\n"
             "        <li>We tell you exactly what we hold for that, which days are missing, "
             "and what the one-off price is. Nothing is charged before that reply.</li>\n"
-            "        <li>A person emails you the file, with the accession number on every row "
+            "        <li>The buyer receives the file, with the accession number on every row "
             "so you can check it against the SEC yourself.</li>\n"
             "      </ol>",
         ),

@@ -565,7 +565,7 @@ def family_spec() -> dict:
             "        <li><strong>Montgomery County's required disclaimer inside its file</strong>"
             "<span class=\"sub\">783 characters, including the county's spelling of WEBISTE.</span></li>\n"
             "        <li><strong>CSV, emailed once</strong>"
-            "<span class=\"sub\">After you pay, a person emails you the board file as a CSV within one working day.</span></li>\n"
+            "<span class=\"sub\">After you pay, the buyer receives the board file as a CSV.</span></li>\n"
             "      </ul>",
         ),
         section(
@@ -602,8 +602,7 @@ def family_spec() -> dict:
                 "date and the row count are printed on it.</li>\n"
                 "        <li>Pay on that page. Each city has its own card button at $349 "
                 "once.</li>\n"
-                "        <li>After you pay, a person emails you the board file as a CSV "
-                "within one working day.</li>\n"
+                "        <li>After you pay, the buyer receives the board file as a CSV.</li>\n"
                 "      </ol>"
                 if all((fam.get("board_checkouts") or {}).get(b["id"], {}).get("url")
                        for b in BOARDS)
@@ -611,7 +610,7 @@ def family_spec() -> dict:
                 "      <ol class=\"steps\">\n"
                 "        <li>Email us and name the city. There is no card button on these pages yet.</li>\n"
                 "        <li>We reply with the as-of date, the row count we counted, and the checkout link for that board.</li>\n"
-                "        <li>After you pay, a person emails you the board file as a CSV within one working day.</li>\n"
+                "        <li>After you pay, the buyer receives the board file as a CSV.</li>\n"
                 "      </ol>"
             ),
         ),

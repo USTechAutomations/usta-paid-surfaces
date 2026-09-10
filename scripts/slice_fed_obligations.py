@@ -651,7 +651,7 @@ def family_spec() -> dict:
                 "you follow.</li>\n"
                 "        <li>We tell you what our sealed copies hold for them, and we name "
                 "the date of our newest one.</li>\n"
-                "        <li>A person emails you the file. There is nothing to pay.</li>\n"
+                "        <li>The buyer receives the file. There is nothing to pay.</li>\n"
                 "      </ol>",
             ),
         ]

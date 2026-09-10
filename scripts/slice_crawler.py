@@ -1295,7 +1295,7 @@ def family_spec() -> dict:
             "panel.</li>\n"
             "        <li>We tell you which of them we already hold and since when, then "
             "send a checkout link in that thread.</li>\n"
-            "        <li>A person emails you the changes file, and names anything we could "
+            "        <li>The buyer receives the changes file, and names anything we could "
             "not collect.</li>\n"
             "      </ol>",
         ),
