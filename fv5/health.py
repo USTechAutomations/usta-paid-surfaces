@@ -7,7 +7,10 @@ lied to on the page:
 
   * the family has a catalog row;
   * its page prints the same price the catalog names;
-  * its pay button answers 200 and lands on buy.stripe.com;
+  * its pay button leads to a buy.stripe.com address that Stripe says is an
+    ACTIVE payment link -- read from the API, because the pay page is never
+    loaded: loading one opens a Checkout Session that later shows up as a buyer
+    who walked away (see scripts/stripe_link_read.py, 2026-09-10);
   * the amount Stripe would charge equals the amount on the page;
   * its thanks page exists;
   * its data file is fresh enough for the cadence it promises.
@@ -24,7 +27,6 @@ from __future__ import annotations
 
 import datetime as dt
 import json
-import subprocess
 import sys
 from pathlib import Path
 
@@ -34,6 +36,7 @@ sys.path.insert(0, str(FV5 / "lib"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import stripe_read  # noqa: E402
+import stripe_link_read as SL  # noqa: E402
 from state_root import STATE_ROOT  # noqa: E402
 from mint_feed_links import _read_key, _redact, parse_price  # noqa: E402
 
@@ -68,14 +71,44 @@ def _cadence_max_days(cadence: str) -> int:
     return 8  # unknown cadence: allow a little over a week before we call it stale
 
 
-def _probe_200(url: str) -> tuple[bool, str]:
-    out = subprocess.run(
-        ["curl", "-sS", "-I", "-L", "-o", "/dev/null", "-w", "%{http_code} %{url_effective}",
-         "--max-time", "25", url],
-        capture_output=True, text=True)
-    code, _, final = out.stdout.partition(" ")
-    ok = code == "200" and "buy.stripe.com" in final
-    return ok, f"HTTP {code}, ended {final.strip()}"
+def _probe_200(url: str, api_key: str | None = None) -> tuple[bool, str]:
+    """Does this button really lead to a checkout a buyer can pay?
+
+    IT NO LONGER FETCHES THE PAY PAGE, and that is the point. Asking Stripe for
+    a pay link is not a read: Stripe opens a Checkout Session for whoever loads
+    it, and that session sits in the account for 30 days and then expires
+    unpaid. Health running hourly was therefore inventing an abandoned buyer per
+    family per run -- 145 of the 159 sessions on the account over 30 days were
+    our own robots, and every funnel number built on that was us reading
+    ourselves back.
+
+    It proved nothing either. An address invented on the spot answers 200 with a
+    body byte-identical to a live link, because Stripe writes "this link is
+    deactivated" from script after the page loads.
+
+    So the redirect chain is still walked, hop by hop, and it STOPS at the first
+    Stripe address without asking for it; then the API is asked whether an
+    active payment link owns that address. That is a read, it creates nothing,
+    and unlike a 200 it can tell a live link from a dead one.
+    """
+    final, code = SL.resolve(url)
+    if final is None:
+        return False, f"HTTP unknown, ended nowhere -- {code}"
+    where = f"HTTP {code}, ended {final}"
+    if code != SL.STOPPED:
+        # Never reached a Stripe address at all: our own request form, an error
+        # page, or somebody else's site.
+        return False, where
+    if not SL.is_pay_link_address(final):
+        return False, f"{where} (a Stripe address, but not a payment link)"
+    try:
+        link = SL.link_for_address(final.split("?")[0], api_key)
+    except (SL.StripeUnreadable, SystemExit) as exc:
+        # UNKNOWN, and unknown is not a pass.
+        return False, f"{where} (page not loaded; Stripe could not be read: {_redact(exc)[:80]})"
+    if link is None:
+        return False, f"{where} (page not loaded; NO active payment link has this address)"
+    return True, f"{where} (page not loaded; Stripe says this payment link is active)"
 
 
 def _stripe_link_amount(url: str, api_key: str) -> int | None:
@@ -122,7 +155,7 @@ def check_family(fid: str, catalog: dict, api_key: str) -> dict:
     if not url or not str(url).startswith("https://"):
         fails.append("no armed checkout URL")
     else:
-        ok, detail = _probe_200(url)
+        ok, detail = _probe_200(url, api_key)
         report["checkout"] = detail
         if not ok:
             fails.append(f"pay button not live: {detail}")

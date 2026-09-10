@@ -31,7 +31,6 @@ from __future__ import annotations
 import datetime as dt
 import json
 import re
-import subprocess
 import sys
 from pathlib import Path
 
@@ -39,8 +38,12 @@ ROOT = Path(__file__).resolve().parents[1]
 CAT = ROOT / "catalog.json"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+
 import pipeline as P  # noqa: E402
 from pipeline import build_blindspots, build_veto  # noqa: E402
+import stripe_link_read as SL  # noqa: E402
+from prove_checkouts import _https_host_matches, _host_for_message  # noqa: E402
 
 
 def probe(url: str, lands_on: str | None) -> tuple[str, str]:
@@ -51,31 +54,52 @@ def probe(url: str, lands_on: str | None) -> tuple[str, str]:
     the first hop and seeing a 200 proves nothing, because our server answers a
     request form with 200 as well when a product is on hold. So we follow every
     redirect and insist the buyer ends up on the host the catalog named.
+
+    WHAT CHANGED, 2026-09-10. The last hop -- the Stripe address itself -- is no
+    longer fetched, and asking for it was never a read. Stripe opens a Checkout
+    Session for anything that loads a pay link, so this script was minting a
+    buyer who then "abandoned" the cart, every run, for every link: 145 of the
+    159 sessions on the account over 30 days were ours. It also proved nothing.
+    An address invented on the spot answers 200 with a body byte-identical to a
+    live link, because Stripe writes "this link is deactivated" from script
+    after the page loads.
+
+    So the redirect chain is still walked, which is the half that proves WHICH
+    Stripe address our own /buy sends a buyer to, and then Stripe's API is asked
+    whether a link with that address is active. That is a read, it creates
+    nothing, and unlike a 200 it can tell a live link from a dead one.
     """
-    try:
-        out = subprocess.run(
-            ["curl", "-sS", "-L", "-o", "/dev/null", "-w", "%{http_code} %{url_effective}",
-             "--max-time", "25", url],
-            capture_output=True, text=True, timeout=40,
-        )
-    except subprocess.TimeoutExpired:
-        return "unknown", "the request timed out, so we cannot say either way"
-    if out.returncode != 0:
-        return "unknown", f"curl could not complete: {out.stderr.strip()[:120]}"
-    code, _, final = out.stdout.partition(" ")
-    final = final.strip()
-    if code != "200":
+    final, code = SL.resolve(url)
+    if final is None:
+        # A sentence, not a status: nothing answered, so nothing is certified.
+        return "unknown", code
+    host = _host_for_message(final)
+    if code not in ("200", SL.STOPPED):
         if code in {"402", "403", "404", "410"}:
             return "dead", f"answered {code}"
         return "unknown", f"answered {code}"
-    if lands_on:
-        host = final.split("/")[2] if "://" in final else ""
-        if lands_on not in host:
-            # This is the crawler-feed failure: the product is on hold, so the
-            # button quietly lands on a request form instead of a checkout.
-            return "dead", f"answered 200 but ended on {host or final!r}, not {lands_on}"
-        return "live", f"bounced to {host} and that page answered 200"
-    return "live", f"answered 200 (ended at {final})"
+    if lands_on and not _https_host_matches(final, lands_on):
+        # This is the crawler-feed failure: the product is on hold, so the
+        # button quietly lands on a request form instead of a checkout.
+        # The same path now also refuses lookalike hosts and plain HTTP.
+        return "dead", f"ended on {host or final!r}, not {lands_on}"
+    if code != SL.STOPPED:
+        return "live", f"answered 200 (ended at {final})"
+    if not SL.is_pay_link_address(final):
+        # A Stripe address that is not a payment link. It is not fetched -- that
+        # is the whole point -- and there is nothing on the API to look it up
+        # in, so it is UNKNOWN, which withholds a stamp and removes nothing.
+        return "unknown", (f"ends on {host}, which is Stripe but not a payment link, "
+                           f"and a checkout page is never loaded to find out")
+    try:
+        link = SL.link_for_address(final.split("?")[0])
+    except (SL.StripeUnreadable, SystemExit) as exc:
+        return "unknown", f"Stripe could not be read, so nothing is certified: {exc}"
+    if link is None:
+        return "dead", (f"no ACTIVE payment link in Stripe has the address {final}, "
+                        f"so a buyer clicking this is sent to a dead checkout")
+    return "live", (f"Stripe says the payment link at {host} is active "
+                    f"(read from the API; the checkout page was not loaded)")
 
 
 def refused_by_ladder(fid: str, vetoed: dict) -> str | None:
