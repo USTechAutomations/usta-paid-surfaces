@@ -672,6 +672,9 @@ def check_no_permits_live_pointers() -> None:
 
 
 def main() -> None:
+    from availability_truth import off_sale_errors
+    for error in off_sale_errors(ROOT, CATALOG):
+        fail(error)
     # The rule before the pages: a broken classifier makes a clean sweep.
     check_no_permits_live_pointers()
     check_privacy_rule()

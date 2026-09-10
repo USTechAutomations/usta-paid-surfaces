@@ -25,6 +25,45 @@
   <meta property="og:description" content="Named CAISO interconnection queue projects that changed status between dated copies we sealed. Weekly what-moved file. $49/mo.">
   <meta name="twitter:description" content="Named CAISO interconnection queue projects that changed status between dated copies we sealed. Weekly what-moved file. $49/mo.">
   <meta name="twitter:card" content="summary">
+  <style>
+    /* AIR/GRID only: approved semantic tokens, measured in both themes. */
+    body[data-family="air-permits"] .btn-buy,
+    body[data-family="grid"] .btn-buy,
+    body[data-family="air-permits"] .mast-cta,
+    body[data-family="grid"] .mast-cta { background: hsl(var(--primary-surface-hover)); color: hsl(var(--primary-foreground)); }
+    body[data-family="air-permits"] .btn-buy:hover,
+    body[data-family="grid"] .btn-buy:hover,
+    body[data-family="air-permits"] .mast-cta:hover,
+    body[data-family="grid"] .mast-cta:hover { background: hsl(var(--primary-surface-hover)); }
+    body[data-family="air-permits"] a:not(.btn-buy):not(.mast-cta):not(.wordmark),
+    body[data-family="grid"] a:not(.btn-buy):not(.mast-cta):not(.wordmark) { color: hsl(var(--primary-surface-hover)); }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) body[data-family="air-permits"] a:not(.btn-buy):not(.mast-cta):not(.wordmark),
+      :root:not([data-theme="light"]) body[data-family="grid"] a:not(.btn-buy):not(.mast-cta):not(.wordmark) { color: hsl(var(--accent-blue)); }
+    }
+    :root[data-theme="dark"] body[data-family="air-permits"] a:not(.btn-buy):not(.mast-cta):not(.wordmark),
+    :root[data-theme="dark"] body[data-family="grid"] a:not(.btn-buy):not(.mast-cta):not(.wordmark) { color: hsl(var(--accent-blue)); }
+    @media (min-width: 64rem) and (max-width: 68.75rem) {
+      body[data-family="air-permits"] .masthead .wrap,
+      body[data-family="grid"] .masthead .wrap { flex-wrap: wrap; }
+      body[data-family="air-permits"] .mast-nav,
+      body[data-family="grid"] .mast-nav { flex-basis: 100%; margin-left: 0; justify-content: flex-end; gap: 1rem; flex-wrap: wrap; }
+    }
+    @media (max-width: 40rem) {
+      body[data-family="air-permits"] .wrap,
+      body[data-family="grid"] .wrap,
+      body[data-family="air-permits"] section,
+      body[data-family="grid"] section,
+      body[data-family="air-permits"] p,
+      body[data-family="grid"] p,
+      body[data-family="air-permits"] li,
+      body[data-family="grid"] li { min-width: 0; overflow-wrap: anywhere; }
+      body[data-family="air-permits"] .evidence,
+      body[data-family="grid"] .evidence { max-width: 100%; overflow: hidden; }
+      body[data-family="air-permits"] .scroll,
+      body[data-family="grid"] .scroll { max-width: 100%; overflow-x: auto; }
+    }
+  </style>
 </head>
 <body data-family="grid">
 <a class="skip" href="#main">Skip to content</a>
@@ -53,10 +92,10 @@
            below is the PRODUCT, not the reading rate, and the two are not the same. -->
       <div><dt>Price</dt><dd class="price">$49/mo</dd></div>
       <div><dt>Built for</dt><dd>Energy researchers, journalists, and interconnection-software vendors</dd></div>
-      <div><dt>Cadence</dt><dd>Weekly file</dd></div>
-      <div><dt>Public sample</dt><dd><span class="state"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8.4l3.6 3.6L13.5 4"/></svg>Named movers on this page</span></dd></div>
+      <div><dt>File target</dt><dd>Weekly when source seals are available</dd></div>
+      <div><dt>Public sample</dt><dd><span class="state">Named movers on this page</span></dd></div>
     </dl>
-    <p class="hero-cta"><a class="btn btn-buy" href="https://buy.stripe.com/8x214gdRAf5087G7vc0sU12" data-checkout="grid" rel="noopener">Subscribe — $49 a month</a><span class="btn-note">$49 a month, billed monthly, for dated what-moved files of the California ISO interconnection queue only. Not the Southwest Power Pool, not ISO New England, not the New York ISO, and not a four-queue blend. One file a week, built from daily seals. A week with no tracked-field moves is still sent: added 0, removed 0, changed 0, plus the two content hashes of the workbooks compared. This file uses material published by the California ISO. Copyright © 2026 California Independent System Operator. All rights reserved. Their terms say &quot;Most of the materials&quot;, not all. This file does not claim the Public Queue Report is inside that &quot;Most&quot;. Cancel any month by email, with no account to close and no notice period.</span></p>
+    <p class="hero-cta"><a class="btn btn-buy" href="https://buy.stripe.com/8x214gdRAf5087G7vc0sU12" data-checkout="grid" rel="noopener">Subscribe — $49 a month</a><span class="btn-note">$49 a month, billed monthly, for dated what-moved files of the California ISO interconnection queue only. Not the Southwest Power Pool, not ISO New England, not the New York ISO, and not a four-queue blend. A dated file is built from successful CAISO seals when available. When the two comparison copies have no tracked-field moves, it records added 0, removed 0, changed 0, plus the two content hashes of the workbooks compared; a failed or missing source read creates no new dated file and remains an explicit gap. This file uses material published by the California ISO. Copyright © 2026 California Independent System Operator. All rights reserved. Their terms say &quot;Most of the materials&quot;, not all. This file does not claim the Public Queue Report is inside that &quot;Most&quot;. Cancel any month by email, with no account to close and no notice period.</span></p>
   </div>
 </section>
 
@@ -124,7 +163,7 @@
       <h2>What this feed holds</h2>
       <ul class="spec">
         <li><strong>$49 a month, billed monthly, for a weekly California ISO what-moved file</strong><span class="sub">Not SPP, not ISO-NE, not NYISO, and not a four-queue blend. Cancel any month by email.</span></li>
-        <li><strong>Named CAISO projects that moved</strong><span class="sub">Status changes, entries and exits, out of daily seals. A week with no tracked-field moves is still sent: added 0, removed 0, changed 0, plus the two content hashes of the workbooks compared.</span></li>
+        <li><strong>Named CAISO projects that moved</strong><span class="sub">Status changes, entries and exits, out of daily seals. When the two comparison copies have no tracked-field moves, it records added 0, removed 0, changed 0, plus the two content hashes of the workbooks compared; a failed or missing source read creates no new dated file and remains an explicit gap.</span></li>
         <li><strong>The 16 sample rows stay free</strong><span class="sub">The named rows on this page, and the sample CSV and JSON, are free to read.</span></li>
       </ul>
     </section>
@@ -133,8 +172,8 @@
       <h2>How it works</h2>
       <ol class="steps">
         <li>You subscribe, or you email us first. We tell you what we hold for CAISO, and what we do not hold, before you spend anything.</li>
-        <li>A person emails you the first California ISO what-moved file as a CSV within one working day.</li>
-        <li>Each week a person emails you a new file. Cancel any month by email, with no account to close and no notice period.</li>
+        <li>After payment confirmation, your dated California ISO file appears on the receipt page.</li>
+        <li>When later successfully collected source copies is available, a newer dated file may appear on that page. A failed or missing source read leaves the prior dated file unchanged and is reported in its source notes. Cancel any month by email, with no account to close and no notice period.</li>
       </ol>
     </section>
 
@@ -154,14 +193,14 @@
         <li><a href="https://ustechautomations.com/feeds/grid/sample.csv">Open the 16 rows as a CSV</a><span class="sub">A plain spreadsheet file. It saves to your machine rather than painting itself into a browser tab, and it opens in Excel, Numbers or Google Sheets.</span></li>
         <li><a href="https://ustechautomations.com/feeds/grid/sample.json">The same 16 rows as JSON</a><span class="sub">The same rows again, laid out for reading with code.</span></li>
       </ul>
-      <p class="mail-note"><strong>What arrives after you pay:</strong> a person emails you the whole file as a CSV &mdash; the same plain spreadsheet as the sample file above, not a login and not a web page &mdash; within one working day of your payment.</p>
+      <p class="mail-note"><strong>What arrives after you pay:</strong> Stripe sends you to the receipt page. After payment confirmation, your dated California ISO CSV appears there. It compares successfully collected source copies and names any gaps. A failed source read creates no new dated file. Nobody emails you. The subscriber CSV adds source and coverage columns to the compact preview shown here. A coverage row records the comparison dates and any gaps, including when no changes were observed.</p>
       <p class="mail-note">These 16 rows are a slice of the file, not the whole of it. What we cannot show you here is how far back it goes: that is the part you are paying for.</p>
     </section>
     <section class="contact buy">
       <h2>Subscribe to this feed</h2>
       <p class="buy-price"><strong>$49/mo</strong> &middot; daily seals</p>
       <a class="btn btn-buy btn-lg" href="https://buy.stripe.com/8x214gdRAf5087G7vc0sU12" data-checkout="grid" rel="noopener">Subscribe — $49 a month</a>
-      <p class="mail-note">$49 a month, billed monthly, for dated what-moved files of the California ISO interconnection queue only. Not the Southwest Power Pool, not ISO New England, not the New York ISO, and not a four-queue blend. One file a week, built from daily seals. A week with no tracked-field moves is still sent: added 0, removed 0, changed 0, plus the two content hashes of the workbooks compared. This file uses material published by the California ISO. Copyright © 2026 California Independent System Operator. All rights reserved. Their terms say &quot;Most of the materials&quot;, not all. This file does not claim the Public Queue Report is inside that &quot;Most&quot;. Cancel any month by email, with no account to close and no notice period. After you pay, a person emails you the first California ISO what-moved file as a CSV within one working day, then a new one every week for as long as the subscription runs. Each file names the two sealed dates compared. If we could not collect that week, the file says so rather than repeating itself.</p>
+      <p class="mail-note">$49 a month, billed monthly, for dated what-moved files of the California ISO interconnection queue only. Not the Southwest Power Pool, not ISO New England, not the New York ISO, and not a four-queue blend. A dated file is built from successful CAISO seals when available. When the two comparison copies have no tracked-field moves, it records added 0, removed 0, changed 0, plus the two content hashes of the workbooks compared; a failed or missing source read creates no new dated file and remains an explicit gap. This file uses material published by the California ISO. Copyright © 2026 California Independent System Operator. All rights reserved. Their terms say &quot;Most of the materials&quot;, not all. This file does not claim the Public Queue Report is inside that &quot;Most&quot;. Cancel any month by email, with no account to close and no notice period. After payment confirmation, your dated California ISO file appears on the receipt page. A dated CSV appears only after successfully collected source copies; each file names the two sealed dates compared and its source hashes. If an intervening source read fails, the gap is reported and no new dated file is created from that failure.</p>
       <p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=Queue%20changes%20%E2%80%94%20%2449/mo">Email operations@ustechautomations.com</a>. Say that you want CAISO and we will tell you which weeks we hold for it before you pay.</p>
     </section>
 

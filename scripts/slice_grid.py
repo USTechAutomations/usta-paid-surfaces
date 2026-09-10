@@ -888,6 +888,8 @@ def _miss_facts(isos: list[str]) -> list[str]:
     for day, code, byte_len in sorted(mine):
         if code and code != 200:
             bits.append(f"on {_day(day)} the server answered with an error ({code})")
+        elif byte_len is None:
+            bits.append(f"on {_day(day)} the server did not answer")
         else:
             bits.append(f"on {_day(day)} the file came back at only {byte_len:,} bytes, "
                         "far short of a full list, with no projects in it")
@@ -1832,6 +1834,8 @@ def _coverage_slice() -> dict | None:
         if code and code != 200:
             gaps.append(f"on {_day(day)} the {OPERATORS[iso][0]} server answered with an "
                         f"error ({code})")
+        elif byte_len is None:
+            gaps.append(f"on {_day(day)} the {OPERATORS[iso][0]} server did not answer")
         else:
             gaps.append(f"on {_day(day)} the {OPERATORS[iso][0]} file came back at only "
                         f"{byte_len:,} bytes, far short of a full list")

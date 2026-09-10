@@ -49,6 +49,7 @@ RECEIPT = Path.home() / ".hermes/state/feeds-mint/last-run.json"
 FAILURES = Path.home() / "reports/feeds-mint-failures.md"
 LIVE_BASE = "https://ustechautomations.com/feeds/"
 PLACEHOLDER = "TO-MINT"
+SOURCE_USE_HOLDS = frozenset({"hospital-mrf", "model-cards"})
 
 sys.path.insert(0, str(ROOT / "scripts"))
 from mint_feed_links import AFTER_PAYMENT_URL, parse_price  # noqa: E402
@@ -59,6 +60,8 @@ def pending(catalog: dict) -> list[str]:
     """Family ids whose row says TO-MINT and names a dollar price."""
     out = []
     for fam in catalog.get("families", []):
+        if fam.get("id") in SOURCE_USE_HOLDS:
+            continue
         url = (fam.get("checkout") or {}).get("url")
         if url == PLACEHOLDER and parse_price(fam.get("price", "")) is not None:
             out.append(fam["id"])

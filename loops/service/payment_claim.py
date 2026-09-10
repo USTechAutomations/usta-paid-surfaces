@@ -33,12 +33,19 @@ class StripeReader:
     def get(self, path: str, params: dict | None = None) -> dict:
         if not self.key:
             raise ClaimError(503, "Payment verification is unavailable. Please retry.")
+        if (not isinstance(path, str) or not re.fullmatch(r"/[a-z_]+(?:/[A-Za-z0-9_]+)*(?:/line_items)?", path)):
+            raise ClaimError(503, "Payment verification is unavailable. Please retry.")
         url = "https://api.stripe.com/v1" + path
         if params:
             url += "?" + urllib.parse.urlencode(params)
-        request = urllib.request.Request(url, headers={"Authorization": "Bearer " + self.key})
+        request = urllib.request.Request(url, headers={"Authorization": "Bearer " + self.key, "Stripe-Version": "2024-06-20", "Accept-Encoding": "identity"})
         try:
-            with urllib.request.urlopen(request, timeout=3) as response:
+            class NoRedirect(urllib.request.HTTPRedirectHandler):
+                def redirect_request(self, req, fp, code, msg, headers, newurl):
+                    return None
+            with urllib.request.build_opener(NoRedirect()).open(request, timeout=3) as response:
+                if response.headers.get("Content-Encoding", "identity") != "identity":
+                    raise ValueError("encoded response")
                 raw = response.read(2_000_001)
                 if len(raw) > 2_000_000:
                     raise ValueError("response too large")

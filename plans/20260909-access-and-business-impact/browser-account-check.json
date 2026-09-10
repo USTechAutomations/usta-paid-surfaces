@@ -1,0 +1,27 @@
+{
+  "checks": [
+    {
+      "site": "gumroad_current_editor",
+      "text_signals": {
+        "payout_method_required": true,
+        "unpublished": false
+      }
+    },
+    {
+      "site": "gumroad_payout_settings",
+      "path": "/settings/payments",
+      "signals": {
+        "You must connect": false,
+        "payout method": true,
+        "Connect with Stripe": false,
+        "Connect PayPal": false,
+        "PayPal": true,
+        "Bank account": true,
+        "Connect bank": false,
+        "Identity verification": false,
+        "Log in": false,
+        "Log out": false
+      }
+    }
+  ]
+}

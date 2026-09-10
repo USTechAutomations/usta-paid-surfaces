@@ -1,200 +1,299 @@
 {
   "id": "ttb",
-  "from": "2026-08-19",
-  "to": "2026-08-25",
-  "appeared_count": 105,
-  "gone_count": 15,
+  "from": "2026-09-08",
+  "to": "2026-09-09",
+  "appeared_count": 61,
+  "gone_count": 16,
   "appeared": [
     {
-      "permit": "AK-I-21014",
-      "name": "Columbia Distributing",
-      "city": "FAIRBANKS",
-      "state": "AK",
-      "industry": "Importer (Alcohol)"
-    },
-    {
-      "permit": "AK-I-21015",
-      "name": "Columbia Distributing",
-      "city": "JUNEAU",
-      "state": "AK",
-      "industry": "Importer (Alcohol)"
-    },
-    {
-      "permit": "AK-P-21042",
-      "name": "Columbia Distributing",
-      "city": "FAIRBANKS",
-      "state": "AK",
-      "industry": "Wholesaler (Alcohol)"
-    },
-    {
-      "permit": "AK-P-21043",
-      "name": "Columbia Distributing",
-      "city": "JUNEAU",
-      "state": "AK",
-      "industry": "Wholesaler (Alcohol)"
-    },
-    {
-      "permit": "AL-P-21102",
-      "name": "",
-      "city": "HUNTSVILLE",
-      "state": "AL",
-      "industry": "Wholesaler (Alcohol)"
-    },
-    {
-      "permit": "AZ-I-21231",
-      "name": "",
-      "city": "MESA",
-      "state": "AZ",
-      "industry": "Importer (Alcohol)"
-    },
-    {
-      "permit": "AZ-P-21326",
-      "name": "",
-      "city": "SCOTTSDALE",
-      "state": "AZ",
-      "industry": "Wholesaler (Alcohol)"
-    },
-    {
-      "permit": "AZ-S-20081",
-      "name": "Oro De Sonora",
-      "city": "PHOENIX",
-      "state": "AZ",
-      "industry": "Distilled Spirits Plant"
-    },
-    {
-      "permit": "CA-I-24409",
-      "name": "",
-      "city": "SAN DIEGO",
+      "permit": "CA-I-24416",
+      "name": null,
+      "city": "PASADENA",
       "state": "CA",
       "industry": "Importer (Alcohol)"
     },
     {
-      "permit": "CA-I-24410",
-      "name": "",
-      "city": "WESTMINSTER",
-      "state": "CA",
-      "industry": "Importer (Alcohol)"
-    },
-    {
-      "permit": "CA-I-24411",
-      "name": "Amigos Agaveros",
-      "city": "RIVERSIDE",
-      "state": "CA",
-      "industry": "Importer (Alcohol)"
-    },
-    {
-      "permit": "CA-I-24412",
-      "name": "",
-      "city": "DENAIR",
-      "state": "CA",
-      "industry": "Importer (Alcohol)"
-    }
-  ],
-  "gone": [
-    {
-      "permit": "CA-P-25960",
-      "name": "Best Coast Beverages",
-      "city": "LOS ANGELES",
-      "state": "CA",
-      "industry": "Wholesaler (Alcohol)"
-    },
-    {
-      "permit": "CA-W-21687",
-      "name": "Roy Piper Wines",
-      "city": "CALISTOGA",
-      "state": "CA",
-      "industry": "Wine Producer"
-    },
-    {
-      "permit": "CA-W-22424",
-      "name": "T-VINE WINERY",
+      "permit": "CA-P-27541",
+      "name": null,
       "city": "NAPA",
       "state": "CA",
-      "industry": "Wine Producer"
+      "industry": "Wholesaler (Alcohol)"
     },
     {
-      "permit": "CA-W-23289",
-      "name": "Downstream",
-      "city": "PASO ROBLES",
+      "permit": "CA-P-27542",
+      "name": null,
+      "city": "VISTA",
       "state": "CA",
-      "industry": "Wine Producer"
+      "industry": "Wholesaler (Alcohol)"
     },
     {
-      "permit": "CA-W-25070",
-      "name": "Casa Dominguez Wines",
-      "city": "CALISTOGA",
+      "permit": "CA-P-27543",
+      "name": null,
+      "city": "PASADENA",
       "state": "CA",
-      "industry": "Wine Producer"
+      "industry": "Wholesaler (Alcohol)"
     },
     {
-      "permit": "CO-S-20154",
-      "name": "",
-      "city": "DELTA",
-      "state": "CO",
+      "permit": "CA-P-27544",
+      "name": "Global Vineyard Importers",
+      "city": "BERKELEY",
+      "state": "CA",
+      "industry": "Wholesaler (Alcohol)"
+    },
+    {
+      "permit": "CA-S-20609",
+      "name": null,
+      "city": "ROHNERT PARK",
+      "state": "CA",
       "industry": "Distilled Spirits Plant"
     },
     {
-      "permit": "FL-I-22203",
-      "name": "Sociedad Mezcalera INC",
+      "permit": "CA-W-25854",
+      "name": "Sommers Wines",
+      "city": "BUELLTON",
+      "state": "CA",
+      "industry": "Wine Producer"
+    },
+    {
+      "permit": "CA-W-25855",
+      "name": "Santa Diablo Wine Co",
+      "city": "BUELLTON",
+      "state": "CA",
+      "industry": "Wine Producer"
+    },
+    {
+      "permit": "CA-W-25856",
+      "name": "Nikkel Farm and Winery",
+      "city": "MARIPOSA",
+      "state": "CA",
+      "industry": "Wine Producer"
+    },
+    {
+      "permit": "CA-W-25857",
+      "name": "WILLIAM PERRY WINERY",
+      "city": "ST. HELENA",
+      "state": "CA",
+      "industry": "Wine Producer"
+    },
+    {
+      "permit": "CA-W-25858",
+      "name": "GUILLEN VINEYARDS",
+      "city": "MORGAN HILL",
+      "state": "CA",
+      "industry": "Wine Producer"
+    },
+    {
+      "permit": "CO-W-21215",
+      "name": "Mosaic Wines",
+      "city": "HOTCHKISS",
+      "state": "CO",
+      "industry": "Wine Producer"
+    },
+    {
+      "permit": "CT-P-21312",
+      "name": "Jabroni Beer Company",
+      "city": "WOODBURY",
+      "state": "CT",
+      "industry": "Wholesaler (Alcohol)"
+    },
+    {
+      "permit": "CT-W-21080",
+      "name": null,
+      "city": "CHESHIRE",
+      "state": "CT",
+      "industry": "Wine Producer"
+    },
+    {
+      "permit": "FL-I-23208",
+      "name": "GLOBAL SPIRITS TRADING LLC",
+      "city": "ST AUGUSTINE",
+      "state": "FL",
+      "industry": "Importer (Alcohol)"
+    },
+    {
+      "permit": "FL-I-23209",
+      "name": null,
+      "city": "JACKSONVILLE",
+      "state": "FL",
+      "industry": "Importer (Alcohol)"
+    },
+    {
+      "permit": "FL-I-23210",
+      "name": "Maison CR Imports",
+      "city": "MIAMI",
+      "state": "FL",
+      "industry": "Importer (Alcohol)"
+    },
+    {
+      "permit": "FL-I-23211",
+      "name": null,
+      "city": "WESTON",
+      "state": "FL",
+      "industry": "Importer (Alcohol)"
+    },
+    {
+      "permit": "FL-I-23212",
+      "name": null,
+      "city": "POMPANO BEACH",
+      "state": "FL",
+      "industry": "Importer (Alcohol)"
+    },
+    {
+      "permit": "FL-I-23213",
+      "name": null,
+      "city": "MIAMI",
+      "state": "FL",
+      "industry": "Importer (Alcohol)"
+    },
+    {
+      "permit": "FL-I-23214",
+      "name": null,
       "city": "MIAMI BEACH",
       "state": "FL",
       "industry": "Importer (Alcohol)"
     },
     {
-      "permit": "FL-P-21663",
-      "name": "",
-      "city": "NICEVILLE",
+      "permit": "FL-P-23310",
+      "name": "GLOBAL SPIRITS TRADING LLC",
+      "city": "ST AUGUSTINE",
       "state": "FL",
       "industry": "Wholesaler (Alcohol)"
     },
     {
-      "permit": "HI-P-21070",
-      "name": "Johnson Brothers of Hawaii",
-      "city": "KAILUA-KONA",
-      "state": "HI",
+      "permit": "FL-P-23311",
+      "name": null,
+      "city": "POMPANO BEACH",
+      "state": "FL",
       "industry": "Wholesaler (Alcohol)"
     },
     {
-      "permit": "IL-W-21073",
-      "name": "PeachBarn Winery & Cafe",
-      "city": "ALTO PASS",
-      "state": "IL",
-      "industry": "Wine Producer"
+      "permit": "FL-P-23312",
+      "name": null,
+      "city": "MIAMI",
+      "state": "FL",
+      "industry": "Wholesaler (Alcohol)"
     },
     {
-      "permit": "ME-W-21022",
-      "name": "Cellardoor",
-      "city": "LINCOLNVILLE",
-      "state": "ME",
-      "industry": "Wine Producer"
-    },
-    {
-      "permit": "MI-S-15031",
-      "name": "RED CEDAR SPIRITS",
-      "city": "EAST LANSING",
-      "state": "MI",
-      "industry": "Distilled Spirits Plant"
-    },
-    {
-      "permit": "OH-S-20177",
-      "name": "Preston & Russel",
-      "city": "TOLEDO",
-      "state": "OH",
-      "industry": "Distilled Spirits Plant"
-    },
-    {
-      "permit": "OR-S-20150",
-      "name": "Eastside Distilling Company",
-      "city": "PORTLAND",
-      "state": "OR",
-      "industry": "Distilled Spirits Plant"
-    },
-    {
-      "permit": "WA-S-20161",
-      "name": "Heritage Distilling Company",
-      "city": "TUMWATER",
-      "state": "WA",
-      "industry": "Distilled Spirits Plant"
+      "permit": "FL-P-23313",
+      "name": null,
+      "city": "MIAMI BEACH",
+      "state": "FL",
+      "industry": "Wholesaler (Alcohol)"
     }
-  ]
+  ],
+  "gone": [
+    {
+      "permit": "CA-P-8804",
+      "name": "WM HARRISON VINEYARDS & WINERY",
+      "city": "SAINT HELENA",
+      "state": "CA",
+      "industry": "Wholesaler (Alcohol)"
+    },
+    {
+      "permit": "CA-W-21628",
+      "name": null,
+      "city": "BUELLTON",
+      "state": "CA",
+      "industry": "Wine Producer"
+    },
+    {
+      "permit": "CA-W-21945",
+      "name": "Habit Wine Company",
+      "city": "SANTA MARIA",
+      "state": "CA",
+      "industry": "Wine Producer"
+    },
+    {
+      "permit": "CA-W-23446",
+      "name": "Centralas Wine LLC",
+      "city": "MOORPARK",
+      "state": "CA",
+      "industry": "Wine Producer"
+    },
+    {
+      "permit": "CA-W-25200",
+      "name": "RUDDY FOX",
+      "city": "OAKVILLE",
+      "state": "CA",
+      "industry": "Wine Producer"
+    },
+    {
+      "permit": "CA-W-3031",
+      "name": "WILLIAM HARRISON VINEYARDS & WINERY",
+      "city": "SAINT HELENA",
+      "state": "CA",
+      "industry": "Wine Producer"
+    },
+    {
+      "permit": "FL-I-22747",
+      "name": null,
+      "city": "MIAMI BEACH",
+      "state": "FL",
+      "industry": "Importer (Alcohol)"
+    },
+    {
+      "permit": "KY-P-21332",
+      "name": "Blackwood Distilling Co",
+      "city": "VERSAILLES",
+      "state": "KY",
+      "industry": "Wholesaler (Alcohol)"
+    },
+    {
+      "permit": "NE-P-2346",
+      "name": null,
+      "city": "ALLIANCE",
+      "state": "NE",
+      "industry": "Wholesaler (Alcohol)"
+    },
+    {
+      "permit": "NE-P-2575",
+      "name": null,
+      "city": "OMAHA",
+      "state": "NE",
+      "industry": "Wholesaler (Alcohol)"
+    },
+    {
+      "permit": "NE-S-15002",
+      "name": null,
+      "city": "WEST POINT",
+      "state": "NE",
+      "industry": "Distilled Spirits Plant"
+    },
+    {
+      "permit": "NY-I-21790",
+      "name": "Black Button Distilling",
+      "city": "ROCHESTER",
+      "state": "NY",
+      "industry": "Importer (Alcohol)"
+    },
+    {
+      "permit": "NY-S-20019",
+      "name": "Black Button Distilling",
+      "city": "ROCHESTER",
+      "state": "NY",
+      "industry": "Distilled Spirits Plant"
+    },
+    {
+      "permit": "OH-W-15009",
+      "name": "SILVER MOON WINERY",
+      "city": "DOVER",
+      "state": "OH",
+      "industry": "Wine Producer"
+    },
+    {
+      "permit": "TN-S-20083",
+      "name": "Standard Proof Whiskey Co.",
+      "city": "NASHVILLE",
+      "state": "TN",
+      "industry": "Distilled Spirits Plant"
+    },
+    {
+      "permit": "WI-W-15018",
+      "name": "SINNIPEE VALLEY VINEYARD",
+      "city": "KIELER",
+      "state": "WI",
+      "industry": "Wine Producer"
+    }
+  ],
+  "source_scope": "ttb:all-permits; privacy-safe projection; latest two held snapshots"
 }

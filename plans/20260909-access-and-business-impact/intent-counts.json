@@ -1,0 +1,14 @@
+{
+  "opportunities": {
+    "opportunities": 264,
+    "action_log": 2,
+    "dispatch_outbox": 2,
+    "human_gate_queue": 1
+  },
+  "outcomes": {
+    "outcomes": 0
+  },
+  "public_reply_queue": {
+    "public_reply_queue": 8
+  }
+}

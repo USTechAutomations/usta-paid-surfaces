@@ -922,6 +922,7 @@ quakes/coverage
 quakes/depth-revised
 quakes/hawaii
 quakes/magnitude-revised
+quakes/mexico
 quakes/most-revised
 quakes/nevada
 quakes/new-mexico

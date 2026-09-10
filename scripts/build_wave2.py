@@ -15,7 +15,7 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from render_family import price_of, section, table, write  # noqa: E402
+from render_family import fam_row, price_of, section, table, write  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 S = lambda n: json.loads((ROOT / "samples" / f"{n}.json").read_text(encoding="utf-8"))
@@ -75,6 +75,11 @@ def d(iso: str) -> str:
 
 # The store the TTB pages are sealed from. Opened read-only, never written.
 TTB_DB = Path("/home/gmullins/Claude CLI/clocks/ttb_permits/data/ttb_permits.db")
+TTB_SOURCE_CREDIT = (
+    'Source: Alcohol and Tobacco Tax and Trade Bureau (TTB), List of Permittees, '
+    '<a href="https://www.ttb.gov/public-information/foia/list-of-permittees" '
+    'rel="noopener">official list of permittees</a>.'
+)
 
 
 def _ttb_seals() -> list[str]:
@@ -333,20 +338,10 @@ def mesa_code() -> dict:
 
 
 def ttb() -> dict:
+    """Durable TTB page copy for the existing state-bound checkout rail."""
     p = price("ttb")
     sale = "$" in p
     j = S("ttb")
-    # The rail used to promise "A person emails it weekly" -- a rhythm this very
-    # page says we cannot claim from the gaps we have measured. Count the reads
-    # instead, live from the store, the same way _ttb_rhythm() does.
-    seals = _ttb_seals()
-    if len(seals) >= 2:
-        _gaps = [(date.fromisoformat(b) - date.fromisoformat(a)).days
-                 for a, b in zip(seals, seals[1:])]
-        cadence_rail = (f"{len(seals)} reads so far, "
-                        f"{_plain_list([str(g) for g in _gaps])} days apart")
-    else:
-        cadence_rail = "Weekly file promised, rhythm not yet measured"
     frm, to = d(j["from"]), d(j["to"])
     NOTNAME = '<span class="sub">name not in our copy</span>'
 
@@ -354,84 +349,68 @@ def ttb() -> dict:
         return esc(r["name"]) if r.get("name") else NOTNAME
 
     app = [
-        (f'{esc(r["permit"])}', nm(r), f'{esc(r["city"].title())}, {esc(r["state"])}', esc(r["industry"]))
+        (esc(r["permit"]), nm(r), f'{esc(r["city"].title())}, {esc(r["state"])}', esc(r["industry"]))
         for r in j["appeared"]
     ]
     gone = [
-        (f'{esc(r["permit"])}', nm(r), f'{esc(r["city"].title())}, {esc(r["state"])}', esc(r["industry"]))
+        (esc(r["permit"]), nm(r), f'{esc(r["city"].title())}, {esc(r["state"])}', esc(r["industry"]))
         for r in j["gone"]
     ]
     unnamed = sum(1 for r in j["gone"] if not r.get("name"))
+    terms = ("$99 a month, billed monthly, for one state or territory you name — not the national file. "
+             "You get every permit that appeared and every permit that stopped being listed between "
+             "the copies we hold, with the permit number, the city, the state, the industry, and the "
+             "business name where our copy holds one. Often it does not: we print the gap rather than "
+             "filling it in, because a permit number you can look up is worth more than a name we guessed. "
+             "Cancel any month by email, with no account to close and no notice period.")
+    after = ("At checkout, choose one state or territory in the required Which state field. After your "
+             "active payment is confirmed, the receipt page shows a dated CSV for that state. New source "
+             "comparisons add dated files when available. Missing or invalid state input remains unassigned; "
+             "email operations@ustechautomations.com to correct it.")
+    checkout = dict(fam_row("ttb").get("checkout") or {})
+    checkout["after"] = after
     secs = [
         section(
             "Public sample",
             f'{frm} vs {to} · {j["appeared_count"]} permits appeared, {j["gone_count"]} disappeared',
             "      <p>The TTB publishes the permit list as it stands today and overwrites the last one. "
             "It also publishes, free and every week, a short file of just the permits issued since its "
-            "last publication, so if all you want is which permits are new, take it from the TTB and not "
-            "from us. What that free file does not carry is the permits that stopped being listed, or the "
-            "quiet changes to permits already on the list. Once the national file is overwritten, those "
-            "are gone. <strong>We keep the earlier copies.</strong></p>\n"
-            + table(
-                ["Permit", "Business", "Where", "Industry"],
-                app,
-                "Permits that were not in the earlier copy",
-                f"{frm} → {to}",
-            )
-            + f"\n      <p>Twelve of {j['appeared_count']} shown. The file you buy carries every one of them "
-            "for the state or territory you name.</p>",
+            "last publication. What that free file does not carry is the permits that stopped being listed, "
+            "or the quiet changes to permits already on the list. <strong>We keep the earlier copies.</strong></p>\n"
+            f"      <p class=\"source-credit\">{TTB_SOURCE_CREDIT}</p>\n"
+            + table(["Permit", "Business", "Where", "Industry"], app,
+                    "Permits that were not in the earlier copy", f"{frm} → {to}")
+            + f"\n      <p>Twelve of {j['appeared_count']} shown. The paid file carries every change for the state or territory selected at checkout.</p>",
         ),
         section(
             "Permits that stopped being listed",
             None,
-            f"      <p>All {j['gone_count']} of them. A permit leaving the list is the row a compliance team "
-            "usually cares about most, so we show the whole set rather than a sample of it.</p>\n"
-            + table(
-                ["Permit", "Business", "Where", "Industry"],
-                gone,
-                "Permits in the earlier copy that were gone from the later one",
-                f"{frm} → {to}",
-            )
+            f"      <p>All {j['gone_count']} of them. A permit leaving the list is a row a compliance team usually cares about, so we show the whole set rather than a sample of it.</p>\n"
+            + table(["Permit", "Business", "Where", "Industry"], gone,
+                    "Permits in the earlier copy that were gone from the later one", f"{frm} → {to}")
             + '\n      <div class="honest">\n'
-            f"        <p><strong>{unnamed} of these {j['gone_count']} rows have no business name.</strong> "
-            "Our earlier copy holds the permit number, the city, the state and the industry for them, and no "
-            "name. We print the gap instead of filling it in. A permit number you can look up is worth more "
-            "than a business name we guessed.</p>\n"
+            f"        <p><strong>{unnamed} of these {j['gone_count']} rows have no business name.</strong> Our earlier copy holds the permit number, city, state and industry for them, and no name. We print the gap instead of filling it in. A permit number you can look up is worth more than a business name we guessed.</p>\n"
             "      </div>",
-        ),
-        section(
-            "Doing this yourself",
-            None,
-            "      <p>The TTB publishes the permit list as it stands today and replaces it. The appearances it hands you free every week in its own short file. To get the disappearances and the quiet changes to permits already on the list, you would have to download the national file over and over, keep every old copy, and cut it down to your state yourself.</p>\n      <p>Miss one download and the permits that came and went between it and the next one never show up in any later file.</p>",
         ),
         section(
             "What you get in each file",
             None,
             '      <ul class="spec">\n'
-            "        <li><strong>Every permit that appeared, and every permit that stopped being listed</strong>"
-            '<span class="sub">Permit number, business name where we hold one, city, state, industry.</span></li>\n'
-            "        <li><strong>One state or territory you name</strong>"
-            '<span class="sub">Not the national file you would have to cut down yourself.</span></li>\n'
-            "        <li><strong>Cancel any month by email</strong>"
-            '<span class="sub">No account to close, no notice period.</span></li>\n'
+            "        <li><strong>Every permit change in the selected state or territory</strong><span class=\"sub\">Permit number, business name where our copy holds one, city, state and industry.</span></li>\n"
+            "        <li><strong>One state or territory selected at checkout</strong><span class=\"sub\">The required Which state field binds the receipt to the file.</span></li>\n"
+            "        <li><strong>A dated CSV on the receipt page after active payment confirmation</strong><span class=\"sub\">The receipt page carries the state selected at checkout.</span></li>\n"
+            "        <li><strong>Cancel any month by email</strong><span class=\"sub\">No account to close, no notice period.</span></li>\n"
             "      </ul>",
         ),
         section(
             "How it works",
             None,
             '      <ol class="steps">\n'
-            # A live card button sits on this page, so email is not the only way to
-            # buy and the steps must not say it is. The flag these lines used to hang
-            # off was "is there a price", which is a different question from "is there
-            # a pay button". Both routes get named.
-            "        <li>You buy below, or you email us first and name the state or "
-            "territory you follow.</li>\n"
-            "        <li>If you emailed, we send the same checkout link in that "
-            "thread.</li>\n"
-            "        <li>Each week a person emails you the appear / disappear file, and names anything we "
-            "could not collect.</li>\n"
-            "      </ol>\n"
-            '      <div class="honest">\n        ' + _ttb_rhythm() + "\n      </div>",
+            "        <li>Choose one state or territory in the required <strong>Which state</strong> field at checkout.</li>\n"
+            "        <li>After active payment confirmation, the receipt page opens with the dated CSV for that selection.</li>\n"
+            "        <li>Each new sealed source pair is added as a dated state file when available; a missing or invalid selection remains unassigned.</li>\n"
+            '      </ol>\n'
+            f'      <div class="honest">\n        <p>The sample above is the latest pair we hold: {frm} to {to}. A row leaving one copy and missing from the next is a net-copy observation. It does not establish a TTB revocation, a closure or the reason for the change.</p>\n      </div>',
         ),
     ]
     return {
@@ -440,29 +419,23 @@ def ttb() -> dict:
         "ready": True,
         "hero_note": None if sale else NOT_FOR_SALE_NOTE.format(price=p),
         "group": "Other dated records",
-        "cadence": "Weekly by email",
-        "cadence_long": cadence_rail,
+        "cadence": "Dated source pairs",
+        "cadence_long": f"Latest held pair: {frm} to {to}",
         "crumb": "TTB appear / disappear",
         "h1": "TTB appear / disappear list",
-        "buyer": "Beverage compliance and wholesaler operations",
-        "desc": (
-            f"Named US alcohol permits that appeared or stopped being listed between {frm} and {to}. "
-            f'{j["appeared_count"]} appeared, {j["gone_count"]} gone. {p}. Email operations@.'
-        ),
-        "lede": "Every time the TTB publishes the permit list, the new one overwrites the last. "
-        "<strong>We keep the old copies, so you get the permits that appeared and the ones that stopped "
-        "being listed</strong>, for one state or territory you name.",
+        "buyer": "Beverage compliance and wholesaler ops",
+        "desc": f"Named US alcohol permits that appeared or stopped being listed between {frm} and {to}. {j['appeared_count']} appeared, {j['gone_count']} gone. {p}.",
+        "lede": "Every time the TTB publishes the permit list, the new one overwrites the last. <strong>We keep the old copies, so you get the permits that appeared and the ones that stopped being listed</strong>, for one state or territory selected at checkout.",
         "pill_label": "Named permits on this page",
         "subj": mail_subject("TTB list", p),
-        "contact_h2": "Subscribe to this feed" if sale else "Start the thread",
-        "contact_p": "Say which state or territory you follow. We send a checkout link in that thread. "
-        "A person still emails the file.",
-        "contact_cta": f"Email us for the {p} checkout link",
-        "contact_note": "We will tell you which weeks we hold for your state before you pay.",
-        "foot": "Every permit number on this page comes from two dated copies we sealed ourselves. Where our "
-        "copy has no business name, the row says so rather than leaving a quiet gap.",
+        "contact_h2": "Subscribe to this feed" if sale else "See the copies we hold",
+        "contact_p": "Choose one state or territory in the required Which state field at checkout. After active payment confirmation, the receipt page shows that state's dated CSV.",
+        "contact_cta": f"Subscribe — {p}",
+        "contact_note": "The checkout field carries the state selection; email operations@ustechautomations.com to correct missing or invalid input.",
+        "checkout": checkout,
+        "plain_status": True,
+        "foot": "Every permit number on this page comes from two dated copies we sealed ourselves. A row leaving one copy and missing from the next does not establish a revocation or closure. Where our copy has no business name, the row says so rather than leaving a quiet gap.",
     }
-
 
 def new_entities() -> dict:
     """Chicago filings.

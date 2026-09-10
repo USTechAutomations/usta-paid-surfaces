@@ -241,7 +241,8 @@ def refuse(fam, offers, held, vetoed, blind) -> tuple[str | None, tuple[int, str
     A blind spot stops MINTING and nothing else, and the difference matters.
     Refusing to create a new thing a stranger can pay costs nothing today. It is
     not the same decision as withdrawing something already on sale, which takes
-    money off live pages and belongs to the operator.
+    links off owned pages moves $0 and is routine containment. This mint-only
+    tool reports those links but deliberately does not own deactivation.
     """
     fid = fam["id"]
     # Asked FIRST, before the price is even parsed. A refused surface must not
@@ -330,6 +331,8 @@ def _create_product_with_price(stripe, fam, fid, old_product, cents, cadence, me
 # A family the machine holds back from minting on purpose, with the reason. A
 # button here would take money for something the delivery job cannot yet send.
 HOLD_UNTIL_BUILT: dict[str, str] = {
+    "hospital-mrf": "source-use review is unresolved; Plan 023 holds this offer",
+    "model-cards": "source-use review is unresolved; Plan 023 holds this offer",
     # wp-accessibility-scan was held here 2026-09-06 until the delivery job
     # could scan a buyer's own site; lifted the same evening (76 checks green).
 }
@@ -563,14 +566,22 @@ def main() -> int:
     for fam in cat["families"]:
         if args.only and fam["id"] not in args.only:
             continue
+        if fam["id"] in HOLD_UNTIL_BUILT:
+            refused.append(
+                f"{fam['id']}: intentional source-use hold; "
+                f"{HOLD_UNTIL_BUILT[fam['id']]}"
+            )
+            continue
         if not re.search(r"\$\d", fam.get("price", "")):
             continue
         if is_armed_url((fam.get("checkout") or {}).get("url")):
             # Nothing is minted for this one, so the ladder cannot stop anything
             # here -- but if the ladder refuses it, the address that is already
             # out there is one this estate has decided not to sell. Saying so is
-            # this tool's whole subject. Turning a live link off is not: that is
-            # money and it is an operator's call, so it is reported and left.
+            # this tool's whole subject. Deactivating an owned link moves $0 and
+            # is routine containment, but this mint-only tool does not own that
+            # mutation, so it reports the link and leaves it for the guarded
+            # deactivation path.
             if fam["id"] in vetoed:
                 already_armed.append(fam["id"])
             if fam["id"] in blind:
@@ -589,14 +600,16 @@ def main() -> int:
             for h in vetoed[fid]:
                 print(f"  - {fid}: {h['higher']} passes while {h['lower']} fails -- {h['why']}")
                 print(f"      {h['detail']}")
-        print("  Its address still takes cards. Switching one off is money and an "
-              "operator decides it.\n")
+        print("  Its address still takes cards. Deactivating an owned link moves $0; "
+              "use the guarded deactivation path because this mint-only tool does not "
+              "own that mutation.\n")
 
     if already_dark:
         # THE ai-prices STATE, said out loud at the money door. These are already
-        # selling. Nothing here withdraws them and nothing here should: taking a
-        # button off a live product is money and an operator decides it. What
-        # this does is make sure the unknown is impossible to miss at the exact
+        # selling. Nothing here withdraws them because this mint-only tool does
+        # not own page or link deactivation. Removing an owned payment path moves
+        # $0 and is routine containment through its guarded path. What this does
+        # is make sure the unknown is impossible to miss at the exact
         # moment somebody is thinking about payable products, instead of living
         # in a column of a table nobody opened.
         print("ALREADY SELLING WITH AN UNANSWERED QUESTION UNDER IT -- nothing was "

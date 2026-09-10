@@ -24,6 +24,8 @@ from urllib.parse import parse_qsl
 
 from fastapi import Request
 from fastapi.responses import HTMLResponse, JSONResponse
+from loops.service.payment_claim import ClaimError
+from loops.service.subscription_access import authorize_subscription
 
 from . import templates as T
 
@@ -55,6 +57,11 @@ def get_secret(request: Request) -> str:
     if not secret:
         raise RuntimeError("the app must set app.state.secret before serving")
     return str(secret)
+
+
+def get_stripe_reader(request: Request):
+    # Free requests never need Stripe. A paid key with no reader fails closed.
+    return getattr(request.app.state, "stripe_reader", None)
 
 
 def service_base(request: Request) -> str:
@@ -193,28 +200,48 @@ def clean_label(raw, fallback: str) -> tuple[str | None, str | None]:
 
 # --------------------------------------------------------------- pro keys ---
 
-def check_key(store, secret: str, key, family: str) -> tuple[bool, str | None]:
+def check_ref(store, secret: str, ref, family: str, reader) -> tuple[bool, str | None, int | None]:
+    """Prove a stored monthly key reference without retaining the raw key."""
+    if not isinstance(ref, str):
+        return False, "We could not check that key just now. Try again in a minute.", 503
+    try:
+        revoked = store.is_revoked_fresh(ref)
+    except Exception:  # noqa: BLE001 -- unknown state cannot grant paid access
+        return False, "We could not check that key just now. Try again in a minute.", 503
+    if revoked is True:
+        return False, ("That key has been switched off. If your plan is still running, "
+                       "reply to your receipt and we will sort it out."), 403
+    if revoked is not False:
+        return False, "We could not check that key just now. Try again in a minute.", 503
+    try:
+        authorize_subscription(
+            reader, store, secret,
+            {"family": family, "ref": ref, "plan": "monthly"},
+        )
+    except ClaimError as exc:
+        if exc.status == 403:
+            return False, ("That subscription does not provide paid access right now. "
+                           "If your plan is still running, reply to your receipt and we will sort it out."), 403
+        return False, "We could not check that key just now. Try again in a minute.", 503
+    return True, None, None
+
+
+def check_key(store, secret: str, key, family: str, reader=None) -> tuple[bool, str | None, int | None]:
     """Is this a working paid key for this tool?  (is_pro, refusal or None)."""
     from ...lib import prokey
 
     if key is None or (isinstance(key, str) and not key.strip()):
-        return False, None
+        return False, None, None
     if not isinstance(key, str):
-        return False, "That key does not look right. Copy it again from the page you got after paying."
+        return False, "That key does not look right. Copy it again from the page you got after paying.", 400
     claim = prokey.verify(secret, key)
     if not claim:
         return False, ("That key does not look right. Copy the whole line from the page you "
-                       "got after paying.")
+                       "got after paying."), 400
     if claim["family"] != family:
         return False, (f"That key is for a different tool. This one is "
-                       f"{T.TOOL_NAME.get(family, family)}.")
-    try:
-        if store.is_revoked(claim["ref"]):
-            return False, ("That key has been switched off. If your plan is still running, "
-                           "reply to your receipt and we will sort it out.")
-    except Exception:  # noqa: BLE001
-        return False, "We could not check that key just now. Try again in a minute."
-    return True, None
+                       f"{T.TOOL_NAME.get(family, family)}."), 400
+    return check_ref(store, secret, claim["ref"], family, reader)
 
 
 # ----------------------------------------------------------------- quotas ---

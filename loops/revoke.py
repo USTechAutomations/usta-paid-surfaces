@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""Switch off pro keys whose payment has stopped.
+"""Switch off annual pro keys whose fixed access term has ended.
 
-A pro key is a signed token; nothing on the service knows about Stripe. So once a
-day this job reads, for each of the five families, every paid checkout on its
-pay link, asks Stripe whether the subscription behind it is still alive (or, for
-a one-payment key, whether 12 months have passed), and tells the service which
-key references to refuse from now on. The service call is signed with the same
-secret that mints the keys; the body carries only opaque references.
+A pro key is a signed token. Once a day this job reads every paid checkout and
+tells the service which expired one-payment key references to refuse from now
+on. Monthly products prove their current Stripe payment on every use, so
+temporary subscription states must not create permanent revocations. The body
+carries only opaque references.
 
 Reads only. Never creates, cancels or refunds anything in Stripe.
 
@@ -26,14 +25,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-sys.path.insert(0, str(ROOT / "fv5"))
 sys.path.insert(0, str(ROOT / "scripts"))
 from loops.lib import prokey  # noqa: E402
 from loops.lib.signing import NoSecret, get_secret  # noqa: E402
 
 SERVICE = os.environ.get("LOOPS_SERVICE", "https://usta-loops-260481739341.us-central1.run.app")
 FAMILIES = ("qrelay", "acacheck", "ledgermatch", "schemahand", "casepack")
-DEAD_SUB = {"canceled", "unpaid", "incomplete_expired"}
 ONE_TIME_DAYS = 365
 STATE = Path(os.path.expanduser("~/.hermes/state/loops"))
 LOG = STATE / "revoke.jsonl"
@@ -50,16 +47,30 @@ def catalog_links() -> dict[str, str]:
 
 
 def link_ids(api_key: str, urls: dict[str, str]):
-    from lib import stripe_read  # noqa: WPS433  (fv5/lib)
-    status, body = stripe_read._get("/v1/payment_links", {"limit": 100, "active": "true"}, api_key)
-    if status != 200:
-        raise RuntimeError(f"payment_links read answered {status}")
-    by_url = {row.get("url"): row.get("id") for row in body.get("data", [])}
-    return {fid: by_url.get(url) for fid, url in urls.items()}
+    from fv5.lib import stripe_read  # noqa: WPS433
+    by_url, after = {}, None
+    while True:
+        params = {"limit": 100, "active": "true"}
+        if after:
+            params["starting_after"] = after
+        status, body = stripe_read._get("/v1/payment_links", params, api_key)
+        if status != 200:
+            raise RuntimeError(f"payment_links read answered {status}")
+        data = body.get("data")
+        if not isinstance(data, list):
+            raise RuntimeError("payment_links read returned an unknown shape")
+        for row in data:
+            if isinstance(row, dict) and isinstance(row.get("url"), str) and isinstance(row.get("id"), str):
+                by_url[row["url"]] = row["id"]
+        if all(url in by_url for url in urls.values()) or body.get("has_more") is False:
+            return {fid: by_url.get(url) for fid, url in urls.items()}
+        if body.get("has_more") is not True or not data or not isinstance(data[-1], dict) or not isinstance(data[-1].get("id"), str):
+            raise RuntimeError("payment_links pagination is unavailable")
+        after = data[-1]["id"]
 
 
 def sessions_for(api_key: str, link_id: str) -> list[dict]:
-    from lib import stripe_read
+    from fv5.lib import stripe_read
     out, after = [], None
     while True:
         params = {"payment_link": link_id, "limit": 100}
@@ -68,15 +79,19 @@ def sessions_for(api_key: str, link_id: str) -> list[dict]:
         status, body = stripe_read._get("/v1/checkout/sessions", params, api_key)
         if status != 200:
             raise RuntimeError(f"sessions read answered {status}")
-        data = body.get("data", [])
-        out += [s for s in data if s.get("payment_status") == "paid"]
-        if not body.get("has_more") or not data:
+        data = body.get("data")
+        if not isinstance(data, list):
+            raise RuntimeError("sessions read returned an unknown shape")
+        out += [s for s in data if isinstance(s, dict) and s.get("payment_status") == "paid"]
+        if body.get("has_more") is False:
             return out
+        if body.get("has_more") is not True or not data or not isinstance(data[-1], dict) or not isinstance(data[-1].get("id"), str):
+            raise RuntimeError("sessions pagination is unavailable")
         after = data[-1]["id"]
 
 
 def sub_status(api_key: str, sub_id: str, cache: dict) -> str:
-    from lib import stripe_read
+    from fv5.lib import stripe_read
     if sub_id in cache:
         return cache[sub_id]
     status, body = stripe_read._get(f"/v1/subscriptions/{sub_id}", {}, api_key)
@@ -88,11 +103,7 @@ def to_revoke(fid: str, sessions: list[dict], api_key: str, now: int, cache: dic
     out = []
     for s in sessions:
         ref = prokey.ref_for_session(s["id"])
-        if s.get("mode") == "subscription" and s.get("subscription"):
-            st = sub_status(api_key, str(s["subscription"]), cache)
-            if st in DEAD_SUB:
-                out.append({"family": fid, "ref": ref, "why": f"subscription {st}"})
-        elif int(s.get("created", 0) or 0) + ONE_TIME_DAYS * 86400 < now:
+        if s.get("mode") != "subscription" and int(s.get("created", 0) or 0) + ONE_TIME_DAYS * 86400 < now:
             out.append({"family": fid, "ref": ref, "why": "12 months passed"})
     return out
 

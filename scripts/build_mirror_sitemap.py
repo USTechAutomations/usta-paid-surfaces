@@ -33,6 +33,10 @@ import subprocess
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from sitemap_quality_gate import (admission as sitemap_admission,
+                                 require_available as sitemap_gate_preflight)  # noqa: E402
+
 ROOT = Path(__file__).resolve().parent.parent
 BASE = "https://ustechautomations.github.io/usta-paid-surfaces"
 NEWEST = re.compile(r'<meta name="data-newest" content="(\d{4}-\d{2}-\d{2})">')
@@ -63,7 +67,10 @@ def committed_text(path: str) -> str:
 
 
 def build() -> tuple[str, int, int, list[str]]:
+    sitemap_gate_preflight()
     retired = retired_addrs()
+    committed_catalog = json.loads(committed_text("catalog.json"))
+    families = {row["id"]: row for row in committed_catalog["families"]}
     urls: list[str] = []
     dated = 0
     skipped: list[str] = []
@@ -73,6 +80,15 @@ def build() -> tuple[str, int, int, list[str]]:
         if fam and is_retired(fam, retired):
             skipped.append(fam)
             continue
+        family_id = fam.split("/", 1)[0] if fam else ""
+        family = families.get(family_id)
+        if family is not None:
+            admitted, _state = sitemap_admission(
+                family_id, source_use_hold=family.get("source_use_hold") is True,
+            )
+            if not admitted:
+                skipped.append(addr)
+                continue
         loc = f"{BASE}/" if not addr else f"{BASE}/{addr}/"
         text = committed_text(path)
         if 'name="robots" content="noindex' in text:

@@ -1,26 +1,26 @@
 domain,crawler,said_before,says_now,what_moved,first_read,second_read
-dongascience.com,PerplexityBot,blocked from the whole site,blocked from 2 folders,whole-site block taken off,2026-09-07,2026-09-08
-2026worldcupodds.com,Amazonbot,not named in the file,blocked from the whole site,whole-site block added,2026-09-07,2026-09-08
-apm.org.uk,Bytespider,blocked from the whole site,not named in the file,crawler name dropped from the file,2026-09-07,2026-09-08
-appypie.com,Claude-SearchBot,not named in the file,blocked from 1 folder,crawler named for the first time,2026-09-07,2026-09-08
-arcom.fr,ChatGPT-User,"named, with 1 allow line and no block",blocked from 5 folders,rules under the crawler rewritten,2026-09-07,2026-09-08
-tonarinoaoko.com,Google-Extended,"blocked from the whole site, with 1 exception","named, with 1 allow line and no block",whole-site block taken off,2026-09-07,2026-09-08
-aachener-zeitung.de,Claude-Searchbot,not named in the file,blocked from the whole site,whole-site block added,2026-09-07,2026-09-08
-bootsnall.com,Amazonbot,blocked from the whole site,not named in the file,crawler name dropped from the file,2026-09-07,2026-09-08
-attackofthefanboy.com,Amazonbot,not named in the file,blocked from 9 folders,crawler named for the first time,2026-09-07,2026-09-08
-booklooker.de,CCBot,blocked from 2887 folders,blocked from 2886 folders,rules under the crawler rewritten,2026-09-07,2026-09-08
-e27.co,Google-Extended,blocked from the whole site,blocked from 9 folders,whole-site block taken off,2026-09-06,2026-09-07
-allure.com,Brightbot 1.0,not named in the file,blocked from the whole site,whole-site block added,2026-09-07,2026-09-08
-kakaku.com,CCBot,blocked from the whole site,not named in the file,crawler name dropped from the file,2026-09-07,2026-09-08
-fujifilm-x.com,ChatGPT-User,not named in the file,blocked from 2 folders,crawler named for the first time,2026-09-07,2026-09-08
-ebu.ch,ChatGPT-User,blocked from 6 folders,blocked from 22 folders,rules under the crawler rewritten,2026-09-07,2026-09-08
-sololearn.com,Applebot-Extended,blocked from the whole site,blocked from 32 folders,whole-site block taken off,2026-09-06,2026-09-07
-architecturaldigest.com,Brightbot 1.0,not named in the file,blocked from the whole site,whole-site block added,2026-09-07,2026-09-08
-lg.com,ChatGPT-User,"named, with 1 allow line and no block",not named in the file,crawler name dropped from the file,2026-09-07,2026-09-08
-fyers.in,Amazonbot,not named in the file,blocked from 20 folders,crawler named for the first time,2026-09-07,2026-09-08
-express.de,Amazonbot,blocked from 34 folders,blocked from 35 folders,rules under the crawler rewritten,2026-09-07,2026-09-08
-ledvance.com,Amazonbot,blocked from the whole site,blocked from 5 folders,whole-site block taken off,2026-09-03,2026-09-04
-backchannel.com,Brightbot 1.0,not named in the file,blocked from the whole site,whole-site block added,2026-09-07,2026-09-08
-lge.com,ChatGPT-User,"named, with 1 allow line and no block",not named in the file,crawler name dropped from the file,2026-09-07,2026-09-08
-gamepur.com,Amazonbot,not named in the file,blocked from 8 folders,crawler named for the first time,2026-09-07,2026-09-08
-figma.com,CHATGPT-User,"blocked from the whole site, with 8815 exceptions","blocked from the whole site, with 8816 exceptions",rules under the crawler rewritten,2026-09-07,2026-09-08
+favim.com,anthropic-ai,blocked from the whole site,blocked from 7 folders,whole-site block taken off,2026-09-09,2026-09-10
+chemicalsafetyfacts.org,Amazonbot,not named in the file,blocked from the whole site,whole-site block added,2026-09-09,2026-09-10
+abc.es,Google-Extended,"blocked from the whole site, with 3 exceptions",not named in the file,crawler name dropped from the file,2026-09-09,2026-09-10
+attn.com,Amazonbot,not named in the file,"named, with 1 allow line and no block",crawler named for the first time,2026-09-09,2026-09-10
+diffordsguide.com,Amazonbot,blocked from 9 folders,blocked from 10 folders,rules under the crawler rewritten,2026-09-09,2026-09-10
+way.com,CCBot,blocked from the whole site,blocked from 5 folders,whole-site block taken off,2026-09-09,2026-09-10
+cuyahogacounty.gov,anthropic-ai,not named in the file,blocked from the whole site,whole-site block added,2026-09-09,2026-09-10
+autoexpress.co.uk,Google-Extended,blocked from the whole site,not named in the file,crawler name dropped from the file,2026-09-09,2026-09-10
+axa.de,Amazonbot,not named in the file,"named, with 1 allow line and no block",crawler named for the first time,2026-09-09,2026-09-10
+elcorreoweb.es,ChatGPT-User,blocked from the whole site,"blocked from the whole site, with 2 exceptions",rules under the crawler rewritten,2026-09-09,2026-09-10
+codeweavers.com,Google-Extended,blocked from the whole site,blocked from 25 folders,whole-site block taken off,2026-09-08,2026-09-09
+demilked.com,Amazonbot,not named in the file,blocked from the whole site,whole-site block added,2026-09-09,2026-09-10
+boringcompany.com,AI2Bot,blocked from 27 folders,not named in the file,crawler name dropped from the file,2026-09-09,2026-09-10
+consumerlab.com,Google-Extended,not named in the file,blocked from 1 folder,crawler named for the first time,2026-09-09,2026-09-10
+figma.com,CHATGPT-User,"blocked from the whole site, with 8823 exceptions","blocked from the whole site, with 8837 exceptions",rules under the crawler rewritten,2026-09-09,2026-09-10
+cureus.com,CCBot,blocked from the whole site,blocked from 12 folders,whole-site block taken off,2026-09-08,2026-09-09
+exiftool.org,Amazonbot,not named in the file,blocked from the whole site,whole-site block added,2026-09-09,2026-09-10
+braunschweig.de,Bytespider,blocked from the whole site,not named in the file,crawler name dropped from the file,2026-09-09,2026-09-10
+ehu.es,Amazonbot,not named in the file,blocked from 3 folders,crawler named for the first time,2026-09-09,2026-09-10
+foodiesfeed.com,anthropic-ai,blocked from 3 folders,blocked from 4 folders,rules under the crawler rewritten,2026-09-09,2026-09-10
+grin.co,anthropic-ai,blocked from the whole site,"named, with 1 allow line and no block",whole-site block taken off,2026-09-08,2026-09-09
+game8.jp,AI2Bot,not named in the file,blocked from the whole site,whole-site block added,2026-09-09,2026-09-10
+bristol247.com,CCBot,blocked from 1 folder,not named in the file,crawler name dropped from the file,2026-09-09,2026-09-10
+ehu.eus,Amazonbot,not named in the file,blocked from 3 folders,crawler named for the first time,2026-09-09,2026-09-10
+indiantelevision.com,ClaudeBot,"named, with 2 allow lines and no block","named, with 1 allow line and no block",rules under the crawler rewritten,2026-09-09,2026-09-10

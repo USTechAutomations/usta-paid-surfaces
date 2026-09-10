@@ -7,7 +7,7 @@
       "newest": "2026-09-10",
       "oldest": "2026-07-22",
       "runs": 42,
-      "row_count": 1924387,
+      "row_count": 1944523,
       "cadence_days": 1
     },
     {
@@ -15,7 +15,7 @@
       "newest": "2026-09-10",
       "oldest": "2026-07-22",
       "runs": 42,
-      "row_count": 312821,
+      "row_count": 316062,
       "cadence_days": 1
     },
     {
@@ -23,7 +23,7 @@
       "newest": "2026-09-10",
       "oldest": "2026-07-22",
       "runs": 42,
-      "row_count": 314392,
+      "row_count": 317678,
       "cadence_days": 1
     },
     {
@@ -31,15 +31,7 @@
       "newest": "2026-09-10",
       "oldest": "2026-07-22",
       "runs": 42,
-      "row_count": 182286,
-      "cadence_days": 1
-    },
-    {
-      "slug": "85210",
-      "newest": "2026-09-10",
-      "oldest": "2026-07-22",
-      "runs": 42,
-      "row_count": 177740,
+      "row_count": 184195,
       "cadence_days": 1
     },
     {
@@ -47,7 +39,15 @@
       "newest": "2026-09-10",
       "oldest": "2026-07-22",
       "runs": 42,
-      "row_count": 140582,
+      "row_count": 142055,
+      "cadence_days": 1
+    },
+    {
+      "slug": "85210",
+      "newest": "2026-09-10",
+      "oldest": "2026-07-22",
+      "runs": 42,
+      "row_count": 179599,
       "cadence_days": 1
     },
     {
@@ -55,7 +55,7 @@
       "newest": "2026-09-10",
       "oldest": "2026-07-22",
       "runs": 42,
-      "row_count": 133934,
+      "row_count": 135336,
       "cadence_days": 1
     },
     {
@@ -63,7 +63,7 @@
       "newest": "2026-09-10",
       "oldest": "2026-07-22",
       "runs": 42,
-      "row_count": 181233,
+      "row_count": 183113,
       "cadence_days": 1
     },
     {
@@ -71,7 +71,7 @@
       "newest": "2026-09-10",
       "oldest": "2026-07-22",
       "runs": 42,
-      "row_count": 124659,
+      "row_count": 125979,
       "cadence_days": 1
     },
     {
@@ -79,7 +79,7 @@
       "newest": "2026-09-10",
       "oldest": "2026-07-22",
       "runs": 42,
-      "row_count": 96534,
+      "row_count": 97568,
       "cadence_days": 1
     },
     {
@@ -87,7 +87,7 @@
       "newest": "2026-09-10",
       "oldest": "2026-07-22",
       "runs": 42,
-      "row_count": 25653,
+      "row_count": 25940,
       "cadence_days": 1
     },
     {
@@ -95,7 +95,7 @@
       "newest": "2026-09-10",
       "oldest": "2026-07-22",
       "runs": 42,
-      "row_count": 68966,
+      "row_count": 69682,
       "cadence_days": 1
     },
     {
@@ -103,7 +103,7 @@
       "newest": "2026-09-10",
       "oldest": "2026-07-22",
       "runs": 42,
-      "row_count": 80727,
+      "row_count": 81547,
       "cadence_days": 1
     },
     {
@@ -111,7 +111,7 @@
       "newest": "2026-09-10",
       "oldest": "2026-07-22",
       "runs": 42,
-      "row_count": 50938,
+      "row_count": 51488,
       "cadence_days": 1
     }
   ]

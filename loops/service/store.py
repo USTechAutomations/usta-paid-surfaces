@@ -67,6 +67,10 @@ class Store:
     def is_revoked(self, ref: str) -> bool:
         raise NotImplementedError
 
+    def is_revoked_fresh(self, ref: str) -> bool:
+        """Authoritative read, never a cached negative."""
+        raise NotImplementedError
+
 
 class MemoryStore(Store):
     def __init__(self) -> None:
@@ -119,6 +123,9 @@ class MemoryStore(Store):
         with self._lock:
             self._revoked.update(r for r in refs if isinstance(r, str))
 
-    def is_revoked(self, ref):
+    def is_revoked_fresh(self, ref):
         with self._lock:
             return ref in self._revoked
+
+    def is_revoked(self, ref):
+        return self.is_revoked_fresh(ref)

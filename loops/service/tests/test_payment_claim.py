@@ -75,15 +75,17 @@ class Claims(unittest.TestCase):
         with self.assertRaises(ClaimError):claim_key(self.reader,self.store,SECRET,"ledgermatch","../bad",now=NOW)
         self.assertEqual(self.reader.calls,[])
     def test_http_claim_then_paid_verification_and_cross_family_denial(self):
-        client=TestClient(create_app(env={"LOOPS_SIGNING_SECRET":SECRET},store=self.store,stripe_reader=self.reader))
-        r=client.post("/pro/claim",json={"family":"ledgermatch","session_id":SID},headers={"Origin":"https://ustechautomations.com"})
+        from loops.service.tests.test_subscription_access import Reader as CurrentReader, SID as CURRENT_SID
+        reader=CurrentReader("ledgermatch");store=MemoryStore()
+        client=TestClient(create_app(env={"LOOPS_SIGNING_SECRET":SECRET},store=store,stripe_reader=reader))
+        r=client.post("/pro/claim",json={"family":"ledgermatch","session_id":CURRENT_SID},headers={"Origin":"https://ustechautomations.com"})
         self.assertEqual(r.status_code,200);self.assertIn("no-store",r.headers["cache-control"])
         self.assertEqual(r.headers["access-control-allow-origin"],"https://ustechautomations.com")
         key=r.json()["key"]
         self.assertTrue(client.post("/pro/verify",json={"key":key}).json()["ok"])
-        denied=client.post("/pro/claim",json={"family":"qrelay","session_id":SID})
+        denied=client.post("/pro/claim",json={"family":"qrelay","session_id":CURRENT_SID})
         self.assertEqual(denied.status_code,403);self.assertNotIn("key",denied.json())
-        foreign=client.post("/pro/claim",json={"family":"ledgermatch","session_id":SID},headers={"Origin":"https://outsider.invalid"})
+        foreign=client.post("/pro/claim",json={"family":"ledgermatch","session_id":CURRENT_SID},headers={"Origin":"https://outsider.invalid"})
         self.assertNotIn("access-control-allow-origin",foreign.headers)
 
 if __name__ == "__main__":unittest.main()

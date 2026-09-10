@@ -839,13 +839,21 @@ def coverage(today: dt.date) -> dict:
     ) for f in generated]
     # One-time files that are not a dated reader and not a custom build. They
     # still have a price, and this is the page a buyer reads to compare.
+    # Coverage must include unavailable offers even when they have no price.
+    # Preserve one row per family across reader, build and generated sections.
+    projected = covered | {f["id"] for f in builds + generated}
     one_shot = [f for f in fams.values()
-                if "$" in f.get("price", "")
-                and f.get("kind") not in ("build", "generated")
-                and f.get("sample_status") != "parked"
-                and f["id"] not in covered]
+                if f["id"] not in projected
+                and (str((f.get("checkout") or {}).get("status", "")).lower().replace("-", "_") == "off_sale"
+                     or ("$" in f.get("price", "")
+                         and f.get("kind") not in ("build", "generated")
+                         and f.get("sample_status") != "parked"))]
     one_shot_rows = []
     for f in one_shot:
+        source_use_hold = (
+            f.get("id") in {"hospital-mrf", "model-cards"}
+            and str((f.get("checkout") or {}).get("status", "")).lower() == "off_sale"
+        )
         what = f.get("coverage_what") or "A one-time file, not a feed"
         how = f.get("coverage_how") or (
             "You buy the snapshot. We do not send a new copy next month unless you buy again."
@@ -853,12 +861,17 @@ def coverage(today: dt.date) -> dict:
         extra = f.get("price_list_note") or (
             "Ask which board and which as-of date before you pay."
         )
+        sale_state = (
+            f'<span class="state">{esc(f["price"])}</span><span class="sub">{esc(extra)}</span>'
+            if source_use_hold else
+            f'{esc(f["price"])}<span class="sub">Sold as {esc(f.get("short") or f["name"])}. '
+            f'{esc(extra)}</span>'
+        )
         one_shot_rows.append((
             f'<strong>{esc(f.get("short") or f["name"])}</strong>'
             f'<span class="sub">{esc(f.get("who", ""))}</span>',
             f'{esc(what)}<span class="sub">{esc(how)}</span>',
-            f'{esc(f["price"])}<span class="sub">Sold as {esc(f.get("short") or f["name"])}. '
-            f"{esc(extra)}</span>",
+            sale_state,
         ))
     # One table, three reasons to be in it: a build was never a dated feed, a
     # one-time file is not one either, and a stopped reader has ceased to be one.

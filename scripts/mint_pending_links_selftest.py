@@ -25,8 +25,14 @@ c = cat(a={"price": "$49/mo", "checkout": {"url": "TO-MINT"}},
         c={"price": "ask", "checkout": {"url": "TO-MINT"}},
         d={"price": "$200 - $450", "checkout": {"url": "TO-MINT"}},
         e={"price": "$49/mo", "checkout": {"terms": "email product, no url"}},
-        f={"price": "$49/mo"})
+        f={"price": "$49/mo"},
+        **{"hospital-mrf": {"price": "$349", "checkout": {"url": "TO-MINT"}},
+           "model-cards": {"price": "$349", "checkout": {"url": "TO-MINT"}}})
 check(m.pending(c) == ["a"], f"pending picked {m.pending(c)}")
+
+# A stale catalog rewrite cannot feed either unresolved source-use hold into
+# the orchestration layer, even if it restores both a price and TO-MINT.
+check(not (set(m.pending(c)) & m.SOURCE_USE_HOLDS), "source-use hold selected for mint")
 
 # 2. newly_armed: only the asked ids that now carry https
 after = cat(a={"checkout": {"url": "https://buy.stripe.com/new"}}, z={"checkout": {"url": "TO-MINT"}})

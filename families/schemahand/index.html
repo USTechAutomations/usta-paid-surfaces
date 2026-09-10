@@ -1,7 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <script>window.dataLayer=window.dataLayer||[];window.dataLayer.push({'page_surface':'feeds','page_family':'schemahand'});</script><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KTB2LC8C');</script>
   <meta charset="utf-8">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Schema handoff package — $199 for 12 months</title>
   <meta name="description" content="Paste a database schema, get a diagram you can hand to a client. Free to use in your browser. Pay once to export the full handoff package.">
@@ -13,7 +15,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="https://ustechautomations.com/feeds/styles.css?v=customer20260909">
   <style>
     /* Layout for the tool itself. Every colour and every corner comes from
        styles.css (BRAND.md §1, §4); this only positions the parts that are
@@ -23,7 +25,15 @@
     .sh-input-row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
     #sh-input { min-height: 9rem; font-family: var(--mono); font-size: 0.85rem; max-width: none; }
     .sh-workspace { display: grid; grid-template-columns: 3fr 1fr; gap: 1rem; min-height: 28rem; }
-    #sh-canvas { border: 1px solid var(--line); border-radius: var(--radius); min-height: 28rem; overflow: hidden; }
+    #sh-canvas { border: 1px solid var(--line); border-radius: var(--radius); min-height: 28rem; overflow: auto; overscroll-behavior: contain; background: var(--surface); }
+    #sh-canvas .sh-svg { display: block; max-width: none; background: var(--surface); }
+    #sh-canvas .sh-table-bg { fill: var(--surface); stroke: var(--line); }
+    #sh-canvas .sh-table-head { fill: var(--surface-2); stroke: var(--line); }
+    #sh-canvas .sh-table-title { fill: var(--fg); font: 600 14px/1 var(--sans); }
+    #sh-canvas .sh-col { fill: var(--fg); font: 500 14px/1.2 var(--mono); }
+    #sh-canvas .sh-edge { stroke: var(--muted-fg); stroke-width: 1.5; }
+    #sh-canvas .sh-edge-active { stroke: var(--accent); stroke-width: 2.5; }
+    #sh-canvas .sh-selected .sh-table-bg { stroke: var(--accent); stroke-width: 2; }
     #sh-side { border: 1px solid var(--line); border-radius: var(--radius); padding: 0.75rem; overflow-y: auto; max-height: 30rem; }
     .sh-side-table { margin-bottom: 1rem; }
     .sh-side-table h3 { margin: 0 0 0.25rem; font-size: 0.95rem; }
@@ -39,16 +49,36 @@
       .sh-workspace { grid-template-columns: 1fr; }
     }
   </style>
+<style>
+body[data-customer-delivery="20260909"] { --primary: var(--primary-surface); --primary-hover: var(--primary-surface-hover); --accent: var(--fg); }
+body[data-customer-delivery="20260909"] .wrap { overflow-wrap: anywhere; }
+body[data-customer-delivery="20260909"] .btn { border-radius: 6px; min-height: 44px; }
+@media (min-width: 1024px) and (max-width: 1279px) { body[data-customer-delivery="20260909"] .mast-nav { display: none; } }
+</style>
 </head>
-<body data-family="schemahand">
+<body data-customer-delivery="20260909" data-family="schemahand">
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="masthead">
   <div class="wrap">
-    <a class="wordmark" href="../../">Dated change feeds <span>/ US Tech Automations</span></a>
-    <p class="crumbs"><a href="../../">Feeds</a><span class="sep">/</span>Schema handoff package</p>
+    <a class="wordmark" href="https://ustechautomations.com/"><svg class="usta-logo" viewBox="110 140 292 292" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="US Tech Automations logo" focusable="false"><defs><mask id="ustaMarkMast"><rect x="110" y="140" width="292" height="270" fill="white"></rect><ellipse cx="250" cy="240" rx="16" ry="24" fill="black"></ellipse><ellipse cx="330" cy="240" rx="16" ry="24" fill="black"></ellipse></mask></defs><path d="M 200 160 C 160 160, 130 190, 130 230 L 130 260 C 110 260, 110 290, 130 290 L 130 320 C 130 360, 160 390, 200 390 L 210 390 C 210 410, 240 410, 240 390 L 272 390 C 272 410, 302 410, 302 390 L 312 390 C 352 390, 382 360, 382 320 L 382 290 C 402 290, 402 260, 382 260 L 382 230 C 382 190, 352 160, 312 160 L 270 160 C 270 140, 240 140, 240 160 L 200 160 Z" fill="#0391FE" mask="url(#ustaMarkMast)"></path></svg>US Tech Automations</a>
+    <nav class="mast-nav" aria-label="Main">
+      <a href="https://ustechautomations.com/ai-agents/data-extraction">AI Agents</a>
+      <a href="https://ustechautomations.com/solutions/enterprise">Solutions</a>
+      <a href="https://ustechautomations.com/platform/integrations-info">Platform</a>
+      <a href="https://ustechautomations.com/resources/research">Resources</a>
+      <a href="https://ustechautomations.com/about">Company</a>
+      <a href="https://ustechautomations.com/pricing">Pricing</a>
+      <a href="https://app.ustechautomations.com/login">Login</a>
+      <a class="mast-cta" href="https://ustechautomations.com/partner">Talk to Our Team</a>
+    </nav>
   </div>
 </header>
+<nav class="crumbbar" aria-label="Breadcrumb">
+  <div class="wrap">
+    <p class="crumbs"><a href="https://ustechautomations.com/feeds">Dated change feeds</a><span class="sep">/</span>Schema handoff diagram</p>
+  </div>
+</nav>
 
 <section class="hero">
   <div class="wrap">
@@ -61,8 +91,8 @@
       <div><dt>Built for</dt><dd>Developers who hand a database schema to a client.</dd></div>
       <div><dt>Free part</dt><dd>The diagram tool on this page, always</dd></div>
       <div><dt>Status</dt><dd><span class="state"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8.4l3.6 3.6L13.5 4"/></svg>Live</span></dd></div>
-    </dl>
-    <p class="hero-note">You pay once through Stripe; the private page with your key builds itself within 10 minutes.
+    </dl><p class="mail-note">Pricing and checkout settings checked against Stripe on 2026-09-10. Inspect the free tool and its supported limits before purchasing.</p>
+    <p class="hero-note">You pay once through Stripe; the Stripe return page checks your purchase and lets you retrieve your key.
       No email is sent.</p>
   </div>
 </section>
@@ -85,18 +115,19 @@
       </div>
       <p id="sh-error" role="alert" hidden></p>
       <div class="sh-workspace">
-        <div id="sh-canvas"></div>
-        <div id="sh-side"><p>Draw a diagram to see its tables here. Click a table to jump to it,
+        <div id="sh-canvas" role="region" aria-label="Schema relationship diagram, scroll to explore" tabindex="0"></div>
+        <div id="sh-side"><p>Draw a diagram to see its tables here. Click a table to highlight it,
           and add notes for the person you are handing this to.</p></div>
       </div>
     </div>
 
     <div class="sh-pro-box">
       <h2>Already paid? Unlock the handoff package</h2>
-      <p>Your key came on the private page Stripe sent you to after payment. Paste it below to
-        turn on the editable export, the printable one-page-per-table view, and a CSV list of
+      <p>Retrieve your key on the return page Stripe opens after payment. Paste it below to
+        turn on the HTML diagram with editable notes, the printable table views, and a CSV list of
         every table and column.</p>
       <p>
+        <label for="sh-pro-key">Your SchemaHand key</label>
         <input type="text" id="sh-pro-key" placeholder="Paste your key (starts with lp1.schemahand.)">
         <button class="btn btn-ghost" type="button" id="sh-pro-unlock">Unlock handoff package</button>
       </p>
@@ -107,26 +138,83 @@
     <h2>What you get for $199</h2>
     <ul>
       <li>The free diagram tool, for as long as this page is up. Anyone on your team can use it.</li>
-      <li>A key that unlocks, for 12 months, one extra export: an editable copy of the diagram with
-        your notes baked in, a printable page for every table, and a CSV list of every column —
+      <li>A key that unlocks, for 12 months, one extra export: an HTML diagram with editable notes and
+        your notes baked in, printable table views, and a CSV list of every column —
         ready to drop into a handoff document.</li>
     </ul>
 
-    <p class="hero-cta"><a class="btn btn-buy" href="https://buy.stripe.com/4gM8wI8xg5uqds0eXE0sU2J" data-checkout="schemahand" rel="noopener">Buy — $199 for 12 months</a><span class="btn-note">$199 for 12 months through Stripe. The private page with your key builds itself within 10 minutes of payment. No email is sent. One payment; the key works for 12 months. Refunds are not offered; the free tier lets you try the whole tool first.</span></p>
+    <p><a class="btn btn-ghost" href="https://ustechautomations.com/feeds/schemahand/sample-handoff.zip" download>Download a synthetic worked example (.zip)</a></p>
+    <p class="mail-note">The example contains made-up SQL only: its paid-format HTML handoff, schema dictionary CSV, source SQL and a manifest. The CSV describes tables and columns, not customer, order or destination-import data. SQL is parsed locally in your browser; SchemaHand does not connect to a database.</p>
+
+    <p>CSV safety limit: if a cell starts with a spreadsheet formula or control character, the CSV is withheld. The HTML keeps your schema unchanged. Notes edited in the saved HTML do not update the separate CSV.</p>
+
+    <p class="hero-cta"><a class="btn btn-buy" href="https://buy.stripe.com/4gM8wI8xg5uqds0eXE0sU2J" data-checkout="schemahand" rel="noopener">Buy — $199 for 12 months</a><span class="btn-note">$199 for 12 months through Stripe. The Stripe return page checks your purchase and lets you retrieve your key. No email is sent. One payment; the key works for 12 months. Refunds are not offered; use the free diagram and the synthetic worked example to inspect the different exports before purchasing.</span></p>
     <section class="contact buy">
       <h2>Buy the paid key</h2>
       <p class="buy-price"><strong>$199 for 12 months</strong> &middot; once, not a feed</p>
       <a class="btn btn-buy btn-lg" href="https://buy.stripe.com/4gM8wI8xg5uqds0eXE0sU2J" data-checkout="schemahand" rel="noopener">Buy — $199 for 12 months</a>
-      <p class="mail-note">$199 for 12 months through Stripe. The private page with your key builds itself within 10 minutes of payment. No email is sent. One payment; the key works for 12 months. Refunds are not offered; the free tier lets you try the whole tool first. </p>
+      <p class="mail-note">$199 for 12 months through Stripe. The Stripe return page checks your purchase and lets you retrieve your key. No email is sent. One payment; the key works for 12 months. Refunds are not offered; use the free diagram and the synthetic worked example to inspect the different exports before purchasing. </p>
       <p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=Schema%20hand-over%20diagram">Email operations@ustechautomations.com</a>. One payment for 12 months. The diagram tool runs free in the browser; the paid key unlocks the handoff package export. Nothing recurring.</p>
     </section>
-  <p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=Schema%20hand-over%20diagram">Email operations@ustechautomations.com</a>. We reply within one working day.</p>
+  <p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=Schema%20hand-over%20diagram">Email operations@ustechautomations.com</a>. We read that mailbox and answer as soon as we can.</p>
   </div>
 </main>
 
 <footer class="site">
   <div class="wrap">
-    <p class="addr">US Tech Automations · 3298 N Glassford Hill Rd Ste 104 PMB 1055, Prescott Valley AZ 86314</p>
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="wordmark" href="https://ustechautomations.com/"><svg class="usta-logo" viewBox="110 140 292 292" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="US Tech Automations logo" focusable="false"><defs><mask id="ustaMarkFoot"><rect x="110" y="140" width="292" height="270" fill="white"></rect><ellipse cx="250" cy="240" rx="16" ry="24" fill="black"></ellipse><ellipse cx="330" cy="240" rx="16" ry="24" fill="black"></ellipse></mask></defs><path d="M 200 160 C 160 160, 130 190, 130 230 L 130 260 C 110 260, 110 290, 130 290 L 130 320 C 130 360, 160 390, 200 390 L 210 390 C 210 410, 240 410, 240 390 L 272 390 C 272 410, 302 410, 302 390 L 312 390 C 352 390, 382 360, 382 320 L 382 290 C 402 290, 402 260, 382 260 L 382 230 C 382 190, 352 160, 312 160 L 270 160 C 270 140, 240 140, 240 160 L 200 160 Z" fill="#0391FE" mask="url(#ustaMarkFoot)"></path></svg>US Tech Automations</a>
+        <p>We build, run, and support custom AI automation workflows for businesses that need results. Not another tool to manage.</p>
+        <p><a href="mailto:operations@ustechautomations.com">operations@ustechautomations.com</a><br>
+           <a href="tel:+15186847631">(518) 684-7631</a></p>
+      </div>
+      <div class="foot-col">
+        <h4>AI Agents</h4>
+        <ul>
+          <li><a href="https://ustechautomations.com/ai-agents/data-extraction">Data Extraction</a></li>
+          <li><a href="https://ustechautomations.com/ai-agents/customer-service">Customer Service</a></li>
+          <li><a href="https://ustechautomations.com/ai-agents/sales">Sales</a></li>
+          <li><a href="https://ustechautomations.com/ai-agents/human-resources">Human Resources</a></li>
+          <li><a href="https://ustechautomations.com/ai-agents/recruitment">Recruitment</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Solutions</h4>
+        <ul>
+          <li><a href="https://ustechautomations.com/solutions/startup">Startup</a></li>
+          <li><a href="https://ustechautomations.com/solutions/midsized">Midsized</a></li>
+          <li><a href="https://ustechautomations.com/solutions/enterprise">Enterprise</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="https://ustechautomations.com/platform/integrations-info">Integrations</a></li>
+          <li><a href="https://ustechautomations.com/templates">Templates</a></li>
+          <li><a href="https://ustechautomations.com/resources/research">Research</a></li>
+          <li><a href="https://ustechautomations.com/resources/changelogs">Updates</a></li>
+          <li><a href="https://ustechautomations.com/partner">Contact</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Free Data</h4>
+        <ul>
+          <li><a href="https://ustechautomations.com/feeds">Dated change feeds</a></li>
+          <li><a href="https://ustechautomations.com/permits/grid">Interconnection Queue</a></li>
+          <li><a href="https://ustechautomations.com/permits/terminal-change-ledger">Terminal SAR Signals</a></li>
+          <li><a href="https://ustechautomations.com/permits/cost">Permit Costs</a></li>
+          <li><a href="https://ustechautomations.com/permits/rankings">Contractor Rankings</a></li>
+          <li><a href="https://ustechautomations.com/offers">Offers &amp; Evidence</a></li>
+          <li><a href="https://ustechautomations.com/offers/catalog/">Signed Offer Catalog</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+
+      <p class="addr">US Tech Automations &middot; 3298 N Glassford Hill Rd Ste 104 PMB 1055, Prescott Valley AZ 86314</p>
+      <p>&copy; 2026 US Tech Automations &middot; <a href="https://ustechautomations.com/privacy">Privacy Policy</a> &middot; <a href="https://ustechautomations.com/terms">Terms of Service</a></p>
+    </div>
   </div>
 </footer>
 

@@ -1,4 +1,4 @@
-permit_id,site_name,county,city,filing_date,status,earlier_copy,later_copy,change
+permit_id,site_name,county,city,permit_issue_date,status,earlier_copy,later_copy,change
 TXR1542ZH,TXDOT SAT CSJ 1269-01-023,Guadalupe,LULING,2026-08-31,EFF,,2026-09-06,issued_on_this_copy
 TXR1543ZH,LONGHORN STEAKHOUSE LITTLE ELM TX,Denton,LITTLE ELM,2026-08-31,EFF,,2026-09-06,issued_on_this_copy
 TXR1544ZH,CSJ 0914-05-264 IH35FM972 US79SH95 GREEN SAGE,Williamson,GEORGETOWN,2026-08-31,EFF,,2026-09-06,issued_on_this_copy

@@ -1,0 +1,145 @@
+{
+  "at": "2026-09-09T21:06:16.116692+00:00",
+  "apify": [
+    {
+      "name": "osha-severe-injury-reports",
+      "isPublic": true,
+      "isDeprecated": true
+    },
+    {
+      "name": "epa-sdwis-water-systems",
+      "isPublic": true,
+      "isDeprecated": false
+    },
+    {
+      "name": "nrc-spill-notices",
+      "isPublic": true,
+      "isDeprecated": true
+    }
+  ],
+  "stripe": {
+    "state": "KNOWN",
+    "complete": true,
+    "sessions": [
+      {
+        "payment_status": "paid",
+        "livemode": true,
+        "amount_total": 17500,
+        "currency": "usd",
+        "payment_link": "plink_1UBIb51W0OJClv3Vq5jsX4pP"
+      },
+      {
+        "payment_status": "unpaid",
+        "livemode": true,
+        "amount_total": 34900,
+        "currency": "usd",
+        "payment_link": "plink_1U8XIG1W0OJClv3VfNeQBnrH"
+      },
+      {
+        "payment_status": "unpaid",
+        "livemode": true,
+        "amount_total": 19900,
+        "currency": "usd",
+        "payment_link": "plink_1UB3631W0OJClv3VXh5hZzO9"
+      },
+      {
+        "payment_status": "unpaid",
+        "livemode": true,
+        "amount_total": 0,
+        "currency": "usd",
+        "payment_link": null
+      },
+      {
+        "payment_status": "unpaid",
+        "livemode": true,
+        "amount_total": 70000,
+        "currency": "usd",
+        "payment_link": null
+      },
+      {
+        "payment_status": "unpaid",
+        "livemode": true,
+        "amount_total": 0,
+        "currency": "usd",
+        "payment_link": null
+      },
+      {
+        "payment_status": "unpaid",
+        "livemode": true,
+        "amount_total": 70000,
+        "currency": "usd",
+        "payment_link": null
+      },
+      {
+        "payment_status": "unpaid",
+        "livemode": true,
+        "amount_total": 35000,
+        "currency": "usd",
+        "payment_link": null
+      },
+      {
+        "payment_status": "unpaid",
+        "livemode": true,
+        "amount_total": 0,
+        "currency": "usd",
+        "payment_link": null
+      },
+      {
+        "payment_status": "unpaid",
+        "livemode": true,
+        "amount_total": 10283,
+        "currency": "usd",
+        "payment_link": "plink_1UBhcI1W0OJClv3V2egEtv9i"
+      },
+      {
+        "payment_status": "paid",
+        "livemode": true,
+        "amount_total": 17500,
+        "currency": "usd",
+        "payment_link": "plink_1UAccr1W0OJClv3VDub6gmpd"
+      },
+      {
+        "payment_status": "unpaid",
+        "livemode": true,
+        "amount_total": 0,
+        "currency": "usd",
+        "payment_link": null
+      },
+      {
+        "payment_status": "unpaid",
+        "livemode": true,
+        "amount_total": 35000,
+        "currency": "usd",
+        "payment_link": null
+      },
+      {
+        "payment_status": "unpaid",
+        "livemode": true,
+        "amount_total": 17500,
+        "currency": "usd",
+        "payment_link": "plink_1UAccr1W0OJClv3VDub6gmpd"
+      },
+      {
+        "payment_status": "unpaid",
+        "livemode": true,
+        "amount_total": 17500,
+        "currency": "usd",
+        "payment_link": "plink_1UAccr1W0OJClv3VDub6gmpd"
+      },
+      {
+        "payment_status": "unpaid",
+        "livemode": true,
+        "amount_total": 17500,
+        "currency": "usd",
+        "payment_link": "plink_1UAccr1W0OJClv3VDub6gmpd"
+      },
+      {
+        "payment_status": "unpaid",
+        "livemode": true,
+        "amount_total": 0,
+        "currency": "usd",
+        "payment_link": null
+      }
+    ]
+  }
+}

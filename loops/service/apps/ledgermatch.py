@@ -15,13 +15,15 @@ from decimal import Decimal
 
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse, JSONResponse
+from starlette.concurrency import run_in_threadpool
 
 from . import (FREE_LEDGERMATCH_ROWS, FREE_LEDGERMATCH_WORKSPACES, PRO_LEDGERMATCH_ROWS,
-               check_key, clean_domain, clean_label, get_secret, get_store, note_event,
-               now_iso, over_free_limit, quota_add, quota_drop, read_payload, refuse,
+               check_key, check_ref, clean_domain, clean_label, get_secret, get_store,
+               get_stripe_reader, note_event, now_iso, over_free_limit, quota_add, quota_drop, read_payload, refuse,
                refuse_html, service_base, today_words)
 from . import matching as M
 from . import templates as T
+from ...lib import prokey
 from ..store import new_id
 
 FAMILY = "ledgermatch"
@@ -224,6 +226,12 @@ async def report_page(ws_id: str, request: Request, e: str = ""):
         if wants_json:
             return refuse(reason, 403)
         return refuse_html(FAMILY, "We need the whole link", reason, 403, "report_open")
+    if ws.get("pro"):
+        pro, key_reason, key_status = await run_in_threadpool(
+            check_ref, store, get_secret(request), ws.get("pro_ref"), FAMILY,
+            get_stripe_reader(request))
+        if not pro:
+            return refuse(key_reason or "This compare no longer has paid access.", key_status or 403)
     rows_a = rows_from_store(ws.get("rows_a"))
     rows_b = rows_from_store(ws.get("rows_b"))
     if not rows_b:
@@ -258,9 +266,10 @@ async def new_workspace(request: Request):
     label_b, reason = clean_label(data.get("label_b"), "Their list")
     if reason:
         return refuse(reason)
-    pro, key_reason = check_key(store, secret, data.get("key"), FAMILY)
+    pro, key_reason, key_status = await run_in_threadpool(
+        check_key, store, secret, data.get("key"), FAMILY, get_stripe_reader(request))
     if key_reason:
-        return refuse(key_reason)
+        return refuse(key_reason, key_status or 400)
     if not pro and over_free_limit(store, "cm_quota", firm, FREE_LEDGERMATCH_WORKSPACES):
         return refuse(
             f"The free plan covers {FREE_LEDGERMATCH_WORKSPACES} open compares at a time for "
@@ -270,9 +279,11 @@ async def new_workspace(request: Request):
     if reason:
         return refuse(reason, 402 if "free plan" in reason else 400)
     ws_id, a_edit_id, b_edit_id = new_id(), new_id(), new_id()
+    claim = prokey.verify(secret, data.get("key")) if pro else None
     store.put("cm_workspaces", ws_id, {
         "ws_id": ws_id, "firm_domain": firm, "label_a": label_a, "label_b": label_b,
         "a_edit_id": a_edit_id, "b_edit_id": b_edit_id, "pro": pro,
+        "pro_ref": claim["ref"] if claim else None,
         "rows_a": rows_to_store(rows), "rows_b": [], "date_style_a": date_style,
         "date_style_b": "none", "created": now_iso(), "created_words": today_words()})
     store.put("cm_edits", a_edit_id, {"ws_id": ws_id})
@@ -297,7 +308,14 @@ async def paste_b(ws_id: str, request: Request):
     data = await read_payload(request)
     if "__refused__" in data:
         return refuse(data["__refused__"])
-    rows, date_style, reason = _parse_side(data.get("rows_text"), bool(ws.get("pro")))
+    pro = bool(ws.get("pro"))
+    if pro:
+        pro, key_reason, key_status = await run_in_threadpool(
+            check_ref, store, get_secret(request), ws.get("pro_ref"), FAMILY,
+            get_stripe_reader(request))
+        if not pro:
+            return refuse(key_reason or "This compare no longer has paid access.", key_status or 403)
+    rows, date_style, reason = _parse_side(data.get("rows_text"), pro)
     if reason:
         return refuse(reason, 402 if "free plan" in reason else 400)
     ws["rows_b"] = rows_to_store(rows)

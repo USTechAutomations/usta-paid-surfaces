@@ -106,6 +106,33 @@ def stage_context(repo: Path, pages: list[Path], base_image: str) -> Path:
 def build_image(ctx: Path, tag: str) -> str:
     """Build in Cloud Build; return the new image pinned by digest."""
     ref = f"{IMAGE_REPO}:{tag}"
+    if os.environ.get("FV5_BUILD_LOCAL") == "1":
+        # Same publication rail, using owned local compute. Never put registry
+        # credentials in the build context, image, arguments or diagnostic log.
+        with tempfile.TemporaryDirectory(prefix="usta-overlay-auth-") as auth_dir:
+            env = dict(os.environ, DOCKER_CONFIG=auth_dir)
+            token = subprocess.check_output(
+                [gcloud_bin(), "auth", "print-access-token", "--account", ACCOUNT],
+                text=True).strip()
+            login = subprocess.run(
+                ["docker", "login", "-u", "oauth2accesstoken", "--password-stdin", "https://gcr.io"],
+                input=token, text=True, capture_output=True, env=env)
+            del token
+            if login.returncode:
+                raise OverlayError("registry authentication unavailable")
+            for command in (
+                ["docker", "build", "--platform=linux/amd64", "-t", ref, str(ctx)],
+                ["docker", "push", ref],
+            ):
+                result = subprocess.run(command, env=env, capture_output=True, text=True)
+                if result.returncode:
+                    raise OverlayError(f"local image {command[1]} failed (exit {result.returncode})")
+        digest = subprocess.check_output(
+            [gcloud_bin(), "container", "images", "describe", ref, "--project", PROJECT,
+             "--account", ACCOUNT, "--format=value(image_summary.digest)"], text=True).strip()
+        if not re.fullmatch(r"sha256:[0-9a-f]{64}", digest):
+            raise OverlayError("built image digest is unavailable")
+        return f"{IMAGE_REPO}@{digest}"
     rc = subprocess.run([gcloud_bin(), "builds", "submit", str(ctx), "--tag", ref,
                          "--project", PROJECT, "--account", ACCOUNT, "--quiet"],
                         stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT).returncode

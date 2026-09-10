@@ -16,11 +16,13 @@ from pathlib import Path
 
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse, JSONResponse
+from starlette.concurrency import run_in_threadpool
 
-from . import (FREE_QRELAY_SENDS, check_key, clean_domain, clean_text, get_secret,
-               get_store, note_event, now_iso, over_free_limit, quota_add, quota_drop,
+from . import (FREE_QRELAY_SENDS, check_key, check_ref, clean_domain, clean_text, get_secret,
+               get_store, get_stripe_reader, note_event, now_iso, over_free_limit, quota_add, quota_drop,
                read_payload, refuse, refuse_html, service_base, today_words)
 from . import templates as T
+from ...lib import prokey
 from ..store import new_id
 
 FAMILY = "qrelay"
@@ -311,6 +313,13 @@ async def trust_page(domain: str, request: Request):
         c = (answers.get(qid) or {}).get("choice", "")
         if c in tally:
             tally[c] += 1
+    pro = bool(doc.get("pro"))
+    if pro:
+        pro, key_reason, key_status = await run_in_threadpool(
+            check_ref, store, get_secret(request), doc.get("pro_ref"), FAMILY,
+            get_stripe_reader(request))
+        if key_status == 503:
+            return refuse_html(FAMILY, "Paid page unavailable", key_reason, 503, "trust_open")
     table = _answer_table(ids, answers)
     counts = (
         '<div class="lp-tally">'
@@ -326,7 +335,7 @@ async def trust_page(domain: str, request: Request):
         + T.section(T.evidence("Every question, and what they said", table,
                                doc.get("published_words", "")),
                     heading="What they said"))
-    credit = T.trust_badge(bool(doc.get("pro")))
+    credit = T.trust_badge(pro)
     if credit:
         body += T.section(credit)
     return HTMLResponse(T.page(title="How " + doc["domain"] + " looks after data",
@@ -353,9 +362,10 @@ async def new_send(request: Request):
     template, reason = template_ok(data.get("template"))
     if reason:
         return refuse(reason)
-    pro, key_reason = check_key(store, secret, data.get("key"), FAMILY)
+    pro, key_reason, key_status = await run_in_threadpool(
+        check_key, store, secret, data.get("key"), FAMILY, get_stripe_reader(request))
     if key_reason:
-        return refuse(key_reason)
+        return refuse(key_reason, key_status or 400)
     if not pro and over_free_limit(store, "q_quota", sender, FREE_QRELAY_SENDS):
         return refuse(
             f"The free plan covers {FREE_QRELAY_SENDS} open questionnaires at a time for "
@@ -506,15 +516,18 @@ async def trust_publish(request: Request):
     if domain != doc.get("receiver_domain"):
         return refuse("Those answers were filled in for a different company website, so we "
                       "cannot publish them under this one.")
-    pro, key_reason = check_key(store, secret, data.get("key"), FAMILY)
+    pro, key_reason, key_status = await run_in_threadpool(
+        check_key, store, secret, data.get("key"), FAMILY, get_stripe_reader(request))
     if key_reason:
-        return refuse(key_reason)
+        return refuse(key_reason, key_status or 400)
     answers = doc.get("answers") or {}
+    claim = prokey.verify(secret, data.get("key")) if pro else None
     store.put("q_trust", domain, {
         "domain": domain, "answer_set_id": doc["answer_set_id"],
         "receiver_edit_id": doc["receiver_edit_id"], "answers": answers,
         "question_ids": [q["id"] for q in BANK["questions"] if q["id"] in answers],
-        "pro": pro, "published": now_iso(), "published_words": today_words()})
+        "pro": pro, "pro_ref": claim["ref"] if claim else None,
+        "published": now_iso(), "published_words": today_words()})
     base = service_base(request)
     return JSONResponse({
         "ok": True, "trust_link": T.link(f"/q/trust/{domain}", base),

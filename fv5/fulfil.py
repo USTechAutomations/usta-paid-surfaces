@@ -206,6 +206,11 @@ def _held_reason(catalog: dict, family_id: str) -> str | None:
 
     No catalog row means the family is parked off the site; a HOLD row is
     deliberately not on sale yet; EXTERNAL is billed elsewhere (Apify Store)."""
+    # These products retrieve keys from Stripe on their existing return page.
+    # Never render their paid keys into a static page or repository again.
+    from loops.key_delivery import FAMILIES as DIRECT_KEY_FAMILIES
+    if family_id in DIRECT_KEY_FAMILIES:
+        return "paid key retrieved privately by the purchase return page"
     row = next((f for f in catalog.get("families", []) if f.get("id") == family_id), None)
     if row is None:
         return "no catalog row (parked)"

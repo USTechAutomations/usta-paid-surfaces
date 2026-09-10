@@ -10,11 +10,12 @@ It runs on Google Cloud Run at:
 https://usta-loops-260481739341.us-central1.run.app
 ```
 
-The counter routes keep website names and aggregate counts. Private paid-file
-delivery also stores buyer artifacts, which may contain licensed credentials or
-customer-specific content. Those bytes require a checkout capability to retrieve;
-they are not public static pages. The delivery store keeps session hashes, never
-raw checkout session IDs.
+The counter routes keep website names and aggregate counts. SchemaHand key access
+stores immutable provider references and checkout/customer hashes in the existing
+named Firestore database `loops`. Raw checkout IDs are used only in request memory.
+The existing independent private artifact router is preserved for other workflows.
+SchemaHand direct key access never consults that artifact store; its buyer gets a
+key directly and produces paid handoff files locally in the browser.
 
 ## What each address does
 
@@ -60,23 +61,44 @@ machine at home reaches in; nobody else can.
 product. The `X-Loops-Sig` header has to hold a signature of the text
 `<product>|<since>`, so a stranger cannot read our numbers.
 
-### Private paid files
+### SchemaHand current purchase authority
 
-`POST /admin/delivery` accepts exactly `family`, `session_hash`, `html`,
-`html_sha256` and integer `ts`. `X-Loops-Sig` is HMAC-SHA256 over the exact request
-body with the existing signing secret. Timestamps must be within ten minutes;
-HTML is limited to 800000 UTF-8 bytes. The existing Firestore store atomically
-creates an immutable artifact in `fv5_deliveries`. An identical retry returns 200
-and the stored digest; a different artifact for the same purchase returns 409.
-Store errors return 503. Production Cloud Run memory storage refuses uploads.
+`POST /pro/claim` with `{"family":"schemahand","session_id":"..."}` fresh-proves
+its existing configured live checkout, exact product/price/quantity, subtotal and
+automatic-tax total, payment intent and expanded latest charge. It binds the
+existing `lp1` key bytes to immutable payment evidence in `loop_payment_authorities`.
+Authority version is `schemahand-one-time-v1`; no artifact/spool is required.
 
-`POST /delivery/<family>` accepts only `{"session_id":"..."}`. It hashes the full
-checkout capability and returns the matching HTML and digest. Wrong or absent
-identities reveal no artifact. GET never returns buyer HTML. Responses are
-`no-store`, `no-referrer` and `nosniff`; CORS uses the existing owned-origin list.
-There is no raw session ID in a storage key, server-generated URL or response.
-Artifact retrieval does not change the separate paid-tool expiry/revocation rules.
-The producer and recovery instructions are in `fv5/DELIVERY_RECOVERY.md`.
+`POST /pro/verify` for that key fresh-proves the same intent/expanded charge,
+strict captured amount/status, refund/dispute fields and uncached revocation.
+Expiry is verified checkout creation +365 days, matching the existing published
+one-time term. Missing/malformed/unavailable evidence returns503, while a known
+refund/dispute/expiry or revocation returns403. Success and failure are no-store.
+The key must be checked again before each paid browser export; a prior positive
+browser flag cannot prove access after refund or expiry. No positive server cache
+or guessed monthly period is introduced. On Cloud Run, SchemaHand refuses503
+before reading the provider unless the actual configured store is Firestore;
+a misspelled storage setting cannot fall back to volatile paid authority.
+
+An old unbound SchemaHand key returns UNKNOWN until the buyer revisits the existing
+purchase return link or a separately proved backfill binds the checkout. Key bytes
+remain stable. Other product families keep their previous implementations and
+separate current-authority limitations; these changes do not validate them.
+
+The reader uses the existing restricted credential, fixed Stripe origin and pinned
+2024-06-20 API, bounded response parsing and no redirects. Charge evidence comes
+from `payment_intents` expansion; the supported SchemaHand path never calls a
+direct charge endpoint. Guest checkouts use a session-derived customer hash rather
+than inventing a provider customer. Automatic tax is included in exact captured
+cash while the base price remains 19900 cents; discount/shipping are refused.
+
+The new private artifact transport/recovery repair remains a separately tested
+infrastructure candidate pending a real file-product contract. It is not a
+SchemaHand customer requirement and is not part of this release. Existing private
+API behavior is preserved; its original upload receipt/capability checks do not
+prove current expiry/refund authority and must not be reported as repaired. Tests
+for the shared service retain its existing private-route suite, plus `test_schemahand_access`,
+`test_payment_authority`, `test_payment_reader_bounds` and the emulator suite.
 
 ### The reorder sheet (casepack)
 
@@ -201,3 +223,14 @@ not implement automatic restoration when a formerly unpaid subscription later pa
 The actual serving revision6 included `/pro/claim` and its read-only Stripe verifier before the shared checkout did. The private delivery release was merged with those serving bytes, preserving verified license retrieval, current subscription/refund checks, the CasePack CORS and paid-state fixes, and existing Firestore configuration. A full shared-checkout image would have silently removed the newer claim route. The deployed candidate therefore uses a COPY-only overlay on the current immutable image and an image-only update of the existing service; no Cloud Build or new cloud resource.
 
 The merged service passed332 assertions and21 independent payment-claim tests. Source evidence, runtime receipts and production probes are in `/home/gmullins/advisor-plans/business-integration-20260909/release/`. Current runtime state must always be re-fetched rather than inferred from these historical notes.
+
+### September10 source reconciliation (not a deployment claim)
+
+The SchemaHand direct-access candidate preserves the existing claim route and
+Casepack fixes while preserving the existing independent private-artifact router.
+Source/runtime binding and actual browser export acceptance are recorded under
+`advisor-plans/system-reconciliation-20260909/private-delivery-repair/`. A previous
+private-artifact fixture was rejected as the representative customer journey
+because its HTML duplicated a key the return page already retrieves directly.
+No scheduled SchemaHand private artifact delivery or duplicate accounting producer
+is activated. Preserve the existing `loops.key_delivery` family hold in fv5.
