@@ -35,8 +35,9 @@ the event name is the wrong shape it writes nothing and answers with no content.
 `POST /t` with `{"f": "...", "e": "..."}` does the same thing, for pages that
 want to send the count as the visitor leaves.
 
-Any website may load these. Everything else is limited to the sites listed in
-`LOOPS_CORS_ORIGINS`.
+Any website may load these, the embed scripts and the public Casepack configuration
+GET described below. Other browser cross-origin access is limited to the sites
+listed in `LOOPS_CORS_ORIGINS`. CORS is not server-side authorization.
 
 ### Pro keys
 
@@ -86,6 +87,18 @@ The producer and recovery instructions are in `fv5/DELIVERY_RECOVERY.md`.
 | `POST /cp/config/<id>/edit` | Replaces the sheet. Needs the edit code. |
 | `POST /cp/config/<id>/delete` | Deletes the sheet for real. Needs the edit code. |
 | `POST /cp/config/<id>/pro` | Turns a paid key into a paid sheet: no badge, and room for 5,000 rows instead of 500. Needs the edit code and a casepack key. |
+
+The public `GET /cp/config/<id>` answers with `Access-Control-Allow-Origin: *`
+so a sheet embedded on a customer's different website can read it. This applies
+only to the exact read route with a valid-shaped config ID, including its 404
+answer when the sheet is missing or deleted. It excludes `edit_id` and `pro_ref`.
+Read preflights allow GET and an optional content-type header; they never enable
+credentialed requests. Creation, edit, delete, paid upgrade, metrics and admin
+routes retain their existing origin restrictions and authorization checks.
+
+This is public embed configuration, not private access-controlled content.
+Knowing the public sheet ID does not authorize changing it: edit/delete still
+require the separate edit code, and admin operations require their signature.
 
 A sheet holds a website address, a title, a language (`en`, `es` or `both`) and
 up to 500 rows. Each row has a code, a name, a unit and how many go in a case,
@@ -170,3 +183,21 @@ and stops with a number other than zero when anything failed.
 | `store_firestore.py` | The real database. Counting is done with counters, so a busy embed costs one document, not one per visit. |
 | `Dockerfile` | How the container is built. Build it from the repo root. |
 | `tests/` | The tests. No outside test framework: plain Python. |
+
+Casepack paid access is derived on config reads and owner edits from the stored
+upgrade reference and the current revocation store. Explicit revocation returns
+`pro: false`; unknown, malformed or unavailable revocation evidence returns503.
+Stored owner rows and edit credentials are preserved. Reads retain existing rows;
+this is not a destructive expiry policy. A revoked owner's new edits use the free
+row limit; oversized replacements are rejected before writing. Owner deletion still
+works. A new valid key may explicitly upgrade the sheet; the service never silently
+unrevokes a formerly revoked reference. Existing public config CORS and private
+mutation restrictions still apply. Offline test: `loops.service.tests.test_casepack_revocation`.
+The revocation store/cache remains the source of current status; this change does
+not implement automatic restoration when a formerly unpaid subscription later pays.
+
+### Concurrent release integration (2026-09-09)
+
+The actual serving revision6 included `/pro/claim` and its read-only Stripe verifier before the shared checkout did. The private delivery release was merged with those serving bytes, preserving verified license retrieval, current subscription/refund checks, the CasePack CORS and paid-state fixes, and existing Firestore configuration. A full shared-checkout image would have silently removed the newer claim route. The deployed candidate therefore uses a COPY-only overlay on the current immutable image and an image-only update of the existing service; no Cloud Build or new cloud resource.
+
+The merged service passed332 assertions and21 independent payment-claim tests. Source evidence, runtime receipts and production probes are in `/home/gmullins/advisor-plans/business-integration-20260909/release/`. Current runtime state must always be re-fetched rather than inferred from these historical notes.
