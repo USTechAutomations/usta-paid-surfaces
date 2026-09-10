@@ -126,6 +126,10 @@ python3 scripts/check_site.py || die "the page rules gate said no"
 #    freshness gate; either one failing stops us here.
 python3 scripts/build_site.py || die "the build gate said no"
 
+# 3b. House look. Reads dist/, so it runs after the build folder exists.
+#     A failing brand check must refuse the deploy (BRAND.md).
+python3 scripts/check_brand.py --strict || die "the brand gate said no"
+
 # 4. Nothing to publish is a success, not a failure.
 #
 # This used to ask git whether anything had changed. It could not work: the

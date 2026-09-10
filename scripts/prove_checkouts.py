@@ -35,6 +35,7 @@ Read-only: it creates nothing and changes nothing.
 """
 from __future__ import annotations
 
+import html
 import json
 import re
 import sys
@@ -145,6 +146,44 @@ def _md(obj) -> dict:
 # said, and because a Stripe 200 was never proof of anything anyway -- the money
 # is read from the API below either way.
 REACHED = ("200", SL.STOPPED)
+_CLICKABLE = re.compile(r"<(a|button)\b([^>]*)>((?:(?!</\1>).)*)</\1>", re.S | re.I)
+_TAGS = re.compile(r"<[^>]+>")
+_BTN_BUY = re.compile(r"\bbtn-buy\b")
+_BUY_WORDS = re.compile(r"^(?:buy|subscribe|pay|checkout|order|get instant access)\b", re.I)
+
+
+def _attr(attrs: str, name: str) -> str:
+    m = re.search(rf"""\b{name}\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))""", attrs, re.I)
+    return (m.group(1) or m.group(2) or m.group(3) or "").strip() if m else ""
+
+
+def money_clicks(raw: str) -> list[tuple[str, str]]:
+    """Pay controls a buyer could use. A <button> with no address is not one.
+
+    Thanks pages reuse the buy-button class on a 'Checking purchase' status
+    line and a 'Copy' control. Those have no href, take no card, and must not
+    be proved as checkouts. A genuine empty <a class="btn-buy"> still counts.
+    """
+    out = []
+    for tag, attrs, inner in _CLICKABLE.findall(raw):
+        href = _attr(attrs, "href") or _attr(attrs, "formaction")
+        cls = _attr(attrs, "class")
+        label = " ".join(html.unescape(_TAGS.sub(" ", inner)).split())
+        if tag.lower() == "button" and not href:
+            continue
+        if not _BTN_BUY.search(cls):
+            if not _BUY_WORDS.match(label) or href.lower().startswith("mailto:"):
+                continue
+        out.append((href, label))
+    return out
+
+
+def declared_external_host(checkout: dict) -> str:
+    """Non-Stripe host the catalog says a click should end on, else ''."""
+    host = str((checkout or {}).get("lands_on") or "").strip().lower().rstrip(".")
+    if not host or "stripe.com" in host:
+        return ""
+    return host
 
 
 def walk(url: str):
@@ -177,22 +216,20 @@ def page_addresses(root: Path) -> dict[str, list[str]]:
     second, private idea of "button" living in here would be a rule that passes
     while the estate is broken.
     """
-    sys.path.insert(0, str(ROOT / "scripts"))
-    import check_site as gate
-
     # Pages, not buttons. Most of these pages carry the same button twice, once
     # at the top and once at the bottom, and counting those as two would put a
-    # true number next to a false word.
+    # true number next to a false word. Thanks-page status/copy controls are
+    # dropped in money_clicks, by markup, not by the folder they live in.
     found: dict[str, set[str]] = {}
     for page in sorted(root.rglob("index.html")):
         who = str(page.parent.relative_to(root)) or "."
-        for href, _label in gate.buy_buttons(page.read_text(encoding="utf-8")):
+        for href, _label in money_clicks(page.read_text(encoding="utf-8")):
             found.setdefault(href, set()).add(who)
     return {a: sorted(w) for a, w in found.items()}
 
 
 def reach_report(on_pages: dict[str, list[str]], declared: dict[str, str],
-                 ours: dict[str, str], walker) -> dict:
+                 ours: dict[str, str], walker, external_by_url: dict[str, str] | None = None) -> dict:
     """Who can actually reach what. Pure, so it can be proved without a network.
 
     Reachability is counted from the pages in families/ and from nothing else,
@@ -214,6 +251,7 @@ def reach_report(on_pages: dict[str, list[str]], declared: dict[str, str],
     following the address a page really shows answers it. A hand-written page is
     the test case for every rule in this repo.
     """
+    external_by_url = external_by_url or {}
     reached: dict[str, list[str]] = {}
     broken: dict[str, str] = {}
     for addr, pages in sorted(on_pages.items()):
@@ -222,6 +260,13 @@ def reach_report(on_pages: dict[str, list[str]], declared: dict[str, str],
             broken[addr] = code
             continue
         host = _host_for_message(final)
+        want = external_by_url.get(addr) or ""
+        if want:
+            if code not in REACHED or not _https_host_matches(final, want):
+                broken[addr] = f"answered {code} and ended on {host or final!r}"
+                continue
+            reached.setdefault(final.split("?")[0], []).extend(pages)
+            continue
         if code not in REACHED or not _https_host_matches(final, "stripe.com"):
             broken[addr] = f"answered {code} and ended on {host or final!r}"
             continue
@@ -279,6 +324,11 @@ def main() -> int:
 
     bad = unknown = 0
     reached: set[str] = set()
+    external_by_url: dict[str, str] = {}
+    for fam, c in armed:
+        host = declared_external_host(c)
+        if host:
+            external_by_url[c["url"]] = host
     for fam, c in armed:
         fid = fam["id"]
         final, code = walked(c["url"])
@@ -287,6 +337,17 @@ def main() -> int:
             unknown += 1
             continue
         host = _host_for_message(final)
+        want = declared_external_host(c)
+        if want:
+            # External store: the chain ending on the declared host is the proof.
+            # Stripe is not read, and a stripe.com page is never loaded.
+            if code in REACHED and _https_host_matches(final, want):
+                print(f"{fid:17} proved   landed on {host} as catalog lands_on {want}")
+                reached.add(final.split("?")[0])
+            else:
+                print(f"{fid:17} BROKEN   answered {code} and ended on {host or final!r}")
+                bad += 1
+            continue
         if code not in REACHED or not _https_host_matches(final, "stripe.com"):
             print(f"{fid:17} BROKEN   answered {code} and ended on {host or final!r}")
             bad += 1
@@ -324,7 +385,7 @@ def main() -> int:
             if _md(l).get("feeds_family")}
     declared = {f["id"]: c["url"] for f, c in armed}
     on_pages = page_addresses(ROOT / "families")
-    r = reach_report(on_pages, declared, ours, walked)
+    r = reach_report(on_pages, declared, ours, walked, external_by_url)
 
     shown = {w for pages in on_pages.values() for w in pages}
     # Say where the number came from.

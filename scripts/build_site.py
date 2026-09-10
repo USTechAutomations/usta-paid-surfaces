@@ -342,6 +342,33 @@ def build_page(src: Path, family: str, crumb_label: str | None, path: str | None
             fail(f"{family}: expected exactly one </main> to put the page list before")
         out = out.replace("</main>", extra_main + "</main>", 1)
 
+    # Keyboard/screen-reader shell. Two extras pages (acacheck, schemahand)
+    # shipped with a bare <header> and a <main> with no id, so a skip link
+    # and a screen reader had nothing to land on. If a source already has
+    # the shared shell this is a no-op.
+    if not re.search(r'<a[^>]*class="[^"]*\bskip\b', out):
+        out = re.sub(
+            r"(<body[^>]*>)",
+            r'\1\n<a class="skip" href="#main">Skip to content</a>',
+            out,
+            count=1,
+        )
+    if not re.search(r'<header[^>]*class="[^"]*\bmasthead\b', out):
+        crumb = "" if crumb_label is None else f'<span class="sep">/</span>{crumb_label}'
+        mast = MASTHEAD.format(base=BASE, crumb=crumb, logo_mast=logo("ustaMarkMast"))
+        if re.search(r"(?s)<header\b.*?</header>", out):
+            out = re.sub(r"(?s)<header\b.*?</header>", mast, out, count=1)
+        else:
+            out = re.sub(
+                r'(<a class="skip"[^>]*>.*?</a>)',
+                r"\1\n" + mast,
+                out,
+                count=1,
+            )
+    if re.search(r"<main\b", out) and not re.search(r'<main[^>]*id="main"', out):
+        out = re.sub(r"<main\b", '<main id="main"', out, count=1)
+    out = re.sub(r'(<(?:a|button)\b[^>]*)\s+tabindex="-1"', r"\1", out)
+
     # --- head: canonical, og:url, stylesheet, robots, GTM ---
     rel = "" if family == "hub" else (path or family)
     slug = f"/{rel}" if rel else ""

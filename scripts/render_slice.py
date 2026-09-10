@@ -79,7 +79,7 @@ PAGE = """<!doctype html>
       <div><dt>Price</dt><dd class="price">{price}</dd></div>
       <div><dt>Built for</dt><dd>{buyer}</dd></div>
       <div><dt>Read</dt><dd>{read_every}</dd></div>
-      <div><dt>Newest sealed read</dt><dd><span class="pill {pill_class}">{newest}</span></dd></div>
+      <div><dt>Newest sealed read</dt><dd>{status_cell}</dd></div>
     </dl>
 {hero_cta}  </div>
 </section>
@@ -402,7 +402,19 @@ def render(fam: dict, spec: dict, today: dt.date | None = None) -> str:
         # never asked the question, and the gate refuses it.
         withheld=int(spec.get("withheld", 0)),
         row_count=f'{spec["row_count"]:,}',
-        pill_class="pill-hold" if paused else "pill-ready",
+        status_cell=(
+            '<span class="state">'
+            '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">'
+            + (
+                '<path fill="currentColor" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zm0 '
+                '1.5a5 5 0 110 10 5 5 0 010-10z"/>'
+                if paused else
+                '<path fill="currentColor" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zm3.03 '
+                '4.72a.75.75 0 010 1.06l-3.9 3.9a.75.75 0 01-1.06 0L4.97 9.13a.75.75 0 '
+                '011.06-1.06l1.57 1.57 3.37-3.37a.75.75 0 011.06 0z"/>'
+            )
+            + f'</svg>{html.escape(spec["newest"])}</span>'
+        ),
         freshness=freshness_line(
             spec["newest"], spec["oldest"], spec["runs"], spec["cadence_days"], today,
             read_phrase=spec.get("read_phrase"),

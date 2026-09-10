@@ -3,6 +3,7 @@
 
     python3 scripts/check_brand.py --report        # counts only, never fails
     python3 scripts/check_brand.py                 # strict: exit 1 on any failure
+    python3 scripts/check_brand.py --strict        # same as default (explicit)
     python3 scripts/check_brand.py --only quakes   # scope to one family
     python3 scripts/check_brand.py --dist /tmp/x   # check a different built tree
 
@@ -230,10 +231,16 @@ def pages(dist: Path, only: str | None) -> list[Path]:
 def main() -> int:
     ap = argparse.ArgumentParser(description="Check built pages against BRAND.md.")
     ap.add_argument("--report", action="store_true", help="print counts, never fail")
+    ap.add_argument("--strict", action="store_true",
+                    help="exit 1 on any failure (default unless --report)")
     ap.add_argument("--only", metavar="FAMILY", help="scope to dist/<FAMILY>/")
     ap.add_argument("--dist", default=str(ROOT / "dist"), help="built tree to read")
     ap.add_argument("--css", default=str(ROOT / "styles.css"), help="shared stylesheet")
     args = ap.parse_args()
+    # --strict wins if both are passed, so a deploy script cannot be talked
+    # into report-mode by an extra flag.
+    if args.strict:
+        args.report = False
 
     dist = Path(args.dist).resolve()
     files = pages(dist, args.only)

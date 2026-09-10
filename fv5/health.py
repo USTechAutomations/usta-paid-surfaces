@@ -71,6 +71,90 @@ def _cadence_max_days(cadence: str) -> int:
     return 8  # unknown cadence: allow a little over a week before we call it stale
 
 
+NOT_ON_SALE_STATUSES = frozenset({"HOLD", "EXTERNAL", "off_sale"})
+
+
+def is_on_sale(fam: dict | None) -> tuple[bool, str]:
+    """Can a stranger pay from our page? If not, health skips the family."""
+    if fam is None:
+        return False, "no catalog row"
+    status = str(((fam.get("checkout") or {}).get("status") or "")).strip()
+    if status in NOT_ON_SALE_STATUSES:
+        return False, f"checkout status {status}"
+    url = (fam.get("checkout") or {}).get("url", "")
+    if not url or not str(url).startswith("https://"):
+        return False, "no armed checkout URL"
+    return True, ""
+
+
+def data_json_path(root: Path, fid: str) -> Path:
+    return root / "families" / fid / "data.json"
+
+
+def hosted_freshness_path(fv5: Path, fid: str) -> Path:
+    return fv5 / "families" / fid / "freshness.json"
+
+
+def is_dated_data_product(fid: str, fam: dict, *, root: Path, fv5: Path) -> bool:
+    """Does this family sell dated records that should have a data.json?
+
+    Hosted tools (no public sample store) and cadences that say they are not a
+    feed are not dated-data products. A data.json already on disk is still
+    checked, even if the cadence says otherwise. Do not invent a date.
+    """
+    if data_json_path(root, fid).is_file():
+        return True
+    cadence = (fam.get("cadence") or "").lower()
+    if "not a feed" in cadence or "unavailable" in cadence:
+        return False
+    declared = hosted_freshness_path(fv5, fid)
+    if declared.is_file():
+        try:
+            body = json.loads(declared.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            body = {}
+        if body.get("dated_feed") is False:
+            return False
+    data_dir = fv5 / "families" / fid / "data"
+    if data_dir.is_dir() and any(data_dir.glob("*.json")):
+        return True
+    return False
+
+
+def check_freshness(
+    fid: str,
+    fam: dict,
+    *,
+    now: dt.datetime | None = None,
+    root: Path | None = None,
+    fv5: Path | None = None,
+) -> tuple[list[str], dict]:
+    """Freshness fails. A too-old data.json uses the word 'stale'."""
+    root = root or ROOT
+    fv5 = fv5 or FV5
+    now = now or dt.datetime.now(dt.timezone.utc)
+    extra: dict = {}
+    data = data_json_path(root, fid)
+    if not data.is_file():
+        if is_dated_data_product(fid, fam, root=root, fv5=fv5):
+            return ["no data.json freshness file"], extra
+        extra["freshness"] = "not a dated feed"
+        return [], extra
+    age_days = (
+        now - dt.datetime.fromtimestamp(data.stat().st_mtime, dt.timezone.utc)
+    ).days
+    extra["data_age_days"] = age_days
+    max_days = _cadence_max_days(fam.get("cadence", ""))
+    extra["cadence_max_days"] = max_days
+    if age_days > max_days:
+        return (
+            [f"stale data.json is {age_days}d old, older than the {max_days}d cadence"],
+            extra,
+        )
+    extra["freshness"] = "fresh"
+    return [], extra
+
+
 def _probe_200(url: str, api_key: str | None = None) -> tuple[bool, str]:
     """Does this button really lead to a checkout a buyer can pay?
 
@@ -129,32 +213,47 @@ def _stripe_link_amount(url: str, api_key: str) -> int | None:
         starting_after = links[-1].get("id")
 
 
-def check_family(fid: str, catalog: dict, api_key: str) -> dict:
-    """Run every check for one family. Returns its report with a 'fails' list."""
+def check_family(
+    fid: str,
+    catalog: dict,
+    api_key: str | None,
+    *,
+    root: Path | None = None,
+    fv5: Path | None = None,
+    now: dt.datetime | None = None,
+) -> dict:
+    """Run every check for one family. Returns its report with a 'fails' list.
+
+    A family with no https:// checkout is not on sale: skipped, not FAIL.
+    Pay-link probing is skipped when api_key is empty so tests never talk to
+    Stripe. Freshness is a dated data.json when the family sells dated records;
+    hosted tools that never write one are not failed for a missing file.
+    """
+    root = root or ROOT
+    fv5 = fv5 or FV5
     fails: list[str] = []
     report: dict = {"family": fid, "fails": fails}
     fam = _catalog_row(catalog, fid)
-    status = ((fam or {}).get("checkout") or {}).get("status", "")
-    if fam is None or status in ("HOLD", "EXTERNAL"):
-        # Not on sale from our pages: no catalog row (parked) or a row that is
-        # deliberately held / billed elsewhere. Nothing to prove, so no fail.
-        report["held"] = "no catalog row" if fam is None else f"checkout status {status}"
+    on_sale, why_not = is_on_sale(fam)
+    if not on_sale:
+        # Not on sale from our pages: no catalog row, held, billed elsewhere,
+        # or no armed https:// checkout. Nothing to prove, so no fail.
+        report["skipped"] = why_not
+        report["held"] = why_not
         return report
 
     price = fam.get("price", "")
     parsed = parse_price(price)
     report["price"] = price
 
-    page = ROOT / "families" / fid / "index.html"
+    page = root / "families" / fid / "index.html"
     if not page.is_file():
         fails.append("no page on disk")
     elif price and price not in page.read_text(encoding="utf-8"):
         fails.append(f"page does not print {price}")
 
     url = (fam.get("checkout") or {}).get("url", "")
-    if not url or not str(url).startswith("https://"):
-        fails.append("no armed checkout URL")
-    else:
+    if api_key:
         ok, detail = _probe_200(url, api_key)
         report["checkout"] = detail
         if not ok:
@@ -164,25 +263,53 @@ def check_family(fid: str, catalog: dict, api_key: str) -> dict:
             report["stripe_cents"] = amount
             if amount is not None and amount != parsed[0]:
                 fails.append(f"Stripe charges {amount} cents, page says {parsed[0]}")
+    else:
+        report["checkout"] = "pay probe skipped (no key)"
 
-    thanks = ROOT / "families" / fid / "p" / "thanks" / "index.html"
+    thanks = root / "families" / fid / "p" / "thanks" / "index.html"
     if not thanks.is_file():
         fails.append("no thanks page")
 
-    report["private_pages"] = len([q for q in (ROOT / "families" / fid / "p").glob("*/index.html")
-                                   if q.parent.name != "thanks"])
+    pdir = root / "families" / fid / "p"
+    report["private_pages"] = len(
+        [q for q in pdir.glob("*/index.html") if q.parent.name != "thanks"]
+    ) if pdir.is_dir() else 0
 
-    data = ROOT / "families" / fid / "data.json"
-    if not data.is_file():
-        fails.append("no data.json freshness file")
-    else:
-        age_days = (dt.datetime.now(dt.timezone.utc)
-                    - dt.datetime.fromtimestamp(data.stat().st_mtime, dt.timezone.utc)).days
-        report["data_age_days"] = age_days
-        max_days = _cadence_max_days(fam.get("cadence", ""))
-        if age_days > max_days:
-            fails.append(f"data.json is {age_days}d old, older than the {max_days}d cadence")
+    fresh_fails, extra = check_freshness(fid, fam, now=now, root=root, fv5=fv5)
+    report.update(extra)
+    fails.extend(fresh_fails)
     return report
+
+
+def summarize(reports: dict) -> tuple[int, dict]:
+    """Print per-family lines plus the one-line count. Exit 1 if any on-sale fail."""
+    n_skip = n_fresh = n_stale = 0
+    any_fail = False
+    for fid, rep in reports.items():
+        if rep.get("skipped"):
+            print(f"not on sale {fid}: {rep['skipped']}")
+            n_skip += 1
+            continue
+        stale = any("stale" in f for f in rep["fails"])
+        if stale:
+            n_stale += 1
+        if rep["fails"]:
+            any_fail = True
+            print(_redact(f"FAIL {fid}: " + "; ".join(rep["fails"])))
+        else:
+            n_fresh += 1
+            print(f"ok   {fid}: {rep.get('private_pages', 0)} private page(s)")
+    n_checked = len(reports) - n_skip
+    print(
+        f"families checked: {n_checked}, fresh: {n_fresh}, "
+        f"not on sale: {n_skip}, stale: {n_stale}"
+    )
+    return (1 if any_fail else 0), {
+        "checked": n_checked,
+        "fresh": n_fresh,
+        "not_on_sale": n_skip,
+        "stale": n_stale,
+    }
 
 
 def main() -> int:
@@ -192,27 +319,18 @@ def main() -> int:
         HEALTH.write_text(json.dumps({"families": {}, "checked": None}, indent=2) + "\n",
                           encoding="utf-8")
         print("0 fv5 families")
+        print("families checked: 0, fresh: 0, not on sale: 0, stale: 0")
         return 0
 
     catalog = json.loads(CATALOG.read_text(encoding="utf-8"))
     api_key = _read_key()
-    reports = {}
-    any_fail = False
-    for fid in ids:
-        rep = check_family(fid, catalog, api_key)
-        reports[fid] = rep
-        if rep.get("held"):
-            print(f"held {fid}: {rep['held']}")
-        elif rep["fails"]:
-            any_fail = True
-            print(_redact(f"FAIL {fid}: " + "; ".join(rep["fails"])))
-        else:
-            print(f"ok   {fid}: {rep.get('private_pages', 0)} private page(s)")
+    reports = {fid: check_family(fid, catalog, api_key) for fid in ids}
 
     now = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
     HEALTH.write_text(json.dumps({"families": reports, "checked": now}, indent=2) + "\n",
                       encoding="utf-8")
-    if any_fail:
+    rc, _counts = summarize(reports)
+    if rc:
         ALERT.parent.mkdir(parents=True, exist_ok=True)
         lines = [f"# fv5 health FAIL — {now}", ""]
         for fid, rep in reports.items():

@@ -138,7 +138,7 @@
     "id": "offers",
     "short": "Offers and evidence",
     "who": "Small businesses that want one piece of automation built.",
-    "amount": "$200 \u2013 $450",
+    "amount": "$200 – $450",
     "cadence": "fixed price, fixed window",
     "pill": "Live",
     "pill_class": "pill-ready"
@@ -228,10 +228,10 @@
     "id": "acacheck",
     "short": "ACA e-file pre-checker",
     "who": "Payroll engineers who file 1094-C and 1095-C returns electronically.",
-    "amount": "$499 for 12 months",
+    "amount": "Not on sale",
     "cadence": "One payment for 12 months. The open-source checker is free forever; the paid key unlocks the hosted check with every finding and the full rejection-code decoder. Nothing recurring.",
-    "pill": "Live",
-    "pill_class": "pill-ready"
+    "pill": "Not on sale",
+    "pill_class": "pill-hold"
   },
   {
     "id": "ledgermatch",

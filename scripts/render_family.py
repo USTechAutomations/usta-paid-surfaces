@@ -608,6 +608,12 @@ def render(spec: dict) -> str:
     # a module flag is how the page and the card came to say different things.
     on_page = sample_status(spec.get("id") or "") == "on-page"
     price = price_of(spec)
+    # A placeholder or empty checkout address is not sellable. Do not print
+    # the catalog dollar amount: the page would show a price with no button.
+    _c = spec.get("checkout") or fam_row(str(spec.get("id") or "")).get("checkout") or {}
+    _href = str(_c.get("url") or "").strip()
+    if "$" in price and not _href.startswith("https://"):
+        price = "No pay button yet"
     hero_cta, offer = offer_block(spec)
     # A page with nothing to buy says so under the rail, before the reader goes
     # hunting for a button that is not there. It was hand-typed onto four pages
