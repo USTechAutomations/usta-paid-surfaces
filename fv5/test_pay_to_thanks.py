@@ -276,9 +276,21 @@ class PayToThanks(unittest.TestCase):
     def test_key_family_file_is_sealed_but_its_thanks_page_offers_a_key(self):
         family, sid = KEY_FAMILY, capability_id(KEY_FAMILY)
         self.assertEqual(self.deliver(family, recorded_session(family)), 0)
-        self.assert_sealed(family, sid)
-        got = self.client.post(f"/delivery/{family}", json={"session_id": sid})
-        self.assertEqual(got.status_code, 200, got.text)
+        try:
+            from loops.key_delivery import FAMILIES as DIRECT_KEY_FAMILIES
+        except ImportError:
+            DIRECT_KEY_FAMILIES = set()
+        if family in DIRECT_KEY_FAMILIES:
+            # Since 2026-09-10 the key is retrieved privately on the Stripe
+            # return page; the job must spool nothing for these families.
+            self.assertIsNone(self.spool.load(pd.doc_id(family, pd.session_hash(sid))),
+                              f"{family}: a key family must not be spooled")
+            got = self.client.post(f"/delivery/{family}", json={"session_id": sid})
+            self.assertEqual(got.status_code, 404, got.text)
+        else:
+            self.assert_sealed(family, sid)
+            got = self.client.post(f"/delivery/{family}", json={"session_id": sid})
+            self.assertEqual(got.status_code, 200, got.text)
         path, page = self.thanks_delivery_path(family)
         self.assertIsNone(path, f"{family}: expected the key lane, not the file lane")
         self.assertIn("/pro/claim", page)
