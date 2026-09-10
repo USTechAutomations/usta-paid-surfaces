@@ -44,6 +44,7 @@ ai-disclosure-notice/ai-generated-content-label
 ai-disclosure-notice/automated-decision-notice
 ai-disclosure-notice/chatbot-disclosure-notice
 ai-disclosure-notice/companion-chatbot-notice
+ai-disclosure-notice/coverage
 ai-disclosure-notice/first-message-ai-disclosure
 ai-disclosure-notice/synthetic-media-label
 ai-prices
@@ -185,6 +186,7 @@ clerk-clock/montgomery-md
 clerk-clock/san-francisco
 contractor-audit-file
 contractor-audit-file/california
+contractor-audit-file/coverage
 contractor-audit-file/federal-employment-tax-common-law-control
 contractor-audit-file/federal-wage-law-economic-reality
 contractor-audit-file/hawaii
@@ -213,6 +215,7 @@ crawler/stopped-naming
 customs-broker-exam-bank
 customs-broker-exam-bank/april-2025
 customs-broker-exam-bank/april-2026
+customs-broker-exam-bank/coverage
 customs-broker-exam-bank/may-2024
 customs-broker-exam-bank/october-2024
 customs-broker-exam-bank/october-2025
@@ -246,6 +249,7 @@ enforcement-action-board/biggest-penalties
 enforcement-action-board/california
 enforcement-action-board/colorado
 enforcement-action-board/connecticut
+enforcement-action-board/coverage
 enforcement-action-board/delaware
 enforcement-action-board/district-of-columbia
 enforcement-action-board/florida
@@ -329,6 +333,7 @@ grid/spp
 grid/texas
 grid/wisconsin
 hazmat-ship-pack
+hazmat-ship-pack/coverage
 hazmat-ship-pack/id8000
 hazmat-ship-pack/na1057
 hazmat-ship-pack/na1270
@@ -594,6 +599,7 @@ notary-journal/arkansas
 notary-journal/california
 notary-journal/colorado
 notary-journal/connecticut
+notary-journal/coverage
 notary-journal/delaware
 notary-journal/district-of-columbia
 notary-journal/florida
@@ -640,6 +646,7 @@ notary-journal/wisconsin
 notary-journal/wyoming
 notice-responder
 nutrition-label-forge
+nutrition-label-forge/coverage
 nutrition-label-forge/discrete-units-and-the-reference-amount
 nutrition-label-forge/dual-column-labels
 nutrition-label-forge/foods-that-are-exempt-or-labelled-differently
@@ -729,6 +736,7 @@ patent-practitioner-directory/columbia-md
 patent-practitioner-directory/columbus-oh
 patent-practitioner-directory/concord-nh
 patent-practitioner-directory/costa-mesa-ca
+patent-practitioner-directory/coverage
 patent-practitioner-directory/cranford-nj
 patent-practitioner-directory/cupertino-ca
 patent-practitioner-directory/dallas-tx
