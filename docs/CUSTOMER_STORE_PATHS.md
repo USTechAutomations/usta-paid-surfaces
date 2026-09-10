@@ -13,3 +13,5 @@ The page-quality linter reported no blocking findings on the three product sales
 Account inventory is available from the existing loopback sales API or its CLI, not a new customer product. Apify visibility is now taken from actor detail when missing from list results; absent visibility is UNKNOWN and deprecation is separate. Its existing loopback server was restarted after the saved prior PID was found absent. It remains a manually started local process, not a boot service.
 
 Detailed dated evidence and the per-product buyer/payment map: `/home/gmullins/reports/customer-journeys-20260909/`.
+
+The follow-up release updates the five existing software sales pages to describe the same private Stripe-return key retrieval. It changes no prices. The full changed-page set is thirteen pages; all five follow-up published HTML hashes match candidates, the five public page-quality checks have zero blocking findings, and the final browser run passed sixty width/theme observations. Evidence: `offers-published-after.json`, `browser-offer-pages.json`, `offer-pages-deployment.json`.

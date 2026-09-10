@@ -2764,7 +2764,7 @@
       "live": "https://ustechautomations.com/feeds/qrelay/",
       "checkout": {
         "url": "https://buy.stripe.com/14A7sEfZI0a6cnW4j00sU2G",
-        "terms": "$175/mo through Stripe. The private page with your key builds itself within 10 minutes of payment. No email is sent. Cancel any time; the key stops working when the subscription ends. Refunds are not offered; the free tier lets you try the whole tool first.",
+        "terms": "$175/mo through Stripe. The Stripe return page checks your purchase and lets you retrieve your key. No email is sent. Cancel any time; the key stops working when the subscription ends. Refunds are not offered; the free tier lets you try the whole tool first.",
         "lands_on": "buy.stripe.com",
         "label": "Subscribe — $175 a month",
         "status": "live",
@@ -2788,7 +2788,7 @@
       "live": "https://ustechautomations.com/feeds/acacheck/",
       "checkout": {
         "url": "https://buy.stripe.com/7sY3codRAcWS1Ji6r80sU2H",
-        "terms": "$499 for 12 months through Stripe. The private page with your key builds itself within 10 minutes of payment. No email is sent. One payment; the key works for 12 months. Refunds are not offered; the free tier lets you try the whole tool first.",
+        "terms": "$499 for 12 months through Stripe. The Stripe return page checks your purchase and lets you retrieve your key. No email is sent. One payment; the key works for 12 months. Refunds are not offered; the free tier lets you try the whole tool first.",
         "lands_on": "buy.stripe.com",
         "label": "Buy — $499 for 12 months",
         "status": "live",
@@ -2812,7 +2812,7 @@
       "live": "https://ustechautomations.com/feeds/ledgermatch/",
       "checkout": {
         "url": "https://buy.stripe.com/bJecMYeVEbSO3Rq3eW0sU2I",
-        "terms": "$99/mo through Stripe. The private page with your key builds itself within 10 minutes of payment. No email is sent. Cancel any time; the key stops working when the subscription ends. Refunds are not offered; the free tier lets you try the whole tool first.",
+        "terms": "$99/mo through Stripe. The Stripe return page checks your purchase and lets you retrieve your key. No email is sent. Cancel any time; the key stops working when the subscription ends. Refunds are not offered; the free tier lets you try the whole tool first.",
         "lands_on": "buy.stripe.com",
         "label": "Subscribe — $99 a month",
         "status": "live",
@@ -2836,7 +2836,7 @@
       "live": "https://ustechautomations.com/feeds/schemahand/",
       "checkout": {
         "url": "https://buy.stripe.com/4gM8wI8xg5uqds0eXE0sU2J",
-        "terms": "$199 for 12 months through Stripe. The private page with your key builds itself within 10 minutes of payment. No email is sent. One payment; the key works for 12 months. Refunds are not offered; the free tier lets you try the whole tool first.",
+        "terms": "$199 for 12 months through Stripe. The Stripe return page checks your purchase and lets you retrieve your key. No email is sent. One payment; the key works for 12 months. Refunds are not offered; the free tier lets you try the whole tool first.",
         "lands_on": "buy.stripe.com",
         "label": "Buy — $199 for 12 months",
         "status": "live",
@@ -2860,7 +2860,7 @@
       "live": "https://ustechautomations.com/feeds/casepack/",
       "checkout": {
         "url": "https://buy.stripe.com/aFa8wI28S9KGew46r80sU2K",
-        "terms": "$49/mo through Stripe. The private page with your key builds itself within 10 minutes of payment. No email is sent. Cancel any time; the key stops working when the subscription ends. Refunds are not offered; the free tier lets you try the whole tool first.",
+        "terms": "$49/mo through Stripe. The Stripe return page checks your purchase and lets you retrieve your key. No email is sent. Cancel any time; the key stops working when the subscription ends. Refunds are not offered; the free tier lets you try the whole tool first.",
         "lands_on": "buy.stripe.com",
         "label": "Subscribe — $49 a month",
         "status": "live",
