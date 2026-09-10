@@ -20,6 +20,7 @@ allowed to go missing.
 from __future__ import annotations
 
 import hashlib
+import html
 import json
 import re
 import shutil
@@ -37,6 +38,7 @@ sys.path.insert(0, str(ROOT))
 from brand.shell import FOOTER, MASTHEAD, logo  # noqa: E402  the one shell, shared with loops
 DIST = ROOT / "dist"
 CATALOG = json.loads((ROOT / "catalog.json").read_text(encoding="utf-8"))
+FAMILY_BY_ID = {f["id"]: f for f in CATALOG["families"]}
 # Every address we have ever published. See the comment at the top of the file
 # itself. Nothing is ever taken out of it.
 PUBLISHED = ROOT / "published-addresses.txt"
@@ -229,6 +231,82 @@ def slice_index(fid: str, fam_dir: Path, raw: str) -> str:
         "    </section>\n"
         "  </div>\n"
     )
+
+
+# Our own written terms, linked from every page's shared FOOTER already. Read
+# off that same footer rather than retyped, so the two can never disagree.
+DATASET_LICENSE_URL = "https://ustechautomations.com/terms"
+DATASET_CREATOR = {
+    "@type": "Organization",
+    "name": "US Tech Automations",
+    "url": "https://ustechautomations.com/",
+}
+
+
+def dataset_jsonld(fid: str, canon: str, page: str) -> str | None:
+    """Google Dataset Search markup for one family page, or None.
+
+    Only for a page that has a sample file on disk, or is a live priced
+    product -- an informational bridge page (permits, coverage,
+    what-we-dont-collect, how-we-seal) is neither and gets nothing. Every
+    field is read off something that already had to be true to reach this
+    point, never typed fresh here, so nothing in this block can drift from
+    the page it sits on:
+
+      * name / price      -- the catalog row itself (catalog.json)
+      * description       -- the page's own <meta name="description">
+      * distribution       -- sample.json / sample.csv actually on disk
+      * temporalCoverage / dateModified -- family_status's own dated seal
+        reads, the same store the freshness paragraph above it reads. A
+        family with no store (a browser add-on, not a scraped feed) gets
+        neither field rather than a guessed date.
+
+    Every catalog row is a priced product (merge_catalog_adds.REQUIRED makes
+    "price" mandatory), so isAccessibleForFree is False at the dataset level
+    for every page this runs on; a sample file is genuinely free to fetch
+    with no key and no payment, so its own DataDownload entry carries True.
+    """
+    fam = FAMILY_BY_ID.get(fid)
+    if fam is None:
+        return None
+    fam_dir = ROOT / "families" / fid
+    samples = []
+    if (fam_dir / "sample.json").is_file():
+        samples.append(("sample.json", "application/json"))
+    if (fam_dir / "sample.csv").is_file():
+        samples.append(("sample.csv", "text/csv"))
+    is_live_product = bool(fam.get("price"))
+    if not samples and not is_live_product:
+        return None
+    m = re.search(r'<meta name="description" content="([^"]*)">', page)
+    if not m or not m.group(1).strip():
+        return None
+    data: dict = {
+        "@context": "https://schema.org",
+        "@type": "Dataset",
+        "name": fam["name"],
+        "description": html.unescape(m.group(1)),
+        "url": canon,
+        "creator": DATASET_CREATOR,
+        "isAccessibleForFree": False,
+        "license": DATASET_LICENSE_URL,
+    }
+    st = family_status.status(fid)
+    if st and st.get("newest") and st.get("oldest"):
+        data["temporalCoverage"] = f"{st['oldest']}/{st['newest']}"
+    elif st and st.get("newest"):
+        data["dateModified"] = st["newest"]
+    if samples:
+        data["distribution"] = [
+            {
+                "@type": "DataDownload",
+                "contentUrl": f"{canon}/{name}",
+                "encodingFormat": fmt,
+                "isAccessibleForFree": True,
+            }
+            for name, fmt in samples
+        ]
+    return f'<script type="application/ld+json">{json.dumps(data, ensure_ascii=False)}</script>'
 
 
 def build_page(src: Path, family: str, crumb_label: str | None, path: str | None = None,
@@ -693,6 +771,11 @@ def main() -> None:
             page = page.replace(
                 '<link rel="canonical"', tags + '<link rel="canonical"', 1,
             )
+        jsonld = dataset_jsonld(fid, f"{BASE}/{fid}", page)
+        if jsonld:
+            if page.count("</head>") != 1:
+                fail(f"{fid}: expected exactly one </head> to put dataset markup before")
+            page = page.replace("</head>", jsonld + "\n</head>", 1)
         closed = fam.get("closed")
         # A typed "this is finished" cannot outlive a dated decision that says
         # we started reading again. See relit_on() for the day this went wrong.
@@ -746,6 +829,11 @@ def main() -> None:
             if not src.is_file():
                 fail(f"missing source page for {eid}")
             page = build_page(src, eid, e["short"])
+            jsonld = dataset_jsonld(eid, f"{BASE}/{eid}", page)
+            if jsonld:
+                if page.count("</head>") != 1:
+                    fail(f"{eid}: expected exactly one </head> to put dataset markup before")
+                page = page.replace("</head>", jsonld + "\n</head>", 1)
             outdir = DIST / eid
             outdir.mkdir(parents=True)
             (outdir / "index.html").write_text(page, encoding="utf-8")
