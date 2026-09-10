@@ -247,10 +247,154 @@ def _rule_slices() -> list[dict]:
     return out
 
 
+# --------------------------------------------------------------------------
+# coverage
+# --------------------------------------------------------------------------
+
+def _coverage() -> dict:
+    """The two things every other page in this family leaves out.
+
+    Which editions of which regulations the quoted paragraphs came from, and
+    what the food list behind the calculator actually holds -- including the
+    categories that were deliberately left out of it and the cap that stopped
+    any one category from swamping the rest. Both tables are counted off the
+    same data files the other pages are cut from, so a new edition or a changed
+    cap shows up here on the next build without anyone editing this function.
+    """
+    racc, rules, foods = blob("racc"), blob("rules"), blob("foods")
+    st = blob("status")
+    per_section: dict[str, list[int]] = {}
+    for page in rules.get("pages", []):
+        acc = per_section.setdefault(page["section"], [0, 0])
+        acc[0] += 1
+        acc[1] += len(page["rows"])
+    section_urls = {"101.4": ECFR_4, "101.9": ECFR_9, "101.12": ECFR_12}
+
+    def _link(url: str, text: str) -> str:
+        return f'<a href="{_e(url)}" data-source-url="{_e(url)}">{_e(text)}</a>'
+
+    source_rows = []
+    for sec in sorted(per_section):
+        pages_n, paras = per_section[sec]
+        source_rows.append([
+            _link(section_urls.get(sec, ECFR_9), f"21 CFR {sec}"),
+            f"edition of {edition()}, through the eCFR versioner API",
+            f"{paras:,} paragraphs, quoted word for word",
+            f"{pages_n} rule page{'s' if pages_n != 1 else ''}",
+        ])
+    source_rows.append([
+        _link(ECFR_12, "21 CFR 101.12(b), the reference amount tables"),
+        f"edition of {racc.get('edition') or edition()}",
+        f"{racc.get('product_lines', 0):,} product lines",
+        f"{len(racc.get('pages', []))} serving-size pages",
+    ])
+    for key, label in (("foundation", "USDA FoodData Central, Foundation Foods"),
+                       ("sr_legacy", "USDA FoodData Central, SR Legacy")):
+        ed = (foods.get("editions") or {}).get(key)
+        if not ed:
+            continue
+        code = "F" if key == "foundation" else "S"
+        held = sum(1 for f in foods.get("foods", []) if f[2] == code)
+        source_rows.append([
+            _link(FDC, label),
+            _e(ed),
+            f"{held:,} foods kept in the list the calculator searches",
+            "the free calculator on the family page",
+        ])
+
+    cats = foods.get("cats", [])
+    held_per_cat: dict[int, int] = {}
+    for f in foods.get("foods", []):
+        held_per_cat[f[1]] = held_per_cat.get(f[1], 0) + 1
+    cat_rows = [[
+        _e(name),
+        f"{held_per_cat.get(i, 0):,}",
+        ("capped at this category's share"
+         if held_per_cat.get(i, 0) >= (foods.get("per_category_cap") or 10 ** 9)
+         else "every food we read for it"),
+    ] for i, name in sorted(enumerate(cats), key=lambda kv: (-held_per_cat.get(kv[0], 0), kv[1]))]
+    for name in foods.get("skipped_categories", []):
+        cat_rows.append([_e(name), "none",
+                         "left out on purpose: these are prepared or branded dishes, "
+                         "not the single ingredients a recipe is built from"])
+
+    read = foods.get("read", 0)
+    kept = len(foods.get("foods", []))
+    cap = foods.get("per_category_cap") or 0
+    return {
+        "slug": "coverage",
+        "name": "What is and is not in this feed",
+        "h1": "What is and is not behind the panel builder",
+        "lede": (f"Two regulations quoted from one dated edition, and a food list cut "
+                 f"down from {read:,} USDA rows to {kept:,}. This page says which "
+                 f"editions, which cut, and which categories were left out."),
+        "desc": (f"The eCFR editions behind {len(rules.get('pages', []))} rule pages, and "
+                 f"how the {kept:,}-food list behind the free calculator was "
+                 f"cut down.")[:MAX_DESC],
+        "newest": stamp(),
+        "oldest": stamp(),
+        "runs": len(rules.get("pages", [])) + len(racc.get("pages", [])),
+        "cadence_days": CADENCE_DAYS,
+        "row_count": kept,
+        "read_label": "Checked monthly",
+        "read_phrase": "We re-read the regulations each month and compare them word for word.",
+        "rows_intro": ("Everything below is counted off the same data files every other "
+                       "page in this family is built from."),
+        "tables": [
+            {"caption": "Every source behind this family, and what we take from each",
+             "stamp": f"eCFR edition of {edition()}, read {stamp()}",
+             "headers": ["Source", "The edition we hold", "What we take from it",
+                         "Where it appears"],
+             "rows": source_rows},
+            {"caption": (f"The {kept:,} foods the free calculator searches, by USDA "
+                         f"category, and the {len(foods.get('skipped_categories', []))} "
+                         f"categories left out of it"),
+             "stamp": f"USDA download read {foods.get('stamp') or stamp()}",
+             "headers": ["USDA category", "Foods in the list", "How it was cut"],
+             "rows": cat_rows,
+             "moved_col": 1},
+        ],
+        "facts": [
+            (f"{len(rules.get('pages', []))} rule pages quote "
+             f"{sum(v[1] for v in per_section.values()):,} paragraphs of "
+             f"{', '.join('21 CFR ' + x for x in sorted(per_section))}, all from the "
+             f"single eCFR edition of {edition()}."),
+            (f"{st.get('cites_ok', 0)} of {st.get('cites_total', 0)} quoted passages were "
+             f"compared back against the source on {stamp()}"
+             + (", and none had moved." if not st.get("drift") else
+                ", and the ones that moved are named on the page they appear on.")),
+            (f"{len(racc.get('pages', []))} serving-size pages carry all "
+             f"{racc.get('product_lines', 0):,} product lines of the 21 CFR 101.12(b) "
+             f"tables. None of the table is held back."),
+            (f"The food list is {kept:,} foods out of {read:,} USDA rows we read. No "
+             f"category contributes more than {cap:,} of them, so one big category "
+             f"cannot swamp the search."),
+            ("Nothing on any page in this family is fetched while the page is built. "
+             "Every number here is counted off files we sealed ourselves."),
+        ],
+        "limits": [
+            (f"Added sugars is not in the USDA download we read: it holds "
+             f"{foods.get('added_sugars_rows', 0)} rows for it. The calculator asks you "
+             f"for that number rather than guessing it."),
+            ("A USDA food is an average of samples, not your recipe. The panel it "
+             "produces is a starting point that you check against your own formula."),
+            (f"{len(foods.get('skipped_categories', []))} USDA categories are left out "
+             f"of the list entirely, named in the table above."),
+            ("The eCFR is a continuously updated version of the CFR and is not the "
+             "official legal edition."),
+            ("Meat and poultry under the Federal Meat Inspection Act or the Poultry "
+             "Products Inspection Act are labelled under USDA rules, not 21 CFR 101.9."),
+            ("Nothing in this family tells you which paragraph applies to your product, "
+             "or whether your label is compliant."),
+        ],
+        "foot": DISCLAIMER,
+    }
+
+
 def slices() -> list[dict]:
     if not ready():
         return []
-    return _racc_slices() + _rule_slices()
+    return _racc_slices() + _rule_slices() + [_coverage()]
 
 
 def sample() -> tuple[list[str], list[list[str]]]:

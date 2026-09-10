@@ -193,7 +193,132 @@ def slices() -> list[dict]:
             "limits": limits,
             "foot": DISCLAIMER,
         })
+    if out:
+        out.append(_coverage())
     return out
+
+
+# ---------------------------------------------------------------- coverage
+
+# Why every question we cannot explain is named. The free sitting pages show the
+# explained questions first, which is the right order to read them in and the
+# wrong impression to leave: a reader who only sees those would think the whole
+# bank is explained. This page is the other half of that sentence -- it counts
+# every question in every sealed paper by what we can and cannot say about it,
+# out of the same file the sitting pages are cut from, and prints the reason
+# beside each group. Nothing here is typed; the counts move when the bank does.
+STATUS_WORDS = {
+    "ok": "explained by us, quoting the Title 19 CFR passage CBP's key cites",
+    "pending": "not drafted yet",
+    "no-cfr": "cites the tariff schedule (HTSUS), not the CFR, so we draft nothing",
+    "no-cfr-text": "the cited rule did not resolve to a passage we could quote",
+    "flagged": "our second model flagged the first draft, so it is withheld",
+    "special": "withdrawn or two accepted answers, so there is no single one to explain",
+    "no-answer": "no answer letter in CBP's key",
+}
+
+
+def _coverage() -> dict:
+    b = bank()
+    gen = _generated()
+    sittings = [s for s in b.get("sittings", []) if s.get("exam_present")]
+    total_q = sum(s.get("questions_total", 0) for s in sittings)
+    explained = sum(s.get("questions_explained", 0) for s in sittings)
+    counts: dict[str, int] = {}
+    for s in sittings:
+        for q in s.get("questions", []):
+            counts[q.get("explanation_status") or "no-answer"] = (
+                counts.get(q.get("explanation_status") or "no-answer", 0) + 1)
+    order = sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))
+
+    sitting_rows = []
+    for s in sittings:
+        t = s.get("questions_total", len(s.get("questions", [])))
+        e = s.get("questions_explained", 0)
+        sitting_rows.append([
+            _e(s["label"]),
+            _e(s.get("date") or "not printed on the paper"),
+            f"{t:,}",
+            f"{e:,}",
+            "yes" if s.get("key_present") else "no, so no page is built for it",
+        ])
+
+    status_rows = [[
+        _e(STATUS_WORDS.get(k, k)),
+        f"{n:,}",
+        f"{n / total_q * 100:.0f}%" if total_q else "—",
+    ] for k, n in order]
+
+    return {
+        "slug": "coverage",
+        "name": "What is and is not in this feed",
+        "h1": "What is and is not in the customs broker exam bank",
+        "lede": (f"We hold {len(sittings)} sealed CBP exam papers and their official "
+                 f"answer keys, {total_q:,} questions in all. {explained:,} of them "
+                 f"carry an explanation of ours. This page counts the rest and says, "
+                 f"group by group, why they do not."),
+        "desc": (f"{len(sittings)} CBP exam papers, {total_q:,} questions, "
+                 f"{explained:,} explained. What the rest are, and why each group "
+                 f"carries no explanation.")[:MAX_DESC],
+        "newest": gen,
+        "oldest": _oldest(),
+        "runs": max(len(sittings), 1),
+        "cadence_days": 183,
+        "row_count": total_q,
+        "read_label": "Twice a year (April & October)",
+        "read_phrase": "We add a new sitting after each April and October exam.",
+        "rows_intro": ("Both tables below are counted off the same sealed copy of the "
+                       "CBP papers that every sitting page is cut from."),
+        "tables": [
+            {
+                "caption": (f"Every sitting we hold: the questions in the paper, and how "
+                            f"many of them we explain"),
+                "stamp": f"sealed copy {gen}",
+                "headers": ["Sitting", "Exam date", "Questions in the paper",
+                            "Explained by us", "CBP answer key held"],
+                "rows": sitting_rows,
+                "moved_col": 3,
+            },
+            {
+                "caption": (f"All {total_q:,} questions, grouped by what we can say about "
+                            f"them. Only the first group carries an explanation."),
+                "stamp": f"sealed copy {gen}",
+                "headers": ["What we can say about the question", "Questions",
+                            "Share of the bank"],
+                "rows": status_rows,
+                "moved_col": 1,
+            },
+        ],
+        "facts": [
+            (f"We hold {len(sittings)} CBP exam papers, from {_oldest()} to the "
+             f"{sittings[0]['label'] if sittings else 'latest'} sitting, and CBP's own "
+             f"answer key for every one of them. "
+             f'<a href="{_e(CBP_PAGE)}" data-source-url="{_e(CBP_PAGE)}">CBP publishes both</a>'),
+            (f"{explained:,} of the {total_q:,} questions carry an explanation of ours. "
+             f"The other {total_q - explained:,} are counted in the second table beside "
+             f"the reason they do not."),
+            ("The answer letter on every question is CBP's own official key. The "
+             "explanation beside it is ours: drafted by a local model, checked by a "
+             "second, and withheld whenever the checker flags it."),
+            (f"Each free sitting page shows up to {SHOW_PER_SITTING} questions. The "
+             f"paid page carries all {total_q:,}, grouped by topic."),
+            ("Nothing on this page is fetched. Every number is counted out of the "
+             "sealed copy of the papers we keep ourselves."),
+        ],
+        "limits": [
+            "Classification questions cite the tariff schedule (HTSUS), not the CFR, "
+            "so we do not draft explanations for those; they are counted above.",
+            "A question CBP withdrew (\"all examinees granted credit\") or answered two "
+            "ways has no single explanation, and we do not invent one.",
+            "Machine-drafted explanations can be wrong. This is a study aid, not legal "
+            "or tax advice, and not CBP's own explanation.",
+            (f"We hold nothing from a sitting before {_oldest()}. Older papers exist on "
+             f"CBP's page; we have not sealed a copy of them."),
+            "New sittings appear here only after we add the CBP PDFs by hand, which we "
+            "do after each April and October exam.",
+        ],
+        "foot": DISCLAIMER,
+    }
 
 
 def sample() -> tuple[list[str], list[list[str]]]:

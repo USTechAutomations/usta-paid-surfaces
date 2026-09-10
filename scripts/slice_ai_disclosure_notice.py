@@ -898,7 +898,143 @@ def slices() -> list[dict]:
             "foot": disclaimer(),
         })
 
+    if out:
+        out.append(_coverage())
     return out
+
+
+# --------------------------------------------------------------------------
+# Coverage
+# --------------------------------------------------------------------------
+def _coverage() -> dict:
+    """What we hold, what we could not fetch, and the place with no page.
+
+    Every other page in this family shows the rules it DOES hold. Two facts only
+    fit here: the sources whose publisher's site refuses our machine, which is
+    why some clauses carry no quoted words; and a jurisdiction that is in the
+    data with too little behind it to be worth a page of its own. Both are
+    counted off the same files the other pages are cut from -- nothing on this
+    page is typed in by hand, so the day a blocked source opens up, or a place
+    grows a page, this page says so on the next build.
+    """
+    st = stamp()
+    ds = duties()
+    cs = cites()
+    cm_counts: dict[str, int] = {}
+    for c in cs:
+        cm_counts[c["source"]] = cm_counts.get(c["source"], 0) + 1
+    have_page = {region for _slug, region in JURIS_PAGES}
+
+    place_rows = []
+    for region in sorted({d["region"] for d in ds},
+                         key=lambda r: -sum(1 for d in ds if d["region"] == r)):
+        rows = [d for d in ds if d["region"] == region]
+        ids = {cid for d in rows for cid in d.get("cites", [])}
+        quoted = sum(1 for c in cs if c["id"] in ids)
+        j = nb.JURISDICTIONS[region]
+        place_rows.append([
+            _e(j["label"]),
+            f"{len(rows):,}",
+            f"{quoted:,}",
+            _oldest(rows) if any(d.get("effective") for d in rows) else "not stated",
+            ("a page of its own" if region in have_page
+             else "no page of its own; the clause appears on the notice pages only"),
+        ])
+
+    source_rows = []
+    fetch_words = {
+        "curl": "fetched straight from the publisher's site",
+        "browser": "fetched through a browser after the site refused a plain request",
+        "blocked": "we could not fetch it at all",
+    }
+    for sid, src in nb.SOURCES.items():
+        n = cm_counts.get(sid, 0)
+        source_rows.append([
+            (f'<a href="{_e(src["url"])}" data-source-url="{_e(src["url"])}" '
+             f'rel="nofollow noopener">{_e(src["label"])}</a>'),
+            _e(fetch_words.get(src["fetch"], src["fetch"])),
+            _e(src["status"]),
+            f"{n:,}" if n else "none",
+        ])
+
+    blocked = [s for s in nb.SOURCES.values() if s["fetch"] == "blocked"]
+    browsered = [s for s in nb.SOURCES.values() if s["fetch"] == "browser"]
+    checked = sum(1 for c in cs if c["status"] == "ok")
+    no_page = sorted(nb.JURISDICTIONS[r]["short"]
+                     for r in {d["region"] for d in ds} - have_page)
+
+    limits = [
+        (f"{len(blocked)} of the {len(nb.SOURCES)} sources refuse this machine, so we "
+         f"quote no words from them. Their clauses are still listed, from the "
+         f"publisher's own summary, and they carry no quotation."),
+        "This is a reading of published rule text, not advice. Whether any of it "
+        "reaches a particular company depends on facts this page does not have.",
+        "Rules change and courts read them. The date beside each clause is the date the "
+        "publisher names, not a promise about tomorrow.",
+        (f"This page counts the rules we have found. It is not a claim that no other "
+         f"jurisdiction has one; a rule we have not read is not on it."),
+        (f"We re-read the sources about every {CADENCE_DAYS} days. If more than "
+         f"{CADENCE_DAYS * 2} days have passed since the date at the top, treat this "
+         f"page as stale and open the source links yourself."),
+        disclaimer(),
+    ]
+    if no_page:
+        limits.insert(1, (
+            f"{', '.join(no_page)} {'has' if len(no_page) == 1 else 'have'} too few "
+            f"clauses for a page of {'its' if len(no_page) == 1 else 'their'} own, so "
+            f"there is nothing to click through to."))
+
+    return {
+        "slug": "coverage",
+        "name": "What is and is not in this feed",
+        "h1": "What is and is not in the AI disclosure rule set",
+        "lede": (f"We hold {len(ds)} disclosure clauses from "
+                 f"{len({d['region'] for d in ds})} places and {len(cs)} passages quoted "
+                 f"word for word. This page says which sources those came from, which "
+                 f"ones refuse our machine, and which place has no page of its own."),
+        "desc": (f"{len(ds)} AI disclosure clauses from "
+                 f"{len({d['region'] for d in ds})} places, {len(cs)} quoted passages, "
+                 f"and the sources we could not fetch.")[:MAX_DESC],
+        "newest": st,
+        "oldest": _oldest(ds),
+        "runs": 1,
+        "cadence_days": CADENCE_DAYS,
+        "row_count": len(ds) + len(cs),
+        "read_label": "Re-read about every three months",
+        "read_phrase": "We re-read every source about every three months.",
+        "rows_intro": ("Both tables are counted off the same files every other page in "
+                       "this family is built from."),
+        "tables": [
+            {"caption": (f"Every place we hold a clause for, and whether it has a page "
+                         f"of its own"),
+             "stamp": f"sources read {st}",
+             "headers": ["Place", "Clauses held", "Passages quoted",
+                         "Earliest date a clause names", "Page"],
+             "rows": place_rows,
+             "moved_col": 1},
+            {"caption": (f"All {len(nb.SOURCES)} publisher sites behind those clauses, "
+                         f"how we read each one, and what it answered"),
+             "stamp": f"sources read {st}",
+             "headers": ["Source", "How we read it", "What their server answered",
+                         "Passages we quote from it"],
+             "rows": source_rows,
+             "moved_col": 3},
+        ],
+        "facts": [
+            (f"{len(ds)} clauses from {len({d['region'] for d in ds})} places, and "
+             f"{len(cs)} passages quoted word for word rather than paraphrased."),
+            (f"{checked} of those {len(cs)} passages were re-checked against the "
+             f"publisher's own page on {st}. The rest say beside them why they were not."),
+            (f"{len(blocked)} of the {len(nb.SOURCES)} sources answer this machine with a "
+             f"block, and we quote nothing from them rather than quoting a copy."),
+            (f"{len(browsered)} more refuse a plain request and are read through a "
+             f"browser instead. Both facts are printed in the table above, per source."),
+            ("No sentence anywhere in this family says what your organisation must do. "
+             "It says what the rule says."),
+        ],
+        "limits": limits,
+        "foot": disclaimer(),
+    }
 
 
 def sample() -> tuple[list[str], list[list[str]]]:

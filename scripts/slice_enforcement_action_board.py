@@ -304,6 +304,140 @@ def _national_slice(rows: list[dict]) -> dict | None:
     }
 
 
+DATE_KIND_WORDS = {
+    "filed": "the day EPA filed the case",
+    "settled": "the day it was settled",
+    "lodged": "the day the consent decree was lodged",
+    "closed": "the day EPA closed it",
+    "issued": "the day the order was issued",
+}
+
+
+def _coverage() -> dict:
+    """Every search we ran, every row we withheld, and the agency we do not hold.
+
+    A state board answers "what has EPA done here". Three things it cannot say
+    are the whole point of this page: how many searches were run and whether any
+    of them failed, how many rows were dropped because the party is a person
+    trading under their own name, and that these boards are EPA only -- the OSHA
+    half is not ingested, so a reader who assumes the board covers workplace
+    safety is wrong and nothing else on the estate tells them.
+    """
+    b = board()
+    states = b.get("states") or {}
+    all_rows: list[dict] = []
+    for entry in states.values():
+        all_rows += entry.get("rows") or []
+    kept_all, withheld_all = _visible(all_rows)
+    dates = sorted(r["date"] for r in kept_all if r.get("date"))
+    newest = dates[-1] if dates else str(b.get("generated"))
+    oldest = dates[0] if dates else newest
+
+    state_rows = []
+    for code, entry in sorted(states.items(), key=lambda kv: kv[1].get("name") or kv[0]):
+        rows = entry.get("rows") or []
+        kept, withheld = _visible(rows)
+        ds = sorted(r["date"] for r in kept if r.get("date"))
+        state_rows.append([
+            html.escape(entry.get("name") or code),
+            f"{len(kept):,}",
+            f"{withheld:,}" if withheld else "none",
+            ds[-1] if ds else "no dated row",
+            (f"a board of its own, showing the newest {min(len(kept), TABLE_CAP)}"
+             if len(kept) >= MIN_ROWS else
+             f"no board: fewer than {MIN_ROWS} actions on record"),
+        ])
+
+    kinds: dict[str, int] = {}
+    statutes: dict[str, int] = {}
+    for r in kept_all:
+        kinds[r.get("date_kind") or "not stated"] = kinds.get(r.get("date_kind") or "not stated", 0) + 1
+        statutes[r.get("statute") or "not stated"] = statutes.get(r.get("statute") or "not stated", 0) + 1
+    kind_rows = [[
+        html.escape(DATE_KIND_WORDS.get(k, k)),
+        f"{n:,}",
+        f"{n / len(kept_all) * 100:.0f}%" if kept_all else "—",
+    ] for k, n in sorted(kinds.items(), key=lambda kv: (-kv[1], kv[0]))]
+
+    top = sorted(statutes.items(), key=lambda kv: (-kv[1], kv[0]))[:TABLE_CAP]
+    statute_rows = [[html.escape(k), f"{n:,}"] for k, n in top]
+
+    osha = b.get("osha") or {}
+    penalty_free = sum(1 for r in kept_all if not (r.get("penalty_value") or 0))
+    return {
+        "slug": "coverage",
+        "name": "What is and is not on these boards",
+        "h1": "What is and is not on the enforcement boards",
+        "lede": (f"We ran {b.get('source_attempted', 0)} searches of EPA's own case "
+                 f"records and hold {len(kept_all):,} formal actions from them. This page "
+                 f"says which searches answered, how many rows we withheld and why, and "
+                 f"which agency these boards do not cover."),
+        "desc": (f"{len(kept_all):,} EPA formal actions across {len(states)} states, the "
+                 f"{withheld_all} rows withheld, and the agency these boards do not "
+                 f"cover.")[:MAX_DESC],
+        "newest": newest,
+        "oldest": oldest,
+        "runs": int(b.get("source_ok") or 1),
+        "cadence_days": 30,
+        "row_count": len(kept_all),
+        "withheld": withheld_all,
+        "rows_intro": ("Every number below is counted off the same sealed copy of EPA's "
+                       "case search that the boards themselves are built from."),
+        "tables": [
+            {"headers": ["State", "Formal actions on record", "Rows withheld",
+                         "Most recent action", "Board"],
+             "rows": state_rows,
+             "caption": (f"All {len(states)} states and territories we searched, and what "
+                         f"came back for each"),
+             "stamp": f"sealed from EPA ECHO on {b.get('generated')}",
+             "moved_col": 1},
+            {"headers": ["What the date on a row means", "Rows", "Share"],
+             "rows": kind_rows,
+             "caption": ("Every row carries one date, and it is not always the same kind "
+                         "of date. This is the mix."),
+             "stamp": f"sealed from EPA ECHO on {b.get('generated')}",
+             "moved_col": 1},
+            {"headers": ["Statute or programme", "Actions on record"],
+             "rows": statute_rows,
+             "caption": (f"The {len(statute_rows)} most common of the {len(statutes)} "
+                         f"statutes and programmes that appear across these boards"),
+             "stamp": f"sealed from EPA ECHO on {b.get('generated')}",
+             "moved_col": 1},
+        ],
+        "facts": [
+            (f"{b.get('source_attempted', 0)} searches of EPA's case records were run and "
+             f"{b.get('source_ok', 0)} answered. "
+             + ("None failed." if not b.get("failures") else
+                f"{len(b.get('failures') or [])} failed and are named in the sealed copy.")),
+            (f"{len(kept_all):,} formal actions are on the boards, dated {oldest} to "
+             f"{newest}. A state search looks back "
+             f"{int(b.get('state_window_days') or 0):,} days."),
+            (f"{withheld_all} rows were withheld across every state: the party reads as a "
+             f"person trading under their own name, and we do not make a natural person "
+             f"the subject of a page. They are counted here and shown nowhere."),
+            (f"{penalty_free:,} of those actions carry no federal money penalty on EPA's "
+             f"record. They are real actions and they are on the state boards; they never "
+             f"reach the biggest-penalties board."),
+            (f"These boards are {AGENCY} only. "
+             + html.escape(str(osha.get("note") or "No other agency is ingested."))),
+            (f'Every row links to EPA\'s own case report. '
+             f'<a href="https://echo.epa.gov/" data-source-url="https://echo.epa.gov/">'
+             f'EPA ECHO</a> is the source, sealed on {b.get("generated")}.'),
+        ],
+        "limits": _limits(withheld_all, extra=[
+            (f"Nothing from the Occupational Safety and Health Administration is on these "
+             f"boards. {html.escape(str(osha.get('note') or ''))} A reader looking for "
+             f"workplace-safety enforcement will not find it here."),
+            (f"A state search reaches back {int(b.get('state_window_days') or 0):,} days. "
+             f"An action older than that is not on the board even though EPA still holds "
+             f"it."),
+            ("A state board shows the newest rows only, up to "
+             f"{TABLE_CAP} of them. The count beside each state above is everything we "
+             "hold for it, which is the larger number."),
+        ]),
+    }
+
+
 def slices() -> list[dict]:
     b = board()
     out: list[dict] = []
@@ -314,6 +448,8 @@ def slices() -> list[dict]:
         s = _state_slice(code, entry)
         if s:
             out.append(s)
+    if out:
+        out.append(_coverage())
     return out
 
 

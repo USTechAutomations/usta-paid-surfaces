@@ -213,7 +213,112 @@ def slices() -> list[dict]:
             "limits": _limits(st),
             "foot": DISCLAIMER,
         })
+    if out:
+        out.append(_coverage())
     return out
+
+
+def _coverage() -> dict:
+    """The gaps, gathered in one place instead of one per page.
+
+    A state page says "we could not read this state's own words" in the middle
+    of its own table, where only a reader who came for that state ever sees it.
+    Nobody could count those gaps without opening fifty-one pages. This page is
+    that count: every state, what its own text answered, and which ones answered
+    nothing. It is read out of the same file the state pages are built from, so
+    the day a state's page starts fetching again this page stops naming it.
+    """
+    ss = states()
+    gen = generated()
+    checked = sorted(s["checked"] for s in ss if s.get("checked"))
+    state_rows = [[
+        _e(s["name"]),
+        _e(REQ_WORDS.get(s["journal_required"], "").split(".")[0] or "—"),
+        _e(ALLOWED_WORDS.get(s["electronic_allowed"], "").split(".")[0] or "—"),
+        (f'{s["retention_years"]} years' if s.get("retention_years")
+         else "no period in the words we read"),
+        ("its own words are quoted on its page" if s.get("quote")
+         else "we could not read its words"),
+        _e(s.get("checked") or "not read"),
+    ] for s in sorted(ss, key=lambda x: x["name"])]
+
+    req: dict[str, int] = {}
+    ele: dict[str, int] = {}
+    for s in ss:
+        req[s["journal_required"]] = req.get(s["journal_required"], 0) + 1
+        ele[s["electronic_allowed"]] = ele.get(s["electronic_allowed"], 0) + 1
+    answer_rows = [["Is a journal required?", _e(REQ_WORDS.get(k, k)), f"{n}"]
+                   for k, n in sorted(req.items(), key=lambda kv: -kv[1])]
+    answer_rows += [["An electronic journal, for acts done in person",
+                     _e(ALLOWED_WORDS.get(k, k)), f"{n}"]
+                    for k, n in sorted(ele.items(), key=lambda kv: -kv[1])]
+
+    c = _counts()
+    unread = [s["name"] for s in ss if not s.get("quote")]
+    with_fields = sum(1 for s in ss if s.get("fields"))
+    return {
+        "slug": "coverage",
+        "name": "What is and is not in this feed",
+        "h1": "What is and is not in the notary journal pages",
+        "lede": (f"{len(ss)} states and the District of Columbia, each read from its own "
+                 f"legislature or notary office. {c['quoted']} of them gave us words we "
+                 f"could quote. This page names the ones that did not, and counts what "
+                 f"the rest actually said."),
+        "desc": (f"{len(ss)} states read from their own pages, {c['quoted']} quoted, and "
+                 f"the ones whose text we could not read.")[:MAX_DESC],
+        "newest": checked[-1] if checked else gen,
+        "oldest": checked[0] if checked else gen,
+        "runs": 1,
+        "cadence_days": 7,
+        "row_count": len(ss),
+        "read_label": "Weekly",
+        "read_phrase": "We re-read each state's own page every week.",
+        "rows_intro": ("Both tables are counted off the same file every state page is "
+                       "built from. Nothing here is a summary of a rule in our words."),
+        "tables": [
+            {"caption": (f"All {len(ss)} places we read, what each one's own text "
+                         f"answered, and when we read it"),
+             "stamp": f"sealed {gen}",
+             "headers": ["Place", "Journal required?", "Electronic journal",
+                         "How long it is kept", "Did we get its words?", "Read on"],
+             "rows": state_rows},
+            {"caption": ("The two questions every page asks, and how many places gave "
+                         "each answer"),
+             "stamp": f"sealed {gen}",
+             "headers": ["Question", "The answer its text gave", "Places"],
+             "rows": answer_rows,
+             "moved_col": 2},
+        ],
+        "facts": [
+            (f"{len(ss)} places are read, each from its own legislature or notary office, "
+             f"and {c['quoted']} of them gave text we could quote word for word."),
+            (f"{len(unread)} gave us nothing we could read on the day we asked"
+             + (f": {', '.join(sorted(unread))}. Their pages say so in place of an answer."
+                if unread else ". Every page carries the state's own words.")),
+            (f"{c['allowed']} places permit an electronic journal in the words we read, "
+             f"{c['vendor']} tie it to a provider they approve, {c['not_allowed']} "
+             f"describe a paper journal only, and {c['unclear']} we could not settle."),
+            (f"{with_fields} of the {len(ss)} name the entry fields a journal must hold. "
+             f"Where a state names none, the page says none rather than borrowing another "
+             f"state's list."),
+            ("No page in this family tells a reader what their own position is. It shows "
+             "the state's words and the address they came from, and stops."),
+        ],
+        "limits": [
+            ("An “unsettled” answer is our reading failing, not the state being silent. "
+             "It means we could not find a sentence either way in the text we fetched, "
+             "and the state's own page is linked so you can look yourself."),
+            ("We read one page per state. A state whose rule is split across a statute, "
+             "an administrative code and a handbook may say more elsewhere than the page "
+             "we read."),
+            ("These are the words as they stood on the date beside each place. A rule "
+             "that changed after that date is not here until the next weekly read."),
+            ("Nothing in this family is a legal position. A journal requirement can turn "
+             "on the kind of act, the commission held, or a rule this feed never reads."),
+            DISCLAIMER,
+        ],
+        "foot": DISCLAIMER,
+    }
 
 
 def sample() -> tuple[list[str], list[list[str]]]:

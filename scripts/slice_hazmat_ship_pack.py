@@ -339,11 +339,151 @@ def _short(ident: str) -> str:
     return ident
 
 
+CLASS_CAP = 30      # rows on the hazard-class table; there are ~50 in all
+
+
+def _coverage() -> dict:
+    """The rows of the printed table that never become a page, and why.
+
+    A UN page prints one entry whole, so it can say nothing about the entries
+    that are not there. Three facts only fit here. The table has rows with no
+    identification number of their own -- pointers that read "see somewhere
+    else", and blank spacers -- and those never become an entry. Some rows are
+    packing groups whose first four cells the printed table leaves blank; we
+    carry them down, which is a change to what the source literally prints and
+    has to be declared. And only the first 200 numbers are listed in search,
+    while every other number still has a page. All three are counted off the
+    same sealed copy the UN pages are cut from.
+    """
+    h = hmt()
+    entries = h.get("entries", {})
+    cols = h.get("columns", [])
+    rows_seen = int(h.get("rows_seen") or 0)
+    continued = int(h.get("rows_continued") or 0)
+    kept = sum(len(v) for v in entries.values())
+    idx, ovf = indexable(), overflow()
+
+    funnel = [
+        ["Rows in the eCFR's own XML of the table", f"{rows_seen:,}",
+         "everything the parser saw, before anything was kept or dropped"],
+        ["Of those, rows we keep as table entries", f"{kept:,}",
+         "each one carries an identification number, its own or the one above it"],
+        ["Of those, packing-group rows we filled in", f"{continued:,}",
+         "the printed table leaves the first four cells blank and repeats them by "
+         "position; we copy them down so each row stands on its own"],
+        ["Rows with no identification number at all", f"{rows_seen - kept:,}",
+         "pointers that read “see somewhere else”, and blank spacers. They become no "
+         "entry and get no page"],
+        ["Identification numbers with a page", f"{len(entries):,}",
+         "every number in the table has one"],
+        ["Of those, numbers listed in search", f"{len(idx):,}",
+         (f"the {INDEX_BUDGET} highest-ranked. The other {len(ovf):,} have a page that "
+          f"is marked do-not-index, reachable from the A-to-Z list on the feed page")],
+    ]
+
+    col_rows = []
+    for c in cols:
+        n = sum(1 for rs in entries.values() for r in rs if (r[cols.index(c)] or "").strip())
+        col_rows.append([
+            _e(c["label"]),
+            _e(c["means"]),
+            f"{n:,}",
+            f"{kept - n:,}" if kept - n else "none",
+        ])
+
+    per_class: dict[str, list[int]] = {}
+    for ident, rs in entries.items():
+        seen = set()
+        for r in rs:
+            cls = (r[2] or "").strip() or "none printed"
+            acc = per_class.setdefault(cls, [0, 0])
+            acc[1] += 1
+            if cls not in seen:
+                acc[0] += 1
+                seen.add(cls)
+    order = sorted(per_class.items(), key=lambda kv: (-kv[1][1], kv[0]))
+    class_rows = [[_e(cls), f"{n_ids:,}", f"{n_rows:,}"]
+                  for cls, (n_ids, n_rows) in order[:CLASS_CAP]]
+
+    return {
+        "slug": "coverage",
+        "name": "What is and is not in this feed",
+        "h1": "What is and is not in the hazmat road pack",
+        "lede": (f"We read {rows_seen:,} rows out of the eCFR's own copy of the "
+                 f"Hazardous Materials Table and kept {kept:,} of them, covering "
+                 f"{len(entries):,} identification numbers. This page says what the "
+                 f"other {rows_seen - kept:,} rows were, and what we changed."),
+        "desc": (f"{len(entries):,} UN and NA numbers from the federal Hazardous "
+                 f"Materials Table, what the table's other rows are, and what we "
+                 f"changed. {PRICE}.")[:MAX_DESC],
+        "newest": as_of(),
+        "oldest": as_of(),
+        "runs": 1,
+        "cadence_days": 7,
+        "row_count": kept,
+        "read_label": "Weekly against the eCFR",
+        "read_phrase": "We re-read the table against the eCFR every week.",
+        "rows_intro": ("Every number below is counted off the same sealed copy of "
+                       "§ 172.101 that each identification number's page is printed from."),
+        "tables": [
+            {"caption": (f"Every row of the printed table, and what became of it"),
+             "stamp": f"49 CFR 172.101 as of {as_of()}",
+             "headers": ["Row in the table", "How many", "What happens to it"],
+             "rows": funnel,
+             "moved_col": 1},
+            {"caption": (f"All {len(cols)} columns of the table, and how many of the "
+                         f"{kept:,} rows print something in each"),
+             "stamp": f"49 CFR 172.101 as of {as_of()}",
+             "headers": ["Column", "What it means", "Rows with a value",
+                         "Rows left blank"],
+             "rows": col_rows,
+             "moved_col": 2},
+            {"caption": (f"The {len(class_rows)} most common of the {len(per_class)} "
+                         f"hazard classes and divisions in the table"),
+             "stamp": f"49 CFR 172.101 as of {as_of()}",
+             "headers": ["Hazard class or division (column 3)",
+                         "Identification numbers", "Table rows"],
+             "rows": class_rows,
+             "moved_col": 1},
+        ],
+        "facts": [
+            (f'We hold every one of the {len(entries):,} identification numbers in the '
+             f'table, {kept:,} rows in all, from a single edition dated {as_of()}. '
+             f'<a href="{HMT_URL}" data-source-url="{HMT_URL}">49 CFR 172.101</a>'),
+            (f"{rows_seen - kept:,} rows of the printed table become no entry here. They "
+             f"carry no identification number: most read “see” and point at a different "
+             f"name, and the rest are spacers."),
+            (f"{continued:,} rows are packing groups whose symbol, shipping name, class "
+             f"and number the printed table leaves blank. We fill those four cells in "
+             f"from the row above, and every page says which of its rows we did that to."),
+            (f"{len(idx):,} numbers are listed in search and {len(ovf):,} are not, but "
+             f"all {len(entries):,} have a page and all of them print the row whole."),
+            ("The table is a US Government work published by the Office of the Federal "
+             "Register in the eCFR, in the public domain under 17 U.S.C. 105. We copied "
+             "it; we did not write it."),
+        ],
+        "limits": [
+            ROAD_ONLY,
+            NOT_A_PAPER,
+            ("The words of the special provisions in column 7, of the exception section "
+             "in column 8A and of the packaging sections in 8B and 8C are printed on no "
+             f"free page. They are the {PRICE} worksheet."),
+            ("The table is amended through the year. Every page here was built from the "
+             f"edition dated {as_of()} and stamps that date on each table."),
+            ("A blank cell in the count above is the table's own blank. It means the "
+             "column says nothing for that row, not that we dropped a value."),
+            ("A shipping name that reads “see …” is the table's own pointer to another "
+             "entry, and those rows are counted above rather than published."),
+        ],
+        "foot": DISCLAIMER + as_of() + ".",
+    }
+
+
 def slices() -> list[dict]:
     """The indexable UN pages: the top of the ranking, budget-capped."""
     if not hmt().get("entries"):
         return []
-    return [spec_for(i) for i in indexable()]
+    return [spec_for(i) for i in indexable()] + [_coverage()]
 
 
 # ---------------------------------------------------------------------------
