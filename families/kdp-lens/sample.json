@@ -1,7 +1,7 @@
 {
   "family": "kdp-lens",
-  "generated": "2026-09-07",
-  "note": "Demo overlay for one made-up product page. Every number is a demo, not a live Amazon rank.",
+  "generated": "2026-09-10",
+  "note": "Made-up examples of the prepared observation-only 0.1.1 update. Not read from Amazon. Chrome currently offers 0.1.0; this update has not been submitted.",
   "demo": true,
   "shape": "product",
   "where_these_rows_came_from": "Hand-written demo overlay. Not read from amazon.com. https://ustechautomations.com/feeds/kdp-lens",
@@ -35,20 +35,12 @@
       "Kindle Store"
     ],
     [
-      "est_sales_per_day",
-      "4.63"
-    ],
-    [
       "category",
       "Historical Fantasy"
     ],
     [
       "category_rank",
       "42"
-    ],
-    [
-      "est_bsr_to_hit_number_one",
-      "296"
     ],
     [
       "price",
@@ -69,10 +61,6 @@
     [
       "list_demo_number_one_title",
       "Ash Court"
-    ],
-    [
-      "list_demo_number_one_est_sales_per_day",
-      "4000"
     ],
     [
       "search_demo_result_count",

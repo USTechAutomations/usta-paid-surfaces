@@ -9,6 +9,9 @@ from __future__ import annotations
 
 import datetime as dt
 import hashlib
+from html import escape
+from brand.shell import masthead, footer
+from fv5.lib.return_page import session_capture, RETURN_STYLE
 from pathlib import Path
 
 PUBLIC_BASE = "https://ustechautomations.com/feeds"
@@ -132,50 +135,31 @@ _THANKS_TEMPLATE = """<!doctype html>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <meta name="referrer" content="no-referrer">
-  <script>
-  (function () {
-    var key = "fv5_sid___FAMILY__";
-    var sid = new URLSearchParams(location.search).get("session_id");
-    history.replaceState(null, "", location.pathname);
-    if (sid) { try { sessionStorage.setItem(key, sid); } catch (e) {} }
-    else { try { sid = sessionStorage.getItem(key); } catch (e) {} }
-    window.__fv5DeliverySession = sid || null;
-  })();
-  </script>
+  __SESSION_CAPTURE__
   <title>__PRODUCT__ — preparing your file</title>
   <link rel="stylesheet" href="https://ustechautomations.com/feeds/styles.css">
-  <meta name="theme-color" content="#7a3b12">
+  <style>__RETURN_STYLE__</style>
 </head>
-<body data-family="__FAMILY__">
+<body data-family="__FAMILY__" data-page="purchase-return">
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="masthead">
-  <div class="wrap">
-    <a class="wordmark" style="white-space:normal;flex-wrap:wrap;max-width:100%" href="https://ustechautomations.com/feeds/">Dated change feeds <span>/ US Tech Automations</span></a>
-    <p class="crumbs">Thank you — preparing your file</p>
-  </div>
-</header>
+__HEADER__
 
 <main id="main">
   <div class="wrap">
-    <section>
-      <h1>Thank you — your __PRODUCT__ is being prepared</h1>
-      <p id="status" class="lede">Checking for your file…</p>
-      <p class="mail-note">This can take up to about __ETA__ minutes. You can keep
-        this tab open; it checks for the file on its own and shows an Open button
-        the moment it is ready. Your file opens right here on this page.</p>
-      <p class="mail-note">Nothing after __ETA__ minutes? Email <a style="color:inherit;text-decoration:underline" href="mailto:operations@ustechautomations.com?subject=__FAMILY__%20order">operations@ustechautomations.com</a> with your receipt number and we will send it by hand. Keep this tab open while the file is prepared. If you close it, contact us with your receipt number to recover access.</p>
+    <section class="hero">
+      <h1>Your private file</h1>
+      <p class="lede">__PRODUCT__</p>
+      <p id="status" class="lede" role="status" aria-live="polite">Checking for your file…</p>
+      <p>This tab checks for your file automatically. When it is available, select Open your file to view it here.</p>
+      <p>This tab retains access when refreshed. If you close it or lose access, contact us with your receipt number.</p>
+      <p>If the file has not appeared after __ETA__ minutes, <a href="mailto:operations@ustechautomations.com?subject=__FAMILY__%20order">contact us</a> with your receipt number.</p>
       <p id="ready" class="hero-cta"></p>
     </section>
   </div>
 </main>
 
-<footer class="site">
-  <div class="wrap">
-    <p>US Tech Automations &middot; the file is built after payment and is not listed in search.</p>
-    <p class="addr">US Tech Automations &middot; 3298 N Glassford Hill Rd Ste 104 PMB 1055, Prescott Valley AZ 86314</p>
-  </div>
-</footer>
+__FOOTER__
 
 <script>
 (function () {
@@ -220,23 +204,26 @@ _THANKS_TEMPLATE = """<!doctype html>
   var ready = false;
   function check() {
     if (ready) { return Promise.resolve(true); }
-    // The capability travels ONLY in the JSON body of a POST.
+    // The capability travels only in the JSON POST body.
+    var controller = new AbortController();
+    var timeout = setTimeout(function () { controller.abort(); }, 25000);
     return fetch(LOOPS + "/delivery/" + FAMILY, {
       method: "POST",
+      signal: controller.signal,
       headers: { "Content-Type": "application/json" },
       referrerPolicy: "no-referrer",
       cache: "no-store",
       credentials: "omit",
       body: JSON.stringify({ session_id: sid })
     }).then(function (r) {
-      if (r.status === 503) { statusEl.textContent = "Our file store is briefly unavailable; still trying…"; return false; }
-      if (r.status !== 200) { return false; }   // 404 = not ready yet
+      if (r.status === 503) { statusEl.textContent = "We could not reach the file store. This tab will check again."; return false; }
+      if (r.status !== 200) { statusEl.textContent = "We could not retrieve your file yet. This tab will check again."; return false; }   // 404 = not ready yet
       return r.json().then(function (data) {
         if (!data || typeof data.html !== "string") { return false; }
-        // Never trust the bytes until the returned SHA matches what was signed.
+        // Check the returned bytes against the stored integrity hash.
         return sha256hex(data.html).then(function (got) {
           if (got !== data.html_sha256) {
-            statusEl.textContent = "Still preparing your file…";
+            statusEl.textContent = "We could not verify the file. This tab will check again.";
             return false;
           }
           ready = true;
@@ -249,7 +236,7 @@ _THANKS_TEMPLATE = """<!doctype html>
           return true;
         });
       });
-    }).catch(function () { return false; });   // offline/transient; try again on the next tick
+    }).catch(function () { statusEl.textContent = "We could not reach file retrieval. This tab will check again."; return false; }).finally(function () { clearTimeout(timeout); });   // offline/transient; try again on the next tick
   }
 
   check().then(function (done) {
@@ -267,8 +254,15 @@ _THANKS_TEMPLATE = """<!doctype html>
 
 def thanks_page_html(family: str, product_name: str, eta_minutes: int) -> str:
     """The static thanks/ page for a family. See _THANKS_TEMPLATE above."""
+    if family in {"qrelay", "ledgermatch", "casepack", "schemahand", "acacheck"}:
+        from loops.key_delivery import thanks_page
+        return thanks_page(family, product_name)
     return (_THANKS_TEMPLATE
+            .replace("__SESSION_CAPTURE__", session_capture(family))
+            .replace("__RETURN_STYLE__", RETURN_STYLE)
+            .replace("__HEADER__", masthead(" / " + escape(product_name) + " / Your purchase"))
+            .replace("__FOOTER__", footer())
             .replace("__FAMILY__", family)
-            .replace("__PRODUCT__", product_name)
+            .replace("__PRODUCT__", escape(product_name))
             .replace("__LOOPS__", LOOPS_BASE)
             .replace("__ETA__", str(eta_minutes)))
