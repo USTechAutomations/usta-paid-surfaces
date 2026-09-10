@@ -1,0 +1,3 @@
+model,tasks,passed,pass_rate,silent_refusals,silent_refusal_rate,cut_off,errors,cost_total_usd,cost_per_pass_usd,longest_task_passed_id,longest_task_passed_size,silent_refusal_ids
+anthropic:claude-fable-5-1,15,10,66.7,2,13.3,1,1,0.006625,0.000663,t06-changelog-summary,40,t11-base64;t12-cron-explain
+openai:gpt-6-astra,15,10,66.7,2,13.3,1,1,0.004164,0.000416,t06-changelog-summary,40,t11-base64;t12-cron-explain

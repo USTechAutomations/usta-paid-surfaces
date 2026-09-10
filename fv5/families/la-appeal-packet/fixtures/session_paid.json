@@ -1,0 +1,14 @@
+{
+  "id": "cs_test_fv5_la_appeal_packet_001",
+  "session_id": "cs_test_fv5_la_appeal_packet_001",
+  "mode": "payment",
+  "payment_status": "paid",
+  "amount_total": 4900,
+  "currency": "usd",
+  "custom_fields": [
+    {"key": "address", "label": {"type": "custom", "custom": "Property address in Los Angeles County"},
+     "type": "text", "text": {"value": "5980 W 75th St, Los Angeles, CA 90045"}}
+  ],
+  "email_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "metadata": {"family": "la-appeal-packet", "private_slug": "test-la-appeal-packet-001"}
+}

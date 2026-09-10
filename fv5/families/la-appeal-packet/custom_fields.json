@@ -1,0 +1,9 @@
+[
+  {
+    "key": "address",
+    "label": {"type": "custom", "custom": "Property address in Los Angeles County"},
+    "type": "text",
+    "optional": false,
+    "text": {"maximum_length": 120}
+  }
+]

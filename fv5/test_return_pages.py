@@ -10,7 +10,7 @@ class ReturnPages(unittest.TestCase):
   catalog={r['id']:r for r in json.loads((ROOT/'catalog.json').read_text())['families']};selected=[]
   for directory in (ROOT/'fv5/families').iterdir():
    if (directory/'fulfil.py').exists() and directory.name in catalog and catalog[directory.name].get('checkout',{}).get('status') not in ('HOLD','EXTERNAL'):selected.append(directory.name)
-  self.assertEqual(len(selected),13);self.assertEqual(len(set(selected)&KEYS),5)
+  self.assertEqual(len(selected),15);self.assertEqual(len(set(selected)&KEYS),5)  # 13 + la-appeal-packet + silent-refusal-kit
   for family in selected:
    html=thanks_page_html(family,catalog[family]['name'],eta_for(ROOT/'fv5/families'/family))
    self.assertLess(html.index('history.replaceState'),html.index('<link'))
