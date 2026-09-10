@@ -169,6 +169,13 @@ SOURCES: dict[str, tuple] = {
     # nothing at all, so dating the page from the run log would read as fresh on
     # a day the reader came back empty. That is the dangerous way round.
     "trustee-sales": ("distress_signals", "nts", "snapshot_date", 1),
+    # Read at delivery from the county parcel map. There is no sealed store.
+    # The source_id in the filter is what the lawful gate attributes, so it
+    # does not invent a dated copy. Notes live under clocks/la_appeal_packet/.
+    "la-appeal-packet": (
+        "la_appeal_packet", "parcels", "snapshot_date", 1,
+        "source_id = 'lacounty_gis_parcel'",
+    ),
 }
 
 # Families that read more than one list. The verdict is the WORST lane, so a
