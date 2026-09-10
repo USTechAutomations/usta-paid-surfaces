@@ -133,54 +133,13 @@ def family_spec() -> dict:
     shown = rows[:TABLE_CAP]
     body = [[_e(c) for c in _row_cells(r)] for r in shown]
 
-    # No "$" in the search line, the tab title or any button: the catalog price
-    # carries no dollar sign (see the family README on why), so a "$0.50" here
-    # would read as a price the catalog does not sell and the honesty gate would
-    # refuse it. The exact "$0.50 per run" wording lives in the body prose below,
-    # where the gate allows it.
-    desc = "Three public-records scrapers on the Apify Store: OSHA severe injuries, EPA water systems, NRC spill notices. Pay per run, no subscription."
-    assert len(desc) <= MAX_DESC, len(desc)
-
+    desc = "Extract public EPA drinking-water-system records into a structured table. Inspect the dated sample, then run the actor in your Apify account."
+    assert len(desc) <= MAX_DESC
     secs = [
-        section(
-            "What this is",
-            "sold on the Apify Store",
-            "      <p>This is the shop-window for three small scrapers that live on the "
-            "Apify Store, a marketplace that runs a program on its own servers and bills "
-            "the person who runs it. You do not pay us here. The Store charges "
-            "<strong>$0.50 to start a run</strong> and <strong>$0.005 for each record "
-            "the run returns</strong>, takes its cut, and pays us the rest. Each scraper "
-            "reads one free public source and hands back a clean table.</p>\n"
-            '      <div class="honest">\n'
-            "        <p><strong>These read firms, facilities, water systems and incidents "
-            "&mdash; never a private person.</strong> No operator's name, phone, email or "
-            "home address is kept. Public records can lag their source, so a run is only "
-            "as fresh as the agency's own file on the day you run it.</p>\n"
-            "      </div>",
-        ),
-        section(
-            "The three scrapers",
-            None,
-            '      <ul class="spec">\n'
-            "        <li><strong>OSHA severe-injury reports</strong>"
-            '<span class="sub">Employer, city, state, industry code, and whether a '
-            "hospitalisation or amputation was reported. Source: the OSHA severe-injury "
-            "page. That page returns a block (HTTP 403) to automated fetches from our "
-            "test machine, so the run reads it from the buyer's Apify run and each item "
-            "records which source it came from. No injured worker is named &mdash; the "
-            "public file carries no such name and we keep none.</span></li>\n"
-            "        <li><strong>EPA drinking-water systems</strong>"
-            '<span class="sub">One item per public water system: its ID, name, town, '
-            "people served, connections, water source, owner type, and its count of "
-            "safe-drinking-water violations. Source: EPA Envirofacts SDWIS, which we can "
-            "read live and in full. This is the sample below.</span></li>\n"
-            "        <li><strong>NRC spill notices</strong>"
-            '<span class="sub">One item per pollution incident reported to the National '
-            "Response Center: date, state, town, material, medium and incident type. "
-            "Source: the Coast Guard's NRC download, served through a form rather than a "
-            "plain file, so the run drives that form. No caller is named.</span></li>\n"
-            "      </ul>",
-        ),
+        section("What this is", None,
+                '<p>The EPA actor runs in your Apify account and returns structured drinking-water-system records. Apify handles execution, billing and export of the result dataset. The source data is public; the paid product is the extraction program and its structured output.</p>'),
+        section("What you receive", None,
+                '<p>System ID, name, town, population served, connections, water source, owner type and violation counts. Review the current input schema, output details and limits in the Apify listing. Our OSHA and NRC actors are deprecated and are not offered here as active products.</p>'),
         section(
             "Sample: real EPA drinking-water systems",
             f"{n} rows sealed {st}" if n else "no rows yet",
@@ -204,22 +163,8 @@ def family_spec() -> dict:
             "EPA Envirofacts SDWIS REST</a>. US Government public domain. No operator "
             "name, phone, email or street address is kept.</p>",
         ),
-        section(
-            "What it costs and how you run it",
-            "Apify bills, not us",
-            "      <p>Every scraper is pay-per-run on the Apify Store. You are billed "
-            "<strong>$0.50 to start a run</strong> plus <strong>$0.005 for each record "
-            "it returns</strong> &mdash; so a run that returns 200 records costs about a "
-            "dollar and a half, billed by Apify to your Apify account, not by us. A run "
-            "stops at 1,000 records unless you raise the limit, and it stops itself if it "
-            "runs too long, so a run cannot quietly cost more than you meant.</p>\n"
-            '      <div class="honest">\n'
-            "        <p><strong>There is no button on this page.</strong> Until the three "
-            "listings are live on the Apify Store this page is the sample; the direct "
-            "Store links appear here the day they are published. The price above is "
-            "the Store's price; we set it and Apify collects it.</p>\n"
-            "      </div>",
-        ),
+        section("How to run and pay", None,
+                '<p>Inspect the dated sample, then <a href="https://apify.com/usta/epa-sdwis-water-systems">open the EPA actor in Apify</a>. Review the input options, limits and current usage charges before running. Export the result dataset through Apify. There is no separate USTA checkout. A listing does not establish successful customer runs or a guaranteed source response.</p>'),
         section(
             "What these do not do",
             None,
@@ -241,7 +186,7 @@ def family_spec() -> dict:
         ),
     ]
 
-    return {
+    spec = {
         "id": FAMILY,
         "ready": True,
         "group": "Data scrapers",
@@ -298,6 +243,17 @@ def family_spec() -> dict:
             "up to the run's record limit"
         ),
     }
+
+    spec.update(
+        h1="EPA water-system tables on Apify", crumb="EPA water-system actor",
+        buyer="water-sector analysts and data teams who need structured EPA drinking-water-system records",
+        cadence_long="on demand through Apify; output freshness depends on the EPA source",
+        lede=f"Preview {min(SAMPLE_CAP, n)} dated EPA drinking-water-system sample rows, then extract records for analysis. Review the input schema, limits and current usage charges in Apify before running.",
+        contact_h2="Open the EPA actor", contact_cta="Open the EPA actor on Apify",
+        contact_p="Run the EPA actor in your own Apify account and export the result dataset there.",
+        contact_note="Apify handles execution, usage billing and result export. Source response and customer outcomes are not guaranteed.",
+    )
+    return spec
 
 
 def _main() -> int:

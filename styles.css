@@ -39,6 +39,8 @@
   --border: 220 13% 94%;
   --primary: 207 100% 50%;
   --primary-foreground: 0 0% 100%;
+  --primary-surface: 207 100% 42%;
+  --primary-surface-hover: 207 100% 36%;
   --primary-hover: 207 100% 44%;
   --accent-blue: 207 100% 50%;
   --accent-emerald: 149 80% 90%;
@@ -80,6 +82,8 @@
     --border: 220 10% 18%;
     --primary: 207 100% 50%;
     --primary-foreground: 0 0% 100%;
+  --primary-surface: 207 100% 42%;
+  --primary-surface-hover: 207 100% 36%;
     --primary-hover: 207 100% 44%;
     --accent-blue: 207 100% 60%;
     --accent-emerald: 164 86% 16%;
@@ -102,6 +106,8 @@
   --border: 220 10% 18%;
   --primary: 207 100% 50%;
   --primary-foreground: 0 0% 100%;
+  --primary-surface: 207 100% 42%;
+  --primary-surface-hover: 207 100% 36%;
   --primary-hover: 207 100% 44%;
   --accent-blue: 207 100% 60%;
   --accent-emerald: 164 86% 16%;

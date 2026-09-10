@@ -25,6 +25,7 @@ import json
 import os
 import re
 import time
+import threading
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -33,9 +34,11 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as HTTPError
 from starlette.middleware.cors import CORSMiddleware
+from starlette.concurrency import run_in_threadpool
 
 from loops.lib import prokey
 from loops.service.store import MemoryStore, new_id, today
+from loops.service.payment_claim import ClaimError, StripeReader, claim_key
 
 # ---------------------------------------------------------------- constants
 
@@ -127,7 +130,7 @@ def referrer_host(request: Request) -> str:
 
 # ---------------------------------------------------------------- the app
 
-def create_app(env: dict | None = None, store=None) -> FastAPI:
+def create_app(env: dict | None = None, store=None, stripe_reader=None) -> FastAPI:
     env = dict(os.environ if env is None else env)
 
     app = FastAPI(title="usta-loops", docs_url=None, redoc_url=None, openapi_url=None)
@@ -141,6 +144,8 @@ def create_app(env: dict | None = None, store=None) -> FastAPI:
     app.state.store = store
     app.state.secret = secret
     app.state.store_name = store_name
+    app.state.stripe_reader = stripe_reader or StripeReader(env.get("LOOPS_STRIPE_READ_KEY", ""))
+    claim_slots = threading.BoundedSemaphore(4)
     app.state.service_base = (env.get("LOOPS_SERVICE_BASE") or SERVICE_BASE_DEFAULT).rstrip("/")
     # The two hosted apps another worker wrote read the address under this name.
     # Setting both means LOOPS_SERVICE_BASE moves the whole service at once.
@@ -187,6 +192,11 @@ def create_app(env: dict | None = None, store=None) -> FastAPI:
         """The beacon and the embed script are meant to be loaded by any site."""
         return path == "/t" or path.startswith("/embed/")
 
+    def _public_config_path(path: str) -> bool:
+        """Match only the public sheet read, never its mutation subroutes."""
+        prefix = "/cp/config/"
+        return path.startswith(prefix) and CFG_ID_RE.fullmatch(path[len(prefix):]) is not None
+
     @app.middleware("http")
     async def guard(request: Request, call_next):
         length = request.headers.get("content-length")
@@ -205,8 +215,26 @@ def create_app(env: dict | None = None, store=None) -> FastAPI:
                     "Access-Control-Max-Age": "3600",
                 },
             )
+        if request.method == "OPTIONS" and _public_config_path(request.url.path):
+            requested_headers = {
+                name.strip().lower()
+                for name in request.headers.get("access-control-request-headers", "").split(",")
+                if name.strip()
+            }
+            if (request.headers.get("access-control-request-method", "").upper() == "GET"
+                    and requested_headers <= {"content-type"}):
+                return Response(
+                    status_code=204,
+                    headers={
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Allow-Methods": "GET",
+                        "Access-Control-Allow-Headers": "content-type",
+                        "Access-Control-Max-Age": "3600",
+                    },
+                )
         response = await call_next(request)
-        if _open_to_all(request.url.path):
+        if (_open_to_all(request.url.path)
+                or (request.method == "GET" and _public_config_path(request.url.path))):
             response.headers["Access-Control-Allow-Origin"] = "*"
         return response
 
@@ -311,6 +339,23 @@ def create_app(env: dict | None = None, store=None) -> FastAPI:
         return Response(status_code=202 if ok else 204, headers=dict(NO_CACHE))
 
     # ---------------------------------------------------------------- keys
+    @app.post("/pro/claim")
+    async def pro_claim(request: Request):
+        data = await read_json(request)
+        if not claim_slots.acquire(blocking=False):
+            return JSONResponse({"ok": False, "reason": "Key retrieval is busy. Please retry."},
+                                status_code=429, headers={**NO_CACHE, "Retry-After": "5"})
+        try:
+            result = await run_in_threadpool(
+                claim_key, app.state.stripe_reader, store, secret,
+                data.get("family"), data.get("session_id"))
+            return JSONResponse(result, headers={**NO_CACHE, "Referrer-Policy": "no-referrer"})
+        except ClaimError as exc:
+            return JSONResponse({"ok": False, "reason": exc.reason}, status_code=exc.status,
+                                headers={**NO_CACHE, "Referrer-Policy": "no-referrer"})
+        finally:
+            claim_slots.release()
+
     @app.post("/pro/verify")
     async def pro_verify(request: Request):
         data = await read_json(request)

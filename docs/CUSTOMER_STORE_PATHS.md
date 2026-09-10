@@ -1,0 +1,15 @@
+# Existing marketplace paths — September 9, 2026
+
+Brand reference: `/home/gmullins/code/usta-paid-surfaces/BRAND.md` and the archived USTA Website Design & Build Reference v1.3 in `docs/brand/` of `wt-recent-brand-standard-20260908`. Affected families: apify-public-records, kdp-lens, grant-fit, and the five loop-product return pages. Reuse the serving USTA shell, Satoshi, semantic tokens, one primary action, muted status, keyboard navigation and both themes.
+
+The Apify page now routes directly to the EPA drinking-water-system actor. Direct actor-detail API reads establish it is public and not deprecated; the Store URL answered HTTP 200. OSHA and NRC are deprecated and are no longer promoted as active extraction products. Prices and input/run limits are inspected in Apify before a customer runs the actor. Publication is not evidence of useful output, customer success or margin. The sample remains a dated historical sample; its 25 rows were counted from the fetched sample JSON. Source collector data independently contains 50 rows from September 7.
+
+KDP Lens and Grant Fit now lead with their published Chrome installation links and retain the existing paid option below. Their registered Chrome items are PUBLISHED in the provider API and both public Store URLs returned 200. Stale Chrome/Edge pending copy was removed from the changed sales pages; Edge distribution is not claimed. This release does not establish extension correctness, successful paid delivery or recurring paid usage.
+
+The directory changed concurrently during preparation. A serving-byte comparison refused the first publication attempt before any traffic change. The proposed directory edit was dropped, preserving the other session's task search, links, style and independent products. This session's final frontend release contains exactly three existing product sales pages, five existing key-return pages and additive shared CSS tokens. It adds no sitemap entries and changes no main website/platform files.
+
+The page-quality linter reported no blocking findings on the three product sales pages. Title/scope vocabulary comparison was NA, recorded separately. Strict brand checks passed. Browser checks cover six widths and both themes; small-screen overflow was repaired before publication. Final fetched HTML and versioned CSS match candidate hashes. The unversioned CSS URL initially retained the previous edge-cache bytes, which is why the changed pages use the versioned URL. Do not report that initial mismatch as a successful unversioned fetch.
+
+Account inventory is available from the existing loopback sales API or its CLI, not a new customer product. Apify visibility is now taken from actor detail when missing from list results; absent visibility is UNKNOWN and deprecation is separate. Its existing loopback server was restarted after the saved prior PID was found absent. It remains a manually started local process, not a boot service.
+
+Detailed dated evidence and the per-product buyer/payment map: `/home/gmullins/reports/customer-journeys-20260909/`.

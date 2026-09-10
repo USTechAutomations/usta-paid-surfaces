@@ -33,8 +33,9 @@ the event name is the wrong shape it writes nothing and answers with no content.
 `POST /t` with `{"f": "...", "e": "..."}` does the same thing, for pages that
 want to send the count as the visitor leaves.
 
-Any website may load these. Everything else is limited to the sites listed in
-`LOOPS_CORS_ORIGINS`.
+Any website may load these, the embed scripts and the public Casepack configuration
+GET described below. Other browser cross-origin access is limited to the sites
+listed in `LOOPS_CORS_ORIGINS`. CORS is not server-side authorization.
 
 ### Pro keys
 
@@ -66,6 +67,18 @@ product. The `X-Loops-Sig` header has to hold a signature of the text
 | `POST /cp/config/<id>/edit` | Replaces the sheet. Needs the edit code. |
 | `POST /cp/config/<id>/delete` | Deletes the sheet for real. Needs the edit code. |
 | `POST /cp/config/<id>/pro` | Turns a paid key into a paid sheet: no badge, and room for 5,000 rows instead of 500. Needs the edit code and a casepack key. |
+
+The public `GET /cp/config/<id>` answers with `Access-Control-Allow-Origin: *`
+so a sheet embedded on a customer's different website can read it. This applies
+only to the exact read route with a valid-shaped config ID, including its 404
+answer when the sheet is missing or deleted. It excludes `edit_id` and `pro_ref`.
+Read preflights allow GET and an optional content-type header; they never enable
+credentialed requests. Creation, edit, delete, paid upgrade, metrics and admin
+routes retain their existing origin restrictions and authorization checks.
+
+This is public embed configuration, not private access-controlled content.
+Knowing the public sheet ID does not authorize changing it: edit/delete still
+require the separate edit code, and admin operations require their signature.
 
 A sheet holds a website address, a title, a language (`en`, `es` or `both`) and
 up to 500 rows. Each row has a code, a name, a unit and how many go in a case,
