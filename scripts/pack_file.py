@@ -69,9 +69,11 @@ PACKS = {
     },
 }
 
-# These two dated pack pages are held while their current source acceptance is
-# pending. The catalog is authoritative; the builder refuses to recreate a
-# chargeable page if that row drifts back to a live state.
+# These two dated packs remain unavailable while their source-use permission is
+# unresolved. The catalog is authoritative, and the builder refuses to recreate a
+# chargeable page if that row drifts back to a live state. This guard belongs in
+# the generator as well as the rendered page: a stale catalog writer must not
+# recreate a sample or offer from held seals.
 OFF_SALE_FAMILIES = frozenset({"hospital-mrf", "model-cards"})
 
 
@@ -247,6 +249,7 @@ def slices() -> list:
 
 
 def _off_sale_catalog_state(family: str, fam: dict) -> bool:
+    """Require an internally consistent hold before rendering either target."""
     if family not in OFF_SALE_FAMILIES:
         return False
     checkout = fam.get("checkout") or {}
@@ -255,8 +258,7 @@ def _off_sale_catalog_state(family: str, fam: dict) -> bool:
             f"{family}: catalog checkout.status must be 'off_sale' before the "
             "held dated page can be rebuilt; nothing was written"
         )
-    url = str(checkout.get("url") or "").strip()
-    if url:
+    if str(checkout.get("url") or "").strip():
         raise SystemExit(
             f"{family}: off-sale catalog row still carries a checkout URL; "
             "nothing was written"
@@ -270,6 +272,7 @@ def _off_sale_catalog_state(family: str, fam: dict) -> bool:
 
 
 def _off_sale_spec(family: str, fam: dict) -> dict:
+    """A plain customer-facing hold with no seal rows or purchase promise."""
     cfg = PACKS[family]
     return {
         "sections": [
@@ -311,8 +314,7 @@ def _off_sale_spec(family: str, fam: dict) -> dict:
 
 def family_spec(family: str) -> dict:
     fam = family_rows().get(family) or {}
-    off_sale = _off_sale_catalog_state(family, fam)
-    if off_sale:
+    if _off_sale_catalog_state(family, fam):
         return _off_sale_spec(family, fam)
     h = held(family)
     cfg = h["cfg"]

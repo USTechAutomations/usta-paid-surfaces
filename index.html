@@ -3,49 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Dated public-record feeds — directory | US Tech Automations</title>
-  <meta name="description" content="Browse dated public-record and change feeds, one-off files, checks and tools. Product pages explain the intended buyer, sample, price and available next step — there is no bundle. Pick the job you have, read the exact terms on its page, then follow its available next step.">
+  <title>Dated change feeds — directory</title>
+  <meta name="description" content="Directory of repeatable change feeds. Different buyers. Not a bundle. Email operations@.">
   <link rel="canonical" href="https://ustechautomations.com/feeds">
   <link rel="stylesheet" href="styles.css">
-  <style>
-    /* Scoped to this page: the directory jump-nav. Tokens only, no colour
-       literals, no bare or shared selectors — see BRAND.md §1, §7. */
-    body[data-family="hub"] .group-nav { display: flex; flex-wrap: wrap; gap: .5rem .625rem; margin: 0 0 2.25rem; padding: 0; list-style: none; font-size: .875rem; }
-    body[data-family="hub"] .group-nav a { display: inline-flex; align-items: center; gap: .4rem; color: var(--muted-fg); text-decoration: none; border: 1px solid var(--line); border-radius: var(--radius); padding: .4rem .75rem; }
-    body[data-family="hub"] .group-nav a:hover { color: var(--fg); border-color: var(--line-strong); text-decoration: none; }
-    body[data-family="hub"] .group-nav .n { color: var(--muted-fg); font-variant-numeric: tabular-nums; }
-    body[data-family="hub"] .card .meta .state { color: var(--muted-fg); }
-
-    /* Official primary-surface tokens from the archived v1.3 brand reference.
-       Scoped to the directory; the independently served shared CSS is retained. */
-    body[data-family="hub"] { --primary-surface: 207 100% 42%; --primary-surface-hover: 207 100% 36%; --directory-link: hsl(var(--primary-surface-hover)); overflow-wrap: anywhere; }
-    body[data-family="hub"] a:not(.card):not(.wordmark):not(.mast-cta) { color: var(--directory-link); }
-    body[data-family="hub"] .group-nav a { min-height: 44px; }
-    body[data-family="hub"] .hero-cta .mast-cta { min-height: 44px; background: hsl(var(--primary-surface)); }
-    body[data-family="hub"] .hero-cta .mast-cta:hover { background: hsl(var(--primary-surface-hover)); }
-    body[data-family="hub"] .masthead .mast-cta { background: transparent; color: var(--fg); border: 1px solid var(--fg); min-height: 44px; }
-    body[data-family="hub"] a:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
-    body[data-family="hub"] .card { min-width: 0; }
-    body[data-family="hub"] .masthead .wordmark { min-width: 0; white-space: normal; }
-    @media (max-width: 1279px) {
-      body[data-family="hub"] .masthead .wrap { flex-wrap: wrap; }
-      body[data-family="hub"] .mast-nav { display: none; }
-    }
-    @media (max-width: 639px) {
-      body[data-family="hub"] .masthead .wordmark { font-size: .875rem; }
-      body[data-family="hub"] .masthead .mast-cta { margin-left: 0; }
-    }
-    @media (prefers-color-scheme: dark) {
-      body[data-family="hub"] { --directory-link: var(--accent); }
-    }
-    body[data-family="hub"][data-theme="dark"] { --directory-link: var(--accent); }
-    body[data-family="hub"] .directory-search { margin-bottom: 2rem; max-width: 48rem; }
-    body[data-family="hub"] .directory-search label { display: block; margin-bottom: .5rem; }
-    body[data-family="hub"] .directory-search input { width: 100%; min-height: 44px; padding: .75rem; color: var(--fg); background: var(--surface); border: 1px solid var(--fg); border-radius: var(--radius); font: inherit; }
-    body[data-family="hub"] .directory-search input::placeholder { color: var(--muted-fg); opacity: 1; }
-    body[data-family="hub"] .directory-search input:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
-    body[data-family="hub"] [hidden] { display: none; }
-  </style>
   <meta name="theme-color" content="#7a3b12">
   <link rel="icon" type="image/svg+xml" href="/logo.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -55,13 +16,13 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="US Tech Automations — dated change feeds">
   <meta property="og:url" content="https://ustechautomations.com/feeds">
-  <meta property="og:title" content="Dated public-record feeds — directory">
-  <meta name="twitter:title" content="Dated public-record feeds — directory">
-  <meta property="og:description" content="Browse dated public-record and change feeds, one-off files, checks and tools. Product pages explain the intended buyer, sample, price and available next step — there is no bundle.">
-  <meta name="twitter:description" content="Browse dated public-record and change feeds, one-off files, checks and tools. Product pages explain the intended buyer, sample, price and available next step — there is no bundle.">
+  <meta property="og:title" content="Dated change feeds — directory">
+  <meta name="twitter:title" content="Dated change feeds — directory">
+  <meta property="og:description" content="Directory of repeatable change feeds. Different buyers. Not a bundle. Email operations@.">
+  <meta name="twitter:description" content="Directory of repeatable change feeds. Different buyers. Not a bundle. Email operations@.">
   <meta name="twitter:card" content="summary">
 </head>
-<body data-family="hub">
+<body>
 <a class="skip" href="#main">Skip to content</a>
 
 <!-- FABLE: visual only. Do not turn this into a mall that sells a bundle. -->
@@ -76,10 +37,7 @@
   <div class="wrap">
     <p class="eyebrow">Directory <span class="dot"></span> 67 feeds <span class="dot"></span> 38 with a listed price</p>
     <h1>Public records get overwritten. We keep the dated copy.</h1>
-    <p class="lede">This is a directory, not a store that sells everything at once. <strong>Product pages explain the intended buyer, sample, price and available next step.</strong> Find the job you have — a record you need kept dated, a check you want run, or a one-off file or tool — open its page to read the exact terms, then follow its available next step. Our other public-records work lives in the <a href="https://ustechautomations.com/permits">permits library</a> and the <a href="https://ustechautomations.com/offers">offers and evidence</a> pages.</p>
-    <div class="hero-cta">
-      <a class="mast-cta" href="#directory">Browse the directory</a>
-    </div>
+    <p class="lede">This is a directory, not a store that sells everything at once. <strong>Each product is a different buyer.</strong> Pick one feed. Our other public records work lives in the <a href="https://ustechautomations.com/permits">permits library</a> and the <a href="https://ustechautomations.com/offers">offers and evidence</a> pages.</p>
     <div class="note">
       <p><strong>There is no bundle.</strong> Each product has its own terms. Open a product page to see its available material, purchase route and delivery details. Of the 67 feeds listed here, 33 have a card checkout on their own page, and 6 have a listed price without a checkout button. Contact <a href="mailto:operations@ustechautomations.com?subject=Change%20feed">operations@ustechautomations.com</a> to confirm scope and availability before planning a purchase. 29 cards do not print a dollar price. The reports, letters and tools listed further down are not feeds; each has its own page with its own price and terms. To scope a feed to your own list, region or cadence, tell us at <a href="mailto:operations@ustechautomations.com?subject=Data%20task%20scope">Describe your data task</a>.</p>
     </div>
@@ -704,24 +662,12 @@
     </div>
 
     <section class="contact">
-      <h2>How to buy, and where else to look</h2>
-      <p>Open a product page to read its exact scope, price and delivery terms. Where a checkout button is available, it opens that product’s payment page. For a product without a checkout, contact us to confirm availability. This directory has no combined checkout.</p>
-      <p>To scope a feed to your own list, region or cadence, tell us what you need at <a href="mailto:operations@ustechautomations.com?subject=Data%20task%20scope">Describe your data task</a>.</p>
-      <a class="btn btn-ghost" href="mailto:operations@ustechautomations.com?subject=Change%20feed">Email operations@ustechautomations.com</a>
-      <p class="mail-note">Name the product, your intended use, required coverage and deadline so we can assess the fit.</p>
+      <h2>Elsewhere on our site</h2>
       <p>Blog listings stay at <a href="https://ustechautomations.com/blog-sponsorship">/blog-sponsorship</a>. The permits library stays at <a href="https://ustechautomations.com/permits">/permits</a>. Those are different products for different buyers, and they are not sold from this page.</p>
+      <a class="mail" href="mailto:operations@ustechautomations.com?subject=Change%20feed">Email operations@ustechautomations.com</a>
+      <p class="mail-note">Name the feed you want. We reply with what we can and cannot collect, and a checkout link if that feed is one we sell today.</p>
     </section>
 
-
-    <section class="group" id="file-tools">
-      <h2>Explore file tools</h2>
-      <p>These tools have their own input limits and availability. Read the tool page before using a business file.</p>
-      <ul>
-        <li><a href="https://ustechautomations.com/feeds/catalog-migration/">Catalog migration</a> — prepare a draft product CSV from supported source files; review warnings before importing.</li>
-        <li><a href="https://ustechautomations.com/feeds/workshop/">Workshop</a> — try the browser tools and inspect their example outputs.</li>
-        <li><a href="https://ustechautomations.com/feeds/pathlab/">PathLab</a> — preview processing workflows and their scope. Job submission is unavailable.</li>
-      </ul>
-    </section>
   </div>
 </main>
 
@@ -731,34 +677,5 @@
     <p class="addr">US Tech Automations · 3298 N Glassford Hill Rd Ste 104 PMB 1055, Prescott Valley AZ 86314</p>
   </div>
 </footer>
-<script>
-(function () {
-  var input = document.getElementById('directory-query');
-  if (!input) return;
-  var cards = Array.from(document.querySelectorAll('.hub-groups a.card'));
-  var sections = Array.from(document.querySelectorAll('.hub-groups section.group'));
-  var status = document.getElementById('directory-results');
-  input.parentElement.hidden = false;
-  function filter() {
-    var words = input.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
-    var shown = 0;
-    cards.forEach(function (card) {
-      var text = card.textContent.toLowerCase();
-      card.hidden = !words.every(function (word) { return text.indexOf(word) !== -1; });
-      if (!card.hidden) shown += 1;
-    });
-    sections.forEach(function (section) {
-      section.hidden = !Array.from(section.querySelectorAll('a.card')).some(function (card) { return !card.hidden; });
-    });
-    status.textContent = shown ? 'Showing ' + shown + ' of ' + cards.length + ' directory entries.' : 'No matching entries. Try a broader task or clear the search.';
-  }
-  input.addEventListener('input', filter);
-  input.addEventListener('search', filter);
-  document.querySelectorAll('.group-nav a').forEach(function (link) {
-    link.addEventListener('click', function () { input.value = ''; filter(); });
-  });
-  filter();
-})();
-</script>
 </body>
 </html>
