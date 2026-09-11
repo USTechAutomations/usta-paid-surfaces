@@ -76,6 +76,7 @@ import sys
 import time
 import urllib.error
 import urllib.request
+from urllib.parse import urlsplit
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -145,6 +146,7 @@ def witness_mark(url: str) -> dict:
             tag = (r.headers.get("ETag") or "").strip()
             return {"seen": True,
                     "mark": tag or hashlib.sha256(body).hexdigest()[:16],
+                    "body_sha256": hashlib.sha256(body).hexdigest(),
                     "via": "the server's version tag" if tag else "the page contents"}
     except Exception as e:  # noqa: BLE001 -- a witness we cannot read is not a failure
         return {"seen": False, "mark": "", "via": "",
@@ -160,6 +162,8 @@ def witness_url(manifest: dict, args) -> str:
 
 
 def targets(args) -> tuple[list[dict], dict]:
+    if getattr(args, 'directory', False):
+        return directory_targets(args)
     if not MANIFEST.is_file():
         raise SystemExit("urls.json is missing. Run: python3 scripts/url_manifest.py")
     m = json.loads(MANIFEST.read_text(encoding="utf-8"))
@@ -173,6 +177,46 @@ def targets(args) -> tuple[list[dict], dict]:
             url = u if args.base is None else args.base.rstrip("/") + u[len(site):]
             out.append({"url": url, "path": u, "what": "pay target"})
     return (out[: args.limit] if args.limit else out), m
+
+
+def directory_targets(args) -> tuple[list[dict], dict]:
+    """Test actual directory hrefs, not only the expected build manifest.
+
+    A published directory retained two families/... paths after an overlay;
+    both intended product URLs in urls.json still passed. Read the real links.
+    The existing retry, pacing and version witness remain responsible for verdicts.
+    """
+    from buyer_actions import parse_page
+    if args.base or args.include_pay_targets:
+        raise SystemExit('--directory cannot combine with --base or --include-pay-targets')
+    url = 'https://ustechautomations.com/feeds/'
+    req = urllib.request.Request(url, headers={'User-Agent': UA})
+    try:
+        with _opener(False).open(req, timeout=TIMEOUT) as response:
+            if response.status != 200:
+                raise ValueError('directory did not answer 200')
+            raw = response.read(1000001)
+            if len(raw) > 1000000:
+                raise ValueError('directory exceeds bound')
+            links = parse_page(raw.decode('utf-8'), url)['all_links']
+    except Exception as exc:
+        print('UNKNOWN: cannot read directory links (' + type(exc).__name__ + ')', file=sys.stderr)
+        raise SystemExit(2)
+    urls = set()
+    for link in links:
+        u = urlsplit(link)
+        if (u.scheme == 'https' and u.netloc == 'ustechautomations.com'
+                and u.path.startswith('/feeds/') and not u.query and not u.fragment):
+            urls.add(link)
+    if not urls:
+        print('UNKNOWN: directory has no usable product links', file=sys.stderr)
+        raise SystemExit(2)
+    rows = [{'url':url, 'path':'/feeds/', 'kind':'hub'}] + [
+        {'url':u, 'path':urlsplit(u).path, 'kind':'directory href'} for u in sorted(urls) if u != url]
+    m = {'site':'https://ustechautomations.com', 'rows':rows,
+         'discovery':'published directory HTML', 'directory_sha256':hashlib.sha256(raw).hexdigest()}
+    out = [{'url':r['url'],'path':r['path'],'what':r['kind']} for r in rows]
+    return (out[:args.limit] if args.limit else out), m
 
 
 def main() -> None:
@@ -189,6 +233,7 @@ def main() -> None:
                     help="also fetch the checkout addresses the pay buttons point at")
     ap.add_argument("--out", default="", help="write every row to this JSON file")
     ap.add_argument("--quiet", action="store_true", help="only the summary")
+    ap.add_argument('--directory', action='store_true', help='check owned feeds links extracted from the published directory')
     args = ap.parse_args()
 
     rows, manifest = targets(args)
@@ -243,17 +288,25 @@ def main() -> None:
                     print(f"        {r['path']} answered 200 the second time")
 
     seen = {m["mark"] for m in marks if m["seen"]}
-    moved = len(seen) > 1 or bool(flipped)
+    directory_drift = bool(manifest.get('directory_sha256')) and any(
+        m.get('seen') and m.get('body_sha256') != manifest['directory_sha256'] for m in marks)
+    unwitnessed = bool(args.directory) and any(not m['seen'] for m in marks)
+    moved = len(seen) > 1 or bool(flipped) or directory_drift
 
-    if moved:
-        # No verdict, in either direction. Everything that did not answer 200 is
-        # an unknown now: this run measured a moving target and cannot say
-        # whether any address is broken.
+    if moved or unwitnessed:
+        # Directory mode: an unread witness cannot support a stable verdict.
+        # Keep the HTTP status we saw; drop it as a finding. Non-directory
+        # runs never set unwitnessed, so their 404s stay failures.
         for r in results:
             if r["outcome"] in ("redirect", "other"):
                 r["outcome"] = "unknown"
-                r["why"] = ("the published version changed during this run, so this "
-                            "status is not evidence about the address")
+                r["why"] = (
+                    ("the published version changed during this run, so this "
+                     "status is not evidence about the address")
+                    if moved else
+                    ("directory stability could not be established, so this "
+                     "status is not evidence about the address")
+                )
 
     ok = [r for r in results if r["outcome"] == "ok"]
     red = [r for r in results if r["outcome"] == "redirect"]
@@ -265,9 +318,14 @@ def main() -> None:
     print(f"answered 200          : {len(ok)}")
     print(f"did NOT answer 200    : {len(red) + len(other)}"
           f"   ({len(red)} redirected, {len(other)} another status)")
-    why_unknown = ("unknown -- the version moved mid-run, or our end of the wire; "
-                   "either way not a verdict on the page") if moved else \
-                  ("unknown -- our end of the wire, not a verdict on theirs")
+    if moved:
+        why_unknown = ("unknown -- the version moved mid-run, or our end of the wire; "
+                       "either way not a verdict on the page")
+    elif unwitnessed:
+        why_unknown = ("unknown -- a directory witness was unavailable; "
+                       "neither 404s nor all-200 are a stable directory verdict")
+    else:
+        why_unknown = ("unknown -- our end of the wire, not a verdict on theirs")
     print(f"no answer for         : {len(unk)}   ({why_unknown})")
     print("=" * 64)
 
@@ -310,12 +368,17 @@ def main() -> None:
             "checked": len(results), "ok": len(ok), "not_200": len(red) + len(other),
             "redirects": len(red), "other_status": len(other), "unknown": len(unk),
             "version_changed_during_run": moved,
+            "directory_source_sha256": manifest.get('directory_sha256'),
+            "directory_stability_unknown": unwitnessed,
             "witness": {"url": wurl, "looks": marks, "distinct_marks": sorted(seen)},
             "rows": results}, indent=2) + "\n", encoding="utf-8")
         print(f"\nevery row written to {args.out}")
 
     if moved:
         raise SystemExit(3)
+    if unwitnessed:
+        print('UNKNOWN: directory stability could not be established')
+        raise SystemExit(2)
     if red or other:
         raise SystemExit(1)
     raise SystemExit(2 if unk else 0)
