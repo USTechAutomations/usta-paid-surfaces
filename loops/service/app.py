@@ -332,15 +332,15 @@ def create_app(env: dict | None = None, store=None, stripe_reader=None) -> FastA
         }
 
     # ---------------------------------------------------------------- beacon
-    def record(f, e, host: str) -> bool:
+    def record(f, e, host: str) -> bool | None:
         if not isinstance(f, str) or not isinstance(e, str):
             return False
-        if not FAMILY_RE.match(f) or not EVENT_RE.match(e):
+        if not FAMILY_RE.fullmatch(f) or not EVENT_RE.fullmatch(e):
             return False
         try:
             store.add_event(f, e, host)
         except Exception:  # noqa: BLE001 -- counting must never break a buyer's page
-            pass
+            return None
         return True
 
     @app.get("/t")
@@ -350,6 +350,8 @@ def create_app(env: dict | None = None, store=None, stripe_reader=None) -> FastA
             request.query_params.get("e", ""),
             referrer_host(request),
         )
+        if ok is None:
+            return Response(status_code=503, headers=dict(NO_CACHE))
         if not ok:
             return Response(status_code=204, headers=dict(NO_CACHE))
         return Response(content=GIF_1PX, media_type="image/gif", headers=dict(NO_CACHE))
@@ -365,7 +367,11 @@ def create_app(env: dict | None = None, store=None, stripe_reader=None) -> FastA
             data = {}
         if not isinstance(data, dict):
             data = {}
-        ok = record(data.get("f", ""), data.get("e", ""), referrer_host(request))
+        ok = await run_in_threadpool(
+            record, data.get("f", ""), data.get("e", ""), referrer_host(request)
+        )
+        if ok is None:
+            return Response(status_code=503, headers=dict(NO_CACHE))
         return Response(status_code=202 if ok else 204, headers=dict(NO_CACHE))
 
     # ---------------------------------------------------------------- keys
