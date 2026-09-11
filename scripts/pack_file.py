@@ -314,7 +314,8 @@ def _off_sale_spec(family: str, fam: dict) -> dict:
 
 def family_spec(family: str) -> dict:
     fam = family_rows().get(family) or {}
-    if _off_sale_catalog_state(family, fam):
+    off_sale = _off_sale_catalog_state(family, fam)
+    if off_sale:
         return _off_sale_spec(family, fam)
     h = held(family)
     cfg = h["cfg"]
