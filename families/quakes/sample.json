@@ -1,6 +1,6 @@
 {
   "family": "quakes",
-  "generated": "2026-09-10",
+  "generated": "2026-09-11",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/quakes",
   "rows_published": 25,
@@ -50,6 +50,33 @@
       "1.44",
       "2026-08-18",
       "2026-08-19"
+    ],
+    [
+      "ok2026rsnh",
+      "3 km SSE of Dover, Oklahoma",
+      "magnitude",
+      "2.73",
+      "2.37",
+      "2026-09-10",
+      "2026-09-11"
+    ],
+    [
+      "nn00924308",
+      "22 km SW of Humboldt, Nevada",
+      "magnitude",
+      "1.96",
+      "2.21",
+      "2026-09-10",
+      "2026-09-11"
+    ],
+    [
+      "ci41543896",
+      "13 km SSW of Pine Mountain Club, CA",
+      "magnitude",
+      "0.54",
+      "0.41",
+      "2026-09-10",
+      "2026-09-11"
     ],
     [
       "aka2026rsblne",
@@ -212,33 +239,6 @@
       "2.5",
       "2026-08-29",
       "2026-08-30"
-    ],
-    [
-      "aka2026rbbxfx",
-      "56 km S of Ivanof Bay, Alaska",
-      "magnitude",
-      "2.1",
-      "2.4",
-      "2026-08-28",
-      "2026-08-29"
-    ],
-    [
-      "aka2026rbasxy",
-      "50 km NW of Ninilchik, Alaska",
-      "magnitude",
-      "2.1",
-      "2.2",
-      "2026-08-28",
-      "2026-08-29"
-    ],
-    [
-      "aka2026qztdyc",
-      "61 km WNW of Sitka, Alaska",
-      "magnitude",
-      "1.4",
-      "1.5",
-      "2026-08-28",
-      "2026-08-29"
     ]
   ]
 }

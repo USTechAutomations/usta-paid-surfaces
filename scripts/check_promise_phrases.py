@@ -6,10 +6,16 @@
 
 Walks families/**/index.html and dist/ if present. A phrase on any other
 family is a failure. The 17 names are the AUTOMATE set from F4 §1d.
+
+families/coverage/ is the aggregate table, not a family. Each of its rows
+is counted against the family that row names. A child page under
+families/<family>/<slice>/ counts as that family, not as its own file.
 """
 from __future__ import annotations
 
 import argparse
+import html
+import json
 import re
 import sys
 from pathlib import Path
@@ -57,6 +63,77 @@ def family_of(path: Path, root: Path) -> str:
     return parts[0] if parts else path.parent.name
 
 
+def is_aggregate_coverage(path: Path) -> bool:
+    """True for families/coverage/index.html (or dist/coverage/), not a child coverage page."""
+    return (
+        path.name == "index.html"
+        and path.parent.name == "coverage"
+        and path.parent.parent.name in {"families", "dist"}
+    )
+
+
+_LABELS: dict[str, str] | None = None
+
+
+def label_to_family() -> dict[str, str]:
+    """Map catalog short name, full name, and id onto the family id."""
+    global _LABELS
+    if _LABELS is not None:
+        return _LABELS
+    labels: dict[str, str] = {}
+    cat = ROOT / "catalog.json"
+    if cat.is_file():
+        raw = json.loads(cat.read_text(encoding="utf-8"))
+        rows = raw.get("families", raw) if isinstance(raw, dict) else raw
+        for row in rows:
+            if not isinstance(row, dict) or not row.get("id"):
+                continue
+            fid = str(row["id"])
+            labels[fid] = fid
+            for key in ("short", "name"):
+                label = html.unescape(str(row.get(key) or "")).strip()
+                if label:
+                    labels[label] = fid
+    _LABELS = labels
+    return labels
+
+
+_STRONG = re.compile(r"<strong>(.*?)</strong>", re.S | re.I)
+_TR = re.compile(r"<tr\b[^>]*>(.*?)</tr>", re.S | re.I)
+_TAGS = re.compile(r"<[^>]+>")
+
+
+def coverage_row_hits(text: str) -> dict[str, int]:
+    """Count promise phrases on the aggregate coverage table, per family row."""
+    names = label_to_family()
+    per: dict[str, int] = {}
+    used = 0
+    for body in _TR.findall(text):
+        n = len(PHRASE_RE.findall(body))
+        if not n:
+            continue
+        used += n
+        m = _STRONG.search(body)
+        label = html.unescape(_TAGS.sub("", m.group(1))).strip() if m else ""
+        fid = names.get(label)
+        key = fid if fid else "coverage"
+        per[key] = per.get(key, 0) + n
+    leftover = len(PHRASE_RE.findall(text)) - used
+    if leftover > 0:
+        per["coverage"] = per.get("coverage", 0) + leftover
+    return per
+
+
+def attribute(path: Path, root: Path, text: str) -> dict[str, int]:
+    """Map this page's promise-phrase hits onto the family they belong to."""
+    if is_aggregate_coverage(path):
+        return coverage_row_hits(text)
+    n = len(PHRASE_RE.findall(text))
+    if not n:
+        return {}
+    return {family_of(path, root): n}
+
+
 def pages(root: Path) -> list[Path]:
     files: list[Path] = []
     fam = root / "families"
@@ -76,14 +153,11 @@ def scan(root: Path) -> tuple[set[str], int, dict[str, int]]:
     per: dict[str, int] = {}
     for path in pages(root):
         text = path.read_text(encoding="utf-8", errors="replace")
-        n = len(PHRASE_RE.findall(text))
-        if not n:
-            continue
-        fam = family_of(path, root)
-        found.add(fam)
-        per[fam] = per.get(fam, 0) + n
-        if fam not in AUTOMATE:
-            outside_hits += n
+        for fam, n in attribute(path, root, text).items():
+            found.add(fam)
+            per[fam] = per.get(fam, 0) + n
+            if fam not in AUTOMATE:
+                outside_hits += n
     return found, outside_hits, per
 
 

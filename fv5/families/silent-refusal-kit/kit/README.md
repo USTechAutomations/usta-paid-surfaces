@@ -20,10 +20,13 @@ python3 silent_check.py \
   --json summary.json
 ```
 
-Your API keys come from your own environment (`ANTHROPIC_API_KEY`,
-`OPENAI_API_KEY`) and never leave your machine. Your tasks never leave your
-machine either. Nothing is uploaded anywhere; the script only talks to the
-model providers you name.
+Your API keys are read from your own environment (`ANTHROPIC_API_KEY`,
+`OPENAI_API_KEY`). In online mode the key for each model is sent to that
+model's provider (Anthropic or OpenAI) to sign in to the request — that is how
+every API call authenticates. Your tasks and prompts are sent to that same
+provider so it can answer them. The kit sends nothing to us and nothing to any
+other service; the only place your keys and tasks go is the provider you name.
+The replay mode below makes no provider request at all.
 
 To see it work without spending anything or needing keys, replay the
 recorded example instead of calling a real model:
@@ -60,8 +63,9 @@ See `tasks.example.jsonl` for fifteen ready-to-copy examples.
 
 ## Where your keys go
 
-Only two places: the environment variables `ANTHROPIC_API_KEY` and
-`OPENAI_API_KEY`. The kit never writes a key to a file, never prints one to
+The kit loads credentials from `ANTHROPIC_API_KEY` and `OPENAI_API_KEY`.
+Online requests transmit the applicable credential to the selected provider
+for authentication. The kit never writes a key to a file, never prints one to
 the screen, and never logs one. If a key is missing for a model you asked
 for (and you didn't pass `--fixture`), the run stops immediately and tells
 you which variable to set.

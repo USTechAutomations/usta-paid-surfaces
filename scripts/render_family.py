@@ -9,6 +9,7 @@ from __future__ import annotations
 import csv
 import html
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -915,7 +916,56 @@ MAX_DESC = 155
 DO_NOT_RUN = "do not run it)"
 
 
+# Handwritten kind=build pages (no slice tables) still go through write(), so a
+# rebuild can drop a printed dollar amount when catalog.json has no chargeable
+# address. Unique body copy stays; only the offer rail and the tab title move.
+NOT_ON_SALE = "not on sale"
+_PRICE_RAIL_RX = re.compile(r'(<dd class="price">)(.*?)(</dd>)', re.S | re.I)
+
+
+def handwritten_family_spec(fid: str) -> dict:
+    """Spec that rebuilds only the offer rail of an existing handwritten page."""
+    return {"id": fid, "handwritten_offer_only": True}
+
+
+def rewrite_handwritten_offer(fid: str) -> Path:
+    """Put catalog price on the rail only when checkout.url is an https address."""
+    dest = ROOT / "families" / fid / "index.html"
+    if not dest.is_file():
+        raise ValueError(f"{fid}: no handwritten page at {dest}")
+    raw = dest.read_text(encoding="utf-8")
+    row = fam_row(fid)
+    href = str((row.get("checkout") or {}).get("url") or "").strip()
+    catalog_price = str(row.get("price") or "").strip()
+    if href.startswith("https://"):
+        rail = catalog_price
+    elif "$" in catalog_price:
+        rail = NOT_ON_SALE
+    else:
+        rail = catalog_price or NOT_ON_SALE
+    new, n = _PRICE_RAIL_RX.subn(
+        lambda m: m.group(1) + html.escape(rail) + m.group(3), raw, count=1
+    )
+    if n != 1:
+        raise ValueError(f"{fid}: expected 1 price rail, found {n}")
+    if rail == NOT_ON_SALE and catalog_price:
+
+        def _title(m: re.Match[str]) -> str:
+            return m.group(1) + m.group(2).replace(catalog_price, rail) + m.group(3)
+
+        for rx in (
+            r"(<title>)(.*?)(</title>)",
+            r'(property="og:title" content=")([^"]*)(")',
+            r'(name="twitter:title" content=")([^"]*)(")',
+        ):
+            new, _ = re.subn(rx, _title, new, count=1, flags=re.S | re.I)
+    dest.write_text(new, encoding="utf-8")
+    return dest
+
+
 def write(spec: dict) -> Path:
+    if spec.get("handwritten_offer_only"):
+        return rewrite_handwritten_offer(str(spec["id"]))
     d = spec["desc"]
     if len(d) > MAX_DESC:
         raise ValueError(

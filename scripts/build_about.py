@@ -17,7 +17,9 @@ same forbidden-phrase list as every page we publish.
 """
 from __future__ import annotations
 
+import html as htmlmod
 import json
+import re
 import sys
 import urllib.parse
 from pathlib import Path
@@ -26,6 +28,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import render_family  # noqa: E402
 import slice_about  # noqa: E402
+from check_promise_phrases import AUTOMATE, label_to_family  # noqa: E402
 from render_slice import freshness_line  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -44,6 +47,42 @@ HUB_CARDS = {
     "how-we-seal": ("How a sealed copy works", "Free", "rebuilt daily", "Worked example"),
 }
 FOOT = 'Every number on this page was counted from our retained databases when the page was built. The date above identifies that snapshot; this page may lag later source updates.'
+
+_D2 = (
+    ("A person emails you", "The buyer receives"),
+    ("a person emails you", "the buyer receives"),
+)
+_D1 = (
+    " within one working day of your payment",
+    " within one working day",
+    " the same calendar day",
+    " the same day",
+)
+_STRONG = re.compile(r"<strong>(.*?)</strong>", re.S | re.I)
+_TAGS = re.compile(r"<[^>]+>")
+_TR = re.compile(r"<tr\b[^>]*>.*?</tr>", re.S | re.I)
+
+
+def _scrub_coverage_html(raw: str) -> str:
+    """Keep AUTOMATE-family rows; apply F4 D1+D2 to every other coverage row."""
+    names = label_to_family()
+
+    def repl(m: re.Match[str]) -> str:
+        tr = m.group(0)
+        sm = _STRONG.search(tr)
+        if not sm:
+            return tr
+        label = htmlmod.unescape(_TAGS.sub("", sm.group(1))).strip()
+        fid = names.get(label)
+        if fid in AUTOMATE:
+            return tr
+        for old, new in _D2:
+            tr = tr.replace(old, new)
+        for clock in _D1:
+            tr = tr.replace(clock, "")
+        return tr
+
+    return _TR.sub(repl, raw)
 
 
 def spec_for(s: dict) -> dict:
@@ -141,6 +180,11 @@ def main() -> None:
             print(f"skipped {s['slug']}: not a top-level page", file=sys.stderr)
             continue
         dest = render_family.write(spec_for(s))
+        if s["slug"] == "coverage":
+            dest.write_text(
+                _scrub_coverage_html(dest.read_text(encoding="utf-8")),
+                encoding="utf-8",
+            )
         print(f"{s['slug']:<22} {dest.relative_to(ROOT)}")
         built.append(s["slug"])
     if len(built) != 3:

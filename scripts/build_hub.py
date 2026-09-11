@@ -376,9 +376,8 @@ def main():
             f'Contact {inbox} to confirm scope and availability before planning a purchase')
     parts.append(".")
     if not_for_sale:
-        lead_in = "The other " if (takes_card or by_mail) else "The "
         parts.append(
-            f' {lead_in}{not_for_sale} do not print a dollar price.')
+            f' {not_for_sale} {"card" if not_for_sale == 1 else "cards"} do not print a dollar price.')
     parts.append(
         " The reports, letters and tools listed further down are not feeds; each has its own "
         "page with its own price and terms. "

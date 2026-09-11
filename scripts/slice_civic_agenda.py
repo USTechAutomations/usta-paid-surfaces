@@ -2108,7 +2108,7 @@ def family_spec() -> dict:
                "link in that thread.</li>\n" if sale else
                "        <li>We tell you what we hold for them and since when. There is nothing to "
                "buy today, so there is no checkout link to send.</li>\n")
-            + "        <li>A person emails you the changes file, and names anything we could not "
+            + "        <li>The buyer receives the changes file, and names anything we could not "
             "collect that day.</li>\n"
             "      </ol>",
         ),

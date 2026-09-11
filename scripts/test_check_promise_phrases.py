@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -73,6 +74,32 @@ class PromisePhraseCheck(unittest.TestCase):
             self.assertIn(name, r.stdout)
         lines = [ln for ln in r.stdout.splitlines() if ln and not ln.startswith("families still") and not ln.startswith("promise phrases") and not ln.startswith("missing") and not ln.startswith("extra")]
         self.assertEqual(lines, AUTOMATE)
+
+    def test_automate_subpage_is_not_outside(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            page = Path(tmp) / "families" / "agentic-commerce" / "shops" / "index.html"
+            page.parent.mkdir(parents=True)
+            page.write_text(
+                "<html><body>After you pay, a person emails you the file.</body></html>",
+                encoding="utf-8",
+            )
+            r = run(["--root", tmp])
+            self.assertIn("promise phrases outside those families: 0", r.stdout)
+            self.assertNotIn("extra families:", r.stdout)
+            self.assertIn("agentic-commerce", r.stdout)
+
+    def test_reword_subpage_is_outside(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            page = Path(tmp) / "families" / "changeover-atlas" / "week" / "index.html"
+            page.parent.mkdir(parents=True)
+            page.write_text(
+                "<html><body>After you pay, a person emails you the file.</body></html>",
+                encoding="utf-8",
+            )
+            r = run(["--root", tmp])
+            self.assertEqual(r.returncode, 1, r.stdout + r.stderr)
+            self.assertIn("extra families: changeover-atlas", r.stdout)
+            self.assertNotRegex(r.stdout, r"promise phrases outside those families: 0\s*$")
 
 
 if __name__ == "__main__":

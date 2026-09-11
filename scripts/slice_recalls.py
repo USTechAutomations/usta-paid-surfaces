@@ -1125,7 +1125,7 @@ def family_spec() -> dict:
                     "days are missing, and the date of our last copy. There is nothing monthly "
                     "to buy while the reading is stopped.</li>\n"
                 )
-                + "        <li>A person emails you the what-moved file, and names anything we "
+                + "        <li>The buyer receives the what-moved file, and names anything we "
                 "could not collect.</li>\n"
                 "      </ol>",
             ),

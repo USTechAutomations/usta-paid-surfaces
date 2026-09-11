@@ -1038,7 +1038,7 @@ def family_spec() -> dict:
                 "        <li>You email us and say which venues you follow.</li>\n"
                 "        <li>We tell you what we hold for them and which days are missing, then "
                 "send a checkout link in that thread.</li>\n"
-                "        <li>A person emails you the file, and names anything we could not "
+                "        <li>The buyer receives the file, and names anything we could not "
                 "collect.</li>\n"
                 "      </ol>",
             ),
