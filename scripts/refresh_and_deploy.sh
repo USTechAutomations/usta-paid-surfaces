@@ -30,12 +30,38 @@ STAMP="$(date -u +%Y%m%d-%H%M%S)"
 
 mkdir -p "$ALERT_DIR"
 
+# 0 = no publish step this run. 1 = gcloud run deploy was invoked.
+# die() uses this so a failed post-deploy check cannot claim nothing was published.
+PUBLICATION_ATTEMPTED=0
+# Set by verify_actual_directory: "" | bad | unknown
+DIRECTORY_VERDICT=""
+
 # A refusal that does not name its cause is how a thing stays broken for a week.
 # The second argument is whatever the failing tool actually printed; it goes into
 # the alert file AND onto stderr, because the two are read by different people.
+# After a deploy, or after an inconclusive directory check, do not claim the live
+# pages are unchanged and do not treat UNKNOWN as down.
 die() {
   local why="$1"
   local said="${2:-}"
+  local publication_line
+  if [ "${DIRECTORY_VERDICT:-}" = "unknown" ]; then
+    if [ "${PUBLICATION_ATTEMPTED:-0}" -ne 0 ]; then
+      publication_line="A publication attempt ran. The actual-directory check is UNKNOWN, not a finding that pages are down and not proof they are unchanged. The published stamp was not written."
+    else
+      publication_line="No new publication this run. The actual-directory check is UNKNOWN, not a finding that pages are down and not proof they are unchanged. The published stamp was not rewritten."
+    fi
+  elif [ "${DIRECTORY_VERDICT:-}" = "bad" ]; then
+    if [ "${PUBLICATION_ATTEMPTED:-0}" -ne 0 ]; then
+      publication_line="A publication attempt ran. The actual-directory check observed destinations that did not answer 200. The published stamp was not written."
+    else
+      publication_line="No new publication this run. The actual-directory check observed destinations that did not answer 200. The published stamp was not rewritten."
+    fi
+  elif [ "${PUBLICATION_ATTEMPTED:-0}" -ne 0 ]; then
+    publication_line="A publication attempt ran. Whether the live pages now match this run is UNKNOWN. The published stamp was not written. This is not proof the live pages are down, and not proof they are unchanged."
+  else
+    publication_line="No publication attempt ran in this refresh. Current public page state was not established by this failed step."
+  fi
   {
     echo "# feeds refresh REFUSED"
     echo
@@ -50,13 +76,50 @@ die() {
       echo '```'
     fi
     echo
-    echo "Nothing was published. The pages already live are unchanged."
+    echo "$publication_line"
   } > "$ALERT"
   echo "REFUSED: $why" >&2
   if [ -n "$said" ]; then
     printf '%s\n' "$said" >&2
   fi
   exit 1
+}
+
+# Live directory readback. Exit 0 = all 200. Exit 1 = observed bad.
+# Exit 2 = unavailable. Exit 3 = publication changing during the check.
+# Any nonzero keeps the prior stamp and does not clear the alert.
+verify_actual_directory() {
+  local log rc said why
+  log="$(mktemp)"
+  set +e
+  python3 scripts/check_urls.py --directory --pace 1 --quiet --out "$STATE_DIR/directory-check.json" >"$log" 2>&1
+  rc=$?
+  set -e
+  if [ "$rc" -eq 0 ]; then
+    rm -f "$log"
+    return 0
+  fi
+  case "$rc" in
+    1)
+      DIRECTORY_VERDICT="bad"
+      why="actual directory check observed destinations that did not answer 200"
+      ;;
+    2)
+      DIRECTORY_VERDICT="unknown"
+      why="actual directory check is UNKNOWN (checker unavailable); not a finding that pages are down"
+      ;;
+    3)
+      DIRECTORY_VERDICT="unknown"
+      why="actual directory check is UNKNOWN (publication changing during the check); not proof of unchanged publication"
+      ;;
+    *)
+      DIRECTORY_VERDICT="unknown"
+      why="actual directory check is UNKNOWN (checker exit ${rc}); not a finding that pages are down"
+      ;;
+  esac
+  said="$(cat "$log")"
+  rm -f "$log"
+  die "$why" "$said"
 }
 
 # Run a gcloud step, keep everything it says, and refuse with those words if it
@@ -155,6 +218,7 @@ NEW_HASH="$(cd "$BUILD_DIR" && find site nginx.conf -type f -print0 | sort -z | 
 OLD_HASH="$(cat "$STAMP_FILE" 2>/dev/null || true)"
 if [ -n "$OLD_HASH" ] && [ "$NEW_HASH" = "$OLD_HASH" ]; then
   echo "no change since the last publish"
+  verify_actual_directory
   rm -f "$ALERT"
   exit 0
 fi
@@ -170,6 +234,7 @@ run_gcloud "the container build failed" \
 
 python3 scripts/preserve_independent_overlays.py check-head --candidate "$BUILD_DIR" --account "$DEPLOY_ACCOUNT" --gcloud "$GCLOUD" || die "feeds head changed during build; refusing stale deployment"
 
+PUBLICATION_ATTEMPTED=1
 run_gcloud "the publish step failed" \
   run deploy "$SERVICE" \
   --image "gcr.io/$PROJECT/$SERVICE:$STAMP" \
@@ -186,6 +251,7 @@ not written and the next run will try again."
 
 python3 scripts/preserve_independent_overlays.py verify-public --candidate "$BUILD_DIR" --account "$DEPLOY_ACCOUNT" --gcloud "$GCLOUD" || die "published independent component verification failed"
 
+verify_actual_directory
 echo "$NEW_HASH" > "$STAMP_FILE"
 rm -f "$ALERT"
 echo "published $STAMP"
