@@ -30,6 +30,7 @@ from urllib.parse import urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import family_status  # noqa: E402
+import ttb_discovery  # noqa: E402
 from freshness import NEWEST_META, check_freshness  # noqa: E402
 from pipeline import build_veto  # noqa: E402
 from paid_landing import enhance_paid_landing  # noqa: E402
@@ -271,6 +272,8 @@ def dataset_jsonld(fid: str, canon: str, page: str) -> str | None:
     for every page this runs on; a sample file is genuinely free to fetch
     with no key and no payment, so its own DataDownload entry carries True.
     """
+    if fid in {"grid", "schemahand"} and 'type="application/ld+json"' in page:
+        return None  # these sources own their explicit product metadata
     fam = FAMILY_BY_ID.get(fid)
     if fam is None:
         return None
@@ -296,6 +299,12 @@ def dataset_jsonld(fid: str, canon: str, page: str) -> str | None:
         "isAccessibleForFree": False,
         "license": DATASET_LICENSE_URL,
     }
+    if fid == "schemahand":
+        data = {"@context": "https://schema.org", "@type": "SoftwareApplication",
+                "name": fam["name"], "description": html.unescape(m.group(1)),
+                "url": canon, "applicationCategory": "DeveloperApplication",
+                "operatingSystem": "Web browser"}
+        return f'<script type="application/ld+json">{json.dumps(data, ensure_ascii=False)}</script>'
     st = family_status.status(fid)
     if st and st.get("newest") and st.get("oldest"):
         data["temporalCoverage"] = f"{st['oldest']}/{st['newest']}"
@@ -365,6 +374,8 @@ def build_page(src: Path, family: str, crumb_label: str | None, path: str | None
     if re.search(r"<main\b", out) and not re.search(r'<main[^>]*id="main"', out):
         out = re.sub(r"<main\b", '<main id="main"', out, count=1)
     out = re.sub(r'(<(?:a|button)\b[^>]*)\s+tabindex="-1"', r"\1", out)
+    if family in {"grid", "schemahand"}:
+        out = out.replace('<main id="main">', '<main id="main" tabindex="-1">')
 
     # --- head: canonical, og:url, stylesheet, robots, GTM ---
     rel = "" if family == "hub" else (path or family)
@@ -372,6 +383,20 @@ def build_page(src: Path, family: str, crumb_label: str | None, path: str | None
     canon = f"{BASE}{slug}"
     out = re.sub(r'<link rel="canonical" href="[^"]*">', f'<link rel="canonical" href="{canon}">', out)
     out = re.sub(r'<meta property="og:url" content="[^"]*">', f'<meta property="og:url" content="{canon}">', out)
+    # The substitution above is a no-op when the source has no tag. Insert the
+    # same address next to og:url. A noindex page (return pages under p/thanks/)
+    # must not get one: that would invite indexing of a private address.
+    if (
+        '<link rel="canonical"' not in out
+        and 'name="robots" content="noindex' not in out
+        and "thanks" not in (path or "")
+    ):
+        tag = f'<link rel="canonical" href="{canon}">'
+        og = f'<meta property="og:url" content="{canon}">'
+        if og in out:
+            out = out.replace(og, f"{tag}\n  {og}", 1)
+        else:
+            out = out.replace("</head>", f"  {tag}\n</head>", 1)
     out = re.sub(r'<link rel="stylesheet" href="[^"]*">', f'<link rel="stylesheet" href="{CSS_HREF}">', out)
     if 'name="robots"' not in out:
         out = out.replace("<meta charset=\"utf-8\">",
@@ -380,8 +405,10 @@ def build_page(src: Path, family: str, crumb_label: str | None, path: str | None
     # be given a second copy.
     if "gtm.start" not in out:
         out = out.replace("<head>", "<head>\n  " + GTM % (family, GTM_ID), 1)
-    if family != "hub" and "thanks" not in (path or "") and "data-checkout=" in out:
-        out = out.replace("</head>", "<script>" + CLICK_BEACON + "</script>\n</head>", 1)
+    if family != "hub" and "thanks" not in (path or "") and "data-checkout=" in out and 'id="usta-checkout-tracking"' not in out:
+        out = out.replace("</head>", '<script id="usta-checkout-tracking">' + CLICK_BEACON + "</script>\n</head>", 1)
+    if rel == 'ttb':
+        out = ttb_discovery.enhance(out, ROOT)
     if rel in {'permit-files/austin', 'boston', 'nyc-ll84',
                'wp-accessibility-scan', 'pilot-logbook-digitizer'}:
         out = enhance_paid_landing(rel, out)
@@ -941,6 +968,16 @@ def main() -> None:
     if extras.is_file():
         for e in json.loads(extras.read_text(encoding="utf-8")):
             eid = e["id"]
+            # Build-kind paid families use this path too; the same veto must
+            # reach their address and sitemap, not stop at the catalog loop.
+            if eid in vetoed:
+                for refusal in vetoed[eid]:
+                    print(f"REFUSED  {eid}: {refusal['higher']} passes while {refusal['lower']} fails "
+                          f"-- {refusal['why']}", file=sys.stderr)
+                    print(f"         {refusal['detail']}", file=sys.stderr)
+                if eid not in refused:
+                    refused.append(eid)
+                continue
             src = ROOT / "families" / eid / "index.html"
             if not src.is_file():
                 fail(f"missing source page for {eid}")
@@ -1012,6 +1049,9 @@ def main() -> None:
             for f in sorted(fam_dir.glob("*.zip")):
                 if f.name in (fam_dir / "index.html").read_text(encoding="utf-8"):
                     shutil.copy2(f, DIST / fid / f.name)
+
+    if 'ttb' in parents:
+        ttb_discovery.write_receiver(DIST)
 
     # An address we published before and did not build this run still has to
     # answer. See write_retired(): the file that promises this had no code

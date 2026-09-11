@@ -69,6 +69,35 @@ body[data-customer-delivery="20260909"] .btn { border-radius: 6px; min-height: 4
       <p>You paste your rows from a supplier statement, in whatever rough form you have them. You get a link back for yourself, and a second link to send to the other business. Once they paste their rows too, the tool lines the two sides up and shows exactly which invoices do not match. <strong>The report shows differences. It never posts entries or moves money.</strong> It only compares two lists you both typed in.</p>
     </section>
 
+    <section id="worked-example">
+      <h2>See a worked example before using your records</h2>
+      <p>These eight rows are fictional. They show the supported comparison format and an expected result, not customer performance or accounting advice.</p>
+      <p><a href="sample-ledger.tsv" download>Download the example ledger</a> and <a href="sample-supplier.tsv" download>download the example supplier statement</a>. Both are tab-separated files you can open in a spreadsheet. No purchase is needed to inspect them.</p>
+      <details>
+        <summary>View both lists and the expected differences</summary>
+        <h3>Example ledger</h3>
+        <div class="scroll" tabindex="0" role="region" aria-label="Example rows; scroll horizontally to read all columns"><pre>Invoice     Date          Amount
+INV-1001    2026-09-01     120.00
+INV-1002    2026-09-02      75.00
+INV-1003    2026-09-03     -10.00
+INV-1004    2026-09-04      20.00</pre></div>
+        <h3>Example supplier statement</h3>
+        <div class="scroll" tabindex="0" role="region" aria-label="Example rows; scroll horizontally to read all columns"><pre>Invoice     Date          Amount
+INV-1001    2026-09-01     120.00
+INV-1002    2026-09-02      70.00
+INV-1003    2026-09-03     -10.00
+INV-1005    2026-09-05      30.00</pre></div>
+        <h3>Expected result</h3>
+        <ul>
+          <li>INV-1001 and the INV-1003 credit agree on both lists.</li>
+          <li>INV-1002 differs by 5.00: 75.00 in the ledger and 70.00 on the supplier statement.</li>
+          <li>INV-1004 appears only in the ledger; INV-1005 appears only on the supplier statement.</li>
+        </ul>
+        <p>The totals are 205.00 and 210.00. A total difference alone does not explain all three exceptions. The report identifies differences; you decide which records need correction.</p>
+      </details>
+      <p>To reproduce this result, open the downloaded files, paste the ledger into the form below, then open the second-side link yourself and paste the supplier statement. You do not need to send either link to anyone. Creating the comparison uses one free workspace.</p>
+    </section>
+
     <section>
       <h2>Start a comparison</h2>
       <p>Fill in the form below to start your first one for free.</p>
@@ -114,7 +143,7 @@ body[data-customer-delivery="20260909"] .btn { border-radius: 6px; min-height: 4
       <h2>What the pro plan unlocks</h2>
       <ul class="spec">
         <li><strong>No 2-workspace limit</strong><span class="sub">Run as many comparisons as you need in a 30-day window.</span></li>
-        <li><strong>More than 200 rows a side</strong><span class="sub">Room for a full statement, not just a short one.</span></li>
+        <li><strong>Up to 2,000 rows a side</strong><span class="sub">Compare larger statements within the supported row limit.</span></li>
       </ul>
     </section>
 
@@ -139,10 +168,10 @@ body[data-customer-delivery="20260909"] .btn { border-radius: 6px; min-height: 4
       <p class="buy-price"><strong>$99/mo</strong> &middot; monthly, cancel any time</p>
       <a class="btn btn-buy btn-lg" href="https://buy.stripe.com/bJecMYeVEbSO3Rq3eW0sU2I" data-checkout="ledgermatch" rel="noopener">Subscribe — $99 a month</a>
       <p class="mail-note">$99/mo through Stripe. The Stripe return page checks your purchase and lets you retrieve your key. No email is sent. Cancel any time; the key stops working when the subscription ends. Refunds are not offered; the free tier lets you try the whole tool first. </p>
-      <p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=Supplier%20statement%20match">Email operations@ustechautomations.com</a>. You pay through Stripe; the Stripe return page checks your purchase and lets you retrieve your key. No email is sent. A monthly key. Free: two workspaces per 30 days and 200 rows a side. Paid: no limit and 2,000 rows a side. Cancel any time through Stripe.</p>
+      <p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=LedgerMatch+workflow+fit&amp;body=I+would+like+to+check+whether+LedgerMatch+fits+our+workflow.%0A%0ABusiness+and+my+role%3A%0AComparisons+per+month%3A%0ATypical+rows+per+side%3A%0ACurrent+accounting+software%3A%0AMain+reconciliation+problem%3A%0ARequired+output+and+deadline%3A%0A%0AI+have+not+attached+customer+financial+records.">Email operations@ustechautomations.com</a>. You pay through Stripe; the Stripe return page checks your purchase and lets you retrieve your key. No email is sent. A monthly key. Free: two workspaces per 30 days and 200 rows a side. Paid: no limit and 2,000 rows a side. Cancel any time through Stripe.</p>
     </section>
   </div>
-<p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=Supplier%20statement%20match">Email operations@ustechautomations.com</a>. We read that mailbox and answer as soon as we can.</p>
+<p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=LedgerMatch+workflow+fit&amp;body=I+would+like+to+check+whether+LedgerMatch+fits+our+workflow.%0A%0ABusiness+and+my+role%3A%0AComparisons+per+month%3A%0ATypical+rows+per+side%3A%0ACurrent+accounting+software%3A%0AMain+reconciliation+problem%3A%0ARequired+output+and+deadline%3A%0A%0AI+have+not+attached+customer+financial+records.">Email operations@ustechautomations.com</a>. We read that mailbox and answer as soon as we can.</p>
 </main>
 
 <footer class="site">

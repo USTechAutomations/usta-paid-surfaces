@@ -57,6 +57,7 @@ body[data-customer-delivery="20260909"] .btn { border-radius: 6px; min-height: 4
       <div><dt>Price</dt><dd class="price">$175/mo</dd></div>
       <div><dt>Built for</dt><dd>Software companies that get security forms from customers and need to send those same forms to the companies they buy from</dd></div>
       <div><dt>How it arrives</dt><dd>A link you send. No account and no password for either side.</dd></div>
+      <div><dt>Public sample</dt><dd><span class="state"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8.4l3.6 3.6L13.5 4"/></svg>Sample ready</span></dd></div>
     </dl><p class="mail-note">Pricing and checkout settings checked against Stripe on 2026-09-10. Inspect the free tool and its supported limits before purchasing.</p>
     <p class="hero-cta"><a class="btn btn-buy" href="https://buy.stripe.com/14A7sEfZI0a6cnW4j00sU2G" data-checkout="qrelay" rel="noopener">Subscribe — $175 a month</a><span class="btn-note">$175/mo through Stripe. The Stripe return page checks your purchase and lets you retrieve your key. No email is sent. Cancel any time; the key stops working when the subscription ends. Refunds are not offered; the free tier lets you try the whole tool first.</span></p>
   </div>
@@ -67,6 +68,43 @@ body[data-customer-delivery="20260909"] .btn { border-radius: 6px; min-height: 4
     <section>
       <h2>What it does</h2>
       <p>You send a link to a vendor. They fill in the questionnaire once. Their answers turn into a page anyone can check later, so the next customer who asks them the same questions gets pointed at the same page instead of a new form. The honest line is simple: <strong>we host your vendor's own answers. We never say a vendor is secure.</strong> We just hold what they told you and make it easy to find again.</p>
+    </section>
+
+    <!-- FABLE: layout only. Do not drop, invent, or round the sample rows. -->
+    <section>
+      <h2>What is in the questionnaire<span class="seal">12 of 40 questions</span></h2>
+      <p>The tool sends a bank of 40 questions. Here are 12 of them — the short set — taken from that live bank. <strong>These are the questions the tool sends, not a filled-in vendor answer sheet.</strong> This product has no person-name columns.</p>
+      <div class="evidence">
+        <div class="evidence-head">
+          <span>12 of the 40 questions in the live bank</span>
+          <span class="stamp">Live question bank</span>
+        </div>
+        <div class="scroll">
+          <table>
+            <thead>
+              <tr><th>Id</th><th>Function</th><th>Question</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>GV-01</td><td>Govern</td><td>Is there one named job in your company that owns security decisions?</td></tr>
+              <tr><td>GV-02</td><td>Govern</td><td>Do you have written security rules that your staff have to follow?</td></tr>
+              <tr><td>ID-01</td><td>Identify</td><td>Do you keep an up-to-date list of the computers and servers your business uses?</td></tr>
+              <tr><td>ID-02</td><td>Identify</td><td>Do you keep a list of the software and online services your staff use for work?</td></tr>
+              <tr><td>PR-01</td><td>Protect</td><td>Does every member of staff have their own login, never one shared between people?</td></tr>
+              <tr><td>PR-02</td><td>Protect</td><td>Do staff need a second step to log in, such as a code on their phone?</td></tr>
+              <tr><td>PR-03</td><td>Protect</td><td>Do you take away a person&#x27;s access on the day they leave?</td></tr>
+              <tr><td>DE-01</td><td>Detect</td><td>Do you keep records of who signed in and what they changed?</td></tr>
+              <tr><td>DE-02</td><td>Detect</td><td>Does something watch those records and raise an alarm when they look wrong?</td></tr>
+              <tr><td>RS-01</td><td>Respond</td><td>Do you have a written plan for what to do after a break-in?</td></tr>
+              <tr><td>RC-01</td><td>Recover</td><td>Do you have a written plan for getting the service running again after a serious outage?</td></tr>
+              <tr><td>RC-02</td><td>Recover</td><td>Do you know how long it would take to get back to normal, and have you written that number down?</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="honest">
+        <p><strong>40 is what the bank holds.</strong> A question that is not in the bank is not sent. We have no public extract of a completed questionnaire.</p>
+        <p><strong>Person columns are not in this product.</strong> The sample is the questions only, not anyone&#x27;s answers.</p>
+      </div>
     </section>
 
     <section>
@@ -125,6 +163,15 @@ body[data-customer-delivery="20260909"] .btn { border-radius: 6px; min-height: 4
       </div>
     </section>
 
+    <section class="contact">
+      <h2>See the questions before you pay</h2>
+      <p>You do not have to take our word for what the tool sends. Here are <strong>12 of the 40 questions</strong> from the live question bank this tool uses. Nothing in it is made up. These are the questions, not a filled-in vendor answer sheet.</p>
+      <ul class="spec">
+        <li><a href="https://ustechautomations.com/feeds/qrelay/sample.csv">Open the 12 questions as a CSV</a><span class="sub">A plain spreadsheet file. It saves to your machine rather than painting itself into a browser tab, and it opens in Excel, Numbers or Google Sheets.</span></li>
+        <li><a href="https://ustechautomations.com/feeds/qrelay/sample.json">The same 12 questions as JSON</a><span class="sub">The same rows again, laid out for reading with code.</span></li>
+      </ul>
+      <p class="mail-note">These 12 questions are a slice of the 40-question bank, not a completed vendor answer page. What we cannot show you here is a filled-in run: this tool has no public extract of one.</p>
+    </section>
     <section>
       <h2>More from this feed</h2>
       <ul class="spec">
