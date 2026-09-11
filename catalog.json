@@ -1102,7 +1102,7 @@
     },
     {
       "id": "metro-file",
-      "name": "Metro File",
+      "name": "Building-permit status changes for one city",
       "short": "Metro File",
       "who": "Expediters, lenders and data teams who need every status change on a named metro's permits, not the full board dump and not a ranking.",
       "buyer": "Expediters, lenders and data teams who need every status change on a named metro's permits, not the full board dump and not a ranking",
@@ -2445,7 +2445,7 @@
     },
     {
       "id": "kdp-lens",
-      "name": "KDP Lens: book ranks, in the page",
+      "name": "See Amazon book ranks on the page",
       "buyer": "Self-publishers comparing the book information shown on Amazon.com",
       "cadence": "once",
       "cadence_long": "one lifetime license key, billed once. Free use is 10 Amazon pages a day. A valid key lifts the daily cap",
@@ -2779,7 +2779,7 @@
     },
     {
       "id": "qrelay",
-      "name": "Security questionnaire relay",
+      "name": "Send a vendor security questionnaire",
       "buyer": "B2B software companies that receive vendor security questionnaires from customers and send them to their own vendors",
       "cadence": "monthly, cancel any time",
       "price": "$175/mo",
@@ -2794,6 +2794,7 @@
       "checkout": {
         "url": "https://buy.stripe.com/14A7sEfZI0a6cnW4j00sU2G",
         "terms": "$175/mo through Stripe. The Stripe return page checks your purchase and lets you retrieve your key. No email is sent. Cancel any time; the key stops working when the subscription ends. Refunds are not offered; the free tier lets you try the whole tool first.",
+        "after": "After you pay, Stripe sends you to the thank-you page. That page shows your monthly key. Paste it into the tool. Nobody emails you.",
         "lands_on": "buy.stripe.com",
         "label": "Subscribe — $175 a month",
         "status": "live",
@@ -2831,7 +2832,7 @@
     },
     {
       "id": "ledgermatch",
-      "name": "Supplier ledger reconciliation",
+      "name": "Match invoices to a supplier statement",
       "buyer": "Bookkeepers and small accounting firms that reconcile open supplier invoices with the supplier's own list",
       "cadence": "monthly, cancel any time",
       "price": "$99/mo",
@@ -2846,6 +2847,7 @@
       "checkout": {
         "url": "https://buy.stripe.com/bJecMYeVEbSO3Rq3eW0sU2I",
         "terms": "$99/mo through Stripe. The Stripe return page checks your purchase and lets you retrieve your key. No email is sent. Cancel any time; the key stops working when the subscription ends. Refunds are not offered; the free tier lets you try the whole tool first.",
+        "after": "After you pay, Stripe sends you to the thank-you page. That page shows your monthly key. Paste it into the tool. Nobody emails you.",
         "lands_on": "buy.stripe.com",
         "label": "Subscribe — $99 a month",
         "status": "live",
@@ -2870,6 +2872,7 @@
       "checkout": {
         "url": "https://buy.stripe.com/4gM8wI8xg5uqds0eXE0sU2J",
         "terms": "$199 for 12 months through Stripe. The Stripe return page checks your purchase and lets you retrieve your key. No email is sent. One payment; the key works for 12 months. Refunds are not offered; use the free diagram and the synthetic worked example to inspect the different exports before purchasing.",
+        "after": "After you pay, Stripe sends you to the thank-you page. That page shows your 12-month key. Paste it into the tool. Nobody emails you.",
         "lands_on": "buy.stripe.com",
         "label": "Buy — $199 for 12 months",
         "status": "live",
@@ -2879,7 +2882,7 @@
     },
     {
       "id": "casepack",
-      "name": "Bilingual wholesale reorder sheet",
+      "name": "Wholesale reorder sheet in cases and units",
       "buyer": "Food and beverage wholesalers whose retail customers reorder by the case, in English and Spanish",
       "cadence": "monthly, cancel any time",
       "price": "$49/mo",
@@ -2894,6 +2897,7 @@
       "checkout": {
         "url": "https://buy.stripe.com/aFa8wI28S9KGew46r80sU2K",
         "terms": "$49/mo through Stripe. The Stripe return page checks your purchase and lets you retrieve your key. No email is sent. Cancel any time; the key stops working when the subscription ends. Refunds are not offered; the free tier lets you try the whole tool first.",
+        "after": "After you pay, Stripe sends you to the thank-you page. That page shows your monthly key. Paste it into the tool. Nobody emails you.",
         "lands_on": "buy.stripe.com",
         "label": "Subscribe — $49 a month",
         "status": "live",

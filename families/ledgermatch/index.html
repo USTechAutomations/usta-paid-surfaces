@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Supplier statement match — $99/mo</title>
+  <title>Match invoices to a supplier statement — $99/mo</title>
   <meta name="description" content="Paste your side of a supplier statement, get a link, and see exactly which invoices disagree once the other side pastes theirs. $99/mo.">
   <meta property="og:description" content="Paste your side of a supplier statement, get a link, and see exactly which invoices disagree once the other side pastes theirs. $99/mo.">
   <meta name="twitter:description" content="Paste your side of a supplier statement, get a link, and see exactly which invoices disagree once the other side pastes theirs. $99/mo.">
@@ -23,6 +23,7 @@ body[data-customer-delivery="20260909"] .wrap { overflow-wrap: anywhere; }
 body[data-customer-delivery="20260909"] .btn { border-radius: 6px; min-height: 44px; }
 @media (min-width: 1024px) and (max-width: 1279px) { body[data-customer-delivery="20260909"] .mast-nav { display: none; } }
 </style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"LedgerMatch","url":"https://ustechautomations.com/feeds/ledgermatch/","applicationCategory":"BusinessApplication","operatingSystem":"Web browser","description":"Paste your side of a supplier statement, get a link, and see exactly which invoices disagree once the other side pastes theirs. $99/mo."}</script>
 </head>
 <body data-customer-delivery="20260909" data-family="ledgermatch">
 <a class="skip" href="#main">Skip to content</a>
@@ -44,15 +45,15 @@ body[data-customer-delivery="20260909"] .btn { border-radius: 6px; min-height: 4
 </header>
 <nav class="crumbbar" aria-label="Breadcrumb">
   <div class="wrap">
-    <p class="crumbs"><a href="https://ustechautomations.com/feeds">Dated change feeds</a><span class="sep">/</span>Supplier ledger reconciliation</p>
+    <p class="crumbs"><a href="https://ustechautomations.com/feeds">Dated change feeds</a><span class="sep">/</span>Match invoices to a supplier statement</p>
   </div>
 </nav>
 
 <section class="hero">
   <div class="wrap">
     <p class="eyebrow">Tools you paste on your own site <span class="dot"></span> loop-shaped</p>
-    <h1>Supplier statement match</h1>
-    <p class="lede">Paste your side of a supplier statement. Send a link to the other business so they can paste their side. The tool shows exactly which invoices do not match. <strong>$99/mo.</strong></p>
+    <h1>Match invoices to a supplier statement</h1>
+    <p class="lede">For bookkeepers who need to see which invoices disagree with a supplier's list. Paste your side of a supplier statement. Send a link to the other business so they can paste their side. The tool shows exactly which invoices do not match. <strong>$99/mo.</strong></p>
     <dl class="rail">
       <div><dt>Price</dt><dd class="price">$99/mo</dd></div>
       <div><dt>Built for</dt><dd>Accounting firms checking whether a client's records match the supplier's statement</dd></div>
@@ -168,10 +169,8 @@ INV-1005    2026-09-05      30.00</pre></div>
       <p class="buy-price"><strong>$99/mo</strong> &middot; monthly, cancel any time</p>
       <a class="btn btn-buy btn-lg" href="https://buy.stripe.com/bJecMYeVEbSO3Rq3eW0sU2I" data-checkout="ledgermatch" rel="noopener">Subscribe — $99 a month</a>
       <p class="mail-note">$99/mo through Stripe. The Stripe return page checks your purchase and lets you retrieve your key. No email is sent. Cancel any time; the key stops working when the subscription ends. Refunds are not offered; the free tier lets you try the whole tool first. </p>
-      <p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=LedgerMatch+workflow+fit&amp;body=I+would+like+to+check+whether+LedgerMatch+fits+our+workflow.%0A%0ABusiness+and+my+role%3A%0AComparisons+per+month%3A%0ATypical+rows+per+side%3A%0ACurrent+accounting+software%3A%0AMain+reconciliation+problem%3A%0ARequired+output+and+deadline%3A%0A%0AI+have+not+attached+customer+financial+records.">Email operations@ustechautomations.com</a>. You pay through Stripe; the Stripe return page checks your purchase and lets you retrieve your key. No email is sent. A monthly key. Free: two workspaces per 30 days and 200 rows a side. Paid: no limit and 2,000 rows a side. Cancel any time through Stripe.</p>
     </section>
   </div>
-<p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=LedgerMatch+workflow+fit&amp;body=I+would+like+to+check+whether+LedgerMatch+fits+our+workflow.%0A%0ABusiness+and+my+role%3A%0AComparisons+per+month%3A%0ATypical+rows+per+side%3A%0ACurrent+accounting+software%3A%0AMain+reconciliation+problem%3A%0ARequired+output+and+deadline%3A%0A%0AI+have+not+attached+customer+financial+records.">Email operations@ustechautomations.com</a>. We read that mailbox and answer as soon as we can.</p>
 </main>
 
 <footer class="site">
@@ -269,6 +268,37 @@ INV-1005    2026-09-05      30.00</pre></div>
       errorBox.classList.remove('cp-hide');
     });
   });
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+  var SERVICE_BASE = 'https://usta-loops-260481739341.us-central1.run.app';
+  document.addEventListener('click', function (ev) {
+    try {
+      if (navigator.doNotTrack === '1' || navigator.globalPrivacyControl === true) return;
+      var node = ev.target;
+      var link = node && node.closest ? node.closest('a[data-checkout="ledgermatch"]') : null;
+      if (!link) return;
+      var params = new URLSearchParams();
+      params.set('f', 'ledgermatch');
+      params.set('e', 'checkout_click');
+      var sent = false;
+      try {
+        if (typeof navigator.sendBeacon === 'function') {
+          sent = navigator.sendBeacon(SERVICE_BASE + '/t', JSON.stringify({f: 'ledgermatch', e: 'checkout_click'}));
+        }
+      } catch (err) {
+        sent = false;
+      }
+      if (!sent) {
+        try {
+          var img = new Image();
+          img.src = SERVICE_BASE + '/t?' + params.toString();
+        } catch (err2) {}
+      }
+    } catch (err3) {}
+  }, true);
 })();
 </script>
 </body>

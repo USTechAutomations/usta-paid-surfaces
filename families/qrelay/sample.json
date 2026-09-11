@@ -1,0 +1,76 @@
+{
+  "family": "qrelay",
+  "generated": "2026-09-11",
+  "note": "Real questions from the live questionnaire bank this tool sends. These are the questions, not a filled-in vendor answer sheet. Nothing here is made up.",
+  "where_these_rows_came_from": "Where these rows came from is set out on the page this file came from: https://ustechautomations.com/feeds/qrelay",
+  "rows_published": 12,
+  "questions_in_bank": 40,
+  "columns": 3,
+  "headers": [
+    "id",
+    "function",
+    "question"
+  ],
+  "rows": [
+    [
+      "GV-01",
+      "Govern",
+      "Is there one named job in your company that owns security decisions?"
+    ],
+    [
+      "GV-02",
+      "Govern",
+      "Do you have written security rules that your staff have to follow?"
+    ],
+    [
+      "ID-01",
+      "Identify",
+      "Do you keep an up-to-date list of the computers and servers your business uses?"
+    ],
+    [
+      "ID-02",
+      "Identify",
+      "Do you keep a list of the software and online services your staff use for work?"
+    ],
+    [
+      "PR-01",
+      "Protect",
+      "Does every member of staff have their own login, never one shared between people?"
+    ],
+    [
+      "PR-02",
+      "Protect",
+      "Do staff need a second step to log in, such as a code on their phone?"
+    ],
+    [
+      "PR-03",
+      "Protect",
+      "Do you take away a person's access on the day they leave?"
+    ],
+    [
+      "DE-01",
+      "Detect",
+      "Do you keep records of who signed in and what they changed?"
+    ],
+    [
+      "DE-02",
+      "Detect",
+      "Does something watch those records and raise an alarm when they look wrong?"
+    ],
+    [
+      "RS-01",
+      "Respond",
+      "Do you have a written plan for what to do after a break-in?"
+    ],
+    [
+      "RC-01",
+      "Recover",
+      "Do you have a written plan for getting the service running again after a serious outage?"
+    ],
+    [
+      "RC-02",
+      "Recover",
+      "Do you know how long it would take to get back to normal, and have you written that number down?"
+    ]
+  ]
+}

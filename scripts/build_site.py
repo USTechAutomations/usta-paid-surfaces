@@ -409,13 +409,32 @@ def build_page(src: Path, family: str, crumb_label: str | None, path: str | None
         out = out.replace("</head>", '<script id="usta-checkout-tracking">' + CLICK_BEACON + "</script>\n</head>", 1)
     if rel == 'ttb':
         out = ttb_discovery.enhance(out, ROOT)
-    if rel in {'permit-files/austin', 'boston', 'nyc-ll84',
-               'wp-accessibility-scan', 'pilot-logbook-digitizer'}:
+    _ad_landings = {'permit-files/austin', 'boston', 'nyc-ll84',
+                    'wp-accessibility-scan', 'pilot-logbook-digitizer'}
+    if not hasattr(build_page, '_live_checkout_rels'):
+        _rels = set()
+        for _fam in CATALOG['families']:
+            _ck = _fam.get('checkout') or {}
+            _url = _ck.get('url') or ''
+            if _ck.get('status') == 'live' and str(_url).startswith('https://'):
+                _rels.add(_fam['id'])
+            for _board, _bc in (_fam.get('board_checkouts') or {}).items():
+                if not isinstance(_bc, dict):
+                    continue
+                _burl = _bc.get('url') or ''
+                if _bc.get('status') == 'live' and str(_burl).startswith('https://'):
+                    _rels.add(f"{_fam['id']}/{_board}")
+        build_page._live_checkout_rels = _rels
+    if rel in _ad_landings:
         out = enhance_paid_landing(rel, out)
-        # Only the explicitly reviewed paid destinations. Inline to avoid a new
-        # script route or a MIME-type mismatch in the static side service.
+    if ((rel in _ad_landings or rel in build_page._live_checkout_rels)
+            and 'id="usta-paid-click-reference"' not in out):
+        # Inline to avoid a new script route or a MIME-type mismatch in the
+        # static side service. Ad CSS stays on the five reviewed destinations.
         tracking = (ROOT / 'scripts' / 'paid_click_reference.js').read_text()
-        out = out.replace('</head>', '<script>' + tracking + '</script>\n'
+        extra = '<script id="usta-paid-click-reference">' + tracking + '</script>\n'
+        if rel in _ad_landings:
+            extra += (
                           # One border weight and one radius, both from the
                           # shared tokens (BRAND.md §4). This block used to hard
                           # code #9ca3af and .6rem, which is why five paid landing
@@ -426,7 +445,8 @@ def build_page(src: Path, family: str, crumb_label: str | None, path: str | None
                           '.ad-buyer-guide{padding:1rem;border:1px solid var(--line);'
                           'border-radius:var(--radius);max-width:52rem;line-height:1.6}'
                           '.ad-buyer-guide a{font-weight:600}'
-                          ':target{scroll-margin-top:2rem}</style>\n</head>', 1)
+                          ':target{scroll-margin-top:2rem}</style>\n')
+        out = out.replace('</head>', extra + '</head>', 1)
     out = re.sub(r'<meta property="og:site_name" content="[^"]*">',
                  '<meta property="og:site_name" content="US Tech Automations">', out)
     # theme-color follows the main site, light and dark, not the old per-family accent
