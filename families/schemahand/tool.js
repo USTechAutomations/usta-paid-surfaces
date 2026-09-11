@@ -778,12 +778,51 @@
 
   function beacon(event) {
     try {
-      var img = (typeof Image !== "undefined") ? new Image() : null;
-      var url = SERVICE + "/t?f=schemahand&e=" + encodeURIComponent(event);
-      if (img) {
-        img.src = url;
-      } else if (typeof navigator !== "undefined" && navigator.sendBeacon) {
-        navigator.sendBeacon(url);
+      var queued = false;
+      var body = JSON.stringify({ f: "schemahand", e: event });
+      if (typeof navigator !== "undefined" && typeof navigator.sendBeacon === "function") {
+        try {
+          queued = !!navigator.sendBeacon(SERVICE + "/t", body);
+        } catch (ignore) {
+          queued = false;
+        }
+      }
+      if (!queued) {
+        var img = (typeof Image !== "undefined") ? new Image() : null;
+        if (img) {
+          img.src = SERVICE + "/t?f=schemahand&e=" + encodeURIComponent(event);
+        }
+      }
+    } catch (e) { /* telemetry must never break the page */ }
+  }
+
+  function onCheckoutClick(ev) {
+    try {
+      if (!ev) return;
+      if (typeof ev.button === "number" && ev.button !== 0) return;
+      var node = ev.currentTarget || ev.target;
+      if (node && typeof node.closest === "function") {
+        var found = node.closest('a[data-checkout="schemahand"]');
+        if (found) node = found;
+      }
+      if (!node || typeof node.getAttribute !== "function") return;
+      if (node.getAttribute("data-checkout") !== "schemahand") return;
+      beacon("checkout_click");
+    } catch (e) { /* telemetry must never break the page */ }
+  }
+
+  function bindCheckoutClicks() {
+    try {
+      if (!document.querySelectorAll) return;
+      var nodes = document.querySelectorAll('a[data-checkout="schemahand"]');
+      var i, node;
+      for (i = 0; i < nodes.length; i++) {
+        node = nodes[i];
+        if (!node || node.__shCheckoutBound) continue;
+        if (typeof node.getAttribute === "function" && node.getAttribute("data-checkout") !== "schemahand") continue;
+        if (typeof node.addEventListener !== "function") continue;
+        node.__shCheckoutBound = true;
+        node.addEventListener("click", onCheckoutClick);
       }
     } catch (e) { /* telemetry must never break the page */ }
   }
@@ -1250,7 +1289,7 @@
 
   function initPage() {
     // The page-load beacon is a static <img> in index.html, per the
-    // family contract; this JS only fires the export beacons below.
+    // family contract; this JS fires export and checkout-click beacons.
     var input = document.getElementById("sh-input");
     var parseBtn = document.getElementById("sh-parse");
     var demoBtn = document.getElementById("sh-demo");
@@ -1434,6 +1473,8 @@
         }).finally(function () { proExportBtn.disabled = false; });
       });
     }
+
+    bindCheckoutClicks();
   }
 
   if (hasDom) {
