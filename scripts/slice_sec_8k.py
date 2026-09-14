@@ -1020,12 +1020,13 @@ def family_spec() -> dict:
         "cadence": "Sealed record, not a live feed",
         "cadence_long": words(fam, "cadence_long"),
         "crumb": "8-K filings",
-        "h1": "8-K filings: a sealed record, not a live feed",
+        "h1": "8-K filings: officer and auditor changes, by date",
         "price": price,
         "buyer": fam.get("buyer", "Audit, IR, and software vendors"),
         "desc": (
-            f"{len(h['filings']):,} named US 8-K filings sealed to {d(h['item_newest'])}, with "
-            "ticker, CIK and item number. Collection has paused. Email operations@."
+            f"{len(h['filings']):,} named US 8-K filings sealed to {d(h['item_newest'])}: "
+            "ticker, CIK and item number, so officer and auditor changes are findable. "
+            "Collection has paused."
         ),
         "lede": (
             "A company files an 8-K when something happens its shareholders should hear about "

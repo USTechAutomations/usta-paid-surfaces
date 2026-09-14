@@ -1149,9 +1149,9 @@ def family_spec() -> dict:
             ),
             "crumb": "Product recalls",
             "h1": (
-                "Product recall changes"
+                "US food recalls by state, day by day"
                 if live
-                else "Product recall changes: dated copies, no longer being added to"
+                else "US food recalls by state, from dated copies we kept"
             ),
             # Read from the catalog row, which is also the row render_slice.py
             # reads for the child pages. One row, one price, every page in the
@@ -1168,8 +1168,8 @@ def family_spec() -> dict:
             # the newest date we hold, and -- while it is true -- that nothing
             # new is arriving.
             "desc": (
-                f"Named US food recalls whose status changed between two dated copies we "
-                f"sealed: {len(status_moves)} changes out of {h['recalls']:,} recalls, to "
+                f"US food recalls by state, named, with what changed between two dated "
+                f"copies: {len(status_moves)} of {h['recalls']:,} recalls, to "
                 f"{d(h['newest'])}. "
                 + ("" if live else f"{PAUSED}. ")
                 + (f"{price}." if selling(price) else "")

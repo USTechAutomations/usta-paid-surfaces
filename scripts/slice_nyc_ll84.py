@@ -477,8 +477,8 @@ def family_spec() -> dict:
         ),
     ]
     desc = (
-        f"{commas(n)} NYC LL84 energy-and-water rows pulled {pulled}, "
-        f"$349 once per year or borough slice. City CSV stays free."
+        f"{commas(n)} NYC LL84 rows with ENERGY STAR score, pulled {pulled}. "
+        f"$349 once per calendar year or borough slice. The city CSV stays free."
     )
     if len(desc) > 155:
         desc = desc[:152] + "..."
@@ -490,7 +490,7 @@ def family_spec() -> dict:
         "cadence": fam["cadence"],
         "cadence_long": fam["cadence_long"],
         "crumb": "NYC LL84",
-        "h1": "NYC LL84 energy-and-water disclosure in one file",
+        "h1": "NYC LL84 energy and water disclosure, one dated CSV",
         "price": fam["price"],
         "buyer": fam["buyer"],
         "desc": desc,

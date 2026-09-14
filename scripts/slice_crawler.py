@@ -1302,8 +1302,8 @@ def family_spec() -> dict:
     ]
 
     desc = (
-        f"{sites:,} named sites changed their robots.txt answer to an AI crawler in our "
-        f"last {reads} reads, to {_day(d['newest'])}. Both readings, both dates. {price}."
+        f"{sites:,} named sites changed their robots.txt answer to GPTBot, CCBot, "
+        f"ClaudeBot or Google-Extended, to {_day(d['newest'])}. Both dates kept. {price}."
     )
 
     return {
@@ -1323,7 +1323,7 @@ def family_spec() -> dict:
         "cadence_long": (f"Daily copies up to {_paused_day()}, paused since; "
                          f"the archive to that day is still available"),
         "crumb": "AI-crawler policy changes",
-        "h1": "AI-crawler policy changes",
+        "h1": "robots.txt changes for GPTBot, CCBot and Google-Extended",
         # One row, one price, every page in the family. Withdrawing the price in
         # catalog.json withdraws it here and on every child page in the same run.
         "price": price,

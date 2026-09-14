@@ -826,8 +826,8 @@ def family_spec_for(city: str, fid: str, place: str, long_name: str,
         ),
     ]
     desc = (
-        f"{w['n']:,} {place} building-permit rows pulled {d(pulled)}, "
-        f"five slices at $349 once. Person columns stripped."
+        f"{w['n']:,} {place} building, electrical, plumbing and gas permit rows "
+        f"pulled {d(pulled)}. Five slices at $349 once. Person columns stripped."
     )
     if len(desc) > 155:
         desc = desc[:152] + "..."
@@ -839,7 +839,7 @@ def family_spec_for(city: str, fid: str, place: str, long_name: str,
         "cadence": fam["cadence"],
         "cadence_long": fam["cadence_long"],
         "crumb": place,
-        "h1": f"{place} building permits in one file",
+        "h1": f"{place} building, electrical and plumbing permits in one file",
         "price": fam["price"],
         "buyer": fam["buyer"],
         "desc": desc,

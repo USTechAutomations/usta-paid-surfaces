@@ -1058,7 +1058,7 @@ def family_spec() -> dict:
             ),
             "pill_text": f"{PAUSED_PHRASE.capitalize()} {_stop_day()}",
             "crumb": "Resolved prediction markets",
-            "h1": "Resolved prediction markets",
+            "h1": "Resolved prediction market data, sealed on resolution day",
             "price": PRICE,
             "buyer": "Quantitative researchers, sports and finance data teams, and reporters",
             # The venue count is counted, not the word "three" typed out: if we
