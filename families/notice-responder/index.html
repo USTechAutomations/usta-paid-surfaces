@@ -4,11 +4,11 @@
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="index,follow">
 <title>Notice Responder — not on sale</title>
-<meta name="description" content="Notice Responder letter packs are unavailable. Read official IRS CP14 and CP2000 guidance and the date printed on your actual notice.">
+<meta name="description" content="Purchases unavailable. Official IRS references only. Look up 16 common IRS notices in your browser; no letter is generated.">
 <meta property="og:title" content="Notice Responder — not on sale">
-<meta property="og:description" content="Notice Responder letter packs are unavailable. Read official IRS CP14 and CP2000 guidance and the date printed on your actual notice.">
+<meta property="og:description" content="Purchases unavailable. Official IRS references only. Look up 16 common IRS notices in your browser; no letter is generated.">
 <meta name="twitter:title" content="Notice Responder — not on sale">
-<meta name="twitter:description" content="Notice Responder letter packs are unavailable. Read official IRS CP14 and CP2000 guidance and the date printed on your actual notice.">
+<meta name="twitter:description" content="Purchases unavailable. Official IRS references only. Look up 16 common IRS notices in your browser; no letter is generated.">
 <link rel="canonical" href="https://ustechautomations.com/feeds/notice-responder/">
 <link rel="icon" type="image/svg+xml" href="/logo.svg">
 <link rel="stylesheet" href="https://ustechautomations.com/feeds/styles.css?v=customer20260909">
@@ -17,6 +17,8 @@ body[data-customer-delivery="20260909"] { --primary: var(--primary-surface-hover
 body[data-customer-delivery="20260909"] .wrap { overflow-wrap: anywhere; }
 body[data-customer-delivery="20260909"] .btn { border-radius: 6px; min-height: 44px; } body[data-customer-delivery="20260909"] .hero-cta .btn-ghost { color: hsl(var(--foreground)); border-color: hsl(var(--foreground) / .35); }
 body[data-customer-delivery="20260909"] main a { color: var(--fg); text-decoration: underline; }
+body[data-customer-delivery="20260909"] label { display: block; margin: .75rem 0 .35rem; }
+body[data-customer-delivery="20260909"] textarea.field { max-width: 40rem; min-height: 8rem; }
 @media (min-width: 1024px) and (max-width: 1279px) { body[data-customer-delivery="20260909"] .mast-nav { display: none; } }</style>
 </head><body data-customer-delivery="20260909" data-family="notice-responder">
 <a class="skip" href="#main">Skip to content</a>
@@ -42,15 +44,45 @@ body[data-customer-delivery="20260909"] main a { color: var(--fg); text-decorati
 </nav>
 <section class="hero"><div class="wrap"><p class="eyebrow">Reference page · Purchases unavailable</p>
 <h1>Notice Responder</h1>
-<p class="lede">Letter packs are currently unavailable. Read your notice and use the agency's own instructions. These IRS links explain CP14 and CP2000 notices.</p>
+<p class="lede">Purchases unavailable. Official references only. Look up one of 16 common IRS notices against the matching IRS page. The lookup runs in your browser, does not send your notice anywhere, and does not write a letter.</p>
 <p class="off-sale-truth">Sample not ready. Purchases are unavailable; use the official notice references below.</p>
 <dl class="rail"><div><dt>Availability</dt><dd>Not on sale</dd></div><div><dt>Current use</dt><dd>Official notice references</dd></div></dl>
-<p class="hero-cta"><a class="btn btn-ghost" href="#notice-references">Find your notice reference</a></p></div></section>
-<main id="main" tabindex="-1"><div class="wrap"><section id="notice-references" tabindex="-1"><h2>Official IRS notice references</h2>
-<ul class="spec"><li><strong>CP14</strong><span class="sub">An IRS balance-due notice. Follow the payment date and instructions printed on your notice.</span><a href="https://www.irs.gov/individuals/understanding-your-cp14-notice">Read the IRS explanation of CP14</a></li>
-<li><strong>CP2000 series</strong><span class="sub">Income or payment information differs from what was reported. Proposed changes may increase, decrease or leave your tax unchanged. The notice is not a bill.</span><a href="https://www.irs.gov/individuals/understanding-your-cp2000-series-notice">Read the IRS explanation of CP2000</a></li></ul>
-<p>Use the response date on your actual notice. This page does not calculate a deadline, prepare a letter or submit anything to an agency.</p></section>
-<section><h2>Why letter packs are unavailable</h2><p>The current purchase workflow does not reliably retain the selected notice or generate a usable letter. The old sample summaries and deadline rules have not been verified against their sources. They are not presented here as guidance.</p><p>New purchases are disabled. There is no announced reopening date.</p></section>
+<p class="hero-cta"><a class="btn btn-ghost" href="#notice-lookup">Look up your notice</a></p></div></section>
+<main id="main" tabindex="-1"><div class="wrap">
+<section id="notice-lookup">
+<h2>Look up a notice</h2>
+<p>Pick a code, or paste the heading of the notice. Matching happens on this page. Nothing is sent to us or to the IRS.</p>
+<form id="notice-lookup-form">
+<label for="code-picker">Notice code</label>
+<select class="field" id="code-picker" name="code"></select>
+<label for="paste">Or paste the notice heading</label>
+<textarea class="field" id="paste" name="paste" rows="6" cols="60" placeholder="Paste the notice heading or code, for example CP2000"></textarea>
+<p><button type="submit" class="btn btn-ghost" id="explain-btn">Explain this notice</button></p>
+</form>
+<noscript><p>This lookup needs JavaScript in your browser. Use the IRS links in the list below instead.</p></noscript>
+<div id="result"></div>
+</section>
+<section id="notice-references"><h2>Official IRS notice references</h2>
+<ul class="spec">
+<li><strong>CP2000</strong><span class="sub">Third-party income does not match the return. Proposed changes; not a bill.</span><a href="https://www.irs.gov/individuals/understanding-your-cp2000-series-notice">IRS: CP2000 series</a></li>
+<li><strong>CP2501</strong><span class="sub">Same mismatch, inquiry first. You must respond.</span><a href="https://www.irs.gov/individuals/understanding-your-cp2501-notice">IRS: CP2501</a></li>
+<li><strong>CP14</strong><span class="sub">You owe unpaid tax. Pay by the date on the notice.</span><a href="https://www.irs.gov/individuals/understanding-your-cp14-notice">IRS: CP14</a></li>
+<li><strong>CP501</strong><span class="sub">First reminder of a balance still open.</span><a href="https://www.irs.gov/individuals/understanding-your-cp501-notice">IRS: CP501</a></li>
+<li><strong>CP503</strong><span class="sub">Second reminder. A tax lien can follow.</span><a href="https://www.irs.gov/individuals/understanding-your-cp503-notice">IRS: CP503</a></li>
+<li><strong>CP504</strong><span class="sub">Notice of intent to levy. Pay or call immediately.</span><a href="https://www.irs.gov/individuals/understanding-your-cp504-notice">IRS: CP504</a></li>
+<li><strong>CP11</strong><span class="sub">Math or clerical correction. You owe.</span><a href="https://www.irs.gov/individuals/understanding-your-cp11-notice">IRS: CP11</a></li>
+<li><strong>CP12</strong><span class="sub">Math or clerical correction. Refund changed.</span><a href="https://www.irs.gov/individuals/understanding-your-cp12-notice">IRS: CP12</a></li>
+<li><strong>CP21A</strong><span class="sub">Return changed after processing. You owe.</span><a href="https://www.irs.gov/individuals/understanding-your-cp21a-notice">IRS: CP21A</a></li>
+<li><strong>CP22A</strong><span class="sub">Return changed after processing. Balance due.</span><a href="https://www.irs.gov/individuals/understanding-your-cp22a-notice">IRS: CP22A</a></li>
+<li><strong>CP161</strong><span class="sub">Unpaid balance. Call within 10 days if the figures are wrong.</span><a href="https://www.irs.gov/individuals/understanding-your-cp161-notice">IRS: CP161</a></li>
+<li><strong>CP2100</strong><span class="sub">Payer notice: missing or mismatched payee TINs.</span><a href="https://www.irs.gov/individuals/understanding-your-cp2100-or-cp2100a-notice">IRS: CP2100 / CP2100A</a></li>
+<li><strong>LT11</strong><span class="sub">Final levy warning (Letter 1058). Collection Due Process hearing.</span><a href="https://www.irs.gov/individuals/understanding-your-lt11-notice">IRS: LT11 / Letter 1058</a></li>
+<li><strong>LT16</strong><span class="sub">Collection of unpaid tax and/or missing returns.</span><a href="https://www.irs.gov/individuals/understanding-your-lt16-notice">IRS: LT16</a></li>
+<li><strong>CP49</strong><span class="sub">Refund used to pay another tax debt.</span><a href="https://www.irs.gov/individuals/understanding-your-cp49-notice">IRS: CP49</a></li>
+<li><strong>CP59</strong><span class="sub">No record of a prior-year personal return.</span><a href="https://www.irs.gov/individuals/understanding-your-cp59-notice">IRS: CP59</a></li>
+</ul>
+<p>Use the response date on your actual notice. This page does not calculate a deadline, prepare a letter or submit anything to an agency. An unknown code is not guessed; use the IRS general lookup at <a href="https://www.irs.gov/individuals/understanding-your-irs-notice-or-letter">Understanding your IRS notice or letter</a>.</p></section>
+<section><h2>Why letter packs are unavailable</h2><p>A generated letter is not for sale. The lookup above restates the matching IRS page for 16 codes: what the notice means, the deadline language on that page, the response options listed there, and which papers to gather. It does not write a reply.</p><p>New purchases are disabled. There is no announced reopening date.</p></section>
 <section class="contact"><h2>Existing purchases</h2><p>Keep your receipt, private purchase return link and any key you already retrieved. <a href="mailto:operations@ustechautomations.com?subject=Notice%20Responder%20existing%20purchase">Contact operations</a> with your receipt number for help. Do not email a full tax notice or taxpayer identifiers.</p></section></div></main>
 <footer class="site">
   <div class="wrap">
@@ -108,4 +140,5 @@ body[data-customer-delivery="20260909"] main a { color: var(--fg); text-decorati
     </div>
   </div>
 </footer>
+<script type="module" src="./app.js"></script>
 </body></html>

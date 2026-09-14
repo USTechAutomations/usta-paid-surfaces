@@ -97,3 +97,9 @@ Under `~/.hermes/state/fv5/`:
 - `ledger.json`, `health.json` — the latest ledger and health snapshots.
 
 Alerts (when health fails) go to `~/.hermes/state/alerts/fv5.md`.
+
+## September 11: scoped public overlay readback
+
+`lib/overlay_deploy.py::ship` now freezes expected HTML from its build context, confirms the intended image serves all traffic, fetches exact page bytes, then checks the image again. An old page returning 200 cannot prove a new release. Unavailable evidence is UNKNOWN/nonzero; pinned traffic is a refused release requiring review, never automatic activation. Reads are bounded; diagnostics omit private URLs and contents. The legacy HEAD helper remains liveness-only.
+
+This helper is not the signed private-delivery path used by `fulfil.py`/`publish.py`. Do not move private buyer artifacts into public overlays. Fifteen focused tests and a read-only actual-image/thanks-page check are saved in `~/advisor-plans/customer-value-integration-20260911/today/`. The wrong-byte negative control was refused. This is publication verification, not evidence of a paid delivery or of every scheduler calling this helper.

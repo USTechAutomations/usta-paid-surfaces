@@ -1,9 +1,9 @@
-=== WP Accessibility Scan ===
+=== USTA Accessibility Scan ===
 Contributors: ustechautomations
 Tags: accessibility, a11y, wcag, headings, alt-text
 Requires at least: 6.0
-Tested up to: 6.8
-Stable tag: 0.1.0
+Tested up to: 7.1
+Stable tag: 0.1.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -12,7 +12,7 @@ Flags missing alt text, empty links, missing labels, heading skips, duplicate id
 
 == Description ==
 
-WP Accessibility Scan is a free tool for WordPress site owners. It adds a Tools screen that fetches a page on your own site and lists findings a person can act on.
+USTA Accessibility Scan is a free tool for WordPress site owners. It adds a Tools screen that fetches a page on your own site and lists findings a person can act on.
 
 Checks (all free, no key):
 
@@ -30,7 +30,7 @@ A settings checkbox (off by default) can show a link to a separate weekly hosted
 
 == Installation ==
 
-1. Upload the `wp-accessibility-scan` folder to `/wp-content/plugins/`.
+1. Upload the `usta-accessibility-scan` folder to `/wp-content/plugins/`.
 2. Activate the plugin through the Plugins screen.
 3. Open Tools → Accessibility scan.
 4. Leave the hosted-scan link checkbox off unless you want that link shown.
@@ -54,6 +54,10 @@ No. A checkbox (off by default) can show a link to our hosted scan page. That is
 A separate paid service. Our machine fetches public pages of a site you name, runs the same class of checks, and emails a CSV. The plugin keeps working if you never buy that.
 
 == Changelog ==
+
+= 0.1.1 =
+* Restrict scans to the same scheme, host and port, without redirects.
+* Refuse oversized and non-HTML responses instead of producing partial findings.
 
 = 0.1.0 =
 * First release.

@@ -40,6 +40,7 @@ MIN_GAPS = 5
 
 MIN_ROWS = 5      # a slice with fewer real named rows than this is not returned
 TABLE_CAP = 12    # rows shown in any table except the coverage roll-call
+SAMPLE_CAP = 25   # public sample and parent appeared table; same cap as write_sample
 MAX_DESC = 155    # where a search result gets cut off
 
 MISSING_NAME = "name not in our copy"
@@ -242,7 +243,8 @@ class Change:
 class Data:
     """Everything the slices need, read once out of the sealed database."""
 
-    def __init__(self, db: Path = DB_PATH):
+    def __init__(self, db: Path | None = None):
+        db = Path(db) if db is not None else DB_PATH
         if not db.exists():
             raise SystemExit(f"ttb: no permit database at {db}")
         con = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
@@ -303,8 +305,66 @@ _DATA: Data | None = None
 def data() -> Data:
     global _DATA
     if _DATA is None:
-        _DATA = Data()
+        try:
+            _DATA = Data()
+        except (OSError, sqlite3.Error, SystemExit, ValueError) as exc:
+            print(f"UNKNOWN: TTB source cannot be read ({type(exc).__name__})", file=sys.stderr)
+            raise SystemExit(2) from exc
     return _DATA
+
+
+def reset_data() -> None:
+    """Drop the cached read so a later call (or a test fixture) loads again."""
+    global _DATA
+    _DATA = None
+
+
+def held_pair(d: Data | None = None) -> tuple[str, str]:
+    """The one comparison the parent page and the public sample both use.
+
+    Newest adjacent pair that actually moved; if every pair is identical, the
+    newest pair still stands (an empty week is honest, a silent older week is not).
+    """
+    d = d or data()
+    if not d.pairs:
+        raise RuntimeError("UNKNOWN: TTB source holds no sealed pair")
+    return next((p for p in d.pairs if d.changes[p]), d.pairs[0])
+
+
+def wave2_sample(d: Data | None = None) -> dict:
+    """samples/ttb.json shape from held_pair(), for build_wave2.ttb().
+
+    appeared is capped at SAMPLE_CAP so the parent table and the downloadable
+    sample stay the same 25 (or fewer) permit rows. gone is the full set: the
+    parent already prints every disappearance.
+    """
+    d = d or data()
+    earlier, later = held_pair(d)
+    appeared: list[dict] = []
+    gone: list[dict] = []
+    for c in d.changes[(earlier, later)]:
+        rec = {
+            "permit": c.permit,
+            "name": c.row[NAME] or None,
+            "city": c.row[CITY] or "",
+            "state": c.row[ST] or "",
+            "industry": c.row[TRADE] or "",
+        }
+        if c.kind == "appeared":
+            appeared.append(rec)
+        elif c.kind == "gone":
+            gone.append(rec)
+    return {
+        "id": "ttb",
+        "from": earlier,
+        "to": later,
+        "appeared_count": len(appeared),
+        "gone_count": len(gone),
+        "appeared": appeared[:SAMPLE_CAP],
+        "gone": gone,
+        "changed_sample": [c for c in d.changes[(earlier, later)][:SAMPLE_CAP]
+                           if c.kind == "moved"],
+    }
 
 
 # -------------------------------------------------------------------- tables
@@ -979,7 +1039,7 @@ def sample() -> tuple[list[str], list[list[str]]]:
     """The permanent public sample: real change between the two newest copies.
 
     Plain text, not page markup: this one is written out as a JSON and a CSV
-    file that a buyer opens in a spreadsheet.
+    file that a buyer opens in a spreadsheet. Same held pair as family_spec().
     """
     d = data()
     headers = [
@@ -992,8 +1052,8 @@ def sample() -> tuple[list[str], list[list[str]]]:
     # the sample went out as a header line and check_site refused the whole
     # estate. An empty week is honest on the page; an empty public sample is a
     # file with nothing in it for a buyer to read.
-    moved = next((p for p in d.pairs if d.changes[p]), d.pairs[0])
-    for c in d.changes[moved][:25]:
+    moved = held_pair(d)
+    for c in d.changes[moved][:SAMPLE_CAP]:
         rows.append([
             c.permit,
             _name_cell(c.row[NAME]),
@@ -1005,6 +1065,16 @@ def sample() -> tuple[list[str], list[list[str]]]:
             _d(c.pair[1]),
         ])
     return headers, rows
+
+
+def family_spec() -> dict:
+    """Parent page spec from the same held comparison as sample().
+
+    Adapts build_wave2.ttb() so the renderer, $99 one-state terms, and current
+    copy are not duplicated. build_slices writes this after write_sample().
+    """
+    import build_wave2
+    return build_wave2.ttb(sample_json=wave2_sample())
 
 
 # ----------------------------------------------------------------- self-check

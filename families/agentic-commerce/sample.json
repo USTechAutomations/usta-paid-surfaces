@@ -1,9 +1,9 @@
 {
   "family": "agentic-commerce",
-  "generated": "2026-09-10",
+  "generated": "2026-09-14",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/agentic-commerce",
-  "rows_published": 15,
+  "rows_published": 16,
   "columns": 8,
   "headers": [
     "company",
@@ -13,7 +13,7 @@
     "status_that_day",
     "first_read_it_was_there",
     "first_line_of_the_file",
-    "state_on_2026-09-10"
+    "state_on_2026-09-14"
   ],
   "rows": [
     [
@@ -164,6 +164,16 @@
       "404",
       "2026-09-10",
       "# Saatva",
+      "there"
+    ],
+    [
+      "underarmour.com",
+      "Agent-instructions file",
+      "/llms.txt",
+      "2026-09-10",
+      "404",
+      "2026-09-11",
+      "# Under Armour",
       "there"
     ]
   ]

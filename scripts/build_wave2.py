@@ -337,11 +337,16 @@ def mesa_code() -> dict:
     }
 
 
-def ttb() -> dict:
-    """Durable TTB page copy for the existing state-bound checkout rail."""
+def ttb(sample_json: dict | None = None) -> dict:
+    """Durable TTB page copy for the existing state-bound checkout rail.
+
+    sample_json is the one held comparison (from slice_ttb.wave2_sample). When
+    omitted, the sealed samples/ttb.json file is used so existing contract
+    tests that patch S() keep their meaning.
+    """
     p = price("ttb")
     sale = "$" in p
-    j = S("ttb")
+    j = sample_json if sample_json is not None else S("ttb")
     frm, to = d(j["from"]), d(j["to"])
     NOTNAME = '<span class="sub">name not in our copy</span>'
 
@@ -380,7 +385,7 @@ def ttb() -> dict:
             f"      <p class=\"source-credit\">{TTB_SOURCE_CREDIT}</p>\n"
             + table(["Permit", "Business", "Where", "Industry"], app,
                     "Permits that were not in the earlier copy", f"{frm} → {to}")
-            + f"\n      <p>Twelve of {j['appeared_count']} shown. The paid file carries every change for the state or territory selected at checkout.</p>",
+            + f"\n      <p>{len(app)} of {j['appeared_count']} shown. The paid file carries every change for the state or territory selected at checkout.</p>",
         ),
         section(
             "Permits that stopped being listed",
@@ -413,6 +418,13 @@ def ttb() -> dict:
             f'      <div class="honest">\n        <p>The sample above is the latest pair we hold: {frm} to {to}. A row leaving one copy and missing from the next is a net-copy observation. It does not establish a TTB revocation, a closure or the reason for the change.</p>\n      </div>',
         ),
     ]
+    if j.get("changed_sample"):
+        changes = j["changed_sample"]
+        secs.insert(2, section("Changed fields in the sample", None,
+            table(["Permit", "Business", "Field", "Earlier value", "Later value"],
+                  [(esc(c.permit), esc(c.row[0] or "name not in our copy"),
+                    esc(c.field), esc(str(c.old or "")), esc(str(c.new or "")))
+                   for c in changes], "Changed fields", f"{frm} → {to}")))
     return {
         "sections": secs,
         "id": "ttb",

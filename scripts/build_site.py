@@ -272,7 +272,7 @@ def dataset_jsonld(fid: str, canon: str, page: str) -> str | None:
     for every page this runs on; a sample file is genuinely free to fetch
     with no key and no payment, so its own DataDownload entry carries True.
     """
-    if fid in {"grid", "schemahand"} and 'type="application/ld+json"' in page:
+    if fid in {"grid", "schemahand", "silent-refusal-kit"} and 'type="application/ld+json"' in page:
         return None  # these sources own their explicit product metadata
     fam = FAMILY_BY_ID.get(fid)
     if fam is None:
@@ -1127,6 +1127,10 @@ def main() -> None:
     # A page that stopped being fed must say so. This is the last gate because it
     # reads the built pages, not the sources: it proves what would go live.
     check_freshness(DIST)
+    # Retain reviewed offer-click measurement after each source rebuild.
+    # The installer leaves prices, navigation and existing tool handlers alone.
+    from install_checkout_events import install as install_checkout_events
+    install_checkout_events(DIST)
 
 
 if __name__ == "__main__":

@@ -2,9 +2,9 @@
   "actorSpecification": 1,
   "name": "osha-severe-injury-reports",
   "title": "OSHA Severe-Injury Reports Scraper",
-  "description": "One clean item per OSHA severe-injury report: employer, city, state, industry code, and whether a hospitalisation or amputation was reported. Firms only, no worker names. Pay per run.",
-  "version": "0.1",
-  "buildTag": "latest",
+  "description": "Filter OSHA severe-injury records by state, date, industry and employer. Uses a validated source copy checked daily; stale collections are refused. Includes source dates and injury counts, with no worker names or addresses.",
+  "version": "0.3",
+  "buildTag": "osha-recovery-20260912",
   "input": "./input_schema.json",
   "output": "./output_schema.json",
   "dockerfile": "./Dockerfile",
@@ -17,6 +17,8 @@
           "title": "Reports",
           "transformation": {
             "fields": [
+              "report_key",
+              "id",
               "event_date",
               "employer",
               "city",
@@ -24,8 +26,10 @@
               "naics",
               "hospitalized",
               "amputation",
+              "loss_of_eye",
               "nature",
               "body_part",
+              "source_period_to",
               "source_url"
             ]
           },

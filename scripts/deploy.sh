@@ -37,5 +37,9 @@ gcloud run deploy usta-feeds \
   --image "gcr.io/usta-prod/usta-feeds:${TAG}" \
   --region us-central1 --platform managed \
   --allow-unauthenticated --port 8080 --account "$ACCOUNT" --quiet
+# The service spec can stay pinned on an old revision. Creating a revision
+# without this switch leaves 100% of traffic on the previous one.
+gcloud run services update-traffic usta-feeds \
+  --to-latest --region us-central1 --account "$ACCOUNT" --quiet
 
 python3 scripts/preserve_independent_overlays.py verify-public --candidate "$BUILD_DIR" --account "$ACCOUNT"

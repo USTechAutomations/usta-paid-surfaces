@@ -12,6 +12,12 @@
       "type": "string",
       "title": "Severe-injury reports (CSV)",
       "template": "{{links.apiDefaultDatasetUrl}}/items?format=csv"
+    },
+    "summary": {
+      "type": "string",
+      "title": "Source coverage and run status",
+      "description": "Source release dates, full-file and matching counts, unknowns, omitted matches and SUCCESS/NO_MATCHES/UNKNOWN status.",
+      "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
     }
   }
 }

@@ -1,9 +1,9 @@
 {
   "family": "permit-metros",
-  "generated": "2026-09-11",
+  "generated": "2026-09-14",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/permit-metros",
-  "rows_published": 24,
+  "rows_published": 20,
   "columns": 7,
   "headers": [
     "City",
@@ -17,219 +17,183 @@
   "rows": [
     [
       "Austin",
-      "2026-015870 BP",
-      "903 E 13TH ST",
-      "Live Oak Renovations LLC",
-      "R- 434 Addition & Alterations / Addition and Remodel",
-      "9 Sep 2026",
-      "11 Sep 2026"
+      "2026-118763 BP",
+      "2831 SAN GABRIEL ST",
+      "not given",
+      "R- 649 Demolition All Other Bldgs Res / Demolition",
+      "12 Sep 2026",
+      "14 Sep 2026"
     ],
     [
       "Austin",
-      "2026-015871 BP",
-      "903 E 13TH ST",
-      "Live Oak Renovations LLC",
-      "R- 329 Res Structures Other Than Bldg / New",
-      "9 Sep 2026",
-      "11 Sep 2026"
+      "2025-115505 BP",
+      "709 W MONROE ST",
+      "Joseph Design Build**MAIN***",
+      "R- 101 Single Family Houses / New",
+      "11 Sep 2026",
+      "13 Sep 2026"
     ],
     [
       "Austin",
-      "2026-045765 BP",
-      "2200 E 18TH ST",
-      "Pecan Valley Homes",
-      "R- 645 Demolition One Family Homes / Demolition",
-      "9 Sep 2026",
-      "11 Sep 2026"
-    ],
-    [
-      "Austin",
-      "2026-101926 BP",
-      "3306 WESTERN DR",
-      "Tayton Remodeling LLC",
+      "2026-030260 BP",
+      "8704 PRIMROSE LN",
+      "J Pinnelli Company",
       "R- 435 Renovations/Remodel / Repair",
-      "9 Sep 2026",
-      "11 Sep 2026"
+      "11 Sep 2026",
+      "13 Sep 2026"
+    ],
+    [
+      "Austin",
+      "2026-102190 BP",
+      "1210 CEDAR AVE",
+      "Driftmoor Custom Homes LLC",
+      "R- 101 Single Family Houses / New",
+      "11 Sep 2026",
+      "13 Sep 2026"
     ],
     [
       "Chicago",
-      "101071485",
-      "2053 W IRVING PARK RD",
+      "101078905",
+      "1934 W 38TH ST",
       "not given",
       "PERMIT - NEW CONSTRUCTION",
-      "9 Sep 2026",
-      "11 Sep 2026"
+      "11 Sep 2026",
+      "14 Sep 2026"
     ],
     [
       "Chicago",
-      "101080613",
-      "5401 W DIVISION ST",
-      "not given",
-      "PERMIT - RENOVATION/ALTERATION",
-      "9 Sep 2026",
-      "11 Sep 2026"
-    ],
-    [
-      "Chicago",
-      "101082871",
-      "180 E PEARSON ST",
-      "not given",
-      "PERMIT - RENOVATION/ALTERATION",
-      "9 Sep 2026",
-      "11 Sep 2026"
-    ],
-    [
-      "Chicago",
-      "101084498",
-      "2117 W MELROSE ST",
+      "101079498",
+      "323 W 29TH ST",
       "not given",
       "PERMIT - NEW CONSTRUCTION",
-      "9 Sep 2026",
-      "11 Sep 2026"
+      "11 Sep 2026",
+      "14 Sep 2026"
+    ],
+    [
+      "Chicago",
+      "101083864",
+      "627 N HAMLIN AVE",
+      "not given",
+      "PERMIT - NEW CONSTRUCTION",
+      "11 Sep 2026",
+      "14 Sep 2026"
+    ],
+    [
+      "Chicago",
+      "101084156",
+      "805 W JUNIOR TER",
+      "not given",
+      "PERMIT - RENOVATION/ALTERATION",
+      "11 Sep 2026",
+      "14 Sep 2026"
     ],
     [
       "New York City",
-      "B01089688-Z5-SE",
-      "600 MARCY AVENUE",
-      "TURBO BUILD LLC",
-      "Support of Excavation / Renewal Permit with Changes",
-      "9 Sep 2026",
-      "11 Sep 2026"
-    ],
-    [
-      "New York City",
-      "B01233197-S1-FO-EA",
-      "2030 EAST 14 STREET",
-      "ACER CONSTRUCTION INC",
-      "Foundation / Initial Permit",
-      "9 Sep 2026",
-      "11 Sep 2026"
-    ],
-    [
-      "New York City",
-      "B01441576-I1-GC",
-      "186 KENT STREET",
-      "NO LIMIT CONTRACTING INC",
+      "B01287567-I1-GC",
+      "234 CLARKSON AVENUE",
+      "CITY BUILDERS NYC LLC",
       "General Construction / Initial Permit",
-      "9 Sep 2026",
-      "11 Sep 2026"
+      "11 Sep 2026",
+      "13 Sep 2026"
     ],
     [
       "New York City",
-      "B01442991-I1-GC",
-      "1423 NOSTRAND AVENUE",
-      "M BUILD BUILDERS INC",
+      "B01423489-I1-GC",
+      "452 DEGRAW STREET",
+      "BLACK SQUARE BUILDERS COR",
       "General Construction / Initial Permit",
-      "9 Sep 2026",
-      "11 Sep 2026"
+      "11 Sep 2026",
+      "13 Sep 2026"
     ],
     [
-      "San Francisco",
-      "202203180317",
-      "4642 19th St",
-      "not given",
-      "additions alterations or repairs",
-      "4 Sep 2026",
-      "6 Sep 2026"
+      "New York City",
+      "M00823789-I1-GC",
+      "353 WEST 20 STREET",
+      "SIGNATURE AUDIO DESIGN LL",
+      "General Construction / Renewal Permit with Changes",
+      "11 Sep 2026",
+      "13 Sep 2026"
     ],
     [
-      "San Francisco",
-      "202602176022",
-      "112 Sussex St",
-      "not given",
-      "additions alterations or repairs",
-      "4 Sep 2026",
-      "6 Sep 2026"
-    ],
-    [
-      "San Francisco",
-      "202606163277",
-      "487 15th Av",
-      "not given",
-      "otc alterations permit",
-      "4 Sep 2026",
-      "6 Sep 2026"
-    ],
-    [
-      "San Francisco",
-      "202606304171",
-      "1618 30th Av",
-      "not given",
-      "otc alterations permit",
-      "4 Sep 2026",
-      "6 Sep 2026"
+      "New York City",
+      "M01395916-I1-GC",
+      "23 WEST 12 STREET",
+      "HOTI GROUP CORP",
+      "General Construction / Initial Permit",
+      "11 Sep 2026",
+      "13 Sep 2026"
     ],
     [
       "Scottsdale",
-      "324379",
-      "10441 E PINNACLE PEAK RD",
-      "COMMUNITY DEVELOPMENT LLC",
-      "FENCE",
-      "4 Sep 2026",
-      "7 Sep 2026"
+      "324390",
+      "6415 E SUNNYSIDE DR",
+      "Pro Build Design",
+      "SFR-CUSTOM IN SUBDIVISION",
+      "11 Sep 2026",
+      "14 Sep 2026"
     ],
     [
       "Scottsdale",
-      "324380",
-      "9980 E CHARTER OAK RD",
-      "SC Homes",
-      "SFR-ADDITION",
-      "4 Sep 2026",
-      "7 Sep 2026"
+      "324391",
+      "37360 N 104TH PL",
+      "Red Moon Construction",
+      "SFR-CUSTOM IN SUBDIVISION",
+      "11 Sep 2026",
+      "14 Sep 2026"
     ],
     [
       "Scottsdale",
-      "324381",
-      "9701 E HAPPY VALLEY RD",
+      "324392",
+      "37360 N 104TH PL",
+      "Red Moon Construction",
+      "NATIVE PLANT",
+      "11 Sep 2026",
+      "14 Sep 2026"
+    ],
+    [
+      "Scottsdale",
+      "324376",
+      "7825 E ROOSEVELT ST",
       "OWNER BUILDER",
-      "SFR-CUSTOM IN SUBDIVISION",
-      "4 Sep 2026",
-      "7 Sep 2026"
-    ],
-    [
-      "Scottsdale",
-      "324374",
-      "11319 E DREYFUS AV",
-      "MORGAN TAYLOR HOMES",
-      "SFR-CUSTOM IN SUBDIVISION",
-      "2 Sep 2026",
-      "7 Sep 2026"
+      "SFR-REMODEL",
+      "10 Sep 2026",
+      "14 Sep 2026"
     ],
     [
       "Seattle",
-      "6700444-CN",
-      "4727 23RD AVE SW",
+      "7115583-DM",
+      "9552 4th AVE NW",
+      "not given",
+      "Demolition / Demolition",
+      "12 Sep 2026",
+      "14 Sep 2026"
+    ],
+    [
+      "Seattle",
+      "7123838-CN",
+      "3202 SW 97TH ST",
       "not given",
       "Building / New",
-      "9 Sep 2026",
-      "11 Sep 2026"
+      "12 Sep 2026",
+      "14 Sep 2026"
     ],
     [
       "Seattle",
-      "7038619-CN",
-      "2518 28TH AVE W",
-      "not given",
-      "Building / New",
-      "9 Sep 2026",
-      "11 Sep 2026"
-    ],
-    [
-      "Seattle",
-      "7097440-CN",
-      "4127 36TH AVE SW",
+      "7159840-CN",
+      "3201 37TH PL S",
       "not given",
       "Building / Addition/Alteration",
-      "9 Sep 2026",
-      "11 Sep 2026"
+      "12 Sep 2026",
+      "14 Sep 2026"
     ],
     [
       "Seattle",
-      "7102926-CN",
-      "6340 4TH AVE NE",
+      "7162027-CN",
+      "4001 2ND AVE NW",
       "not given",
-      "Building / New",
-      "9 Sep 2026",
-      "11 Sep 2026"
+      "Building / Addition/Alteration",
+      "12 Sep 2026",
+      "14 Sep 2026"
     ]
   ]
 }

@@ -9,7 +9,9 @@ from __future__ import annotations
 
 import datetime as dt
 import hashlib
+import re
 from html import escape
+from html.parser import HTMLParser
 from brand.shell import masthead, footer
 from fv5.lib.return_page import session_capture, RETURN_STYLE
 from pathlib import Path
@@ -51,24 +53,143 @@ def _purchase_date(purchased_ts: int | None) -> str:
     return dt.datetime.now(dt.timezone.utc).strftime("%d %b %Y")
 
 
-def wrap_private_page(family: str, product_name: str, html: str,
-                      purchased_ts: int | None = None) -> str:
-    """Wrap a family's delivered HTML in the site's plain layout.
+_HEAD_OPEN = re.compile(r"<head\b[^>]*>", re.I)
+_HEAD_CLOSE = re.compile(r"</head\s*>", re.I)
+_BODY_OPEN = re.compile(r"<body\b[^>]*>", re.I)
+_BODY_CLOSE = re.compile(r"</body\s*>", re.I)
+_MASTHEAD = re.compile(
+    r"<header\b[^>]*\bclass\s*=\s*['\"][^'\"]*\bmasthead\b", re.I)
+_SITE_FOOTER = re.compile(
+    r"<footer\b[^>]*\bclass\s*=\s*['\"][^'\"]*\bsite\b", re.I)
 
-    Same stylesheet as every family page, a noindex robots line so search
-    engines never list a private address, a header that tells the buyer not to
-    share it, the purchase date, and a footer pointing back at the family page.
-    Nothing here writes an email or a person's name.
-    """
-    date = _purchase_date(purchased_ts)
-    # families/<family>/p/<slug>/index.html -> four levels up to the repo root.
+
+class _DocumentShape(HTMLParser):
+    """Count document tags. Stdlib only; never rewrites the input."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=False)
+        self.html_open = self.html_close = 0
+        self.head_open = self.head_close = 0
+        self.body_open = self.body_close = 0
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "html":
+            self.html_open += 1
+        elif tag == "head":
+            self.head_open += 1
+        elif tag == "body":
+            self.body_open += 1
+
+    def handle_endtag(self, tag):
+        if tag == "html":
+            self.html_close += 1
+        elif tag == "head":
+            self.head_close += 1
+        elif tag == "body":
+            self.body_close += 1
+
+
+class _MetaFlags(HTMLParser):
+    """Whether the document already carries the private robots and referrer lines."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=False)
+        self.robots_private = False
+        self.no_referrer = False
+
+    def handle_starttag(self, tag, attrs):
+        if tag != "meta":
+            return
+        data = {(k or "").lower(): (v or "") for k, v in attrs}
+        name = data.get("name", "").lower()
+        content = data.get("content", "").lower().replace(" ", "")
+        if name == "robots" and "noindex" in content and "nofollow" in content:
+            self.robots_private = True
+        if name == "referrer":
+            self.no_referrer = content == "no-referrer"
+
+    def handle_startendtag(self, tag, attrs):
+        self.handle_starttag(tag, attrs)
+
+
+def _malformed(detail: str) -> None:
+    raise ValueError(
+        f"malformed or ambiguous full HTML document ({detail}); "
+        "wrapping would lose bytes")
+
+
+def _shape(html: str) -> str:
+    parser = _DocumentShape()
+    parser.feed(html)
+    parser.close()
+    counts = (
+        parser.html_open, parser.html_close,
+        parser.head_open, parser.head_close,
+        parser.body_open, parser.body_close,
+    )
+    if counts == (0, 0, 0, 0, 0, 0):
+        return "fragment"
+    if counts == (1, 1, 1, 1, 1, 1):
+        return "full"
+    return "malformed"
+
+
+def _one(rx: re.Pattern[str], html: str, label: str) -> re.Match[str]:
+    found = list(rx.finditer(html))
+    if len(found) != 1:
+        _malformed(f"{label} count {len(found)}")
+    return found[0]
+
+
+def _document_slices(html: str) -> tuple[str, str]:
+    """Exact head and body inner bytes; fail rather than guess."""
+    head_open = _one(_HEAD_OPEN, html, "head open")
+    head_close = _one(_HEAD_CLOSE, html, "head close")
+    body_open = _one(_BODY_OPEN, html, "body open")
+    body_close = _one(_BODY_CLOSE, html, "body close")
+    if not (head_open.end() <= head_close.start() < body_open.start()
+            < body_close.start()):
+        _malformed("head/body order")
+    return (html[head_open.end():head_close.start()],
+            html[body_open.end():body_close.start()])
+
+
+def _has_brand_shell(html: str) -> bool:
+    return bool(_MASTHEAD.search(html) and _SITE_FOOTER.search(html))
+
+
+def _ensure_private_meta(html: str) -> str:
+    """Insert missing noindex/nofollow and no-referrer. Leave every other byte."""
+    flags = _MetaFlags()
+    flags.feed(html)
+    flags.close()
+    inserts: list[str] = []
+    if not flags.robots_private:
+        inserts.append('  <meta name="robots" content="noindex,nofollow">')
+    if not flags.no_referrer:
+        inserts.append('  <meta name="referrer" content="no-referrer">')
+    if not inserts:
+        return html
+    close = _one(_HEAD_CLOSE, html, "head close")
+    return html[:close.start()] + "\n".join(inserts) + "\n" + html[close.start():]
+
+
+def _shell_document(family: str, product_name: str, inner: str,
+                    date: str, extra_head: str = "") -> str:
+    """Existing private wrap for fragments (and unbranded full-document bodies)."""
+    fam = escape(family, quote=True)
+    name = escape(product_name, quote=True)
+    head_bits = extra_head
+    if head_bits and not head_bits.endswith("\n"):
+        head_bits += "\n"
     return f"""<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
-  <title>{product_name} — your private copy</title>
+{head_bits}  <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>{name} — your private copy</title>
   <link rel="stylesheet" href="{css_href()}">
   <!-- The site pair, light and dark. These 2,182 private pages were the only
        pages left painting the browser chrome brown: scripts/build_site.py
@@ -77,7 +198,7 @@ def wrap_private_page(family: str, product_name: str, html: str,
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f9fafb">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d0f13">
 </head>
-<body data-family="{family}">
+<body data-family="{fam}">
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="masthead">
@@ -87,16 +208,16 @@ def wrap_private_page(family: str, product_name: str, html: str,
   </div>
 </header>
 
-<main id="main">
+<main id="main" tabindex="-1">
   <div class="wrap">
     <p class="mail-note">Purchased {date}. Keep your checkout confirmation private; do not share the address from that confirmation.</p>
-{html}
+{inner}
   </div>
 </main>
 
 <footer class="site">
   <div class="wrap">
-    <p>Your private copy of the <a style="color:inherit;text-decoration:underline" href="{PUBLIC_BASE}/{family}/">{product_name}</a> feed
+    <p>Your private copy of the <a style="color:inherit;text-decoration:underline" href="{PUBLIC_BASE}/{fam}/">{name}</a> feed
       from US Tech Automations. Retrieved using your checkout confirmation; kept out of the public site.</p>
     <p class="addr">US Tech Automations &middot; 3298 N Glassford Hill Rd Ste 104 PMB 1055, Prescott Valley AZ 86314</p>
   </div>
@@ -104,6 +225,31 @@ def wrap_private_page(family: str, product_name: str, html: str,
 </body>
 </html>
 """
+
+
+def wrap_private_page(family: str, product_name: str, html: str,
+                      purchased_ts: int | None = None) -> str:
+    """Wrap a family's delivered HTML in the site's plain layout.
+
+    Fragments get the existing private shell (skip link, one main landmark).
+    A well-formed full document keeps one html/head/body: branded pages keep
+    their own shell and only gain missing noindex/nofollow and no-referrer;
+    unbranded full pages contribute their head and body bytes to the private
+    shell. Malformed or ambiguous full documents raise instead of dropping
+    bytes. Title and family attributes are escaped. Nothing here writes an
+    email or a person's name.
+    """
+    date = _purchase_date(purchased_ts)
+    kind = _shape(html)
+    if kind == "malformed":
+        _malformed("html/head/body count")
+    if kind == "full":
+        _document_slices(html)  # validate order even when the document owns its shell
+        if _has_brand_shell(html):
+            return _ensure_private_meta(html)
+        extra_head, inner = _document_slices(html)
+        return _shell_document(family, product_name, inner, date, extra_head)
+    return _shell_document(family, product_name, html, date)
 
 
 def write_private_page(root, family: str, session_id: str, html: str,

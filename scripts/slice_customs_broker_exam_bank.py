@@ -15,13 +15,17 @@ on disk yet it builds nothing and says so.
 from __future__ import annotations
 
 import html
-import json
 import re
+import sys
 from pathlib import Path
 
 FAMILY = "customs-broker-exam-bank"
 ROOT = Path(__file__).resolve().parents[1]
 BANK = ROOT / "fv5" / "families" / FAMILY / "data" / "bank.json"
+sys.path.insert(0, str(ROOT / "fv5" / "lib"))
+from exam_bank_source import default_full_bank_path, load_exam_bank  # noqa: E402
+
+FULL_BANK = default_full_bank_path(FAMILY)
 CBP_PAGE = ("https://www.cbp.gov/document/publications/"
             "past-customs-broker-license-examinations-answer-keys")
 
@@ -47,10 +51,7 @@ _BANK: dict | None = None
 def bank() -> dict:
     global _BANK
     if _BANK is None:
-        if not BANK.is_file():
-            _BANK = {"sittings": [], "generated": ""}
-        else:
-            _BANK = json.loads(BANK.read_text(encoding="utf-8"))
+        _BANK = load_exam_bank(FULL_BANK, BANK)
     return _BANK
 
 

@@ -83,3 +83,7 @@ second-pass checker flags the first draft, or when a local model door was down a
 build time. The pages always show the honest "N of M explained" figure. If a future
 sitting's PDF changes layout enough to drop key rows, `refresh.py --dry-run` prints
 the missing question numbers per sitting; list them here when that happens.
+
+## Source preservation (September 12 repair)
+
+`refresh.py` refuses a candidate with absent exam/key PDFs, empty sittings, duplicate question identities, or loss of previously held questions before writing either bank. The command reports `status=UNKNOWN` and exits1; the last usable bank remains in place. File replacements are atomic. Keep the bank's original generated date when restoring a preserved snapshot. The current default source is resolved by `fv5/lib/state_root.py`; legacy `~/.hermes/state/fv5/` and `~/.local/state/fv5/` are separate paths, so inspect the resolved path instead of assuming they are aliases. September12 recovery retained the September7 full bank; current400/190 counts were independently reproduced by both public and paid readers. Evidence: `/home/gmullins/reports/marketplace-closure-20260912/exam-repair/`.

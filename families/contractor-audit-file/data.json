@@ -1,131 +1,131 @@
 {
   "family": "contractor-audit-file",
-  "generated": "2026-09-10",
+  "generated": "2026-09-14",
   "slices": [
     {
       "slug": "california",
-      "newest": "2026-09-08",
-      "oldest": "2026-09-08",
+      "newest": "2026-09-12",
+      "oldest": "2026-09-12",
       "runs": 1,
       "row_count": 22,
       "cadence_days": 30
     },
     {
       "slug": "hawaii",
-      "newest": "2026-09-08",
-      "oldest": "2026-09-08",
+      "newest": "2026-09-12",
+      "oldest": "2026-09-12",
       "runs": 1,
       "row_count": 21,
       "cadence_days": 30
     },
     {
       "slug": "idaho",
-      "newest": "2026-09-08",
-      "oldest": "2026-09-08",
+      "newest": "2026-09-12",
+      "oldest": "2026-09-12",
       "runs": 1,
       "row_count": 20,
       "cadence_days": 30
     },
     {
       "slug": "maine",
-      "newest": "2026-09-08",
-      "oldest": "2026-09-08",
+      "newest": "2026-09-12",
+      "oldest": "2026-09-12",
       "runs": 1,
       "row_count": 21,
       "cadence_days": 30
     },
     {
       "slug": "massachusetts",
-      "newest": "2026-09-08",
-      "oldest": "2026-09-08",
+      "newest": "2026-09-12",
+      "oldest": "2026-09-12",
       "runs": 1,
       "row_count": 22,
       "cadence_days": 30
     },
     {
       "slug": "nebraska",
-      "newest": "2026-09-08",
-      "oldest": "2026-09-08",
+      "newest": "2026-09-12",
+      "oldest": "2026-09-12",
       "runs": 1,
       "row_count": 21,
       "cadence_days": 30
     },
     {
       "slug": "nevada",
-      "newest": "2026-09-08",
-      "oldest": "2026-09-08",
+      "newest": "2026-09-12",
+      "oldest": "2026-09-12",
       "runs": 1,
       "row_count": 22,
       "cadence_days": 30
     },
     {
       "slug": "new-hampshire",
-      "newest": "2026-09-08",
-      "oldest": "2026-09-08",
+      "newest": "2026-09-12",
+      "oldest": "2026-09-12",
       "runs": 1,
       "row_count": 21,
       "cadence_days": 30
     },
     {
       "slug": "new-jersey",
-      "newest": "2026-09-08",
-      "oldest": "2026-09-08",
+      "newest": "2026-09-12",
+      "oldest": "2026-09-12",
       "runs": 1,
       "row_count": 21,
       "cadence_days": 30
     },
     {
       "slug": "north-carolina",
-      "newest": "2026-09-08",
-      "oldest": "2026-09-08",
+      "newest": "2026-09-12",
+      "oldest": "2026-09-12",
       "runs": 1,
       "row_count": 19,
       "cadence_days": 30
     },
     {
       "slug": "ohio",
-      "newest": "2026-09-08",
-      "oldest": "2026-09-08",
+      "newest": "2026-09-12",
+      "oldest": "2026-09-12",
       "runs": 1,
       "row_count": 19,
       "cadence_days": 30
     },
     {
       "slug": "washington",
-      "newest": "2026-09-08",
-      "oldest": "2026-09-08",
+      "newest": "2026-09-12",
+      "oldest": "2026-09-12",
       "runs": 1,
       "row_count": 21,
       "cadence_days": 30
     },
     {
       "slug": "wisconsin",
-      "newest": "2026-09-08",
-      "oldest": "2026-09-08",
+      "newest": "2026-09-12",
+      "oldest": "2026-09-12",
       "runs": 1,
       "row_count": 20,
       "cadence_days": 30
     },
     {
       "slug": "federal-wage-law-economic-reality",
-      "newest": "2026-09-08",
-      "oldest": "2026-09-08",
+      "newest": "2026-09-12",
+      "oldest": "2026-09-12",
       "runs": 1,
       "row_count": 24,
       "cadence_days": 30
     },
     {
       "slug": "federal-employment-tax-common-law-control",
-      "newest": "2026-09-08",
-      "oldest": "2026-09-08",
+      "newest": "2026-09-12",
+      "oldest": "2026-09-12",
       "runs": 1,
       "row_count": 21,
       "cadence_days": 30
     },
     {
       "slug": "coverage",
-      "newest": "2026-09-08",
-      "oldest": "2026-09-08",
+      "newest": "2026-09-12",
+      "oldest": "2026-09-12",
       "runs": 1,
       "row_count": 55,
       "cadence_days": 30

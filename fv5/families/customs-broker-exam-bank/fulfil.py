@@ -26,10 +26,9 @@ HERE = Path(__file__).resolve().parent
 DATA = HERE / "data"
 BANK_JSON = DATA / "bank.json"
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "lib"))
-from state_root import family_state  # noqa: E402
+from exam_bank_source import default_full_bank_path, load_exam_bank  # noqa: E402
 
-STATE = family_state(FAMILY)
-FULL_BANK = STATE / "raw" / "bank.full.json"
+FULL_BANK = default_full_bank_path(FAMILY)
 
 CBP_PAGE = ("https://www.cbp.gov/document/publications/"
             "past-customs-broker-license-examinations-answer-keys")
@@ -45,11 +44,8 @@ def _e(s) -> str:
 
 
 def load_bank() -> dict:
-    """The complete bank. The state-dir copy is always whole; fall back to data/."""
-    for p in (FULL_BANK, BANK_JSON):
-        if p.is_file():
-            return json.loads(p.read_text(encoding="utf-8"))
-    return {"sittings": [], "generated": ""}
+    """The complete bank. Shared source: full state copy, else data/bank.json."""
+    return load_exam_bank(FULL_BANK, BANK_JSON)
 
 
 def _answer(q: dict) -> str:

@@ -261,6 +261,15 @@
     "pill_class": "pill-ready"
   },
   {
+    "id": "silent-refusal-kit",
+    "short": "Model silent-failure report kit",
+    "who": "Engineering leads testing their own model tasks before unattended production runs. Download a local runner and recorded demo.",
+    "amount": "$199",
+    "cadence": "once",
+    "pill": "Downloadable software",
+    "pill_class": "pill-ready"
+  },
+  {
     "id": "coverage",
     "short": "Everything we hold",
     "who": "Anyone deciding whether we hold the record they need, before they ask about price",

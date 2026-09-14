@@ -90,6 +90,34 @@ def _owned_answer_set(store, answer_set_id, receiver_edit_id):
     return doc, None
 
 
+def _resolve_prefill(store, send, ids):
+    """The answers to pre-fill on the form, read live from the saved-answer
+    record the receiver pointed us at when they reused it.
+
+    We keep only a reference -- the answer set id -- on the questionnaire, never
+    a copy of the answer text and never the edit secret. Reading through to the
+    source on every render means a saved set that has been deleted or revoked
+    stops filling in *every* questionnaire that reused it, at once, with no
+    stale copy left to leak, and with no reverse index to grow or truncate.
+
+    Returns an empty prefill -- so the form shows blank questions -- when there
+    is no reference, when the referenced set is gone, or when the store cannot
+    be read. Older questionnaires that carry only a raw copied ``prefill`` and
+    no reference have no source we can check for deletion, so they never fill in.
+    """
+    ref = send.get("prefill_ref")
+    if not isinstance(ref, dict):
+        return {}
+    answer_set_id = ref.get("answer_set_id")
+    if not isinstance(answer_set_id, str) or not answer_set_id:
+        return {}
+    doc = _answer_set(store, answer_set_id)
+    if not doc:
+        return {}
+    saved = doc.get("answers") or {}
+    return {qid: saved[qid] for qid in ids if qid in saved}
+
+
 # ------------------------------------------------------------------ pages ---
 
 NOTE_LABEL = ("Add a note if it helps (up to 500 characters). Please do not put "
@@ -204,7 +232,12 @@ async def form_page(send_id: str, request: Request):
                            "That link no longer works. The company that sent it may have deleted "
                            "it, or the address may have been copied wrongly.", 404, "form_open")
     ids = template_ids(send["template"])
-    prefill = send.get("prefill") or {}
+    try:
+        prefill = _resolve_prefill(store, send, ids)
+    except Exception:
+        return refuse_html(FAMILY, "Saved answers are temporarily unavailable",
+                           "We could not load your saved answers. Please try again shortly.",
+                           503, "form_open")
     blocks = "".join(_question_block(BY_ID[qid], prefill.get(qid)) for qid in ids if qid in BY_ID)
     # The one primary action on this page is "Send my answers" (BRAND.md §5).
     # Filling in an old set is the secondary path, so it takes the ghost button.
@@ -375,7 +408,7 @@ async def new_send(request: Request):
     store.put("q_sends", send_id, {
         "send_id": send_id, "sender_domain": sender, "receiver_domain": receiver,
         "template": template, "sender_view_id": view_id, "created": now_iso(),
-        "pro": pro, "answer_set_id": "", "prefill": {}})
+        "pro": pro, "answer_set_id": "", "prefill": {}, "prefill_ref": None})
     store.put("q_views", view_id, {"send_id": send_id})
     quota_add(store, "q_quota", sender, send_id)
     note_event(store, FAMILY, "new", request)
@@ -488,8 +521,15 @@ async def reuse(request: Request):
         return refuse("We could not find that questionnaire. Check the link you were sent.", 404)
     ids = template_ids(send["template"])
     saved = doc.get("answers") or {}
-    prefill = {qid: dict(saved[qid]) for qid in ids if qid in saved}
-    send["prefill"] = prefill
+    # How many of this questionnaire's questions the saved set covers -- for the
+    # count we report below only. We do NOT copy the answer text onto the send.
+    prefill = {qid: saved[qid] for qid in ids if qid in saved}
+    # Store a reference to the owned saved-answer record, not the answers. The
+    # form resolves them live (see _resolve_prefill), so deleting the saved set
+    # removes them from here too, with nothing copied to leak and no edit
+    # secret written into the send record.
+    send["prefill"] = {}
+    send["prefill_ref"] = {"answer_set_id": doc["answer_set_id"]}
     store.put("q_sends", send["send_id"], send)
     note_event(store, FAMILY, "reuse", request)
     base = service_base(request)
@@ -568,6 +608,7 @@ async def delete(request: Request):
                 if send and send.get("answer_set_id") == doc["answer_set_id"]:
                     send["answer_set_id"] = ""
                     send["prefill"] = {}
+                    send["prefill_ref"] = None
                     send["answers_deleted"] = True
                     store.put("q_sends", sid, send)
             trust = store.get("q_trust", doc.get("receiver_domain") or "")

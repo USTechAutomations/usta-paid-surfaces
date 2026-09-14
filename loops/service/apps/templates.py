@@ -74,7 +74,13 @@ TOOL_LABEL = {
 # Page-scoped rules. Tokens only: every colour is a var() or an hsl(var(...)).
 # Every selector starts with an lp- class of this page's own, so nothing here
 # can reach a shared class or a bare element (BRAND.md §7).
+# Darker existing primary token supports white button text. Neutral prose links
+# retain a non-color affordance with underlines; button affordances are unchanged.
 STYLE = (
+    ".lp-page main a:not(.btn),.lp-page footer a{text-decoration:underline;text-underline-offset:.15em}"
+    ".lp-page .btn-ghost{color:var(--fg)}.lp-page .btn{min-height:44px}"
+    ".lp-page{overflow-wrap:anywhere;--primary:var(--primary-surface);--primary-hover:var(--primary-surface-hover);--accent:var(--fg)}"
+    "@media (min-width:1024px) and (max-width:1279px){.lp-page .mast-nav{display:none}}"
     ".lp-q{border-top:1px solid var(--line);padding:1.125rem 0}"
     ".lp-q:first-child{border-top:0;padding-top:0}"
     ".lp-q:last-child{padding-bottom:0}"
@@ -222,7 +228,7 @@ def page(*, title: str, family: str, event: str, body: str, heading: str,
         '  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d0f13">\n'
         f"  <style>{STYLE}</style>\n"
         "</head>\n"
-        f'<body data-family="{esc(family)}">\n'
+        f'<body class="lp-page" data-family="{esc(family)}">\n'
         '<a class="skip" href="#main">Skip to content</a>\n\n'
         # The same header and breadcrumb bar every built page carries (brand/shell.py).
         f"{shell.masthead(crumb, base=PUBLIC_BASE)}\n"

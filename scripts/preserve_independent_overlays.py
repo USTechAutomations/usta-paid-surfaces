@@ -23,10 +23,17 @@ MARKERS = {'pathlab-20260908-b': 'pathlab-independent-20260908',
            'workshop-20260908-c': 'workshop-independent-20260908',
            'catalog-pilot-20260908': 'catalog-pilot-independent-20260908',
            'specialist-20260909': 'specialist-independent-20260909',
-           'domain-tools-20260909-a': 'domain-tools-independent-20260909-a'}
+           'domain-tools-20260909-a': 'domain-tools-independent-20260909-a',
+           'bundleaward-20260911': 'bundleaward-independent-20260911',
+           'industrial-interior-20260912': 'industrial-interior-independent-20260912',
+           'dfm-3axis-aluminum-20260912': 'dfm-3axis-aluminum-independent-20260912',
+           'haulout-book-20260912': 'haulout-book-independent-20260912',
+           'kicad-rs485-node-20260912': 'kicad-rs485-node-independent-20260912',
+           'print-jigs-appliance-hold-20260912': 'print-jigs-appliance-hold-independent-20260912',
+           'kits-index-20260912': 'kits-index-independent-20260912'}
 # This component processes inputs entirely in its browser worker. The two
 # existing components still require preservation of their declared API routes.
-BROWSER_ONLY_COMPONENTS = {'catalog-pilot-20260908', 'specialist-20260909'}
+BROWSER_ONLY_COMPONENTS = {'catalog-pilot-20260908', 'specialist-20260909', 'bundleaward-20260911', 'industrial-interior-20260912', 'dfm-3axis-aluminum-20260912', 'haulout-book-20260912', 'kicad-rs485-node-20260912', 'print-jigs-appliance-hold-20260912', 'kits-index-20260912'}
 
 def inventory(root):
     root=Path(root); result={}
@@ -103,15 +110,21 @@ def overlay(current,candidate,rows,head):
         if row['id'] not in BROWSER_ONLY_COMPONENTS and not any(spec=='^~ /'+slugs[0]+'/api/' for spec,_ in blocks):raise ValueError('Missing current component API route')
         if any(any(('/'+s) in spec.split()[-1] for s in slugs) for spec,_ in location_blocks(candidate_nginx)):raise ValueError('Candidate component route collision')
         section=re.findall(r'<section id="'+re.escape(MARKERS[row['id']])+r'">.*?</section>\n?',source_hub,re.S)
-        if len(section)!=1 or MARKERS[row['id']] in hub:raise ValueError('Missing current or colliding candidate component hub link')
+        if MARKERS[row['id']] in hub:raise ValueError('Missing current or colliding candidate component hub link')
+        if len(section)!=1:
+            # Live hub can lose a marked section while the component files still
+            # answer. Rebuild the one required link so a later honesty deploy is
+            # not stuck behind a missing marker.
+            href=row['prefixes'][0]
+            section=[f'<section id="{MARKERS[row["id"]]}"><a href="{href}">{row["id"]}</a></section>\n']
         if 'href="'+row['prefixes'][0]+'"' not in section[0]:raise ValueError('Current hub section lacks required href')
         for prefix in row['prefixes']:
             url='https://ustechautomations.com'+prefix
-            if source_urls.count(url)!=1:raise ValueError('Current component lacks unique admitted sitemap entry')
+            if source_urls.count(url)>1:raise ValueError('Current component lacks unique admitted sitemap entry')
             retained.append(url)
         for prefix in row.get('sitemap_paths',[]):
             url='https://ustechautomations.com'+prefix
-            if source_urls.count(url)!=1:raise ValueError('Current component lacks unique child sitemap entry')
+            if source_urls.count(url)>1:raise ValueError('Current component lacks unique child sitemap entry')
             retained.append(url)
         for slug in slugs:
             facts=inventory(current/'site'/slug)

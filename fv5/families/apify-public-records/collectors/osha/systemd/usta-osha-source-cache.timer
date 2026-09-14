@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily OSHA source collection outside the fleet quiet window
+
+[Timer]
+OnCalendar=*-*-* 03:40:00 America/Phoenix
+AccuracySec=1min
+Persistent=false
+Unit=usta-osha-source-cache.service
+
+[Install]
+WantedBy=timers.target

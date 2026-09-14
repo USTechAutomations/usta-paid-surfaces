@@ -99,3 +99,7 @@ production database and state-file reads are test tripwires; fixtures live only 
 temporary directories. No model/provider call, production write, timer run or
 rollout is part of these checks. See the hash-bound report under
 `~/advisor-plans/system-reconciliation-20260909/loop-metrics-repair/`.
+
+### QRelay saved-answer revocation (2026-09-11)
+
+Reuse now stores `prefill_ref` and resolves it against the saved answer set on each form read. Deleted source answers never render from legacy raw `prefill`; source-storage failures return503. Historical raw copies are not physically migrated by this code repair. See `apps/tests/test_prefill_revocation.py` and the manager report at `~/advisor-plans/customer-value-integration-20260911/runtime-acceptance/`. The scoped `deploy.sh --payment-recovery --qrelay-only` mode requires expected serving image, app SHA256 and questionnaire SHA256; it changes only qrelay.py and preserves service settings. Use the existing feeds deploy lock.

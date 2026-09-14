@@ -20,14 +20,14 @@
       "short": "Queue changes",
       "who": "Energy researchers, journalists, and interconnection-software vendors.",
       "checkout": {
-        "terms": "$49 a month, billed monthly, for dated what-moved files of the California ISO interconnection queue only. Not the Southwest Power Pool, not ISO New England, not the New York ISO, and not a four-queue blend. A dated file is built from successful CAISO seals when available. When the two comparison copies have no tracked-field moves, it records added 0, removed 0, changed 0, plus the two content hashes of the workbooks compared; a failed or missing source read creates no new dated file and remains an explicit gap. This file uses material published by the California ISO. Copyright © 2026 California Independent System Operator. All rights reserved. Their terms say \"Most of the materials\", not all. This file does not claim the Public Queue Report is inside that \"Most\". Cancel any month by email, with no account to close and no notice period.",
+        "terms": "$49 a month, billed monthly, for dated what-moved files of the California ISO interconnection queue only. A dated file is built from successful CAISO seals when available. When the two comparison copies have no tracked-field moves, it records added 0, removed 0, changed 0, plus the two content hashes of the workbooks compared; a failed or missing source read creates no new dated file and remains an explicit gap. This file uses material published by the California ISO. Copyright © 2026 California Independent System Operator. All rights reserved. Their terms say \"Most of the materials\", not all. This file does not claim the Public Queue Report is inside that \"Most\". Cancel any month by email, with no account to close and no notice period.",
         "after": "After payment confirmation, your dated California ISO file appears on the receipt page. A dated CSV appears only after successfully collected source copies; each file names the two sealed dates compared and its source hashes. If an intervening source read fails, the gap is reported and no new dated file is created from that failure.",
         "url": "https://buy.stripe.com/8x214gdRAf5087G7vc0sU12",
         "label": "Subscribe — $49 a month",
         "lands_on": "buy.stripe.com",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       },
       "delivery": "<strong>What arrives after you pay:</strong> Stripe sends you to the receipt page. After payment confirmation, your dated California ISO CSV appears there. It compares successfully collected source copies and names any gaps. A failed source read creates no new dated file. Nobody emails you. The subscriber CSV adds source and coverage columns to the compact preview shown here. A coverage row records the comparison dates and any gaps, including when no changes were observed."
     },
@@ -73,8 +73,8 @@
         "url": "https://buy.stripe.com/6oUdR29Bk1eaafOg1I0sU0M",
         "lands_on": "buy.stripe.com",
         "label": "Subscribe — $99 a month",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       },
       "delivery": "What arrives after you pay: Stripe sends you to the receipt page. After payment confirmation, your dated CSV for the state or territory selected at checkout appears there. Keep the receipt link for subsequent files. Nobody emails you. The subscriber CSV uses machine-readable column names and includes appeared, changed and gone rows, plus a coverage row naming the two source dates. The public preview uses shorter labels."
     },
@@ -159,54 +159,54 @@
           "lands_on": "buy.stripe.com",
           "label": "Buy the Austin file — $349 once",
           "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "cambridge-ma": {
           "url": "https://buy.stripe.com/aFadR2aFo7Cy4VueXE0sU0U",
           "lands_on": "buy.stripe.com",
           "label": "Buy the Cambridge file — $349 once",
           "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "cincinnati": {
           "url": "https://buy.stripe.com/00w28kaFo4qmafOdTA0sU0V",
           "lands_on": "buy.stripe.com",
           "label": "Buy the Cincinnati file — $349 once",
           "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "montgomery-md": {
           "url": "https://buy.stripe.com/dRmaEQeVE2ie87G8zg0sU0W",
           "lands_on": "buy.stripe.com",
           "label": "Buy the Montgomery County file — $349 once",
           "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "new-york": {
           "url": "https://buy.stripe.com/aFadR2bJs6yugEc7vc0sU0X",
           "lands_on": "buy.stripe.com",
           "label": "Buy the New York City file — $349 once",
           "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "san-francisco": {
           "url": "https://buy.stripe.com/6oUdR2eVE8GC9bK6r80sU0Y",
           "lands_on": "buy.stripe.com",
           "label": "Buy the San Francisco file — $349 once",
           "terms": "$349 once, for the city named on this page. Nothing recurring, nothing to cancel and no subscription behind it.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         }
       }
     },
@@ -420,8 +420,8 @@
         "url": "https://buy.stripe.com/3cI3co28S8GCbjS16O0sU0R",
         "lands_on": "buy.stripe.com",
         "label": "Subscribe — $59 a month",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -448,8 +448,8 @@
         "label": "Subscribe — $79 a month",
         "lands_on": "buy.stripe.com",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       },
       "sells": "The Texas pending new-source air review list only. Arizona is not part of this feed.",
       "delivery": "<strong>What arrives after you pay:</strong> Stripe sends you to the receipt page after payment. The dated Texas weekly CSV appears there after the delivery check confirms your paid subscription. Nobody emails you. The subscriber CSV uses machine-readable column names and includes a coverage row with source dates and gaps; the public preview uses labels for reading."
@@ -553,7 +553,7 @@
         "url": "https://buy.stripe.com/8x26oA7tc9KGds02aS0sU1b",
         "label": "Buy the pack — $349 once",
         "lands_on": "buy.stripe.com",
-        "checked": "2026-09-09",
+        "checked": "2026-09-14",
         "verified": "2026-09-09"
       }
     },
@@ -658,8 +658,8 @@
         "url": "https://buy.stripe.com/5kQbIU5l41eaafO5n40sU0Z",
         "lands_on": "buy.stripe.com",
         "label": "Buy the file — $349 once",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -686,8 +686,8 @@
         "url": "https://buy.stripe.com/4gM3coeVEf505Zyg1I0sU10",
         "lands_on": "buy.stripe.com",
         "label": "Buy the file — $349 once",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -714,8 +714,8 @@
         "url": "https://buy.stripe.com/8x2aEQeVE3mibjS4j00sU11",
         "lands_on": "buy.stripe.com",
         "label": "Buy the file — $349 once",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -742,8 +742,30 @@
         "url": "https://buy.stripe.com/dRmbIU7tc2ie3RqaHo0sU19",
         "label": "Buy the file — $349 once",
         "lands_on": "buy.stripe.com",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
+      },
+      "conversion": {
+        "rows": [
+          [
+            "A FeatureServer table split across four separate year layers, overwritten as the District edits it",
+            "One CSV assembled from all four years, 172,942 rows pulled 26 Aug 2026"
+          ],
+          [
+            "Applicant, owner and edit-history columns still carrying names",
+            "PERMIT_APPLICANT, OWNER_NAME, CREATED_USER and LAST_EDITED_USER already taken out"
+          ],
+          [
+            "No dated snapshot to check against",
+            "A dated pull (26 Aug 2026), sold under CC BY 4.0 with the required credit line already printed on the page"
+          ],
+          [
+            "No delivery -- query the FeatureServer layers yourself",
+            "A person emails you the whole file as a CSV within one working day of payment"
+          ]
+        ],
+        "price_anchor": "$349 once is cheaper than the hours it takes to pull four years of FeatureServer layers yourself and strip the person columns out.",
+        "sample_stamp": "Pulled 26 Aug 2026"
       }
     },
     {
@@ -1068,8 +1090,30 @@
         "url": "https://buy.stripe.com/dRmaEQ7tc9KGgEceXE0sU17",
         "label": "Buy the file — $349 once",
         "lands_on": "buy.stripe.com",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
+      },
+      "conversion": {
+        "rows": [
+          [
+            "A live table on Analyze Boston that gets overwritten the next time the city re-publishes it",
+            "One CSV assembled from all 661,051 rows we pulled on 26 Aug 2026"
+          ],
+          [
+            "Applicant and comment columns still carrying names, if you keep them yourself",
+            "Applicant and comment columns with person names already taken out"
+          ],
+          [
+            "No dated snapshot -- what you download today may not match next month",
+            "A dated pull (26 Aug 2026), sliced so you can check it against the sample before you pay"
+          ],
+          [
+            "No delivery -- you write your own export",
+            "A person emails you the whole file as a CSV within one working day of payment"
+          ]
+        ],
+        "price_anchor": "$349 once is cheaper than the hours your own team would spend pulling, cleaning and rechecking 661,051 rows by hand.",
+        "sample_stamp": "Pulled 26 Aug 2026"
       }
     },
     {
@@ -1096,8 +1140,44 @@
         "url": "https://buy.stripe.com/7sYbIU3cW6yugEc02K0sU18",
         "label": "Buy the file — $349 once",
         "lands_on": "buy.stripe.com",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
+      },
+      "conversion": {
+        "rows": [
+          [
+            "The City's full LL84 table, free but unsliced",
+            "One dated CSV cut to a single calendar year or borough, from the 103,259 rows we pulled on 26 Aug 2026"
+          ],
+          [
+            "You work out which year or borough to keep yourself",
+            "Already sliced to the year or borough you name -- and it is this LL84 file, not the separate DOB permit file"
+          ],
+          [
+            "No dated snapshot -- the City's live view can change under you",
+            "A dated pull (26 Aug 2026) that will not change after you buy it"
+          ],
+          [
+            "No delivery -- export it yourself",
+            "A person emails you the sliced CSV within one working day of payment"
+          ]
+        ],
+        "price_anchor": "$349 once is less than an afternoon of an analyst's time spent slicing one year or borough out of the City's raw table by hand.",
+        "sample_stamp": "Pulled 26 Aug 2026",
+        "sample_columns": [
+          "report_year",
+          "property_name",
+          "address_1",
+          "city",
+          "postal_code",
+          "primary_property_type",
+          "year_built",
+          "occupancy",
+          "energy_star_score",
+          "site_eui_kbtu_ft",
+          "total_location_based_ghg",
+          "borough"
+        ]
       }
     },
     {
@@ -1124,8 +1204,30 @@
         "url": "https://buy.stripe.com/4gM14g00K0a61Ji9Dk0sU1a",
         "label": "Buy the file — $349 once",
         "lands_on": "buy.stripe.com",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
+      },
+      "conversion": {
+        "rows": [
+          [
+            "A free ranking page that shows which metros changed, with no row-level detail",
+            "The row-level status-change CSV for the metro you name, from the 533,569-row extract pulled 25 Aug 2026"
+          ],
+          [
+            "No before-and-after -- you diff two snapshots of the board yourself",
+            "Every permit's status change, before and after, plus the day-by-day list of sealed days we hold and the holes in it"
+          ],
+          [
+            "No dated extract to check",
+            "A dated extract (25 Aug 2026) that will not change after you buy it"
+          ],
+          [
+            "No delivery -- build the diff yourself",
+            "A person emails you the CSV within one working day"
+          ]
+        ],
+        "price_anchor": "$349 once is less than an afternoon of manually diffing permit statuses across sealed days yourself, and you still would not have the hole list.",
+        "sample_stamp": "Extracted 25 Aug 2026"
       }
     },
     {
@@ -1152,8 +1254,8 @@
         "url": "https://buy.stripe.com/8x2fZa14ObSO9bK2aS0sU1p",
         "label": "Buy the pack — $249 once",
         "lands_on": "buy.stripe.com",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -1180,8 +1282,8 @@
         "url": "https://buy.stripe.com/dRm8wI3cWcWS1Ji5n40sU1o",
         "label": "Commission the report — $499 once",
         "lands_on": "buy.stripe.com",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -1208,8 +1310,8 @@
         "url": "https://buy.stripe.com/aFa00cfZIe0W87GdTA0sU1n",
         "label": "Buy the report — $199 once",
         "lands_on": "buy.stripe.com",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -1236,8 +1338,8 @@
         "url": "https://buy.stripe.com/9B69AMfZIbSOcnWg1I0sU1m",
         "label": "Buy the pack — $499 once",
         "lands_on": "buy.stripe.com",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -1264,8 +1366,8 @@
         "url": "https://buy.stripe.com/5kQeV600K8GC2Nm8zg0sU1l",
         "label": "Buy the packet — $249 once",
         "lands_on": "buy.stripe.com",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -1292,8 +1394,8 @@
         "url": "https://buy.stripe.com/bJe7sE8xg0a64VueXE0sU1k",
         "label": "Buy the oath — $499 once",
         "lands_on": "buy.stripe.com",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -1319,540 +1421,540 @@
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Akron that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "epoxy-floors-boise-id": {
           "url": "https://buy.stripe.com/3cIcMYfZI4qm2NmaHo0sU1M",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Boise that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "epoxy-floors-chattanooga-tn": {
           "url": "https://buy.stripe.com/7sY4gs9Bk5uq4VuaHo0sU1N",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Chattanooga that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "epoxy-floors-fort-wayne-in": {
           "url": "https://buy.stripe.com/8x27sEdRA2ie73CbLs0sU1O",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Fort Wayne that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "epoxy-floors-omaha-ne": {
           "url": "https://buy.stripe.com/00w7sEaFo6yu2Nm9Dk0sU1P",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Omaha that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "epoxy-floors-raleigh-nc": {
           "url": "https://buy.stripe.com/bJefZa14OaOKafOdTA0sU1Q",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Raleigh that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "epoxy-floors-reno-nv": {
           "url": "https://buy.stripe.com/cNiaEQ00K7Cy3Rq2aS0sU1R",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Reno that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "epoxy-floors-spokane-wa": {
           "url": "https://buy.stripe.com/7sY14g8xg7Cy3Rq02K0sU1S",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Spokane that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "epoxy-floors-tulsa-ok": {
           "url": "https://buy.stripe.com/dRmeV65l41ea0FeaHo0sU1T",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Tulsa that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "epoxy-floors-wichita-ks": {
           "url": "https://buy.stripe.com/8x26oA00K7CybjSaHo0sU1U",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about epoxy garage floor coating in Wichita that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "foundation-repair-akron-oh": {
           "url": "https://buy.stripe.com/14AfZa5l40a6gEc6r80sU1V",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Akron that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "foundation-repair-boise-id": {
           "url": "https://buy.stripe.com/dRm3coaFo3mi2Nm2aS0sU1W",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Boise that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "foundation-repair-chattanooga-tn": {
           "url": "https://buy.stripe.com/fZu5kw00K4qm9bK02K0sU1X",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Chattanooga that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "foundation-repair-fort-wayne-in": {
           "url": "https://buy.stripe.com/eVq9AMfZIe0WgEceXE0sU1Y",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Fort Wayne that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "foundation-repair-omaha-ne": {
           "url": "https://buy.stripe.com/dRm8wIfZIcWSgEcaHo0sU1Z",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Omaha that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "foundation-repair-raleigh-nc": {
           "url": "https://buy.stripe.com/5kQbIU6p8cWS4VubLs0sU20",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Raleigh that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "foundation-repair-reno-nv": {
           "url": "https://buy.stripe.com/6oU00c5l4cWS73C8zg0sU21",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Reno that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "foundation-repair-spokane-wa": {
           "url": "https://buy.stripe.com/8x228k6p88GC87GaHo0sU22",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Spokane that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "foundation-repair-tulsa-ok": {
           "url": "https://buy.stripe.com/8x228k4h0f505Zy2aS0sU23",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Tulsa that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "foundation-repair-wichita-ks": {
           "url": "https://buy.stripe.com/8x27sEcNwbSO87G4j00sU24",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about foundation repair in Wichita that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "garage-door-repair-akron-oh": {
           "url": "https://buy.stripe.com/7sY14g8xg6yu87GeXE0sU25",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about garage door repair in Akron that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "garage-door-repair-boise-id": {
           "url": "https://buy.stripe.com/5kQ3co28SbSO9bKaHo0sU26",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about garage door repair in Boise that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "garage-door-repair-chattanooga-tn": {
           "url": "https://buy.stripe.com/4gMaEQfZIaOK5ZybLs0sU27",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about garage door repair in Chattanooga that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "garage-door-repair-fort-wayne-in": {
           "url": "https://buy.stripe.com/14A14g14O6yubjS2aS0sU28",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about garage door repair in Fort Wayne that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "garage-door-repair-omaha-ne": {
           "url": "https://buy.stripe.com/00wdR24h04qm9bKcPw0sU29",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about garage door repair in Omaha that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "garage-door-repair-raleigh-nc": {
           "url": "https://buy.stripe.com/fZu14g7tc5uqbjS6r80sU2a",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about garage door repair in Raleigh that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "garage-door-repair-reno-nv": {
           "url": "https://buy.stripe.com/eVqcMY6p87Cy0Fe16O0sU2b",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about garage door repair in Reno that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "garage-door-repair-spokane-wa": {
           "url": "https://buy.stripe.com/bJe28k6p89KGcnWdTA0sU2c",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about garage door repair in Spokane that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "garage-door-repair-tulsa-ok": {
           "url": "https://buy.stripe.com/00weV6eVE6yu2Nm9Dk0sU2d",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about garage door repair in Tulsa that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "garage-door-repair-wichita-ks": {
           "url": "https://buy.stripe.com/5kQ00cdRAe0Wew4dTA0sU2e",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about garage door repair in Wichita that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "roofing-akron-oh": {
           "url": "https://buy.stripe.com/4gM28kbJs5uq5ZydTA0sU1r",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Akron that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "roofing-boise-id": {
           "url": "https://buy.stripe.com/8x24gsbJsaOKcnW8zg0sU1s",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Boise that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "roofing-chattanooga-tn": {
           "url": "https://buy.stripe.com/fZubIU3cWcWSds08zg0sU1t",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Chattanooga that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "roofing-fort-wayne-in": {
           "url": "https://buy.stripe.com/7sYfZa9Bk6yu1JicPw0sU1u",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Fort Wayne that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "roofing-omaha-ne": {
           "url": "https://buy.stripe.com/6oUdR24h06yuew4aHo0sU1v",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Omaha that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "roofing-raleigh-nc": {
           "url": "https://buy.stripe.com/bJe7sE8xg8GC87G4j00sU1w",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Raleigh that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "roofing-reno-nv": {
           "url": "https://buy.stripe.com/cNifZa4h04qm9bKaHo0sU1x",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Reno that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "roofing-spokane-wa": {
           "url": "https://buy.stripe.com/3cIeV64h05uqafOeXE0sU1y",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Spokane that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "roofing-tulsa-ok": {
           "url": "https://buy.stripe.com/fZu4gs28S1ea5Zy3eW0sU1z",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Tulsa that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "roofing-wichita-ks": {
           "url": "https://buy.stripe.com/3cI14gfZIcWS87G02K0sU1A",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about roofing in Wichita that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "tree-removal-akron-oh": {
           "url": "https://buy.stripe.com/cNibIU9Bkg945Zy3eW0sU1B",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Akron that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "tree-removal-boise-id": {
           "url": "https://buy.stripe.com/5kQ28k5l45uq2Nm16O0sU1C",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Boise that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "tree-removal-chattanooga-tn": {
           "url": "https://buy.stripe.com/dRm8wIfZI5uq2Nmg1I0sU1D",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Chattanooga that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "tree-removal-fort-wayne-in": {
           "url": "https://buy.stripe.com/9B63co5l4e0W87G8zg0sU1E",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Fort Wayne that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "tree-removal-omaha-ne": {
           "url": "https://buy.stripe.com/aFaeV69BkcWS9bKg1I0sU1F",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Omaha that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "tree-removal-raleigh-nc": {
           "url": "https://buy.stripe.com/6oU00ceVE2ie5Zy9Dk0sU1G",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Raleigh that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "tree-removal-reno-nv": {
           "url": "https://buy.stripe.com/4gM14g7tcaOKds04j00sU1H",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Reno that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "tree-removal-spokane-wa": {
           "url": "https://buy.stripe.com/9B628k6p80a6fA86r80sU1I",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Spokane that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "tree-removal-tulsa-ok": {
           "url": "https://buy.stripe.com/7sYbIU6p8g945ZybLs0sU1J",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Tulsa that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "tree-removal-wichita-ks": {
           "url": "https://buy.stripe.com/bJe8wI14OaOK9bK02K0sU1K",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about tree removal in Wichita that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "water-damage-akron-oh": {
           "url": "https://buy.stripe.com/bJe14g5l41eacnWbLs0sU2f",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about water damage restoration in Akron that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "water-damage-boise-id": {
           "url": "https://buy.stripe.com/eVqcMY5l47Cy5ZydTA0sU2g",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about water damage restoration in Boise that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "water-damage-chattanooga-tn": {
           "url": "https://buy.stripe.com/3cIfZacNw7Cy1Ji02K0sU2h",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about water damage restoration in Chattanooga that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "water-damage-fort-wayne-in": {
           "url": "https://buy.stripe.com/28E7sE3cW5uq3RqeXE0sU2i",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about water damage restoration in Fort Wayne that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "water-damage-omaha-ne": {
           "url": "https://buy.stripe.com/8x2fZacNw3mi73C7vc0sU2j",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about water damage restoration in Omaha that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "water-damage-raleigh-nc": {
           "url": "https://buy.stripe.com/dRmaEQcNwaOK2Nm2aS0sU2k",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about water damage restoration in Raleigh that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "water-damage-reno-nv": {
           "url": "https://buy.stripe.com/fZudR29Bk4qm1Ji5n40sU2l",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about water damage restoration in Reno that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "water-damage-spokane-wa": {
           "url": "https://buy.stripe.com/5kQ4gs9BkaOKgEc2aS0sU2m",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about water damage restoration in Spokane that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "water-damage-tulsa-ok": {
           "url": "https://buy.stripe.com/aFa4gs6p81eafA89Dk0sU2n",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about water damage restoration in Tulsa that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         },
         "water-damage-wichita-ks": {
           "url": "https://buy.stripe.com/eVq00ccNw3micnWeXE0sU2o",
           "lands_on": "buy.stripe.com",
           "label": "Subscribe — $249 a month",
           "terms": "$249 a month, billed monthly, for one page on ustechautomations.com about water damage restoration in Wichita that names your business and no other for as long as the subscription runs. Cancel at month end by email, with no account to close and no notice period.",
-          "checked": "2026-09-09",
+          "checked": "2026-09-14",
           "status": "live",
-          "verified": "2026-09-09"
+          "verified": "2026-09-14"
         }
       },
       "note": "STAGED 2026-09-02, NOT DEPLOYED. 60 pages, one per trade per city, each with its own recurring $249/month payment link minted 2026-09-02 under the operator's grant (~/.hermes/state/approvals/mint_city_trade_offer_links_2026-09-02.md). kind=\"build\" because this sells a written page, not a dated data file: no clock, no data table, no sample rows. We have never run this offer before; the pages say so. Deploy only on the operator's word."
@@ -1882,8 +1984,8 @@
         "url": "https://buy.stripe.com/dRm3cofZI8GC1JibLs0sU14",
         "label": "Buy the pack — $349 once",
         "lands_on": "buy.stripe.com",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -1983,8 +2085,8 @@
         "label": "Subscribe — $49 a month",
         "lands_on": "buy.stripe.com",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       },
       "kind": "generated",
       "coverage_what": "Generated each week, not read from the world",
@@ -2053,8 +2155,8 @@
         "label": "Subscribe — $49 a month",
         "lands_on": "buy.stripe.com",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       },
       "coverage_what": "A weekly file of Granted actions, not a contact list",
       "coverage_how": "We seal FMCSA Motus AuthHist Granted rows each week, with legal name, city and state. No street, no phone.",
@@ -2084,8 +2186,8 @@
         "url": "https://buy.stripe.com/00w9AM4h0f500Fe3eW0sU1h",
         "label": "Buy the file — $349 once",
         "lands_on": "buy.stripe.com",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -2116,8 +2218,8 @@
         "url": "https://buy.stripe.com/28E14g28S7Cy9bKaHo0sU1j",
         "label": "Pin a model — $300 a month",
         "lands_on": "buy.stripe.com",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -2148,8 +2250,8 @@
         "url": "https://buy.stripe.com/dRmcMYcNwf509bK2aS0sU1i",
         "label": "Buy the report — $249 once",
         "lands_on": "buy.stripe.com",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -2174,8 +2276,8 @@
         "label": "Subscribe — $49 a month",
         "lands_on": "buy.stripe.com",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -2223,8 +2325,8 @@
         "label": "Subscribe — $49 a month",
         "lands_on": "buy.stripe.com",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       },
       "schema_correction": "2026-09-10: operator -> permit_name (EPA ICIS PERMIT_NAME, the facility name for an NPDES permit); filing_date -> permit_issue_date (EPA ICIS ISSUE_DATE, falling back to ORIGINAL_ISSUE_DATE). These are source record fields, not construction-start events. Retained legacy files are migrated through the ICIS source, never blanked."
     },
@@ -2250,8 +2352,8 @@
         "label": "Subscribe — $49 a month",
         "lands_on": "buy.stripe.com",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -2276,8 +2378,8 @@
         "label": "Subscribe — $49 a month",
         "lands_on": "buy.stripe.com",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -2302,8 +2404,8 @@
         "label": "Subscribe — $49 a month",
         "lands_on": "buy.stripe.com",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -2331,8 +2433,8 @@
         "label": "Buy — $175 one-off",
         "lands_on": "buy.stripe.com",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       },
       "sample_status": "pass",
       "group": "Aviation services"
@@ -2359,8 +2461,8 @@
         "label": "Subscribe — $49 a month",
         "lands_on": "buy.stripe.com",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -2451,22 +2553,22 @@
       "cadence_long": "one lifetime license key, billed once. Free use is 10 Amazon pages a day. A valid key lifts the daily cap",
       "price": "$49 once",
       "sample_status": "pass",
-      "note": "Chrome Web Store version 0.1.0 confirmed 2026-09-10 UTC. Observation-only 0.1.2 draft uploaded and accepted by API; public release remains 0.1.0 pending final human review and submission. Edge availability UNKNOWN.",
+      "note": "Chrome Web Store public package is 0.1.2 as of API fetchStatus 2026-09-12 (PUBLISHED, 100% deploy). Observation-only: no sales estimates. Edge availability UNKNOWN. Real-card key print still unproven.",
       "group": "Software and AI pages",
       "short": "KDP Lens",
       "who": "Self-publishers comparing the book information shown on Amazon.com.",
       "coverage_what": "A Chrome overlay for public Amazon.com book pages, best-seller lists, and search results",
-      "coverage_how": "The prepared 0.1.2 update shows observed book ranks, category placements, prices, reviews, and local search summaries. Missing or ambiguous overall rank is Unavailable. Chrome currently offers 0.1.0, whose sales estimates are unsupported. Page text stays local. A lifetime key lifts the 10-page daily free cap.",
-      "price_list_note": "The made-up demo illustrates the prepared 0.1.2 update, which has not been submitted for public release.",
+      "coverage_how": "Chrome currently offers 0.1.2. It shows observed book ranks, category placements, prices, reviews, and local search summaries. Missing or ambiguous overall rank is Unavailable. It does not estimate sales. Page text stays local. A lifetime key lifts the 10-page daily free cap.",
+      "price_list_note": "The made-up demo illustrates the public 0.1.2 overlay. Figures are not live Amazon observations.",
       "checkout": {
-        "terms": "$49 once for a lifetime KDP Lens license key. The key is printed on the thank-you page after payment. Paste it into the extension popup. Free use is 10 Amazon pages a day without a key. The extension never touches your KDP account and never sends page text off your machine. The prepared 0.1.2 update shows observations without sales predictions. Chrome currently offers 0.1.0; its sales estimates are unsupported. It is not a subscription. Cancel is not needed. Email operations@ustechautomations.com with questions.",
+        "terms": "$49 once for a lifetime KDP Lens license key. The key is printed on the thank-you page after payment. Paste it into the extension popup. Free use is 10 Amazon pages a day without a key. The extension never touches your KDP account and never sends page text off your machine. Chrome currently offers 0.1.2, which shows observations without sales predictions. It is not a subscription. Cancel is not needed. Email operations@ustechautomations.com with questions.",
         "after": "The lifetime key is printed on the thank-you page after payment.",
         "url": "https://buy.stripe.com/3cI4gs6p8g9487GdTA0sU2A",
         "label": "Buy the lifetime key — $49 once",
         "lands_on": "buy.stripe.com",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -2521,8 +2623,8 @@
         "label": "Buy — $350 one-off",
         "lands_on": "buy.stripe.com",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       },
       "kind": "build"
     },
@@ -2547,9 +2649,9 @@
         "url": "https://apify.com/usta/epa-sdwis-water-systems",
         "label": "Open the EPA actor on Apify",
         "lands_on": "apify.com",
-        "status": "EXTERNAL",
-        "checked": "2026-09-10",
-        "verified": "API detail and Store HTTP 200; execution and customer demand unestablished"
+        "status": "live",
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -2581,8 +2683,8 @@
         "url": "https://buy.stripe.com/aFa3coeVE4qm5ZyeXE0sU2C",
         "lands_on": "buy.stripe.com",
         "label": "Buy — $350 for 12 months one-off",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -2604,14 +2706,14 @@
       "delivery": "<strong>What arrives after you pay:</strong> a single private web page with the whole explained bank — all sittings, every question, grouped by topic — within 15 minutes of payment.",
       "note": "STAGED 2026-09-07, NOT PUBLISHED. One-off explained question bank at $49 for the last five CBP Customs Broker License Exam sittings (2024-05, 2024-10, 2025-04, 2025-10, 2026-04). Questions and answer keys are CBP publications (public domain, 17 U.S.C. 105), parsed from PDFs already in fv5_data_cble/. Explanations are machine-drafted on the local door :30003 and machine-checked on :30004; each quotes the Title 19 CFR text the official key cites, fetched from the eCFR API. Explanations withheld and counted where the key cites the tariff schedule, the question was withdrawn, two answers were accepted, or a door was down. Free pages: family page + one page per sitting with a 10-question sample and an honest 'N of M explained' count. Paid page (fulfil): the whole bank, all sittings, grouped by topic, noindex, no buyer email. Refresh is manual twice a year (cbp.gov 403s to curl). checkout.url is TO-MINT until a customs-broker-exam-bank SKU at 4900 cents one-off exists in the INSTALLED permits-engine release. Timer skipped on instruction. No mailbox reader.",
       "checkout": {
-        "terms": "$49 once, for the explained bank of the last five Customs Broker License Exam sittings. Nothing recurring, nothing to cancel and no subscription behind it. You get one private web page with every question from those sittings, CBP's own official answer on each, and — where the official key cites a Title 19 CFR rule — our explanation that quotes that rule. The questions and answer keys are CBP publications in the public domain; the explanations are ours, machine-drafted and machine-checked, and are not CBP's. Not every question is explained: classification questions cite the tariff schedule rather than the CFR, some questions were withdrawn by CBP or had two accepted answers, and those carry no single explanation — the page shows the honest count. This is a study aid, not legal or tax advice, and we do not guarantee exam results. Refund on request within 14 days. There is no pay button on this page yet.",
+        "terms": "$49 once, for the explained bank of the last five Customs Broker License Exam sittings. Nothing recurring, nothing to cancel and no subscription behind it. You get one private web page with every question from those sittings, CBP's own official answer on each, and — where the official key cites a Title 19 CFR rule — our explanation that quotes that rule. The questions and answer keys are CBP publications in the public domain; the explanations are ours, machine-drafted and machine-checked, and are not CBP's. Not every question is explained: classification questions cite the tariff schedule rather than the CFR, some questions were withdrawn by CBP or had two accepted answers, and those carry no single explanation — the page shows the honest count. This is a study aid, not legal or tax advice, and we do not guarantee exam results. Refund on request within 14 days.",
         "after": "The private page is delivered within 15 minutes of payment. Still not here after 15 minutes? Reply to your Stripe receipt.",
         "url": "https://buy.stripe.com/6oUaEQ7tcaOK73C7vc0sU2E",
         "label": "Buy — $49 one-off",
         "lands_on": "buy.stripe.com",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       },
       "sample_status": "pass",
       "group": "Trade records",
@@ -2642,8 +2744,8 @@
         "label": "Buy — $49 one-off",
         "lands_on": "buy.stripe.com",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       },
       "sample_status": "pass",
       "group": "Trade records",
@@ -2674,8 +2776,8 @@
         "label": "Buy — $49 one-off",
         "lands_on": "buy.stripe.com",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       },
       "sample_status": "pass",
       "group": "Employment records",
@@ -2706,8 +2808,8 @@
         "label": "Buy — $49 one-off",
         "lands_on": "buy.stripe.com",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       },
       "sample_status": "pass",
       "group": "Food and labelling",
@@ -2738,8 +2840,8 @@
         "label": "Buy — $49 one-off",
         "lands_on": "buy.stripe.com",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       },
       "sample_status": "pass",
       "group": "Compliance paperwork",
@@ -2770,8 +2872,8 @@
         "label": "Buy — $49 one-off",
         "lands_on": "buy.stripe.com",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       },
       "sample_status": "pass",
       "group": "Records and filings",
@@ -2798,16 +2900,16 @@
         "lands_on": "buy.stripe.com",
         "label": "Subscribe — $175 a month",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
       "id": "acacheck",
       "name": "ACA e-file pre-checker (1094-C / 1095-C)",
       "buyer": "Payroll and benefits engineers who transmit ACA Information Returns to the IRS AIR system",
-      "cadence": "unavailable",
-      "price": "Not on sale",
+      "cadence": "once, not a feed",
+      "price": "$499 for 12 months",
       "sample_status": "unknown",
       "note": "2026-09-10: Existing payment link deactivated and read back. Product and return-path acceptance failed; no reopening date. Source engines preserved for repair. Exact former commercial settings remain in private restoration evidence.",
       "kind": "build",
@@ -2817,14 +2919,14 @@
       "group": "Tools",
       "live": "https://ustechautomations.com/feeds/acacheck/",
       "checkout": {
-        "terms": "Purchases unavailable. Official references only.",
-        "after": "No purchase is available.",
-        "url": "",
-        "label": "Purchases unavailable",
-        "lands_on": "",
-        "status": "off_sale",
-        "checked": "2026-09-10",
-        "verified": ""
+        "url": "https://buy.stripe.com/fZu28keVE3mi2Nm3eW0sU37",
+        "terms": "$499 for 12 months through Stripe. The private page with your key builds itself within 10 minutes of payment. No email is sent. One payment; the key works for 12 months. Refunds are not offered; the free checker on this page lets you try the whole tool first.",
+        "after": "After you pay, Stripe sends you to the thank-you page. That page shows your 12-month key. Paste it into the tool. Nobody emails you.",
+        "lands_on": "buy.stripe.com",
+        "label": "Buy — $499 for 12 months",
+        "status": "live",
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       },
       "coverage_what": "Official IRS AIR references",
       "coverage_how": "Prototype is not validated for production AIR files; the rejection decoder is unverified.",
@@ -2851,8 +2953,8 @@
         "lands_on": "buy.stripe.com",
         "label": "Subscribe — $99 a month",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -2876,8 +2978,8 @@
         "lands_on": "buy.stripe.com",
         "label": "Buy — $199 for 12 months",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
@@ -2901,34 +3003,35 @@
         "lands_on": "buy.stripe.com",
         "label": "Subscribe — $49 a month",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       }
     },
     {
       "id": "la-appeal-packet",
       "name": "Los Angeles property-tax appeal evidence packet",
       "buyer": "Los Angeles County homeowners filing a decline-in-value review or appeal",
-      "cadence": "once",
-      "price": "$49 once",
-      "sample_status": "pass",
-      "note": "Free preview runs in the browser from the county's public parcel map. The paid packet is built from the same map for the address the buyer types at checkout. Document preparation, not legal or tax advice, not a valuation.",
-      "cadence_long": "one evidence packet for one Los Angeles County address, paid once. It appears on the private page the thank-you page opens. We do not email it.",
+      "cadence": "unavailable",
+      "price": "Not on sale",
+      "sample_status": "fail",
+      "note": "PARKED 2026-09-13: qualification failed on an isolated copy: 1/10 independent checks passed, 9 failed, raw exit 2. Existing selftest raw 0 mirrors unsupported assumptions. Missing amounts become zero; missing/truncated source responses become empty success; ambiguous parcels are chosen silently; base-year minus one is presented as recording year without a recording-date field; AAB100 section5 mapping is wrong and attachment advice contradicts the current county form. Commercial reuse of county data is supported by current eGIS terms, but that does not qualify personalized legal-document/form/filing guidance under California BPC6400/6401. Legal scope remains UNKNOWN and is parked under standing operator doctrine, not pending an approval or a legal-advice request. See fv5/families/la-appeal-packet/QUALIFICATION.md and reports/marketplace-closure-20260912/la-packet/. Offer and after-payment pages fetched HTTP404 September13. Exact existing Stripe link was deactivated/read back active=false September12; keep it off. Do not restore merely after fixing URLs: require lawful scope, source-grounded output, honest UNKNOWN handling, current form correspondence, buyer isolation and real delivery acceptance. No replacement product was accepted.",
+      "cadence_long": "Purchases unavailable. The packet page is parked.",
       "group": "Public records",
       "short": "LA appeal evidence packet",
       "who": "Los Angeles County homeowners who think their home is worth less than the value on their 2026 tax bill and want the county's own numbers for nearby homes before they file.",
       "coverage_what": "One address: its 2026 roll record, up to 10 nearby single-family parcels the assessor re-enrolled after a 2024 or 2025 change of ownership, and the RP-87 and AAB-100 fields those numbers go in",
       "coverage_how": "The free preview asks the county's public parcel map in your browser and shows how many usable nearby parcels exist. The packet is built the same way after payment and appears on the private page the thank-you page opens.",
-      "price_list_note": "Run the free preview first. The pay button only shows when at least three usable nearby parcels exist for the address you typed.",
+      "price_list_note": "Not on sale. Purchases unavailable.",
       "checkout": {
-        "terms": "$49 once for one evidence packet for one Los Angeles County address. Nothing recurring. The packet is the county's own current-roll figures for your parcel and nearby re-enrolled parcels, with the RP-87 and AAB-100 fields filled in from them. It appears on the private page the thank-you page opens, usually within 15 minutes. We do not email it. This is document preparation, not legal or tax advice, not a valuation and not representation. We do not claim the assessor or the Appeals Board will lower your value.",
+        "terms": "Purchases unavailable. The public packet page is parked.",
         "after": "The packet appears on the private page the thank-you page opens, usually within 15 minutes. We do not email it.",
-        "url": "https://buy.stripe.com/3cI8wI5l4e0W5Zy9Dk0sU2T",
-        "lands_on": "buy.stripe.com",
-        "label": "Buy the packet — $49 once",
-        "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "url": "",
+        "lands_on": "",
+        "label": "Purchases unavailable — page not live",
+        "status": "off_sale",
+        "checked": "2026-09-12",
+        "verified": "public URL HTTP 404; exact Stripe link deactivated and API read back active=false on 2026-09-12",
+        "held_stripe_stamp": "plink_1UDztL1W0OJClv3VF2nmRF83 (already inactive; do not remint)"
       }
     },
     {
@@ -2953,10 +3056,10 @@
         "lands_on": "buy.stripe.com",
         "label": "Buy the kit — $199 once",
         "status": "live",
-        "checked": "2026-09-09",
-        "verified": "2026-09-09"
+        "checked": "2026-09-14",
+        "verified": "2026-09-14"
       },
-      "kind": "generated"
+      "kind": "build"
     }
   ],
   "map": "MAP.md",

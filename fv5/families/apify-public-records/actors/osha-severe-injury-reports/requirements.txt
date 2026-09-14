@@ -1,3 +1,5 @@
-# Apify Python SDK. Everything else the actor needs is in the standard library
-# (urllib, csv, json), so the image stays small and the run stays cheap.
-apify>=2.0,<3.0
+apify==2.7.3
+# SDK 2.7/Crawlee 0.6 fails import with Pydantic 2.13.5.
+pydantic==2.11.10
+# Browserforge 1.2.4 removed an interface used by Crawlee 0.6.
+browserforge==1.2.3

@@ -15,16 +15,12 @@ The three scrapers:
 1. **OSHA severe-injury reports** — one row per report: employer, city, state,
    industry code, and whether a hospitalisation or amputation was noted.
 2. **EPA drinking-water systems** — one row per public water system, with its
-   count of safe-drinking-water violations. This is the one source we can read
-   live and in full, so it is the free sample on the page.
-3. **NRC spill notices** — one row per pollution incident reported to the Coast
-   Guard's National Response Center.
+   count of safe-drinking-water violations. This remains the existing free sample on the page; current OSHA and NRC runtime acceptance is recorded separately.
+3. **NRC spill notices** — one row per initial, unvalidated report with a listed material in the accepted2026 receipt-year workbook, with source provenance and explicit unknowns.
 
-Each is pay-per-run: $0.50 to start, plus $0.005 per record, capped hard at 1,000
-records with a run timeout so a run can never quietly run away.
+Current prices and caps are the actor-specific provider schedules. NRC and OSHA start events were removed on12 September2026; their remaining result event is0.005USD. See current acceptance before making a runtime claim.
 
 The line we do not cross: every row is a firm, a facility, a water system or an
-incident — never a private person. No operator name, no caller name, no home
-address is ever kept or returned. A row that read as a private individual is
+incident — never a private person. No operator, caller, worker-name or street-address field is published in actor output. OSHA original government bytes are retained locally for only the three most recent successful source collections; the public source copy drops address and narrative columns. A row that read as a private individual is
 withheld, not renamed. The scrapers claim no affiliation with OSHA, the EPA or the
 Coast Guard, and offer no legal, tax or professional advice.

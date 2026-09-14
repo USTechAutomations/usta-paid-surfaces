@@ -1,51 +1,16 @@
 # apify-public-records
 
-Three public-records scrapers sold on the **Apify Store**, with the /feeds family
-page as their shop-window. See `MISSION.md` for the why, `SOURCES.md` for the
-sources and their terms, and each `actors/<name>/README.md` for that scraper's
-input, output and cost.
+This family contains three Apify actor projects and an owned feeds sample. Current runtime evidence is in each actor's ACCEPTANCE.md or the marketplace-closure-20260912 report; historical scaffolding instructions are not provider state.
 
-## How this family is different from the rest of the estate
+EPA SDWIS has hosted-source acceptance recorded in that report. NRC now uses the official2026 annual workbook and has provider output/failure acceptance; its default is0.3.3. OSHA default0.3.2 uses a daily validated source copy and has actual provider/source/CSV acceptance. Both public Store pages returned200 with the repaired product copy. Independent demand/payment remains UNKNOWN for all three. Do not describe all three as equally accepted.
 
-Every other family sells through a Stripe checkout on this site and delivers a
-file. This one does **not**. The Apify Store brings the buyer, runs the scraper on
-its own servers, **bills the buyer per run**, takes its cut, and pays the operator
-the rest. So:
+Pricing is owned by each actor's actual Apify pricingInfos history, not .actor metadata. NRC and OSHA's start events were removed on12 September2026; the remaining dataset-item event is0.005USD. Preserve every earlier pricing record when updating a schedule. NRC and OSHA make no manual charge calls. Apify platform/account usage is separate. There is no need for a new publication acknowledgment or manual price-zero task.
 
-- There is **no Buy button and no Stripe checkout** on the family page. Until the
-  three listings are live on the Store, the page is on its honest "email us for
-  the Store links" path.
-- **Identity and payout are the operator's.** The actors are pushed to the
-  operator's own Apify account and Apify pays that account. This build was **not
-  logged in to Apify**, so nothing was pushed; the exact publish steps are staged
-  in `PUBLISH.sh`.
-- **Price:** each scraper is pay-per-event — **$0.50** to start a run plus
-  **$0.005** per record. The `pricingInfos` block in each `.actor/actor.json` is
-  NOT a real Apify field and is ignored on push; the price is set at listing time
-  by the browser hand (`~/Claude CLI/harness/browser/apify_publish.py --set-pricing`,
-  falling back to the Console wizard flow). A run is capped hard at **1,000
-  records** with a run timeout.
+The existing feeds sample is real EPA data. It is separate from the NRC actor; the absence of NRC rows there does not mean NRC still uses an ASP.NET form. See SOURCES.md for current source details. PUBLISH.sh and legacy refresh.py diagnostics have older assumptions; use immutable provider-build and actual-run evidence for marketplace acceptance.
 
-## The free sample is real
+## Billing and owned sample
 
-The one source we can read live and in full is **EPA Envirofacts SDWIS**, so the
-free sample on the page is real Arizona community water systems with their
-violation counts, sealed by `refresh.py`. OSHA (HTTP 403 to us) and NRC (an
-ASP.NET download form) are described honestly and are **not** in the committed
-sample; local `apify run` for those two uses clearly-labelled synthetic fixtures.
-
-## Two honest deviations from the family spec (S2)
-
-1. **The catalog price carries no `$` sign** (`"Pay-per-run on the Apify Store"`).
-   A dollar amount in the catalog price, tab title or a button would make the
-   honesty gate treat this as a Stripe-priced family and demand a price-list entry
-   and a pay link this externally-billed family does not have. The exact
-   `$0.50 / $0.005` prices are stated in the page body and in every actor README,
-   where the gate allows them.
-2. **`checkout.url` is empty** until a listing is actually live on the Store.
-   An empty url keeps the page on the email path; a real
-   `https://apify.com/<username>/<actor>` URL goes in only after the operator has
-   opened it in a browser (see `PUBLISH.sh`).
+Apify owns each actor's billing and current price display. NRC and OSHA have no start event and cost0.005USD per returned item; EPA retains its separate provider schedule. No new Stripe catalog is required. The owned feeds sample and its legacy scaffolding are separate from these tested marketplace builds. Free publication needs no operator acknowledgment; use actual provider/build/Store readback rather than the historical manual instructions in PUBLISH.sh.
 
 ## The 10 guardrails, as applied here
 

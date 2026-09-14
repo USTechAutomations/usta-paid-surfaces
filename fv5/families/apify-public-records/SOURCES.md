@@ -1,28 +1,18 @@
 # Sources — apify-public-records
 
-Every source here is US Government public-domain data. Status codes below were
-probed from this build environment on **2026-09-07**. Nothing is fabricated: a
+Every source here is US Government public-domain data. The EPA baseline below dates to **2026-09-07**; OSHA and NRC have explicitly dated **2026-09-12** acceptance sections. Nothing is fabricated: a
 403 is recorded as a 403, and a source we cannot read live is not written into the
 committed sample.
 
 ---
 
-## 1. OSHA severe-injury reports
+## 1. OSHA severe-injury reports — current source, 12 September 2026
 
-- **URL (page):** `https://www.osha.gov/severeinjury`
-- **URL (data):** `https://www.osha.gov/sites/default/files/severeinjury.csv`
-- **Licence:** US Government work, public domain. OSHA publishes the severe-injury
-  dataset for public use. The public dataset contains employer/establishment
-  fields; it does **not** contain injured-worker names, and none are added.
-- **Fetch method:** HTTP GET of the CSV, parsed with the standard-library CSV
-  reader; address columns dropped on the way in.
-- **Cadence:** OSHA updates the file periodically; a run reads whatever the file
-  holds on the day of the run.
-- **Status on 2026-09-07:** page **HTTP 403**, CSV **HTTP 403** — osha.gov blocks
-  automated fetches from this environment. This is recorded, not evaded. A real
-  run on Apify fetches live; local `apify run` uses the labelled synthetic fixture
-  at `actors/osha-severe-injury-reports/fixtures/sample_input_result.json`. This
-  source is **not** part of the committed /feeds sample.
+The official page https://www.osha.gov/severe-injury-reports and linked https://www.osha.gov/sites/default/files/January2015toNovember2025.zip returned HTTP200 in the canonical isolated browser. The actual hosted direct request returned403; that route now fails explicitly instead of reporting empty success. A daily guarded collector publishes a minimized checksum-verified copy to the owned Apify store; the actor refuses copies older than48 hours. See collectors/osha/README.md for operation and rollback.
+
+Original ZIP SHA a3f7f434e200fb956131f12277378e592993a25db3f328716fbece106f846bb0;105,996 counted source rows with dates2015-01-01 through2025-11-30. This public government file is historical, not a complete injury census. The public copy excludes street addresses and narratives. Original bytes are retained locally only for bounded acceptance/recovery; source fields are not a worker contact list.
+
+Actual default0.3.2 hosted runRoP4xanoJ6VNeQUZo returned three records matching the independent source oracle, raw exit0. Current Store200 shows source lag, coverage and pricing. Source discovery, public delivery and commercial conversion are separate evidence; independent payment is still UNKNOWN. See actors/osha-severe-injury-reports/ACCEPTANCE.md.
 
 ## 2. EPA SDWIS drinking-water systems
 
@@ -38,20 +28,11 @@ committed sample.
 - **Status on 2026-09-07:** **HTTP 200**, `application/json`. Read live and in
   full. **This is the free /feeds sample** and the EPA actor's live source.
 
-## 3. NRC spill notices
+## 3. NRC spill notices — current source correction, 12 September 2026
 
-- **URL:** `https://nrc.uscg.mil/DownLoad.aspx` (data behind the download form on
-  `https://nrc.uscg.mil/`)
-- **Licence:** US Government work, public domain (National Response Center incident
-  data). The subject is an incident; no caller name is kept.
-- **Fetch method:** the data is **not** a plain file. `DownLoad.aspx` answers with
-  an ASP.NET postback form; the actor loads the form, captures its
-  `__VIEWSTATE` / `__EVENTVALIDATION` tokens, posts them back, and parses the CSV
-  it returns. Field names can shift year to year, so the parser is defensive.
-- **Cadence:** annual files; a run reads the year implied by the requested date
-  range.
-- **Status on 2026-09-07:** **HTTP 200**, `text/html` — a form, not a file, so the
-  live pull is driven inside the actor and local `apify run` falls back to the
-  labelled synthetic fixture at
-  `actors/nrc-spill-notices/fixtures/sample_input_result.json`. This source is
-  **not** part of the committed /feeds sample.
+The obsolete DownLoad.aspx path returns an error page; it is not the current download mechanism. The official homepage https://nrc.uscg.mil/ returned HTTP200 and links directly to annual Excel files. https://nrc.uscg.mil/FOIAFiles/CY26.xlsx and https://nrc.uscg.mil/FOIAFiles/DataDictionary.xlsx both returned HTTP200 this run. The source SHA and counted coverage are in actors/nrc-spill-notices/ACCEPTANCE.md and the marketplace-closure-20260912/apify-recovery report.
+
+The actor joins INCIDENT_COMMONS, MATERIAL_INVOLVED and INCIDENT_DETAILS by SEQNOS. Only the2026 receipt-year workbook has acceptance. Output keeps report/location/material fields and excludes caller names, street addresses, free-text narratives and responsible-party details. Reports are initial and unvalidated, as NRC states; a material entry is not proof of a confirmed release. Source failures are UNKNOWN, never successful empty results.
+
+The NRC actor has real provider output acceptance. The family's older free EPA sample remains a separate artifact; it does not need to include NRC records. Legacy refresh.py still probes the obsolete NRC form for a diagnostic and must not be used as NRC product acceptance.
+

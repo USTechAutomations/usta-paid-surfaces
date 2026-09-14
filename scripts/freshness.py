@@ -102,6 +102,11 @@ def check_freshness(dist_dir: Path, today: dt.date | None = None) -> int:
         cadence = int(m_cad.group(1))
         if cadence < 1:
             fail(f"{page.relative_to(dist_dir)} declares a cadence of {cadence} days, which cannot be read")
+        if newest > today:
+            fail(
+                f"{page.relative_to(dist_dir)} declares newest read {newest}, "
+                "which is in the future and cannot be read"
+            )
         age = (today - newest).days
         where = page.relative_to(dist_dir).parent.as_posix() or "/"
         limit = late_after(cadence)

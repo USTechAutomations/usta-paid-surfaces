@@ -1,6 +1,6 @@
 {
   "family": "ai-terms",
-  "generated": "2026-09-10",
+  "generated": "2026-09-14",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/ai-terms",
   "rows_published": 25,
@@ -16,6 +16,16 @@
     "url"
   ],
   "rows": [
+    [
+      "Anthropic",
+      "privacy policy",
+      "",
+      "In addition, Anthropic transfers personal data overseas as follows: Recipient\u2019s Name (Contact Information): Persona (privacy@withpersona.com) Country to which Personal Data to be Transferred: United States Items of Personal Data to be Transferred: Name, birthdate, sex, native-foreigner-code, and DI (duplication information) Recipient\u2019s Purpose of Use: Fraud and abuse detection and identity verification Period of Retention and Use by Recipient: 3 years Legal Basis for Overseas Transfer: PIPA Article 28-8(1)(iii) delegation Following collection, personal data is transferred to the overseas recipients listed below from time to time, as necessary, via a dedicated network.",
+      "arrived on the page",
+      "2026-09-11",
+      "2026-09-12",
+      "https://www.anthropic.com/legal/privacy"
+    ],
     [
       "Intercom",
       "terms of service",
@@ -255,16 +265,6 @@
       "2026-08-17",
       "2026-08-18",
       "https://support.google.com/gemini/answer/13594961"
-    ],
-    [
-      "Cursor",
-      "terms of service",
-      "By using the Service, you agree to these Terms.",
-      "By using the Service, you agree to these Terms including our Acceptable Use Policy.",
-      "rewritten in place",
-      "2026-08-13",
-      "2026-08-14",
-      "https://www.cursor.com/terms-of-service"
     ]
   ]
 }

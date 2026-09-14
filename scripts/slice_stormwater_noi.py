@@ -104,6 +104,11 @@ def sample() -> tuple[list[str], list[list[str]]]:
     """Newest week's what-changed file, permit-name column left out."""
     rows = changed_rows()
     if not rows:
+        # A week with no changes still has to hand a stranger real rows to look
+        # at before paying (check_site refuses an empty sample). Fall back to the
+        # newest full copy and say so in the change column.
+        rows = [dict(r, change="in current copy; no change this week") for r in snap_rows()]
+    if not rows:
         return ["permit_id", "site_name", "county", "city", DATE_COL, "change"], []
     headers = [h for h in rows[0].keys() if h.lower() != NAME_COL]
     body = [[row.get(h, "") for h in headers] for row in rows[:SAMPLE_CAP]]
@@ -173,7 +178,9 @@ def family_spec() -> dict:
             f"dictionary describes PERMIT_NAME as the facility name for an NPDES permit and "
             f"ISSUE_DATE as the date the permit was issued. <strong>{how}</strong> The first "
             f"{min(TABLE_CAP, n_week)} are printed here; the sample file below carries "
-            f"{min(SAMPLE_CAP, n_week)} of them without the permit name; the paid file "
+            f"{min(SAMPLE_CAP, n_week) if n_week else SAMPLE_CAP} of "
+            f"{'them' if n_week else 'the rows in the newest full copy, because nothing changed this week,'} "
+            f"without the permit name; the paid file "
             f"carries all of them with it. No street.</p>\n"
             + table(head, body,
                     f"{min(TABLE_CAP, n_week)} of the {n_week} coverages this week",

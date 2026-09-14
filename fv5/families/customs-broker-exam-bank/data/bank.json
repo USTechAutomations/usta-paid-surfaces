@@ -653,11 +653,11 @@
        "24.5"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 24.5(d), suffix codes may be numeric, alphabetic, or a combination of both, but the letters \"O, Z, and I may not be used.\" Therefore, options A, B, and D are invalid because they contain the prohibited letters Z or I, leaving \"EV\" as the only permissible choice.",
+     "explanation_status": "ok",
+     "cfr_used": "24.5",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=24&section=24.5",
+     "checker": "PASS\nThe explanation correctly cites section (d) which appears in the excerpt, accurately states the rule regarding prohibited letters (O, Z, I), and logically supports the official answer (C) by elim"
     },
     {
      "sitting": "2026-04",
@@ -734,10 +734,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "132.11",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=132&section=132.11",
+     "checker": "FLAG\n\nThe candidate explanation cites \"19 CFR 132.11(a)\" and references \"FTZ\" (Foreign-Trade Zone) and \"bulk sale,\" none of which appear in the provided regulation excerpt. The excerpt only discusses "
     },
     {
      "sitting": "2026-04",
@@ -801,11 +801,11 @@
        "132.2"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "According to 19 CFR 132.2(a), tariff-rate quotas and absolute quotas are established by \"Presidential proclamations, Executive orders, and legislative enactments.\" Since the regulation explicitly lists these three methods and does not include U.S. Trade Representative orders, option C is the correct answer for the method that is NOT used.",
+     "explanation_status": "ok",
+     "cfr_used": "132.2",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=132&section=132.2",
+     "checker": "PASS The explanation correctly identifies that the regulation lists Presidential proclamations, Executive orders, and legislative enactments as the methods for establishing quotas, and logically concl"
     },
     {
      "sitting": "2026-04",
@@ -911,11 +911,11 @@
        "10.41a"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Option C is the correct answer because the regulation explicitly states that such instruments \"may be released without entry or the payment of duty,\" making entry and duty payment not a requirement for their release. In contrast, the text confirms that normal accessories and equipment are included in the definition (Option B) and that a bond on CBP Form 301 must be filed prior to release (Option D). Therefore, the requirement to file an entry or pay duty is the exception among the listed choices.",
+     "explanation_status": "ok",
+     "cfr_used": "10.41a",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=10&section=10.41a",
+     "checker": "PASS\nThe explanation correctly identifies that the regulation allows release without entry or duty payment (paragraph a(1)), which aligns with the official answer C (assuming C corresponds to the \"no "
     },
     {
      "sitting": "2026-04",
@@ -1042,11 +1042,11 @@
        "12.124"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "19 CFR 12.124(a) explicitly states that the importer must bring the shipment into compliance with TSCA or export it from the customs territory of the United States within 90 days after notice of detention or 30 days of demand for redelivery, whichever comes first. This text directly supports Option A, which accurately reflects these specific time limits and requirements. Options C and D are incorrect because they cite 120 and 60 days, which do not appear in the regulation, and Option B is incorrect because the rule mandates action on the shipment rather than submitting written documentation to the Administrator.",
+     "explanation_status": "ok",
+     "cfr_used": "12.124",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=12&section=12.124",
+     "checker": "PASS\nThe explanation accurately reflects the time limits (90 days/30 days) and requirements stated in the excerpt, and correctly identifies that the other options (implied by the rejection of 120/60 d"
     },
     {
      "sitting": "2026-04",
@@ -1068,11 +1068,11 @@
        "12.50"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 12.50(b), the regulation explicitly states that \"If DOE or FTC notifies CBP that a covered import does not comply with an applicable energy conservation or energy labeling standard, CBP will refuse admission to the covered import.\" This text identifies the Department of Energy (DOE) and the Federal Trade Commission (FTC) as the specific federal agencies responsible for providing such notifications to Customs and Border Protection. Therefore, Option A is the correct answer because it accurately lists the two agencies named in the regulation as the sources of noncompliance notices.",
+     "explanation_status": "ok",
+     "cfr_used": "12.50",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=12&section=12.50",
+     "checker": "PASS\nThe explanation correctly cites section (b) of the provided excerpt and accurately reflects the text regarding the roles of DOE and FTC in notifying CBP of noncompliance, supporting the official "
     },
     {
      "sitting": "2026-04",
@@ -1094,11 +1094,11 @@
        "133.2"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The regulation at 19 CFR 133.2(e) lists specific factors CBP may consider for physical and material differences, including formulation and construction (option B), performance characteristics (option D), and differences from legal requirements (option A). Since the text does not list retail price as a factor for determining physical or material differences, option C is the correct answer for what is NOT considered.",
+     "explanation_status": "ok",
+     "cfr_used": "133.2",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=133&section=133.2",
+     "checker": "PASS\nThe explanation correctly identifies that the regulation lists specific factors (composition, formulation, performance, legal requirements) in section (e) and does not list retail price, which al"
     },
     {
      "sitting": "2026-04",
@@ -1128,11 +1128,11 @@
        "133.42"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Option B is correct because the regulation defines articles that violate the DMCA as \"products, devices, components, or parts thereof primarily designed or produced for the purpose of circumventing a copyright protection measure.\" The memory card described in Option B is explicitly designed to circumvent Nintendo's protection measures, fitting this definition exactly. In contrast, the other options involve misdeclaration, trademark infringement, or copyright infringement, which are not the specific violations covered by the DMCA seizure provisions cited in 19 CFR 133.47.",
+     "explanation_status": "ok",
+     "cfr_used": "133.47",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=133&section=133.47",
+     "checker": "PASS\nThe explanation correctly identifies the definition of DMCA-violating articles in the excerpt (paragraph (a)(2)) and accurately distinguishes it from other types of violations, supporting the off"
     },
     {
      "sitting": "2026-04",
@@ -1175,11 +1175,11 @@
        "190.45"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 190.45(a), substitution drawback is available for imported merchandise that was \"ultimately sold at retail\" and \"for any reason returned to and accepted by the importer.\" This regulation specifically covers returned retail merchandise, making option D the correct choice, whereas the other options describe scenarios not covered by this specific provision.",
+     "explanation_status": "ok",
+     "cfr_used": "190.45",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=190&section=190.45",
+     "checker": "PASS\nThe explanation accurately reflects the text of § 190.45(a) regarding the eligibility of returned retail merchandise and correctly supports the official answer without citing unsupported facts or"
     },
     {
      "sitting": "2026-04",
@@ -1235,10 +1235,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "113.62",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=113&section=113.62",
+     "checker": "FLAG\nThe candidate explanation cites \"19 CFR 142.12(b)\" and discusses \"liquidated damages,\" neither of which appears in the provided regulation excerpt (§ 113.62), violating the constraint against cit"
     },
     {
      "sitting": "2026-04",
@@ -1285,11 +1285,11 @@
        "4.37"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 141.5, merchandise must be entered within 15 calendar days after landing from a vessel, which establishes the first blank in the correct answer. The regulation further states that if timely entry is not made, the merchandise is treated in accordance with 19 CFR 4.37, which governs the notice requirements for unentered goods. Therefore, option B is the only choice that correctly reflects the 15-day entry limit specified in the cited text.",
+     "explanation_status": "ok",
+     "cfr_used": "141.5",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=141&section=141.5",
+     "checker": "PASS\n\nThe explanation correctly identifies the 15-day time limit and the reference to § 4.37 from the provided excerpt. Although the excerpt does not explicitly define § 4.37 as governing \"notice requ"
     },
     {
      "sitting": "2026-04",
@@ -1311,11 +1311,11 @@
        "146.25"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The regulation explicitly states that the operator must prepare the reconciliation report \"within 90 days after the end of the zone/subzone year\" unless the port director authorizes an extension for reasonable cause. This specific timeframe directly supports option C as the correct answer.",
+     "explanation_status": "ok",
+     "cfr_used": "146.25",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=146&section=146.25",
+     "checker": "PASS The explanation correctly cites the 90-day timeframe found in section (a) of the excerpt and does not contradict the official answer or cite unsupported facts."
     },
     {
      "sitting": "2026-04",
@@ -1337,11 +1337,11 @@
        "146.44"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 146.44(a), merchandise admitted to a Foreign Trade Zone in zone-restricted status is taken in for the \"sole purpose of exportation, destruction... or storage.\" The regulation explicitly states that such merchandise \"may not be removed to Customs territory for domestic consumption,\" which eliminates options A and B. Since the status is defined by the intent to export, option D is the correct action, as the merchandise is effectively treated as exported for Customs purposes.",
+     "explanation_status": "ok",
+     "cfr_used": "146.44",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=146&section=146.44",
+     "checker": "PASS\nThe explanation correctly identifies the restriction on removing merchandise to Customs territory for domestic consumption based on Section (a) and aligns with the official answer D."
     },
     {
      "sitting": "2026-04",
@@ -1363,11 +1363,11 @@
        "102.1"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "19 CFR 102.1(d) explicitly defines \"Domestic material\" as \"a material whose country of origin as determined under these rules is the same country as the country in which the good is produced.\" This text directly supports Option A, which mirrors the regulation's requirement that the material's origin matches the production location. Options B, C, and D describe indirect materials, fungible goods, and wholly obtained goods, respectively, which are defined in other sections of the regulation.",
+     "explanation_status": "ok",
+     "cfr_used": "102.1",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=102&section=102.1",
+     "checker": "PASS\nThe explanation correctly cites § 102.1(d) and accurately reflects the definition of \"Domestic material\" provided in the excerpt, supporting the official answer without contradiction or unsupport"
     },
     {
      "sitting": "2026-04",
@@ -1389,11 +1389,11 @@
        "134.45"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 134.45(b), abbreviations that \"unmistakably indicate the name of a country\" are acceptable, and the regulation explicitly lists \"Gt. Britain\" and \"Luxemb\" as valid examples. The same section states that variant spellings which \"clearly indicate the English name of the country of origin\" are also acceptable, specifically citing \"Brasil\" for \"Brazil\" and \"Italie\" for \"Italy.\" Therefore, \"Ita\" is the unacceptable option because it is not listed as an approved abbreviation or variant spelling in the provided text.",
+     "explanation_status": "ok",
+     "cfr_used": "134.45",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=134&section=134.45",
+     "checker": "PASS\n\nThe candidate's explanation correctly identifies that \"Ita\" is not explicitly listed as an acceptable abbreviation or variant spelling in the provided text, which aligns with the logic required "
     },
     {
      "sitting": "2026-04",
@@ -1415,11 +1415,11 @@
        "134.2"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "19 CFR 134.2 explicitly states that articles not marked as required \"shall be subject to additional duties of 10 percent of the final appraised value\" unless they are exported or destroyed under Customs supervision prior to liquidation. This regulation directly supports option C, as it defines the specific penalty for failing to mark the country of origin. The text confirms that this 10 percent duty applies to the failure to indicate the English name of the country of origin or to include necessary words or symbols.",
+     "explanation_status": "ok",
+     "cfr_used": "134.2",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=134&section=134.2",
+     "checker": "PASS\nThe explanation accurately reflects the content of the provided regulation excerpt, correctly identifying the 10 percent additional duty and the conditions for its application, without citing any"
     },
     {
      "sitting": "2026-04",
@@ -1550,11 +1550,11 @@
        "159.6"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The provided text for 19 CFR 173.3(a) states that a voluntary reliquidation to correct errors may be made \"even though a protest has been filed.\" This confirms that the reliquidation process is valid in the context of a protest, supporting the scenario in option B where a refund is issued following a protest reliquidation. The other options are incorrect because the text does not support a 180-day window for billing, a 60-day written request requirement, or a specific dollar threshold for refunds.",
+     "explanation_status": "ok",
+     "cfr_used": "173.3",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=173&section=173.3",
+     "checker": "PASS\nThe explanation correctly cites the text regarding the 90-day window and the allowance for reliquidation despite a filed protest, and it does not cite any section numbers or facts not present in "
     },
     {
      "sitting": "2026-04",
@@ -1576,11 +1576,11 @@
        "141.89"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 141.89(a), invoices for cotton fabrics must specify whether the merchandise is \"composed of yarns of different color.\" Since the dress is described as a woven garment of three different colors, the invoice must indicate if this multi-color appearance results from the warp and/or filling yarns, making option D the correct requirement. Option A is incorrect because the regulation only mandates that embroidery or lace information for \"Bed linen and Bedspreads,\" not dresses.",
+     "explanation_status": "ok",
+     "cfr_used": "141.89",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=141&section=141.89",
+     "checker": "PASS The explanation correctly identifies the requirement for cotton fabrics under the provided excerpt (specifically item 5 regarding yarns of different colors) and correctly notes that the embroider"
     },
     {
      "sitting": "2026-04",
@@ -1606,11 +1606,11 @@
        "141.20"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Option B is the step that is NOT required because the provided regulation text does not mandate furnishing copies of power of attorney documents to CBP within 90 days to relieve liability. The text in 19 CFR 141.19 focuses on executing declarations and handling bond charges, not on submitting POA copies as a specific condition for liability relief. Therefore, the other options align with standard procedures for declaring ownership and bonding, while B is not supported by the cited regulation.",
+     "explanation_status": "ok",
+     "cfr_used": "141.19",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=141&section=141.19",
+     "checker": "PASS\n\nThe candidate explanation correctly identifies that the provided regulation excerpt (§ 141.19) does not contain any provision regarding the submission of power of attorney copies within 90 days "
     },
     {
      "sitting": "2026-04",
@@ -1632,11 +1632,11 @@
        "141.68"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 141.68(e), \"Merchandise will not be authorized for release, nor will an entry... be considered filed or presented, until the merchandise has arrived within the port limits with the intent to unlade.\" Because the entry documentation was filed on September 15, 2025, before the merchandise arrived within the port limits on September 17, 2025, the filing is not considered effective until that arrival date. Therefore, pursuant to 19 CFR 141.68(a)(3), the time of entry is the time the merchandise arrives within the port limits, which is September 17, 2025.",
+     "explanation_status": "ok",
+     "cfr_used": "141.68",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=141&section=141.68",
+     "checker": "PASS\nThe explanation correctly cites § 141.68(e) and § 141.68(a)(3), both of which are present in the provided excerpt, and the logical deduction that the time of entry is the arrival date (September "
     },
     {
      "sitting": "2026-04",
@@ -1658,11 +1658,11 @@
        "159.12"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 159.12(b), the regulation explicitly states that the \"notice of extension will be maintained on www.cbp.gov for a minimum of 15 months from the date of posting.\" This specific timeframe directly supports option D as the correct answer, distinguishing it from the shorter durations listed in the other choices.",
+     "explanation_status": "ok",
+     "cfr_used": "159.12",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=159&section=159.12",
+     "checker": "PASS\nThe explanation correctly cites section (b) and accurately reflects the regulation's statement that the notice of extension will be maintained for a minimum of 15 months, which supports the offic"
     },
     {
      "sitting": "2026-04",
@@ -1684,11 +1684,11 @@
        "165.24"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 165.24(b)(1)(i), when CBP determines there is reasonable suspicion of evasion, it must \"Suspend the liquidation of each unliquidated entry of such covered merchandise that entered on or after the date of the initiation of the investigation under § 165.15.\" This specific requirement matches Option D, whereas Option C incorrectly applies the extension of liquidation periods to entries that entered after the investigation began, a measure reserved for entries that entered before that date under paragraph (b)(1)(ii).",
+     "explanation_status": "ok",
+     "cfr_used": "165.24",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=165&section=165.24",
+     "checker": "PASS The explanation correctly identifies the specific requirement in § 165.24(b)(1)(i) regarding the suspension of liquidation for entries made on or after the investigation initiation, and accuratel"
     },
     {
      "sitting": "2026-04",
@@ -1710,11 +1710,11 @@
        "12.39"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 12.39(b)(2), excluded articles \"may be entered under a single entry bond\" while the exclusion order remains in effect, but they \"will be refused entry\" once the Commission's determination becomes final. This confirms that option D is correct because it accurately reflects the ability to enter merchandise under bond until the violation determination is final, whereas option B is incorrect because entry is permitted under bond during that interim period.",
+     "explanation_status": "ok",
+     "cfr_used": "12.39",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=12&section=12.39",
+     "checker": "PASS\nThe explanation accurately reflects the regulation's distinction between the interim period (entry under bond allowed) and the final determination period (entry refused), and correctly identifies"
     },
     {
      "sitting": "2026-04",
@@ -1778,11 +1778,11 @@
        "152.102"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Option D is correct because the regulation defines an \"assist\" to include \"Materials, components, parts, and similar items incorporated in the imported merchandise\" when supplied free of charge by the buyer for use in production. The printed circuit assembly components in Option D fit this definition as they are incorporated into the switches, whereas the engineering plans in Option A are excluded because they were produced in the United States.",
+     "explanation_status": "ok",
+     "cfr_used": "152.102",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=152&section=152.102",
+     "checker": "PASS\n\nThe explanation correctly identifies the definition of \"assist\" in § 152.102(a)(1)(i) and the exclusion for services performed in the United States in § 152.102(a)(2), supporting the official an"
     },
     {
      "sitting": "2026-04",
@@ -1805,10 +1805,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "152.103",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=152&section=152.103",
+     "checker": "FLAG\n\nThe candidate explanation cites \"19 CFR 152.103\" and discusses \"related-party transactions\" and \"Customs has determined the relationship did not affect the price,\" but the provided excerpt does "
     },
     {
      "sitting": "2026-04",
@@ -1873,7 +1873,7 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
+     "explanation_status": "no-cfr-text",
      "cfr_used": "",
      "cfr_source_url": "",
      "checker": ""
@@ -1898,11 +1898,11 @@
        "152.103"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 152.103(a)(1), the price actually paid or payable is considered \"without regard to its method of derivation\" and may be \"arrived at by the application of a formula.\" Because the regulation explicitly allows for prices determined by formulas, the use of the New York Mercantile Exchange price is acceptable under transaction value, making option A the correct statement.",
+     "explanation_status": "ok",
+     "cfr_used": "152.103",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=152&section=152.103",
+     "checker": "PASS\nThe explanation correctly cites § 152.103(a)(1) and accurately reflects the regulation's statement that the price may be arrived at by the application of a formula, supporting the official answer"
     },
     {
      "sitting": "2026-04",
@@ -1925,10 +1925,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "152.103",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=152&section=152.103",
+     "checker": "FLAG\n\nThe candidate explanation cites specific dollar amounts ($18,344, $4,500, $1,500) and a specific scenario (payment to a freight forwarder and buying agent) that are not present in the provided r"
     },
     {
      "sitting": "2026-04",
@@ -1951,10 +1951,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "152.101",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=152&section=152.101",
+     "checker": "FLAG\n\nThe candidate explanation states that subheading 6401.10.00 \"covers footwear with protective metal toe-caps,\" but the provided regulation excerpt does not contain this definition or description "
     },
     {
      "sitting": "2026-04",
@@ -1977,10 +1977,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "152.103",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=152&section=152.103",
+     "checker": "FLAG\nThe candidate explanation cites \"19 CFR 152.103(a)(2)\" and discusses a specific scenario involving a $20,000 price and a $2,000 royalty to Disney, which are not present in the provided regulation"
     },
     {
      "sitting": "2026-04",
@@ -2002,11 +2002,11 @@
        "159.32"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The official answer is C because the cited regulation, 19 CFR 159.32, explicitly states that \"The date of exportation for currency conversion shall be fixed in accordance with § 152.1(c) of this chapter.\" This text directly links the conversion of foreign currency on a commercial invoice to the date of exportation, rather than the date of import, entry, or lading. Therefore, the proclaimed or certified rates effective on the date of export are the correct basis for the conversion.",
+     "explanation_status": "ok",
+     "cfr_used": "159.32",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=159&section=159.32",
+     "checker": "PASS\nThe explanation correctly cites the section number found in the excerpt (§ 152.1(c)) and accurately reflects the regulation's directive to use the date of exportation for currency conversion, con"
     },
     {
      "sitting": "2026-04",
@@ -2028,19 +2028,19 @@
        "152.3"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The regulation explicitly states that when the entire shipment does not agree with the invoice and there is no evidence of intent to defraud, \"the estimated duty paid on the original entry shall be refunded on liquidation as in the case of a nonimportation.\" This specific language directly supports Option B as the correct treatment for the duties. Since the text mandates a refund on liquidation rather than a transfer, credit, or retention for forfeiture, the other options are incorrect.",
+     "explanation_status": "ok",
+     "cfr_used": "152.3",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2025-04-01/title-19.xml?part=152&section=152.3",
+     "checker": "PASS\nThe explanation accurately cites the regulation's text regarding the refund of estimated duty on liquidation and correctly supports the official answer without citing non-existent sections or con"
     }
    ],
    "cfr_date": "2025-04-01",
    "key_rows_parsed": 80,
    "key_rows_missing": [],
    "questions_total": 80,
-   "questions_explained": 12,
-   "questions_flagged": 5
+   "questions_explained": 37,
+   "questions_flagged": 11
   },
   {
    "id": "2025-10",
@@ -2708,10 +2708,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "24.23",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=24&section=24.23",
+     "checker": "FLAG\n\nThe explanation cites \"19 CFR 24.24,\" which does not appear in the provided regulation excerpt, and it references specific facts (a \"corrected broker invoice\" and a total of \"$732.12\") that are "
     },
     {
      "sitting": "2025-10",
@@ -2746,10 +2746,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "18.6",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=18&section=18.6",
+     "checker": "FLAG\n\nThe candidate explanation cites \"19 CFR 158.3\" and \"19 CFR 18.6(f)\" as the basis for the answer, but the provided regulation excerpt only contains § 18.6 and does not include the text of 19 CFR "
     },
     {
      "sitting": "2025-10",
@@ -2771,11 +2771,11 @@
        "132.5"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 132.5(c), merchandise imported in excess of an absolute quota may be held for the next period by placing it in a foreign-trade zone or entering it for warehouse, or it may be exported or destroyed under Customs supervision. Options A, B, and C describe these specific authorized dispositions, making them appropriate actions. Option D is not an appropriate action because the regulation does not list filing a transportation entry to move merchandise in-bond as a valid method for disposing of excess quota merchandise.",
+     "explanation_status": "ok",
+     "cfr_used": "132.5",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=132&section=132.5",
+     "checker": "PASS\nThe explanation correctly identifies the authorized dispositions listed in paragraph (c) of the excerpt and logically concludes that an option (D) not listed in the regulation is the correct answ"
     },
     {
      "sitting": "2025-10",
@@ -2798,10 +2798,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "141.67",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=141&section=141.67",
+     "checker": "FLAG\n\nThe candidate explanation cites specific facts (e.g., \"quota filled on August 1, 2025,\" \"filer discovered the error on September 1, 2025,\" \"annual TRQ limit\") that are not present in the provide"
     },
     {
      "sitting": "2025-10",
@@ -2824,10 +2824,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "no-cfr-text",
+     "cfr_used": "132.14",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=132&section=132.14",
+     "checker": "PASS The explanation correctly identifies the condition for assessing liquidated damages as stated in the excerpt and aligns with the official answer."
     },
     {
      "sitting": "2025-10",
@@ -2850,10 +2850,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "132.11a",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=132&section=132.11a",
+     "checker": "FLAG\n\nThe candidate explanation incorrectly states that the time of presentation is \"the moment the carrier arrived,\" whereas the regulation explicitly defines it as \"the time estimated duties are dep"
     },
     {
      "sitting": "2025-10",
@@ -2876,10 +2876,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "132.13",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=132&section=132.13",
+     "checker": "FLAG\n\nThe candidate explanation cites \"19 CFR 132.13(a)(1)(i)\" and \"Type 02\" (a specific entry form number not present in the excerpt), and asserts a specific fact about the client's desire regarding "
     },
     {
      "sitting": "2025-10",
@@ -2968,11 +2968,11 @@
        "142.21"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The official answer is correct because the machine is classifiable under HTSUS heading 8475.29.0000, which covers machinery for working glass or glassware, and the importation method aligns with the \"incremental release\" procedure. Under 19 CFR 141.58(b)(4)(ii), an unassembled entity released under special permit procedures must have all portions arrive within 10 calendar days of the first portion's release, a condition met by the six-day arrival window described in the question. This regulation permits the importer to process the disassembled machine as a single entry, validating the classification and entry method associated with option A.",
+     "explanation_status": "ok",
+     "cfr_used": "141.58",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=141&section=141.58",
+     "checker": "PASS\nThe explanation correctly cites section 141.58(b)(4)(ii) and accurately reflects the 10-day requirement for incremental release described in the excerpt."
     },
     {
      "sitting": "2025-10",
@@ -3120,11 +3120,11 @@
        "174.12"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 174.12(e)(1), a protest must be filed \"within 180 days of a decision relating to an entry made on or after December 18, 2004\" following \"The date of notice of liquidation or reliquidation, or the date of liquidation or reliquidation.\" Since Sunny Solar Panels' entry was made in 2020 and CBP liquidated it on January 22, 2021, the deadline is 180 days from that liquidation date.",
+     "explanation_status": "ok",
+     "cfr_used": "174.12",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=174&section=174.12",
+     "checker": "PASS\n\nThe explanation correctly cites § 174.12(e)(1) and accurately applies the 180-day rule for entries made on or after December 18, 2004, based on the liquidation date, which is fully supported by "
     },
     {
      "sitting": "2025-10",
@@ -3147,10 +3147,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "no-cfr-text",
+     "cfr_used": "12.95",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=12&section=12.95",
+     "checker": "FLAG\n\nThe explanation cites \"19 CFR 12.96\" and specific statutory exceptions for amputees or National Park Rangers, neither of which appears in the provided regulation excerpt (which only covers § 12."
     },
     {
      "sitting": "2025-10",
@@ -3180,11 +3180,11 @@
        "113.74"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 12.39(b)(2), excluded articles may be entered under a single entry bond during the period the exclusion order remains in effect, but they will be refused entry once the Commission's determination of a violation becomes final. This confirms that option D is correct because it accurately reflects the ability to enter merchandise under bond until the determination is final, whereas option B is incorrect because entry is permitted under bond before that finality.",
+     "explanation_status": "ok",
+     "cfr_used": "12.39",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=12&section=12.39",
+     "checker": "PASS\nThe explanation accurately reflects the regulation's provision that articles may be entered under bond during the period the exclusion order is in effect, but entry is refused once the determinat"
     },
     {
      "sitting": "2025-10",
@@ -3206,11 +3206,11 @@
        "142.15"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 142.15, if entry summary documentation is not filed timely, the port director \"shall make an immediate demand for liquidated damages in the entire amount of the bond in the case of a single entry bond.\" This specific requirement for a single entry bond directly supports option C, which states that the director must demand liquidated damages for the bond amount. The regulation does not provide for warnings, seizure, or limiting future entries as the immediate mandatory action in this scenario.",
+     "explanation_status": "ok",
+     "cfr_used": "142.15",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=142&section=142.15",
+     "checker": "PASS\nThe explanation accurately reflects the regulation's requirement for an immediate demand for liquidated damages in the entire amount of the bond for a single entry bond, and it does not cite any "
     },
     {
      "sitting": "2025-10",
@@ -3232,11 +3232,11 @@
        "113.27"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 113.27(b), a surety terminating its agreement to accept future obligations must provide reasonable notice to both CBP and the principal. The regulation explicitly states that \"Thirty days will constitute reasonable notice unless the surety can show to the satisfaction of CBP that a shorter time frame is reasonable under the facts and circumstances.\" Therefore, 30 days is the standard notice period required, making option D the correct answer.",
+     "explanation_status": "ok",
+     "cfr_used": "113.27",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=113&section=113.27",
+     "checker": "PASS\n\nThe candidate's explanation accurately reflects the content of section (b) of the provided excerpt, correctly identifying the 30-day standard notice period and the conditions for a shorter timef"
     },
     {
      "sitting": "2025-10",
@@ -3258,11 +3258,11 @@
        "113.23"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Option D is correct because 19 CFR 113.23(d) states that when changes are desired after a bond has been approved by CBP, \"a new bond is required, which, when approved, will supersede the existing bond.\" This regulation explicitly prohibits the port director from permitting changes after approval unless expressly authorized, making the execution of a new bond the mandatory procedure.",
+     "explanation_status": "ok",
+     "cfr_used": "113.23",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=113&section=113.23",
+     "checker": "PASS\nThe explanation correctly cites section 113.23(d) and accurately reflects the regulation's requirement for a new bond to supersede the existing one after CBP approval, supporting the official ans"
     },
     {
      "sitting": "2025-10",
@@ -3284,11 +3284,11 @@
        "146.43"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 146.43(a), domestic status is granted to merchandise that is a U.S. growth, product, or manufacture with taxes paid, previously imported with duty and tax paid, or previously entered free of duty and tax. Option D describes merchandise that has been imported but on which duties, taxes, or fees have **not** been paid, which does not match any of the three categories listed in the regulation. Therefore, this type of merchandise is the exception and cannot be granted domestic status.",
+     "explanation_status": "ok",
+     "cfr_used": "146.43",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=146&section=146.43",
+     "checker": "PASS\nThe explanation correctly identifies that the regulation requires duty and tax to be paid for previously imported merchandise to receive domestic status, and it accurately concludes that merchand"
     },
     {
      "sitting": "2025-10",
@@ -3310,11 +3310,11 @@
        "146.31"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 146.31(a), port directors \"shall not admit prohibited merchandise,\" which confirms that prohibited items cannot be admitted into a Foreign Trade Zone. Additionally, section (b) states that the admission of conditionally admissible merchandise is \"subject to the regulations of the Federal agency concerned,\" meaning it may be admitted if those specific regulations permit it. Therefore, option B is the only statement that accurately reflects both the prohibition on admitting prohibited goods and the conditional nature of admitting other restricted goods.",
+     "explanation_status": "ok",
+     "cfr_used": "146.31",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=146&section=146.31",
+     "checker": "PASS\nThe explanation accurately reflects the content of the provided regulation excerpt, correctly citing the prohibitions in section (a) and the conditions in section (b) without introducing unsuppor"
     },
     {
      "sitting": "2025-10",
@@ -3348,11 +3348,11 @@
        "141.11"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The correct answer is B because 19 CFR 127.4 explicitly states that the general order period expires 6 months from the date of importation. This regulation defines the general order period as the time during which merchandise is not subject to sale, meaning the puzzles can remain in the warehouse for exactly that duration before becoming eligible for sale.",
+     "explanation_status": "ok",
+     "cfr_used": "127.4",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=127&section=127.4",
+     "checker": "PASS\nThe explanation correctly cites the 6-month expiration period from the provided excerpt and does not contradict the official answer or cite unsupported facts."
     },
     {
      "sitting": "2025-10",
@@ -3395,11 +3395,11 @@
        "12.73"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "19 CFR 12.73(e) explicitly states that gasoline-fueled light-duty trucks and light-duty motor vehicles manufactured before January 1, 1968, may be imported by any person without showing compliance with emission requirements before admissibility. This matches Option A exactly, as the regulation lists this specific category under exemptions based on the vehicle's age. Therefore, these older vehicles are exempt from the pre-admissibility emissions compliance checks required for other imports.",
+     "explanation_status": "ok",
+     "cfr_used": "12.73",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=12&section=12.73",
+     "checker": "PASS\n\nThe candidate explanation accurately reflects the content of Section 12.73(e)(1) provided in the excerpt, which exempts gasoline-fueled light-duty vehicles manufactured before January 1, 1968, f"
     },
     {
      "sitting": "2025-10",
@@ -3421,11 +3421,11 @@
        "141.89"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 141.89(a), the regulation requires specific additional information for certain classes of merchandise, such as cotton fabrics, which must include the \"Exact width of the merchandise\" and \"Exact weight per square meter in gram.\" The provided text does not list a requirement to report the \"Length of the paper in cm\" or the \"Diameter of the roll in cm\" for tracing paper classifiable under subheading 4806.30. Therefore, the length of the paper is the piece of information not required to be included on the invoice.",
+     "explanation_status": "ok",
+     "cfr_used": "141.89",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=141&section=141.89",
+     "checker": "PASS\nThe explanation correctly identifies that the specific requirements for tracing paper (length/diameter) are not present in the provided excerpt, which only lists requirements for other classes li"
     },
     {
      "sitting": "2025-10",
@@ -3451,11 +3451,11 @@
        "144.5"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 159.11(a), an entry is deemed liquidated by operation of law if it is not liquidated within one year from \"the date of entry of the merchandise, or the date of final withdrawal of all merchandise covered by a warehouse entry.\" Because the question specifically concerns a warehouse entry, the relevant trigger for the one-year period is the date of the final withdrawal of all merchandise, making option B the correct answer.",
+     "explanation_status": "ok",
+     "cfr_used": "159.11",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=159&section=159.11",
+     "checker": "PASS\nThe explanation correctly identifies the relevant provision in § 159.11(a) and accurately applies the specific rule for warehouse entries (final withdrawal date) to support the official answer."
     },
     {
      "sitting": "2025-10",
@@ -3477,11 +3477,11 @@
        "101.1"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "19 CFR 101.1 defines the \"date of importation\" for merchandise imported by vessel as \"the date on which the vessel arrives within the limits of a port in the United States with intent then and there to unlade such merchandise.\" In this scenario, the vessel arrived within the limits of the seaport with the intent to unlade on January 23, 2025, which matches the regulatory definition exactly. Therefore, January 23, 2025, is the correct date of importation, making option B the official answer.",
+     "explanation_status": "ok",
+     "cfr_used": "101.1",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=101&section=101.1",
+     "checker": "PASS The explanation correctly cites the definition of \"date of importation\" for merchandise imported by vessel found in the provided excerpt and logically applies it to support the official answer B "
     },
     {
      "sitting": "2025-10",
@@ -3516,10 +3516,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "no-cfr-text",
+     "cfr_used": "141.11",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=141&section=141.11",
+     "checker": "PASS\nThe explanation correctly identifies that a commercial or pro forma invoice is not listed in the provided excerpt as acceptable evidence of the right to make entry, which aligns with the official"
     },
     {
      "sitting": "2025-10",
@@ -3575,11 +3575,11 @@
        "141.1"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 141.1(b)(1), the liability for duties constitutes a \"personal debt due from the importer to the United States.\" The regulation explicitly states that \"Payment to a broker covering duties does not relieve the importer of liability if the duties are not paid by the broker.\" Therefore, because Ms. Stein is the importer of record, she remains personally liable for the unpaid $5,800.00 despite having paid her broker.",
+     "explanation_status": "ok",
+     "cfr_used": "141.1",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=141&section=141.1",
+     "checker": "PASS The explanation correctly cites section 141.1(b)(1) which is present in the excerpt and accurately reflects the regulation's statement that payment to a broker does not relieve the importer of li"
     },
     {
      "sitting": "2025-10",
@@ -3610,10 +3610,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "177.9",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=177&section=177.9",
+     "checker": "FLAG\n\nThe candidate explanation cites \"19 CFR 177.9(a)\" and \"19 CFR 177.9(c)\" (and implicitly 177.9(b)(2)), but the provided regulation excerpt only lists the section header \"§ 177.9\" and subsections "
     },
     {
      "sitting": "2025-10",
@@ -3635,11 +3635,11 @@
        "133.27"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The regulation explicitly states in paragraph (a) that for a first violation, the fine \"will not be more than the value the merchandise would have had if it were genuine, according to the manufacturer's suggested retail price in the United States at the time of seizure.\" This text directly supports Option B, while Option D is incorrect because the \"twice the value\" limit applies only to subsequent violations under paragraph (b).",
+     "explanation_status": "ok",
+     "cfr_used": "133.27",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=133&section=133.27",
+     "checker": "PASS\nThe explanation accurately cites the regulation text for the first violation limit and correctly distinguishes it from the subsequent violation limit, supporting the official answer without contr"
     },
     {
      "sitting": "2025-10",
@@ -3669,11 +3669,11 @@
        "148.13"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 148.74(b)(2), the privilege of free entry under subheading 9805.00.50, HTSUS, does not apply to articles which have not been in the direct personal possession of the claimant while abroad. Therefore, the broker must determine if the motorcycle served as a personal effect or was used for commercial purposes, as this directly impacts whether it qualifies for duty-free treatment.",
+     "explanation_status": "ok",
+     "cfr_used": "148.74",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=148&section=148.74",
+     "checker": "PASS The explanation correctly cites section 148.74(b)(2) which is present in the excerpt and accurately reflects the regulation's requirement that articles must be in the direct personal possession o"
     },
     {
      "sitting": "2025-10",
@@ -3704,10 +3704,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "no-cfr-text",
+     "cfr_used": "114.1",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=114&section=114.1",
+     "checker": "PASS\nThe candidate explanation correctly identifies that the provided excerpt (19 CFR 114.1) contains only definitions and does not include the specific rule regarding the one-year validity limit, thu"
     },
     {
      "sitting": "2025-10",
@@ -3729,11 +3729,11 @@
        "102.12"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 102.12(b), the country of origin may be determined on the basis of an inventory management method only if the good is fungible, has been commingled, and direct physical identification of the origin is not practical. This specific combination of conditions matches Option C, making it the correct answer.",
+     "explanation_status": "ok",
+     "cfr_used": "102.12",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=102&section=102.12",
+     "checker": "PASS\nThe candidate explanation accurately reflects the conditions stated in § 102.12(b) of the provided excerpt and correctly identifies that these conditions correspond to the official answer (Option"
     },
     {
      "sitting": "2025-10",
@@ -3760,10 +3760,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "190.2",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=190&section=190.2",
+     "checker": "FLAG\nThe explanation cites \"19 U.S.C. 1313(j)(2)\" and specific HTSUS subheadings (0902.10.9015) which are not present in the provided regulation excerpt, and the excerpt does not support the specific "
     },
     {
      "sitting": "2025-10",
@@ -3801,11 +3801,11 @@
        "142.17"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 142.17(a)(1), a single entry summary for multiple entries is only permitted if the merchandise has \"the same country of exportation, and the same country of origin.\" Because the shipments included adhesives of both U.S. and Mexican origin, they failed to meet this requirement, resulting in the rejection of the consolidated entry summary.",
+     "explanation_status": "ok",
+     "cfr_used": "142.17",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=142&section=142.17",
+     "checker": "PASS The explanation correctly cites § 142.17(a)(1) which is present in the excerpt, and the reasoning that differing countries of origin (U.S. and Mexico) violate the requirement for the \"same countr"
     },
     {
      "sitting": "2025-10",
@@ -3828,10 +3828,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "152.103",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=152&section=152.103",
+     "checker": "FLAG\nThe explanation cites section 152.103(e)(1), which does not appear in the provided regulation excerpt (which only contains subsection (a) and its examples)."
     },
     {
      "sitting": "2025-10",
@@ -3857,11 +3857,11 @@
        "152.101"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 141.86(a)(6), when merchandise is shipped \"otherwise than in pursuance of a purchase or an agreement to purchase,\" the invoice must list the price the manufacturer \"would have received, or was willing to receive, for such merchandise if sold in the ordinary course of trade.\" This requirement directly supports option D, as the golf balls are being given away as a promotion rather than sold, necessitating a valuation based on hypothetical ordinary trade sales.",
+     "explanation_status": "ok",
+     "cfr_used": "141.86",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=141&section=141.86",
+     "checker": "PASS\nThe explanation correctly cites § 141.86(a)(6) which is present in the excerpt, accurately reflects the regulation's requirement for non-purchased merchandise, and supports the official answer D "
     },
     {
      "sitting": "2025-10",
@@ -3905,10 +3905,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "152.103",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=152&section=152.103",
+     "checker": "FLAG\nThe candidate explanation cites sections 152.103(j) and (k), which do not appear in the provided regulation excerpt (which only contains subsection (a) and its examples)."
     },
     {
      "sitting": "2025-10",
@@ -3931,10 +3931,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "152.103",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=152&section=152.103",
+     "checker": "FLAG\nThe candidate explanation cites \"19 CFR 152.103(a)(2)\" and calculates a specific value ($20,300) based on a scenario (a $10,000 credit) that is not present in the provided regulation excerpt, whi"
     },
     {
      "sitting": "2025-10",
@@ -3957,7 +3957,7 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
+     "explanation_status": "no-cfr-text",
      "cfr_used": "",
      "cfr_source_url": "",
      "checker": ""
@@ -3987,10 +3987,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "152.103",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=152&section=152.103",
+     "checker": "FLAG\nThe candidate explanation cites \"19 CFR 152.103(a)(1)\" and \"§ 152.103(b)\", but the provided regulation excerpt only contains the header \"§ 152.103 Transaction value.\" and subsection \"(a)\"; it doe"
     },
     {
      "sitting": "2025-10",
@@ -4062,11 +4062,11 @@
        "10.195"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 10.3016(c)(1), permissible additions to the value of originating materials include freight and insurance costs, duties and taxes paid, and the cost of waste and spoilage. The regulation text provided does not list the depreciated value of equipment as a permissible addition, making option D the correct answer for what is NOT allowed.",
+     "explanation_status": "ok",
+     "cfr_used": "10.3016",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=10&section=10.3016",
+     "checker": "PASS\nThe explanation correctly identifies the permissible additions listed in section (c)(1) of the excerpt and logically concludes that an item not listed (depreciated value of equipment) is not a pe"
     },
     {
      "sitting": "2025-10",
@@ -4093,10 +4093,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "10.195",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=10&section=10.195",
+     "checker": "FLAG\n\nThe candidate explanation cites \"19 CFR 10.195\" and \"19 U.S.C. 1311,\" but the provided regulation excerpt only lists the section number \"§ 10.195\" without the \"19 CFR\" prefix, and the specific s"
     },
     {
      "sitting": "2025-10",
@@ -4160,11 +4160,11 @@
        "165.11"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 165.11(b), an allegation of evasion must include specific details such as the \"Name and address of importer against whom the allegation is brought,\" a \"Description of the covered merchandise,\" and the \"Applicable AD/CVD orders.\" The regulation does not require an explanation of the relationship between the importer and the interested party, making option D the correct exception.",
+     "explanation_status": "ok",
+     "cfr_used": "165.11",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=165&section=165.11",
+     "checker": "PASS\n\nThe explanation correctly identifies that the regulation requires the name/address of the importer, description of merchandise, and applicable orders (citing § 165.11(b)(3), (4), and (5)), and c"
     },
     {
      "sitting": "2025-10",
@@ -4191,18 +4191,18 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "159.41",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2024-04-01/title-19.xml?part=159&section=159.41",
+     "checker": "FLAG\nThe candidate explanation cites specific rates (257.06%, 1731.75%, 97.78%) and invoice values ($1,700.00, $4,200.00) that are not present in the provided regulation excerpt, which only states tha"
     }
    ],
    "cfr_date": "2024-04-01",
    "key_rows_parsed": 80,
    "key_rows_missing": [],
    "questions_total": 80,
-   "questions_explained": 18,
-   "questions_flagged": 3
+   "questions_explained": 40,
+   "questions_flagged": 16
   },
   {
    "id": "2025-04",
@@ -4868,11 +4868,11 @@
        "190.74"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 190.72(b)(3), valid supporting documentary evidence for exportation includes \"Official postal records (originals or copies) which evidence exportation by mail.\" Option D is the only choice that constitutes an official postal record, as it provides the original USPS Customs Declaration and Dispatch Note with a barcode label and payment receipt. Options A, B, and C are commercial invoices, emails, or affidavits, which do not meet the specific requirement for official postal documentation cited in the regulation.",
+     "explanation_status": "ok",
+     "cfr_used": "190.72",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=190&section=190.72",
+     "checker": "PASS\n\nThe explanation correctly cites § 190.72(b)(3), which is present in the provided excerpt, and accurately reflects the regulation's requirement for \"Official postal records\" as valid supporting d"
     },
     {
      "sitting": "2025-04",
@@ -4899,10 +4899,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "190.35",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=190&section=190.35",
+     "checker": "FLAG\nThe candidate explanation cites \"19 CFR 190.36,\" which does not appear in the provided regulation excerpt (which is § 190.35), and the explanation discusses application details not found in the e"
     },
     {
      "sitting": "2025-04",
@@ -5239,11 +5239,11 @@
        "113.13"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 113.13(c), if CBP determines that a bond is inadequate, the principal and surety are promptly notified in writing. The regulation explicitly states that \"The principal will have 15 days from the date of notification to remedy the deficiency.\" Therefore, option A is the correct answer because it matches the specific 15-day timeframe mandated by the cited text.",
+     "explanation_status": "ok",
+     "cfr_used": "113.13",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=113&section=113.13",
+     "checker": "PASS\nThe explanation correctly cites section 113.13(c) and accurately reflects the 15-day timeframe for remedying a bond deficiency as stated in the excerpt, supporting the official answer."
     },
     {
      "sitting": "2025-04",
@@ -5286,11 +5286,11 @@
        "134.41"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The regulation explicitly states that the marking of the country of origin must be \"legible, indelible, and permanent.\" Therefore, option A is the correct answer because it directly matches the third requirement listed in the text.",
+     "explanation_status": "ok",
+     "cfr_used": "134.41",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=134&section=134.41",
+     "checker": "PASS The explanation correctly identifies the requirements listed in the excerpt and aligns with the official answer without citing unsupported facts or missing sections."
     },
     {
      "sitting": "2025-04",
@@ -5312,11 +5312,11 @@
        "18.1"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The official answer is D because 19 CFR 18.1 explicitly defines the process for transporting merchandise in-bond, which the regulation describes as moving imported goods \"from one port to another prior to the appraisement of the merchandise and without the payment of duties.\" This definition directly matches the client's request to move avocados from Los Angeles to San Francisco without appraisal or duty payment. Therefore, the general rules and application requirements found in § 18.1 govern this specific type of in-bond transportation.",
+     "explanation_status": "ok",
+     "cfr_used": "18.1",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=18&section=18.1",
+     "checker": "PASS\n\nThe explanation correctly cites the definition of in-bond transportation found in paragraph (a) of the provided excerpt and accurately applies it to the scenario without contradicting the offici"
     },
     {
      "sitting": "2025-04",
@@ -5338,11 +5338,11 @@
        "159.6"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 159.6(c), when the difference between liquidated duties and estimated duties is \"$20 or more,\" the regulation states that \"bills or refund checks will be issued.\" Since the discrepancy here is $250.00 ($1,000.00 deposited minus $750.00 ascertained), which exceeds the $20 threshold, CBP is required to issue a refund check for the overpayment.",
+     "explanation_status": "ok",
+     "cfr_used": "159.6",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=159&section=159.6",
+     "checker": "PASS The explanation correctly cites section (c) which appears in the excerpt and accurately applies the rule that differences of $20 or more result in bills or refund checks being issued."
     },
     {
      "sitting": "2025-04",
@@ -5364,11 +5364,11 @@
        "145.31"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 145.31, the port director will pass free of duty and tax, without preparing an entry, packages containing merchandise having an \"aggregate fair retail value in the country of shipment of not over $800.\" Option A qualifies because the jade figurines have a fair retail value of $799.00 in India, the country of shipment, which is not over the $800 threshold.",
+     "explanation_status": "ok",
+     "cfr_used": "145.31",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=145&section=145.31",
+     "checker": "PASS\nThe explanation correctly cites the regulation and accurately applies the $800 threshold to the specific facts provided (value of $799.00), supporting the official answer without contradicting th"
     },
     {
      "sitting": "2025-04",
@@ -5390,11 +5390,11 @@
        "12.48"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The correct answer is C because 19 CFR 12.48 is the specific regulation titled \"Importation prohibited; exceptions to prohibition of importation; procedure,\" which directly governs the importation of United States postage stamps. The text explicitly details the conditions under which the importation of illustrations or reproductions of canceled and uncanceled United States postage stamps is permitted, such as for philatelic or educational purposes. Therefore, this section is the authoritative provision addressing the scenario described in the question.",
+     "explanation_status": "ok",
+     "cfr_used": "12.48",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=12&section=12.48",
+     "checker": "PASS\nThe explanation correctly identifies the regulation title and content as described in the excerpt and aligns with the official answer without citing unsupported facts or missing sections."
     },
     {
      "sitting": "2025-04",
@@ -5416,11 +5416,11 @@
        "159.12"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 159.12(a)(1), the regulation explicitly states that the Center director \"may extend the 1-year statutory period for liquidation for an additional period not to exceed 1 year\" when good cause is shown. This specific language directly supports option A, as it caps the initial extension at one year. While the regulation allows for further extensions under certain conditions, the question asks for the duration of the extension granted upon a timely request demonstrating good cause, which is defined as not exceeding one year.",
+     "explanation_status": "ok",
+     "cfr_used": "159.12",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=159&section=159.12",
+     "checker": "PASS The explanation correctly identifies the one-year limit for the initial extension as stated in section (a)(1) of the provided excerpt and does not contradict the official answer or cite unsupport"
     },
     {
      "sitting": "2025-04",
@@ -5442,11 +5442,11 @@
        "141.0a"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Option A is correct because 19 CFR 141.0a(b) explicitly states that an \"Entry summary\" means \"any other documentation or electronic submission of data necessary to enable CBP to assess duties, and collect statistics on imported merchandise, and determine whether other requirements of law or regulation are met.\" This definition distinguishes the entry summary from the initial entry documentation used to secure release, focusing instead on the data needed for duty assessment and statistical collection.",
+     "explanation_status": "ok",
+     "cfr_used": "141.0a",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=141&section=141.0a",
+     "checker": "PASS\nThe explanation correctly cites section 141.0a(b) and accurately quotes the definition of \"Entry summary\" provided in the excerpt, supporting the official answer without contradiction or unsuppor"
     },
     {
      "sitting": "2025-04",
@@ -5510,11 +5510,11 @@
        "142.17"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Option A is the correct answer because the regulation text provided does not list \"merchandise of the type defined in 19 CFR 132.1(e)\" as a requirement for filing one entry summary for multiple entries. The actual requirements found in 19 CFR 142.17(a) include that the merchandise is consigned to the same consignee (Option B), each entry is identified separately by entry number (Option C), and the time between the first and last entry does not exceed one week (Option D).",
+     "explanation_status": "ok",
+     "cfr_used": "142.17",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=142&section=142.17",
+     "checker": "PASS\n\nThe candidate explanation correctly identifies that the specific requirement mentioned in Option A is not present in the provided excerpt, while correctly citing the requirements for Options B, "
     },
     {
      "sitting": "2025-04",
@@ -5537,10 +5537,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "24.25",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=24&section=24.25",
+     "checker": "FLAG\nThe explanation cites \"19 CFR 24.25(c)(1)\" and \"19 CFR 24.25\", but the provided regulation excerpt only lists the section number as \"§ 24.25\" without the \"19 CFR\" prefix or specific subsection ci"
     },
     {
      "sitting": "2025-04",
@@ -5562,11 +5562,11 @@
        "141.4"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Option C is the correct answer because a yacht used for commercial cruises is not listed among the specific exceptions in 19 CFR 141.4(b), which only exempts items like \"Vessels (not including vessels classified in headings 8903 and 8907...)\" and \"Instruments of international traffic described in § 10.41a and § 10.41b(b).\" Since the regulation text does not provide an exemption for commercial vessels or yachts, this item requires formal entry, unlike the other options which align with the listed exceptions for instruments of international traffic or other specific categories.",
+     "explanation_status": "ok",
+     "cfr_used": "141.4",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=141&section=141.4",
+     "checker": "PASS The explanation correctly identifies that the regulation does not list commercial yachts as an exception to entry requirements, aligning with the official answer C."
     },
     {
      "sitting": "2025-04",
@@ -5588,11 +5588,11 @@
        "146.7"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 146.7(b), a grantee or operator must make a \"written application\" to the port director for deactivation, which means an oral application is not a valid consideration for approval. The regulation further specifies that the application must indicate the exact site by \"layout or blueprint\" and that the port director shall not approve unless all non-domestic status merchandise has been removed at the operator's risk and expense. Therefore, options A and B are required elements, while option C is the correct answer because the process explicitly demands a written, not oral, submission.",
+     "explanation_status": "ok",
+     "cfr_used": "146.7",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=146&section=146.7",
+     "checker": "PASS\n\nThe candidate explanation correctly identifies that § 146.7(b) requires a \"written application\" for deactivation, which supports the conclusion that an oral application (presumably option C) is "
     },
     {
      "sitting": "2025-04",
@@ -5614,11 +5614,11 @@
        "146.40"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Option C is the correct answer because the regulation specifies that the operator must notify the **port director**, not the consignee, by annotation on the Customs Form 214 when the entire contents of a shipment have been admitted. Paragraph (a)(7) of 19 CFR 146.40 explicitly states: \"Notify the port director, by annotation on the Customs Form 214, when the entire contents of a shipment have been admitted.\" Since the option incorrectly identifies the recipient of the notification as the consignee, it is not a responsibility of the operator under this section.",
+     "explanation_status": "ok",
+     "cfr_used": "146.40",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=146&section=146.40",
+     "checker": "PASS The explanation correctly cites paragraph (a)(7) which is present in the excerpt and accurately reflects the regulation's requirement to notify the port director, supporting the official answer."
     },
     {
      "sitting": "2025-04",
@@ -5640,11 +5640,11 @@
        "133.21"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 133.21(b)(2)(ii), if the importer does not provide information within the \"seven business day response period,\" CBP may proceed with disclosing unredacted information to the mark owner. This aligns with the requirement in paragraph (b)(2)(i)(B) that CBP may disclose such information unless the importer presents evidence within seven business days that the merchandise does not bear a counterfeit mark. Therefore, the importer has 7 business days to respond before CBP can make this disclosure.",
+     "explanation_status": "ok",
+     "cfr_used": "133.21",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=133&section=133.21",
+     "checker": "PASS\nThe explanation correctly identifies the seven business day response period and the consequences of failure to respond as described in the provided regulation excerpt, without contradicting the o"
     },
     {
      "sitting": "2025-04",
@@ -5666,11 +5666,11 @@
        "134.2"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 134.2, articles not marked as required are subject to \"additional duties of 10 percent of the final appraised value\" unless they are exported or destroyed under Customs supervision prior to liquidation. Since the adhesive was not exported or destroyed, this penalty applies specifically for the failure to mark the container with the English name of the country of origin. Therefore, CBP may assess the additional 10% duty described in option B.",
+     "explanation_status": "ok",
+     "cfr_used": "134.2",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=134&section=134.2",
+     "checker": "PASS The explanation correctly cites the 10 percent additional duty and the conditions for its application (failure to mark, not exported/destroyed) as stated in the excerpt, and does not cite any sec"
     },
     {
      "sitting": "2025-04",
@@ -5693,10 +5693,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "134.43",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=134&section=134.43",
+     "checker": "FLAG\n\nThe candidate explanation states that \"Option A is incorrect,\" which contradicts the provided official answer \"A\" (implying A is the correct choice)."
     },
     {
      "sitting": "2025-04",
@@ -5718,11 +5718,11 @@
        "134.2"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 134.2, articles that are not marked as required are subject to \"additional duties of 10 percent of the final appraised value.\" The regulation explicitly states that this duty is assessable for the failure to mark the article or container to indicate the English name of the country of origin. Therefore, because the merchandise contains unrecognizable symbols and lacks the required English marking, CBP is authorized to assess this specific 10% penalty.",
+     "explanation_status": "ok",
+     "cfr_used": "134.2",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=134&section=134.2",
+     "checker": "PASS\nThe explanation accurately reflects the regulation's provision for a 10 percent additional duty for failure to mark articles with the English name of the country of origin, and it does not cite a"
     },
     {
      "sitting": "2025-04",
@@ -5749,10 +5749,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "10.53",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=10&section=10.53",
+     "checker": "FLAG\n\nThe candidate explanation cites \"19 CFR 10.53(e)\" and \"§ 12.26\", but the provided regulation excerpt only lists the section number as \"§ 10.53\" without the \"19 CFR\" prefix, and the excerpt does "
     },
     {
      "sitting": "2025-04",
@@ -5774,11 +5774,11 @@
        "12.7"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The regulation explicitly states that importation of milk and cream is prohibited unless the person shipping or transporting it holds a valid permit, or its electronic equivalent, from the Department of Health and Human Services. This requirement directly matches Option B, making it the correct answer under the Federal Import Milk Act. The text does not mention inspections by the Meat Inspection Division, affidavits for consumption outside the U.S., or permits indicating the end of a quarantine period.",
+     "explanation_status": "ok",
+     "cfr_used": "12.7",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=12&section=12.7",
+     "checker": "PASS The explanation accurately reflects the regulation's requirement for a valid permit from the Department of Health and Human Services and correctly identifies that the other options (inspections, "
     },
     {
      "sitting": "2025-04",
@@ -5801,10 +5801,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "no-cfr-text",
+     "cfr_used": "19.12",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=19&section=19.12",
+     "checker": "FLAG\n\nThe candidate explanation cites a specific requirement (\"30 calendar days\") and a section number (19 CFR 19.12(d)(4)(ii)) that do not appear in the provided regulation excerpt, which cuts off at"
     },
     {
      "sitting": "2025-04",
@@ -5827,10 +5827,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "19.4",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=19&section=19.4",
+     "checker": "FLAG\nThe candidate explanation cites section 19.4(b)(8)(i), but the provided excerpt only contains the beginning of section (b)(8) (\"Manner of storage. Packages shall be received...\") and does not inc"
     },
     {
      "sitting": "2025-04",
@@ -5852,11 +5852,11 @@
        "19.6"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 19.6(b)(2), merchandise for which a withdrawal permit has been issued \"must be segregated or physically marked to maintain its identity as merchandise for which a withdrawal permit has been issued.\" This requirement applies regardless of whether the goods are duty-paid or not, and the regulation explicitly states that such merchandise \"need not be physically removed from the warehouse.\" Therefore, option D is correct because it accurately reflects the mandatory segregation or marking requirement, while options A, B, and C incorrectly suggest that physical removal is required or misstate the custody status.",
+     "explanation_status": "ok",
+     "cfr_used": "19.6",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=19&section=19.6",
+     "checker": "PASS\n\nThe candidate explanation accurately reflects the text of § 19.6(b)(2) regarding the requirement for segregation or physical marking and the fact that physical removal is not mandatory. It does "
     },
     {
      "sitting": "2025-04",
@@ -5878,11 +5878,11 @@
        "132.17"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "19 CFR 132.17(a) explicitly states that for sugar-containing products defined in 15 CFR 2015.2(a) claiming preferential treatment under USMCA, the importer \"must possess a valid export certificate in order to claim the in-quota tariff rate of duty\" when the goods are withdrawn from warehouse for consumption. This requirement directly supports option B, as the regulation mandates the possession of this specific document to access the lower duty rate.",
+     "explanation_status": "ok",
+     "cfr_used": "132.17",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=132&section=132.17",
+     "checker": "PASS\nThe explanation accurately reflects the text of § 132.17(a) regarding the requirement to possess a valid export certificate to claim the in-quota tariff rate, and it does not cite any section num"
     },
     {
      "sitting": "2025-04",
@@ -5904,11 +5904,11 @@
        "132.1"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "19 CFR 132.1(f) explicitly defines \"Quota priority\" as \"the precedence granted to one entry or withdrawal for consumption of quota-class merchandise over other entries or withdrawals of merchandise subject to the same quota.\" This text directly matches Option D, which accurately reflects the regulatory definition. Option A describes \"Quota status\" as defined in section (g), not quota priority.",
+     "explanation_status": "ok",
+     "cfr_used": "132.1",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=132&section=132.1",
+     "checker": "PASS\n\nThe candidate explanation correctly identifies the definition of \"Quota priority\" in section (f) and accurately distinguishes it from \"Quota status\" in section (g), aligning with the official an"
     },
     {
      "sitting": "2025-04",
@@ -5934,11 +5934,11 @@
        "19.1"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 132.5(a), absolute quota merchandise imported in excess of the admissible quantity must be disposed of according to paragraph (c). Section 132.5(c) explicitly states that such merchandise \"may be held for the opening of the next quota period by placing it in a foreign-trade zone.\" Therefore, Option A is the correct action because it allows Diane to store the steel tubes until the new quota period begins on January 1, 2025, whereas entering the goods at a higher duty rate is not a permitted disposition for absolute quota overages.",
+     "explanation_status": "ok",
+     "cfr_used": "132.5",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=132&section=132.5",
+     "checker": "PASS\n\nThe explanation correctly cites sections 132.5(a) and 132.5(c) which are present in the excerpt. It accurately reflects the regulation's requirement that absolute quota overages be disposed of p"
     },
     {
      "sitting": "2025-04",
@@ -5960,11 +5960,11 @@
        "182.14"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 182.14(b), when CBP determines that a series of importations is intended to evade certification requirements, the regulation explicitly states that \"The importer must submit such a copy within 30 days from the date of the notice.\" Therefore, the importer is required to provide the certification of origin within 30 days of receiving the notice, making option B the correct answer.",
+     "explanation_status": "ok",
+     "cfr_used": "182.14",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=182&section=182.14",
+     "checker": "PASS\nThe explanation correctly cites the regulation text regarding the 30-day submission requirement in paragraph (b) and aligns with the official answer B."
     },
     {
      "sitting": "2025-04",
@@ -6049,11 +6049,11 @@
        "152.106"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The correct answer is D because 19 CFR 152.106(a)(4) explicitly lists \"The packing costs\" as one of the elements that sum to the computed value of imported merchandise. While the regulation mentions internal taxes in paragraph (b)(1), it specifies that such taxes are excluded from the cost of materials if remitted or refunded upon exportation, making option B incorrect. Options A and C are not listed as elements in the provided text, which limits the components to materials, profit and general expenses, assists, and packing costs.",
+     "explanation_status": "ok",
+     "cfr_used": "152.106",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=152&section=152.106",
+     "checker": "PASS\nThe explanation correctly identifies the elements of computed value as listed in the excerpt (materials, profit/expenses, assists, packing costs) and accurately explains the exclusion of internal"
     },
     {
      "sitting": "2025-04",
@@ -6075,11 +6075,11 @@
        "10.108"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 10.108, free entry is accorded under subheading 9801.00.20 when an article was duty-paid on a previous importation, was exported under a lease or similar use agreement, and is reimported by the original importer without being advanced in value or improved in condition. Since Company A paid duties in 2015, leased the car to China, and reimported it in 2024 without repairs or alterations, it meets these specific criteria for duty-free entry. The fact that the car did not meet contract specifications is irrelevant to the statutory requirements for this specific lease reimportation provision.",
+     "explanation_status": "ok",
+     "cfr_used": "10.108",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=10&section=10.108",
+     "checker": "PASS\nThe explanation accurately reflects the conditions and subheading (9801.00.20) specified in the regulation excerpt and does not contradict the official answer or cite unsupported facts."
     },
     {
      "sitting": "2025-04",
@@ -6101,11 +6101,11 @@
        "152.102"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 152.102(a)(1)(iv), design work is an assist only if it is \"undertaken elsewhere than in the United States.\" However, paragraph (a)(2) explicitly states that such work is not treated as an assist if it is performed by an individual domiciled in the United States while acting as an employee or agent of the buyer. Because the dresser design schematic was created by a U.S. design firm, it falls under this exclusion and its cost should not be added to the price actually paid or payable.",
+     "explanation_status": "ok",
+     "cfr_used": "152.102",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=152&section=152.102",
+     "checker": "PASS\nThe explanation correctly cites sections (a)(1)(iv) and (a)(2) which are present in the excerpt, and the reasoning that U.S.-domiciled individuals acting as agents of the buyer performing inciden"
     },
     {
      "sitting": "2025-04",
@@ -6139,11 +6139,11 @@
        "10.102"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The regulation text for 19 CFR 145.35 explicitly states that returned United States products may be passed free of duty if the port director is satisfied that the merchandise is free of duty under subheading 9801.00.10. This direct reference confirms that the duty-free provision for these returned products is found in 9801.00.10, making option C the correct answer.",
+     "explanation_status": "ok",
+     "cfr_used": "145.35",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=145&section=145.35",
+     "checker": "PASS\nThe explanation correctly identifies the specific subheading (9801.00.10) mentioned in the regulation excerpt as the basis for the duty-free provision, which aligns with the official answer C."
     },
     {
      "sitting": "2025-04",
@@ -6165,11 +6165,11 @@
        "159.32"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The official answer is C because the cited regulation, 19 CFR 159.32, explicitly states that \"The date of exportation for currency conversion shall be fixed in accordance with § 152.1(c) of this chapter.\" This text directly links the currency conversion process to the date of exportation, making it the correct basis for converting foreign currency to U.S. dollars.",
+     "explanation_status": "ok",
+     "cfr_used": "159.32",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=159&section=159.32",
+     "checker": "PASS\nThe explanation accurately reflects the text of the provided excerpt and does not cite any section numbers or facts not present in the regulation."
     },
     {
      "sitting": "2025-04",
@@ -6191,11 +6191,11 @@
        "165.1"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 165.1, \"parties to the investigation\" in cases initiated by a Federal agency request \"only refers to the importer or importers who allegedly engaged in evasion, and not the Federal agency.\" Since Valley Garlic is the specific importer being investigated for evasion, it is the only entity listed that qualifies as a party to the investigation. The USDA is excluded by the regulation, and The Garlic Stand is not the subject of the allegation.",
+     "explanation_status": "ok",
+     "cfr_used": "165.1",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=165&section=165.1",
+     "checker": "PASS\nThe explanation correctly cites the definition of \"parties to the investigation\" found in the provided excerpt, specifically the clause regarding investigations initiated by a Federal agency, and"
     },
     {
      "sitting": "2025-04",
@@ -6222,10 +6222,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "165.1",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=165&section=165.1",
+     "checker": "FLAG\nThe explanation cites the \"Trade Remedy Law Enforcement Directorate\" as the responsible office, but this specific entity is not mentioned or defined in the provided regulation excerpt, which only"
     },
     {
      "sitting": "2025-04",
@@ -6248,18 +6248,18 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "351.402",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=351&section=351.402",
+     "checker": "FLAG\n\nThe candidate explanation cites a \"reimbursement certification\" requirement that is not present in the provided excerpt, and the excerpt's text regarding reimbursement (paragraph (e)) is cut off"
     }
    ],
    "cfr_date": "2023-04-01",
    "key_rows_parsed": 80,
    "key_rows_missing": [],
    "questions_total": 80,
-   "questions_explained": 13,
-   "questions_flagged": 4
+   "questions_explained": 41,
+   "questions_flagged": 11
   },
   {
    "id": "2024-10",
@@ -6706,10 +6706,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "no-cfr-text",
+     "cfr_used": "111.29",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=111&section=111.29",
+     "checker": "FLAG\n\nThe candidate explanation cites section numbers (141.36, 141.38, 113.37) that do not appear in the provided regulation excerpt, violating the constraint against citing sections not present in th"
     },
     {
      "sitting": "2024-10",
@@ -6731,11 +6731,11 @@
        "24.5"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 24.5(c), if an entity does not have an Internal Revenue Service employer identification number or a Social Security number, \"an importer identification number shall be assigned and entered on the Customs Form 5106 by the Customs office.\" Therefore, NBB can file Form 5106, and CBP will assign a number to use as Echo’s Importer Number in Box 23, making option D the correct statement.",
+     "explanation_status": "ok",
+     "cfr_used": "24.5",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=24&section=24.5",
+     "checker": "PASS The explanation correctly cites section (c) which appears in the excerpt and accurately reflects the rule that an importer identification number is assigned when no IRS or SSN is available, suppo"
     },
     {
      "sitting": "2024-10",
@@ -6762,10 +6762,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "182.31",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=182&section=182.31",
+     "checker": "FLAG\nThe candidate explanation cites \"Option A\" and \"Option B\" and makes specific claims about their content (e.g., that Option A is a \"post-summary claim method\" and Option B is a \"post-summary corre"
     },
     {
      "sitting": "2024-10",
@@ -6809,10 +6809,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "144.37",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=144&section=144.37",
+     "checker": "FLAG\nThe candidate explanation cites \"19 CFR 144.37(b)(1)\" and \"§ 144.37\", but the provided regulation excerpt only lists the section number \"§ 144.37\" without the \"19 CFR\" prefix, and the instruction"
     },
     {
      "sitting": "2024-10",
@@ -6834,11 +6834,11 @@
        "190.28"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 190.28, the exporter is entitled to claim manufacturing drawback unless they assign that right to another party via a certification. Since the question specifies that no such assignment has occurred, the default entitlement remains with the exporter, making option C the correct answer.",
+     "explanation_status": "ok",
+     "cfr_used": "190.28",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=190&section=190.28",
+     "checker": "PASS\nThe explanation correctly identifies the default entitlement of the exporter as stated in the excerpt and aligns with the official answer without citing unsupported facts or missing sections."
     },
     {
      "sitting": "2024-10",
@@ -6861,10 +6861,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "no-cfr-text",
+     "cfr_used": "190.15",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=190&section=190.15",
+     "checker": "PASS\nThe explanation accurately reflects the regulation excerpt, correctly identifying the 3-year retention period after liquidation and citing the correct section number (§ 190.15) which appears in t"
     },
     {
      "sitting": "2024-10",
@@ -6911,11 +6911,11 @@
        "190.2"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 190.10(c), the method used for the first filed claim relating to merchandise on a specific entry summary line item is the \"exclusive basis\" for calculating refunds on any subsequent claims for that same line item. Because Boots-4-U filed the first claim using the per unit averaging method, Discount must use that same method to calculate its drawback, making option A correct.",
+     "explanation_status": "ok",
+     "cfr_used": "190.10",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=190&section=190.10",
+     "checker": "PASS\nThe explanation correctly cites § 190.10(c) and accurately reflects the regulation's requirement that the method used for the first filed claim is the exclusive basis for subsequent claims on the"
     },
     {
      "sitting": "2024-10",
@@ -6937,11 +6937,11 @@
        "190.2"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Option B is correct because 19 CFR 190.2 explicitly defines a \"Drawback claim\" as \"the drawback entry and related documents required by regulation which together constitute the request for drawback payment.\" This definition distinguishes the claim from the \"Drawback\" itself, which is the actual refund of duties, taxes, and fees, and the \"Drawback entry,\" which is the specific document describing the exported or destroyed article. Therefore, the claim is the complete package of documents submitted to request the payment, not just the refund or the single entry document.",
+     "explanation_status": "ok",
+     "cfr_used": "190.2",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=190&section=190.2",
+     "checker": "PASS\nThe explanation accurately reflects the definitions provided in the excerpt, correctly distinguishing \"Drawback claim\" from \"Drawback\" and \"Drawback entry\" without citing unsupported facts or inc"
     },
     {
      "sitting": "2024-10",
@@ -7286,11 +7286,11 @@
        "18.1"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 144.36(d), the in-bond application must include the original entry number, date of entry, date of entry summary, and port at which filed, as well as the entered value of the merchandise. The regulation also requires the statement of quantity mandated by 19 CFR 144.32. Since visa, permit, or license information is not listed among the required data points in these sections, it is the only option that is not required.",
+     "explanation_status": "ok",
+     "cfr_used": "144.36",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=144&section=144.36",
+     "checker": "PASS\n\nThe candidate's explanation correctly identifies that visa, permit, or license information is not listed in the required data points of § 144.36(d) or § 144.32, which supports the official answe"
     },
     {
      "sitting": "2024-10",
@@ -7313,10 +7313,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "144.33",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=144&section=144.33",
+     "checker": "FLAG\nThe candidate explanation states that bulk merchandise may be withdrawn \"if the quantity is at least 1 ton,\" which contradicts the regulation's requirement that the quantity be \"less than 1 ton.."
     },
     {
      "sitting": "2024-10",
@@ -7342,11 +7342,11 @@
        "148.55"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Option A is the correct answer because the provided regulation text lists only four specific ways to obtain release: removing the mark, importing by the recordant, obtaining written consent, or claiming a one-item personal exemption. The text does not mention paying a fine equal to the value of genuine articles as a condition for release, making that option the exception.",
+     "explanation_status": "ok",
+     "cfr_used": "133.22",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=133&section=133.22",
+     "checker": "PASS\nThe explanation correctly identifies the four specific relief options listed in paragraph (c) of the excerpt and accurately notes that paying a fine is not included, which aligns with the officia"
     },
     {
      "sitting": "2024-10",
@@ -7368,11 +7368,11 @@
        "146.25"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The correct answer is C because 19 CFR 146.25(a) explicitly states that the operator \"shall prepare a reconciliation report within 90 days after the end of the zone/subzone year.\" The regulation further notes that this deadline applies unless the port director authorizes an extension for reasonable cause, which directly matches the conditions described in the question.",
+     "explanation_status": "ok",
+     "cfr_used": "146.25",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=146&section=146.25",
+     "checker": "PASS\nThe explanation correctly cites section 146.25(a) which is present in the excerpt and accurately reflects the 90-day deadline and extension conditions described in the text."
     },
     {
      "sitting": "2024-10",
@@ -7403,10 +7403,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "190.181",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=190&section=190.181",
+     "checker": "FLAG\n\nThe candidate explanation cites \"Zone restricted Status\" as the correct answer and a requirement for the merchandise, but this term and concept do not appear in the provided regulation excerpt, "
     },
     {
      "sitting": "2024-10",
@@ -7428,11 +7428,11 @@
        "146.53"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 146.53(a)(3), a zone operator must file a written report to the port director upon identifying a \"Shortage of one percent (1%) or more of the quantity of merchandise in a lot\" if the missing items would have been subject to duties and taxes of $100 or more. Since the scenario specifies that the missing merchandise would have incurred $500.00 in duties and taxes, the $100 threshold is met, making the 1% quantity threshold the correct trigger for immediate reporting.",
+     "explanation_status": "ok",
+     "cfr_used": "146.53",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=146&section=146.53",
+     "checker": "PASS\n\nThe explanation correctly cites § 146.53(a)(3) and accurately reflects the conditions (1% shortage and $100+ duty threshold) described in the provided excerpt, supporting the official answer."
     },
     {
      "sitting": "2024-10",
@@ -7454,11 +7454,11 @@
        "142.15"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 142.15, if entry summary documentation is not filed timely, the port director \"shall make an immediate demand for liquidated damages in the entire amount of the bond in the case of a single entry bond.\" This specific regulatory language directly supports option B, as it mandates a demand for the full bond amount rather than a penalty based on merchandise value or a duty bill.",
+     "explanation_status": "ok",
+     "cfr_used": "142.15",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=142&section=142.15",
+     "checker": "PASS\nThe explanation accurately reflects the regulation's requirement for a demand of the entire bond amount for single entry bonds and does not cite any unsupported facts or section numbers."
     },
     {
      "sitting": "2024-10",
@@ -7488,11 +7488,11 @@
        "171.12"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 142.12(b), the entry summary documentation must be filed within 10 working days after the time of entry, which makes January 24, 2024, the date duties were due. The official answer B correctly identifies this deadline, while the other options provide incorrect dates for the payment or filing periods.",
+     "explanation_status": "ok",
+     "cfr_used": "142.12",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=142&section=142.12",
+     "checker": "PASS\nThe explanation correctly cites § 142.12(b) and the 10-working-day deadline found in the excerpt, and it aligns with the official answer B without contradicting the provided text."
     },
     {
      "sitting": "2024-10",
@@ -7539,11 +7539,11 @@
        "141.61"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 24.36(a), if an authority to mail checks to someone other than the payee is on file, specifically \"Customs Form 4811,\" the refund address shall be shown as in care of the authorized person. Therefore, the importer must use CBP Form 4811 to authorize the mailing of the refund check to its broker.",
+     "explanation_status": "ok",
+     "cfr_used": "24.36",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=24&section=24.36",
+     "checker": "PASS The explanation accurately reflects the regulation's provision regarding Customs Form 4811 and the \"in care of\" address requirement, and does not contradict the official answer or cite unsupporte"
     },
     {
      "sitting": "2024-10",
@@ -7565,11 +7565,11 @@
        "142.2"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "19 CFR 142.2(a) explicitly states that \"Merchandise for which entry is required will be entered within 15 calendar days after landing from a vessel, aircraft or vehicle, or after arrival at the port of destination in the case of merchandise transported in bond.\" This regulation directly matches the scenario described in the question, confirming that the deadline is 15 days. Therefore, option A is the correct answer.",
+     "explanation_status": "ok",
+     "cfr_used": "142.2",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=142&section=142.2",
+     "checker": "PASS\nThe explanation accurately cites the text from § 142.2(a) present in the excerpt and correctly supports the official answer A without introducing unsupported facts or invalid section references."
     },
     {
      "sitting": "2024-10",
@@ -7591,11 +7591,11 @@
        "141.69"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "19 CFR 141.69(b) explicitly states that non-quota merchandise covered by an immediate transportation entry, if entered for consumption at the designated port without being taken into general order custody, \"shall be subject to the rates in effect when the immediate transportation entry was accepted at the port of original importation.\" This regulatory text directly supports Option A by fixing the applicable duty rate to the time of acceptance at the initial port, rather than the later time of consumption entry or export.",
+     "explanation_status": "ok",
+     "cfr_used": "141.69",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=141&section=141.69",
+     "checker": "PASS\nThe explanation accurately reflects the text of § 141.69(b) regarding the duty rate for merchandise entered for immediate transportation, correctly identifying that the rate is fixed at the time "
     },
     {
      "sitting": "2024-10",
@@ -7639,10 +7639,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "no-cfr-text",
+     "cfr_used": "12.104g",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=12&section=12.104g",
+     "checker": "PASS\nThe explanation correctly identifies the regulation section and cites facts (Egypt's date range) that are explicitly present in the provided excerpt, without contradicting the official answer or "
     },
     {
      "sitting": "2024-10",
@@ -7665,10 +7665,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "142.14",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=142&section=142.14",
+     "checker": "FLAG\n\nThe candidate explanation cites \"CBP Form 7501,\" a specific fact that does not appear in the provided regulation excerpt."
     },
     {
      "sitting": "2024-10",
@@ -7690,11 +7690,11 @@
        "143.21"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "19 CFR 143.21(a) states that shipments of merchandise \"not exceeding $2,500 in value\" are eligible for informal entry. This regulation explicitly sets the maximum value threshold for such shipments at $2,500. Therefore, option D is the correct answer.",
+     "explanation_status": "ok",
+     "cfr_used": "143.21",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=143&section=143.21",
+     "checker": "PASS\nThe explanation correctly identifies that § 143.21(a) sets the value threshold for informal entry at $2,500, which aligns with the official answer D."
     },
     {
      "sitting": "2024-10",
@@ -7716,11 +7716,11 @@
        "174.11"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Option D is correct because 19 CFR 174.11(b)(8) explicitly states that \"The refusal to reliquidate an entry under section 520(d), Tariff Act of 1930, as amended (19 U.S.C. 1520(d))\" is a CBP administrative decision subject to protest. Since the question describes a denial of a post-summary claim under 19 USC 1520(d), it falls directly within this specific regulatory provision. The other options involve clerical errors or other matters that are either handled through different mechanisms or do not fit the specific administrative decision categories listed in the cited text.",
+     "explanation_status": "ok",
+     "cfr_used": "174.11",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=174&section=174.11",
+     "checker": "PASS\nThe explanation correctly identifies that 19 CFR 174.11(b)(8) covers the refusal to reliquidate an entry under section 520(d) (19 U.S.C. 1520(d)), which aligns with the official answer D and is f"
     },
     {
      "sitting": "2024-10",
@@ -7742,11 +7742,11 @@
        "113.37"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The regulation explicitly states that \"Treasury Department Circular 570 contains a list of corporations authorized to act as sureties on bonds, with the amount in which each may be accepted.\" This text directly identifies the publication required by the question, making option B the correct answer.",
+     "explanation_status": "ok",
+     "cfr_used": "113.37",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=113&section=113.37",
+     "checker": "PASS\nThe explanation correctly cites the text from section (a) regarding Treasury Department Circular 570 and aligns with the official answer B without contradicting the excerpt or citing unsupported "
     },
     {
      "sitting": "2024-10",
@@ -7780,11 +7780,11 @@
        "113.65"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The regulation text for § 113.63 explicitly states that \"A basic custodial bond must contain the conditions listed in this section and must be a continuous bond.\" This requirement directly supports the official answer, as it mandates that any bond filed for basic custodial activities is inherently a continuous bond. Therefore, option C is the correct choice because the cited regulation defines the basic custodial bond as one that must be continuous.",
+     "explanation_status": "ok",
+     "cfr_used": "113.63",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=113&section=113.63",
+     "checker": "PASS\nThe explanation correctly cites the text from the excerpt stating the bond \"must be a continuous bond\" and does not contradict the official answer or cite unsupported facts."
     },
     {
      "sitting": "2024-10",
@@ -7806,11 +7806,11 @@
        "113.26"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 113.26(a), a continuous bond and its associated application \"may be filed up to 60 days prior to the effective date requested.\" This regulation explicitly sets the maximum allowable lead time for filing, meaning the earliest possible date to submit the application is 60 days before the requested effective date of March 1, 2025. Therefore, option A is the correct answer.",
+     "explanation_status": "ok",
+     "cfr_used": "113.26",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=113&section=113.26",
+     "checker": "PASS\nThe explanation correctly cites section 113.26(a) which appears in the excerpt, accurately reflects the 60-day filing limit, and supports the official answer A without contradicting the text."
     },
     {
      "sitting": "2024-10",
@@ -7841,10 +7841,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "134.43",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=134&section=134.43",
+     "checker": "FLAG\n\nThe candidate explanation cites \"19 CFR 134.43(a)\" and claims that stickers or hangtags are not permitted for scissors. However, the provided excerpt for § 134.43(a) explicitly states that \"Good"
     },
     {
      "sitting": "2024-10",
@@ -7871,10 +7871,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "no-cfr-text",
+     "cfr_used": "102.21",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=102&section=102.21",
+     "checker": "FLAG\nThe explanation cites \"19 CFR 102.21(c)(3)(ii)\" and claims the regulation text does not contain the rule for woven apparel, but the provided excerpt explicitly includes the beginning of paragraph"
     },
     {
      "sitting": "2024-10",
@@ -7897,10 +7897,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "102.1",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=102&section=102.1",
+     "checker": "FLAG\n\nThe candidate explanation cites \"19 CFR 102.1(g)\", but the provided regulation excerpt only lists the section number as \"§ 102.1\" without the \"19 CFR\" prefix, and the instruction requires flaggi"
     },
     {
      "sitting": "2024-10",
@@ -7934,11 +7934,11 @@
        "141.113"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The correct answer is 19 CFR 12.11 because the provided regulation text is explicitly titled \"Requirements for entry and release\" and details the specific procedures for submitting notices of arrival and obtaining release authorization for plants and plant products. This section directly addresses the entry and release process for cut flowers, which are classified as plant products, by requiring the importer to submit a notice to the port director and ensuring the merchandise is not moved until an inspector authorizes release.",
+     "explanation_status": "ok",
+     "cfr_used": "12.11",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=12&section=12.11",
+     "checker": "PASS\nThe explanation correctly identifies the regulation as 19 CFR 12.11 based on the provided excerpt and accurately summarizes the requirements for entry and release without citing unsupported facts"
     },
     {
      "sitting": "2024-10",
@@ -7960,11 +7960,11 @@
        "12.118"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The regulation at 19 CFR 12.118 explicitly states that the Toxic Substances Control Act governs the importation into the U.S. customs territory of a chemical substance in bulk form or as part of a mixture, and articles containing a chemical substance or mixture. This text directly matches the description in option C, making it the correct answer. The other options refer to different regulatory frameworks, such as food and drugs or controlled dangerous substances, which are not covered by the TSCA definition provided in this section.",
+     "explanation_status": "ok",
+     "cfr_used": "12.118",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=12&section=12.118",
+     "checker": "PASS\nThe explanation accurately reflects the content of the provided regulation excerpt and correctly identifies that the text supports the official answer without citing non-existent sections or cont"
     },
     {
      "sitting": "2024-10",
@@ -7986,11 +7986,11 @@
        "182.111"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 182.111(a), \"commercial samples of negligible value\" are defined as those with a value of \"not more than one U.S. dollar\" individually or in the aggregate. Therefore, option C is correct because the regulation explicitly sets the monetary threshold at one dollar, whereas the other options cite incorrect amounts or conditions that do not define the negligible value status on their own.",
+     "explanation_status": "ok",
+     "cfr_used": "182.111",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=182&section=182.111",
+     "checker": "PASS\nThe explanation correctly cites the definition in section (a) regarding the one U.S. dollar threshold and does not contradict the official answer or cite non-existent sections."
     },
     {
      "sitting": "2024-10",
@@ -8034,10 +8034,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "no-cfr-text",
+     "cfr_used": "351.102",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=351&section=351.102",
+     "checker": "FLAG\n\nThe candidate explanation cites \"standard AD/CVD procedures\" and the filing of a petition as the basis for the answer, but the provided regulation excerpt (§ 351.102) only contains definitions a"
     },
     {
      "sitting": "2024-10",
@@ -8059,11 +8059,11 @@
        "165.27"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The correct answer is D because 19 CFR 165.27(a) explicitly states that \"CBP will make a determination based on substantial evidence as to whether covered merchandise was entered into the customs territory of the United States through evasion.\" This regulation directly defines the evidentiary standard required for the determination, matching option D exactly.",
+     "explanation_status": "ok",
+     "cfr_used": "165.27",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=165&section=165.27",
+     "checker": "PASS\nThe explanation correctly cites section 165.27(a) which is present in the excerpt and accurately reflects the text regarding the determination based on substantial evidence, without contradicting"
     },
     {
      "sitting": "2024-10",
@@ -8085,11 +8085,11 @@
        "165.13"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "19 CFR 165.13(a) states that multiple allegations against one or more importers \"may be consolidated into a single investigation at CBP's discretion.\" This text directly supports option D, as it explicitly grants CBP the authority to make this decision. The regulation further clarifies that such consolidations can occur at any point prior to the issuance of a determination of evasion, which distinguishes the correct answer from the other options.",
+     "explanation_status": "ok",
+     "cfr_used": "165.13",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=165&section=165.13",
+     "checker": "PASS\n\nThe candidate explanation accurately cites § 165.13(a) from the provided excerpt, correctly identifies the discretionary nature of the consolidation, and does not contradict the official answer "
     },
     {
      "sitting": "2024-10",
@@ -8112,10 +8112,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "132.6",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=132&section=132.6",
+     "checker": "FLAG\n\nThe candidate explanation cites \"General Note 3(b)\" as the source for the list of countries, but the provided regulation excerpt only references \"General Note 3(b)\" without listing the specific "
     },
     {
      "sitting": "2024-10",
@@ -8137,11 +8137,11 @@
        "132.1"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "19 CFR 132.1(a) defines \"Absolute (or quantitative) quotas\" as those which \"permit a limited number of units of specified merchandise to be entered or withdrawn for consumption during specified periods.\" This definition matches the description in the question exactly, identifying option A as the correct answer. The regulation further clarifies that once this quantity is filled, no further entries are permitted, distinguishing it from other quota types.",
+     "explanation_status": "ok",
+     "cfr_used": "132.1",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=132&section=132.1",
+     "checker": "PASS\nThe explanation correctly cites § 132.1(a) from the provided excerpt and accurately reflects the definition of absolute quotas, supporting the official answer without contradiction or unsupported"
     },
     {
      "sitting": "2024-10",
@@ -8188,11 +8188,11 @@
        "152.102"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 152.103(a)(2), an \"indirect payment\" includes a situation \"where the buyer receives a price reduction on a current importation as a means of settling a debt owed him by the seller.\" The regulation's Example 4 explicitly states that when a seller charges less than the full price because they owe the buyer money, the transaction value is the sum of the reduced price plus the indirect payment, while excluding C.I.F. charges. Therefore, the transaction value is $8,250 ($6,500 paid plus the $1,750 debt settlement), and the $500 ocean freight and insurance is excluded.",
+     "explanation_status": "ok",
+     "cfr_used": "152.103",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=152&section=152.103",
+     "checker": "PASS\nThe explanation correctly cites § 152.103(a)(2) and Example 4, which are present in the excerpt, and accurately applies the rule regarding indirect payments and the exclusion of C.I.F. charges to"
     },
     {
      "sitting": "2024-10",
@@ -8236,10 +8236,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "no-cfr-text",
+     "cfr_used": "152.102",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=152&section=152.102",
+     "checker": "PASS\nThe explanation correctly cites section (d) of the provided excerpt and accurately reflects the definition of \"identical merchandise\" (produced in the same country and by the same person) without"
     },
     {
      "sitting": "2024-10",
@@ -8266,10 +8266,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "152.103",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=152&section=152.103",
+     "checker": "FLAG\nThe candidate explanation cites \"the cited sections\" and refers to \"Option C\" and \"milling machines,\" which are not present in the provided regulation excerpt or context, and the excerpt does not"
     },
     {
      "sitting": "2024-10",
@@ -8292,10 +8292,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "no-cfr-text",
+     "cfr_used": "152.102",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=152&section=152.102",
+     "checker": "FLAG\nThe explanation cites \"19 CFR 152.102(g)\" and discusses the definition of \"related persons,\" neither of which appears in the provided excerpt (which only covers paragraphs (a) through (e) and doe"
     },
     {
      "sitting": "2024-10",
@@ -8339,18 +8339,18 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "152.103",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=152&section=152.103",
+     "checker": "FLAG\nThe candidate explanation cites section 152.103(d)(2), which does not appear in the provided excerpt (the excerpt only covers subsection (a) and its examples). Additionally, the explanation refer"
     }
    ],
    "cfr_date": "2023-04-01",
    "key_rows_parsed": 80,
    "key_rows_missing": [],
    "questions_total": 80,
-   "questions_explained": 9,
-   "questions_flagged": 1
+   "questions_explained": 34,
+   "questions_flagged": 11
   },
   {
    "id": "2024-05",
@@ -8936,11 +8936,11 @@
        "190.5"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 190.5, \"Guantanamo Bay Naval Station is considered foreign territory for drawback purposes,\" which makes option B the correct answer. The regulation explicitly states that Puerto Rico \"is not considered foreign territory for drawback purposes\" and lists American Samoa and the U.S. Virgin Islands as locations where drawback is generally not allowed, effectively ruling out options A, C, and D.",
+     "explanation_status": "ok",
+     "cfr_used": "190.5",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=190&section=190.5",
+     "checker": "PASS\nThe explanation correctly identifies that Guantanamo Bay is considered foreign territory for drawback purposes, which aligns with the official answer B, and accurately cites the regulation text t"
     },
     {
      "sitting": "2024-05",
@@ -8962,11 +8962,11 @@
        "190.62"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The regulation explicitly states that a fraudulent violation is subject to a maximum administrative penalty of 3 times the total actual or potential loss of revenue. This directly supports option B as the correct answer for the specific scenario involving fraud. The text distinguishes this from negligent violations, which carry a lower penalty, confirming that the higher multiplier applies to fraudulent acts.",
+     "explanation_status": "ok",
+     "cfr_used": "190.62",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=190&section=190.62",
+     "checker": "PASS\nThe explanation accurately reflects the content of section (b) regarding the 3x penalty for fraudulent violations and does not contradict the official answer or cite unsupported facts."
     },
     {
      "sitting": "2024-05",
@@ -8988,11 +8988,11 @@
        "190.52"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 190.52(b), the regulation states that \"The claimant must furnish, or have the appropriate party furnish, the evidence or information requested within 30 days of the date of notification by CBP.\" Although the claimant filed a written request for an extension, the question asks for the deadline based on the original notification date, which the regulation sets at 30 days. Therefore, the claimant must furnish the information within 30 days of the original notification.",
+     "explanation_status": "ok",
+     "cfr_used": "190.52",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=190&section=190.52",
+     "checker": "PASS\nThe explanation correctly cites § 190.52(b) and accurately reflects the regulation's requirement to furnish evidence within 30 days of notification, consistent with the official answer."
     },
     {
      "sitting": "2024-05",
@@ -9015,10 +9015,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "no-cfr-text",
+     "cfr_used": "190.3",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=190&section=190.3",
+     "checker": "PASS\n\nThe explanation correctly identifies that marking duties are listed in a separate paragraph (a)(2) distinct from ordinary customs duties (a)(1), and it accurately cites the specific sub-items of"
     },
     {
      "sitting": "2024-05",
@@ -9355,11 +9355,11 @@
        "113.11"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 C.F.R. § 113.11(b)(1)(ii), a continuous bond application must include \"the total amount of ordinary customs duties... plus the estimated amount of any other tax or taxes... accruing on all merchandise imported by the principal during the calendar year preceding the date of the application.\" Since Sean Reno imported merchandise in the prior year, it must report these actual accrued duties and taxes rather than providing a forward-looking estimate, which is only required if no imports were made during that preceding calendar year.",
+     "explanation_status": "ok",
+     "cfr_used": "113.11",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=113&section=113.11",
+     "checker": "PASS The explanation correctly cites § 113.11(b)(1)(ii) which appears in the excerpt and accurately reflects the requirement to report actual duties/taxes from the preceding year if imports were made,"
     },
     {
      "sitting": "2024-05",
@@ -9402,11 +9402,11 @@
        "113.26"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 113.26(c), a continuous bond is \"effective on the effective date identified on CBP Form 301.\" Option B is the correct answer because the entry occurs on January 31, 2024, which falls within the bond's effective period, whereas the other options involve dates or transaction types that do not align with the bond's specific effective date or single-transaction rules.",
+     "explanation_status": "ok",
+     "cfr_used": "113.26",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=113&section=113.26",
+     "checker": "PASS The explanation correctly cites § 113.26(c) which is present in the excerpt and accurately reflects the rule regarding continuous bonds."
     },
     {
      "sitting": "2024-05",
@@ -9429,10 +9429,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "no-cfr-text",
+     "cfr_used": "18.1",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=18&section=18.1",
+     "checker": "PASS\nThe candidate explanation correctly identifies that the provided excerpt does not contain the specific rule regarding the 30-day transit time or extension requests, and therefore cannot validate "
     },
     {
      "sitting": "2024-05",
@@ -9454,11 +9454,11 @@
        "146.82"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The official answer is B because 19 CFR 146.82(b)(2) explicitly states that if an operator requests a hearing, \"it will be held before a hearing officer... within 30 days following the operator's request.\" This regulation directly mandates the 30-day timeframe for the hearing to occur after the request is made. Therefore, the other options regarding 7, 60, or 90 days do not align with the specific procedural requirement cited in the text.",
+     "explanation_status": "ok",
+     "cfr_used": "146.82",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=146&section=146.82",
+     "checker": "PASS\nThe explanation correctly cites section 146.82(b)(2) which is present in the excerpt and accurately reflects the 30-day timeframe for the hearing, supporting the official answer."
     },
     {
      "sitting": "2024-05",
@@ -9480,11 +9480,11 @@
        "158.23"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The regulation explicitly states that the importer must file the application \"Within 30 days from the date of his discovery of the loss, theft, injury, or destruction.\" This text directly supports option A, which specifies the 30-day timeframe starting from the importer's discovery. The other options are incorrect because the regulation ties the deadline to the importer's discovery, not the entry date, the warehouse proprietor's discovery, or the notification date.",
+     "explanation_status": "ok",
+     "cfr_used": "158.23",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=158&section=158.23",
+     "checker": "PASS\nThe explanation accurately reflects the regulation's 30-day deadline starting from the importer's discovery and does not cite any unsupported facts or section numbers."
     },
     {
      "sitting": "2024-05",
@@ -9506,11 +9506,11 @@
        "144.5"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "19 C.F.R. § 144.5 explicitly states that merchandise must not remain in a bonded warehouse beyond 5 years from the date of importation. This regulation allows for a longer period only if the Center director grants an extension upon proper request and good cause shown. Therefore, the general limit is five years from the date of importation, making option D the correct answer.",
+     "explanation_status": "ok",
+     "cfr_used": "144.5",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=144&section=144.5",
+     "checker": "PASS\nThe explanation accurately reflects the regulation's 5-year limit and extension conditions, and correctly supports the official answer D without citing unsupported facts or missing sections."
     },
     {
      "sitting": "2024-05",
@@ -9533,10 +9533,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "no-cfr-text",
+     "cfr_used": "133.23",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=133&section=133.23",
+     "checker": "PASS The explanation correctly cites § 133.23(b) and accurately reflects the requirement that the label be designed to remain on the product until the first point of sale, which is explicitly stated i"
     },
     {
      "sitting": "2024-05",
@@ -9558,11 +9558,11 @@
        "134.1"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 134.1(b), the \"country of origin\" is defined as the country of manufacture, production, or growth, and further work in another country must effect a \"substantial transformation\" to change that origin. Since the sauce is prepared in Japan by mixing raw materials from multiple countries, Japan is the country where the final product is manufactured. Therefore, the bottles must be marked \"Product of Japan\" because the mixing process in Japan constitutes the manufacturing location for this article of foreign origin.",
+     "explanation_status": "ok",
+     "cfr_used": "134.1",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=134&section=134.1",
+     "checker": "PASS\n\nThe explanation correctly cites § 134.1(b) and accurately applies the definition of \"country of origin\" (country of manufacture/production) and the \"substantial transformation\" rule to the scena"
     },
     {
      "sitting": "2024-05",
@@ -9588,11 +9588,11 @@
        "134.46"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 134.11, containers of articles that are excepted from marking must still be marked with the country of origin of the article unless the container itself is also excepted. Since the shoes are properly marked, the cardboard box is not exempt from marking requirements and must indicate the country of origin of the shoes to the ultimate purchaser. Therefore, the box must be marked with the country of origin of the shoes, which corresponds to option C.",
+     "explanation_status": "ok",
+     "cfr_used": "134.11",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=134&section=134.11",
+     "checker": "PASS The explanation correctly interprets the regulation's requirement for marking containers of excepted articles and aligns with the official answer."
     },
     {
      "sitting": "2024-05",
@@ -9614,11 +9614,11 @@
        "141.1"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "19 CFR 141.1(a) states that duties and the liability for their payment accrue \"upon imported merchandise on arrival of the importing vessel within a Customs port with the intent then and there to unlade.\" This specific language directly supports Option A as the earliest possible time for goods arriving by vessel. Options B, C, and D describe events that occur either before the vessel arrives or after the duties have already legally accrued.",
+     "explanation_status": "ok",
+     "cfr_used": "141.1",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=141&section=141.1",
+     "checker": "PASS\n\nThe explanation correctly cites section 141.1(a) which is present in the excerpt, accurately quotes the relevant text regarding the accrual of duties upon arrival of the vessel, and logically su"
     },
     {
      "sitting": "2024-05",
@@ -9644,11 +9644,11 @@
        "122.92"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The correct answer is Customs Form 7512 because the scenario involves merchandise arriving by aircraft that is transported in bond through the U.S. for later exportation by aircraft. Under 19 CFR 122.91, this subpart specifically applies to the transportation in bond of merchandise arriving in the U.S. by aircraft and entered for transportation through the U.S. and later exportation by aircraft. Therefore, the form required to facilitate this specific in-bond movement is the one associated with this regulatory provision.",
+     "explanation_status": "ok",
+     "cfr_used": "122.91",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=122&section=122.91",
+     "checker": "PASS The explanation correctly identifies the scenario described in the excerpt (transportation through the U.S. and later exportation by aircraft) and cites the section number (§ 122.91) which appear"
     },
     {
      "sitting": "2024-05",
@@ -9691,11 +9691,11 @@
        "24.24"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The official answer is A because 19 CFR 24.24(a) explicitly states that commercial cargo is subject to a port use fee of \"0.125 percent (.00125) of its value.\" This regulation directly defines the current rate for the Harbor Maintenance Fee, confirming that option A is the correct choice while eliminating the other percentages listed.",
+     "explanation_status": "ok",
+     "cfr_used": "24.24",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=24&section=24.24",
+     "checker": "PASS\n\nThe explanation correctly identifies the fee rate (0.125 percent) from paragraph (a) of the provided excerpt and does not cite any section numbers or facts that contradict the text or the offici"
     },
     {
      "sitting": "2024-05",
@@ -9738,11 +9738,11 @@
        "12.32"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Section 12.32(a) explicitly states that \"Honeybees from any country may be imported into the U.S. by the Department of Agriculture for experimental or scientific purposes.\" This provision grants the Department of Agriculture a specific exception to the general prohibition on importing honeybees, making option B the correct answer.",
+     "explanation_status": "ok",
+     "cfr_used": "12.32",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=12&section=12.32",
+     "checker": "PASS\nThe explanation correctly cites Section 12.32(a) which is present in the excerpt, accurately quotes the text regarding the Department of Agriculture's exception, and logically supports the offici"
     },
     {
      "sitting": "2024-05",
@@ -9786,10 +9786,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "174.11",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=174&section=174.11",
+     "checker": "FLAG\n\nThe candidate explanation cites \"19 CFR 174.11(b)(7)\" and \"section 520(c)\", but the provided regulation excerpt only lists the section number \"§ 174.11\" and the subsections \"(a)\" and \"(b)\" with "
     },
     {
      "sitting": "2024-05",
@@ -9841,10 +9841,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "24.3a",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=24&section=24.3a",
+     "checker": "FLAG\nThe candidate explanation cites sections 19 CFR 24.23(c)(13) and 19 CFR 24.24, which do not appear in the provided regulation excerpt, and asserts facts about HMF exclusion that are not supported"
     },
     {
      "sitting": "2024-05",
@@ -9866,11 +9866,11 @@
        "141.11"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Option B is the correct answer because 19 CFR 141.11(a)(2) explicitly requires that an extract from a bill of lading or air waybill must be \"certified to be genuine by the carrier bringing the merchandise to the port of entry.\" Since option B describes an extract that has *not* been certified by the carrier, it does not meet the regulatory requirement for acceptable evidence. The other options align with the specific provisions in paragraphs (a)(1), (a)(3), and (a)(6) of the regulation.",
+     "explanation_status": "ok",
+     "cfr_used": "141.11",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=141&section=141.11",
+     "checker": "PASS\nThe explanation correctly identifies that the regulation requires an extract to be certified by the carrier (paragraph (a)(2)) and that an uncertified extract is therefore invalid, which aligns w"
     },
     {
      "sitting": "2024-05",
@@ -9896,11 +9896,11 @@
        "174.12"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 141.5, merchandise must be entered within 15 calendar days after arrival, which makes the entry filing due date March 1, 2024, for a February 15 arrival. The official answer A correctly identifies this initial deadline, while the other options provide incorrect dates for the entry filing requirement.",
+     "explanation_status": "ok",
+     "cfr_used": "141.5",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=141&section=141.5",
+     "checker": "PASS\nThe explanation correctly cites the 15-day time limit from the provided excerpt and does not contradict the official answer or cite unsupported sections."
     },
     {
      "sitting": "2024-05",
@@ -9943,11 +9943,11 @@
        "123.10"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 123.10(b), a party holding in-bond merchandise must notify Customs of any goods for which entry has not been made \"No later than 20 calendar days after receipt under the permit to transfer or 20 calendar days after arrival under bond at the port of destination.\" This specific 20-day deadline applies to merchandise taken into custody under a Customs-authorized permit, making option C the correct answer.",
+     "explanation_status": "ok",
+     "cfr_used": "123.10",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=123&section=123.10",
+     "checker": "PASS\nThe explanation correctly cites section 123.10(b) and accurately reflects the 20-day notification deadline for merchandise under a permit to transfer or in-bond entry, which supports the official"
     },
     {
      "sitting": "2024-05",
@@ -9969,11 +9969,11 @@
        "12.48"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Option A is correct because 19 CFR 12.48(a) explicitly states that \"plates, dies, or other apparatus which may be used in making\" counterfeit coins or tokens \"shall be seized, and delivered to the nearest representative of the United States Secret Service.\" Since a metal die stamp containing the likeness of a Canadian coin falls under this category of prohibited importation, it must be turned over to the Secret Service rather than other agencies.",
+     "explanation_status": "ok",
+     "cfr_used": "12.48",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=12&section=12.48",
+     "checker": "PASS\nThe explanation correctly identifies that section (a) of the provided excerpt mandates the seizure and delivery of plates, dies, or apparatus used to make counterfeit coins to the United States S"
     },
     {
      "sitting": "2024-05",
@@ -10016,11 +10016,11 @@
        "351.218"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "The regulation explicitly defines this procedure as a \"sunset review\" in the title of § 351.218 and states in paragraph (a) that \"no later than once every five years, the Secretary must determine whether dumping or countervailable subsidies would be likely to continue or resume if an order were revoked or a suspended investigation were terminated.\" This text directly matches the description in the question, confirming that the correct term is a Sunset Review.",
+     "explanation_status": "ok",
+     "cfr_used": "351.218",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=351&section=351.218",
+     "checker": "PASS\nThe explanation accurately reflects the content of the provided regulation excerpt, specifically citing the title and paragraph (a) to support the definition of the procedure, and does not contra"
     },
     {
      "sitting": "2024-05",
@@ -10043,10 +10043,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "165.24",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=165&section=165.24",
+     "checker": "FLAG\n\nThe candidate explanation states that the regulation \"confirms that options B and C are correct actions\" and \"validating option D,\" implying these are the correct answers to the question. Howeve"
     },
     {
      "sitting": "2024-05",
@@ -10068,11 +10068,11 @@
        "152.103"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 152.103(a)(2), activities such as advertising undertaken by the buyer on his own account \"will not be considered an indirect payment to the seller\" and their costs \"will not be added to the price actually paid or payable.\" Therefore, the $5,000 spent by the importer to promote the sale is excluded from the valuation, making the transaction value simply the $50,000 price actually paid.",
+     "explanation_status": "ok",
+     "cfr_used": "152.103",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=152&section=152.103",
+     "checker": "PASS The explanation correctly cites § 152.103(a)(2) which is present in the excerpt and accurately applies the rule regarding advertising costs not being added to the price actually paid or payable."
     },
     {
      "sitting": "2024-05",
@@ -10094,11 +10094,11 @@
        "152.102"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 152.102(a)(1)(iv), an assist includes \"Engineering, development, artwork, design work, and plans and sketches that are undertaken elsewhere than in the United States.\" However, paragraph (a)(2) explicitly states that such work is not treated as an assist if it is performed by an individual domiciled in the United States who is an employee or agent of the buyer, and is incidental to work undertaken within the United States. Since the hammer design schematic was created by a U.S. engineering firm, it falls under this exclusion and its cost should not be added to the price actually paid or payable.",
+     "explanation_status": "ok",
+     "cfr_used": "152.102",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=152&section=152.102",
+     "checker": "PASS The explanation correctly cites sections (a)(1)(iv) and (a)(2) which are present in the excerpt, and the reasoning aligns with the regulatory text regarding the exclusion of U.S.-domiciled indivi"
     },
     {
      "sitting": "2024-05",
@@ -10141,11 +10141,11 @@
        "152.108"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Option A is the correct answer because 19 CFR 152.108(c) explicitly states that imported merchandise \"may not be appraised on the basis of... The price of merchandise in the domestic market of the country of exportation.\" The other options describe acceptable methods, such as transaction value or computed value, which are not listed in the regulation's section on unacceptable bases.",
+     "explanation_status": "ok",
+     "cfr_used": "152.108",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=152&section=152.108",
+     "checker": "PASS\n\nThe candidate explanation correctly identifies that the regulation prohibits appraisement based on the price in the domestic market of the country of exportation (citing § 152.108(c)), which ali"
     },
     {
      "sitting": "2024-05",
@@ -10168,10 +10168,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "152.103",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=152&section=152.103",
+     "checker": "FLAG\n\nThe candidate explanation cites specific facts (Gemma, 10,000 vases, 10% volume discount, 100 broken vases) that are not present in the provided regulation excerpt, which only contains general d"
     },
     {
      "sitting": "2024-05",
@@ -10194,7 +10194,7 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
+     "explanation_status": "no-cfr-text",
      "cfr_used": "",
      "cfr_source_url": "",
      "checker": ""
@@ -10219,11 +10219,11 @@
        "152.3"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 152.3, when an examining officer finds merchandise that does not correspond with the invoice description, \"duties shall be assessed on the merchandise actually found.\" Since the scenario specifies that the failure to invoice was conclusively a mistake without intent to defraud, the regulation mandates that duties are calculated based on the physical goods discovered rather than the invoice details.",
+     "explanation_status": "ok",
+     "cfr_used": "152.3",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=152&section=152.3",
+     "checker": "PASS\nThe explanation correctly cites the regulation's mandate to assess duties on the merchandise actually found and accurately notes that the lack of intent to defraud prevents forfeiture proceedings"
     },
     {
      "sitting": "2024-05",
@@ -10267,10 +10267,10 @@
       ]
      ],
      "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation_status": "flagged",
+     "cfr_used": "152.103",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=152&section=152.103",
+     "checker": "FLAG\nThe candidate explanation cites \"selling commissions, royalties, assists, packing costs, and proceeds\" as additions to the transaction value, but the provided excerpt only mentions these terms in"
     },
     {
      "sitting": "2024-05",
@@ -10296,11 +10296,11 @@
        "132.11a"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Option D is the false statement because 19 CFR 141.68(d) explicitly defines the \"time of entry\" for quota-class merchandise as the time of presentation of the entry summary or withdrawal for consumption, not the time of liquidation. The regulation text provided does not support the claim that rates are determined at liquidation for this specific scenario. Therefore, the official answer D is correct because it contradicts the specific timing rule established in the cited regulation.",
+     "explanation_status": "ok",
+     "cfr_used": "141.68",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=141&section=141.68",
+     "checker": "PASS\n\nThe candidate explanation correctly identifies that the regulation defines the \"time of entry\" for quota-class merchandise (in section (d)) as the time of presentation or withdrawal, and correct"
     },
     {
      "sitting": "2024-05",
@@ -10343,21 +10343,21 @@
        "132.5"
       ]
      ],
-     "explanation": "",
-     "explanation_status": "pending",
-     "cfr_used": "",
-     "cfr_source_url": "",
-     "checker": ""
+     "explanation": "Under 19 CFR 132.5(c), merchandise imported in excess of an absolute quota \"may be held for the opening of the next quota period by... entering it for warehouse.\" Therefore, making a warehouse entry is the suitable action because it allows the importer to store the handbags until the quota reopens, rather than being forced to export or destroy them immediately.",
+     "explanation_status": "ok",
+     "cfr_used": "132.5",
+     "cfr_source_url": "https://www.ecfr.gov/api/versioner/v1/full/2023-04-01/title-19.xml?part=132&section=132.5",
+     "checker": "PASS The explanation correctly cites section (c) which is present in the excerpt and accurately reflects the provision allowing merchandise to be held for the next quota period by entering it for ware"
     }
    ],
    "cfr_date": "2023-04-01",
    "key_rows_parsed": 80,
    "key_rows_missing": [],
    "questions_total": 80,
-   "questions_explained": 13,
-   "questions_flagged": 4
+   "questions_explained": 38,
+   "questions_flagged": 9
   }
  ],
- "carried_over": 62,
- "tokens_this_run": 67236
+ "carried_over": 82,
+ "tokens_this_run": 385797
 }

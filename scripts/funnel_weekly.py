@@ -10,7 +10,7 @@ from collections import defaultdict
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Iterable
-from urllib.parse import urlparse
+from urllib.parse import urlparse, parse_qs
 
 UA_SUBSTR = ("audit", "headlesschrome", "bot", "crawl", "spider", "python-requests", "curl")
 CLICK_RE = re.compile(r"^(?:/feeds)?/click/([a-z0-9-]+)\.gif$")
@@ -109,6 +109,8 @@ def summarise(
         req = row.get("httpRequest") or {}
         if not isinstance(req, dict):
             continue
+        if parse_qs(urlparse(req.get("requestUrl") or "").query).get("probe") == ["1"]:
+            continue
         path = path_of(req.get("requestUrl"))
         kind, fid = family_from_path(path)
         if not fid:
@@ -119,7 +121,7 @@ def summarise(
         day = _parse_day(row.get("timestamp"))
         if excluded_ua(ua) or ip in banned or not _in_week(day, week_start):
             continue
-        if kind == "click":
+        if kind == "click" and req.get("status") == 200:
             click_counts[fid] += 1
         elif kind == "view" and req.get("status") == 200 and day is not None:
             view_keys[fid].add((ip, day.isoformat()))

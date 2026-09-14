@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Rebuild index.html from catalog.json so the hub can never drift from the pages.
 
-The hub is a directory, not a shop front. It groups feeds by the kind of record
-they come from, because a grid buyer has no reason to be shown TTB permits.
+The hub is a directory, not a shop front. It lists dated files, software tools,
+and custom work as separate pages. It groups feeds by the kind of record they
+come from, because a grid buyer has no reason to be shown TTB permits.
 """
 from __future__ import annotations
 
@@ -76,6 +77,23 @@ TRUST = [
 # later payment is attributable to it.
 HUB_REF = 'data-ref="feeds-directory"'
 
+# Hero orientation. Re-written on every rebuild so the directory cannot drift
+# back to a public-records-only heading while software and custom work remain
+# in the card list. Not a pay button: check_site treats .btn-buy as checkout.
+ORIENT_H1 = "Find files and software for your next task"
+ORIENT_LEDE = (
+    "Explore dated files, software tools, and custom work. "
+    "Each page has its own scope, price and delivery. "
+    'Related public records: <a href="https://ustechautomations.com/permits">permits library</a> '
+    'and <a href="https://ustechautomations.com/offers">offers and evidence</a>.' 
+)
+ORIENT_CTA = (
+    '<p class="hero-cta">'
+    '<a class="btn mast-cta btn-lg" href="#directory">Browse the directory</a>'
+    "</p>"
+)
+PARTNER_HREF = "https://ustechautomations.com/partner"
+
 # The heading over the non-feed products. They are letters, one-off reports and
 # tools, not change feeds, so the section must not call them feeds -- the count
 # above the directory is a count of feeds, and folding these in was one of the
@@ -87,6 +105,54 @@ SOURCE_USE_HOLDS = frozenset({"hospital-mrf", "model-cards"})
 def slug(name: str) -> str:
     """A stable #anchor for a section heading."""
     return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
+
+
+def persist_orientation(page: str) -> str:
+    """Keep the mixed-directory hero on every rebuild."""
+    page = re.sub(r'<div class="hero-cta">\s*<a[^>]+href="#directory"[^>]*>.*?</a>\s*</div>', '', page, count=1, flags=re.S)
+    page, hit = re.subn(
+        r"<h1[^>]*>.*?</h1>", f"<h1>{ORIENT_H1}</h1>", page, count=1, flags=re.S
+    )
+    if hit != 1:
+        raise SystemExit(
+            "build_hub: hero <h1> is missing, so the directory orientation was not written."
+        )
+    page, hit = re.subn(
+        r'<p class="lede">.*?</p>',
+        f'<p class="lede">{ORIENT_LEDE}</p>',
+        page,
+        count=1,
+        flags=re.S,
+    )
+    if hit != 1:
+        raise SystemExit(
+            "build_hub: hero lede is missing, so the directory orientation was not written."
+        )
+    if re.search(r'<p class="hero-cta">', page):
+        page, hit = re.subn(
+            r'<p class="hero-cta">.*?</p>', ORIENT_CTA, page, count=1, flags=re.S
+        )
+        if hit != 1:
+            raise SystemExit(
+                "build_hub: hero call-to-action could not be rewritten."
+            )
+    else:
+        page, hit = re.subn(
+            r'(<p class="lede">.*?</p>)',
+            lambda m: m.group(1) + "\n    " + ORIENT_CTA,
+            page,
+            count=1,
+            flags=re.S,
+        )
+        if hit != 1:
+            raise SystemExit(
+                "build_hub: hero call-to-action could not be inserted after the lede."
+            )
+    page = page.replace('<main id="main">', '<main id="main" tabindex="-1">')
+    page = re.sub(r"<title>.*?</title>", "<title>Files, software and custom work | US Tech Automations</title>", page, count=1)
+    page = re.sub(r'(<meta (?:property|name)="(?:og|twitter):title" content=")[^"]*', r'\g<1>Files, software and custom work', page)
+    page = re.sub(r'(<meta (?:property|name)="(?:description|og:description|twitter:description)" content=")[^"]*', r'\g<1>Explore dated files, software tools and custom work. Each product page explains its buyer, scope, sample, price and delivery.', page)
+    return page
 
 
 def sample_state(f) -> str:
@@ -316,9 +382,10 @@ def main():
     def one(n, singular, plural):
         return f"{n} {singular}" if n == 1 else f"{n} {plural}"
 
+    n_listings = sum(n for _, _, n, _ in sections)
     eyebrow = (
-        f'Directory <span class="dot"></span> {len(fams)} feeds '
-        f'<span class="dot"></span> {len(priced)} with a listed price'
+        f'Directory <span class="dot"></span> {n_listings} listings '
+        f'<span class="dot"></span> files, software, and custom work'
     )
     page, hit = re.subn(
         r'<p class="eyebrow">Directory.*?</p>', f'<p class="eyebrow">{eyebrow}</p>', page, count=1
@@ -329,6 +396,8 @@ def main():
             "rewritten. A hub that quietly keeps yesterday's count is the defect this whole "
             "site sells against. Restore the <p class=\"eyebrow\">Directory ...</p> line."
         )
+
+    page = persist_orientation(page)
 
     lead = (
         f"<p>{ready} of {len(fams)} feed cards say “Dated sample on the page” today. "
@@ -359,8 +428,7 @@ def main():
     # button itself; this line only totals them and points at the two routes.
     mail = "mailto:operations@ustechautomations.com?subject=Change%20feed"
     inbox = f'<a href="{mail}">operations@ustechautomations.com</a>'
-    partner = ('<a href="mailto:operations@ustechautomations.com?subject=Data%20task%20scope">'
-               'Describe your data task</a>')
+    partner = f'<a href="{PARTNER_HREF}">partner form</a>'
     parts = ["<strong>There is no bundle.</strong> Each product has its "
              "own terms. Open a product page to see its available material, purchase route and delivery details."]
     if takes_card:
@@ -381,7 +449,8 @@ def main():
     parts.append(
         " The reports, letters and tools listed further down are not feeds; each has its own "
         "page with its own price and terms. "
-        f"To scope a feed to your own list, region or cadence, tell us at {partner}.")
+        f"For custom work, use the {partner}. Describe the task, the inputs you can share, "
+        "how often you need it, and the output you want. Do not send sensitive data.")
     note = "".join(parts)
     block = f'<div class="note">\n      <p>{note}</p>\n    </div>'
     page, hit = re.subn(r'<div class="note">.*?</div>', lambda _m: block, page, count=1, flags=re.S)
@@ -394,8 +463,18 @@ def main():
             "let the hub keep a claim about checkouts that nothing recounted."
         )
 
+    hero = page[page.index('<section class="hero">'):page.index("</section>", page.index('<section class="hero">'))]
+    if "software" not in hero.lower() or "custom" not in hero.lower():
+        raise SystemExit("build_hub: rebuilt hero dropped software or custom work")
+    if 'href="#directory"' not in hero:
+        raise SystemExit("build_hub: rebuilt hero dropped the directory action")
+    if PARTNER_HREF not in page:
+        raise SystemExit("build_hub: rebuilt page dropped the partner form route")
+    if page.count("<h1>") != 1:
+        raise SystemExit("build_hub: rebuilt page does not have exactly one h1")
+
     (ROOT / "index.html").write_text(page, encoding="utf-8")
-    print(f"hub rebuilt: {len(fams)} feeds, {len(priced)} priced, "
+    print(f"hub rebuilt: {n_listings} listings, {len(fams)} feeds, {len(priced)} priced, "
           f"{len(takes_card)} taking a card, {len(by_mail)} priced without checkout, "
           f"{holding} holding, {parked} parked, {ready} with a sample, {no_sample} without, "
           f"{on_page} whole on the page, "

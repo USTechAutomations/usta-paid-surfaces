@@ -1,57 +1,45 @@
-# NRC Spill Notices Scraper
+# NRC Spill Notices
 
-One clean row per pollution incident reported to the Coast Guard's National
-Response Center. You give it a state, a date range and/or a material keyword; it
-hands back a table.
+Filter the National Response Center’s **2026 report workbook** by state, incident date and material. Export one JSON or CSV item per matching report, with material quantities, units and a link to the official source.
 
-## What each row is
+These are **initial, unvalidated reports**, not confirmed spills, enforcement findings or a real-time alert feed. USCG explains this limitation on the [NRC homepage](https://nrc.uscg.mil/).
 
-`report_id`, `incident_date`, `state`, `city`, `material`, `quantity`, `medium`,
-`incident_type`, and the `source_url`. The subject is always an **incident** — a
-spill or release — never the person who called it in. No caller name is kept. No
-street address is kept; town and state only.
+## Try a small Louisiana search
+
+Run with this input, then open the Results dataset and SUMMARY:
+
+```json
+{
+  "year": 2026,
+  "state": "LA",
+  "maxItems": 10,
+  "timeoutSeconds": 180
+}
+```
+
+The Actor price is **$0.005 per returned dataset item**, with no Actor Start event. Ten returned reports cost $0.05 in Actor result charges. Apify account/platform usage terms may apply separately; check the price displayed before running. Set `maxItems` and your run spending limit to suit your search.
+
+## What each result contains
+
+- NRC report ID, incident date, date basis, state, city and incident type.
+- Every listed material for that report, each with its quantity and unit. Multiple materials remain one billable dataset item.
+- Reported medium, source workbook URL, retrieval time and source SHA-256.
+- Explicit `INITIAL_UNVALIDATED` report status and `UNKNOWN` markers where source values are uncertain.
+
+A zero with an unknown unit/amount is represented as an unknown quantity; the raw source amount is retained separately. When a report has multiple materials, the top-level quantity is null and `materials` contains the individual amounts and units. JSON preserves the nested material list; CSV exports flatten the material list into columns such as `materials/0/name` and `materials/0/quantity`; use JSON to retain the nested array.
+
+Caller identities, responsible-party details, street addresses, free-text narratives and vehicle identifiers are excluded.
+
+## Coverage and limits
+
+This release supports the **2026 annual workbook only**, organized by when NRC received a report. An incident in it can have an earlier incident date. It does not combine historical years. Source publication can lag the incident date; a fresh download does not mean the reports are current to today.
+
+The product includes reports with an entry in the workbook’s `MATERIAL_INVOLVED` worksheet. Reports without a listed material and continuous-release-only material records are excluded. Material presence does not establish that a release was confirmed.
+
+Use `materialKeyword` to match material names. Date filters apply to the incident date, including whether the source says it occurred or was discovered. Missing or malformed incident dates remain unknown and are excluded when a date filter is present. Results are ordered by incident date, newest first, with unknown dates last. `maxItems` defaults to 10 and cannot exceed 1,000.
+
+SUMMARY records source row counts, matching reports, omitted matches, malformed narrative continuation rows that could not be joined, filters and provenance. An unavailable download, an error page, a changed required schema or a timeout fails the run with `UNKNOWN` before dataset output. A successful search with no matches says `NO_MATCHES`. An interrupted output stage remains `OUTPUT_IN_PROGRESS`; check the actual dataset and run status.
 
 ## Source
 
-The National Response Center incident download (`https://nrc.uscg.mil/`).
-Public-domain US Government data.
-
-**Heads up:** NRC does not serve a plain file URL. Its data comes back through an
-ASP.NET postback form (`DownLoad.aspx`, which answers HTTP 200 with an HTML form,
-not a file). The actor drives that form live. Field names can shift year to year,
-so the parser is defensive and local `apify run` falls back to the
-clearly-labelled synthetic fixture in `fixtures/` (every value marked `SAMPLE`).
-See `../../SOURCES.md`.
-
-## Price (pay-per-event, billed by Apify)
-
-- **$0.50** to start a run (`run-start`)
-- **$0.005** for each incident returned (`result-item`)
-
-## Compute cost vs price
-
-Timed locally, parsing + filtering is **~0.4 ms per 200 rows** — the run's cost
-is dominated by the form fetch. Estimating a generous 10-second run at the 512 MB
-default memory and Apify's ~$0.40 per GB-hour:
-
-| | value |
-|---|---|
-| Run wall time (form + parse, est.) | ~10 s |
-| Memory | 0.5 GB |
-| Compute cost of the run | ~$0.0006 |
-| Revenue of a 200-item run | $1.50 |
-| **Compute ÷ revenue** | **~0.04%** |
-
-Well under the 30% ceiling.
-
-## Run it
-
-```bash
-apify run --input '{"state":"LA","dateFrom":"2024-01-01","materialKeyword":"crude","maxItems":50}'
-```
-
-`maxItems` is capped hard at 1000 and there is a run timeout. `main.collect(inp,
-rows=None)` is a plain function you can import and test offline.
-
-Not affiliated with the US Coast Guard or the National Response Center. Not
-legal, tax or professional advice.
+[Official 2026 workbook](https://nrc.uscg.mil/FOIAFiles/CY26.xlsx) · [NRC data dictionary](https://nrc.uscg.mil/FOIAFiles/DataDictionary.xlsx)

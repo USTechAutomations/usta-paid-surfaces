@@ -1,6 +1,6 @@
 """Scoped mode of loops/deploy.sh: preserve the currently served image/config.
 
-Builds locally and rechecks the serving revision before changing payment access code.
+Builds locally and rechecks the serving revision before changing the explicitly selected service files.
 The existing read credential passes through a mode-0600 temporary configuration,
 never the image, command line, Git, or a printed service export.
 """
@@ -43,10 +43,36 @@ def main():
     ap.add_argument("--expected-app-sha256", required=True, help="SHA-256 of the freshly extracted serving app before this change")
     ap.add_argument("--monthly-access", action="store_true", help="Include current monthly authority and its three hosted-app callers")
     ap.add_argument("--expected-image", help="Freshly inspected serving image digest; required for monthly access")
+    ap.add_argument("--matching-only", action="store_true", help="Replace only the invoice parser; preserve all service settings")
+    ap.add_argument("--expected-matching-sha256", help="Freshly extracted serving invoice-parser hash")
+    ap.add_argument("--qrelay-only", action="store_true", help="Replace only the questionnaire app; preserve all service settings")
+    ap.add_argument("--expected-qrelay-sha256", help="Freshly extracted serving questionnaire-app hash")
+    ap.add_argument("--templates-only", action="store_true", help="Replace only hosted-page templates; preserve service settings")
+    ap.add_argument("--expected-templates-sha256", help="Freshly extracted serving template hash")
     args = ap.parse_args()
+    if args.templates_only and (args.matching_only or args.monthly_access or args.qrelay_only or not args.expected_image
+            or not args.expected_templates_sha256 or len(args.expected_templates_sha256) != 64
+            or any(c not in "0123456789abcdef" for c in args.expected_templates_sha256)):
+        raise RuntimeError("Template release requires its inspected image and template hash, with no other release mode")
+    if args.qrelay_only and (args.matching_only or args.monthly_access or not args.expected_image
+            or not args.expected_qrelay_sha256 or len(args.expected_qrelay_sha256) != 64
+            or any(c not in "0123456789abcdef" for c in args.expected_qrelay_sha256)):
+        raise RuntimeError("Questionnaire release requires its inspected image and app hash, with no other release mode")
+    single_file = args.matching_only or args.qrelay_only or args.templates_only
+    if args.matching_only and (args.monthly_access or not args.expected_image
+            or not args.expected_matching_sha256
+            or len(args.expected_matching_sha256) != 64
+            or any(c not in "0123456789abcdef" for c in args.expected_matching_sha256)):
+        raise RuntimeError("Parser release requires its inspected image and parser hash, without monthly-access mode")
     if args.monthly_access and not args.expected_image:
         raise RuntimeError("Monthly release requires the freshly inspected image digest")
     files = FILES + (MONTHLY_FILES if args.monthly_access else [])
+    if args.matching_only:
+        files = ["loops/service/apps/matching.py"]
+    if args.qrelay_only:
+        files = ["loops/service/apps/qrelay.py"]
+    if args.templates_only:
+        files = ["loops/service/apps/templates.py"]
     if len(args.expected_app_sha256) != 64 or any(c not in "0123456789abcdef" for c in args.expected_app_sha256):
         raise RuntimeError("Expected app hash is invalid")
     svc = gjson("run", "services", "describe", SERVICE, "--region", REGION)
@@ -69,10 +95,22 @@ def main():
         cid = subprocess.check_output(["docker", "create", "--platform=linux/amd64", image], env=env, text=True).strip()
         try:
             subprocess.run(["docker", "cp", cid+":/app/loops/service/app.py", str(scratch/"before.py")], env=env, check=True)
+            if args.matching_only:
+                subprocess.run(["docker", "cp", cid+":/app/loops/service/apps/matching.py", str(scratch/"matching-before.py")], env=env, check=True)
+            if args.qrelay_only:
+                subprocess.run(["docker", "cp", cid+":/app/loops/service/apps/qrelay.py", str(scratch/"qrelay-before.py")], env=env, check=True)
+            if args.templates_only:
+                subprocess.run(["docker", "cp", cid+":/app/loops/service/apps/templates.py", str(scratch/"templates-before.py")], env=env, check=True)
         finally:
             subprocess.run(["docker", "rm", cid], env=env, capture_output=True, check=True)
         if hashlib.sha256((scratch/"before.py").read_bytes()).hexdigest() != args.expected_app_sha256:
             raise RuntimeError("The serving app changed; reconcile before publishing")
+        if args.matching_only and hashlib.sha256((scratch/"matching-before.py").read_bytes()).hexdigest() != args.expected_matching_sha256:
+            raise RuntimeError("The serving parser changed; reconcile before publishing")
+        if args.qrelay_only and hashlib.sha256((scratch/"qrelay-before.py").read_bytes()).hexdigest() != args.expected_qrelay_sha256:
+            raise RuntimeError("The serving questionnaire app changed; reconcile before publishing")
+        if args.templates_only and hashlib.sha256((scratch/"templates-before.py").read_bytes()).hexdigest() != args.expected_templates_sha256:
+            raise RuntimeError("The serving template changed; reconcile before publishing")
         context = scratch/"context"
         for name in files:
             target = context/name
@@ -84,15 +122,16 @@ def main():
         subprocess.run(["docker", "push", tag], env=env, check=True)
         if serving(gjson("run", "services", "describe", SERVICE, "--region", REGION)) != revision:
             raise RuntimeError("Serving revision changed during build; traffic was not changed")
-        sys.path.insert(0,str(Path.home()/"code/market-services/stripe-readback"))
-        import common
         # Keep every current setting, including Secret Manager references.
         spec = svc["spec"]["template"]["spec"]
         container = spec["containers"][0]
         container["image"] = tag
-        values = container.setdefault("env", [])
-        values[:] = [v for v in values if v.get("name") != "LOOPS_STRIPE_READ_KEY"]
-        values.append({"name":"LOOPS_STRIPE_READ_KEY","value":common.load_key()})
+        if not single_file:
+            sys.path.insert(0,str(Path.home()/"code/market-services/stripe-readback"))
+            import common
+            values = container.setdefault("env", [])
+            values[:] = [v for v in values if v.get("name") != "LOOPS_STRIPE_READ_KEY"]
+            values.append({"name":"LOOPS_STRIPE_READ_KEY","value":common.load_key()})
         template_meta = svc["spec"]["template"].setdefault("metadata",{})
         template_meta.pop("name",None)
         meta = svc["metadata"]

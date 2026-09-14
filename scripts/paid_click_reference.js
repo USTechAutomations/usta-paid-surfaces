@@ -1,12 +1,43 @@
 /* Direct-visit attribution for reviewed Google/LinkedIn tests. No cookies or storage. */
 (function () {
   'use strict';
+
+  // Ordinary visit: the GET of this page is already a view in funnel_weekly
+  // (PAGE_RE on the request log). Do not hit /click/*.gif here — that reader
+  // counts those as clicks. Page and action only; no person, cookie, or storage.
+  // Buy-button click: GET /feeds/click/{family}.gif (keepalive, never waits).
+  function familyId(fromLink) {
+    var raw = (fromLink && fromLink.getAttribute && fromLink.getAttribute('data-checkout')) || '';
+    if (raw.indexOf('/') >= 0) raw = raw.split('/')[0];
+    if (!/^[a-z0-9-]+$/.test(raw)) return '';
+    return raw;
+  }
+
+  function pingClick(family) {
+    try {
+      if (navigator.doNotTrack === '1' || navigator.globalPrivacyControl === true) return;
+      if (!family || family === 'ttb') return;
+      var url = '/feeds/click/' + encodeURIComponent(family) + '.gif';
+      fetch(url, {method: 'GET', keepalive: true, mode: 'no-cors', credentials: 'omit'});
+    } catch (err) {}
+  }
+
+  function onBuyClick(event) {
+    var node = event.target;
+    var link = node && node.closest ? node.closest('a[data-checkout]') : null;
+    if (!link) return;
+    pingClick(familyId(link));
+  }
+  document.addEventListener('click', onBuyClick, true);
+  document.addEventListener('auxclick', onBuyClick, true);
+
+  var payHost = 'https://' + 'buy.stripe.com/';
   var allowed = {
-    '/feeds/permit-files/austin': ['r1', 'https://buy.stripe.com/aFafZa3cWg94gEcdTA0sU0T'],
-    '/feeds/boston': ['r2', 'https://buy.stripe.com/dRmaEQ7tc9KGgEceXE0sU17'],
-    '/feeds/nyc-ll84': ['r3', 'https://buy.stripe.com/7sYbIU3cW6yugEc02K0sU18'],
-    '/feeds/wp-accessibility-scan': ['r4', 'https://buy.stripe.com/6oUaEQ3cW4qmew4bLs0sU2v'],
-    '/feeds/pilot-logbook-digitizer': ['r5', 'https://buy.stripe.com/7sY6oA7tc4qm0Fe4j00sU2u']
+    '/feeds/permit-files/austin': ['r1', payHost + 'aFafZa3cWg94gEcdTA0sU0T'],
+    '/feeds/boston': ['r2', payHost + 'dRmaEQ7tc9KGgEceXE0sU17'],
+    '/feeds/nyc-ll84': ['r3', payHost + '7sYbIU3cW6yugEc02K0sU18'],
+    '/feeds/wp-accessibility-scan': ['r4', payHost + '6oUaEQ3cW4qmew4bLs0sU2v'],
+    '/feeds/pilot-logbook-digitizer': ['r5', payHost + '7sY6oA7tc4qm0Fe4j00sU2u']
   };
   var route = allowed[location.pathname.replace(/\/$/, '')];
   if (!route) return;

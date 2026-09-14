@@ -31,6 +31,8 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import json
+import os
+import tempfile
 import sys
 from pathlib import Path
 
@@ -105,6 +107,40 @@ def _source_status(bank: dict, today: dt.date) -> tuple[int, int, list[str]]:
     return len(held_ids), due, overdue
 
 
+def _atomic_write(path: Path, text: str) -> None:
+    """Keep the last usable file intact if writing its replacement fails."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = None
+    try:
+        with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=path.parent, prefix=path.name + ".", delete=False) as handle:
+            tmp = Path(handle.name)
+            if path.exists():
+                os.fchmod(handle.fileno(), path.stat().st_mode & 0o777)
+            handle.write(text)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(tmp, path)
+    finally:
+        if tmp is not None:
+            tmp.unlink(missing_ok=True)
+
+
+def _validate_bank(bank: dict) -> None:
+    # Missing PDFs are an unavailable source, never a replacement empty bank.
+    sittings = bank.get("sittings", [])
+    if not sittings or any(not s.get("exam_present") or not s.get("key_present") or not s.get("questions") for s in sittings):
+        raise ValueError("source_incomplete")
+    keys = [(s["id"], q["num"]) for s in sittings for q in s["questions"]]
+    if len(keys) != len(set(keys)):
+        raise ValueError("duplicate_question")
+    previous_path = RAW_DIR / "bank.full.json"
+    if previous_path.exists():
+        previous = json.loads(previous_path.read_text(encoding="utf-8"))
+        old_keys = {(s["id"], q["num"]) for s in previous.get("sittings", []) for q in s.get("questions", [])}
+        if not old_keys.issubset(set(keys)):
+            raise ValueError("question_loss")
+
+
 def _write_bank(bank: dict) -> None:
     """Write the full bank to the state dir, and data/bank.json under the cap.
 
@@ -116,13 +152,14 @@ def _write_bank(bank: dict) -> None:
     the committed copy, and a marker records that the full bank is in the state
     dir. The free pages and the public sample never lose anything.
     """
+    _validate_bank(bank)
     RAW_DIR.mkdir(parents=True, exist_ok=True)
-    (RAW_DIR / "bank.full.json").write_text(
-        json.dumps(bank, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    _atomic_write(RAW_DIR / "bank.full.json",
+                  json.dumps(bank, indent=1, ensure_ascii=False) + "\n")
     DATA.mkdir(parents=True, exist_ok=True)
     blob = json.dumps(bank, indent=1, ensure_ascii=False) + "\n"
     if len(blob.encode("utf-8")) <= COMMIT_CAP:
-        BANK_JSON.write_text(blob, encoding="utf-8")
+        _atomic_write(BANK_JSON, blob)
         return
     # Too big to commit whole. Keep every question and every free-page
     # explanation; drop the long explanation text of the rest, pointing at the
@@ -138,8 +175,7 @@ def _write_bank(bank: dict) -> None:
             if q["num"] not in keep and q.get("explanation"):
                 q["explanation"] = ""
                 q["explanation_status"] = "in-paid-bank"
-    BANK_JSON.write_text(
-        json.dumps(trimmed, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    _atomic_write(BANK_JSON, json.dumps(trimmed, indent=1, ensure_ascii=False) + "\n")
 
 
 def _rebuild_pages(today: dt.date) -> tuple[int, list[str]]:
@@ -207,6 +243,12 @@ def main() -> int:
     held, due, missing = _source_status(bank, today)
     stamp = dt.datetime.now().isoformat(timespec="seconds")
 
+    try:
+        _validate_bank(bank)
+    except (ValueError, OSError) as exc:
+        print(f"REFRESH id={FAMILY} status=UNKNOWN reason={exc} retained_previous=true", file=sys.stderr)
+        return 1
+
     if args.dry_run:
         print(f"REFRESH id={FAMILY} rows={rows} pages=0 "
               f"source_ok={held}/{due} stamp={stamp}")
@@ -216,7 +258,11 @@ def main() -> int:
                   f"key parsed {s.get('key_rows_parsed', 0)}/80, missing {miss}")
         return 0
 
-    _write_bank(bank)
+    try:
+        _write_bank(bank)
+    except (ValueError, OSError) as exc:
+        print(f"REFRESH id={FAMILY} status=UNKNOWN reason={exc} retained_previous=true", file=sys.stderr)
+        return 1
     try:
         pages, warnings = _rebuild_pages(today)
     except SystemExit:

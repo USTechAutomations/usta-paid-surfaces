@@ -6,54 +6,59 @@
     "state": {
       "title": "State (2-letter)",
       "type": "string",
-      "description": "Keep only reports from this state, e.g. AZ. Leave blank for every state.",
+      "description": "State or territory postal abbreviation or full name, e.g. NY or New York. Blank includes every location in the published file.",
       "editor": "textfield",
-      "example": "AZ"
+      "example": "NY",
+      "prefill": "NY"
     },
     "dateFrom": {
       "title": "From date (YYYY-MM-DD)",
       "type": "string",
       "description": "Keep only reports on or after this date. Blank means no lower bound.",
       "editor": "textfield",
-      "example": "2024-01-01"
+      "example": "2024-01-01",
+      "prefill": "2025-01-01"
     },
     "dateTo": {
       "title": "To date (YYYY-MM-DD)",
       "type": "string",
       "description": "Keep only reports on or before this date. Blank means no upper bound.",
       "editor": "textfield",
-      "example": "2024-12-31"
+      "example": "2024-12-31",
+      "prefill": "2025-12-31"
     },
     "naicsPrefix": {
       "title": "Industry code prefix (NAICS)",
       "type": "string",
-      "description": "Keep only reports whose industry code starts with this, e.g. 23 for construction.",
+      "description": "2–6 digit industry prefix. Broad source ranges match a2-digit sector; uncertain finer matches are excluded and counted in SUMMARY.",
       "editor": "textfield",
       "example": "23"
     },
     "keyword": {
       "title": "Keyword",
       "type": "string",
-      "description": "Keep only reports whose text contains this word, e.g. amputation.",
+      "description": "Case-insensitive match against employer, city, injury-nature title or body-part title. Narratives and street addresses are excluded.",
       "editor": "textfield"
     },
     "maxItems": {
       "title": "Max reports",
       "type": "integer",
-      "description": "Stop after this many reports. Hard ceiling is 1000, so a run cannot run away.",
+      "description": "Return this many matches, newest incident date first. SUMMARY counts additional matching records omitted by this cap.",
       "editor": "number",
-      "default": 1000,
+      "default": 10,
       "minimum": 1,
-      "maximum": 1000
+      "maximum": 1000,
+      "prefill": 3
     },
     "timeoutSeconds": {
       "title": "Run timeout (seconds)",
       "type": "integer",
-      "description": "Stop collecting after this many seconds so a run cannot hang.",
+      "description": "Deadline for official source discovery, download and complete scan. Timeout produces UNKNOWN before dataset output.",
       "editor": "number",
-      "default": 300,
+      "default": 180,
       "minimum": 30,
-      "maximum": 3600
+      "maximum": 600,
+      "prefill": 90
     }
   },
   "required": []

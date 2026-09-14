@@ -45,6 +45,7 @@
       <div><dt>Newest sealed read</dt><dd><span class="state"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8.4l3.6 3.6L13.5 4"/></svg>2026-08-25</span></dd></div>
     </dl>
     <p class="hero-cta"><a class="btn btn-buy" href="https://buy.stripe.com/4gM14g00K0a61Ji9Dk0sU1a" data-checkout="metro-file" rel="noopener">Buy the file — $349 once</a><span class="btn-note">$349 once, for the metro named on the page. Nothing recurring, nothing to cancel and no subscription behind it. You are buying this status-change file once. Say which metro in the note at checkout, or reply to your receipt naming it.</span></p>
+    <p class="price-anchor">$349 once is less than an afternoon of manually diffing permit statuses across sealed days yourself, and you still would not have the hole list.</p>
   </div>
 </section>
 
@@ -80,6 +81,54 @@
         <li><a href="san-francisco/"><strong>San Francisco, California</strong></a><span class="sub">413 changed permits; 373 issued to complete, plus suspend, reinstated, cancelled. $349 once.</span></li>
         <li><a href="coverage/"><strong>What is and is not in these files</strong></a><span class="sub">Cambridge is in the archive with 0 status changes and is not for sale. The hole list for every metro is on that page.</span></li>
       </ul>
+    </section>
+
+    <section>
+      <h2>What changes when you pay</h2>
+    <div class="compare">
+      <div class="compare-col">
+        <h3>The free portal gives you</h3>
+        <ul><li>A free ranking page that shows which metros changed, with no row-level detail</li><li>No before-and-after -- you diff two snapshots of the board yourself</li><li>No dated extract to check</li><li>No delivery -- build the diff yourself</li></ul>
+      </div>
+      <div class="compare-col">
+        <h3>This file gives you</h3>
+        <ul><li>The row-level status-change CSV for the metro you name, from the 533,569-row extract pulled 25 Aug 2026</li><li>Every permit&#x27;s status change, before and after, plus the day-by-day list of sealed days we hold and the holes in it</li><li>A dated extract (25 Aug 2026) that will not change after you buy it</li><li>A person emails you the CSV within one working day</li></ul>
+      </div>
+    </div>
+
+    </section>
+    <section>
+      <h2>A real slice of the file, not a mock-up</h2>
+      <div class="evidence">
+        <div class="evidence-head">
+          <span>15 real rows from the file you would receive</span>
+          <span class="stamp">Extracted 25 Aug 2026</span>
+        </div>
+        <div class="scroll">
+          <table>
+            <thead>
+              <tr><th>permit_id</th><th>jurisdiction</th><th>old_status</th><th>new_status</th><th>old_first_sealed</th><th>new_first_sealed</th><th>issue_date</th><th>valuation_usd</th><th>permit_class</th><th>apn</th><th>zip_code</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>austin:2026-091173BP</td><td>austin</td><td>Active</td><td>Withdrawn</td><td>2026-07-18T09:02:56.220303+00:00</td><td>2026-08-15T09:04:46.212170+00:00</td><td>2026-07-16</td><td></td><td>low_intent</td><td></td><td>78722</td></tr>
+              <tr><td>austin:2026-094118BP</td><td>austin</td><td>Active</td><td>Cancelled - Contractor Required</td><td>2026-07-24T09:00:27.298731+00:00</td><td>2026-08-16T09:00:05.311930+00:00</td><td>2026-07-22</td><td></td><td>low_intent</td><td></td><td>78759</td></tr>
+              <tr><td>austin:2026-069451BP</td><td>austin</td><td>Active</td><td>On Hold</td><td>2026-06-10T09:03:23.917896+00:00</td><td>2026-08-17T09:01:05.881312+00:00</td><td>2026-08-15</td><td></td><td>high_intent</td><td></td><td>78746</td></tr>
+              <tr><td>austin:2026-069451BP</td><td>austin</td><td>On Hold</td><td>Active</td><td>2026-08-17T09:01:05.881312+00:00</td><td>2026-08-19T09:04:06.212020+00:00</td><td>2026-08-15</td><td></td><td>high_intent</td><td></td><td>78746</td></tr>
+              <tr><td>austin:2026-046792BP</td><td>austin</td><td>Inactive Pending Revision</td><td>Active</td><td>2026-08-20T09:03:47.097265+00:00</td><td>2026-08-22T09:01:11.955130+00:00</td><td>2026-07-28</td><td></td><td>high_intent</td><td></td><td>78757</td></tr>
+              <tr><td>cincinnati:2026P05652</td><td>cincinnati</td><td>ISSUED</td><td>CLOSED</td><td>2026-07-09T09:02:04.184839+00:00</td><td>2026-07-10T13:31:26.703681+00:00</td><td>2026-07-06</td><td></td><td>low_intent</td><td></td><td>45227</td></tr>
+              <tr><td>cincinnati:2026P05653</td><td>cincinnati</td><td>ISSUED</td><td>CLOSED</td><td>2026-07-09T09:02:04.184839+00:00</td><td>2026-07-10T13:31:26.703681+00:00</td><td>2026-07-06</td><td></td><td>low_intent</td><td></td><td>45227</td></tr>
+              <tr><td>cincinnati:2026P05654</td><td>cincinnati</td><td>ISSUED</td><td>CLOSED</td><td>2026-07-09T09:02:04.184839+00:00</td><td>2026-07-10T13:31:26.703681+00:00</td><td>2026-07-06</td><td></td><td>low_intent</td><td></td><td>45227</td></tr>
+              <tr><td>cincinnati:2026P05665</td><td>cincinnati</td><td>ISSUED</td><td>CLOSED</td><td>2026-07-09T09:02:04.184839+00:00</td><td>2026-07-10T13:31:26.703681+00:00</td><td>2026-07-06</td><td></td><td>low_intent</td><td></td><td>45227</td></tr>
+              <tr><td>cincinnati:2026P05666</td><td>cincinnati</td><td>ISSUED</td><td>CLOSED</td><td>2026-07-09T09:02:04.184839+00:00</td><td>2026-07-10T13:31:26.703681+00:00</td><td>2026-07-06</td><td></td><td>low_intent</td><td></td><td>45227</td></tr>
+              <tr><td>montgomery-md:1167833</td><td>montgomery-md</td><td>Open</td><td>Issued</td><td>2026-08-11T09:02:13.704627+00:00</td><td>2026-08-25T09:01:58.897889+00:00</td><td>2026-08-10</td><td>15875.0</td><td>high_intent</td><td></td><td>20872</td></tr>
+              <tr><td>montgomery-md:1168449</td><td>montgomery-md</td><td>Open</td><td>Issued</td><td>2026-08-17T09:01:05.881312+00:00</td><td>2026-08-25T09:01:58.897889+00:00</td><td>2026-08-15</td><td>200.0</td><td>low_intent</td><td></td><td>20876</td></tr>
+              <tr><td>montgomery-md:1168544</td><td>montgomery-md</td><td>Open</td><td>Issued</td><td>2026-08-18T09:01:47.072173+00:00</td><td>2026-08-25T09:01:58.897889+00:00</td><td>2026-08-17</td><td>151000.0</td><td>moderate_intent</td><td></td><td>20912</td></tr>
+              <tr><td>montgomery-md:1167330</td><td>montgomery-md</td><td>Issued</td><td>Open</td><td>2026-08-06T09:04:40.026258+00:00</td><td>2026-08-21T09:04:26.232318+00:00</td><td>2026-08-05</td><td>5000.0</td><td>low_intent</td><td></td><td>20841</td></tr>
+              <tr><td>montgomery-md:1166973</td><td>montgomery-md</td><td>Issued</td><td>Finaled</td><td>2026-08-06T09:04:40.026258+00:00</td><td>2026-08-24T09:04:08.815621+00:00</td><td>2026-08-03</td><td>14000.0</td><td>high_intent</td><td></td><td>20906</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </section>
 
     <section>

@@ -1,0 +1,8 @@
+{
+  "main_exit": 0,
+  "directory_status": "pass",
+  "alert_exists": false,
+  "silently_stale": 0,
+  "unknown_pages": 0,
+  "reason": "Page dated today with cadence 1 is within late_after(1)=2 days. Stable directory report of two HTTP 200 rows must pass and clear the owned alert."
+}

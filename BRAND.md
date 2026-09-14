@@ -84,9 +84,11 @@ rail and evidence tables get the full 1280px container.
 
 Two classes, both built on `.btn`. There is no third.
 
-- `.btn .btn-buy` — the one primary action. Primary fill, primary-foreground text.
+- `.btn .btn-buy` — the one primary action. `primary-surface` fill, `primary-surface-hover` on hover, and `primary-foreground` text. The brighter logo blue is not the small-text button fill.
 - `.btn .btn-ghost` — the secondary action. Transparent, primary text, thin border.
 - `.btn-lg` bumps a hero or contact-block CTA. `.mail` is the same shape for mailto.
+
+Desktop masthead navigation begins at 1280px; narrower layouts keep the shared header without overflowing. Small-text links use the darker existing surface token in light mode and the existing lighter accent in dark mode.
 
 One primary action per page. Below 34rem they stack full-width rather than shrinking
 their text [doc §3 "Mobile"]. Keep the focus ring; never remove outlines.

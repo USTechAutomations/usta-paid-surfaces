@@ -93,10 +93,16 @@ def read_ident(s: str, i: int):
     if c == "`":
         j = i + 1
         chars = []
-        while j < n and s[j] != "`":
+        while j < n:
+            if s[j] == "`":
+                if j + 1 < n and s[j + 1] == "`":
+                    chars.append("`")
+                    j += 2
+                    continue
+                return "".join(chars), j + 1
             chars.append(s[j])
             j += 1
-        return "".join(chars), min(j + 1, n)
+        return "".join(chars), j
     if _is_alpha(c):
         j = i
         while j < n and _is_alnum(s[j]):
@@ -410,6 +416,19 @@ def _read_default_expr(item: str, i: int):
             close = find_matching_paren(item, j_ws)
             if close != -1:
                 return item[i : close + 1], close + 1
+        if name.isdigit():
+            if j < n and item[j] == ".":
+                j += 1
+                while j < n and item[j].isdigit():
+                    j += 1
+            if j < n and item[j] in "eE":
+                k = j + 1
+                if k < n and item[k] in "+-":
+                    k += 1
+                if k < n and item[k].isdigit():
+                    while k < n and item[k].isdigit():
+                        k += 1
+                    j = k
         return item[i:j], j
     j2 = i
     while j2 < n and not _is_space(item[j2]) and item[j2] not in "(),":
@@ -508,7 +527,14 @@ def parse_column_or_constraint(item: str, table_pk: list, table_fks: list, table
                     table_pk.append(c)
         return
     if w == "UNIQUE":
-        cols, _ = parse_paren_col_list(item, j)
+        pos = j
+        w2, k = _peek_word(item, j)
+        if w2 in ("KEY", "INDEX"):
+            pos = k
+            pos_ws = _skip_ws(item, pos)
+            if pos_ws < len(item) and item[pos_ws] != "(":
+                _, pos = read_ident(item, pos)
+        cols, _ = parse_paren_col_list(item, pos)
         if cols:
             table_uniques.append(cols)
         return

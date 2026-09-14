@@ -31,6 +31,7 @@ import importlib.util
 import json
 import os
 import sys
+import uuid
 from pathlib import Path
 
 FV5 = Path(__file__).resolve().parent
@@ -291,12 +292,17 @@ def process_family(family_id: str, module, *, root: Path, state_dir: Path,
                    live: bool, session_source, link_resolver,
                    spool=None, uploader=None) -> dict:
     """Resume durable output before scanning Stripe; never rerender spooled bytes."""
-    summary={'family':family_id,'delivered':0,'built':0,'pending':0,'skipped':0,'errors':0,'already':0,'outcomes':[]}
+    summary={'family':family_id,'delivered':0,'built':0,'pending':0,'skipped':0,'errors':0,'already':0,'outcomes':[], 'diagnostics':[], 'provider_coverage':'UNKNOWN', 'attempt_id':uuid.uuid4().hex}
+    stage = 'state_read'
     sess_path=state_dir/family_id/'sessions.jsonl'
     def failure(exc):
         summary['errors']+=1
         summary['outcomes'].append(('-', 'error '+type(exc).__name__))
+        summary['diagnostics'].append({'code':stage,'exception_type':type(exc).__name__,
+                                       'family':family_id,'attempt_id':summary['attempt_id']})
     def finish(record):
+        nonlocal stage
+        stage = 'spool_delivery'
         if record['finalized']:
             summary['already']+=1;return
         if record['state']!=pd.DELIVERED:
@@ -306,6 +312,7 @@ def process_family(family_id: str, module, *, root: Path, state_dir: Path,
             if outcome!=pd.DELIVERED:
                 summary['pending']+=1;return
             record=spool.load(record['id'])
+        stage = 'state_finalization'
         slug=record['session_hash'][:20]
         if not record['state_applied']:
             _apply_state_update(state_dir,family_id,record['state_update'],slug,record['ts'])
@@ -315,13 +322,19 @@ def process_family(family_id: str, module, *, root: Path, state_dir: Path,
         summary['delivered']+=1
     try:
         if live:
+            stage = 'spool_recovery'
             spool=spool or pd.PrivateSpool(state_dir)
             for record in spool.records():
                 if record['family']==family_id and not record['finalized']:
                     try:finish(record)
                     except Exception as exc:failure(exc)
+        stage = 'state_read'
         handled,watermark=load_state(sess_path)
-        sessions=list(session_source(link_resolver(module.LINK_ID_ENV_OR_CATALOG),watermark))
+        stage = 'link_resolution'
+        link_id=link_resolver(module.LINK_ID_ENV_OR_CATALOG)
+        stage = 'provider_read'
+        sessions=list(session_source(link_id,watermark))
+        summary['provider_coverage']='PASS'
     except Exception as exc:
         failure(exc);return summary
     product_name=getattr(module,'PRODUCT_NAME',family_id.replace('-',' '))
@@ -330,20 +343,26 @@ def process_family(family_id: str, module, *, root: Path, state_dir: Path,
         if slug in handled:
             summary['already']+=1;continue
         try:
+            stage = 'spool_recovery'
             rec_id=pd.doc_id(family_id,pd.session_hash(session.session_id))
             existing=spool.load(rec_id) if live else None
             if existing:
                 # The recovery sweep already attempted this record once this run.
                 continue
             if live:
+                stage = 'state_finalization'
                 append_row(sess_path,{'slug':slug,'created':session.created,'amount':session.amount_total,'outcome':'pending'})
+            stage = 'build'
             body,update=_normalise_result(module.fulfil(SessionView(session)))
             if body is None:
                 summary['skipped']+=1
-                if live:append_row(sess_path,{'slug':slug,'created':session.created,'outcome':'skipped'})
+                if live:
+                    stage = 'state_finalization'
+                    append_row(sess_path,{'slug':slug,'created':session.created,'outcome':'skipped'})
                 continue
             wrapped=ppp.wrap_private_page(family_id,product_name,body,session.created)
             if live:
+                stage = 'spool_write'
                 record=spool.spool(family_id,session.session_id,wrapped,session.created,state_update=update)
                 summary['built']+=1
                 finish(record)
@@ -351,7 +370,9 @@ def process_family(family_id: str, module, *, root: Path, state_dir: Path,
         except Exception as exc:
             failure(exc)
             if live:
-                try:append_row(sess_path,{'slug':slug,'created':session.created,'outcome':'retryable_error'})
+                try:
+                    stage = 'state_finalization'
+                    append_row(sess_path,{'slug':slug,'created':session.created,'outcome':'retryable_error'})
                 except Exception as state_exc:failure(state_exc)
     return summary
 
@@ -413,6 +434,9 @@ def run(*, root: Path, state_dir: Path, families_dir: Path, live: bool,
         else:
             print(f"{family_id}: would build {summary['built']}, skipped {summary['skipped']}, "
                   f"errors {summary['errors']}, already done {summary['already']}")
+        for diagnostic in summary["diagnostics"]:
+            print("    diagnostic " + json.dumps(diagnostic, sort_keys=True))
+        print(f"    provider_coverage={summary['provider_coverage']} attempt_id={summary['attempt_id']}")
         for slug, outcome in summary["outcomes"]:
             print(f"    {slug[:20]:20} {outcome}")
 

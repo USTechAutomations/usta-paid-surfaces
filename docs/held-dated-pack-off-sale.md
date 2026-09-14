@@ -43,3 +43,20 @@ The original GitHub Pages pack pages were found to retain old sample tables
 after this feeds release. Their independent correction is tracked in
 `closure/final-source-hold/github-pages-hold/`; inspect the eventual Pages
 Deploy-job and public-byte receipt before calling that surface corrected.
+
+The separately dirty autonomous-packs runtime now has the same generation and
+mint guards. The scoped apply receipt is `release/owner-pack-source-hold-apply.json`.
+Its preexisting Trustee and Stripe Tax lines were preserved. The runtime renderer
+is older than the branded renderer on origin/main: do not copy it into a release.
+Use the clean release worktree and preserve the branded shell. The reviewed
+three-case owner regression check passed; it makes no provider calls.
+
+The GitHub Pages correction was independently published from clean commit
+`61788bf4b35ed64f9f9f2dcb721cc4b969004728`. Actual Deploy job
+`103083048992` succeeded. At 23:11 UTC, all three changed pages and the index
+alias returned 200 with the accepted hashes; receipt and Texas page hashes
+were preserved, and four sample aliases returned 404. See
+`release/github-source-hold-deploy-job.json` and
+`release/github-source-hold-public-receipt.json`. The source guard patch on
+clean main preserves its branded renderer; the separate owner patch preserves
+its unrelated Trustee and Stripe Tax changes.

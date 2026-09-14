@@ -1,0 +1,7 @@
+# LedgerMatch conversion measurement
+
+The existing landing sends privacy-limited checkout_click JSON to loops/t; failed/unavailable browser beacon dispatch falls back to a GET image without blocking navigation. Form encoding is incompatible with the existing POST receiver. SoftwareApplication metadata describes the actual browser tool.
+
+Run: node loops/pages_tests/test_ledgermatch_tracking.js (10 tests,35 assertions). Manager browser and actual-route evidence, negative controls, exact public hashes and limits: /home/gmullins/reports/customer-conversion-20260911/. Gate floor passed with SIMULATED evidence; no real transaction or serving-backend parity claim. Respect concurrent copy edits and rerun version-bound review before publishing another page hash.
+
+The September 11 follow-up preserves actionable API errors as plain text, prevents duplicate submission, restores the retry button after failures, and applies existing readable field styles. The before-repair negative control fails; `node loops/pages_tests/test_ledgermatch_form_errors.cjs families/ledgermatch/index.html` passes nine scenarios. Actual public browser requests with deliberately invalid invented rows returned 400 with the server explanation and an enabled retry control. Evidence and exact released hashes: `~/advisor-plans/customer-value-integration-20260911/today/`. Current Stripe-link readback and simulated monthly-access recovery are separate receipts; neither establishes conversion or a real purchase.

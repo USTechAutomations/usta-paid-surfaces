@@ -1,57 +1,101 @@
 {
-  "FIXTURE": true,
-  "WARNING": "SYNTHETIC TEST FIXTURE. These are not real National Response Center incident reports. Every value is made up and marked SAMPLE. Used only for local `apify run`: nrc.uscg.mil serves its data through an ASP.NET postback download form (DownLoad.aspx, HTTP 200), not a plain file URL, so the live pull is done inside the actor and this fixture is the local-dev fallback (see SOURCES.md).",
-  "schema_source": "https://nrc.uscg.mil/ (annual incident download; no caller name is kept)",
-  "rows": [
+  "mode": "SAVED_OFFICIAL_SOURCE_SAMPLE",
+  "input": {
+    "year": 2026,
+    "state": "LA",
+    "maxItems": 3
+  },
+  "source_evidence": "https://nrc.uscg.mil/FOIAFiles/CY26.xlsx",
+  "results": [
     {
-      "report_id": "SAMPLE-900001",
-      "incident_date": "SAMPLE-DATE",
+      "report_id": "1472939",
+      "incident_date": "2026-09-06",
+      "incident_date_source": "9/6/2026 18:50",
+      "date_status": "REPORTED",
+      "date_basis": "OCCURRED",
       "state": "LA",
-      "city": "TESTVILLE",
-      "material": "CRUDE OIL (SAMPLE)",
-      "quantity": "SAMPLE",
-      "medium": "WATER (SAMPLE)",
-      "incident_type": "FIXED (SAMPLE)"
+      "city": "ST. ROSE",
+      "incident_type": "FIXED",
+      "materials": [
+        {
+          "name": "OIL, EDIBLE: SOYA BEAN",
+          "quantity": 20,
+          "unit": "BARREL(S)",
+          "quantity_status": "REPORTED",
+          "source_amount": 20
+        }
+      ],
+      "medium": "LAND",
+      "material": "OIL, EDIBLE: SOYA BEAN",
+      "quantity": 20,
+      "quantity_unit": "BARREL(S)",
+      "medium_status": "REPORTED",
+      "source_url": "https://nrc.uscg.mil/FOIAFiles/CY26.xlsx",
+      "source_sha256": "b6db6d2a0daf6318435e5c394405784f599bfac1db67b33f54f3770014ba42a4",
+      "source_retrieved_at": "2026-09-12T21:04:43.810475+00:00",
+      "report_receipt_year": 2026,
+      "report_status": "INITIAL_UNVALIDATED",
+      "source_scope": "MATERIAL_INVOLVED worksheet; continuous-release-only and reports without a listed material excluded"
     },
     {
-      "report_id": "SAMPLE-900002",
-      "incident_date": "SAMPLE-DATE",
-      "state": "TX",
-      "city": "TESTVILLE",
-      "material": "DIESEL (SAMPLE)",
-      "quantity": "SAMPLE",
-      "medium": "LAND (SAMPLE)",
-      "incident_type": "MOBILE (SAMPLE)"
+      "report_id": "1472916",
+      "incident_date": "2026-09-06",
+      "incident_date_source": "9/6/2026 11:32",
+      "date_status": "REPORTED",
+      "date_basis": "OCCURRED",
+      "state": "LA",
+      "city": "",
+      "incident_type": "PLATFORM",
+      "materials": [
+        {
+          "name": "WASTE OIL",
+          "quantity": null,
+          "unit": "UNKNOWN AMOUNT",
+          "quantity_status": "UNKNOWN",
+          "source_amount": 0
+        }
+      ],
+      "medium": "WATER",
+      "material": "WASTE OIL",
+      "quantity": null,
+      "quantity_unit": "UNKNOWN AMOUNT",
+      "medium_status": "REPORTED",
+      "source_url": "https://nrc.uscg.mil/FOIAFiles/CY26.xlsx",
+      "source_sha256": "b6db6d2a0daf6318435e5c394405784f599bfac1db67b33f54f3770014ba42a4",
+      "source_retrieved_at": "2026-09-12T21:04:43.810475+00:00",
+      "report_receipt_year": 2026,
+      "report_status": "INITIAL_UNVALIDATED",
+      "source_scope": "MATERIAL_INVOLVED worksheet; continuous-release-only and reports without a listed material excluded"
     },
     {
-      "report_id": "SAMPLE-900003",
-      "incident_date": "SAMPLE-DATE",
-      "state": "CA",
-      "city": "TESTVILLE",
-      "material": "UNKNOWN SHEEN (SAMPLE)",
-      "quantity": "SAMPLE",
-      "medium": "WATER (SAMPLE)",
-      "incident_type": "VESSEL (SAMPLE)"
-    },
-    {
-      "report_id": "SAMPLE-900004",
-      "incident_date": "SAMPLE-DATE",
-      "state": "AK",
-      "city": "TESTVILLE",
-      "material": "GASOLINE (SAMPLE)",
-      "quantity": "SAMPLE",
-      "medium": "WATER (SAMPLE)",
-      "incident_type": "PIPELINE (SAMPLE)"
-    },
-    {
-      "report_id": "SAMPLE-900005",
-      "incident_date": "SAMPLE-DATE",
-      "state": "WA",
-      "city": "TESTVILLE",
-      "material": "HYDRAULIC OIL (SAMPLE)",
-      "quantity": "SAMPLE",
-      "medium": "WATER (SAMPLE)",
-      "incident_type": "FIXED (SAMPLE)"
+      "report_id": "1472907",
+      "incident_date": "2026-09-06",
+      "incident_date_source": "9/6/2026 11:45",
+      "date_status": "REPORTED",
+      "date_basis": "DISCOVERED",
+      "state": "LA",
+      "city": "BATON ROUGE",
+      "incident_type": "FIXED",
+      "materials": [
+        {
+          "name": "HYDROGEN CHLORIDE",
+          "quantity": null,
+          "unit": "UNKNOWN AMOUNT",
+          "quantity_status": "UNKNOWN",
+          "source_amount": 0
+        }
+      ],
+      "medium": "AIR",
+      "material": "HYDROGEN CHLORIDE",
+      "quantity": null,
+      "quantity_unit": "UNKNOWN AMOUNT",
+      "medium_status": "REPORTED",
+      "source_url": "https://nrc.uscg.mil/FOIAFiles/CY26.xlsx",
+      "source_sha256": "b6db6d2a0daf6318435e5c394405784f599bfac1db67b33f54f3770014ba42a4",
+      "source_retrieved_at": "2026-09-12T21:04:43.810475+00:00",
+      "report_receipt_year": 2026,
+      "report_status": "INITIAL_UNVALIDATED",
+      "source_scope": "MATERIAL_INVOLVED worksheet; continuous-release-only and reports without a listed material excluded"
     }
   ]
 }

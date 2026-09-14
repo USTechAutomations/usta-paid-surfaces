@@ -1,6 +1,6 @@
 {
   "family": "customs-broker-exam-bank",
-  "generated": "2026-09-10",
+  "generated": "2026-09-14",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/customs-broker-exam-bank",
   "rows_published": 25,
@@ -105,88 +105,88 @@
       "Option C is correct because 19 CFR 190.7(b)(2) states that letters of notification of intent to operate under a general manufacturing drawback ruling \"must be submitted to any drawback office where drawback entries will be filed, concurrent with or prior to filing a claim, provided that the general manufacturing drawback ruling will be followed without variation.\" This regulation explicitly requires the submission to happen at the same time as or before the claim is filed, matching the scenario described in Option C."
     ],
     [
-      "April 2026",
-      "2",
-      "Broker Compliance",
-      "C",
-      "Option C is correct because the regulation states that non-government training must be \"approved for continuing education credit by a CBP-selected accreditor before the training or educational activity is provided,\" which matches the scenario where the lecture was approved prior to being held. Option B is incorrect because the organizers only intend to seek approval after the session concludes, violating the requirement for pre-approval. Option D is incorrect because the special allowance for preparing subject matter is limited to a maximum of one credit for the time spent preparing for a specific presentation, not for the entire duration of a self-guided course."
-    ],
-    [
-      "April 2026",
-      "3",
-      "Broker Compliance",
-      "A",
-      "Under 19 CFR 111.2(a)(2)(ii)(A)(1), a broker who authorizes an employee to sign documents must execute a power of attorney but is \"not required to file the power of attorney with CBP, but must provide proof of its existence to CBP upon request.\" This specific requirement makes Option A the correct statement, as it accurately reflects the regulation's mandate for providing proof only when asked. Options B and C are incorrect because filing a statement or the power of attorney itself is not required for an employee authorized solely to sign documents, and Option D is unsupported by the provided text."
-    ],
-    [
-      "April 2026",
-      "5",
-      "Broker Compliance",
-      "B",
-      "Option B is correct because 19 CFR 163.4(b)(1) explicitly states that \"Any record relating to a drawback claim shall be kept until the third anniversary of the date of payment of the claim.\" This specific exception overrides the general five-year retention rule found in 19 CFR 163.4(a), making the three-year period in Option B the accurate requirement for drawback records."
-    ],
-    [
-      "April 2026",
-      "7",
-      "Broker Compliance",
+      "April 2025",
+      "24",
+      "Modernized Drawback",
       "D",
-      "19 CFR 165.24(a) explicitly states that CBP will take interim measures \"No later than 90 calendar days after initiating an investigation\" if there is a \"reasonable suspicion\" of evasion. This text directly matches the time frame and standard required in option D, making it the correct answer."
+      "Under 19 CFR 190.72(b)(3), valid supporting documentary evidence for exportation includes \"Official postal records (originals or copies) which evidence exportation by mail.\" Option D is the only choice that constitutes an official postal record, as it provides the original USPS Customs Declaration and Dispatch Note with a barcode label and payment receipt. Options A, B, and C are commercial invoices, emails, or affidavits, which do not meet the specific requirement for official postal documentation cited in the regulation."
     ],
     [
-      "April 2026",
-      "8",
-      "Broker Compliance",
+      "April 2025",
+      "41",
+      "Entry / Entry Summary",
+      "A",
+      "Under 19 CFR 113.13(c), if CBP determines that a bond is inadequate, the principal and surety are promptly notified in writing. The regulation explicitly states that \"The principal will have 15 days from the date of notification to remedy the deficiency.\" Therefore, option A is the correct answer because it matches the specific 15-day timeframe mandated by the cited text."
+    ],
+    [
+      "April 2025",
+      "43",
+      "Entry / Entry Summary",
+      "A",
+      "The regulation explicitly states that the marking of the country of origin must be \"legible, indelible, and permanent.\" Therefore, option A is the correct answer because it directly matches the third requirement listed in the text."
+    ],
+    [
+      "April 2025",
+      "44",
+      "Entry / Entry Summary",
+      "D",
+      "The official answer is D because 19 CFR 18.1 explicitly defines the process for transporting merchandise in-bond, which the regulation describes as moving imported goods \"from one port to another prior to the appraisement of the merchandise and without the payment of duties.\" This definition directly matches the client's request to move avocados from Los Angeles to San Francisco without appraisal or duty payment. Therefore, the general rules and application requirements found in \u00a7 18.1 govern this specific type of in-bond transportation."
+    ],
+    [
+      "April 2025",
+      "45",
+      "Entry / Entry Summary",
       "C",
-      "Under 19 CFR 133.27(a), for the first seizure of merchandise bearing a counterfeit mark, the civil fine \"will not be more than the value the merchandise would have had if it were genuine, according to the manufacturer's suggested retail price in the United States at the time of seizure.\" Since the MSRP is $25,000, the maximum fine for a first violation is $25,000, making option C the correct answer."
+      "Under 19 CFR 159.6(c), when the difference between liquidated duties and estimated duties is \"$20 or more,\" the regulation states that \"bills or refund checks will be issued.\" Since the discrepancy here is $250.00 ($1,000.00 deposited minus $750.00 ascertained), which exceeds the $20 threshold, CBP is required to issue a refund check for the overpayment."
     ],
     [
-      "April 2026",
-      "10",
-      "Broker Compliance",
+      "April 2025",
+      "46",
+      "Entry / Entry Summary",
+      "A",
+      "Under 19 CFR 145.31, the port director will pass free of duty and tax, without preparing an entry, packages containing merchandise having an \"aggregate fair retail value in the country of shipment of not over $800.\" Option A qualifies because the jade figurines have a fair retail value of $799.00 in India, the country of shipment, which is not over the $800 threshold."
+    ],
+    [
+      "April 2025",
+      "47",
+      "Entry / Entry Summary",
       "C",
-      "Under 19 CFR 111.39(c), when a broker identifies an error or omission in a client's document, they must \"advise the client on the proper corrective actions required and retain a record of the broker's communication with the client.\" This specific requirement to keep a record of the advice given makes option C the correct answer. The regulation does not mandate providing penalty details, terminating the relationship, or suspending the license in this scenario."
+      "The correct answer is C because 19 CFR 12.48 is the specific regulation titled \"Importation prohibited; exceptions to prohibition of importation; procedure,\" which directly governs the importation of United States postage stamps. The text explicitly details the conditions under which the importation of illustrations or reproductions of canceled and uncanceled United States postage stamps is permitted, such as for philatelic or educational purposes. Therefore, this section is the authoritative provision addressing the scenario described in the question."
     ],
     [
-      "April 2026",
-      "11",
-      "Broker Compliance",
+      "April 2025",
+      "48",
+      "Entry / Entry Summary",
       "A",
-      "Option A is correct because \u00a7 111.42(b) explicitly states that \"Nothing in this section will prohibit a broker from transacting customs business on behalf of a bona fide importer or exporter who may be notoriously disreputable.\" This client exception allows Tracy to serve X-Logistics despite its reputation, whereas the other options violate prohibitions in \u00a7 111.42(a) regarding sharing fees with suspended brokers or employing individuals without proper approval."
+      "Under 19 CFR 159.12(a)(1), the regulation explicitly states that the Center director \"may extend the 1-year statutory period for liquidation for an additional period not to exceed 1 year\" when good cause is shown. This specific language directly supports option A, as it caps the initial extension at one year. While the regulation allows for further extensions under certain conditions, the question asks for the duration of the extension granted upon a timely request demonstrating good cause, which is defined as not exceeding one year."
     ],
     [
-      "April 2026",
-      "13",
-      "Broker Compliance",
+      "April 2025",
+      "49",
+      "Entry / Entry Summary",
       "A",
-      "Under 19 CFR 111.30(a), a broker must update their address information, including the office of record address, \"within ten (10) calendar days\" through a CBP-authorized electronic data interchange system or in writing if that system is unavailable. This specific timeframe makes option A the correct answer, as the regulation explicitly mandates a 10-calendar-day window rather than business days or a 30-day period."
+      "Option A is correct because 19 CFR 141.0a(b) explicitly states that an \"Entry summary\" means \"any other documentation or electronic submission of data necessary to enable CBP to assess duties, and collect statistics on imported merchandise, and determine whether other requirements of law or regulation are met.\" This definition distinguishes the entry summary from the initial entry documentation used to secure release, focusing instead on the data needed for duty assessment and statistical collection."
     ],
     [
-      "April 2026",
-      "14",
-      "Broker Compliance",
+      "April 2025",
+      "52",
+      "Entry / Entry Summary",
       "A",
-      "Under 19 CFR 111.28(b)(2), a broker must submit a list of new employees within 30 days of their start of employment, which may be done by submitting \"a list of the new employee(s) or an updated list of all employees, specifically noting the new employee(s).\" Since Spencer McGill\u2019s information has not changed, he does not need to be included in the submission, making Option A the correct choice because it lists only the new employee, Logan Sharpe, with the required details."
+      "Option A is the correct answer because the regulation text provided does not list \"merchandise of the type defined in 19 CFR 132.1(e)\" as a requirement for filing one entry summary for multiple entries. The actual requirements found in 19 CFR 142.17(a) include that the merchandise is consigned to the same consignee (Option B), each entry is identified separately by entry number (Option C), and the time between the first and last entry does not exceed one week (Option D)."
     ],
     [
-      "April 2026",
-      "15",
-      "Broker Compliance",
-      "A",
-      "Under 19 CFR 111.2(a)(2)(ii)(A)(2), a broker must file \"a statement identifying the employee as authorized to transact customs business on his behalf\" with the processing Center. While paragraph (a)(2)(ii)(A)(1) requires a power of attorney for signing documents, it explicitly states that the broker is \"not required to file the power of attorney with CBP.\" Therefore, the statement is the only document among the options that must be filed."
+      "April 2025",
+      "54",
+      "Entry / Entry Summary",
+      "C",
+      "Option C is the correct answer because a yacht used for commercial cruises is not listed among the specific exceptions in 19 CFR 141.4(b), which only exempts items like \"Vessels (not including vessels classified in headings 8903 and 8907...)\" and \"Instruments of international traffic described in \u00a7 10.41a and \u00a7 10.41b(b).\" Since the regulation text does not provide an exemption for commercial vessels or yachts, this item requires formal entry, unlike the other options which align with the listed exceptions for instruments of international traffic or other specific categories."
     ],
     [
-      "April 2026",
-      "16",
-      "Broker Compliance",
-      "A",
-      "Under 19 CFR 111.21(b), a broker must electronically notify the CBP Office of Information Technology Security Operations Center of any known breach \"within 72 hours of the discovery of the breach.\" This specific timeframe makes option A the correct answer, while the regulation's mention of \"ten (10) business days\" applies only to providing an updated list of compromised importer identification numbers after the initial notification."
-    ],
-    [
-      "April 2026",
-      "19",
-      "Practical Exercise",
-      "A",
-      "Under 19 CFR 141.101, when an entry summary serves as both the entry documentation and entry summary, estimated duties must be deposited at the time of filing or transmitted to Customs according to the statement processing method described in \u00a7 24.25. The regulation explicitly links the timing of this transmission to the statement processing rules, which govern the specific deadlines for indicating payment by statement processing. Therefore, the filer must indicate to CBP that the estimated duty owed will be paid by statement processing by the date specified in the statement processing regulations, which corresponds to option A."
+      "April 2025",
+      "55",
+      "Entry / Entry Summary",
+      "C",
+      "Under 19 CFR 146.7(b), a grantee or operator must make a \"written application\" to the port director for deactivation, which means an oral application is not a valid consideration for approval. The regulation further specifies that the application must indicate the exact site by \"layout or blueprint\" and that the port director shall not approve unless all non-domestic status merchandise has been removed at the operator's risk and expense. Therefore, options A and B are required elements, while option C is the correct answer because the process explicitly demands a written, not oral, submission."
     ]
   ]
 }

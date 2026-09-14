@@ -42,7 +42,7 @@
   --primary-surface: 207 100% 42%;
   --primary-surface-hover: 207 100% 36%;
   --primary-hover: 207 100% 44%;
-  --accent-blue: 207 100% 50%;
+  --accent-blue: var(--primary-surface-hover);
   --accent-emerald: 149 80% 90%;
   --accent-emerald-fg: 161 94% 30%;
   --accent-amber: 48 96% 89%;
@@ -211,19 +211,19 @@ summary:focus-visible,
 .mast-nav { display: none; gap: 2rem; margin-left: 2rem; align-items: center; flex: 1; }
 /* main site keeps the links beside the wordmark and the CTA hard right */
 .mast-cta { margin-left: auto; }
-@media (min-width: 1024px) { .mast-nav { display: flex; } }
+@media (min-width: 1280px) { .mast-nav { display: flex; } }
 .mast-nav a {
   font-size: .875rem; font-weight: 500; color: var(--fg); text-decoration: none;
 }
-.mast-nav a:hover { color: hsl(var(--primary)); text-decoration: none; }
-.mast-cta {
+.mast-nav a:hover { color: var(--accent); text-decoration: none; }
+.mast-nav .mast-cta {
   display: inline-flex; align-items: center;
-  background: hsl(var(--primary)); color: hsl(var(--primary-foreground));
+  background: hsl(var(--primary-surface)); color: hsl(var(--primary-foreground));
   font-size: .875rem; font-weight: 600;
   padding: .5rem 1rem; border-radius: var(--radius);
   text-decoration: none; white-space: nowrap;
 }
-.mast-cta:hover { background: hsl(var(--primary-hover)); text-decoration: none; }
+.mast-nav .mast-cta:hover { background: hsl(var(--primary-surface-hover)); text-decoration: none; }
 
 .crumbs {
   width: 100%; margin: 0 0 .75rem; font-size: .8125rem; color: var(--muted-fg);
@@ -443,11 +443,11 @@ h1 > .seal, h1 > .stamp, h2 > .seal, h2 > .stamp, h3 > .seal, h3 > .stamp {
 .contact h2 { margin-top: 0; }
 .mail {
   display: inline-flex; align-items: center;
-  background: hsl(var(--primary)); color: hsl(var(--primary-foreground));
+  background: hsl(var(--primary-surface)); color: hsl(var(--primary-foreground));
   font-weight: 600; font-size: .9375rem;
   padding: .625rem 1.25rem; border-radius: var(--radius); text-decoration: none;
 }
-.mail:hover { background: hsl(var(--primary-hover)); text-decoration: none; }
+.mail:hover { background: hsl(var(--primary-surface-hover)); text-decoration: none; }
 .mail-note { margin: .875rem 0 0; font-size: .8125rem; color: var(--muted-fg); }
 
 /* ---------- footer: mirrors the main-site footer ---------- */
@@ -475,7 +475,7 @@ footer.site {
 @media (min-width: 768px) { .foot-col h4 { font-size: 2.25rem; } }
 .foot-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; }
 .foot-col a { color: var(--muted-fg); }
-.foot-col a:hover { color: hsl(var(--primary)); }
+.foot-col a:hover { color: var(--accent); }
 .foot-bottom {
   border-top: 1px solid var(--line); padding-top: 1.5rem;
   display: grid; gap: .75rem; color: var(--muted-fg);
@@ -508,12 +508,12 @@ footer.site .addr { font-size: .8125rem; }
 }
 .btn:hover { text-decoration: none; }
 .btn-buy {
-  background: hsl(var(--primary)); color: hsl(var(--primary-foreground));
+  background: hsl(var(--primary-surface)); color: hsl(var(--primary-foreground));
   box-shadow: 0 1px 2px hsl(var(--foreground) / .08);
 }
-.btn-buy:hover { background: hsl(var(--primary-hover)); }
+.btn-buy:hover { background: hsl(var(--primary-surface-hover)); }
 .btn-ghost {
-  background: transparent; color: hsl(var(--primary));
+  background: transparent; color: var(--accent);
   border-color: hsl(var(--primary) / .35);
 }
 .btn-ghost:hover { background: hsl(var(--primary) / .06); border-color: hsl(var(--primary) / .55); }
@@ -528,3 +528,13 @@ footer.site .addr { font-size: .8125rem; }
   .hero-cta { flex-direction: column; align-items: flex-start; }
   .btn { width: 100%; }
 }
+
+/* Value-vs-free proof block (conversion pass, 2026-09-14). Two columns on wide
+   screens, stacked on phones. Tokens only; no new colours. */
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+.compare-col { border: 1px solid hsl(var(--border)); border-radius: .5rem; padding: 1rem 1.25rem; background: hsl(var(--muted)); }
+.compare-col h3 { margin: 0 0 .5rem; font-size: 1rem; }
+.compare-col ul { margin: 0; padding-left: 1.1rem; }
+.compare-col li { margin: .25rem 0; }
+.price-anchor { color: var(--muted-fg); margin: .5rem 0 0; }
+@media (max-width: 34rem) { .compare { grid-template-columns: 1fr; } }

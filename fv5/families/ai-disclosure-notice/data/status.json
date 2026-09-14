@@ -1,6 +1,6 @@
 {
  "family": "ai-disclosure-notice",
- "stamp": "2026-09-08",
+ "stamp": "2026-09-12",
  "drift": false,
  "drifted": [],
  "unchecked": [
@@ -64,7 +64,7 @@
   "cites": 56,
   "notices": 8,
   "sources": 11,
-  "pages": 12
+  "pages": 13
  },
  "fetch_log": [
   {
@@ -78,28 +78,28 @@
    "source": "ca-bpc-17941",
    "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17941.",
    "status": "200",
-   "bytes": 164063,
+   "bytes": 162527,
    "ok": true
   },
   {
    "source": "ca-bpc-ch25",
    "url": "https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=BPC&division=8.&title=&part=&chapter=25.&article=",
    "status": "200",
-   "bytes": 153557,
+   "bytes": 153109,
    "ok": true
   },
   {
    "source": "ca-bpc-22602",
    "url": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=22602.",
    "status": "200",
-   "bytes": 164872,
+   "bytes": 163176,
    "ok": true
   },
   {
    "source": "co-sb26-189",
    "url": "https://leg.colorado.gov/bills/sb26-189",
    "status": "200",
-   "bytes": 121922,
+   "bytes": 122392,
    "ok": true
   },
   {

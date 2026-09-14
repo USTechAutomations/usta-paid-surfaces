@@ -293,11 +293,24 @@
     var demoButton = document.getElementById("ac-demo");
     var results = document.getElementById("ac-results");
     var demoScript = document.getElementById("ac-demo-xml");
+    var fileInput = document.getElementById("ac-file");
     if (!input || !button || !results) return;
 
     button.addEventListener("click", function () {
       renderResults(results, checkAcaXml(input.value));
     });
+
+    if (fileInput) {
+      fileInput.addEventListener("change", function () {
+        var chosen = fileInput.files && fileInput.files[0];
+        if (!chosen) return;
+        var reader = new FileReader();
+        reader.onload = function () {
+          input.value = String(reader.result || "");
+        };
+        reader.readAsText(chosen);
+      });
+    }
 
     if (demoButton && demoScript) {
       demoButton.addEventListener("click", function () {

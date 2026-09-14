@@ -1,0 +1,25 @@
+{
+  "checked": 2,
+  "ok": 2,
+  "not_200": 0,
+  "redirects": 0,
+  "other_status": 0,
+  "unknown": 0,
+  "version_changed_during_run": false,
+  "directory_source_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "directory_stability_unknown": false,
+  "rows": [
+    {
+      "url": "https://ustechautomations.com/feeds/",
+      "path": "/feeds/",
+      "status": 200,
+      "outcome": "ok"
+    },
+    {
+      "url": "https://ustechautomations.com/feeds/ttb/",
+      "path": "/feeds/ttb/",
+      "status": 200,
+      "outcome": "ok"
+    }
+  ]
+}

@@ -88,11 +88,19 @@
     if (c === "`") {
       let j = i + 1;
       const chars = [];
-      while (j < n && s[j] !== "`") {
+      while (j < n) {
+        if (s[j] === "`") {
+          if (j + 1 < n && s[j + 1] === "`") {
+            chars.push("`");
+            j += 2;
+            continue;
+          }
+          return [chars.join(""), j + 1];
+        }
         chars.push(s[j]);
         j++;
       }
-      return [chars.join(""), Math.min(j + 1, n)];
+      return [chars.join(""), j];
     }
     if (isAlpha(c)) {
       let j = i;
@@ -415,6 +423,20 @@
         const close = findMatchingParen(item, jWs);
         if (close !== -1) return [item.slice(i, close + 1), close + 1];
       }
+      if (/^\d+$/.test(name)) {
+        if (j < n && item[j] === ".") {
+          j += 1;
+          while (j < n && item[j] >= "0" && item[j] <= "9") j++;
+        }
+        if (j < n && (item[j] === "e" || item[j] === "E")) {
+          let k = j + 1;
+          if (k < n && (item[k] === "+" || item[k] === "-")) k++;
+          if (k < n && item[k] >= "0" && item[k] <= "9") {
+            while (k < n && item[k] >= "0" && item[k] <= "9") k++;
+            j = k;
+          }
+        }
+      }
       return [item.slice(i, j), j];
     }
     let j2 = i;
@@ -526,7 +548,17 @@
       return;
     }
     if (w === "UNIQUE") {
-      const cr = parseParenColList(item, j);
+      let pos = j;
+      const wr2 = peekWord(item, j);
+      if (wr2[0] === "KEY" || wr2[0] === "INDEX") {
+        pos = wr2[1];
+        const posWs = skipWs(item, pos);
+        if (posWs < item.length && item[posWs] !== "(") {
+          const ir = readIdent(item, pos);
+          pos = ir[1];
+        }
+      }
+      const cr = parseParenColList(item, pos);
       if (cr[0].length) tableUniques.push(cr[0]);
       return;
     }

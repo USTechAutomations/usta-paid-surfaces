@@ -26,7 +26,7 @@ MAX_DESC = 155
 MONTHS = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split()
 ZIP_HREF = (
     "https://ustechautomations.com/feeds/wp-accessibility-scan/"
-    "wp-accessibility-scan-0.1.0.zip"
+    "usta-accessibility-scan-0.1.1.zip"
 )
 CSV_FIELDS = ["page_url", "rule", "severity", "element", "fix"]
 PAD_ROW = {
@@ -167,10 +167,10 @@ def family_spec() -> dict:
             "GPL-2.0, no key",
             "      <p>The plugin is free software under GPL-2.0. It adds a Tools screen "
             "that checks the site's own front page, or any URL on the same site you type. "
-            "Every check runs with no key. A listing on wordpress.org is pending review, "
-            "so until that lands you can install the zip.</p>\n"
+            "Every check runs with no key. Install the zip below. "
+            "A WordPress.org directory listing has not been confirmed.</p>\n"
             '      <ul class="spec">\n'
-            f'        <li><a href="{ZIP_HREF}">Download the 0.1.0 plugin zip</a>'
+            f'        <li><a href="{ZIP_HREF}">Download USTA Accessibility Scan 0.1.1</a>'
             '<span class="sub">Install it on a WordPress site you own. Tools → '
             "Accessibility scan. The hosted-scan link is a checkbox, off by default, "
             "and the plugin never calls our servers.</span></li>\n"

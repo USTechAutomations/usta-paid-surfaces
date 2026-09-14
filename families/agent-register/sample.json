@@ -1,6 +1,6 @@
 {
   "family": "agent-register",
-  "generated": "2026-09-10",
+  "generated": "2026-09-14",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/agent-register",
   "rows_published": 25,
@@ -12,6 +12,18 @@
     "where_it_answers"
   ],
   "rows": [
+    [
+      "net.qsig.x402/mcp",
+      "2026-09-12",
+      "2026-09-12",
+      "x402.qsig.net"
+    ],
+    [
+      "io.github.mayer-code/x402-toolbox",
+      "2026-09-12",
+      "2026-09-12",
+      "lab.paidapis.net"
+    ],
     [
       "io.github.mike-lblc/x402-bazaar-rank",
       "2026-09-10",
@@ -149,18 +161,6 @@
       "2026-09-01",
       "2026-09-01",
       "multichain-rpc.clankerceo.workers.dev"
-    ],
-    [
-      "dev.workers.ghost-agent-os.ghost-identity/ghost-x402-market-intel-vet-schema",
-      "2026-08-31",
-      "2026-08-31",
-      "ghost-identity.ghost-agent-os.workers.dev"
-    ],
-    [
-      "io.github.ihen404/x402-express",
-      "2026-08-29",
-      "2026-08-29",
-      "no address in the record"
     ]
   ]
 }

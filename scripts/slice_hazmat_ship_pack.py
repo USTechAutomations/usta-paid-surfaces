@@ -71,6 +71,26 @@ def hmt() -> dict:
     return _HMT
 
 
+def _overflow_stale() -> str:
+    """The pause sentence for the per-row sub-pages.
+
+    The family and A-Z pages get it from render_slice; these 2,000-odd sub-pages
+    were written with stale="" for good, so on 2026-09-14 every one of them was
+    11 days behind a weekly source and said nothing -- the exact "STALE AND
+    SILENT" fault freshness.py exists to catch. Same number, same phrase, so the
+    page and the gate agree.
+    """
+    import datetime as _dt
+    from freshness import PAUSED_PHRASE, late_after
+    cadence_days = 7
+    age = (_dt.date.today() - _dt.date.fromisoformat(as_of())).days
+    if age <= late_after(cadence_days):
+        return ""
+    return (f" <strong>{PAUSED_PHRASE.capitalize()}.</strong> We last read this source "
+            f"{age:,} days ago, and we read it about every {cadence_days} days, so no "
+            f"number on this page moves until collection starts again.")
+
+
 def as_of() -> str:
     return hmt().get("as_of") or "2026-09-01"
 
@@ -648,7 +668,7 @@ def write_overflow() -> int:
                   f"each column means. {PRICE}.")[:MAX_DESC]
         page = OVERFLOW_PAGE.format(
             fid=FAMILY, slug=slug, ident=_e(ident), short=_e(short),
-            price=PRICE, desc=desc, as_of=_e(as_of()), stale="",
+            price=PRICE, desc=desc, as_of=_e(as_of()), stale=_overflow_stale(),
             lede=_e(f"Every Hazardous Materials Table row the federal rules print for "
                     f"{ident}, with all {len(cols)} columns and a note on what each "
                     f"column is for."),

@@ -135,11 +135,17 @@ def forbidden_hits(raw: str) -> list[str]:
     href. Every occurrence has to be accounted for by a plain denial the reader
     can actually see, or the phrase is reported.
     """
+    # PartnerPage accepts this exact owned, single-interest route. Preserve the
+    # ban for arbitrary query strings, external destinations and visible claims.
+    # An attributed enquiry is not a checkout or a certification claim.
+    counted_raw = re.sub(
+        r'''href=(['"])https://ustechautomations\.com/partner\?interest=[a-z0-9-]{1,64}\1''',
+        'href="owned-attributed-enquiry"', raw)
     sentences = _sentences(raw)
     out = []
     for bad in FORBIDDEN:
         low = bad.lower()
-        n = raw.lower().count(low)
+        n = counted_raw.lower().count(low)
         if not n:
             continue
         denials = sum(1 for s in sentences
@@ -671,7 +677,55 @@ def check_no_permits_live_pointers() -> None:
         fail("no catalog live pointer may name /permits/: " + ", ".join(bad))
 
 
+def check_ttb_sample_contract() -> None:
+    """The advertised TTB sample must belong to the comparison shown on its page.
+
+    Keep the existing sample writer; refuse mismatched artifacts before deploy.
+    September 10: HTML showed Sep 8–9 while downloads still carried Aug 25–Sep 1.
+    """
+    import html as html_module
+    folder = ROOT / "families" / "ttb"
+    if not folder.exists():
+        return  # This checker can also run on an estate without this family.
+    try:
+        raw = (folder / "index.html").read_text(encoding="utf-8")
+        with (folder / "sample.csv").open(newline="", encoding="utf-8") as stream:
+            csv_rows = list(csv.reader(stream))
+        document = json.loads((folder / "sample.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError, csv.Error) as exc:
+        print(f"UNKNOWN: TTB sample comparison cannot be inspected ({type(exc).__name__})", file=sys.stderr)
+        raise SystemExit(2)
+    tables = re.findall(r"(?is)<tbody\b[^>]*>(.*?)</tbody>", raw)
+    clean = lambda value: html_module.unescape(text(value)).strip()
+    appeared = re.findall(r"(?is)<tr\b[^>]*>.*?</tr>", tables[0]) if tables else []
+    count = re.search(r"<p>(\d+) of (\d+) shown\.", raw)
+    if not count or int(count[1]) != len(appeared) or int(count[1]) > int(count[2]):
+        fail("ttb displayed sample count does not match its appeared table")
+    if (not csv_rows or not isinstance(document, dict)
+            or document.get("headers") != csv_rows[0]
+            or document.get("rows") != csv_rows[1:]
+            or document.get("rows_published") != len(csv_rows)-1):
+        fail("ttb CSV and JSON do not contain the same advertised rows")
+    headers = csv_rows[0]
+    required = ["Permit", "Earlier sealed copy", "Later sealed copy"]
+    if any(key not in headers for key in required):
+        fail("ttb sample has no permit/comparison columns")
+    page_ids = {clean(cells[0]) for table in tables
+                for row in re.findall(r"(?is)<tr\b[^>]*>(.*?)</tr>", table)
+                if (cells := re.findall(r"(?is)<td\b[^>]*>(.*?)</td>", row))}
+    stamps = {clean(value) for value in re.findall(r'<span class="stamp">(.*?)</span>', raw)}
+    for values in csv_rows[1:]:
+        if len(values) != len(headers):
+            fail("ttb sample row does not match its columns")
+        row = dict(zip(headers, values))
+        if row["Permit"] not in page_ids:
+            fail("ttb downloadable permit is absent from the displayed sample")
+        if f"{row['Earlier sealed copy']} → {row['Later sealed copy']}" not in stamps:
+            fail("ttb download comparison dates do not match the displayed sample")
+
+
 def main() -> None:
+    check_ttb_sample_contract()
     from availability_truth import off_sale_errors
     for error in off_sale_errors(ROOT, CATALOG):
         fail(error)
@@ -961,10 +1015,10 @@ def buy_buttons(raw: str) -> list[tuple[str, str]]:
         cls = _attr(attrs, "class")
         href = _attr(attrs, "href") or _attr(attrs, "formaction")
         label = " ".join(html.unescape(TAGS.sub(" ", inner)).split())
-        # A thanks-page status line or Copy control is a <button> with the buy
-        # class and no address. It takes no card. Skip it. An <a> with an empty
-        # href still counts: that is a dead buy link.
-        if tag.lower() == "button" and not href:
+        # A non-purchase status/Copy control may have no address. Skip it.
+        # Purchase wording such as Subscribe still counts when its address
+        # is absent; otherwise an inert purchase button escapes the gate.
+        if tag.lower() == "button" and not href and not BUY_WORDS.match(label):
             continue
         if not BTN_BUY.search(cls):
             if not BUY_WORDS.match(label) or href.lower().startswith("mailto:"):

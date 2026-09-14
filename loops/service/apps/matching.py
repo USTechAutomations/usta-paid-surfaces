@@ -12,6 +12,7 @@ amount. Nothing else is read or kept.
 from __future__ import annotations
 
 import csv
+from collections import deque
 import re
 from decimal import Decimal, InvalidOperation
 from itertools import combinations
@@ -35,60 +36,333 @@ _TWO_SPACES = re.compile(r"\s{2,}")
 _DIGIT_RUN = re.compile(r"(?<!\d)0+(\d)")
 _DATE_SLASH = re.compile(r"^(\d{1,2})[/.-](\d{1,2})[/.-](\d{2,4})$")
 _DATE_ISO = re.compile(r"^(\d{4})-(\d{1,2})-(\d{1,2})$")
-_MONEY_OK = re.compile(r"^-?\d+(\.\d+)?$")
+
+# Amount text bounds. 100-digit strings and scientific forms must not reach
+# Decimal.quantize (that path used to raise InvalidOperation).
+_MAX_AMOUNT_CHARS = 64
+_MAX_INT_DIGITS = 16
+_MAX_FRAC_DIGITS = 6
+_CENTS = Decimal("0.01")
+_AMOUNT_CODES = ("USD", "EUR", "GBP")
+_AMOUNT_SYMBOLS = "$€£"
+_SPACE_CHARS = ("\u00a0", "\u202f", "\u2009")
 
 
 # ---------------------------------------------------------------- amounts ---
 
-def parse_amount(raw: str):
-    """Turn a pasted amount into an exact number, or None if it is not one.
+def _unwrap_parens(s: str):
+    """Return the inner text if s is a single wrapping '(...)', else None."""
+    if len(s) < 2 or s[0] != "(" or s[-1] != ")":
+        return None
+    if s.count("(") != 1 or s.count(")") != 1:
+        return None
+    inner = s[1:-1].strip()
+    if not inner:
+        return None
+    return inner
 
-    Understands "$1,234.50", "(45.00)" for a negative, "45.00-", spaces and
-    stray currency letters such as "USD".
+
+def _peel_code(s: str, trailing: bool):
+    """Take one supported uppercase currency code, or None."""
+    for code in _AMOUNT_CODES:
+        if trailing:
+            if not s.endswith(code):
+                continue
+            before = s[:-len(code)]
+            if before and before[-1].isalpha():
+                continue
+            return before.rstrip(), code
+        if not s.startswith(code):
+            continue
+        after = s[len(code):]
+        if after and after[0].isalpha():
+            continue
+        return after.lstrip(), code
+    return None
+
+
+def _peel_wrappers(s: str):
+    """Strip currency and a single sign. Return (number_text, negative) or None.
+
+    Letters that are not a leading/trailing USD/EUR/GBP code are left in the
+    number text so the caller can refuse them. Never strip internal letters.
     """
-    if raw is None:
+    paren = False
+    unwrapped = _unwrap_parens(s)
+    if unwrapped is not None:
+        paren = True
+        s = unwrapped
+
+    leading_code = trailing_code = None
+    leading_sym = trailing_sym = None
+    leading_sign = None
+    trailing_minus = False
+
+    progressed = True
+    while s and progressed:
+        progressed = False
+        taken = _peel_code(s, trailing=False)
+        if taken is not None:
+            if leading_code is not None:
+                return None
+            s, leading_code = taken
+            progressed = True
+            continue
+        if s[0] in _AMOUNT_SYMBOLS:
+            if leading_sym is not None:
+                return None
+            leading_sym = s[0]
+            s = s[1:].lstrip()
+            progressed = True
+            continue
+        if s[0] in "+-":
+            if leading_sign is not None:
+                return None
+            leading_sign = s[0]
+            s = s[1:].lstrip()
+            progressed = True
+            continue
+
+    progressed = True
+    while s and progressed:
+        progressed = False
+        taken = _peel_code(s, trailing=True)
+        if taken is not None:
+            if trailing_code is not None:
+                return None
+            s, trailing_code = taken
+            progressed = True
+            continue
+        if s[-1] in _AMOUNT_SYMBOLS:
+            if trailing_sym is not None:
+                return None
+            trailing_sym = s[-1]
+            s = s[:-1].rstrip()
+            progressed = True
+            continue
+        if s[-1] == "-":
+            if trailing_minus or leading_sign is not None:
+                return None
+            trailing_minus = True
+            s = s[:-1].rstrip()
+            progressed = True
+            continue
+        if s[-1] == "+":
+            return None
+
+    inner = _unwrap_parens(s) if s else None
+    if inner is not None:
+        if paren or leading_sign is not None or trailing_minus:
+            return None
+        paren = True
+        s = inner
+        if s[0] in "+-" or s[-1] in "+-":
+            return None
+
+    if not s or "(" in s or ")" in s:
         return None
-    s = str(raw).strip()
-    if not s:
+    if leading_code and trailing_code:
         return None
+    if leading_sym and trailing_sym:
+        return None
+    code, symbol = leading_code or trailing_code, leading_sym or trailing_sym
+    if code and symbol and {"USD": "$", "EUR": "€", "GBP": "£"}[code] != symbol:
+        return None
+
+    sign_count = 0
     negative = False
-    if s.startswith("(") and s.endswith(")"):
+    if paren:
+        sign_count += 1
         negative = True
-        s = s[1:-1].strip()
-    # drop currency symbols and letters
-    s = re.sub(r"[^0-9,.\-+ ]", "", s).strip()
-    if s.endswith("-"):
+    if leading_sign == "-":
+        sign_count += 1
         negative = True
-        s = s[:-1].strip()
-    if s.startswith("+"):
-        s = s[1:].strip()
-    if s.startswith("-"):
-        negative = not negative
-        s = s[1:].strip()
-    s = s.replace(" ", "")
+    elif leading_sign == "+":
+        sign_count += 1
+    if trailing_minus:
+        sign_count += 1
+        negative = True
+    if sign_count > 1:
+        return None
+    return s, negative
+
+
+def _groups_ok(int_part: str, sep: str) -> bool:
+    """True when thousands groups are regular (first 1-3 digits, rest 3)."""
+    if sep not in int_part:
+        return bool(int_part) and int_part.isdigit()
+    parts = int_part.split(sep)
+    if len(parts) < 2 or any(p == "" for p in parts):
+        return False
+    if not parts[0].isdigit() or not 1 <= len(parts[0]) <= 3:
+        return False
+    return all(p.isdigit() and len(p) == 3 for p in parts[1:])
+
+
+def _collapse_grouping_spaces(s: str):
+    """Treat regular space groups as thousands. Refuse irregular spaces."""
+    for sp in _SPACE_CHARS:
+        s = s.replace(sp, " ")
+    if "  " in s:
+        return None
+    s = s.strip()
+    if " " not in s:
+        return s
+    parts = s.split(" ")
+    last = parts[-1]
+    dec_sep = None
+    frac = None
+    if "," in last and "." in last:
+        return None
+    if last.count(",") == 1 and "." not in last:
+        dec_sep = ","
+    elif last.count(".") == 1 and "," not in last:
+        dec_sep = "."
+    elif "," in last or "." in last:
+        return None
+    if dec_sep is not None:
+        int_last, frac = last.rsplit(dec_sep, 1)
+        if not frac.isdigit():
+            return None
+        int_parts = parts[:-1] + [int_last]
+    else:
+        int_parts = parts
+    if any(not p.isdigit() for p in int_parts):
+        return None
+    if not 1 <= len(int_parts[0]) <= 3:
+        return None
+    if any(len(p) != 3 for p in int_parts[1:]):
+        return None
+    joined = "".join(int_parts)
+    if dec_sep is None:
+        return joined
+    return joined + dec_sep + frac
+
+
+def _canonical_number(body: str):
+    """Return a Decimal-safe 'digits[.frac]' string, or None if malformed."""
+    if not body or body[0] in ",." or body[-1] in ",.":
+        return None
+    if any(tok in body for tok in (",,", "..", ",.", ".,")):
+        return None
+    if any(ch not in "0123456789,." for ch in body):
+        return None
+
+    n_comma = body.count(",")
+    n_dot = body.count(".")
+    int_digits = None
+    frac = ""
+
+    if n_comma and n_dot:
+        if body.rfind(",") > body.rfind("."):
+            thousands, decimal = ".", ","
+        else:
+            thousands, decimal = ",", "."
+        left, right = body.rsplit(decimal, 1)
+        if thousands in right or not _groups_ok(left, thousands):
+            return None
+        int_digits = left.replace(thousands, "")
+        frac = right
+    elif n_comma:
+        if _groups_ok(body, ","):
+            int_digits = body.replace(",", "")
+        elif n_comma == 1:
+            left, right = body.split(",")
+            if left.isdigit() and right.isdigit() and 1 <= len(right) <= _MAX_FRAC_DIGITS:
+                int_digits, frac = left, right
+            else:
+                return None
+        else:
+            return None
+    elif n_dot:
+        if n_dot == 1:
+            left, right = body.split(".")
+            if left.isdigit() and right.isdigit() and 1 <= len(right) <= _MAX_FRAC_DIGITS:
+                int_digits, frac = left, right
+            else:
+                return None
+        elif _groups_ok(body, "."):
+            int_digits = body.replace(".", "")
+        else:
+            return None
+    else:
+        if not body.isdigit():
+            return None
+        int_digits = body
+
+    if not int_digits or not int_digits.isdigit():
+        return None
+    if frac and not frac.isdigit():
+        return None
+    if len(int_digits) > _MAX_INT_DIGITS or len(frac) > _MAX_FRAC_DIGITS:
+        return None
+    if frac:
+        return int_digits + "." + frac
+    return int_digits
+
+
+def parse_amount(raw: str):
+    """Turn pasted amount text into an exact Decimal cents value, or None.
+
+    Only str is parsed. None, bool, float, int and other types return None.
+    Strings longer than 64 characters return None. The function does not raise.
+
+    Supported grammar (optional pieces in []):
+      amount := [ws] ( '(' [ws] core [ws] ')' | core ) [ws]
+      core   := [code] [ws] [symbol] [ws] [sign] [ws] [symbol] [ws] number
+                [ws] [symbol] [ws] [code] [ws] [trailing-minus]
+      code   := 'USD' | 'EUR' | 'GBP'   (uppercase; at most one; lead or trail)
+      symbol := '$' | '€' | '£'         (at most one)
+      sign   := '+' | '-'               (leading; not combined with parentheses)
+      trailing-minus := '-'             (not combined with any other sign)
+      number := us | european | plain | space-grouped
+      plain  := digits [ '.' digits ]
+      us     := digits{1,3} (',' digits{3})+ [ '.' digits ]
+      european := digits{1,3} ('.' digits{3})+ [ ',' digits ]
+                | digits ',' digits{1,6}     when not a US thousands group
+      space-grouped := digits{1,3} (' ' digits{3})+ [ ('.'|',') digits ]
+
+    A number has at most 16 integer digits and 6 fractional digits. The result
+    is Decimal quantized to 0.01. Genuine zero (0, 0.00, 0,00) is 0.00.
+
+    Refused (return None, never a different number): exponent forms (1e3,
+    1E-2), internal letters (1O0), NaN/Inf, repeated or conflicting separators
+    (1,,234 or 1.234,56.7), conflicting signs (+-45, (45.00)-, (-45.00)),
+    unsupported letters, huge digit strings. Letters are not stripped.
+    """
+    try:
+        return _parse_amount(raw)
+    except (InvalidOperation, ValueError, ArithmeticError, TypeError):
+        return None
+
+
+def _parse_amount(raw):
+    if not isinstance(raw, str):
+        return None
+    if len(raw) > _MAX_AMOUNT_CHARS:
+        return None
+    s = raw.strip()
     if not s:
         return None
-    # 1.234,56 (European) vs 1,234.56
-    if "," in s and "." in s:
-        if s.rfind(",") > s.rfind("."):
-            s = s.replace(".", "").replace(",", ".")
-        else:
-            s = s.replace(",", "")
-    elif "," in s:
-        parts = s.split(",")
-        if len(parts) == 2 and len(parts[1]) == 2 and len(parts[0]) <= 3:
-            s = parts[0] + "." + parts[1]     # 45,50 means 45.50
-        else:
-            s = s.replace(",", "")            # 1,234 means 1234
-    if not _MONEY_OK.match(s):
+    peeled = _peel_wrappers(s)
+    if peeled is None:
         return None
-    try:
-        value = Decimal(s)
-    except InvalidOperation:
+    body, negative = peeled
+    collapsed = _collapse_grouping_spaces(body)
+    if collapsed is None:
+        return None
+    canon = _canonical_number(collapsed)
+    if canon is None:
+        return None
+    value = Decimal(canon)
+    if not value.is_finite():
         return None
     if negative:
         value = -value
-    return value.quantize(Decimal("0.01"))
+    out = value.quantize(_CENTS)
+    if not out.is_finite():
+        return None
+    return out
 
 
 def money(value) -> str:
@@ -185,7 +459,8 @@ def _is_header(cols) -> bool:
     if not cols:
         return False
     low = [c.strip().lower() for c in cols]
-    if parse_amount(low[-1]) is not None:
+    # Check the original last cell too: lowercasing would hide uppercase USD/EUR/GBP.
+    if parse_amount(low[-1]) is not None or parse_amount(cols[-1].strip()) is not None:
         return False
     return any(c in _HEADER_WORDS for c in low)
 
@@ -290,8 +565,22 @@ def compare(rows_a, rows_b, label_a: str = "Side A", label_b: str = "Side B",
     # 1) same reference, exactly as written
     ga, gb = _group(left), _group(right)
     for ref in sorted(set(ga) & set(gb)):
-        pairs = zip(sorted(ga[ref], key=lambda r: r["line"]),
-                    sorted(gb[ref], key=lambda r: r["line"]))
+        # Repeated invoice references need exact amount matches before line-order
+        # pairing; changing export order must not invent amount discrepancies.
+        ordered_a = sorted(ga[ref], key=lambda r: r["line"])
+        ordered_b = sorted(gb[ref], key=lambda r: r["line"])
+        by_amount = {}
+        for rb in ordered_b:
+            by_amount.setdefault(rb["amount"], deque()).append(rb)
+        pairs, remaining_a, matched_b = [], [], set()
+        for ra in ordered_a:
+            candidates = by_amount.get(ra["amount"])
+            if candidates:
+                rb = candidates.popleft()
+                pairs.append((ra, rb)); matched_b.add(id(rb))
+            else:
+                remaining_a.append(ra)
+        pairs.extend(zip(remaining_a, [rb for rb in ordered_b if id(rb) not in matched_b]))
         for ra, rb in pairs:
             used_a.add(id(ra))
             used_b.add(id(rb))

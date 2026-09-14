@@ -12,6 +12,12 @@
       "type": "string",
       "title": "Spill notices (CSV)",
       "template": "{{links.apiDefaultDatasetUrl}}/items?format=csv"
+    },
+    "summary": {
+      "type": "string",
+      "title": "Source, coverage and run status",
+      "description": "Check SUCCESS, NO_MATCHES, UNKNOWN or interrupted output, source hash and omitted-match count.",
+      "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
     }
   }
 }

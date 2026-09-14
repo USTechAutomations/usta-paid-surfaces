@@ -1,6 +1,6 @@
 {
   "family": "quakes",
-  "generated": "2026-09-11",
+  "generated": "2026-09-14",
   "note": "Real rows out of dated copies we sealed ourselves. Nothing here is made up.",
   "where_these_rows_came_from": "Where these rows came from, and anything their publisher requires to be printed alongside them, is set out on the page this file came from: https://ustechautomations.com/feeds/quakes",
   "rows_published": 25,
@@ -50,6 +50,24 @@
       "1.44",
       "2026-08-18",
       "2026-08-19"
+    ],
+    [
+      "ci41544824",
+      "5 km SSE of Home Gardens, CA",
+      "magnitude",
+      "1.75",
+      "1.49",
+      "2026-09-11",
+      "2026-09-12"
+    ],
+    [
+      "ci41544592",
+      "3 km SW of Redlands, CA",
+      "magnitude",
+      "0.65",
+      "0.62",
+      "2026-09-11",
+      "2026-09-12"
     ],
     [
       "ok2026rsnh",
@@ -221,24 +239,6 @@
       "2.05",
       "2026-08-31",
       "2026-09-01"
-    ],
-    [
-      "ci41539512",
-      "9 km NE of Warner Springs, CA",
-      "magnitude",
-      "1.18",
-      "0.14",
-      "2026-08-31",
-      "2026-09-01"
-    ],
-    [
-      "aka2026rbikti",
-      "17 km WNW of Ivanof Bay, Alaska",
-      "magnitude",
-      "2.2",
-      "2.5",
-      "2026-08-29",
-      "2026-08-30"
     ]
   ]
 }

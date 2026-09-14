@@ -7,8 +7,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "families" / "wp-accessibility-scan" / "plugin" / "wp-accessibility-scan"
-DEST = ROOT / "families" / "wp-accessibility-scan" / "wp-accessibility-scan-0.1.0.zip"
-PREFIX = "wp-accessibility-scan"
+DEST = ROOT / "families" / "wp-accessibility-scan" / "usta-accessibility-scan-0.1.1.zip"
+PREFIX = "usta-accessibility-scan"
 
 
 def zip_plugin(src: Path = SRC, dest: Path = DEST) -> Path:

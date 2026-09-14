@@ -1,0 +1,19 @@
+{
+  "captured_on": "2026-09-12",
+  "source_root": "/home/gmullins/Claude CLI",
+  "scope": "Read-only planning baseline; not an implementation receipt",
+  "files": {
+    "model-router/models.yaml": "73b53759535f9d772260c36865d77ba18a0fa88ae5ef1f9b4b7860760dba55e0",
+    "model-router/model_router/router.py": "b5f3a7ea3e9ae4dfecf026cb5de8bfb052db29768ac792fc389982359bee345a",
+    "model-router/model_router/config.py": "77dce49025f0ce46ea85da5eceaac922b4ca7584336fa7740ca14e73a28fb610",
+    "model-router/model_router/providers/claude_max.py": "430785ae9c0afffcf8ce35b325d25952dbfe601a75185210176eb34841f83a4c",
+    "model-router/model_router/interface.py": "74e5e96963dfdae03bce12fb451a51f8cb37a2722314be5a9f89ae3caa8779f7",
+    "model-router/model_router/providers/hermes_vllm.py": "f9d0e92bc4c30fbcc45f7805eb55eb64a0b6731be9fd0d9d46530cb7317081f2",
+    "spine/types.py": "098a907d244a2b84179b9063bac9a8e02c55ef8d6a208f7de613d69222ecd814",
+    "spine/probe/sources.py": "c8c97d032c0318a4b191299478715030905b8aef5e6878b985be1a3db75fba57",
+    "spine/probe/personalize_llm.py": "90be53fe5746c4fadd9cededabd7516820ebf5617ce25cc2e380dc295e619d8f",
+    "spine/probe/deliver.py": "c2990e49673a930cef2f02e672cb93d032885115006a43afd77dda85b59ce2b0",
+    "lead-outreach/src/front_end/review_queue.py": "baaf70b8a720ebd61344fffb961c2c9e5aacdf4f1df0d57f0c5afa1c954c9baa",
+    "harness/delegation/invoke.py": "d532009cb966d982322765b16976333d999d3c9c722f0942756be68afc0ce570"
+  }
+}

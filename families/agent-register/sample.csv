@@ -1,4 +1,6 @@
 server_name,first_copy_of_ours,date_the_register_gives,where_it_answers
+net.qsig.x402/mcp,2026-09-12,2026-09-12,x402.qsig.net
+io.github.mayer-code/x402-toolbox,2026-09-12,2026-09-12,lab.paidapis.net
 io.github.mike-lblc/x402-bazaar-rank,2026-09-10,2026-09-10,x402-bazaar-rank.x402-bazaar-rank-worker.workers.dev
 io.github.lspain1994/x402-datasets-mcp,2026-09-10,2026-09-09,no address in the record
 io.github.imnotamob/solmachina-x402,2026-09-10,2026-09-09,api.solmachina.com
@@ -22,5 +24,3 @@ io.github.forgemeshlabs/x402-scan-mcp,2026-09-01,2026-09-01,no address in the re
 io.github.chico10117/x402-preflight,2026-09-01,2026-09-01,x402.chikocorp.com
 fr.humanmirror/x402,2026-09-01,2026-09-01,humanmirror.fr
 dev.workers.clankerceo.multichain-rpc/x402-tools,2026-09-01,2026-09-01,multichain-rpc.clankerceo.workers.dev
-dev.workers.ghost-agent-os.ghost-identity/ghost-x402-market-intel-vet-schema,2026-08-31,2026-08-31,ghost-identity.ghost-agent-os.workers.dev
-io.github.ihen404/x402-express,2026-08-29,2026-08-29,no address in the record

@@ -2,9 +2,9 @@
   "actorSpecification": 1,
   "name": "nrc-spill-notices",
   "title": "NRC Spill Notices Scraper",
-  "description": "One clean item per pollution incident reported to the Coast Guard's National Response Center: date, state, town, material, medium and incident type. Incidents only, no caller names. Pay per run.",
-  "version": "0.1",
-  "buildTag": "latest",
+  "description": "Filter the NRC 2026 initial spill-report workbook by state, incident date and material. Export one item per report with quantities, units and source provenance. Initial reports are unvalidated; no caller details.",
+  "version": "0.3",
+  "buildTag": "nrc-recovery-20260912",
   "input": "./input_schema.json",
   "output": "./output_schema.json",
   "dockerfile": "./Dockerfile",
@@ -19,13 +19,17 @@
             "fields": [
               "report_id",
               "incident_date",
+              "date_status",
               "state",
               "city",
               "material",
               "quantity",
+              "quantity_unit",
               "medium",
               "incident_type",
-              "source_url"
+              "report_status",
+              "source_url",
+              "materials"
             ]
           },
           "display": {

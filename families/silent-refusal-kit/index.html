@@ -27,7 +27,8 @@
     .kit-files dd { margin: 0.15rem 0 0; }
     .kit-cmd { overflow-x: auto; }
   </style>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "Model silent-failure report kit", "description": "Run your own tasks through Claude and GPT models with your own keys. One page: pass rate, silent-refusal rate, cost per pass, longest task. $199 once.", "url": "https://ustechautomations.com/feeds/silent-refusal-kit", "creator": {"@type": "Organization", "name": "US Tech Automations", "url": "https://ustechautomations.com/"}, "isAccessibleForFree": false, "license": "https://ustechautomations.com/terms", "distribution": [{"@type": "DataDownload", "contentUrl": "https://ustechautomations.com/feeds/silent-refusal-kit/sample.json", "encodingFormat": "application/json", "isAccessibleForFree": true}, {"@type": "DataDownload", "contentUrl": "https://ustechautomations.com/feeds/silent-refusal-kit/sample.csv", "encodingFormat": "text/csv", "isAccessibleForFree": true}]}</script>
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Model silent-failure report kit", "url": "https://ustechautomations.com/feeds/silent-refusal-kit/", "applicationCategory": "DeveloperApplication", "operatingSystem": "Python 3.10 or newer", "description": "Downloadable local runner and recorded demo for checking supplied model replies against your own expected outputs.", "offers": {"@type": "Offer", "price": "199.00", "priceCurrency": "USD", "url": "https://buy.stripe.com/fZu9AM6p80a64VucPw0sU2U"}}</script>
 </head>
 <body data-family="silent-refusal-kit">
 <a class="skip" href="#main">Skip to content</a>
@@ -44,7 +45,7 @@
   <div class="wrap">
     <p class="eyebrow">Software and AI pages <span class="dot"></span> once <span class="dot"></span> Sample ready</p>
     <h1>Does your model quietly fail on your work?</h1>
-    <p class="lede">A refusal from a frontier model now arrives as a normal-looking reply: status 200, polite text, no error. A pipeline that checks only the status code logs it as a success. This kit runs your own tasks, with your own keys, on your own machine, and counts those quiet failures for each model you point it at.</p>
+    <p class="lede">A model can return a normal-looking reply that does not satisfy your task: status 200, polite text, no error. A pipeline that checks only the status code logs it as a success. This kit runs your own tasks, with your own keys, on your own machine, and counts those quiet failures for each model you point it at.</p>
     <dl class="rail">
       <div><dt>Price</dt><dd class="price">$199 once</dd></div>
       <div><dt>Built for</dt><dd>engineering leads who run unattended pipelines on Claude or GPT models and need a number for their own tasks, not a public benchmark</dd></div>
@@ -55,7 +56,7 @@
   </div>
 </section>
 
-<main id="main">
+<main id="main" tabindex="-1">
   <div class="wrap">
 
     <section>
@@ -67,13 +68,14 @@
         <dt>tasks.example.jsonl</dt><dd>Example task rows: an input, the check a reply must pass, and an optional size. Replace them with 20 to 50 of your own.</dd>
         <dt>prices.example.json</dt><dd>Example price table. Edit it to your contract prices so cost per pass is your cost.</dd>
         <dt>sample_report.md</dt><dd>A report produced from recorded replies, so you can see the shape before you run anything.</dd>
+        <dt>fixtures/recorded_replies.json</dt><dd>The recorded replies used by the offline demo. Try the demo before using any paid model credit.</dd>
       </dl>
       <p>The report prints, per model: pass rate, silent-refusal rate (replies that came back as a success but were a refusal, a content filter, a deflection or a cut-off), cost per pass from your price table, and the longest task that passed.</p>
     </section>
 
     <section id="sample">
       <h2>Public sample</h2>
-      <p>This is the report the runner wrote from a recorded set of replies. It shows the shape and every column. It is not a ranking of models and the numbers say nothing about your tasks.</p>
+      <p>This is the report the runner wrote from a recorded set of replies. It shows the shape and every column. It is not a ranking of models and the numbers say nothing about your tasks. The source is the included recorded-replies fixture; the supplied report was generated on 2026-09-10, not from a new live model run.</p>
       <div class="evidence">
         <div class="evidence-head">
           <span>Report shape from a recorded run</span>
@@ -122,7 +124,6 @@
       <!-- BUY_BUTTON_START -->
       <a class="btn btn-buy btn-lg" href="https://buy.stripe.com/fZu9AM6p80a64VucPw0sU2U" data-checkout="silent-refusal-kit" rel="noopener">Buy the kit — $199 once</a>
       <!-- BUY_BUTTON_END -->
-      <p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=Silent-failure%20report%20kit">Email operations@ustechautomations.com</a> with what you run and which models. We answer in plain terms.</p>
     </section>
 
   </div>
@@ -131,6 +132,7 @@
 <footer class="site">
   <div class="wrap">
     <p>A measurement you run yourself. Nothing here is a benchmark, a ranking or a guarantee.</p>
+    <p class="mail-note">Questions? <a href="mailto:operations@ustechautomations.com">Email operations@ustechautomations.com</a></p>
     <p class="addr">US Tech Automations &middot; 3298 N Glassford Hill Rd Ste 104 PMB 1055, Prescott Valley AZ 86314</p>
   </div>
 </footer>

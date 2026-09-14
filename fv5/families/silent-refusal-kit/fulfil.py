@@ -12,6 +12,7 @@ import hashlib
 import html
 import json
 import sys
+from brand.shell import masthead, footer
 from pathlib import Path
 
 FAMILY = "silent-refusal-kit"
@@ -69,6 +70,14 @@ def data_url(name: str, mime: str) -> str:
     return f"data:{mime};base64,{base64.b64encode(kit_bytes(name)).decode('ascii')}"
 
 
+def stylesheet_href() -> str:
+    """Use the estate sheet once; fingerprint the nearest supplied source sheet."""
+    sheet = next((parent / "styles.css" for parent in HERE.parents
+                  if (parent / "styles.css").is_file()), None)
+    base = "https://ustechautomations.com/feeds/styles.css"
+    return base + ("?v=" + hashlib.sha256(sheet.read_bytes()).hexdigest()[:10] if sheet else "")
+
+
 def render_delivery(session_id: str) -> str:
     """The private page: one h1, the file list with download links, the README inline."""
     manifest = kit_manifest()
@@ -82,46 +91,94 @@ def render_delivery(session_id: str) -> str:
                 n=html.escape(name), dl=html.escape(name.rsplit("/", 1)[-1]), u=data_url(name, mime), kb=max(1, m["bytes"] // 1024),
                 p=html.escape(purpose), h=m["sha256"][:12]))
     ref = hashlib.sha256(session_id.encode()).hexdigest()[:12]
+    public_css = stylesheet_href()
     return f"""<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>{html.escape(PRODUCT_NAME)} — your files</title>
-<style>
-body{{margin:0;padding:1.5rem 1rem;font:16px/1.5 system-ui,sans-serif;max-width:60rem;margin-inline:auto;color:#111;background:#fff}}
-h1{{font-size:1.5rem;margin:0 0 .5rem}} h2{{font-size:1.15rem;margin:1.75rem 0 .5rem}}
-table{{border-collapse:collapse;width:100%;font-size:.95rem}} th,td{{text-align:left;padding:.4rem .5rem;border-bottom:1px solid #ddd;vertical-align:top}}
-.scroll{{overflow-x:auto}} pre{{white-space:pre-wrap;background:#f6f6f6;padding:1rem;border-radius:6px;font-size:.9rem}}
-.muted{{color:#555}}
-@media (prefers-color-scheme: dark){{body{{color:#eee;background:#111}} th,td{{border-color:#333}} pre{{background:#1b1b1b}}}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>{html.escape(PRODUCT_NAME)} — your files</title>
+  <link rel="stylesheet" href="{html.escape(public_css)}">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f9fafb">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d0f13">
+  <style>
+    /* Layout only. Colours and type come from styles.css. */
+    .kit-cmd {{ overflow-x: auto; }}
+    .kit-cmd pre {{
+      margin: 0;
+      padding: 1rem 1.125rem;
+      white-space: pre-wrap;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface-2);
+      font-family: var(--mono);
+      font-size: .9rem;
+    }}
+  </style>
 </head>
-<body>
-<main id="main">
-<h1>{html.escape(PRODUCT_NAME)}</h1>
-<p class="muted">Order reference {ref}. Save this page or the files now; the link that opened it stops working later.</p>
-<p>Every file below is inside this page. Click a name to save it. Nothing is fetched from our servers when you click, and the runner never sends anything to us.</p>
-<h2>Your files</h2>
-<div class="scroll"><table>
-<thead><tr><th>File</th><th>Size</th><th>What it is</th><th>Checksum (first 12)</th></tr></thead>
-<tbody>
+<body data-family="{html.escape(FAMILY)}">
+<a class="skip" href="#main">Skip to content</a>
+
+{masthead("<span class=\"sep\">/</span>" + html.escape(PRODUCT_NAME))}
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Private page <span class="dot"></span> your files</p>
+    <h1>{html.escape(PRODUCT_NAME)}</h1>
+    <p class="lede">Every file below is inside this page. Click a name to save it. Nothing is fetched from our servers when you click, and the runner never sends anything to us.</p>
+    <dl class="rail">
+      <div><dt>Order</dt><dd class="stamp">{html.escape(ref)}</dd></div>
+      <div><dt>Keep</dt><dd>Save these files for use on your machine. Keep your checkout confirmation private.</dd></div>
+    </dl>
+    <a class="btn btn-buy btn-lg" href="#files">Save your kit files</a>
+  </div>
+</section>
+
+<main id="main" tabindex="-1">
+  <div class="wrap">
+    <section id="files">
+      <h2>Your files</h2>
+      <p class="note">Order reference {html.escape(ref)}. Click a file name to save it. Each link is the file itself, not a fetch from our servers.</p>
+      <div class="evidence">
+        <div class="evidence-head">
+          <span>Kit files on this page</span>
+          <span class="stamp">download · bytes inside the page</span>
+        </div>
+        <div class="scroll">
+          <table>
+            <thead><tr><th>File</th><th>Size</th><th>What it is</th><th>Checksum (first 12)</th></tr></thead>
+            <tbody>
 {chr(10).join(rows)}
-</tbody></table></div>
-<h2>Quick start</h2>
-<pre># offline demo first, no keys, spends nothing:
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section>
+      <h2>Quick start</h2>
+      <div class="kit-cmd"><pre># offline demo first, no keys, spends nothing:
 python3 silent_check.py --fixture fixtures/recorded_replies.json --tasks tasks.example.jsonl --prices prices.example.json --models anthropic:claude-fable-5-1,openai:gpt-6-astra --out demo_report.md --json demo.json
 
 # then your own tasks with your own keys:
-python3 silent_check.py --tasks my_tasks.jsonl --prices prices.example.json --models anthropic:claude-fable-5-1,openai:gpt-6-astra --out report.md --json summary.json</pre>
-<p class="muted">Set your own keys in the environment first (the README names the variable for each provider). The runner reads them from your shell and never writes them anywhere.</p>
-<h2>README</h2>
-<pre>{html.escape(readme)}</pre>
-<h2>What a finished report looks like</h2>
-<pre>{html.escape(sample)}</pre>
-<p class="muted">This is a measurement of the tasks you give it, on the day you run it. It is not a benchmark, not a ranking of models in general, and not a guarantee that any model will behave the same tomorrow.</p>
+python3 silent_check.py --tasks my_tasks.jsonl --prices prices.example.json --models anthropic:claude-fable-5-1,openai:gpt-6-astra --out report.md --json summary.json</pre></div>
+      <p class="note">Set your own keys in the environment first (the README names the variable for each provider). The runner reads them from your shell and never writes them anywhere.</p>
+    </section>
+    <section>
+      <h2>README</h2>
+      <div class="kit-cmd"><pre>{html.escape(readme)}</pre></div>
+    </section>
+    <section>
+      <h2>What a finished report looks like</h2>
+      <div class="kit-cmd"><pre>{html.escape(sample)}</pre></div>
+      <p class="note">This is a measurement of the tasks you give it, on the day you run it. It is not a benchmark, not a ranking of models in general, and not a guarantee that any model will behave the same tomorrow.</p>
+    </section>
+  </div>
 </main>
+
+{footer("<p>A measurement you run yourself. Not a benchmark, model ranking or guarantee.</p>")}
 </body>
 </html>
 """

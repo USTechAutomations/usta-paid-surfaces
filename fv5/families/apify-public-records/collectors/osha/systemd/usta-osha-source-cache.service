@@ -1,0 +1,14 @@
+[Unit]
+Description=Refresh the validated OSHA source copy for the Apify actor
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecCondition=/usr/bin/python3 /home/gmullins/.hermes/scripts/check_company_network.py --policy /home/gmullins/.hermes/config/company_network.json
+ExecStart="/home/gmullins/Claude CLI/harness/browser/venv/bin/python" /home/gmullins/code/usta-paid-surfaces/fv5/families/apify-public-records/collectors/osha/collector.py --actor-dir /home/gmullins/code/usta-paid-surfaces/fv5/families/apify-public-records/actors/osha-severe-injury-reports --state-dir /home/gmullins/.hermes/state/collectors/osha-source --store-id ElRfCpTirAfN8QY1l --publish
+WorkingDirectory=/home/gmullins/code/usta-paid-surfaces/fv5/families/apify-public-records/collectors/osha
+Environment=PYTHONUNBUFFERED=1
+TimeoutStartSec=300
+Nice=10
+StandardOutput=journal
+StandardError=journal

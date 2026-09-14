@@ -1,0 +1,7 @@
+{
+  "main_exit": 2,
+  "must_not_be": [0, 1],
+  "alert_contains": "UNKNOWN",
+  "alert_must_not_contain": ["STALE and silent", "NOT ANSWERING"],
+  "reason": "Wrong-type counterpart of the good page: newest is not an ISO date and cadence is 0. Must refuse as UNKNOWN, never pass (0) or stale (1), and must not crash."
+}

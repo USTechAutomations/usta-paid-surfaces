@@ -105,23 +105,23 @@ INV-1005    2026-09-05      30.00</pre></div>
       <form id="cm-form" class="cp-form">
         <p>
           <label for="cm-domain">Your firm's website (example.com)</label><br>
-          <input id="cm-domain" name="firm_domain" type="text" required maxlength="80" placeholder="yourfirm.com">
+          <input class="field" id="cm-domain" name="firm_domain" type="text" required maxlength="80" placeholder="yourfirm.com">
         </p>
         <p>
           <label for="cm-label-a">What to call your side</label><br>
-          <input id="cm-label-a" name="label_a" type="text" required maxlength="40" placeholder="Our ledger">
+          <input class="field" id="cm-label-a" name="label_a" type="text" required maxlength="40" placeholder="Our ledger">
         </p>
         <p>
           <label for="cm-label-b">What to call the other side</label><br>
-          <input id="cm-label-b" name="label_b" type="text" required maxlength="40" placeholder="Supplier statement">
+          <input class="field" id="cm-label-b" name="label_b" type="text" required maxlength="40" placeholder="Supplier statement">
         </p>
         <p>
           <label for="cm-rows">Paste your rows (one invoice per line, in any order)</label><br>
-          <textarea id="cm-rows" name="rows_text" rows="6" required placeholder="INV-1001, 2026-08-01, 420.00&#10;INV-1002, 2026-08-04, 118.50"></textarea>
+          <textarea class="field" id="cm-rows" name="rows_text" rows="6" required placeholder="INV-1001, 2026-08-01, 420.00&#10;INV-1002, 2026-08-04, 118.50"></textarea>
         </p>
         <p>
           <label for="cm-key">Pro key (leave blank on the free plan)</label><br>
-          <input id="cm-key" name="key" type="text" placeholder="lp1.ledgermatch....">
+          <input class="field" id="cm-key" name="key" type="text" placeholder="lp1.ledgermatch....">
         </p>
         <button type="submit" class="btn">Start the comparison</button>
       </form>
@@ -240,10 +240,17 @@ INV-1005    2026-09-05      30.00</pre></div>
   var form = document.getElementById('cm-form');
   var errorBox = document.getElementById('cm-error');
   var resultBox = document.getElementById('cm-result');
+  var submitting = false;
+  var submitButton = form.querySelector('button[type="submit"], button');
 
   form.addEventListener('submit', function (ev) {
     ev.preventDefault();
+    if (submitting) return;
+    submitting = true;
+    submitButton.disabled = true;
+    form.setAttribute('aria-busy', 'true');
     errorBox.classList.add('cp-hide');
+    resultBox.classList.add('cp-hide');
     var body = {
       firm_domain: document.getElementById('cm-domain').value.trim(),
       rows_text: document.getElementById('cm-rows').value,
@@ -256,16 +263,28 @@ INV-1005    2026-09-05      30.00</pre></div>
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
     }).then(function (r) {
-      if (!r.ok) throw new Error('bad response');
-      return r.json();
+      return r.json().then(function (data) {
+        if (!r.ok || !data || data.ok !== true) {
+          var message = data && typeof data.error === 'string' ? data.error.trim().slice(0, 600) : '';
+          throw { userMessage: message };
+        }
+        if (typeof data.b_link !== 'string' || !data.b_link || typeof data.ws_id !== 'string' || !data.ws_id || typeof data.a_edit_id !== 'string' || !data.a_edit_id) {
+          throw { userMessage: '' };
+        }
+        return data;
+      });
     }).then(function (data) {
       document.getElementById('cm-b-link').textContent = data.b_link || '';
       document.getElementById('cm-a-link').textContent =
         SERVICE_BASE + '/cm/r/' + (data.ws_id || '') + '?e=' + (data.a_edit_id || '');
       resultBox.classList.remove('cp-hide');
-    })['catch'](function () {
-      errorBox.textContent = 'Could not reach the comparison service right now. Try again in a minute.';
+    })['catch'](function (error) {
+      errorBox.textContent = error && error.userMessage || 'Could not reach the comparison service right now. Try again in a minute.';
       errorBox.classList.remove('cp-hide');
+    }).then(function () {
+      submitting = false;
+      submitButton.disabled = false;
+      form.removeAttribute('aria-busy');
     });
   });
 })();

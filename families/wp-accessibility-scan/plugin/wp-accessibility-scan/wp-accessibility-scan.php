@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name: WP Accessibility Scan
+ * Plugin Name: USTA Accessibility Scan
  * Description: Flags missing alt text, empty links, missing form labels, missing lang, heading skips, duplicate ids and low-contrast inline colours on your own pages. Automated checks find some of the issues the guidelines describe, not all.
- * Version: 0.1.0
+ * Version: 0.1.1
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: US Tech Automations
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: wp-accessibility-scan
+ * Text Domain: usta-accessibility-scan
  *
  * This file is part of WP Accessibility Scan.
  * WP Accessibility Scan is free software: you can redistribute it and/or modify
@@ -50,12 +50,20 @@ function wp_accessibility_scan_sanitize_flag( $value ) {
 }
 
 function wp_accessibility_scan_same_host( $url ) {
-	$home = wp_parse_url( home_url( '/' ), PHP_URL_HOST );
-	$got  = wp_parse_url( $url, PHP_URL_HOST );
-	if ( ! $home || ! $got ) {
+	$home = wp_parse_url( home_url( '/' ) );
+	$got  = wp_parse_url( $url );
+	if ( ! is_array( $home ) || ! is_array( $got ) || empty( $home['host'] ) || empty( $got['host'] ) ) {
 		return false;
 	}
-	return strtolower( $home ) === strtolower( $got );
+	$home_scheme = strtolower( isset( $home['scheme'] ) ? $home['scheme'] : '' );
+	$got_scheme = strtolower( isset( $got['scheme'] ) ? $got['scheme'] : '' );
+	if ( ! in_array( $got_scheme, array( 'http', 'https' ), true ) || $got_scheme !== $home_scheme || isset( $got['user'] ) || isset( $got['pass'] ) ) {
+		return false;
+	}
+	$default_port = 'https' === $home_scheme ? 443 : 80;
+	$home_port = isset( $home['port'] ) ? (int) $home['port'] : $default_port;
+	$got_port = isset( $got['port'] ) ? (int) $got['port'] : $default_port;
+	return strtolower( $home['host'] ) === strtolower( $got['host'] ) && $home_port === $got_port;
 }
 
 function wp_accessibility_scan_hex( $val ) {
@@ -325,8 +333,7 @@ function wp_accessibility_scan_screen() {
 
 	if ( isset( $_POST['wp_accessibility_scan_go'] ) ) {
 		check_admin_referer( 'wp_accessibility_scan_run' );
-		$raw = isset( $_POST['wp_accessibility_scan_url'] ) ? wp_unslash( $_POST['wp_accessibility_scan_url'] ) : '';
-		$url = esc_url_raw( $raw );
+		$url = isset( $_POST['wp_accessibility_scan_url'] ) ? esc_url_raw( wp_unslash( $_POST['wp_accessibility_scan_url'] ) ) : '';
 		if ( ! $url ) {
 			$url = home_url( '/' );
 		}
@@ -338,7 +345,8 @@ function wp_accessibility_scan_screen() {
 				$url,
 				array(
 					'timeout'     => 15,
-					'redirection' => 3,
+					'redirection' => 0,
+					'limit_response_size' => 2 * 1024 * 1024 + 1,
 					'headers'     => array( 'Accept' => 'text/html' ),
 				)
 			);
@@ -347,7 +355,12 @@ function wp_accessibility_scan_screen() {
 			} else {
 				$code = (int) wp_remote_retrieve_response_code( $resp );
 				$body = wp_remote_retrieve_body( $resp );
-				if ( 200 !== $code || '' === (string) $body ) {
+				$content_type = strtolower( trim( explode( ';', (string) wp_remote_retrieve_header( $resp, 'content-type' ) )[0] ) );
+				if ( strlen( $body ) > 2 * 1024 * 1024 ) {
+					$notice = 'Could not check this page: the response exceeds the 2 MiB limit. No partial scan was produced.';
+				} elseif ( ! in_array( $content_type, array( 'text/html', 'application/xhtml+xml' ), true ) ) {
+					$notice = 'Could not check this page: the server did not return a supported HTML content type.';
+				} elseif ( 200 !== $code || '' === (string) $body ) {
 					$notice = 'Could not read that page (HTTP ' . $code . ').';
 				} else {
 					$findings = wp_accessibility_scan_checks( $body );

@@ -1,29 +1,29 @@
 {
   "family": "trustee-sales",
-  "generated": "2026-09-11",
+  "generated": "2026-09-14",
   "slices": [
     {
       "slug": "postponed",
-      "newest": "2026-09-11",
+      "newest": "2026-09-14",
       "oldest": "2026-06-24",
-      "runs": 55,
+      "runs": 56,
       "row_count": 73,
       "cadence_days": 1
     },
     {
       "slug": "second-date",
-      "newest": "2026-09-11",
+      "newest": "2026-09-14",
       "oldest": "2026-06-24",
-      "runs": 55,
-      "row_count": 85,
+      "runs": 56,
+      "row_count": 87,
       "cadence_days": 1
     },
     {
       "slug": "coverage",
-      "newest": "2026-09-11",
+      "newest": "2026-09-14",
       "oldest": "2026-06-24",
-      "runs": 55,
-      "row_count": 214,
+      "runs": 56,
+      "row_count": 221,
       "cadence_days": 1
     }
   ]

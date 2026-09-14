@@ -830,6 +830,92 @@ def status_cell(spec: dict, *, ready: bool, on_page: bool, pill_class: str) -> s
     return muted_state(spec["pill_label"], ready=ready or on_page)
 
 
+
+def _sample_table_rows(fid: str, columns: list[str] | None, limit: int = 15):
+    """Up to `limit` real data rows out of families/<fid>/sample.csv.
+
+    Returns (headers, rows) or None. Reads the same file sample_door() already
+    links to, so the embedded slice and the downloadable sample can never show
+    two different files. When `columns` is given (nyc-ll84's 264-column file),
+    only those columns are shown -- picked from the file's own real header,
+    never invented -- so the table stays legible without claiming a column
+    exists that is not really there.
+    """
+    f = ROOT / "families" / fid / "sample.csv"
+    if not f.is_file():
+        return None
+    try:
+        with f.open(encoding="utf-8", newline="") as fh:
+            rows = list(csv.reader(fh))
+    except OSError:
+        return None
+    if len(rows) < 2:
+        return None
+    header = rows[0]
+    body = rows[1:]
+    if columns:
+        idx = [header.index(c) for c in columns if c in header]
+        if not idx:
+            idx = list(range(len(header)))
+        headers = [header[i] for i in idx]
+        picked = [[r[i] if i < len(r) else "" for i in idx] for r in body[:limit]]
+    else:
+        headers = header
+        picked = [r for r in body[:limit]]
+    return headers, picked
+
+
+def conversion_proof_block(spec: dict) -> tuple[str, str]:
+    """The value-vs-free proof block: comparison + a real embedded sample slice.
+
+    Returns (proof_html, price_anchor_html). Both are "" for every family that
+    carries no catalog.json "conversion" data, so every page other than the
+    five this pass touches renders byte-identical to before. The comparison
+    rows and the price anchor come straight out of catalog.json -- the same
+    record the buy button and the terms sentence already read -- so a claim
+    here can never say more than checkout.terms already promises. The sample
+    rows are read fresh off families/<id>/sample.csv at render time rather
+    than copied into the catalog, so the on-page slice and the downloadable
+    sample file can never drift apart.
+    """
+    fid = str(spec.get("id") or "")
+    conv = spec.get("conversion") or fam_row(fid).get("conversion") or {}
+    rows = conv.get("rows") or []
+    if not rows:
+        return "", ""
+
+    left = "".join(f"<li>{html.escape(str(f))}</li>" for f, _ in rows)
+    right = "".join(f"<li>{html.escape(str(p))}</li>" for _, p in rows)
+    compare = (
+        '    <div class="compare">\n'
+        '      <div class="compare-col">\n'
+        "        <h3>The free portal gives you</h3>\n"
+        f"        <ul>{left}</ul>\n"
+        "      </div>\n"
+        '      <div class="compare-col">\n'
+        "        <h3>This file gives you</h3>\n"
+        f"        <ul>{right}</ul>\n"
+        "      </div>\n"
+        "    </div>\n"
+    )
+    proof = section("What changes when you pay", "", compare)
+
+    got = _sample_table_rows(fid, conv.get("sample_columns"))
+    if got:
+        headers, sample_rows = got
+        n = len(sample_rows)
+        stamp = conv.get("sample_stamp") or spec.get("sample_dt") or "Real sample"
+        caption = f"{n} real rows from the file you would receive"
+        sample_html = table(headers, sample_rows, caption, stamp)
+        proof += section("A real slice of the file, not a mock-up", "", sample_html)
+
+    anchor = ""
+    line = conv.get("price_anchor")
+    if line:
+        anchor = f'    <p class="price-anchor">{html.escape(str(line))}</p>\n'
+    return proof, anchor
+
+
 def render(spec: dict) -> str:
     ready = spec["ready"]
     # An on-page family has no sample file and never will, so "ready" is the
@@ -853,6 +939,16 @@ def render(spec: dict) -> str:
     if spec.get("hero_note"):
         hero_cta = f'    <p class="hero-note">{spec["hero_note"]}</p>\n' + hero_cta
     family_head = bool(spec.get("plain_status") or spec.get("id") == "stormwater-noi")
+    # The value-vs-free proof block (added for the five conversion-pass
+    # families). Both halves are "" when the catalog row carries no
+    # "conversion" data, so this is a no-op for every other family: the
+    # section list and the rendered page are unchanged from before this pass.
+    _proof_html, _anchor_html = conversion_proof_block(spec)
+    _section_list = list(spec["sections"])
+    if _proof_html:
+        _section_list = [_proof_html] + _section_list
+    if _anchor_html:
+        _section_list = _section_list + [_anchor_html]
     out = PAGE.format(
         hero_cta=hero_cta,
         offer=offer,
@@ -879,7 +975,7 @@ def render(spec: dict) -> str:
         lede=spec["lede"],
         price=price,
         buyer=spec["buyer"],
-        sections="\n".join(spec["sections"]),
+        sections="\n".join(_section_list),
         subj=spec["subj"],
         contact_h2=spec["contact_h2"],
         contact_p=spec["contact_p"],

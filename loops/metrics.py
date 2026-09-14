@@ -26,6 +26,7 @@ import json
 import os
 import subprocess
 import sys
+import tempfile
 import urllib.request
 from pathlib import Path
 
@@ -251,6 +252,19 @@ def main() -> int:
         return 0
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(report, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+    # Read the new offer counters through the existing signed reader. Keep them
+    # separate from the five product metrics and from qualified demand/revenue.
+    from loops.checkout_observations import collect as collect_checkout_observations
+    observations = collect_checkout_observations(secret, (today - dt.timedelta(days=30)).isoformat(), service_counts)
+    observation_path = OUT.parent / "checkout-observations.json"
+    with tempfile.NamedTemporaryFile(mode="w", dir=OUT.parent,
+                                     prefix=".checkout-observations-", delete=False) as stream:
+        observation_tmp = Path(stream.name)
+        stream.write(json.dumps(observations, indent=1, sort_keys=True) + "\n")
+    try:
+        observation_tmp.replace(observation_path)
+    finally:
+        observation_tmp.unlink(missing_ok=True)
     ALERT.parent.mkdir(parents=True, exist_ok=True)
     body = [f"# loops — {today.isoformat()}", "",
             "Service events are not qualified demand. Payment attribution is UNKNOWN; delivery logs are not revenue.",

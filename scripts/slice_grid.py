@@ -58,14 +58,30 @@ MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun",
 
 # Short label, and one true sentence about who they are. Nothing about their
 # footprint is asserted here that the data cannot back up.
+#
+# 2026-09-14: Southwest Power Pool, ISO-NE and NYISO are gone from this dict
+# entirely, not just kept out of the paid file. SPP's terms forbid commercial
+# publication of their rows outright; ISO-NE and NYISO grant us nothing in
+# writing either, so "no written commercial grant" and "an unlawful source" are
+# UNKNOWN and a no here, not a yes just because they are free to read. The
+# manager's instruction was to remove every non-CAISO source named in the
+# takedown reason (SPP, ISO-NE, NYISO) and any page that blends them, so this
+# family is rebuilt without their rows, their pages, or their names anywhere in
+# it. MISO and ERCOT are untouched: neither was named in the takedown reason,
+# both were already NOT_SOLD_OPERATORS with an honest free page, and nothing
+# in the brief asked for them to go too.
 OPERATORS = {
     "caiso": ("CAISO", "CAISO runs the power grid in California."),
-    "isone": ("ISO-NE", "ISO-NE runs the power grid in New England."),
-    "nyiso": ("NYISO", "NYISO runs the power grid in New York."),
-    "spp": ("SPP", "SPP runs the power grid across parts of the central United States."),
     "miso": ("MISO", "MISO runs the power grid across parts of the Midwest and the South."),
     "ercot": ("ERCOT", "ERCOT runs the power grid across most of Texas."),
 }
+
+# The three operators this family dropped outright (2026-09-14 CAISO-only
+# rebuild). Filtered out at the read in _load(), so no downstream table, page,
+# credit line or cadence sentence can ever see one of their rows again — the
+# removal happens once, at the source, rather than being patched at each of
+# the places that used to print their name.
+DROPPED_OPERATORS = {"spp", "isone", "nyiso"}
 
 # The same operators written out the way they write themselves. The pages have
 # always used the short forms, because that is what the rows say -- but a short
@@ -86,9 +102,6 @@ FULL_NAMES = {
     # The California ISO's terms ask for this name, with the article. A table
     # header that says CAISO is not this credit.
     "caiso": "the California ISO",
-    "isone": "ISO New England",
-    "nyiso": "New York ISO",
-    "spp": "Southwest Power Pool",
     "miso": "Midcontinent Independent System Operator",
     "ercot": "Electric Reliability Council of Texas",
 }
@@ -96,16 +109,15 @@ FULL_NAMES = {
 # Publishers whose written terms make the credit a CONDITION rather than good
 # manners. Only these get a second sentence, and each one gets its own, because
 # the two conditions are not the same condition. The California ISO asks to be
-# named. The Southwest Power Pool grants the copying only with a citation AND
-# only outside a commercial publication, so their sentence has to say both
-# halves: a credit on a page with a price on it does not meet their terms, and
-# saying only the first half would read as if it did.
-CREDIT_REQUIRED = {
-    "spp": ("The {name} allows their material to be copied and passed on only with a "
-            "proper credit, and only outside a commercial publication. So, plainly: "
-            "this page uses material published by the {name}, and this page is not "
-            "for sale."),
-}
+# named.
+#
+# The Southwest Power Pool used to be here: their grant was a citation AND
+# only outside a commercial publication, which this sentence existed to spell
+# out. 2026-09-14: SPP is a DROPPED_OPERATORS entry now, so no page can carry
+# their rows at all and there is nothing left for a second sentence to
+# condition. Left empty rather than deleted, so a future operator with the
+# same kind of restricted grant has a place to go.
+CREDIT_REQUIRED: dict[str, str] = {}
 
 # Credit line + kept notices, copied verbatim from the CAISO terms read
 # (PROPOSED; see the grant that says "credit the California ISO" and "keep
@@ -180,16 +192,22 @@ def _credit(isos: list[str]) -> list[str]:
 # claiming to be current. What is not sold is the page, not the rows.
 #
 # 2026-08-25: the paid file is California ISO only. SPP forbids commercial
-# publication without written authorization we do not have. ISO-NE, NYISO,
-# MISO and ERCOT have no written commercial grant on the evidence we hold.
-# Their pages stay up and stay free. They are not in the weekly file.
+# publication without written authorization we do not have. MISO and ERCOT
+# have no written commercial grant on the evidence we hold. Their pages stay
+# up and stay free. They are not in the weekly file.
+#
+# 2026-09-14: SPP is no longer even a free page -- see DROPPED_OPERATORS above
+# -- and ISO-NE/NYISO left with it, on the same "no written grant is UNKNOWN,
+# not a yes" reasoning, on the manager's instruction. MISO and ERCOT are the
+# only NOT_SOLD_OPERATORS left, and this set is computed from OPERATORS so it
+# cannot silently include an operator this module no longer reads.
 SOLD_OPERATORS = {"caiso"}
 NOT_SOLD_OPERATORS = set(OPERATORS) - SOLD_OPERATORS
-# SQL form of the paid-file operator gate. The exclusion is iso = 'caiso',
-# not iso != 'spp'. SPP is REFUSED_FOR_COMMERCIAL_USE__PERMITTED_NON_
-# COMMERCIALLY_WITH_CITATION; dropping SPP alone would still ship ISO-NE,
-# NYISO, MISO and ERCOT, which have no written commercial grant on the
-# evidence we hold. Free public pages keep reading every operator.
+# SQL form of the paid-file operator gate. The exclusion is iso = 'caiso', not
+# iso != 'spp': dropping SPP alone would still ship MISO and ERCOT, which have
+# no written commercial grant on the evidence we hold. Free public pages keep
+# reading every operator this module still recognises (see OPERATORS and
+# DROPPED_OPERATORS above -- SPP, ISO-NE and NYISO are read by neither).
 PAID_FILE_ISO_SQL = "iso = 'caiso'"
 
 # The twenty states with the most projects in the copies we hold.
@@ -332,9 +350,16 @@ def _load() -> dict:
     dates: dict[str, list[str]] = defaultdict(list)
     seen: dict[str, set[str]] = defaultdict(set)
 
+    # DROPPED_OPERATORS (SPP, ISO-NE, NYISO) is excluded right here, in the SQL,
+    # so every table below -- snaps, dates, moves, file_copies, misses, asked --
+    # is built as if their rows were never in the database. One filter at the
+    # read, not a patch at each of the places that used to print their name.
+    _dropped_ph = ",".join("?" * len(DROPPED_OPERATORS))
     q = ("select iso, snapshot_date, project_id, project_name, status, fuel, "
-         "capacity_mw, county, state, proposed_cod from project_snapshots")
-    for iso, day, pid, name, status, fuel, cap, county, state, cod in con.execute(q):
+         "capacity_mw, county, state, proposed_cod from project_snapshots "
+         f"where iso not in ({_dropped_ph})")
+    for iso, day, pid, name, status, fuel, cap, county, state, cod in con.execute(
+            q, tuple(DROPPED_OPERATORS)):
         snaps[(iso, day)][pid] = Snap(pid, name, status, fuel, cap, county, state, cod)
         if day not in seen[iso]:
             seen[iso].add(day)
@@ -350,7 +375,8 @@ def _load() -> dict:
     sealed = set(snaps)
     fetches = list(con.execute(
         "select iso, snapshot_date, resource, content_sha256, byte_len, status_code "
-        "from raw_fetches order by snapshot_date, iso"))
+        f"from raw_fetches where iso not in ({_dropped_ph}) order by snapshot_date, iso",
+        tuple(DROPPED_OPERATORS)))
 
     # Only reads that produced a copy we actually sealed count here. A day the
     # server handed us an error page is not a day the file was different.
@@ -595,14 +621,15 @@ def _fuel(v) -> str:
 
 # Operators whose file has no plant name in it anywhere.
 #
-# SPP is the case. Its name column is empty on most rows, and on the rows where
-# it is filled it holds a second interconnection study number -- every one of
-# them starts "IFS-" -- not a name. Reading that column as a name would put a
-# number under a heading that says Project and let a buyer think they were
-# getting plant names. So for these operators we show the operator's own queue
-# number, which is on every row, and the pages say plainly that SPP publishes
-# numbers and not names.
-NUMBERS_NOT_NAMES = {"spp"}
+# SPP was the case: its name column was empty on most rows, and on the rows
+# where it was filled it held a second interconnection study number -- every
+# one of them started "IFS-" -- not a name. Reading that column as a name
+# would put a number under a heading that says Project and let a buyer think
+# they were getting plant names. SPP is gone from this module entirely now
+# (DROPPED_OPERATORS), so there is nothing left that needs this treatment; the
+# set stays empty rather than deleted, for the next operator whose file does
+# the same thing.
+NUMBERS_NOT_NAMES: set[str] = set()
 
 
 def _who(row: Snap, iso: str | None = None) -> str:
@@ -1719,8 +1746,20 @@ def _not_sold_note(codes: set[str] | None = None, ercot: bool = False) -> str:
     If a state earns its way back in, `_not_sold_watch` shouts on the same run
     and this sentence shrinks with it. `codes` narrows it to the states a
     particular page actually shows.
+
+    2026-09-14: a code with zero isos left (every one of its sources was SPP,
+    ISO-NE or NYISO, now dropped from this module entirely) is not "not sold" —
+    it has no page and nothing to report, so it is filtered out here rather
+    than handed to _counts(), which has nothing to take a first or last date
+    from for a state with no data at all.
     """
-    codes = set(codes or NOT_SOLD_STATES)
+    codes = {c for c in (codes or NOT_SOLD_STATES) if _state_isos(c)}
+    if not codes:
+        if not ercot:
+            return ""
+        return ("The ERCOT page is not part of it either: nothing in that queue has "
+                "moved between any two copies we hold, so there is nothing of it to "
+                "leave out.")
     groups: dict[int, list[str]] = {}
     spans, out = [], 0
     for code in sorted(codes, key=lambda c: STATE_NAMES[c]):

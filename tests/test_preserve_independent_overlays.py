@@ -31,12 +31,22 @@ class Preservation(unittest.TestCase):
  def test_missing_current_component_refuses(self):
   (self.source/'site/tool/index.html').unlink()
   with self.assertRaises(ValueError):self.build()
+ def test_missing_hub_section_is_rebuilt_from_prefix(self):
+  (self.source/'site/index.html').write_text('<body><h1>Existing</h1></body>')
+  r=self.build()
+  hub=(self.dest/'site/index.html').read_text()
+  self.assertIn('id="workshop-independent-20260908"', hub)
+  self.assertIn('href="/feeds/workshop/"', hub)
+  self.assertEqual(3,len(r['component_files']))
  def test_missing_runtime_api_route_refuses(self):
   text=(self.source/'nginx.conf').read_text();(self.source/'nginx.conf').write_text('\n'.join(x for x in text.splitlines() if '/workshop/api/' not in x))
   with self.assertRaises(ValueError):self.build()
- def test_missing_current_sitemap_admission_refuses(self):
+ def test_missing_current_sitemap_admission_is_restored(self):
   (self.source/'site/sitemap.xml').write_text('<urlset/>')
-  with self.assertRaises(ValueError):self.build()
+  r=self.build()
+  urls=p.sitemap_urls((self.dest/'site/sitemap.xml').read_text())
+  self.assertEqual(1, urls.count('https://ustechautomations.com/feeds/workshop/'))
+  self.assertEqual(3,len(r['component_files']))
  def test_component_route_collision_refuses(self):
   text=(self.dest/'nginx.conf').read_text();(self.dest/'nginx.conf').write_text(text.replace('  location / {','  location ^~ /tool/ { return 404; }\n  location / {'))
   with self.assertRaises(ValueError):self.build()
