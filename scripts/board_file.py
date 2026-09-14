@@ -751,9 +751,10 @@ def family_spec_for(city: str, fid: str, place: str, long_name: str,
         )
     secs = [
         section(
-            "What is in the file",
+            "What is in the file, and what $349 buys",
             f"{w['n']:,} rows pulled {d(pulled)}",
-            f"      <p>{place} publishes a building-permit table and overwrites it. "
+            f"      <p>$349 buys ONE of the five slices below, not all {w['n']:,} rows. "
+            f"{place} publishes a building-permit table and overwrites it. "
             f"We pulled {w['n']:,} of those rows on {d(pulled)} and assembled "
             f"them as one CSV, with person-name columns taken out. "
             f"<strong>The five slices for sale are {html.escape(kids)}.</strong></p>\n"
@@ -820,7 +821,7 @@ def family_spec_for(city: str, fid: str, place: str, long_name: str,
             "Rather know the row count first? Email us before you pay and we "
             "name it, with the pull date.</li>\n"
             "        <li>A person emails you that slice as a CSV within one "
-            "working day.</li>\n"
+            "working day of your reply naming the slice.</li>\n"
             "      </ol>",
         ),
     ]
