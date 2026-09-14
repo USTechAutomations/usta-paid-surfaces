@@ -7,7 +7,11 @@
     "product_id": "prod_VDxA8J6JQGHPqR",
     "amount_cents": 4900,
     "currency": "usd",
-    "recurring": {"interval": "month", "interval_count": 1, "usage_type": "licensed"}
+    "recurring": {
+      "interval": "month",
+      "interval_count": 1,
+      "usage_type": "licensed"
+    }
   },
   "schemahand": {
     "payment_link": "plink_1UDVGV1W0OJClv3V9mlAWdjt",
@@ -27,12 +31,21 @@
     "product_id": "prod_VDxAVQbdbXLAYP",
     "amount_cents": 9900,
     "currency": "usd",
-    "recurring": {"interval": "month", "interval_count": 1, "usage_type": "licensed"}
+    "recurring": {
+      "interval": "month",
+      "interval_count": 1,
+      "usage_type": "licensed"
+    }
   },
   "acacheck": {
-    "payment_link": "plink_1UDVGD1W0OJClv3VrUcye0eB",
+    "payment_link": "plink_1UFfGd1W0OJClv3V5rko8uIp",
     "plan": "annual",
-    "mode": "payment"
+    "mode": "payment",
+    "price_id": "price_1UDVGB1W0OJClv3VNJDfQmJv",
+    "product_id": "prod_VDxAWPr",
+    "amount_cents": 49900,
+    "currency": "usd",
+    "term_seconds": 31536000
   },
   "qrelay": {
     "payment_link": "plink_1UDVFs1W0OJClv3VvrkM4B5n",
@@ -42,6 +55,10 @@
     "product_id": "prod_VDxAiq32woJrBk",
     "amount_cents": 17500,
     "currency": "usd",
-    "recurring": {"interval": "month", "interval_count": 1, "usage_type": "licensed"}
+    "recurring": {
+      "interval": "month",
+      "interval_count": 1,
+      "usage_type": "licensed"
+    }
   }
 }
