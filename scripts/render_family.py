@@ -628,11 +628,34 @@ def sample_door(spec: dict) -> str:
     json_url = f"{FEEDS_BASE}/{fid}/sample.json"
     for_sale = "$" in price_of(spec)
     heading = "See the file before you pay" if for_sale else "See the file we hold"
-    rest = spec.get("sample_rest") or (
-        "that is the part you are paying for"
-        if for_sale
-        else "the file goes back further than these rows do"
-    )
+    # The seven $349 slice families: do not claim coverage is hidden while the
+    # page already prints the pull date and range. Other families keep the
+    # previous for-sale default so this change does not rewrite their copy.
+    _slice_seven = {
+        "boston",
+        "nyc-ll84",
+        "washington-dc",
+        "chicago",
+        "los-angeles",
+        "baton-rouge",
+        "metro-file",
+    }
+    custom_rest = spec.get("sample_rest")
+    if fid in _slice_seven and for_sale:
+        sample_close = (
+            '      <p class="mail-note">These rows are a taste. The slice you buy is every '
+            "row of the type or year you name, from the pull dated on this page.</p>\n"
+        )
+    else:
+        rest = custom_rest or (
+            "that is the part you are paying for"
+            if for_sale
+            else "the file goes back further than these rows do"
+        )
+        sample_close = (
+            f'      <p class="mail-note">These {n_rows} rows are a slice of the file, not the '
+            f"whole of it. What we cannot show you here is how far back it goes: {rest}.</p>\n"
+        )
     # "Nothing in it is made up" is true of every sealed public record here and
     # false of a generated family, whose minutes ARE made up and say so. A family
     # may state its own sample sentence; the default stays for every other page.
@@ -669,8 +692,7 @@ def sample_door(spec: dict) -> str:
         "      </ul>\n"
         f'      <p class="mail-note">{delivery_sentence(spec)}</p>\n'
         + written +
-        f'      <p class="mail-note">These {n_rows} rows are a slice of the file, not the '
-        f"whole of it. What we cannot show you here is how far back it goes: {rest}.</p>\n"
+        sample_close +
         "    </section>\n"
     )
 

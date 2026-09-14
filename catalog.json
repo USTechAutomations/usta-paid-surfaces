@@ -652,12 +652,12 @@
       "contact_note": "Say which slice you want. We will tell you the row count and the pull date before you pay.",
       "foot": "Every count and date on this page was read out of the extract we pulled on the day named above. Where a column names a person, it is not in the file you buy.",
       "checkout": {
-        "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. After you pay, a person emails you the slice you named as a CSV within one working day of your payment. The City of Chicago's required notice travels with the file, character for character, and is printed on the page at the point of sale.",
-        "after": "After you pay, a person emails you the slice you named as a CSV within one working day of your payment.",
+        "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. After you pay, a person emails you the slice you named as a CSV within one working day of your reply naming the slice. The City of Chicago's required notice travels with the file, character for character, and is printed on the page at the point of sale.",
+        "after": "After you pay, a person emails you the slice you named as a CSV within one working day of your reply naming the slice.",
         "status": "live",
         "url": "https://buy.stripe.com/5kQbIU5l41eaafO5n40sU0Z",
         "lands_on": "buy.stripe.com",
-        "label": "Buy the file — $349 once",
+        "label": "Buy one slice — $349 once",
         "checked": "2026-09-14",
         "verified": "2026-09-14"
       }
@@ -680,12 +680,12 @@
       "contact_note": "Say which slice you want. We will tell you the row count and the pull date before you pay.",
       "foot": "Every count and date on this page was read out of the extract we pulled on the day named above. Where a column names a person, it is not in the file you buy.",
       "checkout": {
-        "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. After you pay, a person emails you the slice you named as a CSV within one working day of your payment.",
-        "after": "After you pay, a person emails you the slice you named as a CSV within one working day of your payment.",
+        "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. After you pay, a person emails you the slice you named as a CSV within one working day of your reply naming the slice.",
+        "after": "After you pay, a person emails you the slice you named as a CSV within one working day of your reply naming the slice.",
         "status": "live",
         "url": "https://buy.stripe.com/4gM3coeVEf505Zyg1I0sU10",
         "lands_on": "buy.stripe.com",
-        "label": "Buy the file — $349 once",
+        "label": "Buy one slice — $349 once",
         "checked": "2026-09-14",
         "verified": "2026-09-14"
       }
@@ -708,12 +708,12 @@
       "contact_note": "Say which slice you want. We will tell you the row count and the pull date before you pay.",
       "foot": "Every count and date on this page was read out of the extract we pulled on the day named above. Where a column names a person, it is not in the file you buy.",
       "checkout": {
-        "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. After you pay, a person emails you the slice you named as a CSV within one working day of your payment.",
-        "after": "After you pay, a person emails you the slice you named as a CSV within one working day of your payment.",
+        "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. After you pay, a person emails you the slice you named as a CSV within one working day of your reply naming the slice.",
+        "after": "After you pay, a person emails you the slice you named as a CSV within one working day of your reply naming the slice.",
         "status": "live",
         "url": "https://buy.stripe.com/8x2aEQeVE3mibjS4j00sU11",
         "lands_on": "buy.stripe.com",
-        "label": "Buy the file — $349 once",
+        "label": "Buy one slice — $349 once",
         "checked": "2026-09-14",
         "verified": "2026-09-14"
       }
@@ -733,14 +733,14 @@
       "contact_h2": "Ask before you buy",
       "contact_p": "Name the slice. We reply with how many rows we hold for it and the date we pulled them, before you spend anything.",
       "contact_cta": "Email us before you pay",
-      "contact_note": "Say which Washington DC slice you want. We will tell you the row count and the pull date before you pay. There is no pay button on this page until a payment link is minted.",
+      "contact_note": "Say which Washington DC slice you want. We will tell you the row count and the pull date before you pay.",
       "foot": "Every count and date on this page was read out of the extract we pulled on the day named above. Where a column names a person, it is not in the file you buy. No District logos.",
       "checkout": {
-        "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. After you pay, a person emails you the slice you named as a CSV within one working day of your payment. The file is sold under CC BY 4.0 with attribution; the required credit is printed on this page and travels with the file. We charge for assembly and delivery, not for rights to the data. The District's free portal remains at opendata.dc.gov.",
-        "after": "After you pay, a person emails you the slice you named as a CSV within one working day of your payment.",
+        "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. After you pay, a person emails you the slice you named as a CSV within one working day of your reply naming the slice. The file is sold under CC BY 4.0 with attribution; the required credit is printed on this page and travels with the file. We charge for assembly and delivery, not for rights to the data. The District's free portal remains at opendata.dc.gov.",
+        "after": "After you pay, a person emails you the slice you named as a CSV within one working day of your reply naming the slice.",
         "status": "live",
         "url": "https://buy.stripe.com/dRmbIU7tc2ie3RqaHo0sU19",
-        "label": "Buy the file — $349 once",
+        "label": "Buy one slice — $349 once",
         "lands_on": "buy.stripe.com",
         "checked": "2026-09-14",
         "verified": "2026-09-14"
@@ -761,7 +761,7 @@
           ],
           [
             "No delivery -- query the FeatureServer layers yourself",
-            "A person emails you that slice as a CSV within one working day of payment"
+            "A person emails you that slice as a CSV within one working day of your reply naming the slice"
           ]
         ],
         "price_anchor": "$349 once is cheaper than the hours it takes to pull four years of FeatureServer layers yourself and strip the person columns out.",
@@ -1085,10 +1085,10 @@
       "foot": "Every count and date on this page was read out of the extract we pulled on the day named above. Where a column names a person, it is not in the file you buy. City of Boston rows, Open Data Commons Public Domain Dedication and License (PDDL) v1.0.",
       "checkout": {
         "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. The file is City of Boston approved-building-permit rows published on Analyze Boston under the Open Data Commons Public Domain Dedication and License (PDDL) v1.0, with the applicant and comments columns taken out.",
-        "after": "After you pay, a person emails you the slice you named as a CSV within one working day of your payment.",
+        "after": "After you pay, a person emails you the slice you named as a CSV within one working day of your reply naming the slice.",
         "status": "live",
         "url": "https://buy.stripe.com/dRmaEQ7tc9KGgEceXE0sU17",
-        "label": "Buy the file — $349 once",
+        "label": "Buy one slice — $349 once",
         "lands_on": "buy.stripe.com",
         "checked": "2026-09-14",
         "verified": "2026-09-14"
@@ -1109,7 +1109,7 @@
           ],
           [
             "No delivery -- you write your own export",
-            "A person emails you that slice as a CSV within one working day of payment"
+            "A person emails you that slice as a CSV within one working day of your reply naming the slice"
           ]
         ],
         "price_anchor": "$349 once is cheaper than the hours your own team would spend pulling, cleaning and rechecking one work-type slice out of 661,051 rows by hand.",
@@ -1135,10 +1135,10 @@
       "foot": "Every count and date on this page was read out of the extract we pulled on the day named above. The City's CSV stays free. This is not the DOB permit file already on sale.",
       "checkout": {
         "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. The City already publishes the unsliced table free. You are buying one dated year or borough cut, not a secret archive and not a subscription.",
-        "after": "After you pay, a person emails you the slice you named as a CSV within one working day of your payment.",
+        "after": "After you pay, a person emails you the slice you named as a CSV within one working day of your reply naming the slice.",
         "status": "live",
         "url": "https://buy.stripe.com/7sYbIU3cW6yugEc02K0sU18",
-        "label": "Buy the file — $349 once",
+        "label": "Buy one slice — $349 once",
         "lands_on": "buy.stripe.com",
         "checked": "2026-09-14",
         "verified": "2026-09-14"
@@ -1159,7 +1159,7 @@
           ],
           [
             "No delivery -- export it yourself",
-            "A person emails you the sliced CSV within one working day of payment"
+            "A person emails you the sliced CSV within one working day of your reply naming the slice"
           ]
         ],
         "price_anchor": "$349 once is less than an afternoon of an analyst's time spent slicing one year or borough out of the City's raw table by hand.",
@@ -1195,14 +1195,14 @@
       "contact_h2": "Ask before you buy",
       "contact_p": "Name the metro. We reply with how many permits changed status, how many calendar holes sit in the sealed-day list, and the checkout link, before you pay anything.",
       "contact_cta": "Email us before you pay",
-      "contact_note": "Say which metro you want. We will tell you the change count and the hole list before you pay. There is no pay button on this page until a payment link is minted.",
+      "contact_note": "Say which metro you want. We will tell you the change count and the hole list before you pay.",
       "foot": "Every change count and every hole on these pages was counted off the 2026-08-25 extract of permit_prediction_snapshots. The city portals stay free. This is not the full board CSV sold as City permit board files, and it is not the off-sale ranking page Metro issued-permit changes.",
       "checkout": {
         "terms": "$349 once, for the metro named on the page. Nothing recurring, nothing to cancel and no subscription behind it. You are buying this status-change file once.",
         "after": "After you pay, a person emails you the CSV within one working day.",
         "status": "live",
         "url": "https://buy.stripe.com/4gM14g00K0a61Ji9Dk0sU1a",
-        "label": "Buy the file — $349 once",
+        "label": "Buy one slice — $349 once",
         "lands_on": "buy.stripe.com",
         "checked": "2026-09-14",
         "verified": "2026-09-14"
