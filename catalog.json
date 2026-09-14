@@ -652,8 +652,8 @@
       "contact_note": "Say which slice you want. We will tell you the row count and the pull date before you pay.",
       "foot": "Every count and date on this page was read out of the extract we pulled on the day named above. Where a column names a person, it is not in the file you buy.",
       "checkout": {
-        "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. After you pay, a person emails you the whole file as a CSV within one working day of your payment. The City of Chicago's required notice travels with the file, character for character, and is printed on the page at the point of sale.",
-        "after": "After you pay, a person emails you the whole file as a CSV within one working day of your payment.",
+        "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. After you pay, a person emails you the slice you named as a CSV within one working day of your payment. The City of Chicago's required notice travels with the file, character for character, and is printed on the page at the point of sale.",
+        "after": "After you pay, a person emails you the slice you named as a CSV within one working day of your payment.",
         "status": "live",
         "url": "https://buy.stripe.com/5kQbIU5l41eaafO5n40sU0Z",
         "lands_on": "buy.stripe.com",
@@ -680,8 +680,8 @@
       "contact_note": "Say which slice you want. We will tell you the row count and the pull date before you pay.",
       "foot": "Every count and date on this page was read out of the extract we pulled on the day named above. Where a column names a person, it is not in the file you buy.",
       "checkout": {
-        "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. After you pay, a person emails you the whole file as a CSV within one working day of your payment.",
-        "after": "After you pay, a person emails you the whole file as a CSV within one working day of your payment.",
+        "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. After you pay, a person emails you the slice you named as a CSV within one working day of your payment.",
+        "after": "After you pay, a person emails you the slice you named as a CSV within one working day of your payment.",
         "status": "live",
         "url": "https://buy.stripe.com/4gM3coeVEf505Zyg1I0sU10",
         "lands_on": "buy.stripe.com",
@@ -708,8 +708,8 @@
       "contact_note": "Say which slice you want. We will tell you the row count and the pull date before you pay.",
       "foot": "Every count and date on this page was read out of the extract we pulled on the day named above. Where a column names a person, it is not in the file you buy.",
       "checkout": {
-        "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. After you pay, a person emails you the whole file as a CSV within one working day of your payment.",
-        "after": "After you pay, a person emails you the whole file as a CSV within one working day of your payment.",
+        "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. After you pay, a person emails you the slice you named as a CSV within one working day of your payment.",
+        "after": "After you pay, a person emails you the slice you named as a CSV within one working day of your payment.",
         "status": "live",
         "url": "https://buy.stripe.com/8x2aEQeVE3mibjS4j00sU11",
         "lands_on": "buy.stripe.com",
@@ -736,8 +736,8 @@
       "contact_note": "Say which Washington DC slice you want. We will tell you the row count and the pull date before you pay. There is no pay button on this page until a payment link is minted.",
       "foot": "Every count and date on this page was read out of the extract we pulled on the day named above. Where a column names a person, it is not in the file you buy. No District logos.",
       "checkout": {
-        "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. After you pay, a person emails you the whole file as a CSV within one working day of your payment. The file is sold under CC BY 4.0 with attribution; the required credit is printed on this page and travels with the file. We charge for assembly and delivery, not for rights to the data. The District's free portal remains at opendata.dc.gov.",
-        "after": "After you pay, a person emails you the whole file as a CSV within one working day of your payment.",
+        "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. After you pay, a person emails you the slice you named as a CSV within one working day of your payment. The file is sold under CC BY 4.0 with attribution; the required credit is printed on this page and travels with the file. We charge for assembly and delivery, not for rights to the data. The District's free portal remains at opendata.dc.gov.",
+        "after": "After you pay, a person emails you the slice you named as a CSV within one working day of your payment.",
         "status": "live",
         "url": "https://buy.stripe.com/dRmbIU7tc2ie3RqaHo0sU19",
         "label": "Buy the file — $349 once",
@@ -761,7 +761,7 @@
           ],
           [
             "No delivery -- query the FeatureServer layers yourself",
-            "A person emails you the whole file as a CSV within one working day of payment"
+            "A person emails you that slice as a CSV within one working day of payment"
           ]
         ],
         "price_anchor": "$349 once is cheaper than the hours it takes to pull four years of FeatureServer layers yourself and strip the person columns out.",
@@ -1085,7 +1085,7 @@
       "foot": "Every count and date on this page was read out of the extract we pulled on the day named above. Where a column names a person, it is not in the file you buy. City of Boston rows, Open Data Commons Public Domain Dedication and License (PDDL) v1.0.",
       "checkout": {
         "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. The file is City of Boston approved-building-permit rows published on Analyze Boston under the Open Data Commons Public Domain Dedication and License (PDDL) v1.0, with the applicant and comments columns taken out.",
-        "after": "After you pay, a person emails you the whole file as a CSV within one working day of your payment.",
+        "after": "After you pay, a person emails you the slice you named as a CSV within one working day of your payment.",
         "status": "live",
         "url": "https://buy.stripe.com/dRmaEQ7tc9KGgEceXE0sU17",
         "label": "Buy the file — $349 once",
@@ -1109,10 +1109,10 @@
           ],
           [
             "No delivery -- you write your own export",
-            "A person emails you the whole file as a CSV within one working day of payment"
+            "A person emails you that slice as a CSV within one working day of payment"
           ]
         ],
-        "price_anchor": "$349 once is cheaper than the hours your own team would spend pulling, cleaning and rechecking 661,051 rows by hand.",
+        "price_anchor": "$349 once is cheaper than the hours your own team would spend pulling, cleaning and rechecking one work-type slice out of 661,051 rows by hand.",
         "sample_stamp": "Pulled 26 Aug 2026"
       }
     },
@@ -1135,7 +1135,7 @@
       "foot": "Every count and date on this page was read out of the extract we pulled on the day named above. The City's CSV stays free. This is not the DOB permit file already on sale.",
       "checkout": {
         "terms": "$349 once, for the assembled CSV of this slice. There is nothing to cancel and no subscription behind it. The City already publishes the unsliced table free. You are buying one dated year or borough cut, not a secret archive and not a subscription.",
-        "after": "After you pay, a person emails you the whole file as a CSV within one working day of your payment.",
+        "after": "After you pay, a person emails you the slice you named as a CSV within one working day of your payment.",
         "status": "live",
         "url": "https://buy.stripe.com/7sYbIU3cW6yugEc02K0sU18",
         "label": "Buy the file — $349 once",

@@ -299,7 +299,8 @@ def dataset_jsonld(fid: str, canon: str, page: str) -> str | None:
         "isAccessibleForFree": False,
         "license": DATASET_LICENSE_URL,
     }
-    if fid == "schemahand":
+    if fid == "schemahand" or str(fam.get("group") or "").strip().lower() == "tools":
+        # A software tool (catalog group "Tools") is a SoftwareApplication, never a Dataset.
         data = {"@context": "https://schema.org", "@type": "SoftwareApplication",
                 "name": fam["name"], "description": html.unescape(m.group(1)),
                 "url": canon, "applicationCategory": "DeveloperApplication",
