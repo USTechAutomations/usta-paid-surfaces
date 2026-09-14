@@ -749,7 +749,7 @@
         "rows": [
           [
             "A FeatureServer table split across four separate year layers, overwritten as the District edits it",
-            "One CSV assembled from all four years, 172,942 rows pulled 26 Aug 2026"
+            "One CSV of the year slice you name (2026, 2025, 2024, 2023, or all four years together), cut from the 172,942 rows we pulled 26 Aug 2026"
           ],
           [
             "Applicant, owner and edit-history columns still carrying names",
@@ -1097,7 +1097,7 @@
         "rows": [
           [
             "A live table on Analyze Boston that gets overwritten the next time the city re-publishes it",
-            "One CSV assembled from all 661,051 rows we pulled on 26 Aug 2026"
+            "One CSV of the work-type slice you name, cut from the 661,051 rows we pulled on 26 Aug 2026"
           ],
           [
             "Applicant and comment columns still carrying names, if you keep them yourself",

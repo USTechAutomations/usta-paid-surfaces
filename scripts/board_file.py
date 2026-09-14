@@ -815,11 +815,12 @@ def family_spec_for(city: str, fid: str, place: str, long_name: str,
             "How it works",
             None,
             '      <ol class="steps">\n'
-            "        <li>You email us and name the slice.</li>\n"
-            "        <li>We tell you how many rows we hold for it, and we name the "
-            "date we pulled them.</li>\n"
-            "        <li>After you pay, a person emails you the file as a CSV "
-            "within one working day.</li>\n"
+            f"        <li>Choose one slice: {', '.join(s[2] for s in slices)}.</li>\n"
+            "        <li>Pay $349, then reply to your receipt naming that slice. "
+            "Rather know the row count first? Email us before you pay and we "
+            "name it, with the pull date.</li>\n"
+            "        <li>A person emails you that slice as a CSV within one "
+            "working day.</li>\n"
             "      </ol>",
         ),
     ]
