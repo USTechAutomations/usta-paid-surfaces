@@ -4,9 +4,10 @@
  * see, in plain English, some of what is likely to trip up the IRS.
  *
  * Rules on purpose:
- *   - Everything runs in your browser. Nothing you paste is sent anywhere,
- *     ever -- there is no fetch(), no XMLHttpRequest, no network call at
- *     all in this file.
+ *   - With no paid key, everything runs in your browser. Nothing you paste
+ *     is sent anywhere -- there is no fetch() unless a paid key is present.
+ *   - With a paid key, Check file POSTs the XML to the hosted checker and
+ *     renders that response. The demo button always stays in-browser.
  *   - This is a smaller set of checks than the full open-source tool (15
  *     checks here vs. 46 in the Python package). It is meant to give you a
  *     fast first look, not to replace running the real thing before you
@@ -262,13 +263,33 @@
     if (result.findings.length === 0) {
       var ok = document.createElement("p");
       ok.className = "ac-ok";
-      ok.textContent = "None of these 15 checks found a problem. The full open-source tool checks 46 things, so run that too before you transmit.";
+      if (result.hosted) {
+        ok.textContent = "The hosted checker found no problems in this file.";
+      } else {
+        ok.textContent = "None of these 15 checks found a problem. The full open-source tool checks 46 things, so run that too before you transmit.";
+      }
       container.appendChild(ok);
+      if (result.hosted && result.notice) {
+        var emptyNote = document.createElement("p");
+        emptyNote.className = "ac-fix";
+        emptyNote.textContent = result.notice;
+        container.appendChild(emptyNote);
+      }
       return;
     }
     var summary = document.createElement("p");
     summary.className = "ac-summary";
-    summary.textContent = result.findings.length + " thing(s) this quick check did not like:";
+    if (result.hosted) {
+      var shown = result.findings.length;
+      var total = result.total_findings != null ? result.total_findings : shown;
+      if (result.more || total > shown) {
+        summary.textContent = shown + " of " + total + " finding(s):";
+      } else {
+        summary.textContent = shown + " finding(s):";
+      }
+    } else {
+      summary.textContent = result.findings.length + " thing(s) this quick check did not like:";
+    }
     container.appendChild(summary);
     var list = document.createElement("ul");
     list.className = "ac-findings";
@@ -277,14 +298,97 @@
       var msg = document.createElement("p");
       msg.className = "ac-msg";
       msg.textContent = "[" + f.id + "] " + f.message;
-      var fix = document.createElement("p");
-      fix.className = "ac-fix";
-      fix.textContent = "Fix: " + f.fix;
       li.appendChild(msg);
-      li.appendChild(fix);
+      if (f.fix) {
+        var fix = document.createElement("p");
+        fix.className = "ac-fix";
+        fix.textContent = "Fix: " + f.fix;
+        li.appendChild(fix);
+      }
       list.appendChild(li);
     });
     container.appendChild(list);
+    if (result.hosted && result.notice) {
+      var note = document.createElement("p");
+      note.className = "ac-fix";
+      note.textContent = result.notice;
+      container.appendChild(note);
+    }
+  }
+
+  function showMuted(container, text) {
+    container.innerHTML = "";
+    var p = document.createElement("p");
+    p.className = "ac-fix";
+    p.textContent = text;
+    container.appendChild(p);
+  }
+
+  function hostedToResult(data) {
+    var raw = data && data.findings;
+    if (!raw || !raw.length) raw = [];
+    var findings = [];
+    for (var i = 0; i < raw.length; i++) {
+      var f = raw[i] || {};
+      findings.push({
+        id: f.id || f.rule || "",
+        severity: f.severity || "",
+        message: f.message || "",
+        fix: f.fix || ""
+      });
+    }
+    return {
+      ok: findings.length === 0,
+      findings: findings,
+      wellFormed: true,
+      hosted: true,
+      notice: data && data.notice ? String(data.notice) : "",
+      more: !!(data && data.more),
+      showing: data && data.showing,
+      total_findings: data && data.total_findings
+    };
+  }
+
+  var HOSTED_CHECK_URL = "https://usta-loops-260481739341.us-central1.run.app/aca/check";
+
+  function runHostedCheck(xmlText, key, container, button) {
+    showMuted(container, "Checking with your key…");
+    if (typeof fetch !== "function") {
+      showMuted(container, "Could not reach the hosted checker. Try again, or run the free check without a key.");
+      return;
+    }
+    if (button) button.disabled = true;
+    fetch(HOSTED_CHECK_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/xml",
+        "x-pro-key": key
+      },
+      body: xmlText,
+      credentials: "omit",
+      cache: "no-store",
+      referrerPolicy: "no-referrer"
+    }).then(function (res) {
+      return res.json().then(function (data) {
+        return data;
+      }, function () {
+        throw new Error("not-json");
+      });
+    }).then(function (data) {
+      if (data && data.pro === false) {
+        showMuted(container, "That key was not accepted. Check for extra spaces, or email operations@ustechautomations.com.");
+        return;
+      }
+      if (data && data.pro === true) {
+        renderResults(container, hostedToResult(data));
+        return;
+      }
+      showMuted(container, "Could not reach the hosted checker. Try again, or run the free check without a key.");
+    }).catch(function () {
+      showMuted(container, "Could not reach the hosted checker. Try again, or run the free check without a key.");
+    }).then(function () {
+      if (button) button.disabled = false;
+    });
   }
 
   function init() {
@@ -294,10 +398,16 @@
     var results = document.getElementById("ac-results");
     var demoScript = document.getElementById("ac-demo-xml");
     var fileInput = document.getElementById("ac-file");
+    var keyInput = document.getElementById("ac-key");
     if (!input || !button || !results) return;
 
     button.addEventListener("click", function () {
-      renderResults(results, checkAcaXml(input.value));
+      var key = keyInput ? String(keyInput.value || "").trim() : "";
+      if (!key) {
+        renderResults(results, checkAcaXml(input.value));
+        return;
+      }
+      runHostedCheck(input.value, key, results, button);
     });
 
     if (fileInput) {

@@ -4,11 +4,11 @@
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="index,follow">
 <title>ACA e-file pre-check</title>
-<meta name="description" content="Paste a 1094-C/1095-C XML file and check it in your browser. Nothing you paste is sent anywhere. Sample not ready. This is a pre-check, not a filing.">
+<meta name="description" content="Paste a 1094-C/1095-C XML file and check it in your browser. Sample not ready. This is a pre-check, not a filing.">
 <meta property="og:title" content="ACA e-file pre-check">
-<meta property="og:description" content="Paste a 1094-C/1095-C XML file and check it in your browser. Nothing you paste is sent anywhere. Sample not ready. This is a pre-check, not a filing.">
+<meta property="og:description" content="Paste a 1094-C/1095-C XML file and check it in your browser. Sample not ready. This is a pre-check, not a filing.">
 <meta name="twitter:title" content="ACA e-file pre-check">
-<meta name="twitter:description" content="Paste a 1094-C/1095-C XML file and check it in your browser. Nothing you paste is sent anywhere. Sample not ready. This is a pre-check, not a filing.">
+<meta name="twitter:description" content="Paste a 1094-C/1095-C XML file and check it in your browser. Sample not ready. This is a pre-check, not a filing.">
 <link rel="canonical" href="https://ustechautomations.com/feeds/acacheck/">
 <link rel="icon" type="image/svg+xml" href="/logo.svg">
 <link rel="stylesheet" href="https://ustechautomations.com/feeds/styles.css?v=customer20260909">
@@ -23,6 +23,8 @@ body[data-customer-delivery="20260909"] main a { color: var(--fg); text-decorati
 #ac-input { width: 100%; min-height: 12rem; font-family: var(--mono, monospace); font-size: 0.85rem; }
 .ac-row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
 #ac-file { min-height: 44px; }
+#ac-key { width: 100%; min-height: 44px; font-family: var(--mono, monospace); font-size: 0.85rem; }
+.ac-key-help { margin: 0; color: var(--muted-fg); font-size: 0.9rem; }
 #ac-results { border: 1px solid var(--line); border-radius: var(--radius); padding: 0.9rem 1rem; min-height: 3rem; }
 .ac-ok { font-weight: 600; }
 .ac-summary { font-weight: 600; margin-top: 0; }
@@ -55,14 +57,18 @@ body[data-customer-delivery="20260909"] main a { color: var(--fg); text-decorati
 </nav>
 <section class="hero"><div class="wrap"><p class="eyebrow">Free in-browser pre-check</p>
 <h1>ACA e-file pre-check</h1>
-<p class="lede">Paste a 1094-C/1095-C XML file and this page tells you, in plain English, what is likely to get rejected and how to fix it. The check runs on your own screen. Nothing you paste is sent anywhere.</p>
+<p class="lede">Paste a 1094-C/1095-C XML file and this page tells you, in plain English, what is likely to get rejected and how to fix it. The check runs on your own screen. Nothing you paste is sent anywhere. The paid checks too, but differently: getting every finding means sending your file to our hosted checker with your key, and we do not keep it afterward.</p>
 <p class="off-sale-truth">Sample not ready. This is a pre-checker, not a filing agent: the IRS decides. The box below runs 15 checks; it does not validate production AIR files against the official IRS schema.</p>
 <dl class="rail"><div><dt>Price</dt><dd>$499 for 12 months</dd></div><div><dt>In-browser checks</dt><dd>15, on this page</dd></div></dl>
-<p class="hero-cta"><a class="btn btn-buy" href="https://buy.stripe.com/fZu28keVE3mi2Nm3eW0sU37" data-checkout="acacheck" rel="noopener">Buy — $499 for 12 months</a><span class="btn-note">One payment through Stripe. The private page with your 12-month key builds itself within 10 minutes. No email is sent. Try the free checker below first.</span></p>
+<p class="hero-cta"><a class="btn btn-buy" href="https://buy.stripe.com/fZu28keVE3mi2Nm3eW0sU37" data-checkout="acacheck" rel="noopener">Buy — $499 for 12 months</a><span class="btn-note">One payment through Stripe. Stripe returns you to a page that shows your key right away. No email is sent. The free checker is below if you want to try it first.</span></p>
 </div></section>
-<main id="main" tabindex="-1"><div class="wrap"><section id="checker">
+<main id="main" tabindex="-1"><div class="wrap"><section id="paid">
+<h2>What the paid product is</h2>
+<p>$499 once, 12 months of paid checks through our hosted checker. Pay through Stripe, then Stripe returns you to a page that shows your key right away — no email and no wait. After payment, paste the key into the "Paid key" box in the checker below and click Check. With a key, the file is sent to our hosted checker and you get every finding. Without a key, the check runs here in your browser and nothing is sent. We do not keep the file; it is checked and then thrown away. That key also keeps the full IRS rejection-code decoder current. The key does not file the return, and it does not change what the IRS decides.</p>
+</section>
+<section id="checker">
 <h2>Check a file in your browser</h2>
-<p>Copy the XML text of your IRS health-coverage e-file (the 1094-C and 1095-C forms together) into the box, or choose a file. Nothing you paste is sent anywhere.</p>
+<p>Copy the XML text of your IRS health-coverage e-file (the 1094-C and 1095-C forms together) into the box, or choose a file. Add your paid key if you have one.</p>
 <div class="ac-app">
 <label for="ac-input">1094-C/1095-C XML</label>
 <textarea id="ac-input" placeholder="Paste your 1094-C/1095-C XML here…" spellcheck="false"></textarea>
@@ -71,16 +77,17 @@ body[data-customer-delivery="20260909"] main a { color: var(--fg); text-decorati
 <input type="file" id="ac-file" accept=".xml,text/xml,application/xml">
 </div>
 <div class="ac-row">
+<label for="ac-key">Paid key (optional)</label>
+<input type="text" id="ac-key" autocomplete="off" spellcheck="false">
+</div>
+<p class="ac-key-help">With a key, the file is sent to our hosted checker and you get every finding. Without a key, the check runs here in your browser and nothing is sent.</p>
+<div class="ac-row">
 <button type="button" id="ac-check" class="btn btn-ghost">Check file</button>
 <button type="button" id="ac-demo" class="btn btn-ghost">Try a sample file</button>
 </div>
 <div id="ac-results" aria-live="polite"><p>Paste a file and press Check file to see what it finds.</p></div>
 </div>
 <p>Passing every check here does not mean the IRS will accept your file. It means these 15 checks did not find a problem. The full open-source tool behind this page runs 46 checks and can validate against the real IRS schema if you add those files yourself.</p>
-</section>
-<section>
-<h2>What the paid product is</h2>
-<p>The paid product is $499 for 12 months, paid once. After payment, a private page with a 12-month key builds itself within 10 minutes. No email is sent. That key unlocks the hosted full check: send the same 1094-C/1095-C XML with the key and you get every finding back, not the shorter free preview. It also keeps the full IRS rejection-code decoder current. The key does not file the return, and it does not change what the IRS decides. There is no pay button on this page.</p>
 </section>
 <section>
 <h2>IRS AIR resources</h2>

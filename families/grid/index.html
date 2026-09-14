@@ -140,7 +140,7 @@
       </div>
 
       <div class="note">
-        <p><strong>What we did not collect, said plainly.</strong> We read three queues now: CAISO, MISO and ERCOT. One day inside our CAISO run is skipped rather than compared against: the CAISO read on 22 Aug 2026 answered with a 503 error, so we sealed nothing for that day. MISO&rsquo;s last copy is 6 Aug 2026 &mdash; the source only serves a browser, and we will not impersonate one &mdash; and ERCOT&rsquo;s is 30 Jul 2026, because its robots.txt disallows the queue paths. We say that instead of a quiet week.</p>
+        <p><strong>What we did not collect, said plainly.</strong> We read CAISO now. We used to also read MISO and ERCOT, and we still hold what we sealed before each of them stopped. One day inside our CAISO run is skipped rather than compared against: the CAISO read on 22 Aug 2026 answered with a 503 error, so we sealed nothing for that day. MISO&rsquo;s last copy is 6 Aug 2026 &mdash; the source only serves a browser, and we will not impersonate one &mdash; and ERCOT&rsquo;s is 30 Jul 2026, because its robots.txt disallows the queue paths; neither is read any more. We say that instead of a quiet week.</p>
       </div>
     </section>
 
@@ -174,7 +174,7 @@
       <ol class="steps">
         <li>You subscribe, or you email us first. We tell you what we hold for CAISO, and what we do not hold, before you spend anything.</li>
         <li>After payment confirmation, your dated California ISO file appears on the receipt page.</li>
-        <li>When later successfully collected source copies is available, a newer dated file may appear on that page. A failed or missing source read leaves the prior dated file unchanged and is reported in its source notes. Cancel any month by email, with no account to close and no notice period.</li>
+        <li>Each week we publish one dated file. If a source read fails that week, the prior dated file stays and the missed week is named as a gap in its source notes. Cancel any month by email, with no account to close and no notice period.</li>
       </ol>
     </section>
 
@@ -195,11 +195,11 @@
         <li><a href="https://ustechautomations.com/feeds/grid/sample.json">The same 16 rows as JSON</a><span class="sub">The same rows again, laid out for reading with code.</span></li>
       </ul>
       <p class="mail-note"><strong>What arrives after you pay:</strong> Stripe sends you to the receipt page. After payment confirmation, your dated California ISO CSV appears there. It compares successfully collected source copies and names any gaps. A failed source read creates no new dated file. Nobody emails you. The subscriber CSV adds source and coverage columns to the compact preview shown here. A coverage row records the comparison dates and any gaps, including when no changes were observed.</p>
-      <p class="mail-note">These 16 rows are a slice of the file, not the whole of it. What we cannot show you here is how far back it goes: that is the part you are paying for.</p>
+      <p class="mail-note">These 16 rows are a slice of the file, not the whole of it. See "Subscribe to this feed" below for how far back it goes.</p>
     </section>
     <section class="contact buy">
       <h2>Subscribe to this feed</h2>
-      <p class="buy-price"><strong>$49/mo</strong> &middot; daily seals</p>
+      <p class="buy-price"><strong>$49/mo</strong> &middot; daily seals. Paid history covers 44 dated copies since 11 Jun 2026.</p>
       <a class="btn btn-buy btn-lg" href="https://buy.stripe.com/8x214gdRAf5087G7vc0sU12" data-checkout="grid" rel="noopener">Subscribe — $49 a month</a>
       <p class="mail-note">$49 a month, billed monthly, for dated what-moved files of the California ISO interconnection queue only. A dated file is built from successful CAISO seals when available. When the two comparison copies have no tracked-field moves, it records added 0, removed 0, changed 0, plus the two content hashes of the workbooks compared; a failed or missing source read creates no new dated file and remains an explicit gap. This file uses material published by the California ISO. Copyright © 2026 California Independent System Operator. All rights reserved. Their terms say &quot;Most of the materials&quot;, not all. This file does not claim the Public Queue Report is inside that &quot;Most&quot;. Cancel any month by email, with no account to close and no notice period. After payment confirmation, your dated California ISO file appears on the receipt page. A dated CSV appears only after successfully collected source copies; each file names the two sealed dates compared and its source hashes. If an intervening source read fails, the gap is reported and no new dated file is created from that failure.</p>
       <p class="mail-note">Rather ask first? <a href="mailto:operations@ustechautomations.com?subject=Queue%20changes%20%E2%80%94%20%2449/mo">Email operations@ustechautomations.com</a>. Say that you want CAISO and we will tell you which weeks we hold for it before you pay.</p>
@@ -217,7 +217,7 @@
 
       <h3>This data is public and free. What is this page for, then?</h3>
       <p>The data is not the hard part. Last week&rsquo;s copy of it is.</p>
-      <p>CAISO publishes today&rsquo;s queue and overwrites the last one. Fetch CAISO now and you get today. There is nowhere to fetch last Tuesday. We have been keeping a dated copy since 11 Jun 2026 &mdash; weekly at first, then one every day since 9 Aug 2026, 27 dated copies in all across the queues we read, sealed through 25 Aug 2026 &mdash; so the question &ldquo;what moved&rdquo; still has an answer. What this page shows is built out of those copies. If you already keep your own dated copies, you do not need us.</p>
+      <p>CAISO publishes today&rsquo;s queue and overwrites the last one. Fetch CAISO now and you get today. There is nowhere to fetch last Tuesday. We have been keeping a dated copy since 11 Jun 2026 &mdash; weekly at first, then one every day since 9 Aug 2026, 44 dated CAISO copies in all, sealed through 14 Sep 2026 &mdash; so the question &ldquo;what moved&rdquo; still has an answer. What this page shows is built out of those copies. If you already keep your own dated copies, you do not need us.</p>
 
       <h3>Are you allowed to collect this?</h3>
       <p>Everything here comes from a public queue file we fetched with a collector that says who it is.</p>
