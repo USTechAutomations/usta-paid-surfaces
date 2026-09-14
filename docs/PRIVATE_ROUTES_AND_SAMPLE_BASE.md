@@ -5,3 +5,7 @@ The server refuses the exact legacy `/family/p/<20 lowercase hex>/...` shape eve
 The unslashed Frozen Custody product address now redirects to its trailing-slash address while preserving query parameters. Its sample hrefs are relative; without the slash they resolve to `/feeds/sample.csv`, which returned404 during this run. The actual family sample returned200. This repairs the URL base without altering the customer page or its scientific claims.
 
 Six acceptance cases ran against native nginx with a deliberately present synthetic private file: both obsolete buyer paths404, thanks200, public Hazmat catalog200, product redirect308 with preserved query, and CSV200 with text/csv. The publication overlay applies these same rules to the actual current config and preserves every unrelated route. Evidence: `/home/gmullins/advisor-plans/business-integration-20260909/evidence/delivery-nginx-tests.json`. Public release readback is recorded in that session's release receipts.
+
+## Update — September 14, 2026
+
+The unslashed Frozen Custody redirect was removed. The family page now writes absolute sample addresses (`https://ustechautomations.com/feeds/frozen-custody/sample.csv`), so the relative-base problem no longer exists, and the published directory links every family without a trailing slash. The directory check refused the publish stamp on that one 308 (99/100 answered 200), so the address now serves the page directly like the other 99.
