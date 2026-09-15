@@ -89,7 +89,11 @@ def check_freshness(dist_dir: Path, today: dt.date | None = None) -> int:
     SystemExit if any of them is stale and silent about it.
     """
     dist_dir = Path(dist_dir)
-    today = today or dt.date.today()
+    # Pages stamp their read dates in UTC (the clocks run on UTC). Compare
+    # against the UTC date, not the machine's local date: from 17:00 MST
+    # every day the local date is one behind and a page read an hour ago
+    # was refused as 'in the future' (publish blocked 2026-09-15 01:45Z).
+    today = today or dt.datetime.now(dt.timezone.utc).date()
     checked = 0
     stale_ok = 0
     for page in sorted(dist_dir.rglob("index.html")):
