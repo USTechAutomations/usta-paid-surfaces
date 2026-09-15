@@ -739,6 +739,13 @@ def offer_block(spec: dict) -> tuple[str, str]:
     door = sample_door(spec)
     subj = spec["subj"]
     mail = f"mailto:operations@ustechautomations.com?subject={subj}"
+    # Value-gate repair 2026-09-15: a family may state its refund and support
+    # terms in one sentence pair ("refund_note"). It is printed as its own
+    # mail-note beside the button so the buyer reads it before paying. Plain
+    # text only; it never changes the price, the terms record or the link.
+    refund = ""
+    if spec.get("refund_note"):
+        refund = f'      <p class="mail-note">{html.escape(str(spec["refund_note"]))}</p>\n'
     if catalog_off_sale(spec):
         hero = (
             f'    <p class="hero-cta"><a class="btn btn-ghost btn-lg" href="{mail}">'
@@ -794,7 +801,7 @@ def offer_block(spec: dict) -> tuple[str, str]:
         sec = f"""    <section class="contact">
       <h2>{html.escape(spec["contact_h2"])}</h2>
       <p>{lead}</p>
-{written}      <a class="mail" href="{mail}">{html.escape(spec["contact_cta"])}</a>
+{written}{refund}      <a class="mail" href="{mail}">{html.escape(spec["contact_cta"])}</a>
       <p class="mail-note">{spec["contact_note"]}</p>
     </section>
 """
@@ -815,7 +822,7 @@ def offer_block(spec: dict) -> tuple[str, str]:
       <h2>{html.escape(spec["contact_h2"])}</h2>
       <p class="buy-price"><strong>{html.escape(price_of(spec))}</strong> &middot; {html.escape(spec["cadence_long"])}</p>
       <a class="btn btn-buy btn-lg" href="{url}" data-checkout="{spec["id"]}" rel="noopener">{html.escape(label)}</a>
-      <p class="mail-note">{html.escape(terms)} {html.escape(after)}</p>
+{refund}      <p class="mail-note">{html.escape(terms)} {html.escape(after)}</p>
       <p class="mail-note">Rather ask first? <a href="{mail}">Email operations@ustechautomations.com</a>. {spec["contact_note"]}</p>
     </section>
 """
