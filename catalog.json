@@ -2209,7 +2209,7 @@
       "contact_h2": "Ask before you buy",
       "contact_p": "Name the model version and the settings list you want pinned. We reply with whether that pin is free and the checkout link, before you pay anything.",
       "contact_cta": "Email us before you pay",
-      "contact_note": "There is no pay button on this page until a payment link is minted.",
+      "contact_note": "Say what you need sealed.",
       "foot": "The five matching hashes on this page were counted off a real run on 2026-09-01. This is not a chatbot subscription. We do not sell a weights download.",
       "checkout": {
         "terms": "$300/mo per pin. If a re-run of a sealed input on your pin is not the same bytes, that month is refunded. We do not guarantee the answer is correct. Three months prepaid is $900; that amount is not the rail price.",
@@ -2241,10 +2241,10 @@
       "contact_h2": "Ask before you buy",
       "contact_p": "Name the site. We reply with whether we already hold a copy that names a blocked assistant, and the checkout link, before you pay anything.",
       "contact_cta": "Email us before you pay",
-      "contact_note": "Say which site you want. There is no pay button on this page until a payment link is minted.",
+      "contact_note": "Say which site you want.",
       "foot": "Every sample row was counted off stored robots.txt copies dated 2026-08-19 to 2026-08-26. No live re-fetch. Money lost by a block is UNKNOWN. The 25-row list is a demonstration, not the product.",
       "checkout": {
-        "terms": "$249 once, for the site you name. A $349 a year re-check is a note on the page, not a second button. Nothing on this page takes a card. If the report cannot quote at least one line from your own file that names a blocked assistant, you get the $249 back.",
+        "terms": "$249 once, for the site you name. A $349 a year re-check is a note on the page, not a second button. If the report cannot quote at least one line from your own file that names a blocked assistant, you get the $249 back.",
         "after": "After you pay, a person emails you the Markdown and PDF report for that site the same day, from the copy we already hold.",
         "status": "live",
         "url": "https://buy.stripe.com/dRmcMYcNwf509bK2aS0sU1i",
@@ -3060,6 +3060,18 @@
         "verified": "2026-09-14"
       },
       "kind": "build"
+    },
+    {
+      "id": "database-migration",
+      "name": "SQL Server to PostgreSQL report conversion",
+      "short": "SQL Server to PostgreSQL report conversion",
+      "buyer": "A company moving reporting stored procedures off SQL Server onto PostgreSQL",
+      "who": "US Tech Automations",
+      "group": "Software and AI pages",
+      "cadence": "unavailable",
+      "price": "Not for sale yet",
+      "sample_status": "pass",
+      "note": "BORN NOT FOR SALE 2026-09-14 (lane L5). The address answered HTTP 404 until this page. The comparison tool behind it is real and tested: 45 checks, runner raw exit 0, 36 unit checks plus 9 end-to-end checks against a live disposable PostgreSQL 15.7-alpine container, 6 real matches and 3 deliberately broken cases caught (reports/frontier-business-research-20260910/migration-closeout-20260911/evidence/summary.json and package/migration-validation-02/evidence/postgres-e2e.json). What is NOT proven, in the product's own ACCEPTANCE.md words: source SQL Server execution UNKNOWN, representative customer workload UNKNOWN, advantage versus conventional conversion UNKNOWN. BENCHMARK.md names the six conditions that must pass before a price goes on this page. No price and no buy button until they do."
     }
   ],
   "map": "MAP.md",

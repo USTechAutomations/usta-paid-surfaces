@@ -249,6 +249,28 @@ DATASET_CREATOR = {
 }
 
 
+# Which catalog rows are software rather than data. These two sets are COPIED
+# from the revenue gate (harness/gates/revenue_ready.py, SOFTWARE_CATALOG_KINDS
+# and SOFTWARE_CATALOG_GROUPS) and must keep matching it. The gate refuses a
+# Dataset record on a software product ("Dataset JSON-LD is not appropriate for
+# software"), so a builder that classifies differently writes markup its own
+# gate rejects. That disagreement is what this pair of sets exists to prevent:
+# two notions of "software" is how a page and its gate come apart, and the one
+# nobody re-runs is always the wrong one. scripts/dataset_jsonld_selftest.py
+# asserts the agreement; change both files together or not at all.
+SOFTWARE_CATALOG_KINDS = {"build"}
+SOFTWARE_CATALOG_GROUPS = {"tools"}
+
+
+def _catalog_expects_software(fam: dict) -> bool:
+    """True when the gate would require SoftwareApplication/WebApplication."""
+    if not isinstance(fam, dict):
+        return False
+    kind = str(fam.get("kind") or "").strip().lower()
+    group = str(fam.get("group") or "").strip().lower()
+    return kind in SOFTWARE_CATALOG_KINDS or group in SOFTWARE_CATALOG_GROUPS
+
+
 def dataset_jsonld(fid: str, canon: str, page: str) -> str | None:
     """Google Dataset Search markup for one family page, or None.
 
@@ -299,8 +321,8 @@ def dataset_jsonld(fid: str, canon: str, page: str) -> str | None:
         "isAccessibleForFree": False,
         "license": DATASET_LICENSE_URL,
     }
-    if fid == "schemahand" or str(fam.get("group") or "").strip().lower() == "tools":
-        # A software tool (catalog group "Tools") is a SoftwareApplication, never a Dataset.
+    if _catalog_expects_software(fam):
+        # A software tool is a SoftwareApplication, never a Dataset.
         data = {"@context": "https://schema.org", "@type": "SoftwareApplication",
                 "name": fam["name"], "description": html.unescape(m.group(1)),
                 "url": canon, "applicationCategory": "DeveloperApplication",

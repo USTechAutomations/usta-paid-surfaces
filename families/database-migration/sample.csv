@@ -1,0 +1,10 @@
+check,source_type,target_type,verdict,reason
+total_mixed,"integer,decimal","integer,decimal",PASS,equal
+total_empty,"integer,decimal","integer,decimal",PASS,equal
+total_null,"integer,decimal","integer,decimal",PASS,equal
+first_tie,"integer,decimal","integer,decimal",PASS,equal
+first_empty,"integer,decimal","integer,decimal",PASS,equal
+leap_boundary,integer,integer,PASS,equal
+postgres_lossless_decimal_mismatch,decimal,decimal,FAIL,value differs
+source_absent,n/a (missing input),decimal,UNKNOWN,missing input
+schema_empty_rows,decimal,text,FAIL,schema differs

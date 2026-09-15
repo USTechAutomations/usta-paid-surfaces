@@ -242,6 +242,23 @@ run_gcloud "the publish step failed" \
   --platform managed --quiet \
   --account "$DEPLOY_ACCOUNT"
 
+# 5b. Point traffic at the revision we just built. The service spec can stay
+#     pinned on a NAMED old revision (a staging tag or a manual pin leaves it
+#     that way); then "run deploy" creates a READY revision that serves 0% and
+#     every check below still passes because the old revision answers 200.
+#     Seen 2026-09-14: revision 00159 built, 00158 kept serving, this script
+#     printed "published". deploy.sh has always had this step; now so do we.
+run_gcloud "the traffic switch failed" \
+  run services update-traffic "$SERVICE" \
+  --to-latest --region "$REGION" --project "$PROJECT" --quiet \
+  --account "$DEPLOY_ACCOUNT"
+latest="$("$GCLOUD" run services describe "$SERVICE" --region "$REGION" --project "$PROJECT" --account "$DEPLOY_ACCOUNT" --format='value(status.latestCreatedRevisionName)' 2>/dev/null || true)"
+serving="$("$GCLOUD" run services describe "$SERVICE" --region "$REGION" --project "$PROJECT" --account "$DEPLOY_ACCOUNT" --format='value(status.traffic.filter(percent:100).extract(revisionName).flatten())' 2>/dev/null || true)"
+[ -n "$latest" ] && [ "$serving" = "$latest" ] || die "published but traffic is not on the new revision" \
+  "The image built revision '$latest' but 100% of traffic is on '$serving'. The live
+site is still the old pages. The published stamp was not written; the next run
+will try again."
+
 # 6. Prove it actually answers before calling it done.
 code="$(curl -s -o /dev/null -w '%{http_code}' https://ustechautomations.com/feeds)"
 [ "$code" = "200" ] || die "published but the live page answered $code" \

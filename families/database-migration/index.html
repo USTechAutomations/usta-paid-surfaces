@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SQL Server to PostgreSQL migration checker — Not for sale</title>
+  <meta name="description" content="A comparator passed 45 of 45 checks on synthetic PostgreSQL targets. Real SQL Server runs and any saving over hand conversion are unproven. Not for sale.">
+  <link rel="canonical" href="https://ustechautomations.com/feeds/database-migration">
+  <link rel="stylesheet" href="../../styles.css">
+  <meta name="theme-color" content="#7a3b12">
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="US Tech Automations — dated change feeds">
+  <meta property="og:url" content="https://ustechautomations.com/feeds/database-migration">
+  <meta property="og:title" content="SQL Server to PostgreSQL migration checker — Not for sale">
+  <meta name="twitter:title" content="SQL Server to PostgreSQL migration checker — Not for sale">
+  <meta property="og:description" content="A comparator passed 45 of 45 checks on synthetic PostgreSQL targets. Real SQL Server runs and any saving over hand conversion are unproven. Not for sale.">
+  <meta name="twitter:description" content="A comparator passed 45 of 45 checks on synthetic PostgreSQL targets. Real SQL Server runs and any saving over hand conversion are unproven. Not for sale.">
+  <meta name="twitter:card" content="summary">
+</head>
+<body data-family="database-migration">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="wordmark" href="../../">Dated change feeds <span>/ US Tech Automations</span></a>
+    <p class="crumbs"><a href="../../">Feeds</a><span class="sep">/</span>Database migration</p>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">SQL Server &rarr; PostgreSQL <span class="dot"></span> comparator only <span class="dot"></span> not accepted for sale</p>
+    <h1>SQL Server to PostgreSQL migration checker</h1>
+    <p class="lede">We built a private tool that compares SQL Server-style query results against PostgreSQL query results, cell by cell, using each column&rsquo;s declared type. <strong>It has passed every check we have given it so far, all of them synthetic.</strong> We have not yet run it against a real SQL Server, a real customer database, or measured whether it is faster than converting the SQL by hand. Until we have, this page carries no price.</p>
+    <dl class="rail">
+      <div><dt>Price</dt><dd class="price">Not for sale</dd></div>
+      <div><dt>Built for</dt><dd>A migration owner who can supply an authorised disposable SQL Server and an anonymised workload to test this against</dd></div>
+      <div><dt>Proven so far</dt><dd>45 of 45 checks passed against synthetic PostgreSQL targets, test runner raw exit 0</dd></div>
+      <div><dt>Not yet proven</dt><dd><span class="state"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8.4l3.6 3.6L13.5 4"/></svg>Real SQL Server, real customer workload, measured advantage over manual conversion</span></dd></div>
+    </dl>
+    <p class="hero-note"><strong>Nothing on this page is for sale.</strong> We would rather tell you exactly what is proven and what is not than sell you a result we have not measured.</p>
+    <p class="hero-cta"><a class="btn btn-ghost btn-lg" href="mailto:operations@ustechautomations.com?subject=Database%20migration%20checker%20%E2%80%94%20test%20workload">Email us a test workload</a><span class="btn-note">For a migration owner who can supply an authorised, disposable SQL Server setup and an anonymised workload. No card needed, and there is nothing to buy today.</span></p>
+  </div>
+</section>
+
+<main id="main">
+  <div class="wrap">
+    <section>
+      <h2>What this actually is</h2>
+      <p>Most database conversion tools show you the converted SQL and ask you to trust it. Ours instead runs both sides &mdash; the query the source system would have answered, and the same query against the converted PostgreSQL schema &mdash; and compares every returned cell using its declared type (whole numbers, exact decimals, text, true/false), rather than comparing the SQL text or a loose string match. A decimal that loses precision, a missing row, or a column that quietly changed type is a fail, not a rounding error.</p>
+      <div class="honest">
+        <p><strong>This is a comparator, not a finished migration service.</strong> It tells you whether two result sets match. It does not yet write the conversion for you against a real source database, and we have not measured how much of the conversion work it removes.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>What has actually been proven<span class="seal">45 checks &middot; runner raw exit 0</span></h2>
+      <p>On 11 Sep 2026 we ran the comparator&rsquo;s full check set and recorded the raw results, not a summary written after the fact.</p>
+      <ul class="spec">
+        <li><strong>36 unit checks on the comparison logic itself</strong><span class="sub">14 acceptance checks, 18 holdout checks written to try to break it, and 4 command-line checks &mdash; equal values, unequal values, missing input, decimals that lose precision, duplicate JSON keys, non-finite numbers, and more. All 36 passed.</span></li>
+        <li><strong>9 end-to-end checks against a live, disposable PostgreSQL 15.7 database</strong><span class="sub">Real queries run inside a throwaway, network-isolated PostgreSQL container, then compared cell by cell against the expected result. 6 matched correctly, and 3 were deliberately broken cases &mdash; a changed decimal, a missing input, and a mismatched schema &mdash; to prove the checker actually catches errors instead of always saying pass. All 9 came back the verdict we expected.</span></li>
+        <li><strong>Test runner: raw exit 0</strong><span class="sub">The process that ran all of the above returned success with no suppressed failures.</span></li>
+        <li><strong>A second model reviewed the check code independently</strong><span class="sub">That review ran out of turns before finishing and left no written notes, but a smoke re-run of what it did inspect came back raw exit 0. We are not counting this as a finished independent audit.</span></li>
+      </ul>
+      <p>Every number above is taken from <code>evidence/summary.json</code> and <code>package/run-evidence/results.json</code>, written at the time the checks ran, not typed up afterward.</p>
+    </section>
+
+    <section>
+      <h2>What has NOT been proven</h2>
+      <div class="honest">
+        <p><strong>Real SQL Server execution: UNKNOWN.</strong> Every check so far compares a fixture-authored expected result against a live PostgreSQL result. No check has run the equivalent query against an actual SQL Server and compared its real output. We have no authorised SQL Server to test against yet.</p>
+        <p><strong>A representative customer workload: UNKNOWN.</strong> All 45 checks use small synthetic cases we wrote ourselves &mdash; totals, ties, month boundaries, empty results. None of them came from a real customer database or a real schema.</p>
+        <p><strong>Advantage over converting the SQL by hand: UNKNOWN.</strong> We have not timed this checker or a model-assisted conversion against a conventional, manual conversion on the same source, so we cannot tell you it saves time or money. No benchmark like that has been run.</p>
+        <p><strong>A public service, a checkout, a marketplace listing, or a paying customer: none exist.</strong> This page is the first public mention of the tool. There is no product to buy yet.</p>
+      </div>
+    </section>
+
+    <section class="contact">
+      <h2>See the real check results</h2>
+      <p>You do not have to take our word for the 9 end-to-end checks. Here are <strong>all 9 rows</strong>, exactly as the comparator recorded them: the check name, the declared type on each side of the comparison, and whether it matched.</p>
+      <ul class="spec">
+        <li><a href="https://ustechautomations.com/feeds/database-migration/sample.csv">Open the 9 rows as a CSV</a><span class="sub">This is a sample of the comparator&rsquo;s own test results &mdash; not customer data, because no customer data has touched this tool. It opens in Excel, Numbers or Google Sheets.</span></li>
+      </ul>
+      <p class="mail-note"><strong>What &ldquo;source type&rdquo; and &ldquo;target type&rdquo; mean in that file:</strong> most rows compare a fixture we wrote against the live PostgreSQL container&rsquo;s real answer, so the two types usually match on purpose. Three rows were deliberately broken &mdash; a changed decimal, a missing input, and a schema that does not match &mdash; to prove a wrong answer gets caught rather than waved through.</p>
+    </section>
+
+    <section>
+      <h2>The six conditions that would put a price on this page</h2>
+      <p>These come from our own frozen benchmark, written before any of this was tested, so we could not move the goalposts afterward. In plain terms:</p>
+      <ol class="steps">
+        <li>Run the checker against a real, disposable SQL Server that a migration owner sets up and authorises, and capture the exact version, exit code and results &mdash; not just a normalised comparison, which cannot prove the query actually ran.</li>
+        <li>Agree in advance exactly which data types, row orders and edge cases (dates, collation, multiple result sets, errors) are in scope. Today the checker only handles whole numbers, exact decimals, text and true/false.</li>
+        <li>Have the workload owner hold back their own hard test cases &mdash; nulls, decimal edge cases, ties, month boundaries &mdash; rather than let us write every test ourselves.</li>
+        <li>Time a conventional, manual conversion of the same workload against the model-assisted one, under the same conditions, and log the setup and correction time honestly for both.</li>
+        <li>Compare every in-scope case&rsquo;s real SQL Server output against the real PostgreSQL output, and deliberately inject a few wrong answers to confirm they get caught, not passed.</li>
+        <li>Only move toward a priced pilot once every in-scope case matches, the planted errors are caught, real time savings are measured, and a real buyer agrees the scope and the price &mdash; not assumed interest.</li>
+      </ol>
+      <p>Until those six are done, any price on this page would be a promise we cannot back up.</p>
+    </section>
+
+    <section class="contact">
+      <h2>Get involved before there is a price</h2>
+      <p><strong>No pay button on this page.</strong> If you own a SQL Server migration and can supply an authorised, disposable copy of the source database plus an anonymised workload, email <a href="mailto:operations@ustechautomations.com?subject=Database%20migration%20checker%20%E2%80%94%20test%20workload">operations@ustechautomations.com</a>. Say what the source system looks like and what you would want checked. A person replies; nothing is charged.</p>
+      <a class="mail" href="mailto:operations@ustechautomations.com?subject=Database%20migration%20checker%20%E2%80%94%20test%20workload">Email us a test workload</a>
+      <p class="mail-note">We will tell you honestly whether we can test against it yet, and what we would still need. This is not legal, compliance or production-migration advice, and running it against a live production system is not something we ask for or want.</p>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>This page describes a private comparison tool. It has passed 45 of 45 checks against synthetic PostgreSQL targets only; real SQL Server execution, a real customer workload and any advantage over manual conversion remain unproven. Nothing here is for sale.</p>
+    <p class="addr">US Tech Automations &middot; 3298 N Glassford Hill Rd Ste 104 PMB 1055, Prescott Valley AZ 86314</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -154,6 +154,7 @@ LABEL_FOR_FEED = {
     "changeover-atlas": "Subscribe — $49 a month",
     "carrier-register": "Subscribe — $49 a month",
     "cannabis-tape": "Subscribe — $49 a month",
+    "dealer-licence": "Subscribe — $49 a month",
     "stormwater-noi": "Subscribe — $49 a month",
     "storm-warned-counties": "Subscribe — $49 a month",
     "new-prime-awards": "Subscribe — $49 a month",
