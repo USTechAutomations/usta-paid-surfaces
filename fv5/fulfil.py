@@ -215,9 +215,16 @@ def _held_reason(catalog: dict, family_id: str) -> str | None:
     row = next((f for f in catalog.get("families", []) if f.get("id") == family_id), None)
     if row is None:
         return "no catalog row (parked)"
-    status = (row.get("checkout") or {}).get("status", "")
+    checkout = row.get("checkout") or {}
+    status = checkout.get("status", "")
     if status in ("HOLD", "EXTERNAL"):
         return f"checkout status {status}"
+    url = str(checkout.get("url") or "")
+    if not url:
+        return f"no checkout URL (status {status or 'unset'}); not on sale here"
+    if not url.startswith("https://buy.stripe.com/"):
+        host = url.split("/")[2] if url.startswith("https://") else "unknown"
+        return f"billed elsewhere ({host}); nothing to deliver from our pages"
     return None
 
 
