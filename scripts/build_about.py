@@ -181,10 +181,13 @@ def main() -> None:
             continue
         dest = render_family.write(spec_for(s))
         if s["slug"] == "coverage":
-            dest.write_text(
-                _scrub_coverage_html(dest.read_text(encoding="utf-8")),
-                encoding="utf-8",
-            )
+            scrubbed = _scrub_coverage_html(dest.read_text(encoding="utf-8"))
+            dest.write_text(scrubbed, encoding="utf-8")
+            # This builder edits its own output on purpose. Re-record the bytes so
+            # the hand-edit guard in render_family.write() does not mistake this
+            # scrub for a hand edit on the next build (it refused deploy 3 on
+            # 2026-09-15 for exactly that reason).
+            render_family.record_generated(s["slug"], scrubbed)
         print(f"{s['slug']:<22} {dest.relative_to(ROOT)}")
         built.append(s["slug"])
     if len(built) != 3:
