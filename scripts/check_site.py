@@ -843,6 +843,19 @@ def main() -> None:
                      f"the same page says the sample is not ready. There is no file behind "
                      f"this page, so no sample is coming and the page must stop saying one is")
 
+    # A kind="build" family is built by extras.json, not by the family loop in
+    # build_site.py. One priced in the catalog but missing from extras.json is
+    # skipped by both, so build_site retires its address: on 2026-09-16 the $39
+    # notice-responder relist deployed as "This page is retired" with its live
+    # pay link on no page at all. The gate refuses that state before a deploy.
+    _extras_path = ROOT / "extras.json"
+    _extra_ids = ({e["id"] for e in json.loads(_extras_path.read_text(encoding="utf-8"))}
+                  if _extras_path.is_file() else set())
+    for fam in CATALOG["families"]:
+        if fam.get("kind") == "build" and fam["id"] not in _extra_ids:
+            fail(f"{fam['id']} is kind \"build\" but has no extras.json entry, so build_site.py "
+                 f"would retire its address instead of publishing families/{fam['id']}/index.html")
+
     # The bridge pages are not families and carry no sample, but they are published
     # in the same folder, so the same forbidden list has to hold on them.
     extras = ROOT / "extras.json"
