@@ -1,0 +1,124 @@
+[
+  {
+    "key": "notice_code",
+    "label": {
+      "type": "custom",
+      "custom": "Which notice did you get?"
+    },
+    "type": "dropdown",
+    "optional": false,
+    "dropdown": {
+      "options": [
+        {
+          "label": "CP2000 — Underreporter proposed changes",
+          "value": "cp2000"
+        },
+        {
+          "label": "CP2501 — Underreporter inquiry",
+          "value": "cp2501"
+        },
+        {
+          "label": "CP3219A — Notice of Deficiency (90-day letter)",
+          "value": "cp3219a"
+        },
+        {
+          "label": "CP14 — Balance due",
+          "value": "cp14"
+        },
+        {
+          "label": "CP501 — First reminder of balance due",
+          "value": "cp501"
+        },
+        {
+          "label": "CP503 — Second reminder of balance due",
+          "value": "cp503"
+        },
+        {
+          "label": "CP504 — Intent to levy / Notice of intent to seize property",
+          "value": "cp504"
+        },
+        {
+          "label": "LT11 — Final Notice of Intent to Levy (Letter 1058)",
+          "value": "lt11"
+        },
+        {
+          "label": "CP11 — Math error, you owe",
+          "value": "cp11"
+        },
+        {
+          "label": "CP12 — Math error, refund changed",
+          "value": "cp12"
+        },
+        {
+          "label": "CP22A — Data processing adjustment, balance due",
+          "value": "cp22a"
+        },
+        {
+          "label": "CP23 — Estimated tax discrepancy",
+          "value": "cp23"
+        },
+        {
+          "label": "CP49 — Overpayment applied to other debts",
+          "value": "cp49"
+        },
+        {
+          "label": "CP75 — Audit of refundable credits (including EITC)",
+          "value": "cp75"
+        },
+        {
+          "label": "Letter 5071C — Identity verification",
+          "value": "letter5071c"
+        },
+        {
+          "label": "FTB 4600 — Notice of Proposed Assessment",
+          "value": "ftb4600"
+        },
+        {
+          "label": "DTF-948 — Statement of Proposed Audit Changes",
+          "value": "dtf948"
+        },
+        {
+          "label": "CP2566 — Substitute for Return proposed amount",
+          "value": "cp2566"
+        },
+        {
+          "label": "CP2100 — Missing or incorrect taxpayer identification numbers",
+          "value": "cp2100"
+        },
+        {
+          "label": "Letter 525 — Examination report",
+          "value": "letter525"
+        }
+      ]
+    }
+  },
+  {
+    "key": "position",
+    "label": {
+      "type": "custom",
+      "custom": "Your position on the notice"
+    },
+    "type": "dropdown",
+    "optional": false,
+    "dropdown": {
+      "options": [
+        {
+          "label": "Agree",
+          "value": "agree"
+        },
+        {
+          "label": "Disagree",
+          "value": "disagree"
+        },
+        {
+          "label": "Agree in part",
+          "value": "partial"
+        },
+        {
+          "label": "Ask for more time",
+          "value": "askfortime"
+        }
+      ]
+    }
+  }
+]

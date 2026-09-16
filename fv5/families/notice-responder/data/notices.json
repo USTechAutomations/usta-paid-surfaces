@@ -1,0 +1,444 @@
+[
+  {
+    "code": "CP2000",
+    "agency": "IRS",
+    "name": "Underreporter proposed changes",
+    "what_it_means": "The IRS compared your tax return to forms other people sent in, like a W-2 or 1099. The numbers do not match, so the IRS proposes you owe more tax. This is not a bill yet. You can agree, disagree, or agree in part.",
+    "deadline_rule": "30 days from the notice date",
+    "urgency": "med",
+    "documents_usually_needed": [
+      "The CP2000 notice",
+      "Your Form 1040 for that tax year",
+      "W-2, 1099, and brokerage statements named on the notice",
+      "Any corrected payer forms"
+    ],
+    "source_url": "https://www.irs.gov/individuals/understanding-your-cp2000-notice",
+    "options": [
+      "agree",
+      "disagree",
+      "partial",
+      "ask for time"
+    ],
+    "letter_skeleton": "{{today}}\n\n{{agency}}\nRe: {{code}} — {{name}} dated {{notice_date}} for tax year {{tax_year}}\n\nDear Sir or Madam:\n\nI am {{taxpayer_name}}, mailing address {{mailing_address}}. I received notice {{code}} dated {{notice_date}} showing {{amount}}.\n\nI ask that you {{position}} these proposed changes. If I disagree, the enclosed copies show why the payer amount should not be added as proposed.\n\n{{reason}}\n\nThe deadline rule I am working from is: {{deadline_rule}}. {{disclaimer}}\n\nYou may reach me at {{phone}}.\n\nSincerely,\n{{taxpayer_name}}\n",
+    "verified_against_source": false
+  },
+  {
+    "code": "CP2501",
+    "agency": "IRS",
+    "name": "Underreporter inquiry",
+    "what_it_means": "The IRS saw a mismatch between your return and other reports, and is asking questions first. It has not yet proposed a new tax amount the way a CP2000 does. Answer with records so they can close the question or send a later notice.",
+    "deadline_rule": "30 days from the notice date",
+    "urgency": "med",
+    "documents_usually_needed": [
+      "The CP2501 notice",
+      "Your return for that tax year",
+      "The income or deduction records the notice asks about"
+    ],
+    "source_url": "https://www.irs.gov/individuals/understanding-your-cp2501-notice",
+    "options": [
+      "agree",
+      "disagree",
+      "partial",
+      "ask for time"
+    ],
+    "letter_skeleton": "{{today}}\n\n{{agency}}\nRe: {{code}} — {{name}} dated {{notice_date}} for tax year {{tax_year}}\n\nDear Sir or Madam:\n\nI am {{taxpayer_name}}, mailing address {{mailing_address}}. I received notice {{code}} dated {{notice_date}} showing {{amount}}.\n\nI am answering this inquiry and ask that you {{position}} the mismatch they flagged. Enclosed are the records that explain the amount.\n\n{{reason}}\n\nThe deadline rule I am working from is: {{deadline_rule}}. {{disclaimer}}\n\nYou may reach me at {{phone}}.\n\nSincerely,\n{{taxpayer_name}}\n",
+    "verified_against_source": false
+  },
+  {
+    "code": "CP3219A",
+    "agency": "IRS",
+    "name": "Notice of Deficiency (90-day letter)",
+    "what_it_means": "The IRS says you owe more tax and is giving you a set window to go to Tax Court if you disagree. If you miss that window, the amount can be assessed and billed. This is a serious legal deadline, not a reminder letter.",
+    "deadline_rule": "90 days from the notice date (150 days if the notice is addressed to you outside the United States)",
+    "urgency": "high",
+    "documents_usually_needed": [
+      "The CP3219A notice of deficiency",
+      "The examination report or earlier notice it refers to",
+      "Your return and supporting records for that tax year"
+    ],
+    "source_url": "https://www.irs.gov/individuals/understanding-your-cp3219a-notice",
+    "options": [
+      "agree",
+      "disagree",
+      "partial",
+      "ask for time"
+    ],
+    "letter_skeleton": "{{today}}\n\n{{agency}}\nRe: {{code}} — {{name}} dated {{notice_date}} for tax year {{tax_year}}\n\nDear Sir or Madam:\n\nI am {{taxpayer_name}}, mailing address {{mailing_address}}. I received notice {{code}} dated {{notice_date}} showing {{amount}}.\n\nI ask that you {{position}} the deficiency set out in this 90-day letter. I am preserving my rights and enclosing the papers that support my figures.\n\n{{reason}}\n\nThe deadline rule I am working from is: {{deadline_rule}}. {{disclaimer}}\n\nYou may reach me at {{phone}}.\n\nSincerely,\n{{taxpayer_name}}\n",
+    "verified_against_source": false
+  },
+  {
+    "code": "CP14",
+    "agency": "IRS",
+    "name": "Balance due",
+    "what_it_means": "The IRS says your return was processed and you still owe tax, penalties, or interest. This is a bill. You can pay, set up a plan, or explain why the amount is wrong.",
+    "deadline_rule": "21 days from the notice date (10 days if the amount is $100,000 or more)",
+    "urgency": "med",
+    "documents_usually_needed": [
+      "The CP14 notice",
+      "Your return and transcripts if you have them",
+      "Proof of any payment already sent"
+    ],
+    "source_url": "https://www.irs.gov/individuals/understanding-your-cp14-notice",
+    "options": [
+      "agree",
+      "disagree",
+      "partial",
+      "ask for time"
+    ],
+    "letter_skeleton": "{{today}}\n\n{{agency}}\nRe: {{code}} — {{name}} dated {{notice_date}} for tax year {{tax_year}}\n\nDear Sir or Madam:\n\nI am {{taxpayer_name}}, mailing address {{mailing_address}}. I received notice {{code}} dated {{notice_date}} showing {{amount}}.\n\nI ask that you {{position}} this billed balance. If a payment already went out, the enclosed proof should be applied. If I cannot pay in full I am asking for time.\n\n{{reason}}\n\nThe deadline rule I am working from is: {{deadline_rule}}. {{disclaimer}}\n\nYou may reach me at {{phone}}.\n\nSincerely,\n{{taxpayer_name}}\n",
+    "verified_against_source": false
+  },
+  {
+    "code": "CP501",
+    "agency": "IRS",
+    "name": "First reminder of balance due",
+    "what_it_means": "The IRS already billed you and you have not paid the full amount. This is the first reminder. Interest keeps adding. Pay, dispute the amount, or ask for a payment plan.",
+    "deadline_rule": "Pay as soon as you can; the notice asks for payment immediately",
+    "urgency": "med",
+    "documents_usually_needed": [
+      "The CP501 notice",
+      "The earlier bill it refers to",
+      "Proof of payments already made"
+    ],
+    "source_url": "https://www.irs.gov/individuals/understanding-your-cp501-notice",
+    "options": [
+      "agree",
+      "disagree",
+      "partial",
+      "ask for time"
+    ],
+    "letter_skeleton": "{{today}}\n\n{{agency}}\nRe: {{code}} — {{name}} dated {{notice_date}} for tax year {{tax_year}}\n\nDear Sir or Madam:\n\nI am {{taxpayer_name}}, mailing address {{mailing_address}}. I received notice {{code}} dated {{notice_date}} showing {{amount}}.\n\nI ask that you {{position}} this reminder balance. Please apply any payment shown in the enclosures and tell me the remaining amount.\n\n{{reason}}\n\nThe deadline rule I am working from is: {{deadline_rule}}. {{disclaimer}}\n\nYou may reach me at {{phone}}.\n\nSincerely,\n{{taxpayer_name}}\n",
+    "verified_against_source": false
+  },
+  {
+    "code": "CP503",
+    "agency": "IRS",
+    "name": "Second reminder of balance due",
+    "what_it_means": "The IRS has reminded you more than once that a balance is still open. If you ignore it, the next letters can talk about levies. Do not wait for a levy notice to answer.",
+    "deadline_rule": "Pay as soon as you can; the notice asks for payment immediately",
+    "urgency": "high",
+    "documents_usually_needed": [
+      "The CP503 notice",
+      "Prior balance-due notices",
+      "Proof of payments or a payment-plan request"
+    ],
+    "source_url": "https://www.irs.gov/individuals/understanding-your-cp503-notice",
+    "options": [
+      "agree",
+      "disagree",
+      "partial",
+      "ask for time"
+    ],
+    "letter_skeleton": "{{today}}\n\n{{agency}}\nRe: {{code}} — {{name}} dated {{notice_date}} for tax year {{tax_year}}\n\nDear Sir or Madam:\n\nI am {{taxpayer_name}}, mailing address {{mailing_address}}. I received notice {{code}} dated {{notice_date}} showing {{amount}}.\n\nI ask that you {{position}} this second reminder. I do not want this to move to levy. Enclosed is how I propose to close the balance.\n\n{{reason}}\n\nThe deadline rule I am working from is: {{deadline_rule}}. {{disclaimer}}\n\nYou may reach me at {{phone}}.\n\nSincerely,\n{{taxpayer_name}}\n",
+    "verified_against_source": false
+  },
+  {
+    "code": "CP504",
+    "agency": "IRS",
+    "name": "Intent to levy / Notice of intent to seize property",
+    "what_it_means": "The IRS is warning that it may take state tax refunds or other property if you do not pay or appeal. This is past a simple reminder. You still have a short window to pay, set a plan, or appeal.",
+    "deadline_rule": "30 days from the notice date",
+    "urgency": "high",
+    "documents_usually_needed": [
+      "The CP504 notice",
+      "Proof of the balance and any payments",
+      "Collection appeal or installment papers if you are asking for time"
+    ],
+    "source_url": "https://www.irs.gov/individuals/understanding-your-cp504-notice",
+    "options": [
+      "agree",
+      "disagree",
+      "partial",
+      "ask for time"
+    ],
+    "letter_skeleton": "{{today}}\n\n{{agency}}\nRe: {{code}} — {{name}} dated {{notice_date}} for tax year {{tax_year}}\n\nDear Sir or Madam:\n\nI am {{taxpayer_name}}, mailing address {{mailing_address}}. I received notice {{code}} dated {{notice_date}} showing {{amount}}.\n\nI ask that you {{position}} this intent-to-levy notice and hold enforced collection while this request is reviewed. Enclosed is my proposed resolution.\n\n{{reason}}\n\nThe deadline rule I am working from is: {{deadline_rule}}. {{disclaimer}}\n\nYou may reach me at {{phone}}.\n\nSincerely,\n{{taxpayer_name}}\n",
+    "verified_against_source": false
+  },
+  {
+    "code": "LT11",
+    "agency": "IRS",
+    "name": "Final Notice of Intent to Levy (Letter 1058)",
+    "what_it_means": "This is the final levy warning. It also tells you that you can ask for a Collection Due Process hearing. If you miss the hearing window, the IRS can levy pay, bank accounts, or other property. People also know this letter as Letter 1058.",
+    "deadline_rule": "30 days from the notice date to request a Collection Due Process hearing",
+    "urgency": "high",
+    "documents_usually_needed": [
+      "The LT11 / Letter 1058 notice",
+      "Form 12153 if you are requesting a hearing",
+      "Financial information if you are asking for a plan or currently-not-collectible status"
+    ],
+    "source_url": "https://www.irs.gov/individuals/understanding-your-lt11-notice-letter-1058",
+    "options": [
+      "agree",
+      "disagree",
+      "partial",
+      "ask for time"
+    ],
+    "letter_skeleton": "{{today}}\n\n{{agency}}\nRe: {{code}} — {{name}} dated {{notice_date}} for tax year {{tax_year}}\n\nDear Sir or Madam:\n\nI am {{taxpayer_name}}, mailing address {{mailing_address}}. I received notice {{code}} dated {{notice_date}} showing {{amount}}.\n\nI ask that you {{position}} this final levy notice. I am requesting a Collection Due Process hearing within the 30-day window and enclosing Form 12153.\n\n{{reason}}\n\nThe deadline rule I am working from is: {{deadline_rule}}. {{disclaimer}}\n\nYou may reach me at {{phone}}.\n\nSincerely,\n{{taxpayer_name}}\n",
+    "verified_against_source": false
+  },
+  {
+    "code": "CP11",
+    "agency": "IRS",
+    "name": "Math error, you owe",
+    "what_it_means": "The IRS changed your return because of a math or clerical error and says the change means you owe money. You can accept the change or ask them to undo it. If you do nothing, the extra amount stands.",
+    "deadline_rule": "60 days from the notice date to request that the math-error change be undone",
+    "urgency": "med",
+    "documents_usually_needed": [
+      "The CP11 notice",
+      "Your original return",
+      "Workpapers that show the figure you filed"
+    ],
+    "source_url": "https://www.irs.gov/individuals/understanding-your-cp11-notice",
+    "options": [
+      "agree",
+      "disagree",
+      "partial",
+      "ask for time"
+    ],
+    "letter_skeleton": "{{today}}\n\n{{agency}}\nRe: {{code}} — {{name}} dated {{notice_date}} for tax year {{tax_year}}\n\nDear Sir or Madam:\n\nI am {{taxpayer_name}}, mailing address {{mailing_address}}. I received notice {{code}} dated {{notice_date}} showing {{amount}}.\n\nI ask that you {{position}} this math-error change. If I disagree, please abate the math-error assessment and restore the figures I filed, as shown in the enclosures.\n\n{{reason}}\n\nThe deadline rule I am working from is: {{deadline_rule}}. {{disclaimer}}\n\nYou may reach me at {{phone}}.\n\nSincerely,\n{{taxpayer_name}}\n",
+    "verified_against_source": false
+  },
+  {
+    "code": "CP12",
+    "agency": "IRS",
+    "name": "Math error, refund changed",
+    "what_it_means": "The IRS changed your return because of a math or clerical error. The change usually lowers the refund they will send, or changes it to a small bill. You can accept it or ask them to undo the change.",
+    "deadline_rule": "60 days from the notice date to request that the math-error change be undone",
+    "urgency": "low",
+    "documents_usually_needed": [
+      "The CP12 notice",
+      "Your original return",
+      "Workpapers for the refund figure you filed"
+    ],
+    "source_url": "https://www.irs.gov/individuals/understanding-your-cp12-notice",
+    "options": [
+      "agree",
+      "disagree",
+      "partial",
+      "ask for time"
+    ],
+    "letter_skeleton": "{{today}}\n\n{{agency}}\nRe: {{code}} — {{name}} dated {{notice_date}} for tax year {{tax_year}}\n\nDear Sir or Madam:\n\nI am {{taxpayer_name}}, mailing address {{mailing_address}}. I received notice {{code}} dated {{notice_date}} showing {{amount}}.\n\nI ask that you {{position}} this math-error change to my refund. If I disagree, please restore the refund I claimed, as shown in the enclosed return copy.\n\n{{reason}}\n\nThe deadline rule I am working from is: {{deadline_rule}}. {{disclaimer}}\n\nYou may reach me at {{phone}}.\n\nSincerely,\n{{taxpayer_name}}\n",
+    "verified_against_source": false
+  },
+  {
+    "code": "CP22A",
+    "agency": "IRS",
+    "name": "Data processing adjustment, balance due",
+    "what_it_means": "The IRS changed your account after processing and now says you owe a balance. This can follow a later adjustment, not only a math error on the day they typed the return. Check the change against your records before you pay.",
+    "deadline_rule": "21 days from the notice date",
+    "urgency": "med",
+    "documents_usually_needed": [
+      "The CP22A notice",
+      "Account transcript if you have one",
+      "Proof of the item they adjusted"
+    ],
+    "source_url": "https://www.irs.gov/individuals/understanding-your-cp22a-notice",
+    "options": [
+      "agree",
+      "disagree",
+      "partial",
+      "ask for time"
+    ],
+    "letter_skeleton": "{{today}}\n\n{{agency}}\nRe: {{code}} — {{name}} dated {{notice_date}} for tax year {{tax_year}}\n\nDear Sir or Madam:\n\nI am {{taxpayer_name}}, mailing address {{mailing_address}}. I received notice {{code}} dated {{notice_date}} showing {{amount}}.\n\nI ask that you {{position}} this data-processing adjustment. Please explain the change on my account and apply the enclosed records.\n\n{{reason}}\n\nThe deadline rule I am working from is: {{deadline_rule}}. {{disclaimer}}\n\nYou may reach me at {{phone}}.\n\nSincerely,\n{{taxpayer_name}}\n",
+    "verified_against_source": false
+  },
+  {
+    "code": "CP23",
+    "agency": "IRS",
+    "name": "Estimated tax discrepancy",
+    "what_it_means": "The IRS thinks the estimated tax payments you claimed on your return do not match what they have on file. That can create a bill even when the rest of the return is fine. Compare your cancelled payments or bank records to the notice.",
+    "deadline_rule": "21 days from the notice date",
+    "urgency": "med",
+    "documents_usually_needed": [
+      "The CP23 notice",
+      "Cancelled checks, bank records, or e-pay confirmations for estimated payments",
+      "Prior-year credit-elect records if you applied an overpayment"
+    ],
+    "source_url": "https://www.irs.gov/individuals/understanding-your-cp23-notice",
+    "options": [
+      "agree",
+      "disagree",
+      "partial",
+      "ask for time"
+    ],
+    "letter_skeleton": "{{today}}\n\n{{agency}}\nRe: {{code}} — {{name}} dated {{notice_date}} for tax year {{tax_year}}\n\nDear Sir or Madam:\n\nI am {{taxpayer_name}}, mailing address {{mailing_address}}. I received notice {{code}} dated {{notice_date}} showing {{amount}}.\n\nI ask that you {{position}} this estimated-tax discrepancy. Enclosed are the payment records that should be on my account.\n\n{{reason}}\n\nThe deadline rule I am working from is: {{deadline_rule}}. {{disclaimer}}\n\nYou may reach me at {{phone}}.\n\nSincerely,\n{{taxpayer_name}}\n",
+    "verified_against_source": false
+  },
+  {
+    "code": "CP49",
+    "agency": "IRS",
+    "name": "Overpayment applied to other debts",
+    "what_it_means": "You were due a refund, but the IRS used it to pay another federal or state debt, or certain other legally collectible debts. This letter is usually telling you what happened, not asking you to file a new return. If the offset is wrong, you still need to write.",
+    "deadline_rule": "No set protest clock on the face of a typical CP49; write as soon as you see an error",
+    "urgency": "low",
+    "documents_usually_needed": [
+      "The CP49 notice",
+      "Records of the debt they say they paid",
+      "Proof if that debt was already paid or is not yours"
+    ],
+    "source_url": "https://www.irs.gov/individuals/understanding-your-cp49-notice",
+    "options": [
+      "agree",
+      "disagree",
+      "partial",
+      "ask for time"
+    ],
+    "letter_skeleton": "{{today}}\n\n{{agency}}\nRe: {{code}} — {{name}} dated {{notice_date}} for tax year {{tax_year}}\n\nDear Sir or Madam:\n\nI am {{taxpayer_name}}, mailing address {{mailing_address}}. I received notice {{code}} dated {{notice_date}} showing {{amount}}.\n\nI ask that you {{position}} this offset of my overpayment. If the debt is not mine or was already paid, please reverse the offset as shown in the enclosures.\n\n{{reason}}\n\nThe deadline rule I am working from is: {{deadline_rule}}. {{disclaimer}}\n\nYou may reach me at {{phone}}.\n\nSincerely,\n{{taxpayer_name}}\n",
+    "verified_against_source": false
+  },
+  {
+    "code": "CP75",
+    "agency": "IRS",
+    "name": "Audit of refundable credits (including EITC)",
+    "what_it_means": "The IRS is holding or reviewing a refund because it wants proof of credits you claimed, often the earned income credit or similar credits. Send the documents they list. If you send nothing, they can deny the credit.",
+    "deadline_rule": "30 days from the notice date",
+    "urgency": "high",
+    "documents_usually_needed": [
+      "The CP75 notice",
+      "Proof of earned income (pay stubs, W-2, business records)",
+      "Proof of children or qualifying persons if a credit depends on them",
+      "Proof of residency and relationship as the notice lists"
+    ],
+    "source_url": "https://www.irs.gov/individuals/understanding-your-cp75-notice",
+    "options": [
+      "agree",
+      "disagree",
+      "partial",
+      "ask for time"
+    ],
+    "letter_skeleton": "{{today}}\n\n{{agency}}\nRe: {{code}} — {{name}} dated {{notice_date}} for tax year {{tax_year}}\n\nDear Sir or Madam:\n\nI am {{taxpayer_name}}, mailing address {{mailing_address}}. I received notice {{code}} dated {{notice_date}} showing {{amount}}.\n\nI ask that you {{position}} this credit review. Enclosed is the proof the notice listed so the credit can be allowed.\n\n{{reason}}\n\nThe deadline rule I am working from is: {{deadline_rule}}. {{disclaimer}}\n\nYou may reach me at {{phone}}.\n\nSincerely,\n{{taxpayer_name}}\n",
+    "verified_against_source": false
+  },
+  {
+    "code": "Letter 5071C",
+    "agency": "IRS",
+    "name": "Identity verification",
+    "what_it_means": "The IRS wants you to prove you are the person who filed the return, because something looked like identity theft or a suspicious filing. Until you verify, they will not finish processing. Use the method the letter names. Do not send your full Social Security number in a random email.",
+    "deadline_rule": "30 days from the letter date",
+    "urgency": "high",
+    "documents_usually_needed": [
+      "Letter 5071C",
+      "Photo identification the letter accepts",
+      "The return they are holding, if you have a copy"
+    ],
+    "source_url": "https://www.irs.gov/identity-theft-fraud-scams/get-an-identity-protection-pin",
+    "options": [
+      "agree",
+      "disagree",
+      "partial",
+      "ask for time"
+    ],
+    "letter_skeleton": "{{today}}\n\n{{agency}}\nRe: {{code}} — {{name}} dated {{notice_date}} for tax year {{tax_year}}\n\nDear Sir or Madam:\n\nI am {{taxpayer_name}}, mailing address {{mailing_address}}. I received notice {{code}} dated {{notice_date}} showing {{amount}}.\n\nI ask that you {{position}} this identity check and release processing of my return. I have completed the verification steps the letter named.\n\n{{reason}}\n\nThe deadline rule I am working from is: {{deadline_rule}}. {{disclaimer}}\n\nYou may reach me at {{phone}}.\n\nSincerely,\n{{taxpayer_name}}\n",
+    "verified_against_source": false
+  },
+  {
+    "code": "FTB 4600",
+    "agency": "California Franchise Tax Board",
+    "name": "Notice of Proposed Assessment",
+    "what_it_means": "California's Franchise Tax Board proposes that you owe more state tax. It is the state analog of a federal underreporter or proposed-assessment notice. You can agree, protest by the deadline, or pay.",
+    "deadline_rule": "60 days from the date of the Notice of Proposed Assessment to file a protest",
+    "urgency": "high",
+    "documents_usually_needed": [
+      "The FTB 4600 Notice of Proposed Assessment",
+      "Your California return for that tax year",
+      "Federal return and the records that support the protested items"
+    ],
+    "source_url": "https://www.ftb.ca.gov/help/notices-bills/notices.html",
+    "options": [
+      "agree",
+      "disagree",
+      "partial",
+      "ask for time"
+    ],
+    "letter_skeleton": "{{today}}\n\n{{agency}}\nRe: {{code}} — {{name}} dated {{notice_date}} for tax year {{tax_year}}\n\nDear Sir or Madam:\n\nI am {{taxpayer_name}}, mailing address {{mailing_address}}. I received notice {{code}} dated {{notice_date}} showing {{amount}}.\n\nI ask that you {{position}} this California proposed assessment. If I protest, please treat this letter as a timely protest of FTB 4600 and review the enclosed records.\n\n{{reason}}\n\nThe deadline rule I am working from is: {{deadline_rule}}. {{disclaimer}}\n\nYou may reach me at {{phone}}.\n\nSincerely,\n{{taxpayer_name}}\n",
+    "verified_against_source": false
+  },
+  {
+    "code": "DTF-948",
+    "agency": "New York State Department of Taxation and Finance",
+    "name": "Statement of Proposed Audit Changes",
+    "what_it_means": "New York State tax says an audit would change your return and proposes a new amount. You can agree, disagree, or agree in part. If you do nothing, the state can bill the proposed amount.",
+    "deadline_rule": "30 days from the notice date (follow the date printed on DTF-948)",
+    "urgency": "high",
+    "documents_usually_needed": [
+      "Form DTF-948",
+      "Your New York return for that tax year",
+      "The audit workpapers or schedules the form lists"
+    ],
+    "source_url": "https://www.tax.ny.gov/help/contact/notices-bills.htm",
+    "options": [
+      "agree",
+      "disagree",
+      "partial",
+      "ask for time"
+    ],
+    "letter_skeleton": "{{today}}\n\n{{agency}}\nRe: {{code}} — {{name}} dated {{notice_date}} for tax year {{tax_year}}\n\nDear Sir or Madam:\n\nI am {{taxpayer_name}}, mailing address {{mailing_address}}. I received notice {{code}} dated {{notice_date}} showing {{amount}}.\n\nI ask that you {{position}} these New York proposed audit changes on DTF-948. Enclosed are the records for the items I do not accept as proposed.\n\n{{reason}}\n\nThe deadline rule I am working from is: {{deadline_rule}}. {{disclaimer}}\n\nYou may reach me at {{phone}}.\n\nSincerely,\n{{taxpayer_name}}\n",
+    "verified_against_source": false
+  },
+  {
+    "code": "CP2566",
+    "agency": "IRS",
+    "name": "Substitute for Return proposed amount",
+    "what_it_means": "The IRS thinks you were required to file and did not, so it built a substitute return from the reports it has. That proposed return usually ignores deductions you could have claimed. File your own return or explain why you did not have to file.",
+    "deadline_rule": "30 days from the notice date",
+    "urgency": "high",
+    "documents_usually_needed": [
+      "The CP2566 notice",
+      "The return you are now filing, if you were required to file",
+      "Records of income and deductions for that year"
+    ],
+    "source_url": "https://www.irs.gov/individuals/understanding-your-cp2566-notice",
+    "options": [
+      "agree",
+      "disagree",
+      "partial",
+      "ask for time"
+    ],
+    "letter_skeleton": "{{today}}\n\n{{agency}}\nRe: {{code}} — {{name}} dated {{notice_date}} for tax year {{tax_year}}\n\nDear Sir or Madam:\n\nI am {{taxpayer_name}}, mailing address {{mailing_address}}. I received notice {{code}} dated {{notice_date}} showing {{amount}}.\n\nI ask that you {{position}} this substitute-for-return proposal. Enclosed is the return I am filing (or the reason I was not required to file).\n\n{{reason}}\n\nThe deadline rule I am working from is: {{deadline_rule}}. {{disclaimer}}\n\nYou may reach me at {{phone}}.\n\nSincerely,\n{{taxpayer_name}}\n",
+    "verified_against_source": false
+  },
+  {
+    "code": "CP2100",
+    "agency": "IRS",
+    "name": "Missing or incorrect taxpayer identification numbers",
+    "what_it_means": "If you file 1099 forms, the IRS says some names or taxpayer numbers do not match their records. You may have to send backup-withholding notices to those payees and, later, withhold tax. This is a payer notice, not a bill for your own income tax.",
+    "deadline_rule": "15 business days from the notice date to send the required B-notice to payees, when the notice requires it",
+    "urgency": "med",
+    "documents_usually_needed": [
+      "The CP2100 notice and the list of mismatched accounts",
+      "Your Forms 1099 as filed",
+      "W-9 forms from those payees"
+    ],
+    "source_url": "https://www.irs.gov/govt-e/fslg/missing-tins-and-backup-withholding",
+    "options": [
+      "agree",
+      "disagree",
+      "partial",
+      "ask for time"
+    ],
+    "letter_skeleton": "{{today}}\n\n{{agency}}\nRe: {{code}} — {{name}} dated {{notice_date}} for tax year {{tax_year}}\n\nDear Sir or Madam:\n\nI am {{taxpayer_name}}, mailing address {{mailing_address}}. I received notice {{code}} dated {{notice_date}} showing {{amount}}.\n\nI ask that you {{position}} this CP2100 mismatch listing. I am sending the required payee notices and enclosing a copy of my account-by-account action list.\n\n{{reason}}\n\nThe deadline rule I am working from is: {{deadline_rule}}. {{disclaimer}}\n\nYou may reach me at {{phone}}.\n\nSincerely,\n{{taxpayer_name}}\n",
+    "verified_against_source": false
+  },
+  {
+    "code": "Letter 525",
+    "agency": "IRS",
+    "name": "Examination report",
+    "what_it_means": "An IRS examiner finished a review and is sending the proposed changes in a report. You can agree and sign, disagree, or ask for a conference. If you disagree and do not answer, a later notice of deficiency can follow.",
+    "deadline_rule": "30 days from the letter date",
+    "urgency": "high",
+    "documents_usually_needed": [
+      "Letter 525 and the examination report",
+      "Your return for the examined year",
+      "Records for each proposed adjustment"
+    ],
+    "source_url": "https://www.irs.gov/businesses/small-businesses-self-employed/understanding-your-letter-525",
+    "options": [
+      "agree",
+      "disagree",
+      "partial",
+      "ask for time"
+    ],
+    "letter_skeleton": "{{today}}\n\n{{agency}}\nRe: {{code}} — {{name}} dated {{notice_date}} for tax year {{tax_year}}\n\nDear Sir or Madam:\n\nI am {{taxpayer_name}}, mailing address {{mailing_address}}. I received notice {{code}} dated {{notice_date}} showing {{amount}}.\n\nI ask that you {{position}} this examination report. Please consider the enclosed records for each proposed adjustment before any notice of deficiency.\n\n{{reason}}\n\nThe deadline rule I am working from is: {{deadline_rule}}. {{disclaimer}}\n\nYou may reach me at {{phone}}.\n\nSincerely,\n{{taxpayer_name}}\n",
+    "verified_against_source": false
+  }
+]

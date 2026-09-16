@@ -1,0 +1,12 @@
+{
+ "id": "cs_test_fv6_notice-responder_001",
+ "object": "checkout.session",
+ "payment_status": "paid",
+ "amount_total": 3900,
+ "currency": "usd",
+ "created": 1757980800,
+ "custom_fields": [
+  {"key": "notice_code", "type": "dropdown", "dropdown": {"value": "cp2000"}},
+  {"key": "position", "type": "dropdown", "dropdown": {"value": "disagree"}}
+ ]
+}

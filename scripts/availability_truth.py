@@ -12,7 +12,13 @@ VOID={'area','base','br','col','embed','hr','img','input','link','meta','param',
 # Spellings the off-sale guard will inspect or skip. Anything else is refused
 # by name rather than dropped. Do not strip before matching: a trailing space
 # is an unknown spelling, not off_sale.
-KNOWN_STATUS={'','live','off_sale','none','pending','external'}
+# 'unverified' is what fv5/mint.py stamps on a link the minute it is minted, before
+# scripts/verify_checkouts.py has proved it (check_site.py then demands the
+# `verified` date). Left out of this set on 2026-09-10, it dead-locked the chain:
+# mint wrote it, this guard refused it by name, and the verifier will not run while
+# the guard fails -- so nothing minted after 09-10 could ever be stamped (found
+# 2026-09-16 on notice-responder). It is a not-yet-sellable spelling, like pending.
+KNOWN_STATUS={'','live','off_sale','none','pending','external','unverified'}
 PAY_BUTTON=re.compile(r'<(?:a|button)\b[^>]*\bbtn-buy\b[^>]*>',re.I)
 PAY_HREF=re.compile(r'''<(?:a|button)\b[^>]*href\s*=\s*["']https://''',re.I)
 
