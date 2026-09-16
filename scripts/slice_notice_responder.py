@@ -49,7 +49,26 @@ def slices() -> list[dict]:
 def _counts() -> dict:
     rows = notices()
     verified = sum(1 for r in rows if r.get("verified_against_source"))
-    return {"n": len(rows), "verified": verified, "unverified": len(rows) - verified}
+    irs = sum(1 for r in rows if r.get("agency") == "IRS")
+    states = sorted({r["agency"] for r in rows if r.get("agency") != "IRS"})
+    return {"n": len(rows), "verified": verified, "unverified": len(rows) - verified,
+            "irs": irs, "state": len(rows) - irs, "state_names": states}
+
+
+def _mix(c: dict) -> str:
+    """The honest agency mix, printed wherever the count is: e.g.
+    '18 from the IRS and 2 from state tax offices (California, New York)'.
+    The judge failed the page on 2026-09-16 for calling all 20 IRS notices."""
+    short = [n.replace("California Franchise Tax Board", "California")
+              .replace("New York State Department of Taxation and Finance", "New York")
+             for n in c["state_names"]]
+    return (f"{c['irs']} from the IRS and {c['state']} from state tax offices "
+            f"({', '.join(short)})")
+
+
+def _agency_label(n: dict) -> str:
+    a = n.get("agency") or "IRS"
+    return "IRS" if a == "IRS" else a
 
 
 # The existing free lookup's markup, kept byte-for-byte from
@@ -62,7 +81,7 @@ def _lookup_section() -> str:
 
     body = (
         "      <p>Pick a code, or paste the heading of the notice. Matching "
-        "happens on this page. Nothing is sent to us or to the IRS.</p>\n"
+        "happens on this page. Nothing is sent to us or to any tax agency.</p>\n"
         '      <form id="notice-lookup-form">\n'
         '      <label for="code-picker">Notice code</label>\n'
         '      <select class="field" id="code-picker" name="code"></select>\n'
@@ -95,7 +114,7 @@ def _pack_section() -> str:
         '<span class="sub">The notice’s name and what it means, in plain '
         "words.</span></li>\n"
         "        <li><strong>The deadline rule</strong>"
-        '<span class="sub">Stated the way the matching IRS page states it, plus '
+        '<span class="sub">Stated the way the agency’s own page for that notice states it, plus '
         "a reminder to use the date printed on your own notice.</span></li>\n"
         "        <li><strong>A draft reply letter</strong>"
         '<span class="sub">Filled from a template, not written by a model. The '
@@ -108,12 +127,12 @@ def _pack_section() -> str:
         '<span class="sub">The papers that notice usually needs, as checkboxes.'
         "</span></li>\n"
         "        <li><strong>The source link</strong>"
-        '<span class="sub">A link to the IRS page the notice was drawn from, and '
+        '<span class="sub">A link to the agency page (IRS, or the state tax office) the notice was drawn from, and '
         "a plain note if we have not re-checked this notice against that page "
         "since the pack was written.</span></li>\n"
         "      </ul>\n"
         "      <p>It is a draft you finish, not a filed reply, and not legal or "
-        "tax advice. The IRS page governs.</p>"
+        "tax advice. The agency’s own page governs.</p>"
     )
     return section('What the $39 pack is', None, body)
 
@@ -125,7 +144,7 @@ def _notices_section() -> str:
     items = "".join(
         f'<li><strong>{_e(n["code"])}</strong> — {_e(n["name"])}'
         f'<span class="sub">{_e(n["what_it_means"])}</span>'
-        f'<a href="{_e(n["source_url"])}" rel="nofollow">Read the IRS page</a></li>'
+        f'<a href="{_e(n["source_url"])}" rel="nofollow">Read the {_e(_agency_label(n))} page</a></li>'
         for n in rows
     )
     body = f'      <ul class="spec">{items}</ul>'
@@ -147,14 +166,15 @@ def _honesty_section() -> str:
         "pick, plus the blanks that only you can fill in. The checklist and the "
         "deadline rule come from the same notice data, not a fresh reading of "
         "your actual notice.</p>\n"
-        f"      <p>We read each of these {c['n']} notices against its IRS page "
+        f"      <p>These {c['n']} notices are {_mix(c)}. We read each one against "
+        f"its agency’s own page "
         f"once, when this pack was written. As of today, "
         f"<strong>{c['unverified']} of {c['n']}</strong> have not been "
         f"re-checked against that page since; each one says so on its own "
         f"private page, next to the source link.</p>\n"
         "      <p>What arrives is a draft you finish, not a filed reply, and it "
-        "is not legal or tax advice. If the letter and the IRS page ever "
-        "disagree, the IRS page is right &mdash; use the response date printed "
+        "is not legal or tax advice. If the letter and the agency’s page ever "
+        "disagree, the agency’s page is right &mdash; use the response date printed "
         "on your own notice, not a date on this page.</p>"
     )
     return section("How it is made, and what it is not", None, body)
@@ -162,10 +182,10 @@ def _honesty_section() -> str:
 
 def family_spec() -> dict:
     c = _counts()
-    h1 = "IRS notice response pack: draft letter and checklist"
+    h1 = "Tax notice response pack: draft letter and checklist"
     desc = (
         "A $39 draft reply letter and enclosure checklist for one of 20 common "
-        "IRS notices, delivered as a private page within 15 minutes of "
+        "tax notices (18 IRS, 2 state), delivered as a private page within 15 minutes of "
         "payment.")[:MAX_DESC]
     return {
         "id": FAMILY,
@@ -176,19 +196,21 @@ def family_spec() -> dict:
             "One payment, not a subscription. You get one private page carrying "
             "the draft letter and checklist for the notice you pick at "
             "checkout. Nothing recurs."),
-        "crumb": "IRS notice response pack",
+        "crumb": "Tax notice response pack",
         "h1": h1,
         "buyer": (
-            "A person or small business owner holding one of 20 common IRS "
-            "notices who wants a draft reply letter, the deadline rule and the "
+            f"A person or small business owner holding one of {c['n']} common tax "
+            f"notices ({_mix(c)}) who wants a draft reply letter, the deadline rule and the "
             "list of papers to enclose"),
         "desc": desc,
         "lede": (
-            f"A person holding one of {c['n']} common IRS notices gets a draft "
-            "reply letter for the notice and position they pick, the deadline "
-            "rule as the IRS page states it, and the enclosure checklist. The "
+            f"A person holding one of {c['n']} common tax notices ({_mix(c)}) "
+            "gets a draft reply letter for the notice and position they pick, "
+            "the deadline rule as the agency’s own page states it, and the enclosure checklist. The "
             "free lookup below explains the same notices before you pay."),
         "pill_label": "Free lookup on this page",
+        # Not "All of it, free": the lookup is free, the pack is $39 (judge, 2026-09-16).
+        "pill_text": "Free lookup on this page; the pack is $39",
         "sections": [
             _lookup_section(),
             _pack_section(),
@@ -196,7 +218,7 @@ def family_spec() -> dict:
             _honesty_section(),
         ],
         "sample_dt": "Public sample",
-        "subj": "IRS%20notice%20response%20pack",
+        "subj": "Tax%20notice%20response%20pack",
         "contact_h2": "Get your response pack",
         "contact_p": (
             "We build one private page with your notice's draft letter, "
@@ -211,13 +233,13 @@ def family_spec() -> dict:
             "operations@ustechautomations.com and the full amount comes back. "
             "Support: same address, replies within 2 business days."),
         "foot": (
-            "Not affiliated with the IRS or any government agency. Not legal or "
+            "Not affiliated with the IRS, any state tax office or any government agency. Not legal or "
             "tax advice. Every letter is a template filled with the notice's own "
             "facts and your own typing; no model writes it."),
         "delivery": (
             "<strong>What arrives after you pay:</strong> one private web page "
             "with the draft reply letter for your notice and position, the "
-            "enclosure checklist, the deadline rule and the IRS page link, "
+            "enclosure checklist, the deadline rule and the agency page link, "
             "within 15 minutes of payment. If it has not arrived, email "
             "operations@ustechautomations.com and a person sends it."),
         "sample_note": (

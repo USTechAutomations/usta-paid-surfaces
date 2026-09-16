@@ -22,7 +22,7 @@ from check_site import buy_buttons  # noqa: E402
 # The words an "on-page" family puts on its own eyebrow. Imported, not
 # retyped: the card and the page it links to are two surfaces of one fact,
 # and this repo has already shipped a day where only one of them moved.
-from render_family import ON_PAGE_PILL, state  # noqa: E402
+from render_family import on_page_pill, state  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 CAT = json.loads((ROOT / "catalog.json").read_text(encoding="utf-8"))
@@ -166,7 +166,7 @@ def sample_state(f) -> str:
         # No sample file is coming and none ever will: the page IS the whole of
         # what we hold. "Not ready" would promise a file that does not exist,
         # which is the one thing this directory is for not doing.
-        return ON_PAGE_PILL
+        return on_page_pill(f["id"])
     return "Sample not ready"
 
 

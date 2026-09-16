@@ -501,6 +501,22 @@ def price_of(spec: dict) -> str:
 ON_PAGE_PILL = "All of it, free"
 
 
+def on_page_pill(fid: str) -> str:
+    """The eyebrow words for an on-page family: ON_PAGE_PILL unless the catalog
+    row carries "on_page_pill". Added 2026-09-16 when a $39 pack whose FREE
+    LOOKUP is on the page failed the judge for saying "All of it, free" next to
+    a price. The hub card reads this same function, so both surfaces move at once."""
+    try:
+        raw = json.loads((ROOT / "catalog.json").read_text(encoding="utf-8"))
+        fams = raw["families"] if isinstance(raw, dict) else raw
+        for f in fams:
+            if f.get("id") == fid:
+                return (f.get("on_page_pill") or ON_PAGE_PILL).strip() or ON_PAGE_PILL
+    except (OSError, ValueError, KeyError, AttributeError):
+        pass
+    return ON_PAGE_PILL
+
+
 def sample_status(fid: str) -> str:
     """What catalog.json says about this family's sample, read fresh off disk.
 
@@ -990,7 +1006,7 @@ def render(spec: dict) -> str:
         cadence_long=spec["cadence_long"],
         # A bridge page has no sample to be ready or not, so it names its own words.
         pill_text=(spec.get("pill_text")
-                   or (ON_PAGE_PILL if on_page
+                   or (on_page_pill(spec["id"]) if on_page
                        else ("Sample ready" if ready else "Sample not ready"))),
         sample_dt=spec.get("sample_dt", "Public sample"),
         # The rail's state line. There is no colour in it any more, so nothing
