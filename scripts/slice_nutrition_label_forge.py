@@ -581,7 +581,7 @@ def family_spec() -> dict:
         "contact_p": ("Ask anything before you buy. Tell us the product and we will "
                       "say plainly whether this pack fits it."),
         "contact_cta": "Email us for the $49 checkout link",
-        "refund_note": 'Refunds: if what you receive is not what the page describes, email operations@ustechautomations.com within 7 days for a full refund. Support: same address, replies within 2 business days.',
+        "refund_note": 'Refunds: if what you receive is not what the page describes, email operations@ustechautomations.com within 14 days for a full refund. Support: same address, replies within 2 business days.',
         "contact_note": ("One product, one payment. The calculator on this page is "
                          "free and stays free."),
         "foot": DISCLAIMER,

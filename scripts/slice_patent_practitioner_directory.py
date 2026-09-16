@@ -458,7 +458,7 @@ def family_spec() -> dict:
         "contact_note": "Say which city; we reply saying whether it is still available.",
         "refund_note": (
             "Refunds: if what you receive is not what the page describes, email "
-            "operations@ustechautomations.com within 7 days for a full refund. "
+            "operations@ustechautomations.com within 14 days for a full refund. "
             "Support: same address, replies within 2 business days."
         ),
         "foot": (

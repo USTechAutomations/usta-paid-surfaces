@@ -458,7 +458,7 @@ def family_spec() -> dict:
                          "checkout lists. The free tool on this page keeps 25 "
                          "entries and is the same tool.")
             + ("</p>\n          <p class=\"mail-note\">Refunds: if what you receive is not "
-               "what the page describes, email operations@ustechautomations.com within 7 "
+               "what the page describes, email operations@ustechautomations.com within 14 "
                "days for a full refund. Support: same address, replies within 2 business days."),
         "foot": DISCLAIMER,
         "delivery": ("<strong>What arrives after you pay:</strong> a single private "

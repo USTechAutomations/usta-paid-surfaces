@@ -953,7 +953,7 @@ def family_spec() -> dict:
                          "mind? Refund on request within 14 days."),
         "foot": DISCLAIMER + stamp + ".",
         "delivery": ("Refunds: if what you receive is not what the page describes, "
-                     "email operations@ustechautomations.com within 7 days for a full "
+                     "email operations@ustechautomations.com within 14 days for a full "
                      "refund. Support: same address, replies within 2 business days."
                      "</p>\n      <p class=\"mail-note\">"
                      "<strong>What arrives after you pay:</strong> a single private web "

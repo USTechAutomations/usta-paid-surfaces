@@ -672,7 +672,7 @@ def family_spec() -> dict:
         "sample_rest": (
             "the pack carries every clause and the notice texts, not just these rows.</p>\n"
             '      <p class="mail-note">Refunds: if what you receive is not what the '
-            "page describes, email operations@ustechautomations.com within 7 days for "
+            "page describes, email operations@ustechautomations.com within 14 days for "
             "a full refund. Support: same address, replies within 2 business days"
         ),
     }
