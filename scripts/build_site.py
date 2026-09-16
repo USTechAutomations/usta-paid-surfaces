@@ -1034,6 +1034,14 @@ def main() -> None:
             outdir.mkdir(parents=True)
             (outdir / "index.html").write_text(page, encoding="utf-8")
             copy_local_scripts(src, outdir)
+            # An extras family (kind="build": browser add-ons, apps) carries its
+            # store privacy policy and Stripe return page next to its index, the
+            # same as a catalog family. Before 2026-09-16 only the catalog loop
+            # copied them, so five store privacy URLs went live as 404s.
+            for side in ("privacy.html", "thanks.html"):
+                sp = ROOT / "families" / eid / side
+                if sp.is_file():
+                    shutil.copy2(sp, outdir / side)
             built.append(f"/feeds/{eid}")
             parents[eid] = e["short"]
 
