@@ -582,12 +582,17 @@ def family_spec() -> dict:
         "cadence_long": ("a one-off purchase; we re-read every cited page monthly "
                          "and flag any quote whose words have changed"),
         "crumb": "Contractor Audit File",
-        "h1": "The contractor audit file — your state’s test, your answers, your documents",
+        "refund_note": 'Refunds: if what you receive is not what the page describes, email operations@ustechautomations.com within 14 days for a full refund. Support: same address, replies within 2 business days.',
+        "h1": "Your worker-status audit file, ready for review",
         "buyer": ("a founder or small business paying people on 1099 who wants one "
                   "organised file ready for a state audit, a 1099 mismatch letter "
                   "or a lawyer’s questionnaire"),
         "desc": desc,
-        "lede": ("Eighteen plain questions, then your state’s worker-status "
+        # Approved-copy port (value-fix-spec-port-00, 2026-09-15): prepend the
+        # operator-approved buyer sentence; the rest of the lede is unchanged.
+        "lede": ("Small business owners paying 1099 contractors get one organized "
+                 "evidence file, answered in their own state&rsquo;s words. "
+                 "Eighteen plain questions, then your state’s worker-status "
                  "test set out prong by prong in the statute’s own words with "
                  "your answers beside it and the documents an auditor would ask "
                  "for. An evidence file, never a verdict."),

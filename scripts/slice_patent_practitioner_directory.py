@@ -435,10 +435,12 @@ def family_spec() -> dict:
         "cadence": "on-demand",
         "cadence_long": "the roster is read fresh at every site build; a Featured listing runs 12 months",
         "crumb": "Patent practitioner directory",
-        "h1": "Patent Practitioner Directory",
+        "h1": "Patent Practitioner Directory: get found in your city",
         "buyer": "Patent law firms and solo patent practitioners who want to be found in their city",
         "desc": desc,
         "lede": (
+            "Patent law firms and solo practitioners get a Featured listing at the top of "
+            "their city's page in a directory built from the USPTO's own practitioner roster. "
             f'{total_practitioners:,} USPTO-registered patent attorneys and agents across {n_cities} US '
             f"cities, grouped by firm. One Featured listing per city, $350 for 12 months. "
             + DISCLOSURE_TMPL.format(stamp=stamp)
@@ -454,6 +456,11 @@ def family_spec() -> dict:
         ),
         "contact_cta": "Email us for the $350 checkout link",
         "contact_note": "Say which city; we reply saying whether it is still available.",
+        "refund_note": (
+            "Refunds: if what you receive is not what the page describes, email "
+            "operations@ustechautomations.com within 7 days for a full refund. "
+            "Support: same address, replies within 2 business days."
+        ),
         "foot": (
             "Every count on this page was read out of the same dated USPTO roster copy named above. "
             f"{DISCLOSURE_TMPL.format(stamp=stamp)}"

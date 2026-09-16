@@ -244,16 +244,17 @@ def family_spec() -> dict:
             "the preceding sealed copy"
         ),
         "crumb": "Stormwater permit week",
-        "h1": "Texas construction stormwater permit records, weekly",
+        "h1": "Texas stormwater permit records, tracked weekly",
         "buyer": (
             "Erosion-control, portable-sanitation and equipment-rental branch managers "
             "who need a dated record of TXR15 permit records by Texas county"
         ),
         "desc": desc,
         "lede": (
-            f"{n_week} Texas construction stormwater permit records are in the {_d(later)} "
-            f"sealed copy ({window}). Every one is printed or counted below, with the "
-            f"copy date it came from."
+            f"Environmental compliance consultants and civil engineers get a dated "
+            f"weekly count of Texas construction stormwater permit records by county: "
+            f"{n_week} are in the {_d(later)} sealed copy ({window}). Every one is "
+            f"printed or counted below, with the copy date it came from."
         ),
         "pill_label": "Sample ready",
         "sections": secs,
@@ -266,6 +267,11 @@ def family_spec() -> dict:
         ),
         "contact_cta": "Email us for the $49/mo checkout link",
         "contact_note": "We tell you the row counts and the copy dates before you pay.",
+        "refund_note": (
+            "Refunds: if what you receive is not what the page describes, email "
+            "operations@ustechautomations.com within 7 days for a full refund. "
+            "Support: same address, replies within 2 business days."
+        ),
         "sample_rest": (
             "the paid file carries the full week's file rather than this 25-row sample"
         ),

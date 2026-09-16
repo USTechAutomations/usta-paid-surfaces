@@ -333,7 +333,9 @@ def family_spec() -> dict:
         ),
         "desc": desc,
         "lede": (
-            f"This is a dated weekly file of companies that won a new federal prime "
+            f"Subcontractors and suppliers get the new federal prime contract awards "
+            f"to pitch, without a daily manual search. This is a dated weekly file of "
+            f"companies that won a new federal prime "
             f"contract in the seven days ending {_d(later)} ({window}). It is not a "
             f"forecast, not a bid list, not a contact file, and not the live "
             f"USAspending search. Every row below is printed or counted, with the "
@@ -349,6 +351,7 @@ def family_spec() -> dict:
             "agencies for the newest week before you spend anything."
         ),
         "contact_cta": "Email us for the $49/mo checkout link",
+        "refund_note": 'Refunds: if what you receive is not what the page describes, email operations@ustechautomations.com within 7 days for a full refund. Support: same address, replies within 2 business days.',
         "contact_note": "We tell you the row counts and the copy dates before you pay.",
         "foot": (
             "Every count and date on this page was read out of the sealed copies named "

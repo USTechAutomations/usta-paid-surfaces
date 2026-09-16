@@ -289,7 +289,9 @@ def family_spec() -> dict:
         ),
         "desc": desc,
         "lede": (
-            f"This is a weekly county-level file of National Weather Service Severe "
+            f"Roofing, storm-restoration and public-adjuster firms get a weekly county "
+            f"list of National Weather Service storm warnings to decide where to canvass "
+            f"next. This is a weekly county-level file of National Weather Service Severe "
             f"Thunderstorm, Tornado, Flash Flood and High Wind warnings. It is not an "
             f"address list, not a hail map, and it does not predict damage. {n_week} "
             f"county-and-event rows sit in the week to {_d(later)} ({window})."
@@ -305,6 +307,11 @@ def family_spec() -> dict:
         ),
         "contact_cta": "Email us for the $49/mo checkout link",
         "contact_note": "We tell you the row counts and the copy date before you pay.",
+        "refund_note": (
+            "Refunds: if what you receive is not what the page describes, email "
+            "operations@ustechautomations.com within 7 days for a full refund. "
+            "Support: same address, replies within 2 business days."
+        ),
         "foot": (
             "Every count and date on this page was read out of the sealed National "
             "Weather Service copies named above. Hail and wind are blank when the "

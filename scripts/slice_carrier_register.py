@@ -287,14 +287,20 @@ def family_spec() -> dict:
             "week before. A week that adds nothing is sent as 0 plus the two copy dates"
         ),
         "crumb": "Carrier register",
-        "h1": "New motor-carrier and broker authority this week, one national file",
+        "refund_note": 'Refunds: if what you receive is not what the page describes, email operations@ustechautomations.com within 7 days for a full refund. Support: same address, replies within 2 business days.',
+        "h1": "This week's new motor-carrier authority, one file",
         "buyer": (
             "Trucking insurance agents and freight-factoring underwriters who need a "
             "dated record of which carriers were newly authorised in a given week"
         ),
         "desc": desc,
+        # Approved-copy port (value-fix-spec-port-00, 2026-09-15): prepend the
+        # operator-approved buyer sentence; the count and both dates stay live
+        # variables (n, d.grant_from, d.grant_to), not hardcoded.
         "lede": (
-            f"{n} motor-carrier and broker authorities were Granted between "
+            "Trucking insurance agents and freight-factoring underwriters get every "
+            "motor-carrier and broker authority FMCSA granted this week in one "
+            f"national file: {n} were Granted between "
             f"{_d(d.grant_from)} and {_d(d.grant_to)}. Every one is printed or counted "
             "below, with the two copy dates it came from."
         ),

@@ -247,7 +247,9 @@ def family_spec() -> dict:
         ),
         "desc": desc,
         "lede": (
-            f"{len(new_rows)} Texas motor-vehicle dealer licences became active between "
+            "Floor-plan lenders, dealer-software vendors, and auto-auction account "
+            "managers get a dated weekly record of which Texas dealer licences were "
+            "added or expired.  dealer licences became active between "
             f"{_d(older)} and {_d(newer)}, and {len(gone_rows)} expired. Every one is "
             f"printed or counted below, with the two copy dates it came from."
         ),
@@ -268,6 +270,10 @@ def family_spec() -> dict:
             "The file is prepared and not yet on sale."
             if not on_sale else
             "We tell you the row counts and the two copy dates before you pay."
+        ) + (
+            "</p>\n          <p class=\"mail-note\">Refunds: if what you receive is not "
+            "what the page describes, email operations@ustechautomations.com within 7 "
+            "days for a full refund. Support: same address, replies within 2 business days."
         ),
         "foot": (
             "Every count and date on this page was read out of the sealed TxDMV "

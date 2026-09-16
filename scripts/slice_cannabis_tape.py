@@ -238,16 +238,18 @@ def family_spec() -> dict:
             "nothing is sent as 0 plus the two copy dates"
         ),
         "crumb": "Cannabis licence tape",
-        "h1": "California cannabis licence changes this week, one sealed file",
+        "h1": "Spot California cannabis licence changes weekly",
         "buyer": (
             "Cannabis insurance brokers and packaging suppliers who need a dated "
             "record of which licences appeared or lapsed in a given week"
         ),
         "desc": desc,
         "lede": (
-            f"{n} California cannabis licences appeared, expired, stopped being listed "
-            f"or changed status between {_d(d.earlier)} and {_d(d.later)}. Every one is "
-            "printed or counted below, with the two dates it came from."
+            f"Cannabis insurance brokers and packaging suppliers get this week's "
+            f"California cannabis licence changes as one sealed file: {n} licences "
+            f"appeared, expired, stopped being listed or changed status between "
+            f"{_d(d.earlier)} and {_d(d.later)}. Every one is printed or counted "
+            "below, with the two dates it came from."
         ),
         "pill_label": "Sample ready",
         "sections": secs,
@@ -269,6 +271,18 @@ def family_spec() -> dict:
             "<strong>What arrives after you pay:</strong> you land on a page keyed to "
             "your payment. That week's file appears there, and a new one appears every "
             "week while the subscription runs. No message from us is needed."
+        ),
+        # Approved-copy port (value-fix-spec-port-00, 2026-09-15): reproduces
+        # render_family.py's default sample-close "rest" text ("that is the
+        # part you are paying for") verbatim, then closes the mail-note tag
+        # early and opens a fresh one for the operator-approved refund/support
+        # paragraph. sample_rest is inserted raw (not html.escape()'d) by the
+        # sample_close template, which appends ".</p>\n" after it.
+        "sample_rest": (
+            "that is the part you are paying for.</p>\n"
+            '      <p class="mail-note">Refunds: if what you receive is not what the '
+            "page describes, email operations@ustechautomations.com within 7 days for "
+            "a full refund. Support: same address, replies within 2 business days"
         ),
     }
 

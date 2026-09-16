@@ -495,8 +495,9 @@ def family_spec() -> dict:
         "buyer": fam["buyer"],
         "desc": desc,
         "lede": (
-            "New York City already publishes this table free. "
-            f"<strong>For $349 once, you get one dated CSV of a calendar year or a "
+            "LL97 and energy-compliance teams get one dated NYC Local Law 84 "
+            "energy-and-water disclosure CSV, not a permit board. "
+            " <strong>For $349 once, you get one dated CSV of a calendar year or a "
             f"borough, cut from the {commas(n)} rows we pulled on {pulled}.</strong> "
             "This is not the DOB permit file already on sale. You are not buying a feed."
         ),
@@ -508,9 +509,13 @@ def family_spec() -> dict:
             "for it, and the date we pulled them, before you spend anything."
         ),
         "contact_cta": fam.get("contact_cta") or "Email us before you pay",
-        "contact_note": fam.get("contact_note") or (
+        "contact_note": (fam.get("contact_note") or (
             "Say which year or borough you want. We will tell you the row count and the "
             "pull date before you pay."
+        )) + (
+            "</p>\n          <p class=\"mail-note\">Refunds: if what you receive is not "
+            "what the page describes, email operations@ustechautomations.com within 7 "
+            "days for a full refund. Support: same address, replies within 2 business days."
         ),
         "foot": fam.get("foot") or (
             "Every count and date on this page was read out of the extract we pulled on "

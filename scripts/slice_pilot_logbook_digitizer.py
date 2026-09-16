@@ -193,16 +193,17 @@ def family_spec() -> dict:
             "business day. Nothing dated arrives afterwards"
         ),
         "crumb": "Pilot logbook digitizer",
-        "h1": "Digitize a paper pilot logbook",
+        "h1": "Turn your paper pilot logbook into digital totals",
         "buyer": (
             "Private and career pilots moving from paper to a digital logbook, "
             "and pilots rebuilding totals before a checkride or airline application"
         ),
         "desc": desc,
         "lede": (
-            "This is a one-time transcription of paper pilot logbook pages you send "
-            "us. It is not an FAA-accepted logbook, not a legal record, and not a "
-            "substitute for checking the paper yourself."
+            "Private and career pilots get their paper logbook pages turned into a "
+            "digital entries file, once, with no subscription. It is not an "
+            "FAA-accepted logbook, not a legal record, and not a substitute for "
+            "checking the paper yourself."
         ),
         "pill_label": "Sample ready",
         "sections": secs,
@@ -217,6 +218,11 @@ def family_spec() -> dict:
         "contact_note": (
             "Check the checksum table against "
             "the paper before you import."
+        ),
+        "refund_note": (
+            "Refunds: if what you receive is not what the page describes, email "
+            "operations@ustechautomations.com within 7 days for a full refund. "
+            "Support: same address, replies within 2 business days."
         ),
         "foot": (
             "Every row on this page was read out of the fixture run named above. "

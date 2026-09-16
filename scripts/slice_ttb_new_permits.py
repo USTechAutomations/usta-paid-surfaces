@@ -253,9 +253,10 @@ def family_spec() -> dict:
         "buyer": ("Vendors who sell to newly permitted alcohol businesses: packaging, labels, "
                   "equipment, compliance, lenders, distributors"),
         "desc": desc,
-        "lede": (f"{len(new_rows)} federal alcohol permits appeared on the TTB list between {_d(older)} "
-                 f"and {_d(newer)}, and {len(gone_rows)} stopped being listed. Every one is printed or "
-                 "counted below, with the two copy dates it came from."),
+        "lede": ("Vendors who sell to newly permitted alcohol businesses get this week's "
+                 f"federal permit changes as one national file: {len(new_rows)} appeared and "
+                 f"{len(gone_rows)} stopped being listed between {_d(older)} and {_d(newer)}. "
+                 "Every one is printed or counted below, with the two copy dates it came from."),
         "pill_label": ("Prepared, not yet on sale" if not on_sale else "Sample ready"),
         "sections": secs,
         "sample_dt": "Public sample",
@@ -267,6 +268,11 @@ def family_spec() -> dict:
                       "Ask which dated copies we hold. We reply with the count of appeared and "
                       "gone rows for the newest week before you spend anything."),
         "contact_cta": "Ask about this file" if not on_sale else "Email us about this file",
+        "refund_note": (
+            "Refunds: if what you receive is not what the page describes, email "
+            "operations@ustechautomations.com within 7 days for a full refund. "
+            "Support: same address, replies within 2 business days."
+        ),
         "contact_note": ("The file is prepared and not yet on sale."
                          if not on_sale else
                          "We tell you the row counts and the two copy dates before you pay."),

@@ -1642,15 +1642,18 @@ def family_spec() -> dict:
         "cadence_long": (f"Texas: {_read_label(tx_days).lower()} at {_d(tx_days[-1])}, with "
                          f"every missed day named on the page. Arizona is not in the paid file."),
         "crumb": "Pending air permits",
-        "h1": "Air permit applications while they are still pending",
+        "refund_note": 'Refunds: if what you receive is not what the page describes, email operations@ustechautomations.com within 7 days for a full refund. Support: same address, replies within 2 business days.',
+        "h1": "Track pending Texas air permits before they're overwritten",
         "price": price,
         "buyer": fam["buyer"],
         "desc": (f"{_n(tx_pending)} pending Texas air permit applications, from dated copies "
                  f"we keep. Arizona is not in this file. {price}."),
-        "lede": (f"Permission to put pollution into the air is asked for in public and the "
-                 f"answer takes months. <strong>Texas publishes today&rsquo;s waiting list "
-                 f"and overwrites yesterday&rsquo;s. We keep the dated copies, so we can say what "
-                 f"changed.</strong> Arizona copies stay free and are not in the paid file."),
+        "lede": (f"Site selectors, lawyers and consultants who file for heavy industry and "
+                 f"data centres can see which Texas air permits are still pending before "
+                 f"tomorrow&rsquo;s list overwrites today&rsquo;s. <strong>Texas publishes "
+                 f"today&rsquo;s waiting list and overwrites yesterday&rsquo;s. We keep the "
+                 f"dated copies, so we can say what changed.</strong> Arizona copies stay "
+                 f"free and are not in the paid file."),
         "subj": urllib.parse.quote(f"Pending air permits \u2014 {price}"),
         "contact_h2": fam.get("contact_h2", "Start the thread"),
         "contact_p": fam["contact_p"],

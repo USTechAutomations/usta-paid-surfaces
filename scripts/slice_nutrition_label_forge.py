@@ -427,7 +427,7 @@ def _counts() -> dict:
 
 
 def family_spec() -> dict:
-    from render_family import section, table  # noqa: E402
+    from render_family import section, table, fam_row  # noqa: E402
     c = _counts()
     tool = _panel_module().tool_html(paid=False)
 
@@ -544,10 +544,19 @@ def family_spec() -> dict:
         ),
     ]
 
+    _ck = dict(fam_row(FAMILY).get("checkout") or {})
+    if _ck.get("terms"):
+        _ck["terms"] = _ck["terms"].replace(
+            "Print sizes must be checked against the printed proof. Refund on request within 14 days.",
+            "Print sizes must be checked against the printed proof. Changed your mind? "
+            "Refund on request within 14 days.",
+        )
+
     return {
         "id": FAMILY,
         "ready": ready(),
         "group": "Food and labelling",
+        "checkout": _ck,
         "cadence": "once, not a feed",
         "cadence_long": ("a one-off purchase for one product; we re-read the "
                          "regulation monthly and the food data when USDA publishes"),
@@ -556,8 +565,11 @@ def family_spec() -> dict:
         "buyer": ("small US food makers putting a first product on a shelf, who need "
                   "a Nutrition Facts panel and the reasoning behind every number on it"),
         "desc": desc,
-        "lede": ("Type your recipe in grams. This page works out every value on the "
-                 "panel from USDA data, rounds each one by the rule in 21 CFR "
+        "lede": ("Small US food makers putting a first product on a shelf get a "
+                 "Nutrition Facts panel and the reasoning behind every number on it. "
+                 "Type your recipe in grams. This page works out every value on the "
+                 "panel from USDA data (added sugars is the one figure you supply), "
+                 "rounds each one by the rule in 21 CFR "
                  "101.9(c) and shows you which rule it used, then draws the panel. "
                  "The calculator and the exemption reader are free. $49 buys the "
                  "unstamped vector files for one product."),
@@ -569,6 +581,7 @@ def family_spec() -> dict:
         "contact_p": ("Ask anything before you buy. Tell us the product and we will "
                       "say plainly whether this pack fits it."),
         "contact_cta": "Email us for the $49 checkout link",
+        "refund_note": 'Refunds: if what you receive is not what the page describes, email operations@ustechautomations.com within 7 days for a full refund. Support: same address, replies within 2 business days.',
         "contact_note": ("One product, one payment. The calculator on this page is "
                          "free and stays free."),
         "foot": DISCLAIMER,

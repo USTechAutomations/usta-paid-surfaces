@@ -109,7 +109,9 @@ def family_spec():
         desc=(f'{len(gone)} FDA device establishments stopped being registered and {len(came)} appeared '
               f'between {_d(old)} and {_d(new)}. One national file a week.'
               +(' $49/mo.' if on_sale else ''))
-        lede=(f'Between {_d(old)} and {_d(new)}, {len(came):,} device establishments appeared on the FDA register, '
+        lede=(f'Device distributors, initial importers, and hospital supply-chain compliance desks get one '
+              f'weekly national file of every FDA device-establishment change.  and {_d(new)}, '
+              f'{len(came):,} device establishments appeared on the FDA register, '
               f'{len(gone):,} stopped being listed, and {len(moved):,} changed a detail. Every one is in the file; '
               f'the first rows of each kind are printed below with the two export dates they came from.')
         secs=[house.section(f'Establishments that stopped being listed between {_d(old)} and {_d(new)}',f'{len(gone):,} establishments',
@@ -165,7 +167,7 @@ def family_spec():
                    if not on_sale else
                    'Ask which dated copies we hold. We reply with the count of appeared, gone and changed rows for the newest pair before you spend anything.'),
         contact_cta='Ask about this file' if not on_sale else 'Email us about this file',
-        contact_note='The file is prepared and not yet on sale.' if not on_sale else 'We tell you the row counts and the two export dates before you pay.',
+        contact_note=(('The file is prepared and not yet on sale.' if not on_sale else 'We tell you the row counts and the two export dates before you pay.') + '</p>\n          <p class="mail-note">Refunds: if what you receive is not ' 'what the page describes, email operations@ustechautomations.com within 7 ' 'days for a full refund. Support: same address, replies within 2 business days.'),
         checkout=ck,delivery=('The file is prepared and not yet on sale.' if not on_sale else None),
         foot=f'Every count and date on this page was read out of the sealed copies named above: {sizes}. '
              'Nothing in the file is a person&#39;s name, street address or phone number.')

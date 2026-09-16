@@ -270,10 +270,13 @@ def family_spec() -> dict:
     ]
     if first_copy:
         lede = (
-            f"This is a dated, hashed copy of the Harmonized Tariff Schedule current "
-            f"release on {_d(later)} ({release}, {n_held:,} lines). It is not a "
-            f"classification, not a ruling, and it does not predict a future rate. "
-            f"We hold one sealed copy so far, so the weekly what-changed file is empty."
+            f"If you are a customs broker, importer compliance desk, trade lawyer, or "
+            f"auditor who must prove which tariff text and duty rate applied on an "
+            f"entry date, this is a dated, hashed copy of the Harmonized Tariff "
+            f"Schedule current release on {_d(later)} ({release}, {n_held:,} lines). "
+            f"It is not a classification, not a ruling, and it does not predict a "
+            f"future rate. We hold one sealed copy so far, so the weekly what-changed "
+            f"file is empty."
         )
     else:
         lede = (
@@ -326,6 +329,10 @@ def family_spec() -> dict:
             "above. No person's name is in the file you buy or in the public sample."
         ),
         "delivery": (
+            "Refunds: if what you receive is not what the page describes, email "
+            "operations@ustechautomations.com within 7 days for a full refund. "
+            "Support: same address, replies within 2 business days."
+            "</p>\n      <p class=\"mail-note\">"
             "<strong>What arrives after you pay:</strong> you land on a page keyed to your "
             "payment. That week's file appears there, and a new one appears every week "
             "while the subscription runs. No message from us is needed."

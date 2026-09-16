@@ -431,13 +431,15 @@ def family_spec() -> dict:
         "cadence_long": ("a one-off purchase; the state pages are re-read every "
                          "week and say when a rule moved"),
         "crumb": "Notary journal",
-        "h1": "Notary journal rules, state by state — and a journal that runs in your browser",
+        "h1": "Notary journal rules by state, plus a private journal",
         "buyer": ("a notary public or loan-signing agent who wants their state's "
                   "own words about a journal, and a journal that keeps entries on "
                   "their own device"),
         "desc": desc,
-        "lede": (f"What each state's own text says about keeping a notary "
-                 f"journal, quoted with the address it came from, plus a journal "
+        "lede": (f"A notary public or loan-signing agent gets their own state&rsquo;s "
+                 f"exact words about keeping a journal, plus a journal that stays "
+                 f"locked to their device.  quoted with the address it came from, "
+                 f"plus a journal "
                  f"that runs in this browser and keeps its entries locked on this "
                  f"device. {c['quoted']} of {c['n']} states answered with words we "
                  f"could quote."),
@@ -454,7 +456,10 @@ def family_spec() -> dict:
         "contact_cta": "Email us about your state",
         "contact_note": ("The unlocked copy is sold only for the states the "
                          "checkout lists. The free tool on this page keeps 25 "
-                         "entries and is the same tool."),
+                         "entries and is the same tool.")
+            + ("</p>\n          <p class=\"mail-note\">Refunds: if what you receive is not "
+               "what the page describes, email operations@ustechautomations.com within 7 "
+               "days for a full refund. Support: same address, replies within 2 business days."),
         "foot": DISCLAIMER,
         "delivery": ("<strong>What arrives after you pay:</strong> a single private "
                      "web page carrying the same journal with no entry limit and "

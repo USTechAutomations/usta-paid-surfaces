@@ -566,10 +566,12 @@ def family_spec() -> dict:
         "cadence": fam.get("cadence", "monthly"),
         "cadence_long": fam.get("cadence_long"),
         "crumb": fam.get("short", "Enforcement action board"),
-        "h1": "State-by-state EPA enforcement action boards",
+        "h1": "One paid referral slot per state for EPA actions",
         "buyer": fam["buyer"],
         "desc": desc,
-        "lede": ("Public boards of the newest formal EPA enforcement actions, one per "
+        "lede": ("Compliance consultants and environmental attorneys get one paid "
+                 "Get-help referral slot per state, shown next to that state&rsquo;s newest "
+                 "EPA enforcement actions.  enforcement actions, one per "
                  "state, plus the 100 largest federal penalties in the last 90 days. Every "
                  "row is reproduced from EPA exactly as published. Reading is free; a "
                  "compliance firm can take one Get help slot per state."),
@@ -580,7 +582,10 @@ def family_spec() -> dict:
         "contact_h2": fam.get("contact_h2", "Ask about a state's slot"),
         "contact_p": fam.get("contact_p"),
         "contact_cta": fam.get("contact_cta", "Email us about the Get help slot"),
-        "contact_note": fam.get("contact_note"),
+        "contact_note": (fam.get("contact_note") or "")
+            + "</p>\n          <p class=\"mail-note\">Refunds: if what you receive is not "
+              "what the page describes, email operations@ustechautomations.com within 7 "
+              "days for a full refund. Support: same address, replies within 2 business days.",
         "foot": fam.get("foot", DISCLAIMER),
         "delivery": (
             "<strong>What arrives after you pay:</strong> your firm&rsquo;s name and website "

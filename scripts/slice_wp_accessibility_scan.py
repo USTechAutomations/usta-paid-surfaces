@@ -263,9 +263,10 @@ def family_spec() -> dict:
         ),
         "desc": desc,
         "lede": (
-            "This is a free WordPress plugin plus a hosted weekly scan of the public "
-            "pages we can fetch. It is not a legal certificate, not an overlay widget, "
-            "and not a guarantee that a site meets any guideline. "
+            "WordPress site owners and small web shops get a downloadable weekly "
+            "accessibility scan file, not an overlay widget.  plus a hosted weekly "
+            "scan of the public pages we can fetch. It is not a legal certificate, "
+            "not an overlay widget, and not a guarantee that a site meets any guideline. "
             f"{n_week} issue rows sit in the {_d(later)} demo scan of our own /feeds/ pages."
         ),
         "pill_label": "Sample ready",
@@ -279,6 +280,11 @@ def family_spec() -> dict:
         ),
         "contact_cta": "Email us for the $49/mo checkout link",
         "contact_note": "Tell us the site address. The first report arrives within 7 days.",
+        "refund_note": (
+            "Refunds: if what you receive is not what the page describes, email "
+            "operations@ustechautomations.com within 7 days for a full refund. "
+            "Support: same address, replies within 2 business days."
+        ),
         "foot": (
             "Every count on this page was read out of the sealed demo scan named above. "
             "Automated checks find some of the issues the guidelines describe, not all."

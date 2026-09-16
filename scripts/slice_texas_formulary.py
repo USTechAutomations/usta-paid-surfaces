@@ -21,7 +21,18 @@ def sample():
 
 
 def family_spec() -> dict:
-    return pf.family_spec(FAMILY)
+    spec = pf.family_spec(FAMILY)
+    if not spec.get("off_sale"):
+        spec["lede"] = (
+            "Market-access analysts get a sealed, dated copy of the Texas Medicaid "
+            "drug list before it is overwritten. " + spec["lede"]
+        )
+        spec["refund_note"] = (
+            "Refunds: if what you receive is not what the page describes, email "
+            "operations@ustechautomations.com within 7 days for a full refund. "
+            "Support: same address, replies within 2 business days."
+        )
+    return spec
 
 
 if __name__ == "__main__":

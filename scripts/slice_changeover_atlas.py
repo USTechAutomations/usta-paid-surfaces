@@ -180,11 +180,14 @@ def family_spec() -> dict:
         "cadence_long": ("one generated pack a week, built every Monday from that week's dated seed. "
                          "A pack always holds 24 instances or the build fails and the page says so"),
         "crumb": "Changeover atlas",
-        "h1": "Changeover schedule atlas: 24 solved scheduling instances a week",
+        "refund_note": 'Refunds: if what you receive is not what the page describes, email operations@ustechautomations.com within 7 days for a full refund. Support: same address, replies within 2 business days.',
+        "h1": f"Changeover atlas: {len(r)} solved scheduling instances a week",
         "buyer": ("Planners and owner-operators at small manufacturers who search for production "
                   "scheduling templates and changeover reduction spreadsheets"),
         "desc": desc,
-        "lede": (f"{len(r)} small production-scheduling instances, generated on {_d(snap)}, each with the job "
+        "lede": (f"Planners and owner-operators at small job shops get {len(r)} solved "
+                 f"changeover schedules a week to check their own sequencing against. "
+                 f"{len(r)} small production-scheduling instances, generated on {_d(snap)}, each with the job "
                  f"order a planner would naively run and the best order our solver found. Together they save "
                  f"{saved:,} synthetic changeover minutes ({pct:.0f}%). Nothing here was measured in a real factory."),
         "pill_label": "Sample ready",

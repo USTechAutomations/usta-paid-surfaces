@@ -979,7 +979,10 @@ def family_spec() -> dict:
         "buyer": fam["buyer"],
         "desc": desc,
         "lede": (
-            "Minnesota requires manufacturers to report PFAS in products by 15 Sep 2026, "
+            "Compliance managers at companies that make, brand, or import a product "
+            "that may be sold into Minnesota get one written verdict on one named "
+            "product line: must file, need not file, or cannot tell from what you "
+            "sent.  in products by 15 Sep 2026, "
             "or 14 Dec 2026 only if the brand <strong>received</strong> an extension after "
             "asking by the 16 Aug postmark cut-off. You describe one named product line; "
             "we send back one written verdict &mdash; must file, need not file, or cannot "
@@ -994,7 +997,10 @@ def family_spec() -> dict:
         "contact_h2": fam["contact_h2"],
         "contact_p": fam["contact_p"],
         "contact_cta": fam["contact_cta"],
-        "contact_note": fam["contact_note"],
+        "contact_note": fam["contact_note"]
+            + "</p>\n          <p class=\"mail-note\">Refunds: if what you receive is not "
+              "what the page describes, email operations@ustechautomations.com within 7 "
+              "days for a full refund. Support: same address, replies within 2 business days.",
         "foot": fam["foot"],
         "hero_note": (
             "<strong>No pay button on this one yet.</strong> Email the named product line. "

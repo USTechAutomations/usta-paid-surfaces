@@ -797,7 +797,7 @@ def _search_block() -> str:
 
 
 def family_spec() -> dict:
-    from render_family import section, table  # noqa: E402
+    from render_family import section, table, fam_row  # noqa: E402
 
     n_all = len(hmt().get("entries", {}))
     n_rows = sum(len(v) for v in hmt().get("entries", {}).values())
@@ -912,10 +912,19 @@ def family_spec() -> dict:
             "      </ul>",
         ),
     ]
+    _ck = dict(fam_row(FAMILY).get("checkout") or {})
+    if _ck.get("terms"):
+        _ck["terms"] = _ck["terms"].replace(
+            "Not legal or professional advice. Refund on request within 14 days.",
+            "Not legal or professional advice. Changed your mind? Refund on request "
+            "within 14 days.",
+        )
+
     return {
         "id": FAMILY,
         "ready": True,
         "group": "Trade records",
+        "checkout": _ck,
         "cadence": "once, not a feed",
         "cadence_long": ("One payment, not a subscription. You get one private web page "
                          "for the number you name. Nothing recurring."),
@@ -925,11 +934,12 @@ def family_spec() -> dict:
                   "good by road in the United States and need the federal table row, "
                   "the exceptions explained and label artwork proofs"),
         "desc": desc,
-        "lede": (f"Every row the federal Hazardous Materials Table prints for "
-                 f"{n_all:,} identification numbers, free, with all {ncols} columns and "
-                 f"a plain-English glossary. The {PRICE} worksheet takes one number "
-                 f"further: exceptions, packaging, quantity limits and label artwork "
-                 f"proofs."),
+        "lede": (f"If you are a small e-commerce seller or warehouse operator who must "
+                 f"ship one dangerous good by road in the US, every row the federal "
+                 f"Hazardous Materials Table prints for {n_all:,} identification numbers "
+                 f"is free, with all {ncols} columns and a plain-English glossary. The "
+                 f"{PRICE} worksheet takes one number further: exceptions, packaging, "
+                 f"quantity limits and label artwork proofs."),
         "pill_label": "Sample ready",
         "sections": secs,
         "sample_dt": "Public sample",
@@ -939,10 +949,14 @@ def family_spec() -> dict:
                       "before you pay."),
         "contact_cta": f"Email us for the {PRICE} checkout link",
         "contact_note": ("One payment, no subscription. You get one private web page for "
-                         "the number you name, within 15 minutes of payment. Refund on "
-                         "request within 14 days."),
+                         "the number you name, within 15 minutes of payment. Changed your "
+                         "mind? Refund on request within 14 days."),
         "foot": DISCLAIMER + stamp + ".",
-        "delivery": ("<strong>What arrives after you pay:</strong> a single private web "
+        "delivery": ("Refunds: if what you receive is not what the page describes, "
+                     "email operations@ustechautomations.com within 7 days for a full "
+                     "refund. Support: same address, replies within 2 business days."
+                     "</p>\n      <p class=\"mail-note\">"
+                     "<strong>What arrives after you pay:</strong> a single private web "
                      "page for the UN number you name — every table row, the 8A "
                      "exceptions explained, the 8B and 8C packaging sections, quantity "
                      "limits, vessel stowage codes and label artwork proofs — within 15 "

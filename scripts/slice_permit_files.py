@@ -627,11 +627,12 @@ def family_spec() -> dict:
         "cadence": fam["cadence"],
         "cadence_long": fam.get("cadence_long") or fam["cadence"],
         "crumb": fam["short"],
-        "h1": fam["name"],
+        "h1": "Get one city's permit table as a clean CSV",
         "buyer": fam["buyer"],
         "desc": desc,
         "lede": (
-            "Six city permit boards, already free on their own portals. "
+            "Contractors, expediters and lenders get one city's permit-board table as a "
+            "single clean CSV, with person-name columns removed. "
             f"<strong>For {esc(price)}, once, you get one assembled CSV of the city "
             "you name, with person-name columns taken out.</strong>"
         ),
@@ -641,6 +642,11 @@ def family_spec() -> dict:
         "contact_p": fam["contact_p"],
         "contact_cta": fam.get("contact_cta") or f"Email us for the {price} checkout link",
         "contact_note": fam["contact_note"],
+        "refund_note": (
+            "Refunds: if what you receive is not what the page describes, email "
+            "operations@ustechautomations.com within 7 days for a full refund. "
+            "Support: same address, replies within 2 business days."
+        ),
         "foot": fam["foot"],
         "checkout": fam.get("checkout"),
     }

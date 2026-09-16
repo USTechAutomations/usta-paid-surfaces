@@ -239,8 +239,17 @@ def family_spec() -> dict:
             "nothing made up and nothing tidied up."
         ),
         "sample_rest": (
+            # Approved-copy port (value-fix-spec-port-00, 2026-09-15): the extra
+            # sentence below is the operator-approved refund/support paragraph.
+            # render_family.py's sample_close template appends ".</p>\n" after
+            # this value and does not html.escape() it, so closing the tag here
+            # and opening a fresh mail-note paragraph reproduces the approved
+            # page's second paragraph without touching render_family.py.
             "a live run returns every system in the state and system-type you ask for, "
-            "up to the run's record limit"
+            "up to the run's record limit.</p>\n"
+            '      <p class="mail-note">Refunds: if what you receive is not what the '
+            "page describes, email operations@ustechautomations.com within 7 days for "
+            "a full refund. Support: same address, replies within 2 business days"
         ),
     }
 
@@ -248,7 +257,7 @@ def family_spec() -> dict:
         h1="EPA water-system tables on Apify", crumb="EPA water-system actor",
         buyer="water-sector analysts and data teams who need structured EPA drinking-water-system records",
         cadence_long="on demand through Apify; output freshness depends on the EPA source",
-        lede=f"Preview {min(SAMPLE_CAP, n)} dated EPA drinking-water-system sample rows, then extract records for analysis. Apify charges $0.50 per GB of memory when a run starts, plus $0.005 per result.",
+        lede=f"Water-sector analysts and compliance teams get structured EPA drinking-water-system records on demand: preview {min(SAMPLE_CAP, n)} dated sample rows, then extract records for analysis. Apify charges $0.50 per GB of memory when a run starts, plus $0.005 per result.",
         contact_h2="Open the EPA actor", contact_cta="Open the EPA actor on Apify",
         contact_p="Run the EPA actor in your own Apify account and export the result dataset there.",
         contact_note="Apify charges $0.50 per GB of memory when a run starts, plus $0.005 per result. Source response and customer outcomes are not guaranteed.",

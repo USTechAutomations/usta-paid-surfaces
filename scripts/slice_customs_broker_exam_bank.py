@@ -437,12 +437,16 @@ def family_spec() -> dict:
         "cadence_long": ("a one-off purchase; we add each new sitting after the "
                          "April and October exams"),
         "crumb": "Customs Broker Exam Bank",
-        "h1": "The Customs Broker Exam, explained — last five sittings",
+        "refund_note": 'Refunds: if what you receive is not what the page describes, email operations@ustechautomations.com within 7 days for a full refund. Support: same address, replies within 2 business days.',
+        "h1": "The Customs Broker Exam, explained, five sittings",
         "buyer": ("candidates studying for the CBP Customs Broker License Exam who "
                   "want the recent papers with the official answer and a plain "
                   "explanation on each question"),
         "desc": desc,
-        "lede": ("The last five Customs Broker License Exam sittings, every question "
+        # Approved-copy port (value-fix-spec-port-00, 2026-09-15): restructured
+        # to lead with the buyer sentence; explained/total_q stay live variables.
+        "lede": ("Candidates studying for the CBP Customs Broker License Exam get "
+                 "the last five sittings, every question "
                  "with CBP's official answer and — where the key cites a Title 19 CFR "
                  f"rule — our explanation that quotes it. {explained} of {total_q} "
                  "explained so far."),

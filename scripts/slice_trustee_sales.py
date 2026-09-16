@@ -831,7 +831,10 @@ def family_spec() -> dict:
                 "new copy unless you buy again."
             ),
             "crumb": "Arizona trustee sales",
-            "h1": "Arizona trustee sale postponements",
+            # Approved value-repair copy (2026-09-15, commit 7b1c8a59): name the
+            # buyer and the pain in the H1 and the opening of the lede before the
+            # mechanics, matching the washington-dc family's same-day repair.
+            "h1": "See which Arizona trustee sales just got postponed",
             "price": PRICE,
             "buyer": (
                 "Arizona foreclosure bidders, title and escrow desks, and lenders "
@@ -843,11 +846,12 @@ def family_spec() -> dict:
                 f"{len(h['days'])} days to {d(h['newest'])}. Both dates kept."
             ),
             "lede": (
-                "A forced sale is posted for a date, and the date moves. The list only "
-                "ever shows what it says today. <strong>We have kept a dated copy since "
-                f"{d(h['oldest'])} and watched {len(found)} sale dates move across "
-                f"{len(moved_files)} properties &mdash; every one of them pushed "
-                "later.</strong>"
+                "Arizona foreclosure bidders, title and escrow desks, and lenders need "
+                "to know the moment a posted trustee sale date moves, but the list "
+                "only ever shows what it says today. <strong>We have kept a dated copy "
+                f"since {d(h['oldest'])} and watched {len(found)} sale dates move "
+                f"across {len(moved_files)} properties &mdash; every one of them "
+                "pushed later.</strong>"
             ),
             "pill_label": "Sale dates that moved on this page",
             "subj": "Arizona%20trustee%20sale%20postponements",
@@ -863,6 +867,15 @@ def family_spec() -> dict:
             # and the shared version also names the dark stretch, which held()
             # has always known and no page was saying.
             "contact_note": held_sentence(h),
+            # Value-gate repair 2026-09-15 (approved copy, commit 7b1c8a59):
+            # refund_note is render_family.offer_block()'s dedicated slot for
+            # this sentence pair -- it prints as its own <p class="mail-note">
+            # beside the buy button.
+            "refund_note": (
+                "Refunds: if what you receive is not what the page describes, "
+                "email operations@ustechautomations.com within 7 days for a full "
+                "refund. Support: same address, replies within 2 business days."
+            ),
             "foot": (
                 "Every count, date and county on this page was read out of our own dated "
                 "copies at the moment the page was built. Where we do not know "

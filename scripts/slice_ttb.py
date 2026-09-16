@@ -1074,7 +1074,17 @@ def family_spec() -> dict:
     copy are not duplicated. build_slices writes this after write_sample().
     """
     import build_wave2
-    return build_wave2.ttb(sample_json=wave2_sample())
+    spec = build_wave2.ttb(sample_json=wave2_sample())
+    spec["lede"] = (
+        "Beverage wholesalers and compliance managers get every TTB permit that "
+        "appeared or stopped being listed, without missing a change. " + spec["lede"]
+    )
+    spec["refund_note"] = (
+        "Refunds: if what you receive is not what the page describes, email "
+        "operations@ustechautomations.com within 7 days for a full refund. "
+        "Support: same address, replies within 2 business days."
+    )
+    return spec
 
 
 # ----------------------------------------------------------------- self-check

@@ -637,14 +637,14 @@ def family_spec() -> dict:
         "cadence_long": ("a one-off purchase; we re-read the sources about every three "
                          "months and the pack you buy is dated"),
         "crumb": "AI disclosure notice pack",
-        "h1": "AI disclosure rules, quoted — and the notice texts they drive",
+        "h1": "Turn AI disclosure rules into ready notices",
         "buyer": ("a company running an AI chatbot, AI-generated content or an AI "
                   "decision step that people in the EU or a US disclosure state can reach"),
         "desc": desc,
-        "lede": (f"{n_rules} AI disclosure clauses from the European Union and six US "
-                 f"states, each with the publisher's own words, who they reach, who they "
-                 f"do not, and the date. The generator is free; the notice pack is "
-                 f"{PRICE}."),
+        "lede": (f"Compliance leads deploying an AI chatbot get {n_rules} AI disclosure "
+                 f"clauses from the European Union and six US states, quoted in the "
+                 f"publisher's own words, with who they reach, who they do not, and the "
+                 f"date. The generator is free; the notice pack is {PRICE}."),
         "pill_label": "Tool ready",
         "sections": secs,
         "sample_dt": "Public sample",
@@ -664,7 +664,17 @@ def family_spec() -> dict:
                      "operations@ustechautomations.com and a person sends it."),
         "sample_note": ("cut from the same rows the generator reads. Every row carries "
                         "the publisher's exact words and the link they came from."),
-        "sample_rest": "the pack carries every clause and the notice texts, not just these rows",
+        # Approved-copy port (value-fix-spec-port-00, 2026-09-15): the refund/
+        # support sentence below reproduces the operator-approved paragraph by
+        # closing the mail-note tag early and opening a fresh one -- sample_rest
+        # is inserted raw (not html.escape()'d) by render_family.py's
+        # sample_close template, which appends ".</p>\n" after it.
+        "sample_rest": (
+            "the pack carries every clause and the notice texts, not just these rows.</p>\n"
+            '      <p class="mail-note">Refunds: if what you receive is not what the '
+            "page describes, email operations@ustechautomations.com within 7 days for "
+            "a full refund. Support: same address, replies within 2 business days"
+        ),
     }
 
 
