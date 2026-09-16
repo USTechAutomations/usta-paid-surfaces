@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build the private page a buyer gets after paying $39.
 
-The page carries a draft reply letter and enclosure checklist for the one IRS
+The page carries a draft reply letter and enclosure checklist for the one tax
 notice code and position the buyer picked at Stripe checkout. It is filled from
 a template, not written by a model: the fixed facts (code, name, deadline rule,
 agency, today's date, the position phrase) are dropped straight into the
@@ -27,7 +27,7 @@ HERE = Path(__file__).resolve().parent
 DATA = HERE / "data"
 
 FAMILY = "notice-responder"
-PRODUCT_NAME = "IRS notice response pack"
+PRODUCT_NAME = "Tax notice response pack"
 LINK_ID_ENV_OR_CATALOG = "notice-responder"
 ETA_MINUTES = 15
 
@@ -189,7 +189,7 @@ def unknown_page(bad_value: str) -> dict:
         "one of the notices this pack covers, so no letter was drafted.</p>\n"
         f"<p>The {len(notices)} codes this pack covers:</p>\n"
         f"<ul>{items}</ul>\n"
-        "<p>If your notice carries a different code, use the public IRS lookup "
+        "<p>If your notice carries a different code, use the free lookup "
         "linked on the page you bought this from, or contact us through that "
         "same page with the code your notice actually shows.</p>"
     )
@@ -209,8 +209,9 @@ def build_html(session) -> dict:
     checklist = "".join(f'<li><label><input type="checkbox"> {_e(d)}</label></li>'
                         for d in docs)
     verified = bool(notice.get("verified_against_source"))
+    agency_label = (notice.get("agency") or "IRS").strip() or "IRS"
     source_note = "" if verified else (
-        "<p>We have not re-checked this notice against the IRS page since the "
+        f"<p>We have not re-checked this notice against the {_e(agency_label)} page since the "
         "pack was written; read the linked page before you mail anything.</p>")
 
     out = f"""<h1>Your {_e(notice['code'])} response pack</h1>
@@ -238,8 +239,8 @@ this browser; nothing you type here is sent anywhere.</p>
 <ul>
 <li>A draft you finish, not a filed reply.</li>
 <li>Not legal or tax advice.</li>
-<li>The IRS page above governs. If this letter and that page ever disagree,
-the IRS page is right.</li>
+<li>The {_e(agency_label)} page above governs. If this letter and that page ever disagree,
+that page is right.</li>
 </ul>
 """
     return {"title": f"{PRODUCT_NAME} — {notice['code']}", "html": out, "state_update": None}
