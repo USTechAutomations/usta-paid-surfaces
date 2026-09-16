@@ -2588,7 +2588,7 @@
       "price_list_note": "The free lookup on the page explains the same 20 notices. Use it before you pay.",
       "checkout": {
         "terms": "$39 once, for one tax notice response pack. Nothing recurring, nothing to cancel and no subscription behind it. You pick the notice code and your position (agree, disagree, agree in part, or ask for more time) at checkout. You get one private web page with a draft reply letter for that notice and position, the enclosure checklist, the deadline rule as the IRS page states it, and the link to that IRS page. The blanks that need your own facts (name, address, notice date, tax year, amount, reason) stay blank for you to type on the page and print. It is a draft you finish, not a filed reply, and not legal or tax advice. Use the response date printed on your own notice. Refund on request within 14 days.",
-        "after": "The private page is delivered within 15 minutes of payment. Still not here after 15 minutes? Email operations@ustechautomations.com and a person sends it. Do not email your tax notice or taxpayer identifiers.",
+        "after": "An automatic job checks for new payments every 10 minutes and builds your private page, so it is usually ready within 15 minutes on the page Stripe sends you to after paying. Not there after 30 minutes? Email operations@ustechautomations.com and a person sends it within one working day. Do not email your tax notice or taxpayer identifiers.",
         "url": "https://buy.stripe.com/14AdR29Bkg94fA8aHo0sU3a",
         "lands_on": "buy.stripe.com",
         "label": "Buy — $39 one-off",
@@ -2597,7 +2597,7 @@
         "verified": "2026-09-16"
       },
       "kind": "build",
-      "delivery": "<strong>What arrives after you pay:</strong> one private web page with the draft reply letter for your notice and position, the enclosure checklist, the deadline rule and the agency page link, within 15 minutes of payment. If it has not arrived, email operations@ustechautomations.com and a person sends it.",
+      "delivery": "<strong>What arrives after you pay:</strong> one private web page with the draft reply letter for your notice and position, the enclosure checklist, the deadline rule and the agency page link. An automatic job checks for new payments every 10 minutes and builds your page, so it is usually ready within 15 minutes on the page Stripe sends you to after paying. Not there after 30 minutes? Email operations@ustechautomations.com and a person sends it within one working day.",
       "on_page_pill": "Free lookup on this page; the pack is $39"
     },
     {

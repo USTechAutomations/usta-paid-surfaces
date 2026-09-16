@@ -185,8 +185,8 @@ def family_spec() -> dict:
     h1 = "Tax notice response pack: draft letter and checklist"
     desc = (
         "A $39 draft reply letter and enclosure checklist for one of 20 common "
-        "tax notices (18 IRS, 2 state), delivered as a private page within 15 minutes of "
-        "payment.")[:MAX_DESC]
+        "tax notices (18 IRS, 2 state), delivered as a private page, usually within "
+        "15 minutes of payment.")[:MAX_DESC]
     return {
         "id": FAMILY,
         "ready": True,
@@ -239,9 +239,12 @@ def family_spec() -> dict:
         "delivery": (
             "<strong>What arrives after you pay:</strong> one private web page "
             "with the draft reply letter for your notice and position, the "
-            "enclosure checklist, the deadline rule and the agency page link, "
-            "within 15 minutes of payment. If it has not arrived, email "
-            "operations@ustechautomations.com and a person sends it."),
+            "enclosure checklist, the deadline rule and the agency page link. "
+            "An automatic job checks for new payments every 10 minutes and "
+            "builds your page, so it is usually ready within 15 minutes on the "
+            "page Stripe sends you to after paying. Not there after 30 minutes? "
+            "Email operations@ustechautomations.com and a person sends it "
+            "within one working day."),
         "sample_note": (
             "the whole of what we hold is printed on this page: the same 20 "
             "notices the paid pack covers, read straight off the data file "
