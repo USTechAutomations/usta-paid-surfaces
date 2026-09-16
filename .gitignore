@@ -10,3 +10,4 @@ var/board-rows/washington-dc.json
 # Throwaway Python environments and Node modules the loops workers create for their tests (2026-09-08).
 .venv/
 node_modules/
+var/generated-hash/
