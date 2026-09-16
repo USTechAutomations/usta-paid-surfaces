@@ -671,9 +671,9 @@ def family_spec() -> dict:
         # sample_close template, which appends ".</p>\n" after it.
         "sample_rest": (
             "the pack carries every clause and the notice texts, not just these rows.</p>\n"
-            '      <p class="mail-note">Refunds: if what you receive is not what the '
-            "page describes, email operations@ustechautomations.com within 14 days for "
-            "a full refund. Support: same address, replies within 2 business days"
+            '      <p class="mail-note">Refunds: on request within 14 days, for any reason, '
+            "including if what you receive is not what the page describes. Email "
+            "operations@ustechautomations.com and the full amount comes back. Support: same address, replies within 2 business days"
         ),
     }
 

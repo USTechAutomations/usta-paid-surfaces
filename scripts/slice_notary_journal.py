@@ -457,9 +457,7 @@ def family_spec() -> dict:
         "contact_note": ("The unlocked copy is sold only for the states the "
                          "checkout lists. The free tool on this page keeps 25 "
                          "entries and is the same tool.")
-            + ("</p>\n          <p class=\"mail-note\">Refunds: if what you receive is not "
-               "what the page describes, email operations@ustechautomations.com within 14 "
-               "days for a full refund. Support: same address, replies within 2 business days."),
+            + ("</p>\n          <p class=\"mail-note\">Refunds: on request within 14 days, for any reason, including if what you receive is not what the page describes. Email operations@ustechautomations.com and the full amount comes back. Support: same address, replies within 2 business days."),
         "foot": DISCLAIMER,
         "delivery": ("<strong>What arrives after you pay:</strong> a single private "
                      "web page carrying the same journal with no entry limit and "

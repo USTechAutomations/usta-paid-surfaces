@@ -952,9 +952,7 @@ def family_spec() -> dict:
                          "the number you name, within 15 minutes of payment. Changed your "
                          "mind? Refund on request within 14 days."),
         "foot": DISCLAIMER + stamp + ".",
-        "delivery": ("Refunds: if what you receive is not what the page describes, "
-                     "email operations@ustechautomations.com within 14 days for a full "
-                     "refund. Support: same address, replies within 2 business days."
+        "delivery": ("Refunds: on request within 14 days, for any reason, including if what you receive is not what the page describes. Email operations@ustechautomations.com and the full amount comes back. Support: same address, replies within 2 business days."
                      "</p>\n      <p class=\"mail-note\">"
                      "<strong>What arrives after you pay:</strong> a single private web "
                      "page for the UN number you name — every table row, the 8A "

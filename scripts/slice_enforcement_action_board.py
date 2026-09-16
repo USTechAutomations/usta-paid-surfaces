@@ -583,9 +583,7 @@ def family_spec() -> dict:
         "contact_p": fam.get("contact_p"),
         "contact_cta": fam.get("contact_cta", "Email us about the Get help slot"),
         "contact_note": (fam.get("contact_note") or "")
-            + "</p>\n          <p class=\"mail-note\">Refunds: if what you receive is not "
-              "what the page describes, email operations@ustechautomations.com within 14 "
-              "days for a full refund. Support: same address, replies within 2 business days.",
+            + "</p>\n          <p class=\"mail-note\">Refunds: on request within 14 days, for any reason, including if what you receive is not what the page describes. Email operations@ustechautomations.com and the full amount comes back. Support: same address, replies within 2 business days.",
         "foot": fam.get("foot", DISCLAIMER),
         "delivery": (
             "<strong>What arrives after you pay:</strong> your firm&rsquo;s name and website "
